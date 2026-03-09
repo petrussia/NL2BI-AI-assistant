@@ -1,0 +1,11 @@
+models/
+experiments/checkpoints/
+data/**/*.sqlite
+data/**/*.db
+*.pyc
+__pycache__/
+.venv/
+wandb/
+*.bin
+*.safetensors
+.ipynb_checkpoints/
