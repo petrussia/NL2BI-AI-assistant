@@ -9,3 +9,4 @@ wandb/
 *.bin
 *.safetensors
 .ipynb_checkpoints/
+*.zip
