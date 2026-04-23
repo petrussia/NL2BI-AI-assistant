@@ -14,49 +14,49 @@
 Запустить все ячейки:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action run-all
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
 ```
 
 Запустить текущую сфокусированную ячейку:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action current-cell
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
 ```
 
 Запустить конкретную ячейку по 0-based индексу:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellIndex 2
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2
 ```
 
 Запустить конкретную ячейку по notebook cell id:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellId setup-cell
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell
 ```
 
 Запустить конкретную ячейку, source которой содержит уникальный маркер:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellText "TRAINING_MARKER"
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER"
 ```
 
 Посмотреть, что будет сделано, без нажатий в VS Code:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellIndex 0 -DryRun -Json
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -DryRun -Json
 ```
 
 Отключить сохранение после action:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action current-cell -SaveAfterRun:$false
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell -SaveAfterRun:$false
 ```
 
 Не перезагружать notebook editor с диска:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellIndex 0 -ReloadFromDisk:$false
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -ReloadFromDisk:$false
 ```
 
 ## Заметки

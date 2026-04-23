@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Runs Jupyter/Colab notebook cells in Microsoft Visual Studio Code on Windows.
 
@@ -48,16 +48,16 @@ visible to the notebook UI before a run starts.
 Print a machine-readable JSON result.
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action run-all
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellId setup-cell -Json
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell -Json
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action cell -CellText "TRAINING_MARKER" -WaitSeconds 20
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER" -WaitSeconds 20
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath '.\test notebooks\example.ipynb' -Action current-cell -SaveAfterRun:$false
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell -SaveAfterRun:$false
 #>
 [CmdletBinding()]
 param(
