@@ -7,7 +7,8 @@
 - Windows desktop session.
 - Microsoft Visual Studio Code, not Cursor or Windsurf.
 - Microsoft Jupyter extension installed in VS Code.
-- The target `.ipynb` is openable in VS Code and already connected to the desired kernel/runtime.
+- The target `.ipynb` is open in VS Code, active as the notebook editor, and already connected to the desired kernel/runtime.
+- Exactly one VS Code notebook editor is active: the target notebook. Regular README, script, and other non-notebook tabs do not need to be closed.
 
 ## Examples
 
@@ -27,6 +28,14 @@ Run a specific cell by 0-based index:
 
 ```powershell
 .\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2
+```
+
+For agent-driven runs, explicitly activate the target notebook first, then invoke the runner:
+
+```powershell
+& "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" -r -g "$PWD\notebooks\example.ipynb:1:1"
+Start-Sleep -Seconds 3
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2 -WaitSeconds 30 -ReloadFromDisk:$false -Json
 ```
 
 Run a specific cell by notebook cell id:
@@ -53,7 +62,7 @@ Disable saving after the action:
 .\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell -SaveAfterRun:$false
 ```
 
-Skip reloading the notebook editor from disk:
+Do not attempt to reload the notebook editor from disk:
 
 ```powershell
 .\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -ReloadFromDisk:$false
@@ -61,9 +70,12 @@ Skip reloading the notebook editor from disk:
 
 ## Notes
 
-- `-Action cell` reads the notebook JSON, resolves the requested cell to an index, focuses it with notebook keyboard navigation, and runs it with the standard current-cell shortcut.
-- By default, when `-NotebookPath` is provided, the script closes and reopens the active notebook editor before dispatching an action. This makes external `.ipynb` edits visible in the VS Code notebook UI before execution.
+- Before running, the script checks active VS Code notebook windows. If the target notebook is not active or multiple notebook windows are open, the runner returns a BLOCKER and asks the agent to stop, activate the one target notebook, and close extra notebook tabs/windows. Non-notebook tabs do not matter.
+- `-Action cell` reads the notebook JSON, resolves the requested cell to an index, focuses it with notebook keyboard navigation (`Ctrl+Home`, then `J`), and runs the current cell with `Shift+Enter`.
+- In strict single-notebook mode, `-ReloadFromDisk` does not close or reopen the notebook, so the runner does not lose the selected tab or switch to a different file.
 - `run-all` uses a keyboard loop over notebook cells because this proved more reliable in the tested VS Code/Colab setup than the Command Palette action.
 - `-CellText` must match exactly one cell source.
+- `-CellId` also works for notebooks where some cells do not have an `id` field.
+- `-WaitSeconds` is a simple upper-bound sleep, not a cell-completion detector. For long Colab cells, prefer short 20-30 second windows, save the notebook, and inspect `execution_count`, `outputs`, traceback/error markers, and explicit final text markers printed by the cell. Do not run the same long cell again until it is clear whether the previous attempt has finished.
 - The script temporarily uses the text clipboard to paste paths and command titles. It restores the previous text clipboard when possible.
 - If VS Code uses a non-English UI, `-PaletteLanguage auto` tries to detect it. You can override it, for example `-PaletteLanguage ru`.
