@@ -7,6 +7,11 @@ This script drives the VS Code UI with WScript.SendKeys. It is meant for cases
 where a notebook is connected to a remote runtime, such as Google Colab, and an
 agent can edit the .ipynb file but cannot press notebook run buttons directly.
 
+The target notebook must already be open and active in VS Code. In strict
+single-notebook mode, the script refuses to continue unless exactly one active
+VS Code notebook window is visible and it matches the target notebook title.
+Non-notebook tabs such as README files or scripts do not need to be closed.
+
 The script supports running the current cell, all cells, kernel commands, and a
 specific cell selected by 0-based index, notebook cell id, or a source-text
 substring. It resolves localized Jupyter command titles from the installed
@@ -40,9 +45,10 @@ Resolve paths, commands, and cell selectors without opening VS Code or sending
 keyboard input.
 
 .PARAMETER ReloadFromDisk
-Close and reopen the active notebook editor from disk before dispatching the
-notebook action. This is enabled by default so edits made outside VS Code are
-visible to the notebook UI before a run starts.
+Retained for compatibility. In strict single-notebook mode the runner does not
+close or reopen the active notebook editor because doing so can switch focus to
+the wrong notebook. Pass -ReloadFromDisk:$false in agent loops to make this
+explicit in the command line and trace.
 
 .PARAMETER Json
 Print a machine-readable JSON result.
@@ -251,6 +257,36 @@ function Wait-VSCodeWindowProcess {
     } while ((Get-Date) -lt $deadline)
 
     throw $lastError
+}
+
+function Assert-SingleTargetNotebookWindow {
+    param([string]$NotebookTitle)
+
+    if ([string]::IsNullOrWhiteSpace($NotebookTitle)) {
+        throw 'NotebookTitle or NotebookPath is required for strict notebook UI preflight.'
+    }
+
+    $notebookWindows = @(Get-Process -Name Code -ErrorAction SilentlyContinue |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_.MainWindowTitle) -and $_.MainWindowTitle -like '*.ipynb*' })
+
+    $targetWindows = @($notebookWindows | Where-Object { $_.MainWindowTitle -like "*$NotebookTitle*" })
+
+    if ($notebookWindows.Count -ne 1 -or $targetWindows.Count -ne 1) {
+        $windowList = if ($notebookWindows.Count -gt 0) {
+            ($notebookWindows | ForEach-Object { $_.MainWindowTitle }) -join '; '
+        } else {
+            '(no active VS Code notebook window)'
+        }
+
+        throw (
+            "BLOCKER: the active VS Code editor must be the target notebook '$NotebookTitle'. " +
+            "Current active notebook window(s): $windowList. " +
+            "Agent must stop now, activate the target notebook, close extra notebook tabs/windows if any are active, then rerun this cell. " +
+            "Non-notebook tabs such as README or scripts do not need to be closed."
+        )
+    }
+
+    return $targetWindows[0]
 }
 
 function Get-InstalledJupyterExtensionPath {
@@ -500,6 +536,17 @@ function Get-CellSourceText {
     return [string]$Cell.source
 }
 
+function Get-CellId {
+    param([object]$Cell)
+
+    $property = $Cell.PSObject.Properties['id']
+    if ($null -eq $property -or $null -eq $property.Value) {
+        return ''
+    }
+
+    return [string]$property.Value
+}
+
 function Resolve-CellSelection {
     param(
         [string]$Path,
@@ -530,7 +577,7 @@ function Resolve-CellSelection {
     } elseif (-not [string]::IsNullOrWhiteSpace($Id)) {
         $matches = @()
         for ($i = 0; $i -lt $cells.Count; $i++) {
-            if ([string]$cells[$i].id -eq $Id) {
+            if ((Get-CellId -Cell $cells[$i]) -eq $Id) {
                 $matches += $i
             }
         }
@@ -571,7 +618,7 @@ function Resolve-CellSelection {
     return [pscustomobject]@{
         Index         = $resolvedIndex
         CellCount     = $cells.Count
-        Id            = [string]$cell.id
+        Id            = Get-CellId -Cell $cell
         CellType      = [string]$cell.cell_type
         MatchReason   = $matchReason
         SearchText    = $searchText
@@ -658,20 +705,6 @@ function Set-ClipboardText {
     }
 }
 
-function Invoke-VSCodeOpen {
-    param(
-        [string]$CodeCommandPath,
-        [string]$Path,
-        [int]$DelayMs
-    )
-
-    Add-Trace ("open notebook in VS Code: {0}" -f $Path)
-    if (-not $script:IsDryRun) {
-        & $CodeCommandPath -r $Path | Out-Null
-        Invoke-Delay -Milliseconds $DelayMs -Reason 'wait for VS Code to open/focus notebook'
-    }
-}
-
 function Activate-Window {
     param(
         [System.__ComObject]$Shell,
@@ -699,32 +732,30 @@ function Activate-Window {
         $foregroundWindow = [ColabRunner.WindowApi]::GetForegroundWindow()
         [uint32]$foregroundPid = 0
         [ColabRunner.WindowApi]::GetWindowThreadProcessId($foregroundWindow, [ref]$foregroundPid) | Out-Null
+
+        if ([int]$foregroundPid -ne [int]$Process.Id) {
+            $rect = New-Object ColabRunner.Rect
+            if ([ColabRunner.WindowApi]::GetWindowRect($Process.MainWindowHandle, [ref]$rect)) {
+                $x = $rect.Left + [int](($rect.Right - $rect.Left) / 2)
+                $y = $rect.Top + [int](($rect.Bottom - $rect.Top) / 2)
+                Add-Trace ("fallback activation click at {0},{1}" -f $x, $y)
+                [ColabRunner.WindowApi]::SetCursorPos($x, $y) | Out-Null
+                Start-Sleep -Milliseconds 80
+                [ColabRunner.WindowApi]::mouse_event(0x0002, 0, 0, 0, [UIntPtr]::Zero)
+                Start-Sleep -Milliseconds 40
+                [ColabRunner.WindowApi]::mouse_event(0x0004, 0, 0, 0, [UIntPtr]::Zero)
+                Start-Sleep -Milliseconds 300
+                $Shell.AppActivate($Process.Id) | Out-Null
+                Start-Sleep -Milliseconds 300
+                $foregroundWindow = [ColabRunner.WindowApi]::GetForegroundWindow()
+                [ColabRunner.WindowApi]::GetWindowThreadProcessId($foregroundWindow, [ref]$foregroundPid) | Out-Null
+            }
+        }
+
         if ([int]$foregroundPid -ne [int]$Process.Id) {
             throw "Failed to activate VS Code PID $($Process.Id). Foreground PID is $foregroundPid."
         }
     }
-}
-
-function Focus-NotebookTabByTitle {
-    param(
-        [System.__ComObject]$Shell,
-        [string]$Title,
-        [int]$PaletteOpenDelayMs
-    )
-
-    if ([string]::IsNullOrWhiteSpace($Title)) {
-        return
-    }
-
-    Set-ClipboardText -Text $Title -Description "quick-open notebook title '$Title'"
-    Send-Keys -Shell $Shell -Keys '^{p}' -Description 'open VS Code Quick Open'
-    Invoke-Delay -Milliseconds $PaletteOpenDelayMs -Reason 'wait for Quick Open'
-    Send-Keys -Shell $Shell -Keys '^a' -Description 'select Quick Open text'
-    Invoke-Delay -Milliseconds 100 -Reason 'wait before paste'
-    Send-Keys -Shell $Shell -Keys '^v' -Description 'paste notebook title'
-    Invoke-Delay -Milliseconds 150 -Reason 'wait before confirming Quick Open'
-    Send-Keys -Shell $Shell -Keys '{ENTER}' -Description 'confirm Quick Open selection'
-    Invoke-Delay -Milliseconds 700 -Reason 'wait after focusing notebook tab'
 }
 
 function Focus-PrimaryEditorGroup {
@@ -741,8 +772,8 @@ function Focus-PrimaryEditorGroup {
         $width = $rect.Right - $rect.Left
         $height = $rect.Bottom - $rect.Top
         if ($width -gt 0 -and $height -gt 0) {
-            $x = $rect.Left + [int]($width * 0.42)
-            $y = $rect.Top + [int]([math]::Min([math]::Max($height * 0.12, 85), 140))
+            $x = $rect.Left + [int]($width * 0.52)
+            $y = $rect.Top + [int]([math]::Min([math]::Max($height * 0.40, 320), 420))
             Add-Trace ("mouse click editor surface at {0},{1}" -f $x, $y)
             if (-not $script:IsDryRun) {
                 [ColabRunner.WindowApi]::SetCursorPos($x, $y) | Out-Null
@@ -755,7 +786,6 @@ function Focus-PrimaryEditorGroup {
         }
     }
 
-    Send-Keys -Shell $Shell -Keys '^1' -Description 'focus VS Code primary editor group'
     Invoke-Delay -Milliseconds 300 -Reason 'wait after focusing primary editor group'
 }
 
@@ -778,31 +808,11 @@ function Invoke-PaletteCommand {
     Send-Keys -Shell $Shell -Keys '{ENTER}' -Description 'run command palette command'
 }
 
-function Invoke-ReopenNotebookFromDisk {
-    param(
-        [System.__ComObject]$Shell,
-        [string]$CodeCommandPath,
-        [string]$NotebookPath,
-        [string]$NotebookTitle,
-        [int]$OpenDelayMs,
-        [int]$PaletteOpenDelayMs,
-        [int]$ActivateDelayMs
-    )
-
-    Send-Keys -Shell $Shell -Keys '^w' -Description 'close active notebook editor before reopening from disk'
-    Invoke-Delay -Milliseconds 900 -Reason 'wait after closing notebook editor'
-    Invoke-VSCodeOpen -CodeCommandPath $CodeCommandPath -Path $NotebookPath -DelayMs $OpenDelayMs
-    $process = Wait-VSCodeWindowProcess -Title $NotebookTitle -TimeoutMs ([math]::Max($OpenDelayMs + 5000, 8000))
-    Activate-Window -Shell $Shell -Process $process -DelayMs $ActivateDelayMs
-    Focus-PrimaryEditorGroup -Shell $Shell -Process $process
-    return $process
-}
-
 function Get-DispatchMethodName {
     param([object]$CommandSpec)
 
     if ($CommandSpec.DispatchAction -eq 'current-cell') {
-        return 'shortcut-ctrl-enter'
+        return 'shortcut-shift-enter'
     }
 
     if ($CommandSpec.DispatchAction -eq 'current-cell-and-advance') {
@@ -827,8 +837,8 @@ function Invoke-NotebookDispatch {
     )
 
     if ($CommandSpec.DispatchAction -eq 'current-cell') {
-        Send-Keys -Shell $Shell -Keys '^{ENTER}' -Description 'run focused notebook cell'
-        return 'shortcut-ctrl-enter'
+        Send-Keys -Shell $Shell -Keys '+{ENTER}' -Description 'run focused notebook cell'
+        return 'shortcut-shift-enter'
     }
 
     if ($CommandSpec.DispatchAction -eq 'current-cell-and-advance') {
@@ -862,36 +872,17 @@ function Focus-NotebookCellByIndex {
         [int]$DelayMs
     )
 
-    Send-Keys -Shell $Shell -Keys '{ESC}' -Description 'enter notebook command mode'
+    Send-Keys -Shell $Shell -Keys '{ESC}' -Description 'leave cell edit mode'
     Invoke-Delay -Milliseconds 200 -Reason 'wait before notebook cell navigation'
-
-    for ($i = 0; $i -lt ($CellCount + 2); $i++) {
-        Send-Keys -Shell $Shell -Keys 'K' -Description 'move to previous notebook cell'
-        Invoke-Delay -Milliseconds $DelayMs -Reason 'wait after moving to previous cell'
-    }
+    Send-Keys -Shell $Shell -Keys '^{HOME}' -Description 'move notebook focus to first cell'
+    Invoke-Delay -Milliseconds ([math]::Max($DelayMs * 3, 600)) -Reason 'wait after moving to first cell'
+    Send-Keys -Shell $Shell -Keys '{ESC}' -Description 'enter notebook command mode at first cell'
+    Invoke-Delay -Milliseconds 200 -Reason 'wait before moving to target cell'
 
     for ($i = 0; $i -lt $Index; $i++) {
         Send-Keys -Shell $Shell -Keys 'J' -Description 'move to next notebook cell'
         Invoke-Delay -Milliseconds $DelayMs -Reason 'wait after moving to next cell'
     }
-}
-
-function Focus-NotebookCellBySearch {
-    param(
-        [System.__ComObject]$Shell,
-        [string]$SearchText,
-        [int]$FindDelayMs
-    )
-
-    Set-ClipboardText -Text $SearchText -Description "cell source search text '$SearchText'"
-    Send-Keys -Shell $Shell -Keys '^f' -Description 'open notebook find'
-    Invoke-Delay -Milliseconds $FindDelayMs -Reason 'wait for find box'
-    Send-Keys -Shell $Shell -Keys '^a' -Description 'select find text'
-    Invoke-Delay -Milliseconds 100 -Reason 'wait before paste into find'
-    Send-Keys -Shell $Shell -Keys '^v' -Description 'paste cell search text'
-    Invoke-Delay -Milliseconds 700 -Reason 'wait for notebook find match'
-    Send-Keys -Shell $Shell -Keys '{ESC}' -Description 'close find and keep matched cell focused'
-    Invoke-Delay -Milliseconds 300 -Reason 'wait after closing find'
 }
 
 function Focus-NotebookCell {
@@ -1061,11 +1052,7 @@ try {
     $hasTextClipboard = $false
 
     if (-not $script:IsDryRun) {
-        if (-not [string]::IsNullOrWhiteSpace($notebookFullPath)) {
-            Invoke-VSCodeOpen -CodeCommandPath $codeCommandPath -Path $notebookFullPath -DelayMs $OpenDelayMs
-        }
-
-        $process = Wait-VSCodeWindowProcess -Title $effectiveNotebookTitle -TimeoutMs ([math]::Max($OpenDelayMs + 5000, 8000))
+        $process = Assert-SingleTargetNotebookWindow -NotebookTitle $effectiveNotebookTitle
         $shell = New-Object -ComObject WScript.Shell
 
         try {
@@ -1079,19 +1066,8 @@ try {
             Activate-Window -Shell $shell -Process $process -DelayMs $ActivateDelayMs
             Focus-PrimaryEditorGroup -Shell $shell -Process $process
 
-            if ([string]::IsNullOrWhiteSpace($notebookFullPath) -and -not [string]::IsNullOrWhiteSpace($effectiveNotebookTitle)) {
-                Focus-NotebookTabByTitle -Shell $shell -Title $effectiveNotebookTitle -PaletteOpenDelayMs $PaletteDelayMs
-            }
-
             if ([bool]$ReloadFromDisk -and -not [string]::IsNullOrWhiteSpace($notebookFullPath)) {
-                $process = Invoke-ReopenNotebookFromDisk `
-                    -Shell $shell `
-                    -CodeCommandPath $codeCommandPath `
-                    -NotebookPath $notebookFullPath `
-                    -NotebookTitle $effectiveNotebookTitle `
-                    -OpenDelayMs $OpenDelayMs `
-                    -PaletteOpenDelayMs $PaletteDelayMs `
-                    -ActivateDelayMs $ActivateDelayMs
+                Add-Trace 'strict single-notebook mode: skip ReloadFromDisk to avoid changing notebook tabs'
             }
 
             if ($Action -eq 'cell') {
