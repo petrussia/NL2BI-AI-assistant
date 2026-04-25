@@ -1,1 +1,5 @@
 petukhov_practice_execution_plan/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/

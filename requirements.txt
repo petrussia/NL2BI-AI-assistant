@@ -1,0 +1,13 @@
+pandas
+numpy>=1.23
+pyyaml
+tqdm
+jsonschema
+altair
+vl-convert-python
+psutil
+scikit-learn
+matplotlib
+pytest
+nbformat
+jupyter

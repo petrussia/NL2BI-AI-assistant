@@ -1,0 +1,17 @@
+extends: default.yaml
+
+runtime:
+  device: cuda
+  gpu_required: true
+  recommended_gpu:
+    - L4
+    - T4
+  recommended_ram: high
+
+llm:
+  method: B3_local_llm_qwen3_8b
+  model_id: Qwen/Qwen3-8B
+  temperature: 0.0
+  max_new_tokens: 1024
+  batch_size: 1
+  quantization: 4bit

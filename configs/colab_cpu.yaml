@@ -1,0 +1,10 @@
+extends: default.yaml
+
+runtime:
+  device: cpu
+  gpu_required: false
+  recommended_ram: standard
+
+notebook:
+  backend: Colab CPU
+  run_with: scripts/colab/run_colab_notebook.ps1

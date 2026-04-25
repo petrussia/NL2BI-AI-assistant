@@ -1,0 +1,19 @@
+project:
+  name: petr_text_to_visualization_part
+  seed: 42
+
+paths:
+  drive_root_env: T2V_DRIVE_ROOT
+  default_drive_root: /content/drive/MyDrive/diploma/petr_text_to_visualization_part
+  deprecated_non_diploma_drive_root: /content/drive/MyDrive/petr_text_to_visualization_part
+  datasets_dir: datasets
+  raw_datasets_dir: datasets/raw
+  processed_datasets_dir: datasets/processed
+  samples_dir: datasets/samples
+  runs_dir: runs
+  report_materials_dir: report_materials
+
+runtime:
+  device: cpu
+  max_examples: null
+  save_environment: true

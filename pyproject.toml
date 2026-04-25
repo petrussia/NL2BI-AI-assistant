@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "t2v-eval"
+version = "0.1.0"
+description = "Post-query Text-to-Visualization evaluation utilities for Petukhov practice experiments."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Petukhov P.P." }
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
