@@ -172,3 +172,48 @@ B3_local_llm_qwen3_8b:
 ```
 
 The speed fix reduced observed average latency from about 96 seconds/example on the first sample20 run to about 10 seconds/example on the final sample50 run.
+
+## Stage 7: LLM validator/reranker
+
+Stage 7 implements a multi-candidate local LLM baseline:
+
+```text
+B4_llm_validator_reranker
+```
+
+The method generates three candidates per example with `Qwen/Qwen3-8B`, validates each candidate without using gold specs, and reranks by JSON/Vega-Lite validity, field legality, dtype compatibility, aggregation legality, and parsimony.
+
+Small latency probes were run before the final run:
+
+```text
+stage7_b4_latency2_tokens256: latency_ms 46669.4215
+stage7_b4_latency2_tokens384: latency_ms 41201.849
+```
+
+`max_new_tokens=384` was selected.
+
+Final Drive run:
+
+```text
+/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage7_b4_sample20_tokens384
+```
+
+Final sample20 results:
+
+```text
+B4_llm_validator_reranker:
+  predictions: 20
+  candidates saved: 60
+  failure_rate: 0.05
+  vega_lite_validity: 0.95
+  field_selection_f1: 0.8
+  encoding_accuracy: 0.5
+  aggregation_accuracy: 0.85
+  normalized_exact_match: 0.5
+  top1_success: 0.5
+  oracle_success_at_k: 0.5
+  latency_ms: 34898.125199999995
+  rendered charts: 19
+```
+
+Compared with the Stage 6 B3 fast sample20 run, B4 improves failure rate, validity, field F1, normalized exact match, and top1 success, but it is about 3.4x slower because it performs three LLM generations per example.
