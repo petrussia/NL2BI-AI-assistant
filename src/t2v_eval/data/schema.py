@@ -65,6 +65,7 @@ class T2VExample:
     gold_spec: dict[str, Any] = field(default_factory=dict)
     gold_spec_normalized: dict[str, Any] | None = None
     benchmark: str | None = None
+    benchmark_source: str | None = None
 
     @property
     def fields(self) -> list[FieldMetadata]:
@@ -87,6 +88,7 @@ class T2VExample:
             gold_spec=dict(data.get("gold_spec") or {}),
             gold_spec_normalized=data.get("gold_spec_normalized"),
             benchmark=data.get("benchmark") or data.get("benchmark_source"),
+            benchmark_source=data.get("benchmark_source") or data.get("benchmark"),
         )
 
     def to_dict(self) -> dict[str, Any]:
