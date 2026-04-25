@@ -332,6 +332,9 @@ def extract_and_repair_spec(raw_output: str, example: T2VExample) -> dict[str, A
 
 def extract_json_object(raw_output: str) -> dict[str, Any]:
     text = strip_markdown_fences(strip_thinking_blocks(raw_output)).strip()
+    first_object = _first_json_object_from_first_brace(text)
+    if first_object is not None:
+        return first_object
     for start in [match.start() for match in re.finditer(r"\{", text)]:
         candidate = _first_balanced_object(text[start:])
         if not candidate:
@@ -455,11 +458,21 @@ class _StopOnValidJson:
         text = strip_thinking_blocks(
             self.tokenizer.decode(generated_ids, skip_special_tokens=True)
         )
-        try:
-            extract_json_object(text)
-        except ValueError:
-            return False
-        return True
+        return _first_json_object_from_first_brace(text) is not None
+
+
+def _first_json_object_from_first_brace(text: str) -> dict[str, Any] | None:
+    start = text.find("{")
+    if start < 0:
+        return None
+    candidate = _first_balanced_object(text[start:])
+    if not candidate:
+        return None
+    try:
+        value = json.loads(candidate)
+    except json.JSONDecodeError:
+        return None
+    return value if isinstance(value, dict) else None
 
 
 def _channel_items(value: Any) -> list[dict[str, Any]]:
