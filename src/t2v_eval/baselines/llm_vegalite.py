@@ -138,7 +138,14 @@ class LLMVegaLitePredictor:
                 latency_ms=_elapsed_ms(start),
             )
 
-    def generate(self, prompt: str) -> str:
+    def generate(
+        self,
+        prompt: str,
+        *,
+        temperature: float | None = None,
+        top_p: float | None = None,
+        max_new_tokens: int | None = None,
+    ) -> str:
         import torch
 
         assert self.model is not None
@@ -152,20 +159,25 @@ class LLMVegaLitePredictor:
 
         inputs = self.tokenizer(text, return_tensors="pt")
         inputs = {key: value.to(self.model.device) for key, value in inputs.items()}
-        do_sample = self.config.temperature > 0
+        generation_temperature = self.config.temperature if temperature is None else temperature
+        generation_top_p = self.config.top_p if top_p is None else top_p
+        generation_max_new_tokens = (
+            self.config.max_new_tokens if max_new_tokens is None else max_new_tokens
+        )
+        do_sample = generation_temperature > 0
         eos_token_id = self.tokenizer.eos_token_id
         pad_token_id = self.tokenizer.pad_token_id or eos_token_id
         generation_kwargs: dict[str, Any] = {
             **inputs,
-            "max_new_tokens": self.config.max_new_tokens,
+            "max_new_tokens": generation_max_new_tokens,
             "do_sample": do_sample,
             "pad_token_id": pad_token_id,
             "eos_token_id": eos_token_id,
             "use_cache": True,
         }
         if do_sample:
-            generation_kwargs["temperature"] = self.config.temperature
-            generation_kwargs["top_p"] = self.config.top_p
+            generation_kwargs["temperature"] = generation_temperature
+            generation_kwargs["top_p"] = generation_top_p
         if self.config.stop_after_json:
             from transformers import StoppingCriteriaList
 

@@ -15,12 +15,16 @@ from t2v_eval.baselines.nl4dv_adapter import (
 from t2v_eval.baselines.llm_vegalite import (
     METHOD_NAME as B3_METHOD_NAME,
 )
+from t2v_eval.baselines.llm_validator_reranker import (
+    METHOD_NAME as B4_METHOD_NAME,
+)
 
 __all__ = [
     "B0_METHOD_NAME",
     "B1_METHOD_NAME",
     "B2_METHOD_NAME",
     "B3_METHOD_NAME",
+    "B4_METHOD_NAME",
     "predict_constraint_ranker",
     "predict_partial_recommender",
     "predict_rule_based",
