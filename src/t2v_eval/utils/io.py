@@ -20,7 +20,7 @@ def ensure_parent(path: PathLike) -> Path:
 
 
 def read_json(path: PathLike) -> Any:
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    return json.loads(Path(path).read_text(encoding="utf-8-sig"))
 
 
 def write_json(path: PathLike, data: Any, *, indent: int = 2) -> Path:
@@ -34,7 +34,7 @@ def write_json(path: PathLike, data: Any, *, indent: int = 2) -> Path:
 
 def read_jsonl(path: PathLike) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    with Path(path).open("r", encoding="utf-8") as handle:
+    with Path(path).open("r", encoding="utf-8-sig") as handle:
         for line_no, line in enumerate(handle, start=1):
             stripped = line.strip()
             if not stripped:
