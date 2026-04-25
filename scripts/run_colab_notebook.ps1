@@ -63,7 +63,12 @@ Print a machine-readable JSON result.
 .\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER" -WaitSeconds 20
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell -SaveAfterRun:$false
+.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
+
+.NOTES
+The runner does not save the notebook with Ctrl+S by default. Some VS Code
+installations bind Ctrl+S to a custom command, and notebook outputs can still be
+persisted by VS Code auto-save or by saving manually from the UI.
 #>
 [CmdletBinding()]
 param(
@@ -104,7 +109,7 @@ param(
 
     [switch]$ReloadFromDisk = $true,
 
-    [switch]$SaveAfterRun = $true,
+    [switch]$SaveAfterRun = $false,
 
     [switch]$DryRun,
 
@@ -287,6 +292,34 @@ function Assert-SingleTargetNotebookWindow {
     }
 
     return $targetWindows[0]
+}
+
+function Assert-ProcessStillTargetsNotebook {
+    param(
+        [System.Diagnostics.Process]$Process,
+        [string]$NotebookTitle,
+        [string]$Stage
+    )
+
+    if ($null -eq $Process) {
+        throw 'Internal runner error: VS Code process is not available for notebook focus validation.'
+    }
+
+    $Process.Refresh()
+    $title = [string]$Process.MainWindowTitle
+
+    Add-Trace ("validate active notebook at {0}: {1}" -f $Stage, $title)
+
+    if ([string]::IsNullOrWhiteSpace($title) -or $title -notlike "*$NotebookTitle*") {
+        throw (
+            "BLOCKER: VS Code focus changed away from target notebook '$NotebookTitle' at stage '$Stage'. " +
+            "Current active window title: $title. " +
+            "Agent must stop now, activate the target notebook, close stale or extra notebook tabs/windows, " +
+            "then rerun this cell. This prevents running or saving a deleted/non-target notebook buffer."
+        )
+    }
+
+    return $title
 }
 
 function Get-InstalledJupyterExtensionPath {
@@ -899,7 +932,7 @@ function Focus-NotebookCell {
 function Save-Notebook {
     param([System.__ComObject]$Shell)
 
-    Send-Keys -Shell $Shell -Keys '^s' -Description 'save notebook'
+    throw 'SaveAfterRun is disabled: the runner must not send Ctrl+S because it can be rebound by the user. Use VS Code auto-save or save manually from the UI.'
 }
 
 function New-ResultObject {
@@ -1064,7 +1097,9 @@ try {
             }
 
             Activate-Window -Shell $shell -Process $process -DelayMs $ActivateDelayMs
+            Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'after VS Code activation' | Out-Null
             Focus-PrimaryEditorGroup -Shell $shell -Process $process
+            Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'after editor focus' | Out-Null
 
             if ([bool]$ReloadFromDisk -and -not [string]::IsNullOrWhiteSpace($notebookFullPath)) {
                 Add-Trace 'strict single-notebook mode: skip ReloadFromDisk to avoid changing notebook tabs'
@@ -1072,8 +1107,10 @@ try {
 
             if ($Action -eq 'cell') {
                 Focus-NotebookCell -Shell $shell -CellSelection $cellSelection -FindDelayMs $PaletteDelayMs -MoveDelayMs $CellMoveDelayMs
+                Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'after cell focus' | Out-Null
             }
 
+            Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'before notebook dispatch' | Out-Null
             $dispatchMethod = Invoke-NotebookDispatch `
                 -Shell $shell `
                 -CommandSpec $commandSpec `
@@ -1084,6 +1121,7 @@ try {
             Invoke-Delay -Milliseconds ($WaitSeconds * 1000) -Reason 'wait for notebook action'
 
             if ([bool]$SaveAfterRun) {
+                Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'before notebook save' | Out-Null
                 Save-Notebook -Shell $shell
                 Invoke-Delay -Milliseconds 500 -Reason 'wait after save'
             }
