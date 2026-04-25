@@ -17,6 +17,7 @@ from scripts.evaluate_predictions import evaluate_predictions
 from scripts.render_charts import render_predictions
 from t2v_eval.baselines.llm_vegalite import (
     DEFAULT_MODEL_ID,
+    DEFAULT_MAX_NEW_TOKENS,
     METHOD_NAME,
     LLMVegaLiteConfig,
     LLMVegaLitePredictor,
@@ -38,11 +39,13 @@ def run_llm_experiment(
     sample_size: int | None = None,
     model_id: str = DEFAULT_MODEL_ID,
     quantization: str | None = "4bit",
-    max_new_tokens: int = 1024,
+    max_new_tokens: int = DEFAULT_MAX_NEW_TOKENS,
     temperature: float = 0.0,
     top_p: float = 1.0,
     seed: int = 42,
     sample_rows: int = 5,
+    enable_thinking: bool = False,
+    stop_after_json: bool = True,
     evaluate: bool = True,
     render_limit: int = 0,
 ) -> dict[str, Any]:
@@ -67,6 +70,8 @@ def run_llm_experiment(
         top_p=top_p,
         seed=seed,
         sample_rows=sample_rows,
+        enable_thinking=enable_thinking,
+        stop_after_json=stop_after_json,
     )
     runtime = runtime_info(Path.cwd())
     write_json(run_dir / "runtime_info.json", runtime)
@@ -123,11 +128,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--sample-size", type=int)
     parser.add_argument("--model-id", default=DEFAULT_MODEL_ID)
     parser.add_argument("--quantization", default="4bit", choices=["4bit", "none"])
-    parser.add_argument("--max-new-tokens", type=int, default=1024)
+    parser.add_argument("--max-new-tokens", type=int, default=DEFAULT_MAX_NEW_TOKENS)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--sample-rows", type=int, default=5)
+    parser.add_argument("--enable-thinking", action="store_true")
+    parser.add_argument("--no-stop-after-json", action="store_true")
     parser.add_argument("--no-evaluate", action="store_true")
     parser.add_argument("--render-limit", type=int, default=0)
     parser.add_argument("--json", action="store_true")
@@ -148,6 +155,8 @@ def main(argv: list[str] | None = None) -> int:
         top_p=args.top_p,
         seed=args.seed,
         sample_rows=args.sample_rows,
+        enable_thinking=args.enable_thinking,
+        stop_after_json=not args.no_stop_after_json,
         evaluate=not args.no_evaluate,
         render_limit=args.render_limit,
     )

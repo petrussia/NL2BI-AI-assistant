@@ -11,7 +11,7 @@ import json
 import re
 from dataclasses import dataclass, asdict
 from time import perf_counter
-from typing import Any
+from typing import Any, Protocol
 
 import pandas as pd
 
@@ -28,12 +28,17 @@ METHOD_NAME = "B3_local_llm_qwen3_8b"
 DEFAULT_MODEL_ID = "Qwen/Qwen3-8B"
 ALLOWED_CHART_TYPES = ("bar", "line", "point", "area", "tick", "text")
 DEFAULT_SAMPLE_ROWS = 5
+DEFAULT_MAX_NEW_TOKENS = 384
+
+
+class ChatTemplateTokenizer(Protocol):
+    def apply_chat_template(self, *args: Any, **kwargs: Any) -> str: ...
 
 
 @dataclass(slots=True)
 class LLMVegaLiteConfig:
     model_id: str = DEFAULT_MODEL_ID
-    max_new_tokens: int = 1024
+    max_new_tokens: int = DEFAULT_MAX_NEW_TOKENS
     temperature: float = 0.0
     top_p: float = 1.0
     seed: int = 42
@@ -42,6 +47,8 @@ class LLMVegaLiteConfig:
     torch_dtype: str = "auto"
     device_map: str = "auto"
     trust_remote_code: bool = True
+    enable_thinking: bool = False
+    stop_after_json: bool = True
 
     def __post_init__(self) -> None:
         if "qwen2.5" in self.model_id.lower():
@@ -137,29 +144,72 @@ class LLMVegaLitePredictor:
         assert self.model is not None
         assert self.tokenizer is not None
 
-        if hasattr(self.tokenizer, "apply_chat_template"):
-            text = self.tokenizer.apply_chat_template(
-                [{"role": "user", "content": prompt}],
-                tokenize=False,
-                add_generation_prompt=True,
-            )
-        else:
-            text = prompt
+        text = format_prompt_for_model(
+            self.tokenizer,
+            prompt,
+            enable_thinking=self.config.enable_thinking,
+        )
 
         inputs = self.tokenizer(text, return_tensors="pt")
         inputs = {key: value.to(self.model.device) for key, value in inputs.items()}
         do_sample = self.config.temperature > 0
-        with torch.no_grad():
-            output_ids = self.model.generate(
-                **inputs,
-                max_new_tokens=self.config.max_new_tokens,
-                do_sample=do_sample,
-                temperature=self.config.temperature if do_sample else None,
-                top_p=self.config.top_p if do_sample else None,
-                pad_token_id=self.tokenizer.eos_token_id,
+        eos_token_id = self.tokenizer.eos_token_id
+        pad_token_id = self.tokenizer.pad_token_id or eos_token_id
+        generation_kwargs: dict[str, Any] = {
+            **inputs,
+            "max_new_tokens": self.config.max_new_tokens,
+            "do_sample": do_sample,
+            "pad_token_id": pad_token_id,
+            "eos_token_id": eos_token_id,
+            "use_cache": True,
+        }
+        if do_sample:
+            generation_kwargs["temperature"] = self.config.temperature
+            generation_kwargs["top_p"] = self.config.top_p
+        if self.config.stop_after_json:
+            from transformers import StoppingCriteriaList
+
+            generation_kwargs["stopping_criteria"] = StoppingCriteriaList(
+                [_StopOnValidJson(self.tokenizer, inputs["input_ids"].shape[-1])]
             )
+
+        with torch.no_grad():
+            output_ids = self.model.generate(**generation_kwargs)
         generated = output_ids[0][inputs["input_ids"].shape[-1] :]
-        return self.tokenizer.decode(generated, skip_special_tokens=True).strip()
+        return strip_thinking_blocks(
+            self.tokenizer.decode(generated, skip_special_tokens=True)
+        ).strip()
+
+
+def format_prompt_for_model(
+    tokenizer: Any,
+    prompt: str,
+    *,
+    enable_thinking: bool = False,
+) -> str:
+    system_prompt = (
+        "You are a deterministic Text-to-Visualization compiler. "
+        "Return only one compact Vega-Lite JSON object. /no_think"
+    )
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": prompt + "\n/no_think"},
+    ]
+    if hasattr(tokenizer, "apply_chat_template"):
+        try:
+            return tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=enable_thinking,
+            )
+        except TypeError:
+            return tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+    return f"{system_prompt}\n\n{prompt}\n/no_think\n"
 
 
 def build_prompt(
@@ -172,8 +222,9 @@ def build_prompt(
     preview = table_preview(example, sample_rows=sample_rows)
     return (
         "You are a local Text-to-Visualization model. "
-        "Return only one valid JSON object for a Vega-Lite chart spec. "
-        "Do not use markdown, comments, explanations, or code fences.\n\n"
+        "Return only one minimal valid JSON object for a Vega-Lite chart spec. "
+        "Do not use markdown, comments, explanations, code fences, or reasoning. "
+        "Do not output <think> blocks.\n\n"
         f"User query:\n{example.query}\n\n"
         f"Allowed chart mark types:\n{', '.join(allowed_chart_types)}\n\n"
         "Schema metadata as JSON:\n"
@@ -183,7 +234,7 @@ def build_prompt(
         "Requirements:\n"
         "- Use only fields from the schema.\n"
         "- Choose Vega-Lite encoding types compatible with field dtypes.\n"
-        "- Prefer simple specs with mark and encoding.\n"
+        "- Prefer simple compact specs with only mark and encoding.\n"
         "- Use aggregate only when it is allowed by field metadata.\n"
         "- Return JSON only, starting with { and ending with }.\n"
     )
@@ -280,7 +331,7 @@ def extract_and_repair_spec(raw_output: str, example: T2VExample) -> dict[str, A
 
 
 def extract_json_object(raw_output: str) -> dict[str, Any]:
-    text = strip_markdown_fences(raw_output).strip()
+    text = strip_markdown_fences(strip_thinking_blocks(raw_output)).strip()
     for start in [match.start() for match in re.finditer(r"\{", text)]:
         candidate = _first_balanced_object(text[start:])
         if not candidate:
@@ -298,6 +349,13 @@ def strip_markdown_fences(raw_output: str) -> str:
     text = raw_output.strip()
     text = re.sub(r"^```(?:json)?\s*", "", text, flags=re.IGNORECASE)
     text = re.sub(r"\s*```$", "", text)
+    return text.strip()
+
+
+def strip_thinking_blocks(raw_output: str) -> str:
+    text = raw_output.strip()
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"</?think>", "", text, flags=re.IGNORECASE)
     return text.strip()
 
 
@@ -383,6 +441,25 @@ def _first_balanced_object(text: str) -> str | None:
             if depth == 0:
                 return text[: index + 1]
     return None
+
+
+class _StopOnValidJson:
+    def __init__(self, tokenizer: Any, prompt_tokens: int) -> None:
+        self.tokenizer = tokenizer
+        self.prompt_tokens = prompt_tokens
+
+    def __call__(self, input_ids: Any, scores: Any, **kwargs: Any) -> bool:
+        generated_ids = input_ids[0][self.prompt_tokens :]
+        if len(generated_ids) == 0:
+            return False
+        text = strip_thinking_blocks(
+            self.tokenizer.decode(generated_ids, skip_special_tokens=True)
+        )
+        try:
+            extract_json_object(text)
+        except ValueError:
+            return False
+        return True
 
 
 def _channel_items(value: Any) -> list[dict[str, Any]]:

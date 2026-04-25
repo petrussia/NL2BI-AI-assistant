@@ -4,12 +4,15 @@ import pytest
 
 from t2v_eval.baselines.llm_vegalite import (
     DEFAULT_MODEL_ID,
+    DEFAULT_MAX_NEW_TOKENS,
     LLMVegaLiteConfig,
     build_prompt,
     extract_json_object,
+    format_prompt_for_model,
     prediction_from_text,
     repair_lite,
     strip_markdown_fences,
+    strip_thinking_blocks,
 )
 from t2v_eval.data.schema import FieldMetadata, T2VExample
 
@@ -52,6 +55,9 @@ def test_config_uses_qwen3_and_rejects_qwen25() -> None:
 
     assert config.model_id == DEFAULT_MODEL_ID
     assert "Qwen3" in config.model_id
+    assert config.max_new_tokens == DEFAULT_MAX_NEW_TOKENS
+    assert config.enable_thinking is False
+    assert config.stop_after_json is True
     with pytest.raises(ValueError, match="Qwen2.5"):
         LLMVegaLiteConfig(model_id="Qwen/Qwen2.5-7B")
 
@@ -63,10 +69,28 @@ def test_prompt_contains_required_inputs(tmp_path: Path) -> None:
     assert "Schema metadata as JSON" in prompt
     assert "First 1 table rows as JSON" in prompt
     assert "Allowed chart mark types" in prompt
-    assert "Return only one valid JSON object" in prompt
+    assert "Return only one minimal valid JSON object" in prompt
     assert "Do not use markdown" in prompt
+    assert "Do not output <think> blocks" in prompt
     assert "month" in prompt
     assert "sales" in prompt
+
+
+def test_format_prompt_disables_qwen3_thinking() -> None:
+    class FakeTokenizer:
+        def __init__(self) -> None:
+            self.kwargs = {}
+
+        def apply_chat_template(self, messages, **kwargs):  # type: ignore[no-untyped-def]
+            self.kwargs = kwargs
+            return str(messages)
+
+    tokenizer = FakeTokenizer()
+    formatted = format_prompt_for_model(tokenizer, "Return JSON")
+
+    assert tokenizer.kwargs["enable_thinking"] is False
+    assert tokenizer.kwargs["add_generation_prompt"] is True
+    assert "/no_think" in formatted
 
 
 def test_extract_json_object_removes_markdown_and_prefix() -> None:
@@ -74,6 +98,13 @@ def test_extract_json_object_removes_markdown_and_prefix() -> None:
 
     assert strip_markdown_fences("```json\n{}\n```") == "{}"
     assert extract_json_object(raw) == {"mark": "bar", "encoding": {}}
+
+
+def test_strip_thinking_blocks_before_json_extraction() -> None:
+    raw = "<think>long reasoning</think>\n{\"mark\":\"point\",\"encoding\":{}}"
+
+    assert strip_thinking_blocks(raw) == '{"mark":"point","encoding":{}}'
+    assert extract_json_object(raw) == {"mark": "point", "encoding": {}}
 
 
 def test_repair_lite_fills_mark_and_encoding_type(tmp_path: Path) -> None:
