@@ -93,3 +93,36 @@ B1_constraint_ranker:
 ```
 
 B1 is not better than B0 on exact-match-oriented metrics for this sample, but it is not worse on validity/failure/transform metrics and remains a distinct constraint-based ranking baseline.
+
+## Stage 5: existing / partial tool baseline
+
+Stage 5 attempted to add an existing open-source Text-to-Visualization comparison tool. NL4DV was checked first, but it was not installed because its dry-run dependency plan included `pytest~=3.10.1` plus a large stack (`spacy`, `litellm`, `openai`, `vega`, and others), which is risky for the current project environment. This is documented as an incompatibility rather than hidden.
+
+Implemented fallback:
+
+```text
+B2_partial_recommender
+```
+
+This is a partial fit: it uses the query for field filtering/ranking, while chart recommendation comes from table/schema profiling heuristics. It uses the same prediction format and evaluator as B0/B1.
+
+Final Drive run:
+
+```text
+/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage5_partial_sample200
+```
+
+Final sample200 results:
+
+```text
+B2_partial_recommender:
+  predictions: 200
+  failure_rate: 0.0
+  vega_lite_validity: 1.0
+  chart_type_accuracy: 0.62
+  field_selection_f1: 0.8703333333333333
+  encoding_accuracy: 0.11
+  aggregation_accuracy: 0.11
+  normalized_exact_match: 0.11
+  rendered charts: 20
+```
