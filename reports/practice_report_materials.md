@@ -49,3 +49,47 @@ failures/*.jsonl if failures exist
 Resolution of the Colab blocker: a code-only checkpoint commit was pushed so the Colab setup cell could clone/pull `experiments/peter` into `/content/petukhov_t2v_repo`. The setup cell mounts Drive, syncs the repository, installs `requirements.txt`, installs the package editable, and verifies `t2v_eval.__version__ == 0.1.0`.
 
 Main limitation: in the local VS Code + Colab runner path, the web Colab secret was not exposed through `google.colab.userdata`, so the setup cell supports a Drive token file outside the repository. The token itself is not committed and should be rotated because it was briefly tested in a manual notebook cell during debugging.
+
+## Stage 4: non-LLM baseline experiments
+
+Stage 4 implements and runs two deterministic post-query Text-to-Visualization baselines:
+
+- `B0_rule_based`: direct intent extraction, field linking, and simple chart rules.
+- `B1_constraint_ranker`: candidate generation, hard constraint filtering, and soft ranking.
+
+Implemented components:
+
+- `src/t2v_eval/baselines/rule_based.py`
+- `src/t2v_eval/baselines/constraint_ranker.py`
+- `scripts/run_experiment.py`
+- `scripts/render_charts.py`
+- `notebooks/02_run_baselines_cpu.ipynb`
+- `tests/test_rule_baseline.py`
+
+Final Drive run:
+
+```text
+/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage4_cpu_sample200
+```
+
+Final sample200 results:
+
+```text
+B0_rule_based:
+  predictions: 200
+  failure_rate: 0.0
+  vega_lite_validity: 1.0
+  normalized_exact_match: 0.085
+  field_selection_f1: 0.857
+  rendered charts: 20
+
+B1_constraint_ranker:
+  predictions: 200
+  failure_rate: 0.0
+  vega_lite_validity: 1.0
+  normalized_exact_match: 0.06
+  field_selection_f1: 0.847
+  rendered charts: 20
+```
+
+B1 is not better than B0 on exact-match-oriented metrics for this sample, but it is not worse on validity/failure/transform metrics and remains a distinct constraint-based ranking baseline.
