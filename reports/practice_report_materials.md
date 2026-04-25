@@ -126,3 +126,49 @@ B2_partial_recommender:
   normalized_exact_match: 0.11
   rendered charts: 20
 ```
+
+## Stage 6: local LLM baseline
+
+Stage 6 implements a local Hugging Face Transformers baseline:
+
+```text
+B3_local_llm_qwen3_8b
+```
+
+Model:
+
+```text
+Qwen/Qwen3-8B
+```
+
+The run uses local Colab inference with 4-bit quantization. No closed hosted API is used, and Qwen2.5 is explicitly rejected by config validation.
+
+The initial Qwen3 run was too slow because the model spent too much time in long generation/reasoning mode. The implementation was updated to disable Qwen3 thinking mode, add `/no_think`, reduce `max_new_tokens` to 384, and stop generation after the first complete top-level JSON spec.
+
+Final Drive run:
+
+```text
+/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage6_qwen3_8b_fast_sample50
+```
+
+Final sample50 results:
+
+```text
+B3_local_llm_qwen3_8b:
+  predictions: 50
+  failures: 7
+  failure_rate: 0.14
+  vega_lite_validity: 0.86
+  chart_type_accuracy: 0.5
+  x_field_accuracy: 0.72
+  y_field_accuracy: 0.6
+  field_selection_f1: 0.7533333333333333
+  encoding_accuracy: 0.59
+  aggregation_accuracy: 0.84
+  normalized_exact_match: 0.36
+  latency_ms: 10187.22126
+  memory_peak_mb: 1983.812
+  rendered charts: 20
+```
+
+The speed fix reduced observed average latency from about 96 seconds/example on the first sample20 run to about 10 seconds/example on the final sample50 run.
