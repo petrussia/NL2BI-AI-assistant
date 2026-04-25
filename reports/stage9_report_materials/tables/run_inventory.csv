@@ -1,0 +1,5 @@
+run_id,Путь,Есть summary,Есть metrics,Есть прогнозы,Есть рендеры
+stage4_cpu_sample200,/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage4_cpu_sample200,,,,
+stage5_partial_sample200,/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage5_partial_sample200,,,,
+stage6_qwen3_8b_fast_sample50,/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage6_qwen3_8b_fast_sample50,,,,
+stage7_b4_sample20_tokens384,/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage7_b4_sample20_tokens384,,,,

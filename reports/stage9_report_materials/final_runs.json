@@ -1,0 +1,47 @@
+[
+  {
+    "Подход": "B0",
+    "Метод": "B0_rule_based",
+    "run_id": "stage4_cpu_sample200",
+    "Папка метрик": "B0_rule_based",
+    "Sample": 200,
+    "Семейство": "Детерминированный baseline",
+    "Роль": "Правила без LLM"
+  },
+  {
+    "Подход": "B1",
+    "Метод": "B1_constraint_ranker",
+    "run_id": "stage4_cpu_sample200",
+    "Папка метрик": "B1_constraint_ranker",
+    "Sample": 200,
+    "Семейство": "Детерминированный baseline",
+    "Роль": "Ограничения и ранжирование кандидатов"
+  },
+  {
+    "Подход": "B2",
+    "Метод": "B2_partial_recommender",
+    "run_id": "stage5_partial_sample200",
+    "Папка метрик": "B2_partial_recommender",
+    "Sample": 200,
+    "Семейство": "Подход в стиле существующих инструментов",
+    "Роль": "Частичный recommender fallback"
+  },
+  {
+    "Подход": "B3",
+    "Метод": "B3_local_llm_qwen3_8b",
+    "run_id": "stage6_qwen3_8b_fast_sample50",
+    "Папка метрик": "B3_local_llm_qwen3_8b",
+    "Sample": 50,
+    "Семейство": "Локальная LLM",
+    "Роль": "Один кандидат Qwen3-8B"
+  },
+  {
+    "Подход": "B4",
+    "Метод": "B4_llm_validator_reranker",
+    "run_id": "stage7_b4_sample20_tokens384",
+    "Папка метрик": "B4_llm_validator_reranker",
+    "Sample": 20,
+    "Семейство": "Локальная LLM + validation",
+    "Роль": "3 кандидата + validator/reranker"
+  }
+]
