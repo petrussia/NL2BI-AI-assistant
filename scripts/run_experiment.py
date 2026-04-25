@@ -17,6 +17,8 @@ from scripts.evaluate_predictions import evaluate_predictions
 from scripts.render_charts import render_predictions
 from t2v_eval.baselines.constraint_ranker import METHOD_NAME as B1_METHOD_NAME
 from t2v_eval.baselines.constraint_ranker import predict as predict_b1
+from t2v_eval.baselines.nl4dv_adapter import METHOD_NAME as B2_METHOD_NAME
+from t2v_eval.baselines.nl4dv_adapter import predict as predict_b2
 from t2v_eval.baselines.rule_based import METHOD_NAME as B0_METHOD_NAME
 from t2v_eval.baselines.rule_based import predict as predict_b0
 from t2v_eval.data.schema import T2VExample, T2VPrediction
@@ -108,7 +110,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--examples", required=True)
     parser.add_argument(
         "--method",
-        choices=[B0_METHOD_NAME, B1_METHOD_NAME, "all"],
+        choices=[B0_METHOD_NAME, B1_METHOD_NAME, B2_METHOD_NAME, "all"],
         required=True,
     )
     parser.add_argument("--drive-root", default=str(CANONICAL_DRIVE_ROOT))
@@ -147,6 +149,8 @@ def _predictor(method: str, *, run_id: str, top_k: int) -> Predictor:
         return lambda example: predict_b0(example, run_id=run_id, top_k=top_k)
     if method == B1_METHOD_NAME:
         return lambda example: predict_b1(example, run_id=run_id, top_k=top_k)
+    if method == B2_METHOD_NAME:
+        return lambda example: predict_b2(example, run_id=run_id, top_k=top_k)
     raise ValueError(f"Unknown method: {method}")
 
 
