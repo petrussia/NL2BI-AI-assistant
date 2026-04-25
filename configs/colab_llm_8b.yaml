@@ -12,6 +12,9 @@ llm:
   method: B3_local_llm_qwen3_8b
   model_id: Qwen/Qwen3-8B
   temperature: 0.0
+  top_p: 1.0
   max_new_tokens: 1024
+  sample_rows: 5
+  seed: 42
   batch_size: 1
   quantization: 4bit
