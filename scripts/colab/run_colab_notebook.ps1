@@ -54,16 +54,16 @@ explicit in the command line and trace.
 Print a machine-readable JSON result.
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell -Json
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell -Json
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER" -WaitSeconds 20
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER" -WaitSeconds 20
 
 .EXAMPLE
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
 
 .NOTES
 The runner does not save the notebook with Ctrl+S by default. Some VS Code
@@ -547,7 +547,23 @@ function Resolve-PaletteCommandTitle {
 function Read-NotebookCells {
     param([string]$Path)
 
-    $notebook = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    $content = Get-Content -LiteralPath $Path -Raw
+    if ([string]::IsNullOrWhiteSpace($content)) {
+        throw (
+            "Notebook file is empty and cannot be run: $Path. " +
+            "Bare scaffold .ipynb placeholders must be populated with valid notebook JSON before using the Colab runner."
+        )
+    }
+
+    try {
+        $notebook = $content | ConvertFrom-Json
+    } catch {
+        throw (
+            "Notebook file is not valid JSON and cannot be run: $Path. " +
+            "Open it in VS Code/Jupyter or create a valid .ipynb before using the Colab runner. Parser error: $($_.Exception.Message)"
+        )
+    }
+
     if ($null -eq $notebook.cells) {
         throw "Notebook does not contain a cells array: $Path"
     }

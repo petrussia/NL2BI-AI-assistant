@@ -1,13 +1,13 @@
 ﻿# VS Code Colab Notebook Runner
 
-`run_colab_notebook.ps1` presses Jupyter notebook commands in Microsoft Visual Studio Code on Windows. It is intended for notebooks already connected to a runtime such as Google Colab, where an agent can edit `.ipynb` files but cannot click notebook run buttons directly.
+`scripts/colab/run_colab_notebook.ps1` presses Jupyter notebook commands in Microsoft Visual Studio Code on Windows. It is intended for notebooks already connected to a runtime such as Google Colab, where an agent can edit `.ipynb` files but cannot click notebook run buttons directly.
 
 ## Requirements
 
 - Windows desktop session.
 - Microsoft Visual Studio Code, not Cursor or Windsurf.
 - Microsoft Jupyter extension installed in VS Code.
-- The target `.ipynb` is open in VS Code, active as the notebook editor, and already connected to the desired kernel/runtime.
+- The target `.ipynb` is a valid notebook file, open in VS Code, active as the notebook editor, and already connected to the desired kernel/runtime. Empty scaffold `.ipynb` placeholders are not runnable until populated.
 - Exactly one VS Code notebook editor is active: the target notebook. Regular README, script, and other non-notebook tabs do not need to be closed.
 
 ## Examples
@@ -15,19 +15,19 @@
 Run all cells:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
 ```
 
 Run the current focused cell:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
 ```
 
 Run a specific cell by 0-based index:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2
 ```
 
 For agent-driven runs, explicitly activate the target notebook first, then invoke the runner:
@@ -35,37 +35,37 @@ For agent-driven runs, explicitly activate the target notebook first, then invok
 ```powershell
 & "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" -r -g "$PWD\notebooks\example.ipynb:1:1"
 Start-Sleep -Seconds 3
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2 -WaitSeconds 30 -ReloadFromDisk:$false -Json
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2 -WaitSeconds 20 -ReloadFromDisk:$false -Json
 ```
 
 Run a specific cell by notebook cell id:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell
 ```
 
 Run a specific cell whose source contains a unique marker:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER"
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER"
 ```
 
 Preview what would be done without touching VS Code:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -DryRun -Json
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -DryRun -Json
 ```
 
-Disable saving after the action:
+Saving is disabled by default because some VS Code setups bind `Ctrl+S` to another command:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell -SaveAfterRun:$false
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
 ```
 
 Do not attempt to reload the notebook editor from disk:
 
 ```powershell
-.\scripts\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -ReloadFromDisk:$false
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -ReloadFromDisk:$false
 ```
 
 ## Notes
