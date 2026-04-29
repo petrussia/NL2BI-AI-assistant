@@ -1,0 +1,11 @@
+metric,value
+completed,true
+EX,0.96
+executable_count,25
+total,25
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,smoke_25
+quantization,4bit_bitsandbytes_config
+schema_strategy,lexical_schema_linking
+avg_reduction_ratio,0.58
+fallback_full_schema_count,6

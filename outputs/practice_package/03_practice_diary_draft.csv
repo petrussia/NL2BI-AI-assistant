@@ -1,0 +1,20 @@
+date_or_range,short_work_description,expected_mark_or_comment
+04.04.2026,"Установочное собрание; уточнение темы и индивидуального задания; ознакомление с правилами охраны труда и пожарной безопасности при работе на удалённом доступе.",выполнено
+05.04.2026–06.04.2026,"Изучение датасета Spider (структура dev split, 1034 запроса, 166 SQLite БД, JSON со схемами); изучение метрики Execution Match и реализаций её через SQLite.",результат получен
+07.04.2026,"Развёртывание воспроизводимой среды экспериментов: локальный Jupyter notebook, подключение к Google Colab runtime, монтирование Google Drive в качестве проектного root.",работа выполнена в полном объёме
+08.04.2026,"Подготовка инструментального контура: реализация helper script для управления ядром Colab из локальной среды; сохранение audit-trail каждого запуска.",выполнено
+09.04.2026,"Скачивание и проверка целостности датасета Spider (dev.json, tables.json, 166 SQLite-баз). Подготовка проверочных подмножеств smoke_10, smoke_25, smoke_50.",результат получен
+10.04.2026,"Реализация baseline B0 (single-shot prompt с полной схемой) на модели Qwen2.5-Coder-7B-Instruct в 4-битной квантизации. Прогон на smoke10.",выполнено
+11.04.2026,"Сохранение и проверка артефактов B0 на smoke10: predictions JSONL, metrics CSV, summary, run-log, error_cases, examples. Получено EX = 1.0 (10/10).",результат получен
+12.04.2026,"Изучение методов schema linking (лексический подход, BM25, embedding-based). Обоснование выбора лёгкого лексического baseline для текущей итерации.",выполнено
+13.04.2026,"Реализация baseline B1 (reduced-schema prompt через лексический schema linking; table×2, column×1, min_score=0.5, удаление стоп-слов).",работа выполнена в полном объёме
+14.04.2026,"Прогон B1 на smoke10. Сохранение артефактов: predictions JSONL с полями selected_tables и schema_reduction_ratio, metrics CSV с avg_reduction_ratio. Получено EX = 1.0 (10/10), avg reduction = 0.475.",результат получен
+15.04.2026,"Построение сравнения B0 vs B1 на smoke10: csv-таблица, markdown-нарратив, столбчатая диаграмма, case_diff из 5 кейсов.",выполнено
+16.04.2026–17.04.2026,"Прогон B0 и B1 на расширенном подмножестве smoke25 (n=25). Получено EX_B0 = 0.96 (24/25), EX_B1 = 0.96 (24/25), avg reduction B1 = 0.58. Обе модели ошибаются на одном и том же запросе типа wrong_aggregation.",результат получен
+18.04.2026,"Построение сравнения B0 vs B1 на smoke25, агрегированной таблицы прогрессии smoke10 → smoke25, 4-баровой диаграммы. Сформулировано заключение об information-equivalence schema linking на single-DB данных.",выполнено
+19.04.2026,"Построение таксономии ошибок на smoke25 (8 категорий) и per-cell breakdown. Подготовка буклета failure-buckets и case_diff отчётов.",работа выполнена в полном объёме
+20.04.2026,"Замена SendKeys-based инструментального контура на bridge-tool (Flask внутри Colab kernel + cloudflared tunnel + локальный HTTP-клиент); устранение фокус-зависимости.",выполнено
+21.04.2026,"Проектирование и документирование минимального B2 pipeline (Plan→SQL); разработка строгой JSON-схемы плана plan_schema.json (intent enum, additionalProperties: false, валидация через jsonschema).",результат получен
+22.04.2026,"Реализация модуля baselines_b2.py: make_plan_prompt, extract_json_block, parse_and_validate_plan, make_plan_to_sql_prompt. Sanity-test на одном элементе smoke10 — pipeline проходит end-to-end.",выполнено
+23.04.2026,"Прогон B2 на smoke10 в фоне через bridge-tool (background daemon thread + инкрементальное сохранение predictions). Получено EX_B2 = 0.7 (7/10), plan_valid = 9/10, plan_parse_failures = 0/10.",результат получен
+24.04.2026,"Построение three-way сравнения B0 vs B1 vs B2; формирование итогового evidence pack для практики; формулировка next steps. Подготовка структуры отчёта по практике.",работа выполнена в полном объёме

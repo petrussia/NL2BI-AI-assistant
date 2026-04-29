@@ -1,0 +1,85 @@
+group,path,purpose,should_use_in_report,should_use_in_appendix,comment
+metrics,outputs/metrics/b0_spider_smoke10_metrics.csv,B0 single-row metrics on smoke10 (EX/exec/n/quant),yes,yes,key numbers; cite EX
+metrics,outputs/metrics/b1_spider_smoke10_metrics.csv,B1 metrics on smoke10 (incl. avg_reduction_ratio),yes,yes,key numbers
+metrics,outputs/metrics/b0_spider_smoke25_metrics.csv,B0 metrics on smoke25,yes,yes,key numbers
+metrics,outputs/metrics/b1_spider_smoke25_metrics.csv,B1 metrics on smoke25 (incl. avg_reduction_ratio),yes,yes,key numbers
+metrics,outputs/metrics/b2_spider_smoke10_metrics.csv,B2 metrics on smoke10 (incl. plan_valid_count),yes,yes,key numbers + planner stats
+plots,outputs/plots/b0_vs_b1_smoke10_bar.png,EX bar B0 vs B1 smoke10,yes,no,Fig. 1 candidate
+plots,outputs/plots/b0_vs_b1_smoke25_bar.png,EX bar B0 vs B1 smoke25,yes,no,Fig. 2 candidate
+plots,outputs/plots/baseline_progression_smoke10_smoke25.png,4-bar progression smoke10->smoke25,yes,no,Fig. 3 candidate
+plots,outputs/plots/b0_b1_b2_smoke10_bar.png,3-bar B0/B1/B2 on smoke10,yes,no,Fig. 4 candidate (regression visualisation)
+comparison,outputs/tables/b0_vs_b1_smoke10_comparison.csv,Two-way comparison + transitions,yes,no,Tbl. for results section
+comparison,outputs/tables/b0_vs_b1_smoke10_comparison.md,Two-way comparison narrative,yes,no,reuse text in report
+comparison,outputs/tables/b0_vs_b1_smoke25_comparison.csv,Same on smoke25,yes,no,Tbl. for results section
+comparison,outputs/tables/b0_vs_b1_smoke25_comparison.md,Same narrative,yes,no,reuse text
+comparison,outputs/tables/b0_b1_b2_smoke10_comparison.csv,Three-way B0/B1/B2 comparison,yes,no,main results table candidate
+comparison,outputs/tables/b0_b1_b2_smoke10_comparison.md,Three-way narrative,yes,no,reuse text
+comparison,outputs/tables/baseline_progression_smoke10_smoke25.csv,Aggregate progression (4 rows),yes,yes,methods/results
+comparison,outputs/tables/baseline_progression_smoke10_smoke25.md,Aggregate progression narrative + delta sentence,yes,no,reuse text
+error_analysis,outputs/tables/error_taxonomy_smoke25.md,Bucket definitions + per-cell breakdown,yes,no,methods + results discussion
+error_analysis,outputs/tables/b0_b1_failure_buckets.csv,Bucket counts,yes,yes,supporting table
+error_analysis,outputs/tables/b0_vs_b1_case_diff.md,5+ case diffs smoke10,yes,yes,one or two examples in report; rest in appendix
+error_analysis,outputs/tables/b0_vs_b1_smoke25_case_diff.md,5+ case diffs smoke25,yes,yes,same
+error_analysis,outputs/tables/b0_b1_b2_smoke10_case_diff.md,5+ three-way cases,yes,yes,must include - shows where B2 regressed
+error_analysis,outputs/tables/b2_spider_smoke10_error_cases.md,All B2 errors smoke10 (3 cases),yes,no,short table in report
+error_analysis,outputs/tables/b2_spider_smoke10_examples.md,B2 first 5 examples,no,yes,appendix
+error_analysis,outputs/tables/b2_plan_examples_smoke10.md,5 question->plan->SQL traces,yes,yes,must include - shows planner output shape
+error_analysis,outputs/tables/b1_schema_linking_examples.md,Per-question linking smoke10,no,yes,appendix
+error_analysis,outputs/tables/b1_schema_linking_smoke25_examples.md,Per-question linking smoke25,no,yes,appendix
+error_analysis,outputs/tables/b0_spider_smoke10_examples.md,B0 first 5 examples,no,yes,appendix only
+error_analysis,outputs/tables/b0_spider_smoke25_examples.md,B0 first 5 examples smoke25,no,yes,appendix only
+error_analysis,outputs/tables/b1_spider_smoke10_examples.md,B1 first 5 examples,no,yes,appendix only
+error_analysis,outputs/tables/b1_spider_smoke25_examples.md,B1 first 5 examples smoke25,no,yes,appendix only
+error_analysis,outputs/tables/b0_spider_smoke10_error_cases.md,B0 errors smoke10 (none),no,no,empty table; skip
+error_analysis,outputs/tables/b0_spider_smoke25_error_cases.md,B0 errors smoke25 (1 case),no,yes,short appendix
+error_analysis,outputs/tables/b1_spider_smoke10_error_cases.md,B1 errors smoke10 (none),no,no,empty table; skip
+error_analysis,outputs/tables/b1_spider_smoke25_error_cases.md,B1 errors smoke25 (1 case),no,yes,short appendix
+error_analysis,outputs/tables/b0_spider_smoke10_summary.csv,B0 smoke10 key/value summary,no,yes,supporting
+error_analysis,outputs/tables/b1_spider_smoke10_summary.csv,B1 smoke10 key/value summary,no,yes,supporting
+error_analysis,outputs/tables/b0_spider_smoke25_summary.csv,B0 smoke25 key/value summary,no,yes,supporting
+error_analysis,outputs/tables/b1_spider_smoke25_summary.csv,B1 smoke25 key/value summary,no,yes,supporting
+error_analysis,outputs/tables/b2_spider_smoke10_summary.csv,B2 smoke10 key/value summary,no,yes,supporting
+raw_predictions,outputs/predictions/b0_spider_smoke10_predictions.jsonl,B0 jsonl smoke10,no,yes,full data; reference but do not paste
+raw_predictions,outputs/predictions/b1_spider_smoke10_predictions.jsonl,B1 jsonl smoke10 (with selected_tables and reduction_ratio),no,yes,full data
+raw_predictions,outputs/predictions/b0_spider_smoke25_predictions.jsonl,B0 jsonl smoke25,no,yes,full data
+raw_predictions,outputs/predictions/b1_spider_smoke25_predictions.jsonl,B1 jsonl smoke25,no,yes,full data
+raw_predictions,outputs/predictions/b2_spider_smoke10_predictions.jsonl,B2 jsonl smoke10 (with plan_raw and plan_parsed),no,yes,full data; appendix
+runlogs_audits,outputs/logs/runtime_project_root_audit.md,GPU/Python/library versions audit,yes,yes,methods reproducibility
+runlogs_audits,outputs/logs/bridge_status_drive.md,Bridge tool state,no,yes,methods/appendix tooling
+runlogs_audits,outputs/logs/artifact_recheck_drive.md,Pre-experiment artifact recheck,no,yes,reproducibility
+runlogs_audits,outputs/logs/smoke25_subset_audit.md,Subset audit,yes,no,methods - subset description
+runlogs_audits,outputs/logs/b2_preflight_drive.md,B2 preflight,no,yes,reproducibility
+runlogs_audits,outputs/logs/b2_design_decision.md,Where B2 code lives + why; planner schema,yes,yes,methods - B2 description; appendix copy
+runlogs_audits,outputs/logs/b2_implementation_plan.md,B2 scaffolding plan written before run,no,yes,appendix
+runlogs_audits,outputs/logs/b2_readiness_after_smoke25.md,Readiness assessment,no,yes,planning artefact
+runlogs_audits,outputs/logs/next_step_after_b2.md,Recommended next experiment,yes,yes,conclusion section quotes this
+runlogs_audits,outputs/logs/b0_spider_smoke10_runlog.txt,B0 smoke10 runlog,no,yes,reproducibility
+runlogs_audits,outputs/logs/b1_spider_smoke10_runlog.txt,B1 smoke10 runlog,no,yes,reproducibility
+runlogs_audits,outputs/logs/b0_spider_smoke25_runlog.txt,B0 smoke25 runlog,no,yes,reproducibility
+runlogs_audits,outputs/logs/b1_spider_smoke25_runlog.txt,B1 smoke25 runlog,no,yes,reproducibility
+runlogs_audits,outputs/logs/b2_spider_smoke10_runlog.txt,B2 smoke10 runlog,no,yes,reproducibility
+runlogs_audits,outputs/logs/b1_schema_linking_audit.md,B1 linker stats smoke10,yes,no,methods - schema linking description
+runlogs_audits,outputs/logs/b1_schema_linking_smoke25_audit.md,B1 linker stats smoke25,yes,no,methods - schema linking description
+runlogs_audits,outputs/logs/b0_blockers_audit.md,Spider acquisition + integrity,no,yes,setup section appendix
+runlogs_audits,outputs/logs/b0_physical_recheck.md,Physical existence recheck of B0 files,no,yes,reproducibility
+runlogs_audits,outputs/logs/b0_loader_subsets_audit.md,Loader and subset construction audit,no,yes,methods/appendix
+runlogs_audits,outputs/logs/local_helper_script_audit.md,Helper script audit (legacy),no,no,outdated; tooling section instead points at bridge
+runlogs_audits,outputs/logs/local_notebook_audit.md,Notebook audit (early),no,no,outdated; tooling section instead points at bridge
+runlogs_audits,outputs/logs/b1_ready_checklist.md,B1 readiness check,no,no,outdated
+runlogs_audits,outputs/logs/next_step_readiness.md,Old next-step readiness pre-B2,no,no,superseded by next_step_after_b2.md
+runlogs_audits,outputs/logs/smoke25_bg_task_log.txt,Smoke25 inference task log,no,yes,reproducibility appendix
+runlogs_audits,outputs/logs/b2_smoke10_bg_task_log.txt,B2 smoke10 inference task log,no,yes,reproducibility appendix
+runlogs_audits,outputs/logs/_bridge_write_test.txt,One-time bridge write test,no,no,delete or ignore
+runlogs_audits,outputs/logs/thesis_experiment_inventory.md,Thesis-side inventory,no,no,for diploma not practice
+runlogs_audits,outputs/logs/thesis_figure_index.md,Thesis-side figure index,no,no,for diploma not practice
+runlogs_audits,outputs/logs/thesis_methods_notes.md,Thesis-side methods phrasing,no,no,for diploma not practice
+runlogs_audits,outputs/logs/thesis_table_index.md,Thesis-side table index,no,no,for diploma not practice
+practice_docs,practice/practice_worklog_draft.md,Practice worklog draft,yes,no,reuse in introduction
+practice_docs,practice/practice_evidence_checklist.md,Evidence checklist,yes,no,reuse in introduction/methodology
+practice_docs,practice/practice_tasks_mapping.md,Task -> evidence mapping,yes,no,reuse in main body
+practice_docs,practice/practice_figure_index.md,Practice figure index,yes,no,reuse to populate report figure list
+practice_docs,practice/practice_table_index.md,Practice table index,yes,no,reuse to populate report table list
+repo_artifacts,repo/docs/plan_schema.json,B2 plan JSON schema,yes,yes,methods - B2 planner description; full schema in appendix
+repo_artifacts,repo/src/evaluation/baselines.py,B1 lexical schema linking module,no,yes,appendix code listing
+repo_artifacts,repo/src/evaluation/baselines_b2.py,B2 minimal Plan->SQL module,no,yes,appendix code listing
+repo_artifacts,data/spider/SOURCE_AND_AUDIT.md,Spider source provenance audit,yes,yes,methods - dataset section

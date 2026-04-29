@@ -1,0 +1,7 @@
+metric,b0,b1
+EX,1.0000,1.0000
+executable_count,10,10
+n,10,10
+improvements_b0_to_b1,,0
+regressions_b0_to_b1,,0
+unchanged,,10

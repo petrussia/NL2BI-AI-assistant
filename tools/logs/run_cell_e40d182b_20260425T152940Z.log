@@ -1,0 +1,19 @@
+[2026-04-25T15:29:40.080133+00:00] START cell=e40d182b max_wait=120 poll=4 init=8
+[2026-04-25T15:29:40.081157+00:00] cell idx=16 pre_exec=None pre_outputs=0
+[2026-04-25T15:29:41.344153+00:00] focused notebook via `D:\Programs\Microsoft VS Code\bin\code.cmd -r` (rc=0)
+[2026-04-25T15:29:42.844866+00:00] invoking helper: powershell.exe -ExecutionPolicy Bypass -File D:\HSE\Диплом\NL2BI-AI-assistant\scripts\run_colab_notebook.ps1 -NotebookPath D:\HSE\Диплом\NL2BI-AI-assistant\notebooks\example.ipynb -Action cell -CellId e40d182b -WaitSeconds 8
+[2026-04-25T15:29:57.858177+00:00] helper rc=0
+[2026-04-25T15:30:29.871819+00:00]   [32s] still running; pre_exec=None cur_exec=None outputs=0
+[2026-04-25T15:30:29.871819+00:00]   partial tail: '(no output yet)'
+[2026-04-25T15:31:01.886786+00:00]   [64s] still running; pre_exec=None cur_exec=None outputs=0
+[2026-04-25T15:31:01.886786+00:00]   partial tail: '(no output yet)'
+[2026-04-25T15:31:33.901228+00:00]   [96s] still running; pre_exec=None cur_exec=None outputs=0
+[2026-04-25T15:31:33.901228+00:00]   partial tail: '(no output yet)'
+[2026-04-25T15:31:57.912232+00:00] TIMEOUT after 120s, no exec_count change
+[2026-04-25T15:31:57.912232+00:00] SUSPECT FOCUS FAILURE: helper rc=0 but execution_count did not change.
+[2026-04-25T15:31:57.912232+00:00]   Likely cause: PowerShell-tool readonly tab stole focus from the notebook tab.
+[2026-04-25T15:31:57.912232+00:00]   Fix: ensure `code -r` focused the notebook (check focus_notebook log line above);
+[2026-04-25T15:31:57.912232+00:00]        consider closing extra readonly tabs in VS Code, or run cell manually once.
+[2026-04-25T15:31:57.912232+00:00] --- PARTIAL CELL OUTPUT ON TIMEOUT (last 8000 chars) ---
+[2026-04-25T15:31:57.912232+00:00] 
+[2026-04-25T15:31:57.912232+00:00] --- END PARTIAL ---

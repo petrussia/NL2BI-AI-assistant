@@ -1,0 +1,10 @@
+b1_spider_smoke25 run log
+checked_at: 2026-04-25T16:59:44.977549+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: smoke_25
+total: 25
+executable_count: 25
+execution_match_count: 24
+EX: 0.96
+elapsed_seconds: 1613.56
+extra: {"quantization": "4bit_bitsandbytes_config", "schema_strategy": "lexical_schema_linking", "avg_reduction_ratio": 0.58, "fallback_full_schema_count": 6}

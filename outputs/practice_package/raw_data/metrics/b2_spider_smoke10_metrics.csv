@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,planner,plan_valid_count,plan_parse_failures,avg_reduction_ratio,fallback_full_schema_count
+b2_spider_smoke10,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_10,10,7,0.7,9,4bit_bitsandbytes_config,lexical_schema_linking,json_plan_v1 (plan_schema.json),9,0,0.475,2
