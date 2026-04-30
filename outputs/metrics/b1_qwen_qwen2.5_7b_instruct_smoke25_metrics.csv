@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,n,execution_match_count,ex,executable_count,struct_avg_len_chars,struct_avg_len_tokens_est,struct_pct_starts_with_select,struct_pct_has_join,struct_pct_has_groupby,struct_pct_has_orderby,struct_pct_has_limit,struct_pct_safe_select,quantization,schema_strategy,avg_reduction_ratio
+b1_qwen_qwen2.5_7b_instruct_smoke25,Qwen/Qwen2.5-7B-Instruct,smoke_25,internal_core,25,21,0.84,24,86.0800,12.2000,100.0000,8.0000,24.0000,24.0000,16.0000,100.0000,bf16,lexical_schema_linking,0.58

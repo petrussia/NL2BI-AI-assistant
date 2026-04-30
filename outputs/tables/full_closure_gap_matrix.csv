@@ -1,0 +1,126 @@
+benchmark,benchmark_group,baseline,model,model_slug,status,metric_type,primary_metric_name,primary_metric_value,numerator,denominator,existing_artifact_prefix,blocker_reason
+smoke_10,internal_core,B0,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,1.0,10,10,b0_spider_smoke10,
+smoke_10,internal_core,B0,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,1.0,10,10,b0_qwen2p5_coder_14b_instruct_smoke10,
+smoke_10,internal_core,B0,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.8,8,10,b0_llama_3p1_8b_instruct_smoke10,
+smoke_10,internal_core,B0,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.6,6,10,b0_qwen_qwen2.5_7b_instruct_smoke10,
+smoke_10,internal_core,B0,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_10,internal_core,B1,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,1.0,10,10,b1_spider_smoke10,
+smoke_10,internal_core,B1,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,1.0,10,10,b1_qwen2p5_coder_14b_instruct_smoke10,
+smoke_10,internal_core,B1,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.9,9,10,b1_llama_3p1_8b_instruct_smoke10,
+smoke_10,internal_core,B1,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,1.0,10,10,b1_qwen_qwen2.5_7b_instruct_smoke10,
+smoke_10,internal_core,B1,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_10,internal_core,B2_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.8,8,10,b2v2_spider_smoke10,
+smoke_10,internal_core,B2_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+smoke_10,internal_core,B2_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.8,8,10,b2v2_llama_3p1_8b_smoke10,
+smoke_10,internal_core,B2_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+smoke_10,internal_core,B2_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_10,internal_core,B3_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.8,8,10,b3v2_spider_smoke10,
+smoke_10,internal_core,B3_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+smoke_10,internal_core,B3_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.8,8,10,b3v2_llama_3p1_8b_smoke10,
+smoke_10,internal_core,B3_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+smoke_10,internal_core,B3_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_10,internal_core,B4_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.8,8,10,b4v2_spider_smoke10,
+smoke_10,internal_core,B4_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+smoke_10,internal_core,B4_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.8,8,10,b4v2_llama_3p1_8b_smoke10,
+smoke_10,internal_core,B4_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+smoke_10,internal_core,B4_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_25,internal_core,B0,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.96,24,25,b0_spider_smoke25,
+smoke_25,internal_core,B0,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.96,24,25,b0_qwen2p5_coder_14b_instruct_smoke25,
+smoke_25,internal_core,B0,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.6,15,25,b0_llama_3p1_8b_instruct_smoke25,
+smoke_25,internal_core,B0,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.72,18,25,b0_qwen_qwen2.5_7b_instruct_smoke25,
+smoke_25,internal_core,B0,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_25,internal_core,B1,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.96,24,25,b1_spider_smoke25,
+smoke_25,internal_core,B1,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.92,23,25,b1_qwen2p5_coder_14b_instruct_smoke25,
+smoke_25,internal_core,B1,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.72,18,25,b1_llama_3p1_8b_instruct_smoke25,
+smoke_25,internal_core,B1,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.84,21,25,b1_qwen_qwen2.5_7b_instruct_smoke25,
+smoke_25,internal_core,B1,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_25,internal_core,B2_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.96,24,25,b2v2_spider_smoke25,
+smoke_25,internal_core,B2_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+smoke_25,internal_core,B2_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.8,20,25,b2v2_llama_3p1_8b_smoke25,
+smoke_25,internal_core,B2_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.88,22,25,b2v2_qwen_qwen2.5_7b_instruct_smoke25,
+smoke_25,internal_core,B2_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_25,internal_core,B3_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.96,24,25,b3v2_spider_smoke25,
+smoke_25,internal_core,B3_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+smoke_25,internal_core,B3_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.76,19,25,b3v2_llama_3p1_8b_smoke25,
+smoke_25,internal_core,B3_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+smoke_25,internal_core,B3_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+smoke_25,internal_core,B4_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.96,24,25,b4v2_spider_smoke25,
+smoke_25,internal_core,B4_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+smoke_25,internal_core,B4_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.76,19,25,b4v2_llama_3p1_8b_smoke25,
+smoke_25,internal_core,B4_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+smoke_25,internal_core,B4_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+multidb_30,internal_core,B0,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.9333333333333333,28,30,b0_multidb30_v2,
+multidb_30,internal_core,B0,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.8666666666666667,26,30,b0_qwen2p5_coder_14b_instruct_multidb30,
+multidb_30,internal_core,B0,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.8333333333333334,25,30,b0_llama_3p1_8b_instruct_multidb30,
+multidb_30,internal_core,B0,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.8,24,30,b0_qwen_qwen2.5_7b_instruct_multidb30,
+multidb_30,internal_core,B0,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+multidb_30,internal_core,B1,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.7666666666666667,23,30,b1_multidb30_v2,
+multidb_30,internal_core,B1,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.7666666666666667,23,30,b1_qwen2p5_coder_14b_instruct_multidb30,
+multidb_30,internal_core,B1,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.7,21,30,b1_llama_3p1_8b_instruct_multidb30,
+multidb_30,internal_core,B1,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.7,21,30,b1_qwen_qwen2.5_7b_instruct_multidb30,
+multidb_30,internal_core,B1,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+multidb_30,internal_core,B2_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.8,24,30,b2v2_multidb30,
+multidb_30,internal_core,B2_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+multidb_30,internal_core,B2_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.7333333333333333,22,30,b2v2_llama_3p1_8b_multidb30,
+multidb_30,internal_core,B2_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.7333333333333333,22,30,b2v2_qwen_qwen2.5_7b_instruct_multidb30,
+multidb_30,internal_core,B2_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+multidb_30,internal_core,B3_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.7333333333333333,22,30,b3v2_multidb30,
+multidb_30,internal_core,B3_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+multidb_30,internal_core,B3_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.6666666666666666,20,30,b3v2_llama_3p1_8b_multidb30,
+multidb_30,internal_core,B3_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+multidb_30,internal_core,B3_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+multidb_30,internal_core,B4_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.7333333333333333,22,30,b4v2_multidb30,
+multidb_30,internal_core,B4_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,missing,EX,,,,,,
+multidb_30,internal_core,B4_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.6333333333333333,19,30,b4v2_llama_3p1_8b_multidb30,
+multidb_30,internal_core,B4_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+multidb_30,internal_core,B4_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+bird_minidev_30,external_validation,B0,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.26666666666666666,8,30,b0_qwen2p5_coder_7b_bird_minidev_30,
+bird_minidev_30,external_validation,B0,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.23333333333333334,7,30,b0_qwen2p5_coder_14b_bird_minidev_30,
+bird_minidev_30,external_validation,B0,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.13333333333333333,4,30,b0_llama_3p1_8b_bird_minidev_30,
+bird_minidev_30,external_validation,B0,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.2,6,30,b0_qwen_qwen2.5_7b_instruct_bird_minidev_30,
+bird_minidev_30,external_validation,B0,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+bird_minidev_30,external_validation,B1,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.2,6,30,b1_qwen2p5_coder_7b_bird_minidev_30,
+bird_minidev_30,external_validation,B1,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.2,6,30,b1_qwen2p5_coder_14b_bird_minidev_30,
+bird_minidev_30,external_validation,B1,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.13333333333333333,4,30,b1_llama_3p1_8b_bird_minidev_30,
+bird_minidev_30,external_validation,B1,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.16666666666666666,5,30,b1_qwen_qwen2.5_7b_instruct_bird_minidev_30,
+bird_minidev_30,external_validation,B1,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+bird_minidev_30,external_validation,B2_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.2,6,30,b2v2_qwen2p5_coder_7b_bird_minidev_30,
+bird_minidev_30,external_validation,B2_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.2,6,30,b2v2_qwen2p5_coder_14b_bird_minidev_30,
+bird_minidev_30,external_validation,B2_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.06666666666666667,2,30,b2v2_llama_3p1_8b_bird_minidev_30,
+bird_minidev_30,external_validation,B2_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,EX,EX,0.16666666666666666,5,30,b2v2_qwen_qwen2.5_7b_instruct_bird_minidev_30,
+bird_minidev_30,external_validation,B2_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+bird_minidev_30,external_validation,B3_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.2,6,30,b3v2_qwen2p5_coder_7b_bird_minidev_30,
+bird_minidev_30,external_validation,B3_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.2,6,30,b3v2_qwen2p5_coder_14b_bird_minidev_30,
+bird_minidev_30,external_validation,B3_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.13333333333333333,4,30,b3v2_llama_3p1_8b_bird_minidev_30,
+bird_minidev_30,external_validation,B3_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+bird_minidev_30,external_validation,B3_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+bird_minidev_30,external_validation,B4_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,EX,EX,0.2,6,30,b4v2_qwen2p5_coder_7b_bird_minidev_30,
+bird_minidev_30,external_validation,B4_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,EX,EX,0.2,6,30,b4v2_qwen2p5_coder_14b_bird_minidev_30,
+bird_minidev_30,external_validation,B4_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,EX,EX,0.13333333333333333,4,30,b4v2_llama_3p1_8b_bird_minidev_30,
+bird_minidev_30,external_validation,B4_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,EX,,,,,,
+bird_minidev_30,external_validation,B4_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,EX,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+spider2lite_30,external_validation,B0,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,structural_only,structural_safe_select_pct,96.6667,0,30,b0_qwen2p5_coder_7b_spider2lite_30,
+spider2lite_30,external_validation,B0,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b0_qwen2p5_coder_14b_spider2lite_30,
+spider2lite_30,external_validation,B0,Llama-3.1-8B-Instruct,llama_3p1_8b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b0_llama_3p1_8b_spider2lite_30,
+spider2lite_30,external_validation,B0,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,structural_only,structural_safe_select_pct,96.6667,0,30,b0_qwen_qwen2.5_7b_instruct_spider2lite_30,
+spider2lite_30,external_validation,B0,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,structural_only,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+spider2lite_30,external_validation,B1,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,structural_only,structural_safe_select_pct,96.6667,0,30,b1_qwen2p5_coder_7b_spider2lite_30,
+spider2lite_30,external_validation,B1,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b1_qwen2p5_coder_14b_spider2lite_30,
+spider2lite_30,external_validation,B1,Llama-3.1-8B-Instruct,llama_3p1_8b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b1_llama_3p1_8b_spider2lite_30,
+spider2lite_30,external_validation,B1,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,structural_only,structural_safe_select_pct,96.6667,0,30,b1_qwen_qwen2.5_7b_instruct_spider2lite_30,
+spider2lite_30,external_validation,B1,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,structural_only,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+spider2lite_30,external_validation,B2_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,structural_only,structural_safe_select_pct,96.6667,0,30,b2v2_qwen2p5_coder_7b_spider2lite_30,
+spider2lite_30,external_validation,B2_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b2v2_qwen2p5_coder_14b_spider2lite_30,
+spider2lite_30,external_validation,B2_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b2v2_llama_3p1_8b_spider2lite_30,
+spider2lite_30,external_validation,B2_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,done,structural_only,structural_safe_select_pct,96.6667,0,30,b2v2_qwen_qwen2.5_7b_instruct_spider2lite_30,
+spider2lite_30,external_validation,B2_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,structural_only,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+spider2lite_30,external_validation,B3_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,structural_only,structural_safe_select_pct,96.6667,0,30,b3v2_qwen2p5_coder_7b_spider2lite_30,
+spider2lite_30,external_validation,B3_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b3v2_qwen2p5_coder_14b_spider2lite_30,
+spider2lite_30,external_validation,B3_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b3v2_llama_3p1_8b_spider2lite_30,
+spider2lite_30,external_validation,B3_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,structural_only,,,,,,
+spider2lite_30,external_validation,B3_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,structural_only,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3
+spider2lite_30,external_validation,B4_v2,Qwen2.5-Coder-7B-Instruct,qwen2p5_coder_7b,done,structural_only,structural_safe_select_pct,96.6667,0,30,b4v2_qwen2p5_coder_7b_spider2lite_30,
+spider2lite_30,external_validation,B4_v2,Qwen2.5-Coder-14B-Instruct,qwen2p5_coder_14b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b4v2_qwen2p5_coder_14b_spider2lite_30,
+spider2lite_30,external_validation,B4_v2,Llama-3.1-8B-Instruct,llama_3p1_8b,done,structural_only,structural_safe_select_pct,100.0000,0,30,b4v2_llama_3p1_8b_spider2lite_30,
+spider2lite_30,external_validation,B4_v2,Qwen2.5-7B-Instruct,qwen_qwen2.5_7b_instruct,missing,structural_only,,,,,,
+spider2lite_30,external_validation,B4_v2,DeepSeek-Coder-V2-Lite-Instruct,deepseek_coder_v2_lite,blocked,structural_only,,,,,,environmental: trust_remote_code ABI mismatch with transformers 5.0.0; needs fresh kernel with transformers==4.39.3

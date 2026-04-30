@@ -1,0 +1,9 @@
+# b0_qwen_qwen2.5_7b_instruct_bird_minidev_30 Examples
+
+|idx|question|db_id|generated_sql|executable|execution_match|error_type|path|
+|---|---|---|---|---|---|---|---|
+|0|How many schools with an average score in Math greater than 400 in the SAT test are exclusively virtual?|california_schools|SELECT COUNT(*) <br>FROM satscores <br>JOIN schools ON satscores.cds = schools.CDSCode <br>WHERE satscores.AvgScrMath > 400 AND schools.Virtual = 'Y' AND schools.Magnet = 'N';|True|False|result_mismatch|direct_full_schema|
+|1|Which are the cards that have incredibly powerful foils.|card_games|SELECT name, manaCost, power, toughness, text <br>FROM cards <br>WHERE hasFoil = 1 AND (power IS NOT NULL AND toughness IS NOT NULL AND (power >= 5 OR toughness >= 5 OR manaCost LIKE '%{5}%'));|True|False|TypeError|direct_full_schema|
+|2|Which user has a higher reputation, Harlan or Jarrod Dixon?|codebase_community|SELECT u1.DisplayName, u1.Reputation <br>FROM users u1<br>JOIN users u2 ON u1.Reputation < u2.Reputation<br>WHERE (u1.DisplayName = 'Harlan' AND u2.DisplayName = 'Jarrod Dixon') OR (u1.DisplayName = 'Jarrod Dixon' AND u2.DisplayName = 'Harlan')<br>LIMIT 1;|True|False|result_mismatch|direct_full_schema|
+|3|What is the ratio of customers who pay in EUR against customers who pay in CZK?|debit_card_specializing|SELECT <br>    SUM(CASE WHEN Currency = 'EUR' THEN 1 ELSE 0 END) / COUNT(*) AS euro_ratio,<br>    SUM(CASE WHEN Currency = 'CZK' THEN 1 ELSE 0 END) / COUNT(*) AS czk_ratio<br>FROM <br>    customers;|True|False|result_mismatch|direct_full_schema|
+|4|Give the name of the league had the most goals in the 2016 season?|european_football_2|SELECT L.name<br>FROM League L<br>JOIN Country C ON L.country_id = C.id<br>JOIN Match M ON L.id = M.league_id<br>GROUP BY L.name<br>ORDER BY SUM(M.home_team_goal + M.away_team_goal) DESC<br>LIMIT 1;|True|True||direct_full_schema|

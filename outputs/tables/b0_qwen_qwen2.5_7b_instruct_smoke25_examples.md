@@ -1,0 +1,9 @@
+# b0_qwen_qwen2.5_7b_instruct_smoke25 Examples
+
+|idx|question|db_id|generated_sql|executable|execution_match|error_type|path|
+|---|---|---|---|---|---|---|---|
+|0|How many singers do we have?|concert_singer|SELECT COUNT(*) AS NumberOfSingers FROM singer;|True|True||direct_full_schema|
+|1|What is the total number of singers?|concert_singer|SELECT COUNT(DISTINCT Singer_ID) AS Total_Singers<br>FROM singer;|True|True||direct_full_schema|
+|2|Show name, country, age for all singers ordered by age from the oldest to the youngest.|concert_singer|SELECT Name, Country, Age <br>FROM singer <br>ORDER BY Age DESC;|True|True||direct_full_schema|
+|3|What are the names, countries, and ages for every singer in descending order of age?|concert_singer|SELECT Name, Country, Age <br>FROM singer <br>ORDER BY Age DESC;|True|True||direct_full_schema|
+|4|What is the average, minimum, and maximum age of all singers from France?|concert_singer|SELECT AVG(Age) AS Average_age, MIN(Age) AS Minimum_age, MAX(Age) AS Maximum_age <br>FROM singer <br>WHERE Country = 'France';|True|True||direct_full_schema|

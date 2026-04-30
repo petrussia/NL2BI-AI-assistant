@@ -1,0 +1,10 @@
+b1_qwen2p5_coder_14b_spider2lite_30 run log
+checked_at: 2026-04-30T18:46:03.888867+00:00
+model: Qwen/Qwen2.5-Coder-14B-Instruct
+subset: spider2lite_30
+benchmark_group: external_validation
+total: 30
+executable_count: 0
+execution_match_count: 0
+EX: 0.0
+elapsed_seconds: 220.18

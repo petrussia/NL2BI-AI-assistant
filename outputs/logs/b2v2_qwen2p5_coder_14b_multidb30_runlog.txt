@@ -1,0 +1,10 @@
+b2v2_qwen2p5_coder_14b_multidb30 run log
+checked_at: 2026-04-30T18:12:29.780297+00:00
+model: Qwen/Qwen2.5-Coder-14B-Instruct
+subset: multidb_30
+benchmark_group: internal_core
+total: 30
+executable_count: 30
+execution_match_count: 27
+EX: 0.9
+elapsed_seconds: 135.31

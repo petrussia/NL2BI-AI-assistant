@@ -1,0 +1,10 @@
+b2v2_llama_3p1_8b_smoke25 run log
+checked_at: 2026-04-30T17:28:04.195588+00:00
+model: meta-llama/Llama-3.1-8B-Instruct
+subset: smoke_25
+benchmark_group: internal_core
+total: 25
+executable_count: 25
+execution_match_count: 20
+EX: 0.8
+elapsed_seconds: 91.32
