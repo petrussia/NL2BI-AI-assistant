@@ -1,0 +1,10 @@
+metric,value
+completed,true
+EX,0.8666666666666667
+executable_count,30
+total,30
+model,Qwen/Qwen2.5-Coder-14B-Instruct
+subset,multidb_30
+quantization,4bit_bitsandbytes_config
+schema_strategy,full_schema
+comparator_role,larger_qwen_coder

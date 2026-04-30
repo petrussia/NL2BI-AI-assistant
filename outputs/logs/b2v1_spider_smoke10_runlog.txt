@@ -1,0 +1,7 @@
+b2v1_spider_smoke10 run log
+checked_at: 2026-04-29T15:09:30.579587+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: smoke_10
+total: 10; exec_count: 8; match_count: 6; EX: 0.6
+elapsed_seconds: 77.84
+extra: {"quantization": "4bit_bitsandbytes_config", "schema_strategy": "lexical_schema_linking", "planner": "json_plan_v1 + patches", "plan_valid_count": 8, "plan_parse_failures": 0, "avg_reduction_ratio": 0.475}

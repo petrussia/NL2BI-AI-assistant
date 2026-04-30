@@ -1,0 +1,7 @@
+b4_final_multidb30 run log
+checked_at: 2026-04-29T15:27:41.241114+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: multidb_30
+total: 30; exec_count: 18; match_count: 14; EX: 0.4666666666666667
+elapsed_seconds: 204.11
+extra: {"quantization": "4bit_bitsandbytes_config", "schema_strategy": "adaptive_dual_retrieval", "planner": "json_plan_v1 + patches", "plan_valid_count": 18, "plan_parse_failures": 0, "multi_candidate": 3, "repair_max": 1, "repaired_count": 0, "rejected_unsafe_total": 0, "avg_reduction_ratio": 0.5527777777777777}

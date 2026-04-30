@@ -1,0 +1,7 @@
+step,description,status
+1,Open a fresh Colab notebook (do not reuse Qwen-runtime kernel),pending
+2,pip install -q transformers==4.39.3 accelerate==0.26.1 bitsandbytes safetensors func_timeout jsonschema,pending
+3,from huggingface_hub import login; login() with HF_TOKEN,pending
+4,Load DeepSeek-Coder-V2-Lite-Instruct in 4-bit nf4,pending
+5,Bridge bootstrap + tools/.bridge_url update,pending
+6,Run 60_deepseek_b0_b1_bg.py,pending

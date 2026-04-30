@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,comparator_role
+b0_llama_3p1_8b_instruct_smoke10,meta-llama/Llama-3.1-8B-Instruct,smoke_10,10,8,0.8,10,4bit_bitsandbytes_config,full_schema,mandatory_model_llama

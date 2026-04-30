@@ -1,0 +1,263 @@
+[2026-04-30T16:08:28.302507+00:00] EXTERNAL_RUNS_SUBPROC_START
+[2026-04-30T16:08:29.529000+00:00] loaded BIRD slice: n=30; Spider2 slice: n=30
+[2026-04-30T16:08:36.708949+00:00] loading Qwen/Qwen2.5-Coder-7B-Instruct: gpu_free=84.20 GB total=85.09 GB
+[2026-04-30T16:08:44.873531+00:00] LOADED Qwen/Qwen2.5-Coder-7B-Instruct in 8.2s VRAM=14525 MB
+[2026-04-30T16:08:44.876553+00:00] === B0 BIRD Qwen/Qwen2.5-Coder-7B-Instruct ===
+[2026-04-30T16:08:47.389604+00:00]   B0  0 california_schools        exec=True match=False err='result_mismatch'
+[2026-04-30T16:08:49.414653+00:00]   B0  1 card_games                exec=True match=False err='result_mismatch'
+[2026-04-30T16:08:50.322713+00:00]   B0  2 codebase_community        exec=True match=True err=''
+[2026-04-30T16:08:53.113551+00:00]   B0  3 debit_card_specializing   exec=True match=False err='result_mismatch'
+[2026-04-30T16:08:56.048544+00:00]   B0  4 european_football_2       exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:02.313637+00:00]   B0  5 financial                 exec=False match=False err='OperationalError'
+[2026-04-30T16:09:04.704518+00:00]   B0  6 formula_1                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:06.293191+00:00]   B0  7 student_club              exec=True match=True err=''
+[2026-04-30T16:09:08.118704+00:00]   B0  8 superhero                 exec=True match=True err=''
+[2026-04-30T16:09:14.399560+00:00]   B0  9 thrombosis_prediction     exec=False match=False err='OperationalError'
+[2026-04-30T16:09:15.042590+00:00]   B0 10 toxicology                exec=True match=True err=''
+[2026-04-30T16:09:15.714157+00:00]   B0 11 california_schools        exec=False match=False err='OperationalError'
+[2026-04-30T16:09:17.840046+00:00]   B0 12 card_games                exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:18.665509+00:00]   B0 13 codebase_community        exec=True match=True err=''
+[2026-04-30T16:09:22.062269+00:00]   B0 14 debit_card_specializing   exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:26.492987+00:00]   B0 15 european_football_2       exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:29.188145+00:00]   B0 16 financial                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:31.038262+00:00]   B0 17 formula_1                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:32.987426+00:00]   B0 18 student_club              exec=True match=True err=''
+[2026-04-30T16:09:34.927357+00:00]   B0 19 superhero                 exec=True match=True err=''
+[2026-04-30T16:09:36.605060+00:00]   B0 20 thrombosis_prediction     exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:38.100187+00:00]   B0 21 toxicology                exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:41.058089+00:00]   B0 22 california_schools        exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:43.380707+00:00]   B0 23 card_games                exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:44.350321+00:00]   B0 24 codebase_community        exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:46.238760+00:00]   B0 25 debit_card_specializing   exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:47.810340+00:00]   B0 26 european_football_2       exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:49.819186+00:00]   B0 27 financial                 exec=False match=False err='OperationalError'
+[2026-04-30T16:09:51.093438+00:00]   B0 28 formula_1                 exec=True match=True err=''
+[2026-04-30T16:09:52.710245+00:00]   B0 29 student_club              exec=True match=False err='result_mismatch'
+[2026-04-30T16:09:52.741021+00:00] Qwen7B_B0_BIRD EX=0.2667
+[2026-04-30T16:09:52.743229+00:00] === B2_v2 BIRD Qwen/Qwen2.5-Coder-7B-Instruct ===
+[2026-04-30T16:09:58.574779+00:00]   B2v2  0 california_schools        path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:10:03.301321+00:00]   B2v2  1 card_games                path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:10:07.648899+00:00]   B2v2  2 codebase_community        path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:10:17.339463+00:00]   B2v2  3 debit_card_specializing   path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:10:25.234927+00:00]   B2v2  4 european_football_2       path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:10:36.747469+00:00]   B2v2  5 financial                 path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:10:41.932098+00:00]   B2v2  6 formula_1                 path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:10:47.482452+00:00]   B2v2  7 student_club              path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:10:54.284976+00:00]   B2v2  8 superhero                 path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:11:02.608518+00:00]   B2v2  9 thrombosis_prediction     path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:11:06.601831+00:00]   B2v2 10 toxicology                path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:11:09.812812+00:00]   B2v2 11 california_schools        path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:11:14.914786+00:00]   B2v2 12 card_games                path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:11:18.611691+00:00]   B2v2 13 codebase_community        path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:11:22.787961+00:00]   B2v2 14 debit_card_specializing   path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:11:36.004731+00:00]   B2v2 15 european_football_2       path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:11:47.171480+00:00]   B2v2 16 financial                 path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:11:56.716654+00:00]   B2v2 17 formula_1                 path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:12:04.324964+00:00]   B2v2 18 student_club              path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:12:12.341454+00:00]   B2v2 19 superhero                 path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:12:17.332475+00:00]   B2v2 20 thrombosis_prediction     path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:12:24.296357+00:00]   B2v2 21 toxicology                path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:12:29.092075+00:00]   B2v2 22 california_schools        path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:12:35.964453+00:00]   B2v2 23 card_games                path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:12:39.133747+00:00]   B2v2 24 codebase_community        path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:12:48.394269+00:00]   B2v2 25 debit_card_specializing   path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:12:52.952542+00:00]   B2v2 26 european_football_2       path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:12:59.917403+00:00]   B2v2 27 financial                 path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:13:05.307207+00:00]   B2v2 28 formula_1                 path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:13:10.884351+00:00]   B2v2 29 student_club              path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:13:10.914682+00:00] Qwen7B_B2v2_BIRD EX=0.2000
+[2026-04-30T16:13:10.916594+00:00] === B0 Spider2-Lite Qwen/Qwen2.5-Coder-7B-Instruct ===
+[2026-04-30T16:13:19.667562+00:00]   B0  0 AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET sql_len=980
+[2026-04-30T16:13:23.632525+00:00]   B0  1 AUSTIN                         sql_len=441
+[2026-04-30T16:13:30.479909+00:00]   B0  2 AdventureWorks                 sql_len=613
+[2026-04-30T16:13:32.067161+00:00]   B0  3 Airlines                       sql_len=195
+[2026-04-30T16:13:34.789070+00:00]   B0  4 BRAZE_USER_EVENT_DEMO_DATASET  sql_len=195
+[2026-04-30T16:13:39.625633+00:00]   B0  5 Baseball                       sql_len=386
+[2026-04-30T16:13:46.977001+00:00]   B0  6 BowlingLeague                  sql_len=666
+[2026-04-30T16:13:53.930689+00:00]   B0  7 Brazilian_E_Commerce           sql_len=637
+[2026-04-30T16:14:00.813156+00:00]   B0  8 CENSUS_BUREAU_ACS_2            sql_len=744
+[2026-04-30T16:14:04.133640+00:00]   B0  9 CENSUS_GALAXY__AIML_MODEL_DATA_ENRICHMENT_SAMPLE sql_len=312
+[2026-04-30T16:14:07.366331+00:00]   B0 10 CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE sql_len=326
+[2026-04-30T16:14:12.611369+00:00]   B0 11 CPTAC_PDC                      sql_len=481
+[2026-04-30T16:14:20.110885+00:00]   B0 12 CRYPTO                         sql_len=477
+[2026-04-30T16:14:22.157962+00:00]   B0 13 CYMBAL_INVESTMENTS             sql_len=212
+[2026-04-30T16:14:26.350428+00:00]   B0 14 California_Traffic_Collision   sql_len=408
+[2026-04-30T16:14:30.299884+00:00]   B0 15 DEATH                          sql_len=392
+[2026-04-30T16:14:32.118442+00:00]   B0 16 DEPS_DEV_V1                    sql_len=204
+[2026-04-30T16:14:35.744623+00:00]   B0 17 Db-IMDB                        sql_len=335
+[2026-04-30T16:14:39.081713+00:00]   B0 18 ETHEREUM_BLOCKCHAIN            sql_len=302
+[2026-04-30T16:14:41.850124+00:00]   B0 19 EU_soccer                      sql_len=272
+[2026-04-30T16:14:47.966521+00:00]   B0 20 E_commerce                     sql_len=513
+[2026-04-30T16:14:51.883564+00:00]   B0 21 EntertainmentAgency            sql_len=385
+[2026-04-30T16:14:55.326258+00:00]   B0 22 FINANCE__ECONOMICS             sql_len=250
+[2026-04-30T16:14:56.298992+00:00]   B0 23 GENOMICS_CANNABIS              sql_len=126
+[2026-04-30T16:14:59.095718+00:00]   B0 24 GEO_OPENSTREETMAP              sql_len=278
+[2026-04-30T16:15:03.311730+00:00]   B0 25 GEO_OPENSTREETMAP_BOUNDARIES   sql_len=376
+[2026-04-30T16:15:07.758139+00:00]   B0 26 GEO_OPENSTREETMAP_CENSUS_PLACES sql_len=494
+[2026-04-30T16:15:12.863505+00:00]   B0 27 GEO_OPENSTREETMAP_WORLDPOP     sql_len=506
+[2026-04-30T16:15:14.739638+00:00]   B0 28 GITHUB_REPOS                   sql_len=182
+[2026-04-30T16:15:19.050732+00:00]   B0 29 GITHUB_REPOS_DATE              sql_len=360
+[2026-04-30T16:15:19.079530+00:00] Qwen7B_B0_Spider2Lite (prediction-only) avg_safe_select=96.6667
+[2026-04-30T16:15:19.081321+00:00] === B2_v2 Spider2-Lite Qwen/Qwen2.5-Coder-7B-Instruct ===
+[2026-04-30T16:15:36.480571+00:00]   B2v2  0 AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET path=b1_fallback_invalid_plan   sql_len=980
+[2026-04-30T16:15:52.788501+00:00]   B2v2  1 AUSTIN                         path=b1_fallback_invalid_plan   sql_len=764
+[2026-04-30T16:16:07.955780+00:00]   B2v2  2 AdventureWorks                 path=b1_fallback_invalid_plan   sql_len=567
+[2026-04-30T16:16:12.889251+00:00]   B2v2  3 Airlines                       path=b1_fallback_invalid_plan   sql_len=210
+[2026-04-30T16:16:22.057216+00:00]   B2v2  4 BRAZE_USER_EVENT_DEMO_DATASET  path=b1_fallback_invalid_plan   sql_len=256
+[2026-04-30T16:16:28.762264+00:00]   B2v2  5 Baseball                       path=b1_fallback_invalid_plan   sql_len=360
+[2026-04-30T16:16:44.007129+00:00]   B2v2  6 BowlingLeague                  path=b1_fallback_invalid_plan   sql_len=666
+[2026-04-30T16:16:54.334806+00:00]   B2v2  7 Brazilian_E_Commerce           path=b1_fallback_invalid_plan   sql_len=521
+[2026-04-30T16:17:11.100388+00:00]   B2v2  8 CENSUS_BUREAU_ACS_2            path=b1_fallback_invalid_plan   sql_len=858
+[2026-04-30T16:17:20.226439+00:00]   B2v2  9 CENSUS_GALAXY__AIML_MODEL_DATA_ENRICHMENT_SAMPLE path=b1_fallback_invalid_plan   sql_len=312
+[2026-04-30T16:17:27.111769+00:00]   B2v2 10 CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE path=b1_fallback_invalid_plan   sql_len=338
+[2026-04-30T16:17:40.894760+00:00]   B2v2 11 CPTAC_PDC                      path=b1_fallback_invalid_plan   sql_len=452
+[2026-04-30T16:17:56.975297+00:00]   B2v2 12 CRYPTO                         path=b1_fallback_invalid_plan   sql_len=537
+[2026-04-30T16:18:08.587745+00:00]   B2v2 13 CYMBAL_INVESTMENTS             path=b1_fallback_invalid_plan   sql_len=218
+[2026-04-30T16:18:19.798766+00:00]   B2v2 14 California_Traffic_Collision   path=b1_fallback_invalid_plan   sql_len=428
+[2026-04-30T16:18:34.528936+00:00]   B2v2 15 DEATH                          path=b1_fallback_invalid_plan   sql_len=412
+[2026-04-30T16:18:43.172477+00:00]   B2v2 16 DEPS_DEV_V1                    path=b1_fallback_invalid_plan   sql_len=378
+[2026-04-30T16:18:55.800408+00:00]   B2v2 17 Db-IMDB                        path=b1_fallback_invalid_plan   sql_len=341
+[2026-04-30T16:19:08.990063+00:00]   B2v2 18 ETHEREUM_BLOCKCHAIN            path=b1_fallback_invalid_plan   sql_len=434
+[2026-04-30T16:19:16.813749+00:00]   B2v2 19 EU_soccer                      path=b1_fallback_invalid_plan   sql_len=285
+[2026-04-30T16:19:34.251397+00:00]   B2v2 20 E_commerce                     path=b1_fallback_invalid_plan   sql_len=856
+[2026-04-30T16:19:45.252837+00:00]   B2v2 21 EntertainmentAgency            path=b1_fallback_invalid_plan   sql_len=385
+[2026-04-30T16:19:56.856956+00:00]   B2v2 22 FINANCE__ECONOMICS             path=b1_fallback_invalid_plan   sql_len=319
+[2026-04-30T16:20:00.357665+00:00]   B2v2 23 GENOMICS_CANNABIS              path=b1_fallback_invalid_plan   sql_len=117
+[2026-04-30T16:20:12.009423+00:00]   B2v2 24 GEO_OPENSTREETMAP              path=b1_fallback_invalid_plan   sql_len=298
+[2026-04-30T16:20:25.052668+00:00]   B2v2 25 GEO_OPENSTREETMAP_BOUNDARIES   path=b1_fallback_invalid_plan   sql_len=469
+[2026-04-30T16:20:34.722769+00:00]   B2v2 26 GEO_OPENSTREETMAP_CENSUS_PLACES path=b1_fallback_invalid_plan   sql_len=363
+[2026-04-30T16:20:48.360132+00:00]   B2v2 27 GEO_OPENSTREETMAP_WORLDPOP     path=b1_fallback_invalid_plan   sql_len=492
+[2026-04-30T16:20:53.992478+00:00]   B2v2 28 GITHUB_REPOS                   path=b1_fallback_invalid_plan   sql_len=105
+[2026-04-30T16:21:05.660822+00:00]   B2v2 29 GITHUB_REPOS_DATE              path=b1_fallback_invalid_plan   sql_len=422
+[2026-04-30T16:21:05.688844+00:00] Qwen7B_B2v2_Spider2Lite (prediction-only) avg_safe_select=96.6667
+[2026-04-30T16:21:05.950833+00:00] loading meta-llama/Llama-3.1-8B-Instruct: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T16:21:14.905694+00:00] LOADED meta-llama/Llama-3.1-8B-Instruct in 9.0s VRAM=15325 MB
+[2026-04-30T16:21:14.908378+00:00] === B0 BIRD meta-llama/Llama-3.1-8B-Instruct ===
+[2026-04-30T16:21:15.751380+00:00]   B0  0 california_schools        exec=False match=False err='OperationalError'
+[2026-04-30T16:21:18.156960+00:00]   B0  1 card_games                exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:19.420664+00:00]   B0  2 codebase_community        exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:21.440674+00:00]   B0  3 debit_card_specializing   exec=True match=True err=''
+[2026-04-30T16:21:24.247532+00:00]   B0  4 european_football_2       exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:26.556929+00:00]   B0  5 financial                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:28.687623+00:00]   B0  6 formula_1                 exec=False match=False err='OperationalError'
+[2026-04-30T16:21:30.426688+00:00]   B0  7 student_club              exec=True match=True err=''
+[2026-04-30T16:21:31.984560+00:00]   B0  8 superhero                 exec=False match=False err='OperationalError'
+[2026-04-30T16:21:34.401775+00:00]   B0  9 thrombosis_prediction     exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:35.225119+00:00]   B0 10 toxicology                exec=True match=True err=''
+[2026-04-30T16:21:35.886098+00:00]   B0 11 california_schools        exec=False match=False err='OperationalError'
+[2026-04-30T16:21:36.643057+00:00]   B0 12 card_games                exec=False match=False err='OperationalError'
+[2026-04-30T16:21:37.214120+00:00]   B0 13 codebase_community        exec=False match=False err='OperationalError'
+[2026-04-30T16:21:38.325663+00:00]   B0 14 debit_card_specializing   exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:41.467109+00:00]   B0 15 european_football_2       exec=False match=False err='OperationalError'
+[2026-04-30T16:21:43.910530+00:00]   B0 16 financial                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:45.988102+00:00]   B0 17 formula_1                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:21:48.142475+00:00]   B0 18 student_club              exec=False match=False err='OperationalError'
+[2026-04-30T16:21:50.516409+00:00]   B0 19 superhero                 exec=True match=True err=''
+[2026-04-30T16:21:53.060010+00:00]   B0 20 thrombosis_prediction     exec=False match=False err='OperationalError'
+[2026-04-30T16:21:56.846199+00:00]   B0 21 toxicology                exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:00.427357+00:00]   B0 22 california_schools        exec=False match=False err='OperationalError'
+[2026-04-30T16:22:03.144634+00:00]   B0 23 card_games                exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:03.905319+00:00]   B0 24 codebase_community        exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:06.539108+00:00]   B0 25 debit_card_specializing   exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:08.255215+00:00]   B0 26 european_football_2       exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:09.911595+00:00]   B0 27 financial                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:11.272663+00:00]   B0 28 formula_1                 exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:13.202690+00:00]   B0 29 student_club              exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:13.237084+00:00] Llama_B0_BIRD EX=0.1333
+[2026-04-30T16:22:13.239562+00:00] === B2_v2 BIRD meta-llama/Llama-3.1-8B-Instruct ===
+[2026-04-30T16:22:18.854135+00:00]   B2v2  0 california_schools        path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:29.101367+00:00]   B2v2  1 card_games                path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:22:33.311374+00:00]   B2v2  2 codebase_community        path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:36.728955+00:00]   B2v2  3 debit_card_specializing   path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:45.479318+00:00]   B2v2  4 european_football_2       path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:22:51.718409+00:00]   B2v2  5 financial                 path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:22:56.862933+00:00]   B2v2  6 formula_1                 path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:23:02.081622+00:00]   B2v2  7 student_club              path=plan_then_sql              exec=True match=True err=''
+[2026-04-30T16:23:08.857853+00:00]   B2v2  8 superhero                 path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:23:20.014590+00:00]   B2v2  9 thrombosis_prediction     path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:23:24.304806+00:00]   B2v2 10 toxicology                path=b1_fallback_invalid_plan   exec=True match=True err=''
+[2026-04-30T16:23:27.708750+00:00]   B2v2 11 california_schools        path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:23:32.985765+00:00]   B2v2 12 card_games                path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:23:37.886598+00:00]   B2v2 13 codebase_community        path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:23:44.820712+00:00]   B2v2 14 debit_card_specializing   path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:23:54.171140+00:00]   B2v2 15 european_football_2       path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:23:59.723771+00:00]   B2v2 16 financial                 path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:24:06.750674+00:00]   B2v2 17 formula_1                 path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:24:12.389145+00:00]   B2v2 18 student_club              path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:24:17.490212+00:00]   B2v2 19 superhero                 path=plan_then_sql              exec=False match=False err='OperationalError'
+[2026-04-30T16:24:20.817661+00:00]   B2v2 20 thrombosis_prediction     path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:24:29.831583+00:00]   B2v2 21 toxicology                path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:24:39.169682+00:00]   B2v2 22 california_schools        path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:24:49.312261+00:00]   B2v2 23 card_games                path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:24:52.719873+00:00]   B2v2 24 codebase_community        path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:25:01.028116+00:00]   B2v2 25 debit_card_specializing   path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:25:07.481516+00:00]   B2v2 26 european_football_2       path=b1_fallback_invalid_plan   exec=False match=False err='OperationalError'
+[2026-04-30T16:25:15.777977+00:00]   B2v2 27 financial                 path=b1_fallback_invalid_plan   exec=True match=False err='result_mismatch'
+[2026-04-30T16:25:22.444878+00:00]   B2v2 28 formula_1                 path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:25:28.087975+00:00]   B2v2 29 student_club              path=plan_then_sql              exec=True match=False err='result_mismatch'
+[2026-04-30T16:25:28.114927+00:00] Llama_B2v2_BIRD EX=0.0667
+[2026-04-30T16:25:28.116636+00:00] === B0 Spider2-Lite meta-llama/Llama-3.1-8B-Instruct ===
+[2026-04-30T16:25:37.574978+00:00]   B0  0 AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET sql_len=887
+[2026-04-30T16:25:42.531714+00:00]   B0  1 AUSTIN                         sql_len=425
+[2026-04-30T16:25:47.589936+00:00]   B0  2 AdventureWorks                 sql_len=495
+[2026-04-30T16:25:50.104102+00:00]   B0  3 Airlines                       sql_len=220
+[2026-04-30T16:25:52.969035+00:00]   B0  4 BRAZE_USER_EVENT_DEMO_DATASET  sql_len=268
+[2026-04-30T16:25:57.699937+00:00]   B0  5 Baseball                       sql_len=343
+[2026-04-30T16:26:01.313970+00:00]   B0  6 BowlingLeague                  sql_len=332
+[2026-04-30T16:26:10.861778+00:00]   B0  7 Brazilian_E_Commerce           sql_len=712
+[2026-04-30T16:26:17.913561+00:00]   B0  8 CENSUS_BUREAU_ACS_2            sql_len=667
+[2026-04-30T16:26:24.936329+00:00]   B0  9 CENSUS_GALAXY__AIML_MODEL_DATA_ENRICHMENT_SAMPLE sql_len=564
+[2026-04-30T16:26:29.587367+00:00]   B0 10 CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE sql_len=294
+[2026-04-30T16:26:38.637996+00:00]   B0 11 CPTAC_PDC                      sql_len=779
+[2026-04-30T16:26:45.922212+00:00]   B0 12 CRYPTO                         sql_len=512
+[2026-04-30T16:26:47.784507+00:00]   B0 13 CYMBAL_INVESTMENTS             sql_len=197
+[2026-04-30T16:26:56.308925+00:00]   B0 14 California_Traffic_Collision   sql_len=774
+[2026-04-30T16:27:01.842018+00:00]   B0 15 DEATH                          sql_len=526
+[2026-04-30T16:27:04.189865+00:00]   B0 16 DEPS_DEV_V1                    sql_len=205
+[2026-04-30T16:27:08.424083+00:00]   B0 17 Db-IMDB                        sql_len=400
+[2026-04-30T16:27:17.876920+00:00]   B0 18 ETHEREUM_BLOCKCHAIN            sql_len=831
+[2026-04-30T16:27:19.591742+00:00]   B0 19 EU_soccer                      sql_len=147
+[2026-04-30T16:27:29.089639+00:00]   B0 20 E_commerce                     sql_len=779
+[2026-04-30T16:27:33.534746+00:00]   B0 21 EntertainmentAgency            sql_len=461
+[2026-04-30T16:27:37.019582+00:00]   B0 22 FINANCE__ECONOMICS             sql_len=315
+[2026-04-30T16:27:37.754266+00:00]   B0 23 GENOMICS_CANNABIS              sql_len=73
+[2026-04-30T16:27:40.385099+00:00]   B0 24 GEO_OPENSTREETMAP              sql_len=247
+[2026-04-30T16:27:44.339332+00:00]   B0 25 GEO_OPENSTREETMAP_BOUNDARIES   sql_len=334
+[2026-04-30T16:27:51.173299+00:00]   B0 26 GEO_OPENSTREETMAP_CENSUS_PLACES sql_len=556
+[2026-04-30T16:28:00.635599+00:00]   B0 27 GEO_OPENSTREETMAP_WORLDPOP     sql_len=775
+[2026-04-30T16:28:01.560762+00:00]   B0 28 GITHUB_REPOS                   sql_len=81
+[2026-04-30T16:28:08.478633+00:00]   B0 29 GITHUB_REPOS_DATE              sql_len=550
+[2026-04-30T16:28:08.517927+00:00] Llama_B0_Spider2Lite (prediction-only) avg_safe_select=100.0000
+[2026-04-30T16:28:08.519556+00:00] === B2_v2 Spider2-Lite meta-llama/Llama-3.1-8B-Instruct ===
+[2026-04-30T16:28:27.303847+00:00]   B2v2  0 AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET path=b1_fallback_invalid_plan   sql_len=990
+[2026-04-30T16:28:40.340744+00:00]   B2v2  1 AUSTIN                         path=b1_fallback_invalid_plan   sql_len=425
+[2026-04-30T16:28:55.308796+00:00]   B2v2  2 AdventureWorks                 path=b1_fallback_invalid_plan   sql_len=520
+[2026-04-30T16:29:01.746223+00:00]   B2v2  3 Airlines                       path=b1_fallback_invalid_plan   sql_len=189
+[2026-04-30T16:29:09.478611+00:00]   B2v2  4 BRAZE_USER_EVENT_DEMO_DATASET  path=plan_then_sql              sql_len=190
+[2026-04-30T16:29:21.580721+00:00]   B2v2  5 Baseball                       path=b1_fallback_invalid_plan   sql_len=208
+[2026-04-30T16:29:35.995752+00:00]   B2v2  6 BowlingLeague                  path=b1_fallback_invalid_plan   sql_len=456
+[2026-04-30T16:29:52.634140+00:00]   B2v2  7 Brazilian_E_Commerce           path=b1_fallback_invalid_plan   sql_len=743
+[2026-04-30T16:30:11.389303+00:00]   B2v2  8 CENSUS_BUREAU_ACS_2            path=b1_fallback_invalid_plan   sql_len=877
+[2026-04-30T16:30:26.291374+00:00]   B2v2  9 CENSUS_GALAXY__AIML_MODEL_DATA_ENRICHMENT_SAMPLE path=b1_fallback_invalid_plan   sql_len=435
+[2026-04-30T16:30:38.702708+00:00]   B2v2 10 CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE path=b1_fallback_invalid_plan   sql_len=330
+[2026-04-30T16:30:55.131852+00:00]   B2v2 11 CPTAC_PDC                      path=b1_fallback_invalid_plan   sql_len=789
+[2026-04-30T16:31:11.035506+00:00]   B2v2 12 CRYPTO                         path=b1_fallback_invalid_plan   sql_len=493
+[2026-04-30T16:31:18.972708+00:00]   B2v2 13 CYMBAL_INVESTMENTS             path=b1_fallback_invalid_plan   sql_len=192
+[2026-04-30T16:31:33.346933+00:00]   B2v2 14 California_Traffic_Collision   path=b1_fallback_invalid_plan   sql_len=394
+[2026-04-30T16:31:46.793695+00:00]   B2v2 15 DEATH                          path=b1_fallback_invalid_plan   sql_len=503
+[2026-04-30T16:31:56.610732+00:00]   B2v2 16 DEPS_DEV_V1                    path=b1_fallback_invalid_plan   sql_len=218
+[2026-04-30T16:32:09.596964+00:00]   B2v2 17 Db-IMDB                        path=b1_fallback_invalid_plan   sql_len=362
+[2026-04-30T16:32:28.452737+00:00]   B2v2 18 ETHEREUM_BLOCKCHAIN            path=b1_fallback_invalid_plan   sql_len=856
+[2026-04-30T16:32:35.787023+00:00]   B2v2 19 EU_soccer                      path=b1_fallback_invalid_plan   sql_len=296
+[2026-04-30T16:32:54.616716+00:00]   B2v2 20 E_commerce                     path=b1_fallback_invalid_plan   sql_len=1606
+[2026-04-30T16:33:02.860330+00:00]   B2v2 21 EntertainmentAgency            path=b1_fallback_invalid_plan   sql_len=307
+[2026-04-30T16:33:12.866936+00:00]   B2v2 22 FINANCE__ECONOMICS             path=b1_fallback_invalid_plan   sql_len=243
+[2026-04-30T16:33:22.391088+00:00]   B2v2 23 GENOMICS_CANNABIS              path=b1_fallback_invalid_plan   sql_len=114
+[2026-04-30T16:33:31.765258+00:00]   B2v2 24 GEO_OPENSTREETMAP              path=b1_fallback_invalid_plan   sql_len=221
+[2026-04-30T16:33:43.813403+00:00]   B2v2 25 GEO_OPENSTREETMAP_BOUNDARIES   path=b1_fallback_invalid_plan   sql_len=393
+[2026-04-30T16:33:57.099342+00:00]   B2v2 26 GEO_OPENSTREETMAP_CENSUS_PLACES path=b1_fallback_invalid_plan   sql_len=534
+[2026-04-30T16:34:15.936812+00:00]   B2v2 27 GEO_OPENSTREETMAP_WORLDPOP     path=b1_fallback_invalid_plan   sql_len=862
+[2026-04-30T16:34:23.143723+00:00]   B2v2 28 GITHUB_REPOS                   path=b1_fallback_invalid_plan   sql_len=96
+[2026-04-30T16:34:33.034571+00:00]   B2v2 29 GITHUB_REPOS_DATE              path=plan_then_sql              sql_len=309
+[2026-04-30T16:34:33.071329+00:00] Llama_B2v2_Spider2Lite (prediction-only) avg_safe_select=100.0000
+[2026-04-30T16:34:33.073194+00:00] EXTERNAL_RUNS_SUBPROC_DONE

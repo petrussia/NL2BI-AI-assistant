@@ -1,0 +1,13 @@
+{
+  "benchmark": "Spider 2.0-Lite",
+  "source_url": "https://github.com/xlang-ai/Spider2.git",
+  "official_site": "https://spider2-sql.github.io/",
+  "acquisition_method": "shallow git clone + sparse-checkout",
+  "downloaded_at_utc": "2026-04-30T15:57:19.335000+00:00",
+  "tasks_file": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+  "tasks_file_sha256": "4ba48916576fbd60311a2478c6d4550b5d8cf3fcbc512457ea493b5941ca009d",
+  "tasks_file_bytes": 242129,
+  "n_tasks": 547,
+  "unique_dbs": 158,
+  "license_note": "Apache-2.0 per Spider2 LICENSE; see repo for details"
+}

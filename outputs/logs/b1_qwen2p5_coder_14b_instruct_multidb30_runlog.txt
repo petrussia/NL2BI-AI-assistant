@@ -1,0 +1,9 @@
+b1_qwen2p5_coder_14b_instruct_multidb30 run log
+checked_at: 2026-04-30T14:31:46.697156+00:00
+model: Qwen/Qwen2.5-Coder-14B-Instruct
+subset: multidb_30
+total: 30
+executable_count: 28
+execution_match_count: 23
+EX: 0.7666666666666667
+elapsed_seconds: 79.93

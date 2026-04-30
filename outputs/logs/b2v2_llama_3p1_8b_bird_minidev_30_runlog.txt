@@ -1,0 +1,10 @@
+b2v2_llama_3p1_8b_bird_minidev_30 run log
+checked_at: 2026-04-30T16:25:28.103022+00:00
+model: meta-llama/Llama-3.1-8B-Instruct
+subset: bird_minidev_30
+benchmark_group: external_validation
+total: 30
+executable_count: 16
+execution_match_count: 2
+EX: 0.06666666666666667
+elapsed_seconds: 194.86

@@ -1,0 +1,11 @@
+metric,value
+completed,true
+EX,0.7333333333333333
+executable_count,29
+total,30
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,multidb_30
+schema_strategy,lex_linker_planner_full_schema_synth
+plan_validator,plan_schema_v1
+fallback_policy,b1_on_invalid_plan
+avg_reduction_ratio,0.5527777777777777

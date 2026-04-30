@@ -1,0 +1,19 @@
+# Agent / IDE local state
+.claude/
+
+# Ephemeral notebook tooling output
+notebooks/PowerShell tool output*.txt
+
+# External benchmark raw clones / zips — large and reproducible from manifests in
+# external_benchmarks/*/manifests/. The processed slices live in
+# external_benchmarks/*/processed/ and ARE committed.
+external_benchmarks/*/raw/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS noise
+.DS_Store
+Thumbs.db

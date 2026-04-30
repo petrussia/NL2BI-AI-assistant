@@ -1,0 +1,10 @@
+metric,value
+completed,true
+EX,0.8
+executable_count,10
+total,10
+model,meta-llama/Llama-3.1-8B-Instruct
+subset,smoke_10
+quantization,4bit_bitsandbytes_config
+schema_strategy,full_schema
+comparator_role,mandatory_model_llama

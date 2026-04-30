@@ -1,0 +1,2 @@
+model_id,attempted_at,gpu_total_gb,gpu_free_before_load_gb,load_status,load_error_class,load_error_message,load_seconds,vram_after_load_gb,vram_after_b0_gb,b0_run_status,b1_run_status,b0_ex,b1_ex
+deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct,2026-04-30T11:20:13.940227+00:00,23.66,23.46,failed,ImportError,cannot import name 'is_torch_fx_available' from 'transformers.utils.import_utils' (/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py),16.29,,,not_attempted,not_attempted,,

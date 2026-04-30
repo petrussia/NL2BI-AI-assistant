@@ -1,0 +1,14 @@
+metric,value
+completed,true
+EX,0.3
+executable_count,5
+total,10
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,smoke_10
+quantization,4bit_bitsandbytes_config
+schema_strategy,adaptive_dual_retrieval (knowledge OFF when <5 tables)
+planner,json_plan_v1 + patches (compact prompt)
+plan_valid_count,5
+plan_parse_failures,0
+avg_reduction_ratio,0.475
+knowledge_enabled_count,0

@@ -1,0 +1,7 @@
+model_id,estimated_vram_mb,fits_total_vram,gated,issues
+Qwen/Qwen2.5-Coder-7B-Instruct,5400,True,False,none
+Qwen/Qwen2.5-7B-Instruct,5400,True,False,none
+meta-llama/Llama-3.1-8B-Instruct,6200,True,True,gated_repo:no_HF_TOKEN
+deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct,13000,True,False,none
+Qwen/Qwen3-8B,6000,True,False,none
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,5400,True,False,none

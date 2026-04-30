@@ -1,0 +1,14 @@
+{
+  "benchmark": "BIRD Mini-Dev",
+  "source_url": "https://bird-bench.oss-cn-beijing.aliyuncs.com/minidev.zip",
+  "official_site": "https://bird-bench.github.io/",
+  "acquisition_method": "official OSS zip download + extract",
+  "downloaded_at_utc": "2026-04-30T16:00:53.242565+00:00",
+  "tasks_file": "raw/minidev/minidev/MINIDEV/mini_dev_sqlite.json",
+  "tasks_file_sha256": "4ba5fa8de55856222f484d380d2ba872b380bf79d825de70478e2120cb0fc43b",
+  "tasks_file_bytes": 278486,
+  "n_tasks": 500,
+  "unique_dbs": 11,
+  "sqlite_databases_present": 11,
+  "license_note": "CC BY-SA 4.0 per BIRD repo README"
+}

@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,plan_validator,fallback_policy,multi_candidate,repair_depth,avg_reduction_ratio
+b4v2_spider_smoke25,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_25,25,24,0.96,25,bf16,lex_linker_planner_full_schema_synth,plan_schema_v1,b1_on_invalid_or_no_executable,"k=3,T=0.7,top_p=0.95,top_k=50",1,0.58

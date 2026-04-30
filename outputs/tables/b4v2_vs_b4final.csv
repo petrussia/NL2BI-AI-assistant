@@ -1,0 +1,5 @@
+comparison,baseline,subset,EX,executable,plan_valid,n,file
+B4v2_vs_B4final_smoke_10,B4,smoke_10,0.3,5,5,10,b4_final_spider_smoke10
+B4v2_vs_B4final_smoke_10,B4V2,smoke_10,0.8,10,,10,b4v2_spider_smoke10
+B4v2_vs_B4final_multidb_30,B4,multidb_30,0.4666666666666667,18,18,30,b4_final_multidb30
+B4v2_vs_B4final_multidb_30,B4V2,multidb_30,0.7333333333333333,29,,30,b4v2_multidb30

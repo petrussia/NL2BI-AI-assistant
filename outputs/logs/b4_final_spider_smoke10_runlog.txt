@@ -1,0 +1,7 @@
+b4_final_spider_smoke10 run log
+checked_at: 2026-04-29T15:12:09.378030+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: smoke_10
+total: 10; exec_count: 5; match_count: 3; EX: 0.3
+elapsed_seconds: 87.23
+extra: {"quantization": "4bit_bitsandbytes_config", "schema_strategy": "adaptive_dual_retrieval", "planner": "json_plan_v1 + patches", "plan_valid_count": 5, "plan_parse_failures": 0, "multi_candidate": 3, "repair_max": 1, "repaired_count": 0, "rejected_unsafe_total": 0, "avg_reduction_ratio": 0.475}

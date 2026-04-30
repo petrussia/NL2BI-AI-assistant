@@ -1,0 +1,16 @@
+key,value
+torch,2.10.0+cu128
+transformers,5.0.0
+bitsandbytes,NOT_INSTALLED (ModuleNotFoundError)
+accelerate,1.13.0
+jsonschema,4.26.0
+huggingface_hub,1.11.0
+sentencepiece,0.2.1
+safetensors,0.7.0
+func_timeout,NOT_INSTALLED (ModuleNotFoundError)
+gpu,NVIDIA A100-SXM4-80GB
+vram_total_gb,85.09
+vram_free_gb,84.65
+cuda,12.8
+python,3.12.13
+hf_token_set,False

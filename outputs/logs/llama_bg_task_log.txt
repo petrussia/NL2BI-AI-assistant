@@ -1,0 +1,28 @@
+[2026-04-30T11:57:42.992936+00:00] LLAMA_BG_START
+[2026-04-30T11:57:43.520883+00:00] gpu free=23.37 GB total=23.66 GB
+[2026-04-30T11:58:42.403001+00:00] LOADED meta-llama/Llama-3.1-8B-Instruct in 58.88s VRAM=5.71 GB
+[2026-04-30T11:58:42.403335+00:00] === B0 smoke10 meta-llama/Llama-3.1-8B-Instruct ===
+[2026-04-30T11:58:43.139449+00:00]   B0  0 concert_singer            exec=True match=True err=''
+[2026-04-30T11:58:43.865597+00:00]   B0  1 concert_singer            exec=True match=True err=''
+[2026-04-30T11:58:45.185849+00:00]   B0  2 concert_singer            exec=True match=True err=''
+[2026-04-30T11:58:46.506699+00:00]   B0  3 concert_singer            exec=True match=True err=''
+[2026-04-30T11:58:48.675315+00:00]   B0  4 concert_singer            exec=True match=True err=''
+[2026-04-30T11:58:50.777374+00:00]   B0  5 concert_singer            exec=True match=True err=''
+[2026-04-30T11:58:55.893551+00:00]   B0  6 concert_singer            exec=True match=False err='result_mismatch'
+[2026-04-30T11:59:01.496251+00:00]   B0  7 concert_singer            exec=True match=False err='result_mismatch'
+[2026-04-30T11:59:04.448776+00:00]   B0  8 concert_singer            exec=True match=True err=''
+[2026-04-30T11:59:07.388422+00:00]   B0  9 concert_singer            exec=True match=True err=''
+[2026-04-30T11:59:07.389829+00:00] B0_DONE EX=0.8000
+[2026-04-30T11:59:07.389883+00:00] === B1 smoke10 meta-llama/Llama-3.1-8B-Instruct ===
+[2026-04-30T11:59:08.113904+00:00]   B1  0 concert_singer            sel=4 exec=True match=True err=''
+[2026-04-30T11:59:08.831643+00:00]   B1  1 concert_singer            sel=4 exec=True match=True err=''
+[2026-04-30T11:59:10.146835+00:00]   B1  2 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-30T11:59:11.471534+00:00]   B1  3 concert_singer            sel=2 exec=True match=True err=''
+[2026-04-30T11:59:13.602313+00:00]   B1  4 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-30T11:59:15.691945+00:00]   B1  5 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-30T11:59:20.671382+00:00]   B1  6 concert_singer            sel=3 exec=True match=False err='result_mismatch'
+[2026-04-30T11:59:22.762680+00:00]   B1  7 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-30T11:59:23.902809+00:00]   B1  8 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-30T11:59:25.044461+00:00]   B1  9 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-30T11:59:25.045832+00:00] B1_DONE EX=0.9000
+[2026-04-30T11:59:25.046014+00:00] LLAMA_BG_DONE

@@ -1,0 +1,34 @@
+[2026-04-29T14:41:55.058462+00:00] MODEL_SWAP_BG_START
+[2026-04-29T14:41:55.557570+00:00] freed prior model; VRAM=9 MB
+[2026-04-29T14:41:55.558025+00:00] trying to load: meta-llama/Llama-3.1-8B-Instruct
+[2026-04-29T14:41:55.770674+00:00] FAILED to load meta-llama/Llama-3.1-8B-Instruct: OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct.
+401 Client Error. (Request ID: Root=1-69f218b3-2d58e1f70d8f2874569b79d
+[2026-04-29T14:41:55.771009+00:00] trying to load: Qwen/Qwen2.5-7B-Instruct
+[2026-04-29T14:42:43.144747+00:00] LOADED Qwen/Qwen2.5-7B-Instruct, VRAM=5334 MB
+[2026-04-29T14:42:43.145388+00:00] === B0 smoke10 with Qwen/Qwen2.5-7B-Instruct ===
+[2026-04-29T14:42:43.811185+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  0 concert_singer            exec=True match=True err=''
+[2026-04-29T14:42:45.173796+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  1 concert_singer            exec=True match=True err=''
+[2026-04-29T14:42:46.963915+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  2 concert_singer            exec=True match=True err=''
+[2026-04-29T14:42:48.712864+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  3 concert_singer            exec=True match=True err=''
+[2026-04-29T14:42:52.169587+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  4 concert_singer            exec=True match=True err=''
+[2026-04-29T14:42:55.619656+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  5 concert_singer            exec=True match=True err=''
+[2026-04-29T14:42:59.938920+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  6 concert_singer            exec=True match=False err='result_mismatch'
+[2026-04-29T14:43:04.888157+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  7 concert_singer            exec=False match=False err='OperationalError'
+[2026-04-29T14:43:08.739312+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  8 concert_singer            exec=True match=False err='result_mismatch'
+[2026-04-29T14:43:12.643367+00:00]   B0[Qwen/Qwen2.5-7B-Instruct]  9 concert_singer            exec=True match=False err='result_mismatch'
+[2026-04-29T14:43:12.644759+00:00] B0[Qwen/Qwen2.5-7B-Instruct]_DONE EX=0.6000
+[2026-04-29T14:43:12.644828+00:00] === B1 smoke10 with Qwen/Qwen2.5-7B-Instruct ===
+[2026-04-29T14:43:13.297476+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  0 concert_singer            sel=4 exec=True match=True err=''
+[2026-04-29T14:43:14.345416+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  1 concert_singer            sel=4 exec=True match=True err=''
+[2026-04-29T14:43:16.101718+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  2 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-29T14:43:17.842342+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  3 concert_singer            sel=2 exec=True match=True err=''
+[2026-04-29T14:43:21.284618+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  4 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-29T14:43:24.775749+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  5 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-29T14:43:27.133434+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  6 concert_singer            sel=3 exec=True match=True err=''
+[2026-04-29T14:43:29.486784+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  7 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-29T14:43:31.123751+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  8 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-29T14:43:32.793918+00:00]   B1[Qwen/Qwen2.5-7B-Instruct]  9 concert_singer            sel=1 exec=True match=True err=''
+[2026-04-29T14:43:32.795174+00:00] B1[Qwen/Qwen2.5-7B-Instruct]_DONE EX=1.0000
+[2026-04-29T14:43:32.795226+00:00] COMPARATOR_MODEL_LOADED=Qwen/Qwen2.5-7B-Instruct
+[2026-04-29T14:43:32.795260+00:00] MODEL_SWAP_BG_DONE

@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,avg_reduction_ratio
+b1_multidb30_v2,Qwen/Qwen2.5-Coder-7B-Instruct,multidb_30,30,23,0.7666666666666667,29,4bit_bitsandbytes_config,lexical_schema_linking,0.5527777777777777

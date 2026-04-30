@@ -1,0 +1,7 @@
+b3v1_spider_smoke10 run log
+checked_at: 2026-04-29T15:10:42.151121+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: smoke_10
+total: 10; exec_count: 5; match_count: 3; EX: 0.3
+elapsed_seconds: 71.57
+extra: {"quantization": "4bit_bitsandbytes_config", "schema_strategy": "adaptive_dual_retrieval (knowledge OFF when <5 tables)", "planner": "json_plan_v1 + patches (compact prompt)", "plan_valid_count": 5, "plan_parse_failures": 0, "avg_reduction_ratio": 0.475, "knowledge_enabled_count": 0}

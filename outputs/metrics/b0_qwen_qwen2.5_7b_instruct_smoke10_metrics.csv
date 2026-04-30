@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,comparator_role
+b0_qwen_qwen2.5_7b_instruct_smoke10,Qwen/Qwen2.5-7B-Instruct,smoke_10,10,6,0.6,9,4bit_bitsandbytes_config,full_schema,cross_model_baseline

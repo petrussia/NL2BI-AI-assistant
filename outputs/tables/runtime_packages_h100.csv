@@ -1,0 +1,15 @@
+package,version
+torch,2.10.0+cu128
+transformers,5.0.0
+bitsandbytes,0.49.2
+accelerate,1.13.0
+jsonschema,4.26.0
+huggingface_hub,1.11.0
+sentencepiece,0.2.1
+safetensors,0.7.0
+func_timeout,4.3.5
+gpu,NVIDIA L4
+gpu_vram_total_gb,23.66
+gpu_vram_free_gb,7.37
+cuda,12.8
+python,3.12.13

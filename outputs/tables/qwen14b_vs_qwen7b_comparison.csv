@@ -1,0 +1,5 @@
+baseline,subset,qwen_coder_7B_EX,qwen_coder_14B_EX,delta_14B_minus_7B,verdict
+B0,smoke_10,1.0000,1.0000,+0.0000,tie
+B1,smoke_10,1.0000,1.0000,+0.0000,tie
+B0,multidb_30,0.9333,0.8667,-0.0667,7B better
+B1,multidb_30,0.7667,0.7667,+0.0000,tie

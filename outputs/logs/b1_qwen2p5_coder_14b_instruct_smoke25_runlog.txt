@@ -1,0 +1,9 @@
+b1_qwen2p5_coder_14b_instruct_smoke25 run log
+checked_at: 2026-04-30T15:32:00.783210+00:00
+model: Qwen/Qwen2.5-Coder-14B-Instruct
+subset: smoke_25
+total: 25
+executable_count: 25
+execution_match_count: 23
+EX: 0.92
+elapsed_seconds: 38.42

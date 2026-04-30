@@ -1,0 +1,9 @@
+b4v2_spider_smoke10 run log
+checked_at: 2026-04-30T11:29:23.632402+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: smoke_10
+total: 10
+executable_count: 10
+execution_match_count: 8
+EX: 0.8
+elapsed_seconds: 73.42

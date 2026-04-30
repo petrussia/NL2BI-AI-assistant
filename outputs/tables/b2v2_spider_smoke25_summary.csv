@@ -1,0 +1,12 @@
+metric,value
+completed,true
+EX,0.96
+executable_count,25
+total,25
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,smoke_25
+quantization,bf16
+schema_strategy,full_schema_planner_full_schema_synth
+plan_validator,plan_schema_v1
+fallback_policy,b1_on_invalid_plan
+patches,"distinct_cue,superlative_subquery,anti_overengineering"

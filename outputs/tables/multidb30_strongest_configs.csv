@@ -1,0 +1,10 @@
+baseline,model,prefix,n,EX,executable,plan_valid,present
+B0,Qwen2.5-Coder-7B,b0_multidb30_v2,30,0.9333333333333333,30,—,True
+B1,Qwen2.5-Coder-7B,b1_multidb30_v2,30,0.7666666666666667,29,—,True
+B2_v1,Qwen2.5-Coder-7B,b2v1_multidb30,30,0.6333333333333333,26,28,True
+B3_v1,Qwen2.5-Coder-7B,b3v1_multidb30,30,0.4666666666666667,18,18,True
+B3_v2,Qwen2.5-Coder-7B,b3v2_multidb30,30,0.7333333333333333,29,—,True
+B4_final,Qwen2.5-Coder-7B,b4_final_multidb30,30,0.4666666666666667,18,18,True
+B4_v2,Qwen2.5-Coder-7B,b4v2_multidb30,30,0.7333333333333333,29,—,True
+B0,Qwen2.5-Coder-14B,b0_qwen2p5_coder_14b_instruct_multidb30,—,—,—,—,False
+B1,Qwen2.5-Coder-14B,b1_qwen2p5_coder_14b_instruct_multidb30,—,—,—,—,False

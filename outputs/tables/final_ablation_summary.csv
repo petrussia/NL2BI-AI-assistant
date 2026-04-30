@@ -1,0 +1,12 @@
+model,baseline,subset,EX,executable_count,plan_valid_count,avg_reduction_ratio,n,notes
+Qwen2.5-Coder-7B-Instruct,B0,smoke_10,1.0,10,,,10,
+Qwen2.5-Coder-7B-Instruct,B1,smoke_10,1.0,10,,0.475,10,reduction=0.475
+Qwen2.5-Coder-7B-Instruct,B2_v0,smoke_10,0.7,9,9,0.475,10,reduction=0.475
+Qwen2.5-Coder-7B-Instruct,B2_v1,smoke_10,missing,,,,,run not present
+Qwen2.5-Coder-7B-Instruct,B3,smoke_10,0.2,2,2,0.475,10,reduction=0.475
+Qwen2.5-Coder-7B-Instruct,B4-lite,smoke_10,0.2,2,2,0.475,10,reduction=0.475
+Qwen2.5-Coder-7B-Instruct,B0,smoke_25,0.96,25,,,25,
+Qwen2.5-Coder-7B-Instruct,B1,smoke_25,0.96,25,,0.58,25,
+Qwen2.5-Coder-7B-Instruct,B2_v1,smoke_25,missing,,,,,run not present
+Qwen/Qwen2.5-7B-Instruct,B0,smoke_10,0.6,9,,,10,cross-model comparator
+Qwen/Qwen2.5-7B-Instruct,B1,smoke_10,1.0,10,,0.475,10,cross-model comparator

@@ -1,0 +1,10 @@
+metric,value
+completed,true
+EX,0.7
+executable_count,29
+total,30
+model,meta-llama/Llama-3.1-8B-Instruct
+subset,multidb_30
+quantization,bf16
+schema_strategy,lexical_schema_linking
+avg_reduction_ratio,0.5527777777777777

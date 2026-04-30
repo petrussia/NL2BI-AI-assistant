@@ -1,0 +1,12 @@
+model,baseline,subset,EX
+Qwen/Qwen2.5-7B-Instruct,B0,smoke_10,0.6000
+Qwen/Qwen2.5-7B-Instruct,B1,smoke_10,1.0000
+Qwen/Qwen2.5-Coder-7B-Instruct,B2V1,smoke_10,0.6000
+Qwen/Qwen2.5-Coder-7B-Instruct,B2,smoke_10,0.7000
+Qwen/Qwen2.5-Coder-7B-Instruct,B3,smoke_10,0.2000
+Qwen/Qwen2.5-Coder-7B-Instruct,B3V1,smoke_10,0.3000
+Qwen/Qwen2.5-Coder-7B-Instruct,B0,smoke_25,0.9600
+Qwen/Qwen2.5-Coder-7B-Instruct,B4,smoke_10,0.2000
+Qwen/Qwen2.5-Coder-7B-Instruct,B1,smoke_10,1.0000
+Qwen/Qwen2.5-Coder-7B-Instruct,B1,smoke_25,0.9600
+Qwen/Qwen2.5-Coder-7B-Instruct,B0,smoke_10,1.0000
