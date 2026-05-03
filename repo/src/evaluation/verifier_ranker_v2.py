@@ -92,8 +92,15 @@ def consensus_signal(rows_sigs: list[tuple]) -> dict:
 
 
 def score_candidate(c: dict, ir, *, executor=None, question: str = '',
-                     consensus: dict | None = None) -> dict:
-    """Returns dict with 'score' (0..1) and feature breakdown."""
+                     consensus: dict | None = None,
+                     reranker_score: float | None = None) -> dict:
+    """Returns dict with 'score' (0..1) and feature breakdown.
+
+    `reranker_score` (optional, [0,1]) is a cross-encoder estimate of
+    P(SQL faithfully answers the question). When provided, the composite
+    score adds a 0.20 weight to it; the non-harm tie-break bias toward
+    the lower-risk source still applies.
+    """
     sql = c.get('sql', '')
     src = c.get('source', '')
     safe = bool(c.get('safe', False))
@@ -132,18 +139,27 @@ def score_candidate(c: dict, ir, *, executor=None, question: str = '',
             cons_boost = min(0.15, 0.05 * consensus.get('top_count', 1))
     feats['consensus_boost'] = cons_boost
 
+    # Reranker signal (cross-encoder)
+    feats['reranker'] = None if reranker_score is None else round(float(reranker_score), 4)
+
     # Composite score
     s = 0.0
     if not safe or not av['parses']: s = 0.05
     elif executable is False: s = 0.15
     else:
-        s = 0.30
-        s += 0.15 * (1.0 if not sv['unknown_tables'] else 0.0)
-        s += 0.10 * (1.0 if not sv['unknown_columns'] else 0.0)
-        s += 0.05 * (1.0 if not sv['ambiguous_columns'] else 0.5)
-        s += 0.05 * (1.0 if feats['rows_count'] > 0 else 0.4)
-        s += 0.10 * intent['intent']
+        s = 0.20
+        s += 0.12 * (1.0 if not sv['unknown_tables'] else 0.0)
+        s += 0.08 * (1.0 if not sv['unknown_columns'] else 0.0)
+        s += 0.04 * (1.0 if not sv['ambiguous_columns'] else 0.5)
+        s += 0.04 * (1.0 if feats['rows_count'] > 0 else 0.4)
+        s += 0.08 * intent['intent']
         s += cons_boost
+        if reranker_score is not None:
+            s += 0.20 * float(reranker_score)
+        else:
+            # No reranker available: redistribute weight onto intent so the
+            # composite range stays comparable.
+            s += 0.10 * intent['intent']
         # Risk penalty: prefer simpler sources on otherwise tied candidates
         s -= 0.01 * SOURCE_RISK.get(src, 0)
     feats['score'] = round(min(1.0, max(0.0, s)), 4)
@@ -151,11 +167,17 @@ def score_candidate(c: dict, ir, *, executor=None, question: str = '',
 
 
 def rank_candidates(candidates: list[dict], ir, *, executor=None,
-                     question: str = '', non_harm_margin: float = 0.06) -> list[dict]:
+                     question: str = '', non_harm_margin: float = 0.06,
+                     reranker=None, schema_hint: str = '') -> list[dict]:
     """Return candidates with score; sorted by score desc, then by source risk asc.
 
     Applies the non-harm tie-break: when top-2 are within `non_harm_margin`,
     prefer the lower-risk source.
+
+    `reranker` (optional) is a callable taking a list of (question, sql)
+    pairs and returning probabilities in [0,1]. Typically the
+    `reranker_v2.score_pairs` function. When supplied, its score becomes a
+    feature in the composite ranker — closes the BIRD discrimination gap.
     """
     # First pass: collect rows signatures for consensus
     pre = []
@@ -163,11 +185,20 @@ def rank_candidates(candidates: list[dict], ir, *, executor=None,
         feats = score_candidate(c, ir, executor=executor, question=question)
         pre.append({'cand': c, 'feats': feats})
     cons = consensus_signal([p['feats']['rows_signature'] for p in pre])
-    # Second pass: re-score with consensus
+    # Reranker pass (batched)
+    rer_scores: list[float | None] = [None] * len(pre)
+    if reranker is not None:
+        try:
+            pairs = [(question, p['cand'].get('sql','')) for p in pre]
+            rer_scores = reranker(pairs, schema_hint=schema_hint)
+        except Exception:
+            rer_scores = [None] * len(pre)
+    # Second pass: re-score with consensus + reranker
     out = []
-    for p in pre:
+    for p, rs in zip(pre, rer_scores):
         feats = score_candidate(p['cand'], ir, executor=executor,
-                                question=question, consensus=cons)
+                                question=question, consensus=cons,
+                                reranker_score=rs)
         rec = {**p['cand'], 'verifier': feats}
         out.append(rec)
     # Sort

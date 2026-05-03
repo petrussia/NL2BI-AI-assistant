@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 
-from retrieval_hybrid_v2 import bidirectional_retrieve, RetrievalResult
+from retrieval_hybrid_v2 import bidirectional_retrieve, bidirectional_retrieve_r2, RetrievalResult
 from join_path_expander_v2 import expand_anchors
 
 
@@ -21,8 +21,13 @@ def link(question: str, ir, *,
          expand_extra: int = 4,
          expand_max_hops: int = 4,
          low_confidence_threshold: float = 0.55,
-         full_schema_escape_ratio: float = 0.85) -> RetrievalResult:
-    res = bidirectional_retrieve(question, ir, k_tables=k_tables)
+         full_schema_escape_ratio: float = 0.85,
+         dense_retriever=None) -> RetrievalResult:
+    if dense_retriever is not None:
+        res = bidirectional_retrieve_r2(question, ir, k_tables=k_tables,
+                                          dense_retriever=dense_retriever)
+    else:
+        res = bidirectional_retrieve(question, ir, k_tables=k_tables)
 
     # FK expansion to ensure join bridges are present.
     if res.selected_tables:

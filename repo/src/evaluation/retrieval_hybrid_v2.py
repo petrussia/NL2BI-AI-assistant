@@ -231,3 +231,87 @@ def bidirectional_retrieve(question: str, ir, *,
             f'rrf={fused_tables}',
         ],
     )
+
+
+# ----------------- R2 (PREMIUM) lane: BM25 + ngram + dense + RRF -----------------
+
+def bidirectional_retrieve_r2(question: str, ir, *,
+                                k_tables: int = 5,
+                                k_columns: int = 12,
+                                dense_retriever=None) -> RetrievalResult:
+    """Premium retrieval: same as bidirectional_retrieve but RRF-fuses an
+    additional dense-embedding ranking when `dense_retriever` is provided.
+
+    Falls back to identical behaviour as R1 when dense_retriever is None.
+    """
+    table_idx_by_name = {t.name: i for i, t in enumerate(ir.tables)}
+
+    # Lexical lanes (same as R1)
+    tf_tables, _ = retrieve_tables(question, ir, k_tables=max(k_tables, 8))
+    col_keys, col_score_map = retrieve_columns(question, ir, k_columns=max(k_columns, 16))
+    cf_tables_ranked: list[str] = []
+    seen: set[str] = set()
+    for (t, c) in col_keys:
+        if t not in seen: cf_tables_ranked.append(t); seen.add(t)
+        if len(cf_tables_ranked) >= max(k_tables, 8): break
+
+    # Dense lane
+    dense_tables: list[str] = []
+    dense_cols: list[tuple[str, str]] = []
+    if dense_retriever is not None:
+        try:
+            tab_scores = dense_retriever.score_tables(question, ir.db_id, ir)
+            tab_scores.sort(key=lambda x: -x[1])
+            dense_tables = [k for k, _ in tab_scores[:max(k_tables, 8)]]
+            col_scores = dense_retriever.score_columns(question, ir.db_id, ir)
+            col_scores.sort(key=lambda x: -x[1])
+            dense_cols = [k for k, _ in col_scores[:max(k_columns, 16)]]
+        except Exception:
+            dense_tables = []; dense_cols = []
+
+    # RRF fuse table rankings (3-way)
+    rrf: dict[str, float] = {}
+    for r, t in enumerate(tf_tables): rrf[t] = rrf.get(t, 0.0) + 1.0 / (60 + r)
+    for r, t in enumerate(cf_tables_ranked): rrf[t] = rrf.get(t, 0.0) + 1.0 / (60 + r)
+    for r, t in enumerate(dense_tables): rrf[t] = rrf.get(t, 0.0) + 1.0 / (60 + r)
+    fused_tables = sorted(rrf.keys(), key=lambda t: -rrf[t])[:k_tables]
+
+    # Confidence = top RRF / theoretical max (3 lanes => 3/60 = 0.05)
+    if rrf:
+        top_score = max(rrf.values())
+        max_theoretical = 3 / 60.0 if dense_tables else 2 / 60.0
+        confidence = min(1.0, top_score / max_theoretical)
+    else:
+        confidence = 0.0
+
+    selected_indexes = [table_idx_by_name[t] for t in fused_tables
+                        if t in table_idx_by_name]
+    reduction_ratio = (len(ir.tables) - len(selected_indexes)) / max(1, len(ir.tables))
+
+    # Fuse column rankings (BM25 + dense) restricted to fused tables
+    fused_table_set = set(fused_tables)
+    col_rrf: dict[tuple[str, str], float] = {}
+    for r, k in enumerate(col_keys):
+        col_rrf[k] = col_rrf.get(k, 0.0) + 1.0 / (60 + r)
+    for r, k in enumerate(dense_cols):
+        col_rrf[k] = col_rrf.get(k, 0.0) + 1.0 / (60 + r)
+    sel_cols = sorted([k for k in col_rrf if k[0] in fused_table_set],
+                       key=lambda k: -col_rrf[k])[:k_columns]
+
+    return RetrievalResult(
+        db_id=ir.db_id,
+        selected_tables=fused_tables,
+        selected_table_indexes=selected_indexes,
+        selected_columns=sel_cols,
+        table_scores=rrf,
+        column_scores=col_rrf,
+        confidence=confidence,
+        reduction_ratio=reduction_ratio,
+        fallback_used=False,
+        rationale=[
+            f'tf_top={tf_tables[:3]}',
+            f'cf_top={cf_tables_ranked[:3]}',
+            f'dense_top={dense_tables[:3]}',
+            f'rrf3={fused_tables}',
+        ],
+    )
