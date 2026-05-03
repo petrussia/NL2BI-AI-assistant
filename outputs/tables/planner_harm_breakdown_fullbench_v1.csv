@@ -1,0 +1,1535 @@
+benchmark,idx,class,difficulty,difficulty_score,planner_used,plan_valid,compiler_status,selected_candidate_source,fallback_used,fallback_reason,lm_calls
+spider_dev,0,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,1,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,2,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,3,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,4,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,5,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,6,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,7,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,8,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'distinct' is not one of ['scalar', 'table', 'grouped']",2
+spider_dev,9,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'distinct' is not one of ['scalar', 'table', 'grouped']",2
+spider_dev,10,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,11,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,12,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'expression' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,13,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'avg' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,14,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,15,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,16,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,17,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,18,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,19,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,20,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,21,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,22,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,23,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,24,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,25,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,26,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,27,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,28,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,29,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,30,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,31,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,32,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,33,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,34,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,35,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,36,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,37,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,38,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,39,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,40,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,41,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+spider_dev,42,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'answer_shape' is a required property,2
+spider_dev,43,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,44,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,45,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,46,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,47,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,48,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,49,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,50,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,51,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,52,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,53,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,54,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,55,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,56,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,57,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,58,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,59,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+spider_dev,60,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+spider_dev,61,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'NOT IN' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+spider_dev,62,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,63,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,64,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,65,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,66,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,67,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,68,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,69,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,70,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,71,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,72,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,73,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,74,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,75,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,76,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,77,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,78,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,79,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,80,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,81,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,82,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,83,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,84,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,85,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,86,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,87,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,88,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,89,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,90,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,91,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,92,neutral,easy,0.5,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,93,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,94,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,95,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,96,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,97,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,98,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,99,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,100,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,101,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,102,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,103,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,104,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,105,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,106,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,107,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,108,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,109,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,110,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,111,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,112,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,113,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,114,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,115,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,116,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,117,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,118,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,119,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,120,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,121,harmful,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,122,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,123,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,124,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,125,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,126,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,127,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,128,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,129,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,130,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,131,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,132,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,133,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,134,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,135,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,136,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,137,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,138,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,139,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,140,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,141,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,142,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,143,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,144,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,145,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,146,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,147,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,148,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,149,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,150,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,151,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,152,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,153,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,154,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,155,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,156,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,157,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,158,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,159,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,160,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,161,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,162,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,163,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,164,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,165,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,166,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,167,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,168,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'<>' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+spider_dev,169,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,170,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,171,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'<>' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+spider_dev,172,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,173,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,174,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,175,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,176,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,177,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,178,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'none' is not one of ['count', 'sum', 'avg', 'min', 'max']",2
+spider_dev,179,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,180,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,181,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,182,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,183,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,184,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,185,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,186,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,187,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,188,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,189,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,190,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,191,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,192,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,193,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,194,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,195,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,196,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,197,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,198,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,199,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,200,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,201,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,202,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,203,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,204,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,205,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,206,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,207,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,208,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,209,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,210,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,211,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,212,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,213,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,214,helpful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,215,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,216,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,217,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,218,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,219,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,220,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,221,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,222,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,223,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,224,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,225,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,226,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,227,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,228,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,229,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,230,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,231,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,232,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,233,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,234,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,235,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,236,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,237,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,238,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,239,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,240,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,241,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,242,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,243,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,244,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,245,helpful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,246,helpful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,247,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,248,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,249,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,250,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,251,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,252,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,253,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,254,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,255,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,256,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,257,neutral,hard,0.55,True,True,skeleton,planner_skeleton_synth,False,,3
+spider_dev,258,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,259,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,260,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,261,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,262,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,263,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,264,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,265,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,266,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,267,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,268,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,269,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,270,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,271,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,272,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,273,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,274,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,275,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,276,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,277,harmful,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,278,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,279,harmful,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,280,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,281,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,282,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,283,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,284,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,285,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,286,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,287,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,288,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,289,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,290,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,291,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,292,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,293,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,294,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,295,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,296,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,297,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,298,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,299,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,300,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,301,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,302,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,303,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,304,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,305,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,306,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,307,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,308,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,309,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,310,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,311,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,312,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,313,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,314,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,315,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,316,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,317,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,318,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,319,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,320,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,321,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'distinct' is not one of ['scalar', 'table', 'grouped']",2
+spider_dev,322,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,323,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,324,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,325,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,326,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,327,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,328,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,329,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,330,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,331,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,332,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,333,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,334,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,335,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,336,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,337,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,338,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,339,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,340,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,341,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,342,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,343,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,344,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'mode' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+spider_dev,345,helpful,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,346,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,347,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,348,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,349,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,350,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,351,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,352,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,353,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'distinct' is not one of ['scalar', 'table', 'grouped']",2
+spider_dev,354,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'distinct' is not one of ['scalar', 'table', 'grouped']",2
+spider_dev,355,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,356,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,357,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,358,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,359,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,360,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,361,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,362,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,363,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,364,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,365,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,366,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,367,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,368,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,369,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,370,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,371,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,372,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,373,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,374,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,375,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,376,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,377,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'between' is not one of ['=', '!=', '<', '<=', '>', '>=']",2
+spider_dev,378,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'between' is not one of ['=', '!=', '<', '<=', '>', '>=']",2
+spider_dev,379,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,380,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,381,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,382,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,383,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,384,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,385,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,386,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,387,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,388,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,389,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,390,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,391,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,392,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,393,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,394,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,395,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,396,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,397,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,398,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,399,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,400,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,401,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,402,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,403,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,404,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,405,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,406,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,407,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,408,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,409,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,410,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,411,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,412,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,413,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,414,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,415,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,416,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,417,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,418,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,419,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,420,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,421,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,422,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,423,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,424,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,425,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,426,harmful,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,427,helpful,hard,0.5,True,True,skeleton,planner_skeleton_synth,False,,3
+spider_dev,428,harmful,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,429,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,430,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,431,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,432,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,433,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,434,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,435,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,436,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,437,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,438,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,439,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,440,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,441,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,442,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,443,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,444,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,445,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,446,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,447,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,448,harmful,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,449,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,450,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,451,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,452,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+spider_dev,453,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,454,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,455,helpful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,456,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,457,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,458,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,459,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,460,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,461,harmful,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,462,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,463,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,464,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,465,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,466,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,467,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,468,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,469,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,470,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,471,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,472,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,473,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,474,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,475,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,476,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,477,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,478,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,479,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,480,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,481,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,482,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,483,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,484,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,485,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,486,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,487,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,488,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,489,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,490,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,491,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,492,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,493,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,494,helpful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,495,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,496,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,497,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,498,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'none' is not one of ['count', 'sum', 'avg', 'min', 'max']",2
+spider_dev,499,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,500,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,501,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,502,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,503,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,504,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,505,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,506,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,507,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,508,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,509,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,510,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,511,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,512,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,513,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,514,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,515,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,516,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,517,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,518,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,519,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,520,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,521,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,522,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,523,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,524,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,525,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,526,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,527,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,528,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,529,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,530,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,531,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,532,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,533,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,534,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,535,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,536,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,537,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,538,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,539,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,540,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,541,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,542,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,543,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+spider_dev,544,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,545,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,546,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,547,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,548,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,549,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,550,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,551,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,552,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,553,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,554,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,555,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,556,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,557,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,558,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,559,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,560,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,561,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,562,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,563,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,564,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,565,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,566,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,567,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,568,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,569,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,570,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,571,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,572,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,573,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,574,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,575,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,576,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,577,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,578,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,579,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,580,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,581,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,582,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,583,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,584,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,585,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,586,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,587,helpful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,588,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,589,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,590,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,591,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,592,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,593,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,594,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,595,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,596,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,597,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,598,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,599,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,600,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,601,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,602,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,603,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,604,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,605,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,606,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,607,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,608,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,609,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,610,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,611,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,612,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,613,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,614,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,615,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,616,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,617,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,618,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,619,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,620,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,621,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,622,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,623,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,624,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,625,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,626,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,627,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,628,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,629,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,630,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,631,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,632,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,633,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,634,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,635,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,636,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,637,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,638,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,639,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'none' is not one of ['count', 'sum', 'avg', 'min', 'max']",2
+spider_dev,640,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,641,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,642,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,643,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,644,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,645,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,646,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+spider_dev,647,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,648,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,649,neutral,easy,0.0,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,650,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,651,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,652,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,653,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,654,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,655,harmful,hard,0.45,True,True,ok,planner_compiled,False,,2
+spider_dev,656,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,657,neutral,hard,0.45,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,658,neutral,hard,0.45,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,659,neutral,easy,0.0,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,660,neutral,easy,0.0,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,661,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,662,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,663,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,664,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,665,neutral,hard,0.6,True,True,ok,planner_compiled,False,,2
+spider_dev,666,neutral,hard,0.6,True,True,ok,planner_compiled,False,,2
+spider_dev,667,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,668,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,669,neutral,hard,0.45,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,670,neutral,hard,0.45,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,671,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,672,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,673,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,674,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,675,neutral,hard,0.3,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'mode' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+spider_dev,676,neutral,hard,0.45,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'mode' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+spider_dev,677,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,678,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,679,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,680,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,681,neutral,easy,0.0,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,682,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,683,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,684,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,685,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,686,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,687,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,688,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,689,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,690,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,691,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,692,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,693,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,694,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,695,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,696,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,697,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,698,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,699,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,700,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,701,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,702,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,703,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,704,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,705,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,706,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,707,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,708,helpful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,709,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,710,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,711,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,712,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,713,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,714,helpful,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,715,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,716,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,717,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,718,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,719,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,720,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,721,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,722,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,723,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,724,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,725,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,726,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,727,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,728,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,729,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,730,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,731,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,732,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,733,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,734,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,735,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,736,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,737,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,738,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,739,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,740,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,741,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,742,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,743,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,744,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,745,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,746,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,747,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,748,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,749,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+spider_dev,750,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,751,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,752,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,753,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,754,harmful,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,755,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,756,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,757,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,758,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,759,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,760,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,761,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,762,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,763,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,764,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,765,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,766,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,767,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,768,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,769,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,770,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,771,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,772,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,773,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,774,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,775,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,776,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,777,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,778,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,779,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,780,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,781,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,782,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,783,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,784,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,785,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,786,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,787,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,788,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,789,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,790,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,791,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,792,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,793,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,794,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,795,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,796,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,797,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,798,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,799,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,800,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,801,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,802,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,803,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,804,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,805,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,806,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,807,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,808,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,809,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,810,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,811,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,812,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,813,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,814,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,815,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,816,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,817,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,818,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,819,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,820,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,821,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,822,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,823,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,824,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,825,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,826,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,827,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,828,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,829,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,830,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,831,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,832,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,833,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,834,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,835,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,836,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,837,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,838,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,839,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,840,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,841,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,842,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,843,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,844,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,845,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,846,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,847,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,848,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,849,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,850,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,851,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,852,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,853,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,854,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,855,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,856,harmful,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,857,harmful,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,858,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,859,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,860,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,861,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,862,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,863,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,864,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,865,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,866,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,867,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,868,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,869,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,870,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,871,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,872,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,873,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,874,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,875,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,876,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,877,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,878,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,879,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,880,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,881,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,882,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,883,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,884,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,885,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,886,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,887,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,888,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,889,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,890,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,891,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,892,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,893,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,894,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,895,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,896,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'none' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,897,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,898,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,899,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,900,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,901,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,902,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,903,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,904,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,905,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,906,neutral,hard,0.55,True,True,skeleton,planner_skeleton_synth,False,,3
+spider_dev,907,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,908,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,909,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,910,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,911,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,912,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,913,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,914,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,915,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,916,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'boolean' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,917,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'boolean' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,918,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,919,harmful,hard,0.4,True,True,ok,planner_compiled,False,,2
+spider_dev,920,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,921,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,922,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,923,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,924,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,925,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,926,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,927,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,928,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,929,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,930,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,931,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,932,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,933,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,934,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,935,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,936,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,937,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,938,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,939,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,940,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,941,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,942,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,943,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,944,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'avg' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,945,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,946,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+spider_dev,947,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+spider_dev,948,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,949,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,950,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,951,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,952,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,953,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,954,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,955,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,956,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,957,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,958,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,959,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,960,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,961,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,962,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,963,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,964,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,965,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,966,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,967,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,968,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,969,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,970,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,971,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,972,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,973,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,974,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,975,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,976,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,977,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,978,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,979,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,980,helpful,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,981,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,982,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,983,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+spider_dev,984,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,985,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,986,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,987,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,988,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,989,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,990,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,991,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+spider_dev,992,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,993,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,994,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,995,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,996,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+spider_dev,997,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,998,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,999,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+spider_dev,1000,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,1001,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,1002,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1003,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1004,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,1005,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,1006,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1007,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1008,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,1009,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,1010,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1011,neutral,hard,0.45,True,True,ok,planner_compiled,False,,2
+spider_dev,1012,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,1013,neutral,hard,0.45,True,True,ok,planner_compiled,False,,2
+spider_dev,1014,harmful,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,1015,neutral,hard,0.3,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'mode' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+spider_dev,1016,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,1017,neutral,hard,0.3,True,True,ok,planner_compiled,False,,2
+spider_dev,1018,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1019,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1020,harmful,hard,0.45,True,True,ok,planner_compiled,False,,2
+spider_dev,1021,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1022,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1023,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1024,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+spider_dev,1025,neutral,hard,0.45,True,True,ok,planner_compiled,False,,2
+spider_dev,1026,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1027,neutral,easy,0.15,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1028,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,1029,harmful,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'INTERSECT' is not of type 'object', 'null'",2
+spider_dev,1030,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+spider_dev,1031,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+spider_dev,1032,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+spider_dev,1033,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,0,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,1,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,2,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'date_range' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,3,harmful,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'date_range' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,4,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,5,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,6,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'date_range' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,7,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,8,helpful,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,9,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subtract' is not of type 'object', 'null'",2
+bird_full,10,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,11,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,12,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,13,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,14,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,15,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,16,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,17,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,18,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,19,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,20,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'integer' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,21,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'time' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,22,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'time' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,23,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,24,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,25,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,26,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,27,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,28,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,29,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,30,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,31,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,32,neutral,hard,0.65,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,33,neutral,hard,0.35,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,34,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,35,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,36,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,37,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,38,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,39,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,40,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,41,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,42,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,43,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,44,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,45,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,46,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,47,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,48,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,49,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,50,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,51,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,52,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,53,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,54,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,55,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,56,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,57,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,58,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,59,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,60,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,61,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,62,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,63,harmful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,64,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+bird_full,65,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,66,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,67,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,68,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,69,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,70,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,71,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,72,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,73,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'percentage' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,74,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,75,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'avg' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,76,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,77,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,78,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,79,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'count', 'expr': 'patient.ID', 'filter': [{'expr': 'patient.Birthday', 'op': '>', 'rhs': '1930-01-01', 'rhs_type': 'date'}, {'expr': 'patient.SEX', 'op",2
+bird_full,80,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,81,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,82,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,83,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,84,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,85,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,86,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,87,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'boolean' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,88,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,89,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,90,helpful,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,91,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,92,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,93,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,94,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,95,neutral,hard,0.85,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,96,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,97,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,98,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,99,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'calculation' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,100,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,101,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,102,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,103,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,104,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,105,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,106,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,107,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,108,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,109,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,110,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,111,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,112,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,113,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,114,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,115,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,116,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,117,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,118,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,119,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'mode' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,120,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,121,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,122,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'IN' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,123,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'IN' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,124,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,125,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,126,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,127,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,128,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,129,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,130,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,131,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,132,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,133,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,134,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,135,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'avg' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,136,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,137,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,138,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,139,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+bird_full,140,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,141,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,142,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,143,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'number' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,144,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,145,helpful,hard,1.0,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,146,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,147,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,148,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,149,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,150,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,151,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,152,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,153,neutral,hard,0.65,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,154,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,155,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,156,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,157,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,158,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,159,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,160,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,161,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,162,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,163,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,164,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,165,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,166,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,167,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,168,helpful,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,169,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,170,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,171,helpful,hard,0.65,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,172,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,173,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,174,neutral,hard,0.75,True,True,ok,planner_compiled,False,,2
+bird_full,175,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,176,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,177,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,178,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,179,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'<>' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,180,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,181,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,182,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,183,neutral,hard,0.4,True,True,ok,planner_compiled,False,,2
+bird_full,184,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,185,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,186,harmful,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,187,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,188,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,189,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,190,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'scalar' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,191,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,192,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,193,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,194,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,195,neutral,hard,0.65,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,196,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'count', 'expr': 'results.driverid'}, {'agg': 'count', 'expr': 'results.milliseconds'}] is not of type 'string'",2
+bird_full,197,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,198,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,199,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,200,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,201,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'count', 'expr': 'results.position', 'filter': [{'expr': 'drivers.surname', 'op': '=', 'rhs': 'Hamilton', 'rhs_type': 'string'}, {'expr': 'results.posi",2
+bird_full,202,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,203,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,204,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,205,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,206,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'op' is a required property,2
+bird_full,207,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,208,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,209,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,210,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,211,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,212,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,213,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,214,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,215,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,216,neutral,hard,0.7,True,False,skipped,b0_anchor_plan_invalid,True,plan_invalid:jsonschema:'agg' is a required property,2
+bird_full,217,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,218,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,219,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,220,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,221,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,222,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,223,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'percent' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,224,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,225,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,226,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,227,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'percent' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,228,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,229,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,230,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,231,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,232,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,233,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,234,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,235,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,236,neutral,hard,1.0,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,237,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,238,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,239,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,240,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,241,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,242,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,243,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,244,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,245,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,246,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,247,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,248,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,249,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,250,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,251,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,252,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,253,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,254,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,255,helpful,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,256,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,257,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,258,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,259,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,260,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,261,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,262,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,263,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,264,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,265,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,266,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,267,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'divide', 'expr': [{'agg': 'sum', 'expr': 'publisher.id = 13'}, {'agg': 'count', 'expr': '*'}]}, 100] is not of type 'string'",2
+bird_full,268,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'expression' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,269,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,270,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,271,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,272,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,273,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,274,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'integer' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,275,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'divide', 'expr': [{'agg': 'sum', 'expr': ""IIF(superhero.gender_id = gender.id AND gender.gender = 'Female' AND superhero.skin_colour_id = colour.id AN",2
+bird_full,276,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,277,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,278,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'column_ref' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,279,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,280,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,281,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'divide', 'expr': [{'agg': 'sum', 'expr': ""IIF(superhero.gender = 'Female', 1, 0)"", 'alias': 'female_count'}, {'agg': 'count', 'expr': 'publisher.publi",2
+bird_full,282,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,283,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,284,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,285,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,286,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,287,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,288,harmful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,289,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'divide', 'expr': [{'agg': 'sum', 'expr': 'IIF(superhero.eye_colour_id = 7, 1, 0)', 'alias': 'blue_eyes_count'}, {'agg': 'count', 'expr': '*', 'alias':",2
+bird_full,290,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,291,helpful,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'integer' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,292,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,293,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,294,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,295,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,296,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,297,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,298,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'datetime' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,299,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,300,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,301,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,302,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,303,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,304,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'integer' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,305,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,306,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,307,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'datetime' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,308,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'datetime' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,309,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,310,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,311,neutral,hard,0.8,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'count', 'expr': 'posts.id'}, {'agg': 'count', 'expr': 'votes.id'}] is not of type 'string'",2
+bird_full,312,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,313,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,314,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,315,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,316,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,317,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'column_ref' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,318,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,319,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,320,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,321,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,322,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,323,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,324,neutral,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,325,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,326,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,327,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,328,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:[{'agg': 'count', 'expr': 'posts.id', 'filter': {'expr': 'tags.tagname', 'op': '=', 'rhs': 'R', 'rhs_type': 'string'}}, {'agg': 'count', 'expr': 'posts.id', 'fi",2
+bird_full,329,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,330,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,331,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,332,helpful,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'datetime' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,333,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,334,helpful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,335,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,336,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,337,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,338,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,339,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,340,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'percent' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,341,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,342,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,343,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,344,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,345,harmful,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,346,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,347,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,348,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,349,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,350,neutral,hard,0.55,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'null' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,351,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,352,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,353,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,354,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,355,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,356,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,357,harmful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,358,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,359,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,360,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,361,helpful,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,362,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,363,neutral,hard,0.85,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,364,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,365,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,366,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,367,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,368,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,369,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,370,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,371,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,372,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'IN' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,373,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,374,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,375,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,376,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,377,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,378,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,379,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,380,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,381,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,382,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'IS NOT NULL' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,383,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,384,neutral,hard,0.35,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,385,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,386,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'IN' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,387,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,388,helpful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,389,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,390,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,391,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,392,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,393,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,394,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,395,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,396,helpful,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,397,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,398,neutral,hard,0.5,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'mode' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,399,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,400,neutral,hard,0.5,True,True,skeleton,planner_skeleton_synth,False,,3
+bird_full,401,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,402,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'percentage' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,403,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,404,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,405,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,406,harmful,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,407,harmful,hard,0.7,True,True,ok,planner_compiled,False,,2
+bird_full,408,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,409,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,410,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,411,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,412,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,413,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,414,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,415,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,416,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,417,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,418,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,419,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,420,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,421,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,422,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,423,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,424,neutral,hard,0.5,True,True,ok,planner_compiled,False,,2
+bird_full,425,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,426,neutral,hard,0.35,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,427,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,428,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,429,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,430,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,431,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,432,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'percent' is not one of ['count', 'count_distinct', 'sum', 'avg', 'min', 'max', 'none']",2
+bird_full,433,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,434,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,435,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,436,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,437,neutral,easy,0.2,False,False,skipped,b0_anchor_easy,False,,1
+bird_full,438,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,439,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,440,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'subquery' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,441,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,442,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'numeric' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,443,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,444,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,445,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2
+bird_full,446,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,447,neutral,hard,1.0,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'expr' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,448,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,449,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,450,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,451,harmful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,452,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,453,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,454,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,455,harmful,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,456,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'list' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,457,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,458,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,459,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,460,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,461,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,462,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,463,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,464,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,465,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,466,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,467,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,468,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,469,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,470,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'real' is not one of [None, 'int', 'float', 'string', 'date', 'column', 'list_int', 'list_string', 'tuple']",2
+bird_full,471,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,472,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,473,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,474,harmful,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,475,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,476,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,477,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,478,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,479,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,480,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,481,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,482,helpful,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,483,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,484,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,485,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,486,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,487,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,488,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,489,neutral,hard,0.65,True,False,skipped,b0_anchor_plan_invalid,True,"plan_invalid:jsonschema:'LIKE' is not one of ['=', '!=', '<', '<=', '>', '>=', 'in', 'not in', 'like', 'not like', 'between', 'is null', 'is not null']",2
+bird_full,490,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,491,helpful,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,492,neutral,hard,0.35,True,True,ok,planner_compiled,False,,2
+bird_full,493,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,494,neutral,hard,1.0,True,True,ok,planner_compiled,False,,2
+bird_full,495,neutral,hard,0.65,True,True,ok,planner_compiled,False,,2
+bird_full,496,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,497,neutral,hard,0.85,True,True,ok,planner_compiled,False,,2
+bird_full,498,neutral,hard,0.8,True,True,ok,planner_compiled,False,,2
+bird_full,499,neutral,hard,0.55,True,True,ok,planner_compiled,False,,2

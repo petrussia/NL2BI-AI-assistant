@@ -1,0 +1,12 @@
+family,total,em,em_rate
+aggregate,601,259,0.4309
+filter,600,257,0.4283
+join,576,155,0.2691
+anchor_only,349,221,0.6332
+group_by,227,54,0.2379
+top_k,207,46,0.2222
+simple,77,44,0.5714
+having,65,3,0.0462
+distinct,51,11,0.2157
+nested,12,5,0.4167
+window,1,0,0.0
