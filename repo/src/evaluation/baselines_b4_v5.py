@@ -22,9 +22,12 @@ def run_b4v5_step(question: str, ir, *, gen, executor=None,
                    include_planner: bool = True,
                    include_evidence: bool = True,
                    non_harm_margin: float = 0.06,
-                   max_repair_rounds: int = 1) -> dict:
-    """Returns dict ready to merge into JSONL row."""
+                   max_repair_rounds: int = 1,
+                   planner_gen=None) -> dict:
+    """If `planner_gen` is provided, the planner LLM call uses it (Phase D
+    planner-model swap); all other calls use `gen`."""
     candidates = make_candidates(question, ir, gen=gen,
+                                  planner_gen=planner_gen,
                                   evidence_store=evidence_store,
                                   per_item_evidence=per_item_evidence,
                                   plan_schema_path=plan_schema_path,

@@ -1,0 +1,17 @@
+lane,benchmark,source,count,pct,em,em_rate,plan_valid_pct,planner_used_pct
+phase_c_default,spider_dev,C0_anchor,986,0.9536,778,0.789,0.0251,0.0251
+phase_c_default,spider_dev,C3_planner_compiled,26,0.0251,7,0.2692,0.0251,0.0251
+phase_c_default,spider_dev,C1_retrieval_direct,14,0.0135,3,0.2143,0.0251,0.0251
+phase_c_default,spider_dev,C2_retrieval_evidence,8,0.0077,5,0.625,0.0251,0.0251
+phase_c_default,bird_full,C0_anchor,348,0.696,120,0.3448,0.06,0.06
+phase_c_default,bird_full,C2_retrieval_evidence,64,0.128,33,0.5156,0.06,0.06
+phase_c_default,bird_full,C1_retrieval_direct,58,0.116,11,0.1897,0.06,0.06
+phase_c_default,bird_full,C3_planner_compiled,30,0.06,6,0.2,0.06,0.06
+phase_d_qwen3_8b,bird_full,C0_anchor,421,0.842,121,0.2874,0.0,0.0
+phase_d_qwen3_8b,bird_full,C1_retrieval_direct,51,0.102,6,0.1176,0.0,0.0
+phase_d_qwen3_8b,bird_full,C2_retrieval_evidence,28,0.056,11,0.3929,0.0,0.0
+phase_d_gemma_12b,bird_full,C0_anchor,157,0.6206,52,0.3312,0.0514,0.0514
+phase_d_gemma_12b,bird_full,?,49,0.1937,0,0.0,0.0514,0.0514
+phase_d_gemma_12b,bird_full,C1_retrieval_direct,21,0.083,2,0.0952,0.0514,0.0514
+phase_d_gemma_12b,bird_full,C3_planner_compiled,13,0.0514,2,0.1538,0.0514,0.0514
+phase_d_gemma_12b,bird_full,C2_retrieval_evidence,13,0.0514,5,0.3846,0.0514,0.0514

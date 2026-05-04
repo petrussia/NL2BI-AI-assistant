@@ -83,10 +83,15 @@ def _fk_summary(ir, k: int = 60) -> str:
 
 def run_b3v5_step(question: str, ir, *,
                    gen,
+                   planner_gen=None,
                    evidence_store=None,
                    per_item_evidence: str = '',
                    plan_schema_path: str | None = None,
                    force_planner: bool = False) -> dict:
+    """If `planner_gen` is provided, the planner LLM call uses it; the
+    anchor / synth-from-skeleton / repair calls always use `gen`. Lets us
+    swap the planner model without changing anything else (Phase D)."""
+    plan_gen = planner_gen if planner_gen is not None else gen
     """One step of the B3_v5 pipeline."""
     audit: dict = {'rationale': []}
 
@@ -135,7 +140,7 @@ def run_b3v5_step(question: str, ir, *,
         fk_summary=_fk_summary(ir), evidence=per_item_evidence,
         dialect=ir.dialect,
     )
-    raw_plan = gen(pl_prompt, max_new=512)
+    raw_plan = plan_gen(pl_prompt, max_new=512)
     plan, parse_err = parse_plan(raw_plan)
     if plan is None:
         audit['rationale'].append(f'plan_parse_fail:{parse_err}')

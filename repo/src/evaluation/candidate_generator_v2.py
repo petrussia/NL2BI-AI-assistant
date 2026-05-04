@@ -40,6 +40,7 @@ def _retrieval_only_prompt(schema_text: str, question: str) -> str:
 
 
 def make_candidates(question: str, ir, *, gen,
+                     planner_gen=None,
                      evidence_store=None,
                      per_item_evidence: str = '',
                      plan_schema_path: str | None = None,
@@ -105,6 +106,7 @@ def make_candidates(question: str, ir, *, gen,
                     n_tables_retrieved=len(res.selected_tables))
     if include_planner and cls['difficulty'] == 'hard':
         step3 = run_b3v5_step(question, ir, gen=gen,
+                               planner_gen=planner_gen,
                                evidence_store=evidence_store,
                                per_item_evidence=per_item_evidence,
                                plan_schema_path=plan_schema_path,
