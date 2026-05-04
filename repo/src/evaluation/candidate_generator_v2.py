@@ -45,7 +45,8 @@ def make_candidates(question: str, ir, *, gen,
                      per_item_evidence: str = '',
                      plan_schema_path: str | None = None,
                      include_planner: bool = True,
-                     include_evidence: bool = True) -> list[dict]:
+                     include_evidence: bool = True,
+                     anchor_prompt_extra: str = '') -> list[dict]:
     """Returns a list of candidate dicts, each with at least:
         source, sql, safe, safe_reason, lm_calls, audit (free-form)
     """
@@ -61,7 +62,12 @@ def make_candidates(question: str, ir, *, gen,
                                                 subset_tables=res.selected_tables)
 
     # ---- C0: B0 anchor (full schema, no retrieval) ----
-    p0 = _b0_prompt(full_schema, question)
+    # If `anchor_prompt_extra` is provided (S1_demo_v7 demo block), prepend
+    # to the anchor prompt so the model sees similar gold examples first.
+    if anchor_prompt_extra:
+        p0 = anchor_prompt_extra.rstrip() + '\n\n' + _b0_prompt(full_schema, question)
+    else:
+        p0 = _b0_prompt(full_schema, question)
     s0 = _extract_sql(gen(p0, max_new=256))
     safe0, why0 = is_safe_select(s0, ir.dialect)
     candidates.append({

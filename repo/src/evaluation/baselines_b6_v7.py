@@ -63,7 +63,8 @@ def run_b6v7_step(question: str, ir, *,
                    planner_gen=None,
                    judge_gen: Callable | None = None,
                    judge_policy: dict | None = None,
-                   benchmark: str = 'unknown') -> dict:
+                   benchmark: str = 'unknown',
+                   anchor_prompt_extra: str = '') -> dict:
     """Run one B6_v7 step.
 
     `judge_gen` defaults to the synth `gen` (Coder-7B). Pass a separate
@@ -80,7 +81,8 @@ def run_b6v7_step(question: str, ir, *,
                                   per_item_evidence=per_item_evidence,
                                   plan_schema_path=plan_schema_path,
                                   include_planner=include_planner,
-                                  include_evidence=include_evidence)
+                                  include_evidence=include_evidence,
+                                  anchor_prompt_extra=anchor_prompt_extra)
     if not candidates:
         return _empty_response(reason='no_candidates')
 

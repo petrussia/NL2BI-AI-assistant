@@ -1,0 +1,9 @@
+cell,source,count,pct,em,em_rate
+S1_v7,C0_anchor,815,0.7882,659,0.8086
+S1_v7,C1_retrieval_direct,154,0.1489,100,0.6494
+S1_v7,C3_planner_compiled,45,0.0435,21,0.4667
+S1_v7,C2_retrieval_evidence,20,0.0193,9,0.45
+B6_v7,C0_anchor,946,0.9149,759,0.8023
+B6_v7,C3_planner_compiled,60,0.058,23,0.3833
+B6_v7,C2_retrieval_evidence,15,0.0145,8,0.5333
+B6_v7,C1_retrieval_direct,13,0.0126,4,0.3077
