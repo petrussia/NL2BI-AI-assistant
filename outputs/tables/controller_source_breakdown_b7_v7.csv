@@ -1,0 +1,13 @@
+cell,source,count,pct,em,em_rate
+B7d_rich,C0_anchor,239,0.478,102,0.4268
+B7d_rich,C2_retrieval_evidence,179,0.358,78,0.4358
+B7d_rich,C1_retrieval_direct,50,0.1,11,0.22
+B7d_rich,C3_planner_compiled,32,0.064,5,0.1562
+B7c_profiles_only,C0_anchor,278,0.556,108,0.3885
+B7c_profiles_only,C2_retrieval_evidence,110,0.22,45,0.4091
+B7c_profiles_only,C1_retrieval_direct,72,0.144,7,0.0972
+B7c_profiles_only,C3_planner_compiled,40,0.08,6,0.15
+B7e_none,C0_anchor,291,0.582,108,0.3711
+B7e_none,C2_retrieval_evidence,92,0.184,43,0.4674
+B7e_none,C1_retrieval_direct,77,0.154,11,0.1429
+B7e_none,C3_planner_compiled,40,0.08,4,0.1

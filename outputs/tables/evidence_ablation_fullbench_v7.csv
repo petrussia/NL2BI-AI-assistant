@@ -1,0 +1,4 @@
+cell,n,em,em_rate,evidence_chars_avg,judge_invoked_pct,judge_overrode_pct,C0_anchor,C1_retrieval,C2_evidence,C3_planner
+B7d_rich,500,196,0.392,546.36,0.634,0.374,239,50,179,32
+B7c_profiles_only,500,166,0.332,527.528,0.646,0.298,278,72,110,40
+B7e_none,500,166,0.332,0.0,0.66,0.27,291,77,92,40
