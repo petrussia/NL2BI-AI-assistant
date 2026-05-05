@@ -1,0 +1,56 @@
+# Default config for Spider2-Lite Snowflake runs.
+# Read by the next iteration's SF runner. The smoke pipeline in
+# snowflake_setup/run_spider2_lite_snowflake_smoke.py uses CLI flags directly
+# and ignores this file; it is here so the SF agent runner has a single
+# place to look for production knobs once it lands.
+
+benchmark: spider2-lite
+engine: snowflake
+subset: snowflake
+
+# Smoke-up sequence — never start with the full subset.
+limits:
+  smoke_step_1: 1
+  smoke_step_2: 3
+  smoke_step_3: 10
+
+# SF executor knobs
+executor:
+  # XSMALL is more than enough for 198/207 items at modest concurrency.
+  warehouse_size_hint: XSMALL
+  # Per-query SF timeout; matches what the BQ runner uses for parity.
+  query_timeout_s: 120
+  # Optional bytes-scanned guard — implemented as a STATEMENT_TIMEOUT_IN_SECONDS
+  # plus a RESOURCE_MONITOR on the warehouse rather than a SQL clause.
+  resource_monitor_credit_quota_per_day: 5
+  query_tag: spider2-lite-snowflake
+
+# Generation pipeline — placeholder; actual SF agent module not yet wired.
+agent:
+  # Names the *future* SF-specific module set; v8.5 reserved.
+  module_version: v8_sf_skeleton
+  # When this is true and SF probe passes, the smoke runner is allowed
+  # to call the agent. Default false until the SF agent ships.
+  allow_generate: false
+  # Mirror of the BQ v8 candidate config (see spider2_agent_v8.py docstring).
+  candidates:
+    include_direct: true
+    include_retrieval: true
+    include_cte: true
+    max_new_sql: 800
+    max_new_cte: 1100
+  repair:
+    max_rounds: 2
+  judge:
+    enabled: true
+    close_margin: 0.4
+    min_confidence: 0.65
+
+# Output paths (relative to repo root).
+output:
+  smoke_dir: outputs/spider2_lite_snowflake_smoke
+  predictions_jsonl: spider2_sf_agent_predictions.jsonl
+  candidates_jsonl: spider2_sf_agent_candidates.jsonl
+  traces_jsonl: spider2_sf_agent_traces.jsonl
+  metrics_csv: spider2_sf_agent_metrics.csv
+  blocker_md: outputs/logs/spider2_sf_blocker_status.md
