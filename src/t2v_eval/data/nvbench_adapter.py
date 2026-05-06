@@ -23,6 +23,12 @@ from typing import Any, Iterable
 
 import pandas as pd
 
+from t2v_eval.data.quality import (
+    build_quality_metadata,
+    select_examples,
+    summarize_dataset_quality,
+    table_groups,
+)
 from t2v_eval.data.schema import FieldMetadata, T2VExample
 from t2v_eval.utils.io import write_json, write_jsonl
 from t2v_eval.utils.reproducibility import git_sha, runtime_info, set_seed
@@ -54,11 +60,15 @@ class NVBenchPrepareResult:
     requested_sample_size: int | None
     total_visualizations_seen: int = 0
     total_nl_pairs_seen: int = 0
+    candidate_examples: int = 0
     successful_examples: int = 0
     failed_visualizations: int = 0
     output_jsonl: str | None = None
     dataset_card: str | None = None
+    quality_report: str | None = None
+    table_groups_report: str | None = None
     source_root: str | None = None
+    sampling_strategy: str = "stratified"
     official_download_attempted: bool = False
     failure_reasons: dict[str, int] = field(default_factory=dict)
     elapsed_seconds: float = 0.0
@@ -436,10 +446,34 @@ def materialize_record(
     return df, table_path, source
 
 
+def prune_unselected_tables(tables_dir: Path, examples: Iterable[dict[str, Any]]) -> int:
+    """Remove materialized CSVs that are not referenced by the selected sample."""
+
+    if not tables_dir.exists():
+        return 0
+
+    referenced = {
+        Path(str(example["table_path"])).resolve()
+        for example in examples
+        if example.get("table_path")
+    }
+    removed = 0
+    for table_path in tables_dir.glob("*.csv"):
+        if table_path.resolve() in referenced:
+            continue
+        try:
+            table_path.unlink()
+            removed += 1
+        except FileNotFoundError:
+            pass
+    return removed
+
+
 def prepare_nvbench_dataset(
     *,
     drive_root: Path | str | None = None,
     sample_size: int | None = None,
+    sampling_strategy: str = "stratified",
     allow_download: bool = True,
     min_successful: int = 50,
     seed: int = 42,
@@ -456,6 +490,7 @@ def prepare_nvbench_dataset(
         result = NVBenchPrepareResult(
             status="blocked",
             requested_sample_size=sample_size,
+            sampling_strategy=sampling_strategy,
             official_download_attempted=downloaded,
             failure_reasons={"nvbench_json_not_found": 1},
             elapsed_seconds=round(time.time() - started, 3),
@@ -465,12 +500,29 @@ def prepare_nvbench_dataset(
 
     extract_databases_if_needed(paths.nvbench_root)
     objects = load_nvbench_objects(paths.json_path)
-    output_name = f"examples_sample{sample_size}.jsonl" if sample_size else "examples_all.jsonl"
+    strategy_suffix = "" if sampling_strategy == "first" else f"_{sampling_strategy}"
+    output_name = (
+        f"examples_sample{sample_size}.jsonl"
+        if sample_size
+        else "examples_all.jsonl"
+    )
     output_jsonl = paths.processed_dir / output_name
+    strategy_output_jsonl = (
+        paths.processed_dir
+        / (
+            f"examples_sample{sample_size}{strategy_suffix}.jsonl"
+            if sample_size
+            else f"examples_all{strategy_suffix}.jsonl"
+        )
+        if strategy_suffix
+        else None
+    )
     latest_jsonl = paths.processed_dir / "examples.jsonl"
-    failures_path = paths.failures_dir / f"failures_sample{sample_size or 'all'}.jsonl"
+    failures_path = paths.failures_dir / f"failures_sample{sample_size or 'all'}{strategy_suffix}.jsonl"
+    quality_report_path = paths.processed_dir / f"quality_report_sample{sample_size or 'all'}{strategy_suffix}.json"
+    table_groups_path = paths.processed_dir / f"table_groups_sample{sample_size or 'all'}{strategy_suffix}.json"
 
-    examples: list[dict[str, Any]] = []
+    candidate_examples: list[dict[str, Any]] = []
     failures: list[dict[str, Any]] = []
     failure_reasons: dict[str, int] = {}
     nl_seen = 0
@@ -501,6 +553,20 @@ def prepare_nvbench_dataset(
         for query_index, query in enumerate(queries):
             nl_seen += 1
             example_id = f"nvbench_{safe_id(key)}_{query_index:02d}"
+            example_metadata = {
+                **metadata,
+                "db_id": record.get("db_id"),
+                "chart": record.get("chart"),
+                "materialization_source": materialization_source,
+                "source_key": key,
+            }
+            quality_metadata = build_quality_metadata(
+                query=query,
+                metadata=example_metadata,
+                gold_spec=gold_spec,
+                df=df,
+                table_path=table_path,
+            )
             example = T2VExample(
                 example_id=example_id,
                 benchmark="nvbench",
@@ -508,40 +574,81 @@ def prepare_nvbench_dataset(
                 query=query,
                 table_path=str(table_path),
                 metadata={
-                    **metadata,
-                    "db_id": record.get("db_id"),
-                    "chart": record.get("chart"),
-                    "materialization_source": materialization_source,
-                    "source_key": key,
+                    **example_metadata,
+                    **quality_metadata,
                 },
                 gold_spec=gold_spec,
                 gold_spec_normalized=normalized,
             )
-            examples.append(example.to_dict())
-            if sample_size is not None and len(examples) >= sample_size:
+            candidate_examples.append(example.to_dict())
+            if (
+                sampling_strategy == "first"
+                and sample_size is not None
+                and len(candidate_examples) >= sample_size
+            ):
                 break
-        if sample_size is not None and len(examples) >= sample_size:
+        if (
+            sampling_strategy == "first"
+            and sample_size is not None
+            and len(candidate_examples) >= sample_size
+        ):
             break
 
+    quality_passed_examples: list[dict[str, Any]] = []
+    for example in candidate_examples:
+        metadata = example.get("metadata") or {}
+        quality = metadata.get("quality") or {}
+        if quality.get("status") == "ok":
+            quality_passed_examples.append(example)
+            continue
+        reason = "quality_validation_failed"
+        failure_reasons[reason] = failure_reasons.get(reason, 0) + 1
+        failures.append(
+            {
+                "key": metadata.get("source_key"),
+                "example_id": example.get("example_id"),
+                "reason": reason,
+                "errors": quality.get("errors") or [],
+            }
+        )
+
+    examples = select_examples(
+        quality_passed_examples,
+        sample_size=sample_size,
+        strategy=sampling_strategy,
+        seed=seed,
+    )
+    quality_report = summarize_dataset_quality(examples)
+    groups = table_groups(examples)
+    prune_unselected_tables(paths.tables_dir, examples)
+
     write_jsonl(output_jsonl, examples)
+    if strategy_output_jsonl is not None:
+        write_jsonl(strategy_output_jsonl, examples)
     write_jsonl(latest_jsonl, examples)
     write_jsonl(failures_path, failures)
+    write_json(quality_report_path, quality_report)
+    write_json(table_groups_path, groups)
 
     result = NVBenchPrepareResult(
         status="ok" if len(examples) >= min_successful else "blocked",
         requested_sample_size=sample_size,
         total_visualizations_seen=len(objects),
         total_nl_pairs_seen=nl_seen,
+        candidate_examples=len(candidate_examples),
         successful_examples=len(examples),
         failed_visualizations=len(failures),
         output_jsonl=str(output_jsonl),
         dataset_card=str(paths.processed_dir / "dataset_card.md"),
+        quality_report=str(quality_report_path),
+        table_groups_report=str(table_groups_path),
         source_root=str(paths.nvbench_root),
+        sampling_strategy=sampling_strategy,
         official_download_attempted=downloaded,
         failure_reasons=failure_reasons,
         elapsed_seconds=round(time.time() - started, 3),
     )
-    write_dataset_card(paths, result, failures_path)
+    write_dataset_card(paths, result, failures_path, quality_report=quality_report)
     write_json(paths.processed_dir / "prepare_result.json", result.to_dict())
     write_json(
         paths.processed_dir / "runtime_info.json",
@@ -555,7 +662,13 @@ def prepare_nvbench_dataset(
     return result
 
 
-def write_dataset_card(paths: NVBenchPaths, result: NVBenchPrepareResult, failures_path: Path) -> None:
+def write_dataset_card(
+    paths: NVBenchPaths,
+    result: NVBenchPrepareResult,
+    failures_path: Path,
+    *,
+    quality_report: dict[str, Any],
+) -> None:
     lines = [
         "# nvBench post-query dataset card",
         "",
@@ -566,10 +679,13 @@ def write_dataset_card(paths: NVBenchPaths, result: NVBenchPrepareResult, failur
         "## Counts",
         "",
         f"- Requested sample size: `{result.requested_sample_size}`",
+        f"- Sampling strategy: `{result.sampling_strategy}`",
         f"- Visualizations seen: `{result.total_visualizations_seen}`",
         f"- NL pairs seen during preparation: `{result.total_nl_pairs_seen}`",
+        f"- Candidate post-query examples before sampling: `{result.candidate_examples}`",
         f"- Successful post-query examples: `{result.successful_examples}`",
         f"- Failed visualizations: `{result.failed_visualizations}`",
+        f"- Unique tables by fingerprint: `{quality_report.get('unique_tables_by_fingerprint')}`",
         "",
         "## Post-query boundary",
         "",
@@ -577,16 +693,69 @@ def write_dataset_card(paths: NVBenchPaths, result: NVBenchPrepareResult, failur
         "No Text-to-SQL generation or evaluation is performed.",
         "When SQL materialization is unavailable, the adapter can use `vis_obj` gold values as a table extraction fallback.",
         "",
-        "## Outputs",
+        "## Quality metadata",
         "",
-        f"- Examples JSONL: `{result.output_jsonl}`",
-        f"- Latest examples alias: `{paths.processed_dir / 'examples.jsonl'}`",
-        f"- Tables directory: `{paths.tables_dir}`",
-        f"- Failures JSONL: `{failures_path}`",
+        "Each example is annotated with `chart_type_mentioned`, `chart_type_signal`, `primary_mark`,",
+        "`acceptable_marks`, `table_shape`, and a nested `quality` validation block.",
+        "`primary_mark` stays the strict gold label; `acceptable_marks` can be used for relaxed analysis",
+        "of ambiguous requests such as proportion questions.",
         "",
-        "## Failure reasons",
+        "### Primary mark distribution",
         "",
     ]
+    for key, count in sorted((quality_report.get("primary_mark_distribution") or {}).items()):
+        lines.append(f"- `{key}`: {count}")
+    lines.extend(
+        [
+            "",
+            "### Chart type signal distribution",
+            "",
+        ]
+    )
+    for key, count in sorted((quality_report.get("chart_type_signal_distribution") or {}).items()):
+        lines.append(f"- `{key}`: {count}")
+    lines.extend(
+        [
+            "",
+            "### Materialization source distribution",
+            "",
+        ]
+    )
+    for key, count in sorted((quality_report.get("materialization_source_distribution") or {}).items()):
+        lines.append(f"- `{key}`: {count}")
+    lines.extend(
+        [
+            "",
+            "### Validation status distribution",
+            "",
+        ]
+    )
+    for key, count in sorted((quality_report.get("validation_status_distribution") or {}).items()):
+        lines.append(f"- `{key}`: {count}")
+    lines.extend(
+        [
+            "",
+            "## Outputs",
+            "",
+            f"- Examples JSONL: `{result.output_jsonl}`",
+            f"- Latest examples alias: `{paths.processed_dir / 'examples.jsonl'}`",
+            f"- Quality report JSON: `{result.quality_report}`",
+            f"- Table groups JSON: `{result.table_groups_report}`",
+            f"- Tables directory: `{paths.tables_dir}`",
+            f"- Failures JSONL: `{failures_path}`",
+            "",
+            "## Failure reasons",
+            "",
+        ]
+    )
+    if result.sampling_strategy != "first":
+        strategy_name = (
+            f"examples_sample{result.requested_sample_size}_{result.sampling_strategy}.jsonl"
+            if result.requested_sample_size
+            else f"examples_all_{result.sampling_strategy}.jsonl"
+        )
+        insert_at = lines.index("## Failure reasons") - 1
+        lines.insert(insert_at, f"- Strategy-specific examples copy: `{paths.processed_dir / strategy_name}`")
     if result.failure_reasons:
         for reason, count in sorted(result.failure_reasons.items()):
             lines.append(f"- `{reason}`: {count}")
@@ -645,6 +814,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--drive-root", type=Path, default=default_drive_root())
     parser.add_argument("--sample-size", type=int, default=None)
+    parser.add_argument(
+        "--sampling-strategy",
+        choices=("stratified", "first"),
+        default="stratified",
+        help="Use stratified random sampling by default; 'first' keeps the legacy first-N behavior.",
+    )
     parser.add_argument("--min-successful", type=int, default=50)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--no-download", action="store_true")
@@ -657,6 +832,7 @@ def main(argv: list[str] | None = None) -> int:
     result = prepare_nvbench_dataset(
         drive_root=args.drive_root,
         sample_size=args.sample_size,
+        sampling_strategy=args.sampling_strategy,
         allow_download=not args.no_download,
         min_successful=args.min_successful,
         seed=args.seed,

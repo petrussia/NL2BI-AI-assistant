@@ -23,10 +23,15 @@
 ## Методика экспериментов
 
 1. nvBench адаптирован под post-query постановку: SQL используется только в upstream-части для материализации таблицы; downstream-примеры содержат CSV-таблицу, метаданные, NL-запрос и эталонную (gold) Vega-Lite-like spec.
-2. Все runs сохранялись в канонической папке Google Drive: `/content/drive/MyDrive/diploma/petr_text_to_visualization_part`.
-3. Для каждого метода сохранялись файлы предсказаний jsonl, агрегированные и попримерные метрики, информация о среде выполнения, pip freeze и артефакты рендеринга.
-4. Основные метрики: `vega_lite_validity`, `field_selection_f1`, `encoding_accuracy`, `aggregation_accuracy`, `normalized_exact_match`, `failure_rate`, `latency_ms`, `memory_peak_mb`.
-5. Для B4 дополнительно сохраняются все 3 кандидата на пример и считается `oracle_success_at_k`.
+2. Улучшенная сборка бенча проходит по полному nvBench, а не берет первые 200 примеров: 25 752 NL-кандидата из 7 247 визуализаций проверяются quality-check, затем выбирается seed-based stratified sample на 200 примеров.
+3. В выбранном sample все 200 примеров имеют `quality.status=ok`; в `tables/` остаются только используемые CSV: 192 файла, 185 уникальных таблиц по fingerprint.
+4. В metadata дополнительно сохраняются `chart_type_mentioned`, `chart_type_signal`, `mentioned_chart_type`, `primary_mark`, `acceptable_marks`, `table_shape` и блок `quality`.
+5. Для sample 200 распределение `primary_mark`: `arc` 76, `bar` 69, `line` 19, `point` 36. Распределение `chart_type_signal`: `explicit_bar` 39, `explicit_histogram` 2, `explicit_line` 11, `explicit_pie` 46, `explicit_scatter` 22, `none` 64, `proportion` 16.
+6. Все runs сохранялись в канонической папке Google Drive: `/content/drive/MyDrive/diploma/petr_text_to_visualization_part`.
+7. Для каждого метода сохранялись файлы предсказаний jsonl, агрегированные и попримерные метрики, информация о среде выполнения, pip freeze и артефакты рендеринга.
+8. Основные метрики: `vega_lite_validity`, `field_selection_f1`, `encoding_accuracy`, `aggregation_accuracy`, `normalized_exact_match`, `failure_rate`, `latency_ms`, `memory_peak_mb`.
+9. Для B4 дополнительно сохраняются все 3 кандидата на пример и считается `oracle_success_at_k`.
+10. Метрики ниже относятся к сохраненным run-артефактам. Если датасет пересобирается новым stratified sample, бейзлайны нужно перезапускать на этом же `examples.jsonl`, чтобы сравнение оставалось строгим.
 
 ## Итоговые результаты
 
