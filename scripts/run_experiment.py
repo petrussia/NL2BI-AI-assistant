@@ -66,7 +66,7 @@ def run_experiment(
         "methods": {},
     }
 
-    runtime = runtime_info(Path.cwd())
+    runtime = runtime_info(REPO_ROOT)
     write_json(run_dir / "runtime_info.json", runtime)
     (run_dir / "pip_freeze.txt").write_text(pip_freeze() + "\n", encoding="utf-8")
 

@@ -71,7 +71,7 @@ def run_llm_rerank_experiment(
         candidate_count=candidate_count,
         candidate_temperatures=candidate_temperatures,
     )
-    write_json(run_dir / "runtime_info.json", runtime_info(Path.cwd()))
+    write_json(run_dir / "runtime_info.json", runtime_info(REPO_ROOT))
     write_json(run_dir / "llm_reranker_config.json", config.to_dict())
     write_json(run_dir / "gpu_runtime_before.json", gpu_runtime_info())
     (run_dir / "pip_freeze.txt").write_text(pip_freeze() + "\n", encoding="utf-8")

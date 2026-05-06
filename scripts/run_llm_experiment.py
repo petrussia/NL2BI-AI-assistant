@@ -73,7 +73,7 @@ def run_llm_experiment(
         enable_thinking=enable_thinking,
         stop_after_json=stop_after_json,
     )
-    runtime = runtime_info(Path.cwd())
+    runtime = runtime_info(REPO_ROOT)
     write_json(run_dir / "runtime_info.json", runtime)
     write_json(run_dir / "llm_config.json", config.to_dict())
     write_json(run_dir / "gpu_runtime_before.json", gpu_runtime_info())
