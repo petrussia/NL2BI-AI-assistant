@@ -1,0 +1,53 @@
+{
+  "connection_ok": true,
+  "account_info": {
+    "current_user": "SPIDER2_BENCH",
+    "current_role": "SPIDER2_RW",
+    "current_account": "DI69621",
+    "current_organization": "QOBJWEZ",
+    "current_region": "AWS_AP_SOUTH_1",
+    "current_version": "10.16.101"
+  },
+  "cloud": "AWS",
+  "region": "ap-south-1",
+  "self_host_eligible": false,
+  "visible_databases": [
+    {
+      "name": "SNOWFLAKE",
+      "origin": "SNOWFLAKE.ACCOUNT_USAGE",
+      "kind": "APPLICATION"
+    },
+    {
+      "name": "SNOWFLAKE_SAMPLE_DATA",
+      "origin": "SFSALESSHARED.SFC_SAMPLES_AWSAPSOUTH1.SAMPLE_DATA",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "SPIDER2_WORK",
+      "origin": "",
+      "kind": "STANDARD"
+    }
+  ],
+  "visible_database_count": 3,
+  "required_database_count": 58,
+  "missing_database_count": 58,
+  "visible_match_count": 0,
+  "has_patents": false,
+  "warehouses": [
+    {
+      "name": "SPIDER2_WH",
+      "state": "SUSPENDED",
+      "size": "X-Small"
+    },
+    {
+      "name": "SYSTEM$STREAMLIT_NOTEBOOK_WH",
+      "state": "SUSPENDED",
+      "size": "X-Small"
+    }
+  ],
+  "can_run_real_sf_benchmark": false,
+  "role": "SPIDER2_RW",
+  "warehouse": "SPIDER2_WH",
+  "database_default": "SPIDER2_WORK",
+  "schema_default": "PUBLIC"
+}
