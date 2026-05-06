@@ -29,6 +29,8 @@ DEFAULT_MODEL_ID = "Qwen/Qwen3-8B"
 ALLOWED_CHART_TYPES = ("bar", "line", "point", "area", "tick", "text")
 DEFAULT_SAMPLE_ROWS = 5
 DEFAULT_MAX_NEW_TOKENS = 384
+DEFAULT_MAX_VALIDATION_RETRIES = 3
+MAX_RETRY_OUTPUT_CHARS = 1600
 
 
 class ChatTemplateTokenizer(Protocol):
@@ -49,6 +51,7 @@ class LLMVegaLiteConfig:
     trust_remote_code: bool = True
     enable_thinking: bool = False
     stop_after_json: bool = True
+    max_validation_retries: int = DEFAULT_MAX_VALIDATION_RETRIES
 
     def __post_init__(self) -> None:
         if "qwen2.5" in self.model_id.lower():
@@ -57,6 +60,8 @@ class LLMVegaLiteConfig:
             raise ValueError("max_new_tokens must be positive.")
         if self.sample_rows < 0:
             raise ValueError("sample_rows must be non-negative.")
+        if self.max_validation_retries < 0:
+            raise ValueError("max_validation_retries must be non-negative.")
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -120,10 +125,13 @@ class LLMVegaLitePredictor:
         start_memory = _memory_mb()
         prompt = build_prompt(example, sample_rows=self.config.sample_rows)
         try:
-            raw_output = self.generate(prompt)
-            return prediction_from_text(
+            generation = self.generate_validated(
+                prompt,
                 example,
-                raw_output,
+            )
+            return prediction_from_validated_generation(
+                example=example,
+                generation=generation,
                 run_id=run_id,
                 method=METHOD_NAME,
                 latency_ms=_elapsed_ms(start),
@@ -191,6 +199,65 @@ class LLMVegaLitePredictor:
         return strip_thinking_blocks(
             self.tokenizer.decode(generated, skip_special_tokens=True)
         ).strip()
+
+    def generate_validated(
+        self,
+        prompt: str,
+        example: T2VExample,
+        *,
+        temperature: float | None = None,
+        top_p: float | None = None,
+        max_new_tokens: int | None = None,
+        max_retries: int | None = None,
+    ) -> dict[str, Any]:
+        """Generate JSON, validate it strictly, and retry with validator feedback."""
+
+        retry_limit = self.config.max_validation_retries if max_retries is None else max_retries
+        current_prompt = prompt
+        attempts: list[dict[str, Any]] = []
+        raw_output = ""
+        validation: dict[str, Any] = {
+            "valid": False,
+            "error": "not_generated",
+            "feedback": "The model did not return any output.",
+        }
+
+        for attempt_index in range(retry_limit + 1):
+            raw_output = self.generate(
+                current_prompt,
+                temperature=temperature,
+                top_p=top_p,
+                max_new_tokens=max_new_tokens,
+            )
+            validation = validate_generated_spec(
+                raw_output,
+                example,
+                strict_json=True,
+                allow_repair=False,
+            )
+            attempts.append(_validation_attempt(attempt_index, raw_output, validation))
+            if validation["valid"]:
+                return {
+                    "valid": True,
+                    "raw_output": raw_output,
+                    "validation": validation,
+                    "attempts": attempts,
+                }
+            if attempt_index < retry_limit:
+                current_prompt = build_retry_prompt(
+                    prompt,
+                    raw_output=raw_output,
+                    validation=validation,
+                    retry_number=attempt_index + 1,
+                    max_retries=retry_limit,
+                )
+
+        return {
+            "valid": False,
+            "raw_output": raw_output,
+            "validation": validation,
+            "attempts": attempts,
+        }
 
 
 def format_prompt_for_model(
@@ -276,6 +343,54 @@ def table_preview(example: T2VExample, *, sample_rows: int = DEFAULT_SAMPLE_ROWS
     return json.loads(table.to_json(orient="records", force_ascii=False))
 
 
+def prediction_from_validated_generation(
+    *,
+    example: T2VExample,
+    generation: dict[str, Any],
+    run_id: str,
+    method: str = METHOD_NAME,
+    latency_ms: float | None = None,
+    memory_peak_mb: float | None = None,
+) -> T2VPrediction:
+    attempts = list(generation.get("attempts") or [])
+    raw_output = str(generation.get("raw_output") or "")
+    validation = generation.get("validation") or {}
+    if not generation.get("valid"):
+        return T2VPrediction(
+            run_id=run_id,
+            method=method,
+            example_id=example.example_id,
+            status="failed",
+            raw_output=raw_output,
+            candidates=[{"validation_attempts": attempts}],
+            latency_ms=latency_ms,
+            memory_peak_mb=memory_peak_mb,
+            error=str(validation.get("error") or "validated_generation_failed"),
+        )
+
+    spec = validation["spec"]
+    normalized = validation["normalized_spec"]
+    candidate = {
+        "raw_spec": spec,
+        "normalized_spec": normalized,
+        "score": 1.0,
+        "reason": validation.get("repair_status") or "strict_json_validated",
+        "validation_attempts": attempts,
+    }
+    return T2VPrediction(
+        run_id=run_id,
+        method=method,
+        example_id=example.example_id,
+        status="ok",
+        raw_output=raw_output,
+        raw_spec=spec,
+        normalized_spec=normalized,
+        candidates=[candidate],
+        latency_ms=latency_ms,
+        memory_peak_mb=memory_peak_mb,
+    )
+
+
 def prediction_from_text(
     example: T2VExample,
     raw_output: str,
@@ -319,36 +434,303 @@ def prediction_from_text(
 
 
 def extract_and_repair_spec(raw_output: str, example: T2VExample) -> dict[str, Any]:
-    try:
-        spec = extract_json_object(raw_output)
-    except ValueError as exc:
-        return {"valid": False, "error": str(exc), "spec": None, "repair_status": "parse_failed"}
+    return validate_generated_spec(
+        raw_output,
+        example,
+        strict_json=False,
+        allow_repair=True,
+    )
 
-    repaired, repair_notes = repair_lite(spec, example)
-    normalized = normalize_spec(repaired)
+
+def validate_generated_spec(
+    raw_output: str,
+    example: T2VExample,
+    *,
+    allowed_chart_types: tuple[str, ...] = ALLOWED_CHART_TYPES,
+    strict_json: bool = True,
+    allow_repair: bool = False,
+) -> dict[str, Any]:
+    """Validate generated output as JSON and as a constrained Vega-Lite spec."""
+
+    parse_result = parse_json_object(raw_output, strict_json=strict_json)
+    if not parse_result["valid"]:
+        return parse_result
+
+    spec = parse_result["spec"]
+    repair_notes: list[str] = []
+    if allow_repair:
+        spec, repair_notes = repair_lite(spec, example)
+
+    strict_schema_error = None if allow_repair else _strict_schema_error(spec)
+    if strict_schema_error is not None:
+        return _invalid_validation(
+            strict_schema_error["error"],
+            strict_schema_error["feedback"],
+            spec=spec,
+            repair_status="strict_schema_failed",
+        )
+
+    normalized = normalize_spec(spec)
     if not normalized["valid"]:
-        return {
-            "valid": False,
-            "error": normalized.get("error", "invalid_spec"),
-            "spec": repaired,
-            "repair_status": ",".join(repair_notes) or "unrepaired_invalid",
-        }
+        error = str(normalized.get("error", "invalid_spec"))
+        return _invalid_validation(
+            error,
+            _normalization_feedback(error),
+            spec=spec,
+            normalized_spec=normalized,
+            repair_status=",".join(repair_notes) or "unrepaired_invalid",
+        )
+
     chart_type = str(normalized.get("chart_type") or "").lower()
-    if chart_type not in ALLOWED_CHART_TYPES:
-        return {
-            "valid": False,
-            "error": f"unsupported_mark_type:{chart_type or 'missing'}",
-            "spec": repaired,
-            "normalized_spec": normalized,
-            "repair_status": ",".join(repair_notes) or "unsupported_mark_type",
-        }
+    allowed = {mark.lower() for mark in allowed_chart_types}
+    if chart_type not in allowed:
+        return _invalid_validation(
+            f"unsupported_mark_type:{chart_type or 'missing'}",
+            (
+                f"Use one of the allowed mark values: {', '.join(allowed_chart_types)}. "
+                "Do not use arc or pie."
+            ),
+            spec=spec,
+            normalized_spec=normalized,
+            repair_status=",".join(repair_notes) or "unsupported_mark_type",
+        )
+
+    contract_error = _spec_contract_error(normalized, example)
+    if contract_error is not None:
+        return _invalid_validation(
+            contract_error["error"],
+            contract_error["feedback"],
+            spec=spec,
+            normalized_spec=normalized,
+            repair_status=",".join(repair_notes) or "contract_validation_failed",
+        )
+
     return {
         "valid": True,
         "error": None,
-        "spec": repaired,
+        "feedback": None,
+        "spec": spec,
         "normalized_spec": normalized,
-        "repair_status": ",".join(repair_notes) or "no_repair_needed",
+        "repair_status": ",".join(repair_notes) or "strict_json_validated",
     }
+
+
+def parse_json_object(raw_output: str, *, strict_json: bool) -> dict[str, Any]:
+    if not strict_json:
+        try:
+            return {"valid": True, "error": None, "feedback": None, "spec": extract_json_object(raw_output)}
+        except ValueError as exc:
+            return _invalid_validation("parse_failed", str(exc), repair_status="parse_failed")
+
+    text = strip_thinking_blocks(raw_output).strip()
+    if not text:
+        return _invalid_validation(
+            "empty_output",
+            "Return exactly one JSON object. The response is empty.",
+            repair_status="parse_failed",
+        )
+
+    decoder = json.JSONDecoder()
+    try:
+        value, end = decoder.raw_decode(text)
+    except json.JSONDecodeError as exc:
+        return _invalid_validation(
+            f"invalid_json:line_{exc.lineno}:column_{exc.colno}:{exc.msg}",
+            (
+                f"JSON syntax error at line {exc.lineno}, column {exc.colno}: {exc.msg}. "
+                "Return exactly one JSON object that starts with { and ends with }. "
+                "Use double quotes for all keys and strings, and do not use markdown fences or explanations."
+            ),
+            repair_status="parse_failed",
+        )
+
+    trailing = text[end:]
+    if trailing.strip():
+        offset = end + len(trailing) - len(trailing.lstrip())
+        line, column = _line_column(text, offset)
+        return _invalid_validation(
+            f"invalid_json_extra_text:line_{line}:column_{column}",
+            (
+                f"Extra text starts after the JSON object at line {line}, column {column}. "
+                "Remove all text before or after the JSON. Return only one JSON object."
+            ),
+            spec=value if isinstance(value, dict) else None,
+            repair_status="parse_failed",
+        )
+
+    if not isinstance(value, dict):
+        return _invalid_validation(
+            f"json_root_not_object:{type(value).__name__}",
+            "The JSON root must be an object like {\"mark\":\"bar\",\"encoding\":{...}}, not an array or scalar.",
+            repair_status="parse_failed",
+        )
+    return {"valid": True, "error": None, "feedback": None, "spec": value}
+
+
+def build_retry_prompt(
+    original_prompt: str,
+    *,
+    raw_output: str,
+    validation: dict[str, Any],
+    retry_number: int,
+    max_retries: int,
+) -> str:
+    return (
+        f"{original_prompt}\n\n"
+        f"Your previous answer failed validation. Retry {retry_number} of {max_retries}.\n"
+        f"Validator error:\n{validation.get('error')}\n\n"
+        f"How to fix it:\n{validation.get('feedback')}\n\n"
+        "Previous invalid answer:\n"
+        f"{_truncate(raw_output, MAX_RETRY_OUTPUT_CHARS)}\n\n"
+        "Return the corrected answer now. Output only one JSON object, no markdown, no explanations."
+    )
+
+
+def _strict_schema_error(spec: dict[str, Any]) -> dict[str, str] | None:
+    if "mark" not in spec:
+        if "chart_type" in spec or "chartType" in spec:
+            return {
+                "error": "missing_mark:used_chart_type",
+                "feedback": "Use top-level key `mark`, not `chart_type` or `chartType`.",
+            }
+        return {
+            "error": "missing_mark",
+            "feedback": "Add a top-level `mark` key with an allowed value such as `bar`, `line`, or `point`.",
+        }
+    if "encoding" not in spec:
+        top_level_channels = sorted(set(spec) & {"x", "y", "color", "tooltip", "text"})
+        if top_level_channels:
+            return {
+                "error": f"missing_encoding:top_level_channels:{','.join(top_level_channels)}",
+                "feedback": "Put channel definitions inside `encoding`, for example `{\"encoding\":{\"x\":{...},\"y\":{...}}}`.",
+            }
+        return {
+            "error": "missing_encoding",
+            "feedback": "Add a top-level `encoding` object with the chart channels.",
+        }
+    if not isinstance(spec.get("encoding"), dict):
+        return {
+            "error": f"encoding_not_object:{type(spec.get('encoding')).__name__}",
+            "feedback": "`encoding` must be a JSON object, not a list or string.",
+        }
+    return None
+
+
+def _spec_contract_error(normalized: dict[str, Any], example: T2VExample) -> dict[str, str] | None:
+    encoding = normalized.get("encoding") or {}
+    if not encoding:
+        return {
+            "error": "empty_encoding",
+            "feedback": "Add at least one useful encoding channel using fields from the schema.",
+        }
+
+    fields_by_name = {field.name: field for field in example.fields}
+    valid_fields = ", ".join(fields_by_name) or "no fields available"
+    for channel, channel_value in encoding.items():
+        for item in _channel_items(channel_value):
+            field_name = item.get("field")
+            field = fields_by_name.get(str(field_name)) if field_name else None
+            path = f"encoding.{channel}.field"
+            if field_name and field is None:
+                return {
+                    "error": f"unknown_field:{path}:{field_name}",
+                    "feedback": f"At `{path}`, use only fields from the schema. Valid fields: {valid_fields}.",
+                }
+            declared_type = item.get("type")
+            if field is not None and declared_type and not _type_compatible(field, declared_type):
+                return {
+                    "error": f"incompatible_type:encoding.{channel}.type:{field.name}:{declared_type}",
+                    "feedback": (
+                        f"`encoding.{channel}.type` is incompatible with field `{field.name}`. "
+                        f"Use `{_vega_type(field)}` for this field."
+                    ),
+                }
+            aggregate = item.get("aggregate")
+            if aggregate and not _aggregate_allowed(field, str(aggregate)):
+                return {
+                    "error": f"disallowed_aggregate:encoding.{channel}.aggregate:{aggregate}",
+                    "feedback": (
+                        f"Aggregate `{aggregate}` is not allowed for this field. "
+                        "Use one of the field's allowed aggregations or `count` when appropriate."
+                    ),
+                }
+    return None
+
+
+def _invalid_validation(
+    error: str,
+    feedback: str,
+    *,
+    spec: dict[str, Any] | None = None,
+    normalized_spec: dict[str, Any] | None = None,
+    repair_status: str = "validation_failed",
+) -> dict[str, Any]:
+    return {
+        "valid": False,
+        "error": error,
+        "feedback": feedback,
+        "spec": spec,
+        "normalized_spec": normalized_spec,
+        "repair_status": repair_status,
+    }
+
+
+def _validation_attempt(
+    attempt_index: int,
+    raw_output: str,
+    validation: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "attempt": attempt_index + 1,
+        "valid": bool(validation.get("valid")),
+        "error": validation.get("error"),
+        "feedback": validation.get("feedback"),
+        "raw_output_excerpt": _truncate(raw_output, MAX_RETRY_OUTPUT_CHARS),
+    }
+
+
+def _normalization_feedback(error: str) -> str:
+    if error == "missing_mark":
+        return "Add top-level `mark`, for example `\"mark\":\"bar\"`."
+    if error == "encoding_not_object":
+        return "Make `encoding` a JSON object with channels such as `x` and `y`."
+    return "Return a valid compact Vega-Lite JSON object with top-level `mark` and `encoding`."
+
+
+def _line_column(text: str, offset: int) -> tuple[int, int]:
+    line = text.count("\n", 0, offset) + 1
+    line_start = text.rfind("\n", 0, offset)
+    column = offset + 1 if line_start < 0 else offset - line_start
+    return line, column
+
+
+def _truncate(value: str, max_chars: int) -> str:
+    text = value.strip()
+    if len(text) <= max_chars:
+        return text
+    return text[:max_chars] + "\n...<truncated>"
+
+
+def _type_compatible(field: FieldMetadata, vega_type: Any) -> bool:
+    normalized_type = str(vega_type).lower()
+    expected = _vega_type(field)
+    if expected == "temporal":
+        return normalized_type in {"temporal", "ordinal", "nominal"}
+    if expected == "quantitative":
+        return normalized_type in {"quantitative", "ordinal"}
+    return normalized_type in {"nominal", "ordinal"}
+
+
+def _aggregate_allowed(field: FieldMetadata | None, aggregate: str) -> bool:
+    aggregate = aggregate.lower()
+    if aggregate == "count":
+        return True
+    if field is None:
+        return False
+    allowed = {item.lower() for item in field.allowed_aggregations}
+    if allowed:
+        return aggregate in allowed
+    return field.role == "measure"
 
 
 def extract_json_object(raw_output: str) -> dict[str, Any]:

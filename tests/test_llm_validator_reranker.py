@@ -53,6 +53,7 @@ def test_reranker_config_uses_b4_and_rejects_qwen25() -> None:
     assert METHOD_NAME == "B4_llm_validator_reranker"
     assert config.candidate_count == 3
     assert config.candidate_temperatures == (0.0, 0.2, 0.3)
+    assert config.max_validation_retries == 3
     with pytest.raises(ValueError, match="Qwen2.5"):
         LLMRerankerConfig(model_id="Qwen/Qwen2.5-7B")
 

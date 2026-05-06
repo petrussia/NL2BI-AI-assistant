@@ -8,6 +8,7 @@ from typing import Any
 
 from t2v_eval.baselines.llm_vegalite import (
     DEFAULT_MAX_NEW_TOKENS,
+    DEFAULT_MAX_VALIDATION_RETRIES,
     DEFAULT_MODEL_ID,
     LLMVegaLiteConfig,
     LLMVegaLitePredictor,
@@ -48,6 +49,7 @@ class LLMRerankerConfig:
     trust_remote_code: bool = True
     enable_thinking: bool = False
     stop_after_json: bool = True
+    max_validation_retries: int = DEFAULT_MAX_VALIDATION_RETRIES
 
     def __post_init__(self) -> None:
         if "qwen2.5" in self.model_id.lower():
@@ -58,6 +60,8 @@ class LLMRerankerConfig:
             raise ValueError("max_new_tokens must be positive.")
         if not self.candidate_temperatures:
             raise ValueError("candidate_temperatures must not be empty.")
+        if self.max_validation_retries < 0:
+            raise ValueError("max_validation_retries must be non-negative.")
 
     def to_llm_config(self) -> LLMVegaLiteConfig:
         return LLMVegaLiteConfig(
@@ -73,6 +77,7 @@ class LLMRerankerConfig:
             trust_remote_code=self.trust_remote_code,
             enable_thinking=self.enable_thinking,
             stop_after_json=self.stop_after_json,
+            max_validation_retries=self.max_validation_retries,
         )
 
     def temperature_for(self, index: int) -> float:
@@ -108,8 +113,9 @@ class LLMValidatorRerankerPredictor:
                 variant=PROMPT_VARIANTS[index % len(PROMPT_VARIANTS)],
             )
             try:
-                raw_output = self.llm.generate(
+                generation = self.llm.generate_validated(
                     prompt,
+                    example,
                     temperature=self.config.temperature_for(index),
                     top_p=self.config.top_p,
                     max_new_tokens=self.config.max_new_tokens,
@@ -122,8 +128,21 @@ class LLMValidatorRerankerPredictor:
                 raw_outputs.append(raw_output)
                 continue
 
+            raw_output = str(generation.get("raw_output") or "")
             raw_outputs.append(raw_output)
-            candidates.append(score_candidate(raw_output, example, candidate_index=index))
+            if not generation.get("valid"):
+                candidate = _failed_candidate(
+                    index,
+                    str((generation.get("validation") or {}).get("error") or "validation_failed"),
+                    raw_output=raw_output,
+                )
+                candidate["validation_attempts"] = generation.get("attempts") or []
+                candidates.append(candidate)
+                continue
+
+            candidate = score_candidate(raw_output, example, candidate_index=index)
+            candidate["validation_attempts"] = generation.get("attempts") or []
+            candidates.append(candidate)
 
         ranked = sorted(
             candidates,

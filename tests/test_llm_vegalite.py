@@ -6,6 +6,7 @@ from t2v_eval.baselines.llm_vegalite import (
     DEFAULT_MODEL_ID,
     DEFAULT_MAX_NEW_TOKENS,
     LLMVegaLiteConfig,
+    LLMVegaLitePredictor,
     build_prompt,
     extract_json_object,
     format_prompt_for_model,
@@ -13,6 +14,7 @@ from t2v_eval.baselines.llm_vegalite import (
     repair_lite,
     strip_markdown_fences,
     strip_thinking_blocks,
+    validate_generated_spec,
 )
 from t2v_eval.data.schema import FieldMetadata, T2VExample
 
@@ -58,6 +60,7 @@ def test_config_uses_qwen3_and_rejects_qwen25() -> None:
     assert config.max_new_tokens == DEFAULT_MAX_NEW_TOKENS
     assert config.enable_thinking is False
     assert config.stop_after_json is True
+    assert config.max_validation_retries == 3
     with pytest.raises(ValueError, match="Qwen2.5"):
         LLMVegaLiteConfig(model_id="Qwen/Qwen2.5-7B")
 
@@ -166,3 +169,66 @@ def test_prediction_rejects_unsupported_pie_marks(tmp_path: Path, mark: str) -> 
 
     assert prediction.status == "failed"
     assert prediction.error == f"unsupported_mark_type:{mark}"
+
+
+def test_strict_validator_reports_json_location_and_fix(tmp_path: Path) -> None:
+    raw = '{"mark":"bar" "encoding":{"x":{"field":"month","type":"temporal"}}}'
+
+    validation = validate_generated_spec(raw, _example(tmp_path), strict_json=True)
+
+    assert validation["valid"] is False
+    assert validation["error"].startswith("invalid_json:line_1:column_15")
+    assert "line 1, column 15" in validation["feedback"]
+    assert "Return exactly one JSON object" in validation["feedback"]
+
+
+def test_strict_validator_rejects_unknown_schema_field(tmp_path: Path) -> None:
+    raw = '{"mark":"line","encoding":{"x":{"field":"missing","type":"temporal"},"y":{"field":"sales","type":"quantitative"}}}'
+
+    validation = validate_generated_spec(raw, _example(tmp_path), strict_json=True)
+
+    assert validation["valid"] is False
+    assert validation["error"] == "unknown_field:encoding.x.field:missing"
+    assert "Valid fields: month, region, sales" in validation["feedback"]
+
+
+def test_generate_validated_retries_with_validator_feedback(tmp_path: Path) -> None:
+    example = _example(tmp_path)
+    predictor = _FakePredictor(
+        [
+            '{"mark":"line","encoding":{"x":{"field":"missing","type":"temporal"},"y":{"field":"sales","type":"quantitative"}}}',
+            '{"mark":"line","encoding":{"x":{"field":"month","type":"temporal"},"y":{"field":"sales","type":"quantitative"}}}',
+        ]
+    )
+
+    generation = predictor.generate_validated("BASE PROMPT", example)
+
+    assert generation["valid"] is True
+    assert len(generation["attempts"]) == 2
+    assert "unknown_field:encoding.x.field:missing" in predictor.prompts[1]
+    assert "Valid fields: month, region, sales" in predictor.prompts[1]
+
+
+def test_generate_validated_stops_after_three_retries(tmp_path: Path) -> None:
+    example = _example(tmp_path)
+    predictor = _FakePredictor(['{"mark":"arc","encoding":{}}'] * 10)
+
+    generation = predictor.generate_validated("BASE PROMPT", example)
+
+    assert generation["valid"] is False
+    assert len(generation["attempts"]) == 4
+    assert len(predictor.prompts) == 4
+    assert generation["validation"]["error"] == "unsupported_mark_type:arc"
+
+
+class _FakePredictor(LLMVegaLitePredictor):
+    def __init__(self, outputs: list[str]) -> None:
+        super().__init__(LLMVegaLiteConfig())
+        self.outputs = list(outputs)
+        self.prompts: list[str] = []
+
+    def generate(self, prompt: str, **_kwargs) -> str:  # type: ignore[no-untyped-def]
+        self.prompts.append(prompt)
+        if not self.outputs:
+            raise AssertionError("No fake outputs left.")
+        return self.outputs.pop(0)
