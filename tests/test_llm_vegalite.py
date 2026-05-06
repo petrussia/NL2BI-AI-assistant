@@ -125,6 +125,32 @@ def test_tokenize_prompt_uses_processor_chat_template_when_available() -> None:
     assert "/no_think" in str(processor.messages)
 
 
+def test_tokenize_prompt_prefers_processor_text_call_for_gemma_style_processor() -> None:
+    class FakeGemmaProcessor:
+        tokenizer = object()
+
+        def __init__(self) -> None:
+            self.call_kwargs = {}
+
+        def apply_chat_template(self, messages, **_kwargs):  # type: ignore[no-untyped-def]
+            return "FORMATTED " + str(messages)
+
+        def __call__(self, **kwargs):  # type: ignore[no-untyped-def]
+            self.call_kwargs = kwargs
+            return {"input_ids": _FakeTensor()}
+
+    class _FakeTensor:
+        pass
+
+    processor = FakeGemmaProcessor()
+    inputs = tokenize_prompt_for_model(processor, "Return JSON")
+
+    assert "input_ids" in inputs
+    assert processor.call_kwargs["return_tensors"] == "pt"
+    assert "text" in processor.call_kwargs
+    assert "/no_think" in processor.call_kwargs["text"]
+
+
 def test_extract_json_object_removes_markdown_and_prefix() -> None:
     raw = 'Here is the chart:\n```json\n{"mark":"bar","encoding":{}}\n```'
 

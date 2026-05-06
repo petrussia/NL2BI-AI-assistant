@@ -446,6 +446,20 @@ def tokenize_prompt_for_model(
     *,
     enable_thinking: bool = False,
 ) -> dict[str, Any]:
+    if _looks_like_processor(tokenizer):
+        text = format_prompt_for_model(
+            tokenizer,
+            prompt,
+            enable_thinking=enable_thinking,
+        )
+        for kwargs in ({"text": text, "return_tensors": "pt"}, {"return_tensors": "pt"}):
+            try:
+                inputs = tokenizer(text, **kwargs) if "text" not in kwargs else tokenizer(**kwargs)
+                if _has_input_ids(inputs):
+                    return inputs
+            except Exception:
+                continue
+
     messages, multimodal_text_messages = _prompt_messages(prompt)
     if hasattr(tokenizer, "apply_chat_template"):
         for candidate_messages in (messages, multimodal_text_messages):
@@ -458,7 +472,7 @@ def tokenize_prompt_for_model(
                     return_tensors="pt",
                     enable_thinking=enable_thinking,
                 )
-                if isinstance(inputs, dict) and "input_ids" in inputs:
+                if _has_input_ids(inputs):
                     return inputs
             except TypeError:
                 try:
@@ -469,7 +483,7 @@ def tokenize_prompt_for_model(
                         return_dict=True,
                         return_tensors="pt",
                     )
-                    if isinstance(inputs, dict) and "input_ids" in inputs:
+                    if _has_input_ids(inputs):
                         return inputs
                 except Exception:
                     continue
@@ -481,6 +495,17 @@ def tokenize_prompt_for_model(
         enable_thinking=enable_thinking,
     )
     return tokenizer(text, return_tensors="pt")
+
+
+def _looks_like_processor(tokenizer: Any) -> bool:
+    return hasattr(tokenizer, "tokenizer") or "processor" in type(tokenizer).__name__.lower()
+
+
+def _has_input_ids(inputs: Any) -> bool:
+    try:
+        return inputs.get("input_ids") is not None
+    except AttributeError:
+        return isinstance(inputs, dict) and inputs.get("input_ids") is not None
 
 
 def _prompt_text(prompt: str) -> tuple[str, str]:
