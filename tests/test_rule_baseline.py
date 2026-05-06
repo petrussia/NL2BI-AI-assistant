@@ -85,6 +85,56 @@ def test_b1_rejects_temporal_axis_for_non_temporal_field() -> None:
     assert passes_hard_constraints(bad_spec, fields) is False
 
 
+def test_b1_handles_count_over_temporal_field_as_measure() -> None:
+    fields = [
+        FieldMetadata(name="date_from", dtype="string", role="time").to_dict(),
+        FieldMetadata(name="COUNT(date_from)", dtype="integer", role="time").to_dict(),
+    ]
+    example = T2VExample(
+        example_id="count_date",
+        query="Bin the start date into YEAR interval and count them with a line chart.",
+        table_path="tables/count_date.csv",
+        metadata={"fields": fields},
+        gold_spec={
+            "mark": "line",
+            "encoding": {
+                "x": {"field": "date_from", "type": "temporal"},
+                "y": {"field": "COUNT(date_from)", "type": "quantitative"},
+            },
+        },
+    )
+
+    candidates = generate_b1(example, top_k=3)
+
+    assert candidates
+    assert candidates[0].raw_spec["mark"] == "line"
+    assert candidates[0].raw_spec["encoding"]["x"]["field"] == "date_from"
+    assert candidates[0].raw_spec["encoding"]["y"]["field"] == "COUNT(date_from)"
+    assert candidates[0].raw_spec["encoding"]["y"]["type"] == "quantitative"
+
+
+def test_b1_still_rejects_plain_temporal_field_as_quantitative() -> None:
+    fields = [
+        FieldMetadata(name="date_from", dtype="string", role="time").to_dict(),
+        FieldMetadata(name="region", dtype="string", role="dimension").to_dict(),
+    ]
+    bad_spec = {
+        "mark": "bar",
+        "encoding": {
+            "x": {"field": "region", "type": "nominal"},
+            "y": {"field": "date_from", "type": "quantitative", "aggregate": "sum"},
+        },
+    }
+
+    assert (
+        passes_hard_constraints(
+            bad_spec,
+            [FieldMetadata.from_dict(field) for field in fields],
+        )
+        is False
+    )
+
+
 def test_run_experiment_writes_predictions_and_metrics(tmp_path: Path) -> None:
     examples_path = tmp_path / "examples.jsonl"
     drive_root = tmp_path / "drive"

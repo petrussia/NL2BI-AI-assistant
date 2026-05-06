@@ -3,6 +3,7 @@ from pathlib import Path
 
 from t2v_eval.data.nvbench_adapter import (
     create_smoke_nvbench_source,
+    infer_role,
     prepare_nvbench_dataset,
 )
 from t2v_eval.utils.io import read_jsonl
@@ -105,6 +106,14 @@ def test_prepare_nvbench_filters_pie_and_arc_examples(tmp_path: Path) -> None:
     assert all(row["metadata"]["primary_mark"] != "arc" for row in rows)
     assert all(row["metadata"]["mentioned_chart_type"] != "pie" for row in rows)
     assert all("pie" not in row["query"].lower() for row in rows)
+
+
+def test_count_over_temporal_field_is_measure() -> None:
+    assert infer_role("integer", "COUNT(date_from)") == "measure"
+    assert infer_role("number", "count(Year)") == "measure"
+    assert infer_role("string", "date_from") == "time"
+    assert infer_role("integer", "Year") == "time"
+    assert infer_role("integer", "price") == "measure"
 
 
 def test_prepare_nvbench_blocks_without_source(tmp_path: Path) -> None:

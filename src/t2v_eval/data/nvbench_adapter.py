@@ -42,6 +42,7 @@ OFFICIAL_ARCHIVE_URL = (
 CANONICAL_DRIVE_ROOT = Path(
     "/content/drive/MyDrive/diploma/petr_text_to_visualization_part"
 )
+AGGREGATE_MEASURE_PREFIXES = ("count(", "sum(", "avg(", "mean(", "min(", "max(")
 
 
 @dataclass(slots=True)
@@ -290,6 +291,10 @@ def dataframe_from_vis_obj(vis_obj: dict[str, Any]) -> pd.DataFrame:
 
 def infer_role(dtype: str, name: str) -> str:
     lowered = name.lower()
+    if dtype in {"integer", "number"} and lowered.strip().startswith(
+        AGGREGATE_MEASURE_PREFIXES
+    ):
+        return "measure"
     if "date" in lowered or "time" in lowered or "year" in lowered or "month" in lowered:
         return "time"
     if dtype in {"integer", "number"}:

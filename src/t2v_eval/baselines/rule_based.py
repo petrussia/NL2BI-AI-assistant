@@ -21,6 +21,7 @@ except ModuleNotFoundError:  # pragma: no cover - dependency is in requirements.
 METHOD_NAME = "B0_rule_based"
 
 _TOKEN_RE = re.compile(r"\w+", re.UNICODE)
+_AGGREGATE_MEASURE_PREFIXES = ("count(", "sum(", "avg(", "mean(", "min(", "max(")
 
 
 @dataclass(slots=True)
@@ -316,6 +317,8 @@ def _fields_by_kind(fields: list[FieldMetadata], kinds: set[str]) -> list[FieldM
 def _kind(field: FieldMetadata) -> str:
     dtype = field.dtype.lower()
     name = field.name.lower()
+    if _is_aggregate_measure(field):
+        return "numeric"
     if field.role == "time" or "date" in name or "time" in name or "year" in name:
         return "time"
     if field.role == "measure" or any(token in dtype for token in ("int", "float", "double", "decimal", "number")):
@@ -323,6 +326,14 @@ def _kind(field: FieldMetadata) -> str:
     if field.role in {"dimension", "id"}:
         return field.role
     return "categorical"
+
+
+def _is_aggregate_measure(field: FieldMetadata) -> bool:
+    dtype = field.dtype.lower()
+    name = field.name.strip().lower()
+    return name.startswith(_AGGREGATE_MEASURE_PREFIXES) and any(
+        token in dtype for token in ("int", "float", "double", "decimal", "number")
+    )
 
 
 def _vega_type(field: FieldMetadata) -> str:
