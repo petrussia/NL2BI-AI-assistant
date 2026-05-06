@@ -441,9 +441,34 @@ def materialize_record(
     if df.empty:
         raise ValueError("materialized table is empty")
     table_path = tables_dir / f"{safe_id(key)}.csv"
-    tables_dir.mkdir(parents=True, exist_ok=True)
-    df.to_csv(table_path, index=False)
     return df, table_path, source
+
+
+def write_selected_tables(
+    tables_dir: Path,
+    examples: Iterable[dict[str, Any]],
+    materialized_tables: dict[str, pd.DataFrame],
+) -> int:
+    """Write only table CSVs referenced by the final sample."""
+
+    tables_dir.mkdir(parents=True, exist_ok=True)
+    selected_paths = {
+        str(Path(str(example["table_path"])).resolve())
+        for example in examples
+        if example.get("table_path")
+    }
+    missing: list[str] = []
+    written = 0
+    for table_path in sorted(selected_paths):
+        df = materialized_tables.get(table_path)
+        if df is None:
+            missing.append(table_path)
+            continue
+        df.to_csv(table_path, index=False)
+        written += 1
+    if missing:
+        raise ValueError(f"Missing materialized data for selected tables: {missing[:5]}")
+    return written
 
 
 def prune_unselected_tables(tables_dir: Path, examples: Iterable[dict[str, Any]]) -> int:
@@ -523,6 +548,7 @@ def prepare_nvbench_dataset(
     table_groups_path = paths.processed_dir / f"table_groups_sample{sample_size or 'all'}{strategy_suffix}.json"
 
     candidate_examples: list[dict[str, Any]] = []
+    materialized_tables: dict[str, pd.DataFrame] = {}
     failures: list[dict[str, Any]] = []
     failure_reasons: dict[str, int] = {}
     nl_seen = 0
@@ -541,6 +567,7 @@ def prepare_nvbench_dataset(
                 nvbench_root=paths.nvbench_root,
                 tables_dir=paths.tables_dir,
             )
+            materialized_tables[str(table_path.resolve())] = df
         except Exception as exc:
             reason = type(exc).__name__
             failure_reasons[reason] = failure_reasons.get(reason, 0) + 1
@@ -566,6 +593,7 @@ def prepare_nvbench_dataset(
                 gold_spec=gold_spec,
                 df=df,
                 table_path=table_path,
+                require_table_file=False,
             )
             example = T2VExample(
                 example_id=example_id,
@@ -618,9 +646,10 @@ def prepare_nvbench_dataset(
         strategy=sampling_strategy,
         seed=seed,
     )
+    write_selected_tables(paths.tables_dir, examples, materialized_tables)
+    prune_unselected_tables(paths.tables_dir, examples)
     quality_report = summarize_dataset_quality(examples)
     groups = table_groups(examples)
-    prune_unselected_tables(paths.tables_dir, examples)
 
     write_jsonl(output_jsonl, examples)
     if strategy_output_jsonl is not None:

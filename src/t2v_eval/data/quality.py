@@ -132,6 +132,7 @@ def validate_table_quality(
     metadata: dict[str, Any],
     gold_spec: dict[str, Any],
     table_path: Path,
+    require_table_file: bool = True,
 ) -> QualityCheck:
     errors: list[str] = []
     warnings: list[str] = []
@@ -140,7 +141,7 @@ def validate_table_quality(
         errors.append("empty_table")
     if len(df.columns) == 0:
         errors.append("no_columns")
-    if not table_path.exists():
+    if require_table_file and not table_path.exists():
         errors.append("table_file_missing")
 
     table_columns = {str(column) for column in df.columns}
@@ -177,6 +178,7 @@ def build_quality_metadata(
     gold_spec: dict[str, Any],
     df: pd.DataFrame,
     table_path: Path,
+    require_table_file: bool = True,
 ) -> dict[str, Any]:
     signal = detect_chart_type_signal(query)
     primary_mark = mark_type(gold_spec)
@@ -185,6 +187,7 @@ def build_quality_metadata(
         metadata=metadata,
         gold_spec=gold_spec,
         table_path=table_path,
+        require_table_file=require_table_file,
     )
     return {
         **signal,
