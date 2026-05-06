@@ -36,6 +36,15 @@ Notebook cell id used with -Action cell.
 .PARAMETER CellText
 Source-code substring used with -Action cell. The match must be unique.
 
+.PARAMETER WaitForCellCompletion
+With -Action cell, wait until the selected cell appears completed in the saved
+.ipynb file instead of sleeping for the full WaitSeconds duration. WaitSeconds
+is treated as a timeout in this mode.
+
+.PARAMETER CompletionText
+Optional output text marker to require when using -WaitForCellCompletion. This is
+the most reliable mode for long Colab cells that print a final OK marker.
+
 .PARAMETER PaletteLanguage
 Command palette language. "auto" reads the running VS Code language and then
 falls back to the extension bundle and English.
@@ -61,6 +70,9 @@ Print a machine-readable JSON result.
 
 .EXAMPLE
 .\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER" -WaitSeconds 20
+
+.EXAMPLE
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId run-cell -WaitForCellCompletion -CompletionText "RUN_OK" -WaitSeconds 1800 -Json
 
 .EXAMPLE
 .\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
@@ -94,6 +106,12 @@ param(
     [string]$CellId,
 
     [string]$CellText,
+
+    [switch]$WaitForCellCompletion = $false,
+
+    [string]$CompletionText,
+
+    [int]$CompletionPollSeconds = 2,
 
     [string]$PaletteLanguage = 'auto',
 
@@ -571,6 +589,204 @@ function Read-NotebookCells {
     return @($notebook.cells)
 }
 
+function Get-NotebookCellSnapshot {
+    param(
+        [string]$Path,
+        [int]$Index
+    )
+
+    $cells = Read-NotebookCells -Path $Path
+    if ($Index -lt 0 -or $Index -ge $cells.Count) {
+        throw "CellIndex $Index is out of range while reading completion snapshot. Notebook has $($cells.Count) cells."
+    }
+
+    $cell = $cells[$Index]
+    $executionCount = $null
+    $executionProperty = $cell.PSObject.Properties['execution_count']
+    if ($null -ne $executionProperty -and $null -ne $executionProperty.Value) {
+        $executionCount = [int]$executionProperty.Value
+    }
+    $outputs = @()
+    $outputsProperty = $cell.PSObject.Properties['outputs']
+    if ($null -ne $outputsProperty -and $null -ne $outputsProperty.Value) {
+        $outputs = @($outputsProperty.Value)
+    }
+
+    $outputText = Get-CellOutputText -Cell $cell
+    return [pscustomobject]@{
+        Index           = $Index
+        Id              = Get-CellId -Cell $cell
+        ExecutionCount  = $executionCount
+        OutputCount     = $outputs.Count
+        OutputSignature = Get-CellOutputSignature -Cell $cell
+        OutputText      = $outputText
+        HasErrorOutput  = Test-CellHasErrorOutput -Cell $cell
+        LastWriteUtc    = (Get-Item -LiteralPath $Path).LastWriteTimeUtc.ToString('o')
+    }
+}
+
+function Get-CellOutputSignature {
+    param([object]$Cell)
+
+    $outputs = @()
+    $outputsProperty = $Cell.PSObject.Properties['outputs']
+    if ($null -ne $outputsProperty -and $null -ne $outputsProperty.Value) {
+        $outputs = @($outputsProperty.Value)
+    }
+    $json = ($outputs | ConvertTo-Json -Depth 50 -Compress)
+    if ($null -eq $json) {
+        $json = ''
+    }
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes([string]$json)
+    $sha1 = [System.Security.Cryptography.SHA1]::Create()
+    try {
+        return [System.BitConverter]::ToString($sha1.ComputeHash($bytes)).Replace('-', '').ToLowerInvariant()
+    } finally {
+        $sha1.Dispose()
+    }
+}
+
+function Get-CellOutputText {
+    param([object]$Cell)
+
+    $parts = New-Object 'System.Collections.Generic.List[string]'
+    $outputsProperty = $Cell.PSObject.Properties['outputs']
+    if ($null -eq $outputsProperty -or $null -eq $outputsProperty.Value) {
+        return ''
+    }
+
+    foreach ($output in @($outputsProperty.Value)) {
+        $textProperty = $output.PSObject.Properties['text']
+        if ($null -ne $textProperty) {
+            $parts.Add((Convert-OutputValueToText -Value $textProperty.Value)) | Out-Null
+        }
+        $enameProperty = $output.PSObject.Properties['ename']
+        if ($null -ne $enameProperty) {
+            $parts.Add([string]$enameProperty.Value) | Out-Null
+        }
+        $evalueProperty = $output.PSObject.Properties['evalue']
+        if ($null -ne $evalueProperty) {
+            $parts.Add([string]$evalueProperty.Value) | Out-Null
+        }
+        $dataContainerProperty = $output.PSObject.Properties['data']
+        if ($null -ne $dataContainerProperty -and $null -ne $dataContainerProperty.Value) {
+            $dataProperty = $dataContainerProperty.Value.PSObject.Properties['text/plain']
+            if ($null -ne $dataProperty) {
+                $parts.Add((Convert-OutputValueToText -Value $dataProperty.Value)) | Out-Null
+            }
+        }
+    }
+
+    return [string]::Join("`n", $parts.ToArray())
+}
+
+function Convert-OutputValueToText {
+    param([object]$Value)
+
+    if ($null -eq $Value) {
+        return ''
+    }
+    if ($Value -is [array]) {
+        return [string]::Join('', @($Value))
+    }
+    return [string]$Value
+}
+
+function Test-CellHasErrorOutput {
+    param([object]$Cell)
+
+    $outputsProperty = $Cell.PSObject.Properties['outputs']
+    if ($null -eq $outputsProperty -or $null -eq $outputsProperty.Value) {
+        return $false
+    }
+    foreach ($output in @($outputsProperty.Value)) {
+        $outputTypeProperty = $output.PSObject.Properties['output_type']
+        if ($null -ne $outputTypeProperty -and [string]$outputTypeProperty.Value -eq 'error') {
+            return $true
+        }
+    }
+    return $false
+}
+
+function Wait-NotebookCellCompletion {
+    param(
+        [string]$Path,
+        [int]$Index,
+        [object]$Baseline,
+        [int]$TimeoutSeconds,
+        [int]$PollSeconds,
+        [string]$RequiredOutputText
+    )
+
+    if ($TimeoutSeconds -le 0) {
+        throw 'WaitSeconds must be positive when -WaitForCellCompletion is used.'
+    }
+    if ($PollSeconds -le 0) {
+        throw 'CompletionPollSeconds must be positive.'
+    }
+
+    $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
+    $lastSnapshot = $Baseline
+    $baselineHasRequiredText = (-not [string]::IsNullOrWhiteSpace($RequiredOutputText) -and $Baseline.OutputText.Contains($RequiredOutputText))
+    Add-Trace ("wait for cell completion: index={0}; timeout={1}s; poll={2}s; completionText={3}" -f $Index, $TimeoutSeconds, $PollSeconds, [bool](-not [string]::IsNullOrWhiteSpace($RequiredOutputText)))
+
+    while ((Get-Date) -lt $deadline) {
+        Start-Sleep -Seconds $PollSeconds
+        $current = Get-NotebookCellSnapshot -Path $Path -Index $Index
+        $lastSnapshot = $current
+
+        $executionChanged = ($current.ExecutionCount -ne $Baseline.ExecutionCount -and $null -ne $current.ExecutionCount)
+        $outputsChanged = ($current.OutputSignature -ne $Baseline.OutputSignature)
+        $hasRequiredText = (-not [string]::IsNullOrWhiteSpace($RequiredOutputText) -and $current.OutputText.Contains($RequiredOutputText))
+
+        if (-not [string]::IsNullOrWhiteSpace($RequiredOutputText)) {
+            if ($hasRequiredText -and ((-not $baselineHasRequiredText) -or $executionChanged -or $outputsChanged)) {
+                Add-Trace ("cell completion observed via output marker: {0}" -f $RequiredOutputText)
+                return [pscustomobject]@{
+                    Status              = 'completed'
+                    Reason              = 'completion_text'
+                    Baseline            = $Baseline
+                    Final               = $current
+                    RequiredOutputText  = $RequiredOutputText
+                    TimeoutSeconds      = $TimeoutSeconds
+                    PollSeconds         = $PollSeconds
+                }
+            }
+            if ($executionChanged -and $current.HasErrorOutput) {
+                Add-Trace 'cell completion observed via error output'
+                return [pscustomobject]@{
+                    Status              = 'completed_with_error'
+                    Reason              = 'error_output'
+                    Baseline            = $Baseline
+                    Final               = $current
+                    RequiredOutputText  = $RequiredOutputText
+                    TimeoutSeconds      = $TimeoutSeconds
+                    PollSeconds         = $PollSeconds
+                }
+            }
+            continue
+        }
+
+        if ($executionChanged -or $outputsChanged) {
+            Add-Trace 'cell completion observed via notebook execution/output update'
+            return [pscustomobject]@{
+                Status              = 'completed'
+                Reason              = 'execution_or_output_changed'
+                Baseline            = $Baseline
+                Final               = $current
+                RequiredOutputText  = $null
+                TimeoutSeconds      = $TimeoutSeconds
+                PollSeconds         = $PollSeconds
+            }
+        }
+    }
+
+    throw (
+        "Timed out after $TimeoutSeconds seconds waiting for cell $Index to complete. " +
+        "Last observed execution_count=$($lastSnapshot.ExecutionCount), output_count=$($lastSnapshot.OutputCount)."
+    )
+}
+
 function Get-CellSourceText {
     param([object]$Cell)
 
@@ -960,6 +1176,7 @@ function New-ResultObject {
         [object]$ResolvedCommand,
         [string]$DispatchMethod,
         [object]$CellSelection,
+        [object]$CompletionResult,
         [string]$CodeCommandPath,
         [object]$Process
     )
@@ -990,6 +1207,10 @@ function New-ResultObject {
         codeCommandPath       = $CodeCommandPath
         process               = $processInfo
         waitSeconds           = $WaitSeconds
+        waitForCellCompletion = [bool]$WaitForCellCompletion
+        completionPollSeconds = $CompletionPollSeconds
+        completionText        = $CompletionText
+        completionResult      = $CompletionResult
         saveAfterRun          = [bool]$SaveAfterRun
         reloadFromDisk        = [bool]$ReloadFromDisk
         startedAt             = $StartedAt.ToString('o')
@@ -1024,6 +1245,11 @@ function Write-RunnerOutput {
         Write-Output ("Target PID: " + $Result.process.Id)
         Write-Output ("Target window: " + $Result.process.MainWindowTitle)
     }
+    Write-Output ("Wait for cell completion: " + $Result.waitForCellCompletion)
+    if ($null -ne $Result.completionResult) {
+        Write-Output ("Completion status: " + $Result.completionResult.Status)
+        Write-Output ("Completion reason: " + $Result.completionResult.Reason)
+    }
     Write-Output ("Save after run: " + $Result.saveAfterRun)
     Write-Output ("Reload from disk: " + $Result.reloadFromDisk)
     Write-Output ("Elapsed seconds: " + $Result.elapsedSeconds)
@@ -1057,8 +1283,20 @@ $startedAt = Get-Date
 try {
     Assert-Windows
 
+    if ([bool]$WaitForCellCompletion -and -not $PSBoundParameters.ContainsKey('WaitSeconds')) {
+        $WaitSeconds = 3600
+    }
+
     if ($CellIndex -lt -1) {
         throw 'CellIndex must be 0 or greater.'
+    }
+
+    if ([bool]$WaitForCellCompletion -and $Action -ne 'cell') {
+        throw '-WaitForCellCompletion is currently supported only with -Action cell and an explicit cell selector.'
+    }
+
+    if (-not [bool]$WaitForCellCompletion -and -not [string]::IsNullOrWhiteSpace($CompletionText)) {
+        throw '-CompletionText requires -WaitForCellCompletion.'
     }
 
     if ($Action -ne 'cell' -and ($CellIndex -ge 0 -or -not [string]::IsNullOrWhiteSpace($CellId) -or -not [string]::IsNullOrWhiteSpace($CellText))) {
@@ -1099,6 +1337,8 @@ try {
     $shell = $null
     $originalClipboard = $null
     $hasTextClipboard = $false
+    $completionBaseline = $null
+    $completionResult = $null
 
     if (-not $script:IsDryRun) {
         $process = Assert-SingleTargetNotebookWindow -NotebookTitle $effectiveNotebookTitle
@@ -1124,6 +1364,10 @@ try {
             if ($Action -eq 'cell') {
                 Focus-NotebookCell -Shell $shell -CellSelection $cellSelection -FindDelayMs $PaletteDelayMs -MoveDelayMs $CellMoveDelayMs
                 Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'after cell focus' | Out-Null
+                if ([bool]$WaitForCellCompletion) {
+                    $completionBaseline = Get-NotebookCellSnapshot -Path $notebookFullPath -Index ([int]$cellSelection.Index)
+                    Add-Trace ("completion baseline: index={0}; execution_count={1}; output_count={2}" -f $completionBaseline.Index, $completionBaseline.ExecutionCount, $completionBaseline.OutputCount)
+                }
             }
 
             Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'before notebook dispatch' | Out-Null
@@ -1134,7 +1378,18 @@ try {
                 -PaletteOpenDelayMs $PaletteDelayMs `
                 -NotebookCellCount $notebookCellCount `
                 -MoveDelayMs $CellMoveDelayMs
-            Invoke-Delay -Milliseconds ($WaitSeconds * 1000) -Reason 'wait for notebook action'
+
+            if ([bool]$WaitForCellCompletion) {
+                $completionResult = Wait-NotebookCellCompletion `
+                    -Path $notebookFullPath `
+                    -Index ([int]$cellSelection.Index) `
+                    -Baseline $completionBaseline `
+                    -TimeoutSeconds $WaitSeconds `
+                    -PollSeconds $CompletionPollSeconds `
+                    -RequiredOutputText $CompletionText
+            } else {
+                Invoke-Delay -Milliseconds ($WaitSeconds * 1000) -Reason 'wait for notebook action'
+            }
 
             if ([bool]$SaveAfterRun) {
                 Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'before notebook save' | Out-Null
@@ -1160,6 +1415,7 @@ try {
         -ResolvedCommand $resolvedCommand `
         -DispatchMethod $dispatchMethod `
         -CellSelection $cellSelection `
+        -CompletionResult $completionResult `
         -CodeCommandPath $codeCommandPath `
         -Process $process
 
