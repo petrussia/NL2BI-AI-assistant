@@ -28,6 +28,7 @@ def test_stage8_config_contains_requested_model_family() -> None:
     assert models["gemma4_26b_a4b_it_mtp"]["assistant_model_id"] == (
         "google/gemma-4-26B-A4B-it-assistant"
     )
+    assert models["gemma4_26b_a4b_it_mtp"]["device_map"] == "single_gpu"
 
 
 def test_stage8_dry_run_builds_validator_run_without_loading_model(tmp_path: Path) -> None:
