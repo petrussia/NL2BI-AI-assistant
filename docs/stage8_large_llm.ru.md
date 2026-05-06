@@ -22,7 +22,7 @@ Stage 6/7:
 
 | key | HF model | quantization | заметка |
 |---|---|---|---|
-| `qwen36_35b_a3b` | `Qwen/Qwen3.6-35B-A3B` | bitsandbytes 4-bit NF4 | 35B total, 3B active |
+| `qwen36_35b_a3b` | `bombman/Qwen3.6-35B-A3B-4bit-Native` | pre-quantized native 4-bit | text-only quant of base `Qwen/Qwen3.6-35B-A3B`; official multimodal checkpoint did not fit A100 40GB through Transformers+bitsandbytes |
 | `qwen3_coder_next_awq4` | `bullpoint/Qwen3-Coder-Next-AWQ-4bit` | pre-quantized AWQ 4-bit | base model is `Qwen/Qwen3-Coder-Next`; quantized size is about 45GB |
 | `gemma4_e2b_it` | `google/gemma-4-E2B-it` | bitsandbytes 4-bit NF4 | small smoke/quality run |
 | `gemma4_26b_a4b_it_mtp` | `google/gemma-4-26B-A4B-it` + `google/gemma-4-26B-A4B-it-assistant` | target in bitsandbytes 4-bit NF4, assistant in native precision | speculative/MTP assistant model |
@@ -33,8 +33,8 @@ Stage 6/7:
   smoke/small run, но будет медленнее.
 - Для `gemma4_26b_a4b_it_mtp`: бери `A100 40GB`. `L4 24GB` пограничный вариант:
   может влезть только с маленьким batch/prompt, но есть риск OOM.
-- Для `qwen36_35b_a3b`: бери `A100 40GB`. `L4 24GB` лучше не тратить на полный
-  запуск.
+- Для `qwen36_35b_a3b`: бери `A100 40GB`. `L4 24GB` может влезть для smoke, но
+  полный запуск лучше делать на A100.
 - Для `qwen3_coder_next_awq4`: нужна карта примерно от 48GB VRAM. Если в Colab
   доступна только `A100 40GB`, не запускай эту ячейку без явного риска OOM.
   Практичный вариант - `A100 80GB` или `H100`, если они доступны.
@@ -100,4 +100,3 @@ os.environ["STAGE8_RENDER_LIMIT"] = "0"
 
 По умолчанию Stage 8 запускается на 20 примерах, чтобы сначала проверить
 валидность, скорость и память.
-

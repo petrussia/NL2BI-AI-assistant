@@ -17,7 +17,9 @@ def test_stage8_config_contains_requested_model_family() -> None:
         "qwen36_35b_a3b",
         "qwen3_coder_next_awq4",
     }
-    assert models["qwen36_35b_a3b"]["model_id"] == "Qwen/Qwen3.6-35B-A3B"
+    assert models["qwen36_35b_a3b"]["requested_model_id"] == "Qwen/Qwen3.6-35B-A3B"
+    assert models["qwen36_35b_a3b"]["model_id"] == "bombman/Qwen3.6-35B-A3B-4bit-Native"
+    assert models["qwen36_35b_a3b"]["quantization"] == "prequantized"
     assert models["qwen3_coder_next_awq4"]["requested_model_id"] == "Qwen/Qwen3-Coder-Next"
     assert models["qwen3_coder_next_awq4"]["quantization"] == "prequantized"
     assert models["gemma4_e2b_it"]["model_id"] == "google/gemma-4-E2B-it"
@@ -52,7 +54,7 @@ def test_stage8_low_vram_guard_can_fail_before_model_load(tmp_path: Path, monkey
         lambda: {"cuda_available": True, "vram_total_mb": 16 * 1024},
     )
 
-    with pytest.raises(RuntimeError, match="needs about 32GB VRAM"):
+    with pytest.raises(RuntimeError, match="needs about 24GB VRAM"):
         run_stage8_model(
             model_key="qwen36_35b_a3b",
             examples_path=tmp_path / "examples.jsonl",
