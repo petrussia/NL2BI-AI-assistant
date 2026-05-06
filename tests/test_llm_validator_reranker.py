@@ -88,6 +88,24 @@ def test_score_candidate_prefers_valid_legal_spec(tmp_path: Path) -> None:
     assert illegal_candidate["validator"]["field_legality"] == 0.0
 
 
+def test_legality_accepts_count_over_date_as_quantitative(tmp_path: Path) -> None:
+    example = _example(tmp_path)
+    example.metadata["fields"].append(
+        FieldMetadata(name="COUNT(month)", dtype="integer", role="measure").to_dict()
+    )
+    spec = {
+        "mark": "bar",
+        "encoding": {
+            "x": {"field": "month", "type": "temporal"},
+            "y": {"field": "COUNT(month)", "type": "quantitative"},
+        },
+    }
+
+    legality = validate_spec_legality(spec, normalize_spec(spec), example)
+
+    assert legality["dtype_compatibility"] == 1.0
+
+
 def test_oracle_at_3_counts_later_exact_match(tmp_path: Path) -> None:
     example = _example(tmp_path)
     gold = example.gold_spec

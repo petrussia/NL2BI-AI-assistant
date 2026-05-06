@@ -294,6 +294,8 @@ def _type_compatible(field: FieldMetadata, vega_type: Any) -> bool:
     normalized_type = str(vega_type).lower()
     role = field.role
     dtype = field.dtype.lower()
+    if _is_aggregate_measure(field):
+        return normalized_type in {"quantitative", "ordinal"}
     if role == "time" or "date" in dtype or "time" in dtype:
         return normalized_type in {"temporal", "ordinal", "nominal"}
     if role == "measure" or any(token in dtype for token in ("int", "float", "double", "decimal", "number")):
@@ -311,6 +313,14 @@ def _aggregate_allowed(field: FieldMetadata | None, aggregate: str) -> bool:
     if allowed:
         return aggregate in allowed
     return field.role == "measure"
+
+
+def _is_aggregate_measure(field: FieldMetadata) -> bool:
+    dtype = field.dtype.lower()
+    name = field.name.strip().lower()
+    return name.startswith(("count(", "sum(", "avg(", "mean(", "min(", "max(")) and any(
+        token in dtype for token in ("int", "float", "double", "decimal", "number")
+    )
 
 
 def _channel_items(value: Any) -> list[dict[str, Any]]:

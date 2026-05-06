@@ -192,6 +192,18 @@ def test_strict_validator_rejects_unknown_schema_field(tmp_path: Path) -> None:
     assert "Valid fields: month, region, sales" in validation["feedback"]
 
 
+def test_strict_validator_accepts_count_over_date_as_quantitative(tmp_path: Path) -> None:
+    example = _example(tmp_path)
+    example.metadata["fields"].append(
+        FieldMetadata(name="COUNT(month)", dtype="integer", role="measure").to_dict()
+    )
+    raw = '{"mark":"bar","encoding":{"x":{"field":"month","type":"temporal"},"y":{"field":"COUNT(month)","type":"quantitative"}}}'
+
+    validation = validate_generated_spec(raw, example, strict_json=True)
+
+    assert validation["valid"] is True
+
+
 def test_generate_validated_retries_with_validator_feedback(tmp_path: Path) -> None:
     example = _example(tmp_path)
     predictor = _FakePredictor(

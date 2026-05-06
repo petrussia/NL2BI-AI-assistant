@@ -31,6 +31,7 @@ DEFAULT_SAMPLE_ROWS = 5
 DEFAULT_MAX_NEW_TOKENS = 384
 DEFAULT_MAX_VALIDATION_RETRIES = 3
 MAX_RETRY_OUTPUT_CHARS = 1600
+_AGGREGATE_MEASURE_PREFIXES = ("count(", "sum(", "avg(", "mean(", "min(", "max(")
 
 
 class ChatTemplateTokenizer(Protocol):
@@ -889,11 +890,21 @@ def _channel_items(value: Any) -> list[dict[str, Any]]:
 def _vega_type(field: FieldMetadata) -> str:
     dtype = field.dtype.lower()
     name = field.name.lower()
+    if _is_aggregate_measure(field):
+        return "quantitative"
     if field.role == "time" or "date" in name or "time" in name or "year" in name:
         return "temporal"
     if field.role == "measure" or any(token in dtype for token in ("int", "float", "double", "decimal", "number")):
         return "quantitative"
     return "nominal"
+
+
+def _is_aggregate_measure(field: FieldMetadata) -> bool:
+    dtype = field.dtype.lower()
+    name = field.name.strip().lower()
+    return name.startswith(_AGGREGATE_MEASURE_PREFIXES) and any(
+        token in dtype for token in ("int", "float", "double", "decimal", "number")
+    )
 
 
 def _elapsed_ms(start: float) -> float:
