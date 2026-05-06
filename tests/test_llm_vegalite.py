@@ -14,6 +14,7 @@ from t2v_eval.baselines.llm_vegalite import (
     repair_lite,
     strip_markdown_fences,
     strip_thinking_blocks,
+    tokenize_prompt_for_model,
     validate_generated_spec,
 )
 from t2v_eval.data.schema import FieldMetadata, T2VExample
@@ -97,6 +98,31 @@ def test_format_prompt_disables_qwen3_thinking() -> None:
     assert tokenizer.kwargs["enable_thinking"] is False
     assert tokenizer.kwargs["add_generation_prompt"] is True
     assert "/no_think" in formatted
+
+
+def test_tokenize_prompt_uses_processor_chat_template_when_available() -> None:
+    class FakeProcessor:
+        def __init__(self) -> None:
+            self.kwargs = {}
+            self.messages = None
+
+        def apply_chat_template(self, messages, **kwargs):  # type: ignore[no-untyped-def]
+            self.messages = messages
+            self.kwargs = kwargs
+            return {"input_ids": _FakeTensor()}
+
+    class _FakeTensor:
+        pass
+
+    processor = FakeProcessor()
+    inputs = tokenize_prompt_for_model(processor, "Return JSON")
+
+    assert "input_ids" in inputs
+    assert processor.kwargs["tokenize"] is True
+    assert processor.kwargs["return_dict"] is True
+    assert processor.kwargs["return_tensors"] == "pt"
+    assert processor.kwargs["enable_thinking"] is False
+    assert "/no_think" in str(processor.messages)
 
 
 def test_extract_json_object_removes_markdown_and_prefix() -> None:

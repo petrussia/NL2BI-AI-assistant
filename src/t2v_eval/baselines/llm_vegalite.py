@@ -187,13 +187,11 @@ class LLMVegaLitePredictor:
         assert self.model is not None
         assert self.tokenizer is not None
 
-        text = format_prompt_for_model(
+        inputs = tokenize_prompt_for_model(
             self.tokenizer,
             prompt,
             enable_thinking=self.config.enable_thinking,
         )
-
-        inputs = self.tokenizer(text, return_tensors="pt")
         input_device = _model_input_device(self.model)
         inputs = {
             key: value.to(input_device) if hasattr(value, "to") else value
@@ -411,19 +409,7 @@ def format_prompt_for_model(
     *,
     enable_thinking: bool = False,
 ) -> str:
-    system_prompt = (
-        "You are a deterministic Text-to-Visualization compiler. "
-        "Return only one compact Vega-Lite JSON object. /no_think"
-    )
-    user_prompt = prompt + "\n/no_think"
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt},
-    ]
-    multimodal_text_messages = [
-        {"role": "system", "content": [{"type": "text", "text": system_prompt}]},
-        {"role": "user", "content": [{"type": "text", "text": user_prompt}]},
-    ]
+    messages, multimodal_text_messages = _prompt_messages(prompt)
     if hasattr(tokenizer, "apply_chat_template"):
         for candidate_messages in (messages, multimodal_text_messages):
             try:
@@ -444,7 +430,73 @@ def format_prompt_for_model(
                     continue
             except Exception:
                 continue
-    return f"{system_prompt}\n\n{prompt}\n/no_think\n"
+    system_prompt, user_prompt = _prompt_text(prompt)
+    return f"{system_prompt}\n\n{user_prompt}\n"
+
+
+def tokenize_prompt_for_model(
+    tokenizer: Any,
+    prompt: str,
+    *,
+    enable_thinking: bool = False,
+) -> dict[str, Any]:
+    messages, multimodal_text_messages = _prompt_messages(prompt)
+    if hasattr(tokenizer, "apply_chat_template"):
+        for candidate_messages in (messages, multimodal_text_messages):
+            try:
+                inputs = tokenizer.apply_chat_template(
+                    candidate_messages,
+                    tokenize=True,
+                    add_generation_prompt=True,
+                    return_dict=True,
+                    return_tensors="pt",
+                    enable_thinking=enable_thinking,
+                )
+                if isinstance(inputs, dict) and "input_ids" in inputs:
+                    return inputs
+            except TypeError:
+                try:
+                    inputs = tokenizer.apply_chat_template(
+                        candidate_messages,
+                        tokenize=True,
+                        add_generation_prompt=True,
+                        return_dict=True,
+                        return_tensors="pt",
+                    )
+                    if isinstance(inputs, dict) and "input_ids" in inputs:
+                        return inputs
+                except Exception:
+                    continue
+            except Exception:
+                continue
+    text = format_prompt_for_model(
+        tokenizer,
+        prompt,
+        enable_thinking=enable_thinking,
+    )
+    return tokenizer(text, return_tensors="pt")
+
+
+def _prompt_text(prompt: str) -> tuple[str, str]:
+    system_prompt = (
+        "You are a deterministic Text-to-Visualization compiler. "
+        "Return only one compact Vega-Lite JSON object. /no_think"
+    )
+    user_prompt = prompt + "\n/no_think"
+    return system_prompt, user_prompt
+
+
+def _prompt_messages(prompt: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    system_prompt, user_prompt = _prompt_text(prompt)
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+    multimodal_text_messages = [
+        {"role": "system", "content": [{"type": "text", "text": system_prompt}]},
+        {"role": "user", "content": [{"type": "text", "text": user_prompt}]},
+    ]
+    return messages, multimodal_text_messages
 
 
 def build_prompt(
