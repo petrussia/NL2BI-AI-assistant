@@ -1056,7 +1056,7 @@ def build_report_markdown(rows: list[dict[str, Any]], inventory: list[dict[str, 
 
 Рекомендация:
 
-- Для рабочего резервного варианта: `B0_rule_based` или `B2_partial_recommender`, потому что они быстрые, валидные и воспроизводимые.
+- Для рабочего резервного варианта: `B1_constraint_ranker` или `B2_partial_recommender`, потому что они быстрые, валидные и воспроизводимые.
 - Для исследовательского качества и демонстрации LLM-возможностей: `B4_llm_validator_reranker`.
 - Для одиночного LLM-подхода без reranking: `B3_local_llm_qwen3_8b`, если нужно снизить задержку относительно B4.
 
