@@ -149,50 +149,52 @@ FALLBACK_METRICS: dict[str, dict[str, float]] = {
     "B2_partial_recommender": {
         "examples": 200,
         "predictions": 200,
-        "chart_type_accuracy": 0.62,
-        "field_selection_f1": 0.8703333333333333,
-        "encoding_accuracy": 0.11,
-        "aggregation_accuracy": 0.11,
-        "normalized_exact_match": 0.11,
+        "chart_type_accuracy": 0.855,
+        "x_field_accuracy": 0.965,
+        "y_field_accuracy": 0.99,
+        "field_selection_f1": 0.973,
+        "encoding_accuracy": 0.5766666666666667,
+        "aggregation_accuracy": 0.92,
+        "normalized_exact_match": 0.22,
         "vega_lite_validity": 1.0,
-        "top1_success": 0.11,
-        "oracle_success_at_k": 0.11,
-        "latency_ms": 3.5868900000000004,
-        "memory_peak_mb": 108.402,
+        "top1_success": 0.22,
+        "oracle_success_at_k": 0.22,
+        "latency_ms": 7.05238,
+        "memory_peak_mb": 109.949,
         "failure_rate": 0.0,
     },
     "B3_local_llm_qwen3_8b": {
         "examples": 50,
         "predictions": 50,
-        "chart_type_accuracy": 0.5,
-        "x_field_accuracy": 0.72,
-        "y_field_accuracy": 0.6,
-        "field_selection_f1": 0.7533333333333333,
-        "encoding_accuracy": 0.59,
-        "aggregation_accuracy": 0.84,
-        "normalized_exact_match": 0.36,
-        "vega_lite_validity": 0.86,
-        "top1_success": 0.36,
-        "oracle_success_at_k": 0.4186046511627907,
-        "latency_ms": 10187.22126,
-        "memory_peak_mb": 1983.812,
-        "failure_rate": 0.14,
+        "chart_type_accuracy": 0.84,
+        "x_field_accuracy": 0.84,
+        "y_field_accuracy": 0.86,
+        "field_selection_f1": 0.92,
+        "encoding_accuracy": 0.5533333333333333,
+        "aggregation_accuracy": 0.66,
+        "normalized_exact_match": 0.28,
+        "vega_lite_validity": 0.92,
+        "top1_success": 0.28,
+        "oracle_success_at_k": 0.28,
+        "latency_ms": 20101.22146,
+        "memory_peak_mb": 1981.508,
+        "failure_rate": 0.08,
     },
     "B4_llm_validator_reranker": {
         "examples": 20,
         "predictions": 20,
-        "chart_type_accuracy": 0.5,
-        "x_field_accuracy": 0.5,
-        "y_field_accuracy": 0.5,
-        "field_selection_f1": 0.8,
-        "encoding_accuracy": 0.5,
-        "aggregation_accuracy": 0.85,
-        "normalized_exact_match": 0.5,
+        "chart_type_accuracy": 0.9,
+        "x_field_accuracy": 0.8,
+        "y_field_accuracy": 0.8,
+        "field_selection_f1": 0.95,
+        "encoding_accuracy": 0.5333333333333333,
+        "aggregation_accuracy": 0.75,
+        "normalized_exact_match": 0.3,
         "vega_lite_validity": 0.95,
-        "top1_success": 0.5,
-        "oracle_success_at_k": 0.5,
-        "latency_ms": 34898.125199999995,
-        "memory_peak_mb": 2153.457,
+        "top1_success": 0.3,
+        "oracle_success_at_k": 0.35,
+        "latency_ms": 66825.6801,
+        "memory_peak_mb": 2127.145,
         "failure_rate": 0.05,
     },
 }
@@ -1094,7 +1096,7 @@ def build_report_markdown(rows: list[dict[str, Any]], inventory: list[dict[str, 
 ### Запуск финального B4
 
 ```powershell
-.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\03_run_local_llm.ipynb -Action cell -CellId stage7-run20 -WaitSeconds 240 -ReloadFromDisk:$false -Json
+.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\03_run_local_llm.ipynb -Action cell -CellId stage7-run20 -WaitForCellCompletion -CompletionText STAGE7_RUN20_OK -WaitSeconds 5400 -ReloadFromDisk:$false -Json
 ```
 
 ### Генерация материалов этапа 9
@@ -1168,9 +1170,9 @@ python -m pytest -q
 Colab через runner:
 
 ```powershell
-.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\05_make_report_materials.ipynb -Action cell -CellId stage9-setup -WaitSeconds 20 -ReloadFromDisk:$false -Json
-.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\05_make_report_materials.ipynb -Action cell -CellId stage9-build-materials -WaitSeconds 30 -ReloadFromDisk:$false -Json
-.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\05_make_report_materials.ipynb -Action cell -CellId stage9-verify-artifacts -WaitSeconds 15 -ReloadFromDisk:$false -Json
+.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\05_make_report_materials.ipynb -Action cell -CellId stage9-setup -WaitForCellCompletion -CompletionText STAGE9_SETUP_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
+.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\05_make_report_materials.ipynb -Action cell -CellId stage9-build-materials -WaitForCellCompletion -CompletionText STAGE9_BUILD_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
+.\\scripts\\colab\\run_colab_notebook.ps1 -NotebookPath .\\notebooks\\05_make_report_materials.ipynb -Action cell -CellId stage9-verify-artifacts -WaitForCellCompletion -CompletionText STAGE9_VERIFY_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
 ```
 
 ## Таблицы
