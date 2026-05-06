@@ -23,15 +23,10 @@
 ## Методика экспериментов
 
 1. nvBench адаптирован под post-query постановку: SQL используется только в upstream-части для материализации таблицы; downstream-примеры содержат CSV-таблицу, метаданные, NL-запрос и эталонную (gold) Vega-Lite-like spec.
-2. Улучшенная сборка бенча проходит по полному nvBench, а не берет первые 200 примеров: 25 752 NL-кандидата из 7 247 визуализаций проверяются quality-check, затем выбирается seed-based stratified sample на 200 примеров.
-3. В выбранном sample все 200 примеров имеют `quality.status=ok`; в `tables/` остаются только используемые CSV: 195 файлов, 193 уникальные таблицы по fingerprint.
-4. В metadata дополнительно сохраняются `chart_type_mentioned`, `chart_type_signal`, `mentioned_chart_type`, `primary_mark`, `acceptable_marks`, `table_shape` и блок `quality`.
-5. Для sample 200 из итогового датасета исключены все `arc`/`pie` примеры. Распределение `primary_mark`: `bar` 119, `line` 27, `point` 54. Распределение `chart_type_signal`: `explicit_bar` 58, `explicit_histogram` 2, `explicit_line` 13, `explicit_scatter` 34, `explicit_stacked_bar` 3, `none` 89, `proportion` 1.
-6. Все runs сохранялись в канонической папке Google Drive: `/content/drive/MyDrive/diploma/petr_text_to_visualization_part`.
-7. Для каждого метода сохранялись файлы предсказаний jsonl, агрегированные и попримерные метрики, информация о среде выполнения, pip freeze и артефакты рендеринга.
-8. Основные метрики: `vega_lite_validity`, `field_selection_f1`, `encoding_accuracy`, `aggregation_accuracy`, `normalized_exact_match`, `failure_rate`, `latency_ms`, `memory_peak_mb`.
-9. Для B4 дополнительно сохраняются все 3 кандидата на пример и считается `oracle_success_at_k`.
-10. Метрики ниже относятся к сохраненным run-артефактам. Если датасет пересобирается новым stratified sample, бейзлайны нужно перезапускать на этом же `examples.jsonl`, чтобы сравнение оставалось строгим.
+2. Все runs сохранялись в канонической папке Google Drive: `/content/drive/MyDrive/diploma/petr_text_to_visualization_part`.
+3. Для каждого метода сохранялись файлы предсказаний jsonl, агрегированные и попримерные метрики, информация о среде выполнения, pip freeze и артефакты рендеринга.
+4. Основные метрики: `vega_lite_validity`, `field_selection_f1`, `encoding_accuracy`, `aggregation_accuracy`, `normalized_exact_match`, `failure_rate`, `latency_ms`, `memory_peak_mb`.
+5. Для B4 дополнительно сохраняются все 3 кандидата на пример и считается `oracle_success_at_k`.
 
 ## Итоговые результаты
 
@@ -39,19 +34,19 @@
 
 | Подход | Validity | Chart type | Field F1 | Encoding | Aggregation | Exact match | Oracle@3 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| B0 | 1.0 | 0.54 | 0.857 | 0.2525 | 0.26 | 0.085 | 0.0 |
-| B1 | 1.0 | 0.51 | 0.847 | 0.2275 | 0.23 | 0.06 | 0.0 |
-| B2 | 1.0 | 0.62 | 0.8703333333333333 | 0.11 | 0.11 | 0.11 | 0.0 |
-| B3 | 0.86 | 0.5 | 0.7533333333333333 | 0.59 | 0.84 | 0.36 | 0.0 |
+| B0 | 1.0 | 0.84 | 0.9595 | 0.5 | 0.915 | 0.225 | 0.55 |
+| B1 | 1.0 | 0.955 | 0.995 | 0.5308333333333334 | 0.915 | 0.285 | 0.59 |
+| B2 | 1.0 | 0.62 | 0.8703333333333333 | 0.11 | 0.11 | 0.11 | 0.11 |
+| B3 | 0.86 | 0.5 | 0.7533333333333333 | 0.59 | 0.84 | 0.36 | 0.4186046511627907 |
 | B4 | 0.95 | 0.5 | 0.8 | 0.5 | 0.85 | 0.5 | 0.5 |
 
 ### Задержка, память и ошибки
 
 | Подход | Latency ms | Memory MB | Failure rate | Sample |
 | --- | --- | --- | --- | --- |
-| B0 | 0.18079 | 106.309 | 0.0 | 200 |
-| B1 | 0.32999 | 210.348 | 0.0 | 200 |
-| B2 | нет замера | нет замера | 0.0 | 200 |
+| B0 | 0.331945 | 108.227 | 0.0 | 200 |
+| B1 | 0.39675499999999997 | 220.566 | 0.0 | 200 |
+| B2 | 3.5868900000000004 | 108.402 | 0.0 | 200 |
 | B3 | 10187.22126 | 1983.812 | 0.14 | 50 |
 | B4 | 34898.125199999995 | 2153.457 | 0.05 | 20 |
 
