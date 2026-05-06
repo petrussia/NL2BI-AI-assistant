@@ -111,6 +111,67 @@ def test_b1_handles_count_over_temporal_field_as_measure() -> None:
     assert candidates[0].raw_spec["encoding"]["x"]["field"] == "date_from"
     assert candidates[0].raw_spec["encoding"]["y"]["field"] == "COUNT(date_from)"
     assert candidates[0].raw_spec["encoding"]["y"]["type"] == "quantitative"
+    assert "aggregate" not in candidates[0].raw_spec["encoding"]["y"]
+
+
+def test_b1_prefers_explicit_chart_over_list_word() -> None:
+    fields = [
+        FieldMetadata(name="first_name", dtype="string", role="dimension").to_dict(),
+        FieldMetadata(name="count(*)", dtype="integer", role="measure").to_dict(),
+    ]
+    example = T2VExample(
+        example_id="explicit_bar",
+        query="List the first name as the X-axis and the count as the Y-axis in a bar chart.",
+        table_path="tables/explicit_bar.csv",
+        metadata={"fields": fields},
+    )
+
+    candidates = generate_b1(example, top_k=3)
+
+    assert candidates
+    assert candidates[0].raw_spec["mark"] == "bar"
+
+
+def test_b1_treats_monthly_rental_as_numeric_for_scatter() -> None:
+    fields = [
+        FieldMetadata(name="student_id", dtype="integer", role="measure").to_dict(),
+        FieldMetadata(name="monthly_rental", dtype="number", role="time").to_dict(),
+    ]
+    example = T2VExample(
+        example_id="monthly_rental",
+        query="Visualize a scatter chart about the correlation between student_id and monthly_rental.",
+        table_path="tables/monthly_rental.csv",
+        metadata={"fields": fields},
+    )
+
+    candidates = generate_b1(example, top_k=3)
+
+    assert candidates
+    assert candidates[0].raw_spec["mark"] == "point"
+    assert {
+        candidates[0].raw_spec["encoding"]["x"]["field"],
+        candidates[0].raw_spec["encoding"]["y"]["field"],
+    } == {"student_id", "monthly_rental"}
+
+
+def test_b1_adds_classify_color_for_grouped_scatter() -> None:
+    fields = [
+        FieldMetadata(name="age", dtype="number", role="measure").to_dict(),
+        FieldMetadata(name="height", dtype="number", role="measure").to_dict(),
+        FieldMetadata(name="classify", dtype="string", role="dimension").to_dict(),
+    ]
+    example = T2VExample(
+        example_id="grouped_scatter",
+        query="Show a scatter chart of age and height, and group by sex.",
+        table_path="tables/grouped_scatter.csv",
+        metadata={"fields": fields},
+    )
+
+    candidates = generate_b1(example, top_k=3)
+
+    assert candidates
+    assert candidates[0].raw_spec["mark"] == "point"
+    assert candidates[0].raw_spec["encoding"]["color"]["field"] == "classify"
 
 
 def test_b1_still_rejects_plain_temporal_field_as_quantitative() -> None:

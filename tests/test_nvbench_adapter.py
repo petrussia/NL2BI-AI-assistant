@@ -113,6 +113,7 @@ def test_count_over_temporal_field_is_measure() -> None:
     assert infer_role("number", "count(Year)") == "measure"
     assert infer_role("string", "date_from") == "time"
     assert infer_role("integer", "Year") == "time"
+    assert infer_role("number", "monthly_rental") == "measure"
     assert infer_role("integer", "price") == "measure"
 
 

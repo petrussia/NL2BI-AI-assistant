@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sqlite3
 import subprocess
 import sys
@@ -43,6 +44,17 @@ CANONICAL_DRIVE_ROOT = Path(
     "/content/drive/MyDrive/diploma/petr_text_to_visualization_part"
 )
 AGGREGATE_MEASURE_PREFIXES = ("count(", "sum(", "avg(", "mean(", "min(", "max(")
+TEMPORAL_NAME_TOKENS = {
+    "date",
+    "datetime",
+    "day",
+    "month",
+    "quarter",
+    "time",
+    "week",
+    "weekday",
+    "year",
+}
 
 
 @dataclass(slots=True)
@@ -295,13 +307,22 @@ def infer_role(dtype: str, name: str) -> str:
         AGGREGATE_MEASURE_PREFIXES
     ):
         return "measure"
-    if "date" in lowered or "time" in lowered or "year" in lowered or "month" in lowered:
+    if _looks_temporal_name(lowered):
         return "time"
     if dtype in {"integer", "number"}:
         return "measure"
     if lowered.endswith("_id") or lowered == "id":
         return "id"
     return "dimension"
+
+
+def _looks_temporal_name(name: str) -> bool:
+    tokens = {
+        token
+        for token in re.split(r"[^a-z0-9]+|_", name.lower())
+        if token
+    }
+    return bool(tokens & TEMPORAL_NAME_TOKENS)
 
 
 def pandas_dtype_to_t2v(dtype: Any) -> str:

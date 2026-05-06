@@ -22,6 +22,17 @@ METHOD_NAME = "B0_rule_based"
 
 _TOKEN_RE = re.compile(r"\w+", re.UNICODE)
 _AGGREGATE_MEASURE_PREFIXES = ("count(", "sum(", "avg(", "mean(", "min(", "max(")
+_TEMPORAL_NAME_TOKENS = {
+    "date",
+    "datetime",
+    "day",
+    "month",
+    "quarter",
+    "time",
+    "week",
+    "weekday",
+    "year",
+}
 
 
 @dataclass(slots=True)
@@ -181,21 +192,75 @@ def generate_candidates(example: T2VExample, *, top_k: int = 5) -> list[Candidat
 
 def detect_intent(query: str) -> str:
     text = query.lower()
+    chart_hint = detect_chart_hint(query)
+    if chart_hint == "point":
+        return "correlation"
+    if chart_hint == "line":
+        return "trend"
+    if chart_hint == "histogram":
+        return "distribution"
+    if chart_hint == "bar":
+        return "top" if _has_top_signal(text) else "comparison"
+    if chart_hint == "text":
+        return "table"
     if any(word in text for word in ("dashboard", "overview", "summary panel")):
         return "dashboard"
+    if _has_top_signal(text):
+        return "top"
     if any(word in text for word in ("table", "list", "detail", "records", "rows")):
         return "table"
-    if any(word in text for word in ("top", "highest", "lowest", "rank", "ranking", "best", "worst")):
-        return "top"
     if any(word in text for word in ("correlation", "relationship", "scatter", "versus", " vs ")):
         return "correlation"
-    if any(word in text for word in ("distribution", "histogram", "spread", "frequency")):
+    if any(word in text for word in ("distribution", "histogram", "spread", "frequency")) and not _has_group_signal(text):
         return "distribution"
     if any(word in text for word in ("trend", "over time", "timeline", "year", "month", "date")):
         return "trend"
     if any(word in text for word in ("compare", "comparison", "by ", "across", "versus")):
         return "comparison"
     return "comparison"
+
+
+def detect_chart_hint(query: str) -> str | None:
+    text = query.lower()
+    if "scatter" in text or "scatterplot" in text:
+        return "point"
+    if re.search(r"\b(line chart|line graph|trend line)\b", text):
+        return "line"
+    if re.search(r"\b(stacked bar|bar chart|bar graph|bars?)\b", text):
+        return "bar"
+    if "histogram" in text:
+        return "histogram"
+    if re.search(r"\b(table|tabular)\b", text):
+        return "text"
+    return None
+
+
+def _has_top_signal(text: str) -> bool:
+    return any(
+        word in text
+        for word in (
+            "ascending",
+            "best",
+            "desc",
+            "descending",
+            "highest",
+            "lowest",
+            "order by",
+            "ordered",
+            "rank",
+            "ranking",
+            "sort",
+            "top",
+            "worst",
+        )
+    )
+
+
+def _has_group_signal(text: str) -> bool:
+    return any(
+        word in text
+        for word in ("colored by", "different", "for each", "group", "grouped", "stacked")
+    )
 
 
 def rank_fields(query: str, fields: list[FieldMetadata]) -> list[FieldMetadata]:
@@ -252,31 +317,29 @@ def load_fields(example: T2VExample) -> list[FieldMetadata]:
 
 def _bar_spec(category: FieldMetadata, measure: FieldMetadata, *, sort: str | None = None) -> dict[str, Any]:
     x: dict[str, Any] = {"field": category.name, "type": _vega_type(category)}
+    y: dict[str, Any] = {"field": measure.name, "type": "quantitative"}
     if sort:
         x["sort"] = sort
+    if not _is_aggregate_measure(measure):
+        y["aggregate"] = _default_aggregate(measure)
     return {
         "mark": "bar",
         "encoding": {
             "x": x,
-            "y": {
-                "field": measure.name,
-                "type": "quantitative",
-                "aggregate": _default_aggregate(measure),
-            },
+            "y": y,
         },
     }
 
 
 def _line_spec(time_field: FieldMetadata, measure: FieldMetadata) -> dict[str, Any]:
+    y: dict[str, Any] = {"field": measure.name, "type": "quantitative"}
+    if not _is_aggregate_measure(measure):
+        y["aggregate"] = _default_aggregate(measure)
     return {
         "mark": "line",
         "encoding": {
             "x": {"field": time_field.name, "type": "temporal"},
-            "y": {
-                "field": measure.name,
-                "type": "quantitative",
-                "aggregate": _default_aggregate(measure),
-            },
+            "y": y,
         },
     }
 
@@ -319,10 +382,14 @@ def _kind(field: FieldMetadata) -> str:
     name = field.name.lower()
     if _is_aggregate_measure(field):
         return "numeric"
-    if field.role == "time" or "date" in name or "time" in name or "year" in name:
+    if _looks_temporal_name(name) and (
+        field.role == "time" or not _is_numeric_dtype(dtype)
+    ):
         return "time"
-    if field.role == "measure" or any(token in dtype for token in ("int", "float", "double", "decimal", "number")):
+    if field.role == "measure" or _is_numeric_dtype(dtype):
         return "numeric"
+    if field.role == "time":
+        return "time"
     if field.role in {"dimension", "id"}:
         return field.role
     return "categorical"
@@ -334,6 +401,19 @@ def _is_aggregate_measure(field: FieldMetadata) -> bool:
     return name.startswith(_AGGREGATE_MEASURE_PREFIXES) and any(
         token in dtype for token in ("int", "float", "double", "decimal", "number")
     )
+
+
+def _is_numeric_dtype(dtype: str) -> bool:
+    return any(token in dtype for token in ("int", "float", "double", "decimal", "number"))
+
+
+def _looks_temporal_name(name: str) -> bool:
+    tokens = {
+        token
+        for token in re.split(r"[^a-z0-9]+|_", name.lower())
+        if token
+    }
+    return bool(tokens & _TEMPORAL_NAME_TOKENS)
 
 
 def _vega_type(field: FieldMetadata) -> str:
