@@ -39,7 +39,8 @@ Source-code substring used with -Action cell. The match must be unique.
 .PARAMETER WaitForCellCompletion
 With -Action cell, wait until the selected cell appears completed in the saved
 .ipynb file instead of sleeping for the full WaitSeconds duration. WaitSeconds
-is treated as a timeout in this mode.
+is treated as a timeout in this mode. Prefer this mode for Colab cells that
+print a final STAGE*_OK marker.
 
 .PARAMETER CompletionText
 Optional output text marker to require when using -WaitForCellCompletion. This is
