@@ -4,7 +4,7 @@
 
 Статус: завершен.
 
-Этап 8 намеренно пропущен как опциональный. Новые LLM-эксперименты не запускались, логика базовых подходов не изменялась.
+Этап 8 намеренно пропущен как опциональный. После обновления валидатора повторно запущены B2/B3/B4, а Stage 9 пересобран на актуальных метриках.
 
 ## Финальные запуски
 
@@ -45,9 +45,9 @@ python -m pytest -q
 Colab через runner:
 
 ```powershell
-.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\05_make_report_materials.ipynb -Action cell -CellId stage9-setup -WaitSeconds 20 -ReloadFromDisk:$false -Json
-.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\05_make_report_materials.ipynb -Action cell -CellId stage9-build-materials -WaitSeconds 30 -ReloadFromDisk:$false -Json
-.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\05_make_report_materials.ipynb -Action cell -CellId stage9-verify-artifacts -WaitSeconds 15 -ReloadFromDisk:$false -Json
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\05_make_report_materials.ipynb -Action cell -CellId stage9-setup -WaitForCellCompletion -CompletionText STAGE9_SETUP_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\05_make_report_materials.ipynb -Action cell -CellId stage9-build-materials -WaitForCellCompletion -CompletionText STAGE9_BUILD_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\05_make_report_materials.ipynb -Action cell -CellId stage9-verify-artifacts -WaitForCellCompletion -CompletionText STAGE9_VERIFY_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
 ```
 
 ## Таблицы
@@ -102,8 +102,8 @@ reports/stage9_report_materials/run_inventory.json
 ## Проблемы и замечания
 
 - Этап 8 намеренно пропущен, потому что уже сравнены пять подходов, а дополнительные LLM runs увеличили бы GPU-затраты.
-- Новые LLM-эксперименты на этом этапе не запускались.
-- Логика базовых подходов не изменялась.
+- B3/B4 повторно запускались после правок валидатора; B4 может немного плавать по `oracle_success_at_k`, потому что часть кандидатов генерируется с температурой.
+- Логика B0/B1/B2 не менялась после финального Stage 4/5 прогона; для Stage 9 обновлены только метрики и материалы.
 - Локальная пересборка workbook может быть пропущена, если `stage9_tables.xlsx` открыт в Excel; Colab создает workbook штатно.
 - Сетка примеров генерируется из Drive-артефактов финального B4 run; при локальной пересборке без Drive генератор использует резервную схему.
 
