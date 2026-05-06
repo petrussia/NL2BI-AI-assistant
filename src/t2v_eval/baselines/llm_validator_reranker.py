@@ -46,10 +46,18 @@ class LLMRerankerConfig:
     candidate_temperatures: tuple[float, ...] = DEFAULT_CANDIDATE_TEMPERATURES
     torch_dtype: str = "auto"
     device_map: str = "auto"
+    model_loader: str = "causal_lm"
     trust_remote_code: bool = True
+    low_cpu_mem_usage: bool = True
+    attn_implementation: str | None = None
+    bnb_4bit_compute_dtype: str = "float16"
+    assistant_model_id: str | None = None
+    assistant_quantization: str | None = None
+    assistant_model_loader: str = "causal_lm"
     enable_thinking: bool = False
     stop_after_json: bool = True
     max_validation_retries: int = DEFAULT_MAX_VALIDATION_RETRIES
+    method_name: str = METHOD_NAME
 
     def __post_init__(self) -> None:
         if "qwen2.5" in self.model_id.lower():
@@ -74,10 +82,18 @@ class LLMRerankerConfig:
             quantization=self.quantization,
             torch_dtype=self.torch_dtype,
             device_map=self.device_map,
+            model_loader=self.model_loader,
             trust_remote_code=self.trust_remote_code,
+            low_cpu_mem_usage=self.low_cpu_mem_usage,
+            attn_implementation=self.attn_implementation,
+            bnb_4bit_compute_dtype=self.bnb_4bit_compute_dtype,
+            assistant_model_id=self.assistant_model_id,
+            assistant_quantization=self.assistant_quantization,
+            assistant_model_loader=self.assistant_model_loader,
             enable_thinking=self.enable_thinking,
             stop_after_json=self.stop_after_json,
             max_validation_retries=self.max_validation_retries,
+            method_name=self.method_name,
         )
 
     def temperature_for(self, index: int) -> float:
@@ -162,7 +178,7 @@ class LLMValidatorRerankerPredictor:
         if not winner.get("raw_spec") or not winner.get("normalized_spec", {}).get("valid"):
             return T2VPrediction(
                 run_id=run_id,
-                method=METHOD_NAME,
+                method=self.config.method_name,
                 example_id=example.example_id,
                 status="failed",
                 raw_output=raw_output,
@@ -174,7 +190,7 @@ class LLMValidatorRerankerPredictor:
 
         return T2VPrediction(
             run_id=run_id,
-            method=METHOD_NAME,
+            method=self.config.method_name,
             example_id=example.example_id,
             status="ok",
             raw_output=raw_output,

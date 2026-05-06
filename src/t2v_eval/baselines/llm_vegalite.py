@@ -28,6 +28,8 @@ except ModuleNotFoundError:  # pragma: no cover - dependency is in requirements.
 METHOD_NAME = "B3_local_llm_qwen3_8b"
 DEFAULT_MODEL_ID = "Qwen/Qwen3-8B"
 ALLOWED_CHART_TYPES = ("bar", "line", "point", "area", "tick", "text")
+ALLOWED_MODEL_LOADERS = ("causal_lm", "processor_causal_lm", "image_text_to_text")
+ALLOWED_QUANTIZATIONS = (None, "4bit", "prequantized")
 DEFAULT_SAMPLE_ROWS = 5
 DEFAULT_MAX_NEW_TOKENS = 384
 DEFAULT_MAX_VALIDATION_RETRIES = 3
@@ -50,14 +52,30 @@ class LLMVegaLiteConfig:
     quantization: str | None = "4bit"
     torch_dtype: str = "auto"
     device_map: str = "auto"
+    model_loader: str = "causal_lm"
     trust_remote_code: bool = True
+    low_cpu_mem_usage: bool = True
+    attn_implementation: str | None = None
+    bnb_4bit_compute_dtype: str = "float16"
+    assistant_model_id: str | None = None
+    assistant_quantization: str | None = None
+    assistant_model_loader: str = "causal_lm"
     enable_thinking: bool = False
     stop_after_json: bool = True
     max_validation_retries: int = DEFAULT_MAX_VALIDATION_RETRIES
+    method_name: str = METHOD_NAME
 
     def __post_init__(self) -> None:
         if "qwen2.5" in self.model_id.lower():
             raise ValueError("Stage 6 must not use Qwen2.5 models.")
+        if self.model_loader not in ALLOWED_MODEL_LOADERS:
+            raise ValueError(f"model_loader must be one of {ALLOWED_MODEL_LOADERS}.")
+        if self.assistant_model_loader not in ALLOWED_MODEL_LOADERS:
+            raise ValueError(f"assistant_model_loader must be one of {ALLOWED_MODEL_LOADERS}.")
+        if self.quantization not in ALLOWED_QUANTIZATIONS:
+            raise ValueError(f"quantization must be one of {ALLOWED_QUANTIZATIONS}.")
+        if self.assistant_quantization not in ALLOWED_QUANTIZATIONS:
+            raise ValueError(f"assistant_quantization must be one of {ALLOWED_QUANTIZATIONS}.")
         if self.max_new_tokens <= 0:
             raise ValueError("max_new_tokens must be positive.")
         if self.sample_rows < 0:
@@ -76,47 +94,55 @@ class LLMVegaLitePredictor:
         self.config = config
         self.tokenizer: Any | None = None
         self.model: Any | None = None
+        self.assistant_model: Any | None = None
 
     def load(self) -> "LLMVegaLitePredictor":
         try:
             import torch
-            from transformers import AutoModelForCausalLM, AutoTokenizer
         except ModuleNotFoundError as exc:  # pragma: no cover - Colab path.
             raise RuntimeError(
                 "transformers and torch are required for Stage 6 local LLM runs."
             ) from exc
 
-        model_kwargs: dict[str, Any] = {
-            "device_map": self.config.device_map,
-            "trust_remote_code": self.config.trust_remote_code,
-        }
-        if self.config.torch_dtype != "auto":
-            model_kwargs["torch_dtype"] = getattr(torch, self.config.torch_dtype)
-        else:
-            model_kwargs["torch_dtype"] = "auto"
-
-        if self.config.quantization == "4bit":
-            try:
-                from transformers import BitsAndBytesConfig
-
-                model_kwargs["quantization_config"] = BitsAndBytesConfig(
-                    load_in_4bit=True,
-                    bnb_4bit_compute_dtype=torch.float16,
-                    bnb_4bit_quant_type="nf4",
-                    bnb_4bit_use_double_quant=True,
-                )
-            except Exception as exc:  # pragma: no cover - Colab path.
-                raise RuntimeError("4-bit quantization requires bitsandbytes.") from exc
-
-        self.tokenizer = AutoTokenizer.from_pretrained(
+        self.tokenizer, model_cls = _load_text_interface(
             self.config.model_id,
+            loader=self.config.model_loader,
             trust_remote_code=self.config.trust_remote_code,
         )
-        self.model = AutoModelForCausalLM.from_pretrained(
+        self.model = model_cls.from_pretrained(
             self.config.model_id,
-            **model_kwargs,
+            **_model_load_kwargs(
+                torch,
+                quantization=self.config.quantization,
+                torch_dtype=self.config.torch_dtype,
+                device_map=self.config.device_map,
+                trust_remote_code=self.config.trust_remote_code,
+                low_cpu_mem_usage=self.config.low_cpu_mem_usage,
+                attn_implementation=self.config.attn_implementation,
+                bnb_4bit_compute_dtype=self.config.bnb_4bit_compute_dtype,
+            ),
         )
         self.model.eval()
+        if self.config.assistant_model_id:
+            _assistant_tokenizer, assistant_model_cls = _load_text_interface(
+                self.config.assistant_model_id,
+                loader=self.config.assistant_model_loader,
+                trust_remote_code=self.config.trust_remote_code,
+            )
+            self.assistant_model = assistant_model_cls.from_pretrained(
+                self.config.assistant_model_id,
+                **_model_load_kwargs(
+                    torch,
+                    quantization=self.config.assistant_quantization,
+                    torch_dtype=self.config.torch_dtype,
+                    device_map=self.config.device_map,
+                    trust_remote_code=self.config.trust_remote_code,
+                    low_cpu_mem_usage=self.config.low_cpu_mem_usage,
+                    attn_implementation=self.config.attn_implementation,
+                    bnb_4bit_compute_dtype=self.config.bnb_4bit_compute_dtype,
+                ),
+            )
+            self.assistant_model.eval()
         return self
 
     def predict(self, example: T2VExample, *, run_id: str) -> T2VPrediction:
@@ -135,14 +161,14 @@ class LLMVegaLitePredictor:
                 example=example,
                 generation=generation,
                 run_id=run_id,
-                method=METHOD_NAME,
+                method=self.config.method_name,
                 latency_ms=_elapsed_ms(start),
                 memory_peak_mb=_max_memory(start_memory),
             )
         except Exception as exc:  # pragma: no cover - safety path for batch runs.
             return T2VPrediction.failed(
                 run_id=run_id,
-                method=METHOD_NAME,
+                method=self.config.method_name,
                 example_id=example.example_id,
                 error=str(exc),
                 latency_ms=_elapsed_ms(start),
@@ -168,15 +194,19 @@ class LLMVegaLitePredictor:
         )
 
         inputs = self.tokenizer(text, return_tensors="pt")
-        inputs = {key: value.to(self.model.device) for key, value in inputs.items()}
+        input_device = _model_input_device(self.model)
+        inputs = {
+            key: value.to(input_device) if hasattr(value, "to") else value
+            for key, value in inputs.items()
+        }
         generation_temperature = self.config.temperature if temperature is None else temperature
         generation_top_p = self.config.top_p if top_p is None else top_p
         generation_max_new_tokens = (
             self.config.max_new_tokens if max_new_tokens is None else max_new_tokens
         )
         do_sample = generation_temperature > 0
-        eos_token_id = self.tokenizer.eos_token_id
-        pad_token_id = self.tokenizer.pad_token_id or eos_token_id
+        eos_token_id = _token_id(self.tokenizer, "eos_token_id")
+        pad_token_id = _token_id(self.tokenizer, "pad_token_id") or eos_token_id
         generation_kwargs: dict[str, Any] = {
             **inputs,
             "max_new_tokens": generation_max_new_tokens,
@@ -188,6 +218,8 @@ class LLMVegaLitePredictor:
         if do_sample:
             generation_kwargs["temperature"] = generation_temperature
             generation_kwargs["top_p"] = generation_top_p
+        if self.assistant_model is not None:
+            generation_kwargs["assistant_model"] = self.assistant_model
         if self.config.stop_after_json:
             from transformers import StoppingCriteriaList
 
@@ -199,7 +231,7 @@ class LLMVegaLitePredictor:
             output_ids = self.model.generate(**generation_kwargs)
         generated = output_ids[0][inputs["input_ids"].shape[-1] :]
         return strip_thinking_blocks(
-            self.tokenizer.decode(generated, skip_special_tokens=True)
+            _decode_tokens(self.tokenizer, generated)
         ).strip()
 
     def generate_validated(
@@ -262,6 +294,117 @@ class LLMVegaLitePredictor:
         }
 
 
+def _load_text_interface(
+    model_id: str,
+    *,
+    loader: str,
+    trust_remote_code: bool,
+) -> tuple[Any, Any]:
+    try:
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+    except ModuleNotFoundError as exc:  # pragma: no cover - Colab path.
+        raise RuntimeError("transformers is required for local LLM runs.") from exc
+
+    if loader == "causal_lm":
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_id,
+            trust_remote_code=trust_remote_code,
+        )
+        return tokenizer, AutoModelForCausalLM
+
+    try:
+        from transformers import AutoProcessor
+    except ImportError as exc:  # pragma: no cover - Colab path.
+        raise RuntimeError("AutoProcessor is required for this model loader.") from exc
+
+    processor = AutoProcessor.from_pretrained(
+        model_id,
+        trust_remote_code=trust_remote_code,
+    )
+    if loader == "processor_causal_lm":
+        return processor, AutoModelForCausalLM
+    if loader == "image_text_to_text":
+        try:
+            from transformers import AutoModelForImageTextToText
+        except ImportError as exc:  # pragma: no cover - Colab path.
+            raise RuntimeError(
+                "AutoModelForImageTextToText is required for this model loader."
+            ) from exc
+        return processor, AutoModelForImageTextToText
+    raise ValueError(f"Unsupported model_loader: {loader}")
+
+
+def _model_load_kwargs(
+    torch: Any,
+    *,
+    quantization: str | None,
+    torch_dtype: str,
+    device_map: str,
+    trust_remote_code: bool,
+    low_cpu_mem_usage: bool,
+    attn_implementation: str | None,
+    bnb_4bit_compute_dtype: str,
+) -> dict[str, Any]:
+    model_kwargs: dict[str, Any] = {
+        "device_map": device_map,
+        "trust_remote_code": trust_remote_code,
+    }
+    model_kwargs["torch_dtype"] = (
+        getattr(torch, torch_dtype) if torch_dtype != "auto" else "auto"
+    )
+    if low_cpu_mem_usage:
+        model_kwargs["low_cpu_mem_usage"] = True
+    if attn_implementation:
+        model_kwargs["attn_implementation"] = attn_implementation
+
+    if quantization == "4bit":
+        try:
+            from transformers import BitsAndBytesConfig
+
+            model_kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=getattr(torch, bnb_4bit_compute_dtype),
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_use_double_quant=True,
+            )
+        except Exception as exc:  # pragma: no cover - Colab path.
+            raise RuntimeError("4-bit quantization requires bitsandbytes.") from exc
+    elif quantization == "prequantized" or quantization is None:
+        pass
+    else:
+        raise ValueError(f"Unsupported quantization: {quantization}")
+    return model_kwargs
+
+
+def _model_input_device(model: Any) -> Any:
+    try:
+        return model.device
+    except AttributeError:
+        try:
+            return next(model.parameters()).device
+        except StopIteration:
+            return "cpu"
+
+
+def _token_id(tokenizer: Any, attribute: str) -> int | None:
+    value = getattr(tokenizer, attribute, None)
+    if value is not None:
+        return int(value)
+    inner_tokenizer = getattr(tokenizer, "tokenizer", None)
+    value = getattr(inner_tokenizer, attribute, None)
+    return int(value) if value is not None else None
+
+
+def _decode_tokens(tokenizer: Any, token_ids: Any) -> str:
+    decoder = getattr(tokenizer, "decode", None)
+    if decoder is None:
+        inner_tokenizer = getattr(tokenizer, "tokenizer", None)
+        decoder = getattr(inner_tokenizer, "decode", None)
+    if decoder is None:
+        raise RuntimeError("Loaded tokenizer/processor does not expose decode().")
+    return decoder(token_ids, skip_special_tokens=True)
+
+
 def format_prompt_for_model(
     tokenizer: Any,
     prompt: str,
@@ -272,24 +415,35 @@ def format_prompt_for_model(
         "You are a deterministic Text-to-Visualization compiler. "
         "Return only one compact Vega-Lite JSON object. /no_think"
     )
+    user_prompt = prompt + "\n/no_think"
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt + "\n/no_think"},
+        {"role": "user", "content": user_prompt},
+    ]
+    multimodal_text_messages = [
+        {"role": "system", "content": [{"type": "text", "text": system_prompt}]},
+        {"role": "user", "content": [{"type": "text", "text": user_prompt}]},
     ]
     if hasattr(tokenizer, "apply_chat_template"):
-        try:
-            return tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=enable_thinking,
-            )
-        except TypeError:
-            return tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-            )
+        for candidate_messages in (messages, multimodal_text_messages):
+            try:
+                return tokenizer.apply_chat_template(
+                    candidate_messages,
+                    tokenize=False,
+                    add_generation_prompt=True,
+                    enable_thinking=enable_thinking,
+                )
+            except TypeError:
+                try:
+                    return tokenizer.apply_chat_template(
+                        candidate_messages,
+                        tokenize=False,
+                        add_generation_prompt=True,
+                    )
+                except Exception:
+                    continue
+            except Exception:
+                continue
     return f"{system_prompt}\n\n{prompt}\n/no_think\n"
 
 
@@ -906,7 +1060,7 @@ class _StopOnValidJson:
         if len(generated_ids) == 0:
             return False
         text = strip_thinking_blocks(
-            self.tokenizer.decode(generated_ids, skip_special_tokens=True)
+            _decode_tokens(self.tokenizer, generated_ids)
         )
         return _first_json_object_from_first_brace(text) is not None
 

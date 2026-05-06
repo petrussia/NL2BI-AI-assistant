@@ -44,8 +44,17 @@ def run_llm_experiment(
     top_p: float = 1.0,
     seed: int = 42,
     sample_rows: int = 5,
+    torch_dtype: str = "auto",
+    device_map: str = "auto",
+    model_loader: str = "causal_lm",
+    attn_implementation: str | None = None,
+    bnb_4bit_compute_dtype: str = "float16",
+    assistant_model_id: str | None = None,
+    assistant_quantization: str | None = None,
+    assistant_model_loader: str = "causal_lm",
     enable_thinking: bool = False,
     stop_after_json: bool = True,
+    method_name: str = METHOD_NAME,
     evaluate: bool = True,
     render_limit: int = 0,
 ) -> dict[str, Any]:
@@ -72,7 +81,17 @@ def run_llm_experiment(
         sample_rows=sample_rows,
         enable_thinking=enable_thinking,
         stop_after_json=stop_after_json,
+        torch_dtype=torch_dtype,
+        device_map=device_map,
+        model_loader=model_loader,
+        attn_implementation=attn_implementation,
+        bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
+        assistant_model_id=assistant_model_id,
+        assistant_quantization=assistant_quantization,
+        assistant_model_loader=assistant_model_loader,
+        method_name=method_name,
     )
+    method_name = config.method_name
     runtime = runtime_info(REPO_ROOT)
     write_json(run_dir / "runtime_info.json", runtime)
     write_json(run_dir / "llm_config.json", config.to_dict())
@@ -81,7 +100,7 @@ def run_llm_experiment(
 
     predictor = LLMVegaLitePredictor(config).load()
     rows = [predictor.predict(example, run_id=run_id).to_dict() for example in examples]
-    predictions_path = predictions_dir / f"{METHOD_NAME}.jsonl"
+    predictions_path = predictions_dir / f"{method_name}.jsonl"
     write_jsonl(predictions_path, rows)
     write_json(run_dir / "gpu_runtime_after.json", gpu_runtime_info())
 
@@ -94,7 +113,7 @@ def run_llm_experiment(
         method_summary["metrics"] = evaluate_predictions(
             examples_path=examples_used_path,
             predictions_path=predictions_path,
-            output_dir=metrics_dir / METHOD_NAME,
+            output_dir=metrics_dir / method_name,
             run_id=run_id,
             top_k=1,
         )
@@ -102,7 +121,7 @@ def run_llm_experiment(
         method_summary["rendered"] = render_predictions(
             examples_path=examples_used_path,
             predictions_path=predictions_path,
-            output_dir=rendered_dir / METHOD_NAME,
+            output_dir=rendered_dir / method_name,
             limit=render_limit,
         )
 
@@ -112,9 +131,9 @@ def run_llm_experiment(
         "examples_used": str(examples_used_path),
         "drive_root": str(drive_root),
         "sample_size": len(examples),
-        "method": METHOD_NAME,
+        "method": method_name,
         "llm_config": config.to_dict(),
-        "methods": {METHOD_NAME: method_summary},
+        "methods": {method_name: method_summary},
     }
     write_json(run_dir / "experiment_summary.json", summary)
     return summary
@@ -127,12 +146,21 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--run-id")
     parser.add_argument("--sample-size", type=int)
     parser.add_argument("--model-id", default=DEFAULT_MODEL_ID)
-    parser.add_argument("--quantization", default="4bit", choices=["4bit", "none"])
+    parser.add_argument("--quantization", default="4bit", choices=["4bit", "prequantized", "none"])
     parser.add_argument("--max-new-tokens", type=int, default=DEFAULT_MAX_NEW_TOKENS)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--sample-rows", type=int, default=5)
+    parser.add_argument("--torch-dtype", default="auto")
+    parser.add_argument("--device-map", default="auto")
+    parser.add_argument("--model-loader", default="causal_lm")
+    parser.add_argument("--attn-implementation")
+    parser.add_argument("--bnb-4bit-compute-dtype", default="float16")
+    parser.add_argument("--assistant-model-id")
+    parser.add_argument("--assistant-quantization", default="none", choices=["4bit", "prequantized", "none"])
+    parser.add_argument("--assistant-model-loader", default="causal_lm")
+    parser.add_argument("--method-name", default=METHOD_NAME)
     parser.add_argument("--enable-thinking", action="store_true")
     parser.add_argument("--no-stop-after-json", action="store_true")
     parser.add_argument("--no-evaluate", action="store_true")
@@ -155,8 +183,17 @@ def main(argv: list[str] | None = None) -> int:
         top_p=args.top_p,
         seed=args.seed,
         sample_rows=args.sample_rows,
+        torch_dtype=args.torch_dtype,
+        device_map=args.device_map,
+        model_loader=args.model_loader,
+        attn_implementation=args.attn_implementation,
+        bnb_4bit_compute_dtype=args.bnb_4bit_compute_dtype,
+        assistant_model_id=args.assistant_model_id,
+        assistant_quantization=None if args.assistant_quantization == "none" else args.assistant_quantization,
+        assistant_model_loader=args.assistant_model_loader,
         enable_thinking=args.enable_thinking,
         stop_after_json=not args.no_stop_after_json,
+        method_name=args.method_name,
         evaluate=not args.no_evaluate,
         render_limit=args.render_limit,
     )
