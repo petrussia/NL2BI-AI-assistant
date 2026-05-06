@@ -421,10 +421,25 @@ def materialize_record(
     record: dict[str, Any],
     nvbench_root: Path,
     tables_dir: Path,
+    sqlite_cache: dict[str, Path | None] | None = None,
+    prefer_vis_obj: bool = False,
 ) -> tuple[pd.DataFrame, Path, str]:
     db_id = str(record.get("db_id") or "")
     sql = extract_sql(record)
-    sqlite_path = find_sqlite_path(nvbench_root, db_id)
+    if prefer_vis_obj:
+        vis_obj = record.get("vis_obj") or {}
+        df = dataframe_from_vis_obj(vis_obj)
+        if df.empty:
+            raise ValueError("materialized table is empty")
+        table_path = tables_dir / f"{safe_id(key)}.csv"
+        return df, table_path, "vis_obj"
+
+    if sqlite_cache is None:
+        sqlite_path = find_sqlite_path(nvbench_root, db_id)
+    else:
+        if db_id not in sqlite_cache:
+            sqlite_cache[db_id] = find_sqlite_path(nvbench_root, db_id)
+        sqlite_path = sqlite_cache[db_id]
     source = "vis_obj"
     if sql and sqlite_path is not None:
         try:
@@ -502,10 +517,14 @@ def prepare_nvbench_dataset(
     allow_download: bool = True,
     min_successful: int = 50,
     seed: int = 42,
+    prefer_vis_obj: bool = False,
 ) -> NVBenchPrepareResult:
     started = time.time()
     set_seed(seed)
     paths = build_paths(drive_root)
+    prefer_vis_obj_effective = prefer_vis_obj or str(paths.drive_root).replace("\\", "/").startswith(
+        "/content/drive/"
+    )
     paths.processed_dir.mkdir(parents=True, exist_ok=True)
     paths.tables_dir.mkdir(parents=True, exist_ok=True)
     paths.failures_dir.mkdir(parents=True, exist_ok=True)
@@ -549,6 +568,7 @@ def prepare_nvbench_dataset(
 
     candidate_examples: list[dict[str, Any]] = []
     materialized_tables: dict[str, pd.DataFrame] = {}
+    sqlite_cache: dict[str, Path | None] = {}
     failures: list[dict[str, Any]] = []
     failure_reasons: dict[str, int] = {}
     nl_seen = 0
@@ -566,6 +586,8 @@ def prepare_nvbench_dataset(
                 record=record,
                 nvbench_root=paths.nvbench_root,
                 tables_dir=paths.tables_dir,
+                sqlite_cache=sqlite_cache,
+                prefer_vis_obj=prefer_vis_obj_effective,
             )
             materialized_tables[str(table_path.resolve())] = df
         except Exception as exc:
@@ -851,6 +873,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--min-successful", type=int, default=50)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--prefer-vis-obj",
+        action="store_true",
+        help="Use nvBench vis_obj values directly instead of attempting SQL materialization first.",
+    )
     parser.add_argument("--no-download", action="store_true")
     parser.add_argument("--json", action="store_true")
     return parser.parse_args(argv)
@@ -865,6 +892,7 @@ def main(argv: list[str] | None = None) -> int:
         allow_download=not args.no_download,
         min_successful=args.min_successful,
         seed=args.seed,
+        prefer_vis_obj=args.prefer_vis_obj,
     )
     if args.json:
         print(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
