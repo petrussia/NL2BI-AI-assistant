@@ -13,6 +13,7 @@
       "quantization": "prequantized",
       "model_loader": "causal_lm",
       "torch_dtype": "auto",
+      "device_map": "single_gpu",
       "max_new_tokens": 384,
       "temperature": 0.0,
       "top_p": 1.0,

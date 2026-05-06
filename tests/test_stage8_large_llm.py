@@ -4,6 +4,7 @@ import pytest
 
 from scripts.run_stage8_large_llm import load_stage8_config, run_stage8_model, stage8_model_keys
 from t2v_eval.baselines.llm_vegalite import LLMVegaLiteConfig
+from t2v_eval.baselines.llm_vegalite import _device_map_arg
 from t2v_eval.baselines.llm_validator_reranker import LLMRerankerConfig
 
 
@@ -20,6 +21,7 @@ def test_stage8_config_contains_requested_model_family() -> None:
     assert models["qwen36_35b_a3b"]["requested_model_id"] == "Qwen/Qwen3.6-35B-A3B"
     assert models["qwen36_35b_a3b"]["model_id"] == "bombman/Qwen3.6-35B-A3B-4bit-Native"
     assert models["qwen36_35b_a3b"]["quantization"] == "prequantized"
+    assert models["qwen36_35b_a3b"]["device_map"] == "single_gpu"
     assert models["qwen3_coder_next_awq4"]["requested_model_id"] == "Qwen/Qwen3-Coder-Next"
     assert models["qwen3_coder_next_awq4"]["quantization"] == "prequantized"
     assert models["gemma4_e2b_it"]["model_id"] == "google/gemma-4-E2B-it"
@@ -79,3 +81,9 @@ def test_llm_configs_support_stage8_method_and_loaders() -> None:
     assert config.model_loader == "processor_causal_lm"
     assert rerank.to_llm_config().method_name == "B5_stage8_qwen36_35b_a3b"
     assert rerank.to_dict()["quantization"] == "prequantized"
+
+
+def test_single_gpu_device_map_expands_to_accelerate_mapping() -> None:
+    assert _device_map_arg("single_gpu") == {"": 0}
+    assert _device_map_arg("cuda:0") == {"": 0}
+    assert _device_map_arg("auto") == "auto"

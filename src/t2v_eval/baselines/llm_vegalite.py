@@ -344,7 +344,7 @@ def _model_load_kwargs(
     bnb_4bit_compute_dtype: str,
 ) -> dict[str, Any]:
     model_kwargs: dict[str, Any] = {
-        "device_map": device_map,
+        "device_map": _device_map_arg(device_map),
         "trust_remote_code": trust_remote_code,
     }
     model_kwargs["torch_dtype"] = (
@@ -372,6 +372,12 @@ def _model_load_kwargs(
     else:
         raise ValueError(f"Unsupported quantization: {quantization}")
     return model_kwargs
+
+
+def _device_map_arg(device_map: str) -> str | dict[str, int]:
+    if device_map in {"single_gpu", "cuda", "cuda:0"}:
+        return {"": 0}
+    return device_map
 
 
 def _model_input_device(model: Any) -> Any:
