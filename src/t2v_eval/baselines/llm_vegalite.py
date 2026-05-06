@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import re
+from copy import deepcopy
 from dataclasses import dataclass, asdict
 from time import perf_counter
 from typing import Any, Protocol
@@ -459,8 +460,11 @@ def validate_generated_spec(
 
     spec = parse_result["spec"]
     repair_notes: list[str] = []
+    spec, count_alias_notes = _repair_count_field_aliases(spec, example)
+    repair_notes.extend(count_alias_notes)
     if allow_repair:
-        spec, repair_notes = repair_lite(spec, example)
+        spec, lite_repair_notes = repair_lite(spec, example)
+        repair_notes.extend(lite_repair_notes)
 
     strict_schema_error = None if allow_repair else _strict_schema_error(spec)
     if strict_schema_error is not None:
@@ -798,6 +802,48 @@ def repair_lite(spec: dict[str, Any], example: T2VExample) -> tuple[dict[str, An
                     notes.append("filled_missing_type")
 
     return repaired, notes
+
+
+def _repair_count_field_aliases(
+    spec: dict[str, Any],
+    example: T2VExample,
+) -> tuple[dict[str, Any], list[str]]:
+    target = _single_count_field(example)
+    if target is None:
+        return spec, []
+    encoding = spec.get("encoding")
+    if not isinstance(encoding, dict):
+        return spec, []
+
+    repaired = deepcopy(spec)
+    repaired_encoding = repaired.get("encoding")
+    if not isinstance(repaired_encoding, dict):
+        return spec, []
+
+    notes: list[str] = []
+    for channel_value in repaired_encoding.values():
+        for item in _channel_items(channel_value):
+            field = item.get("field")
+            if field and _is_count_field_alias(str(field)):
+                item["field"] = target
+                notes.append("repaired_count_field_alias")
+    return repaired, notes
+
+
+def _single_count_field(example: T2VExample) -> str | None:
+    count_fields = [
+        field.name
+        for field in example.fields
+        if field.name.strip().lower().startswith("count(")
+    ]
+    if len(count_fields) != 1:
+        return None
+    return count_fields[0]
+
+
+def _is_count_field_alias(value: str) -> bool:
+    normalized = re.sub(r"\s+", "", value.strip().lower())
+    return normalized in {"count", "count()", "count(*)", "count(*"}
 
 
 def gpu_runtime_info() -> dict[str, Any]:

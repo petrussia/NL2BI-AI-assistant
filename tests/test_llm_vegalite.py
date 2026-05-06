@@ -204,6 +204,36 @@ def test_strict_validator_accepts_count_over_date_as_quantitative(tmp_path: Path
     assert validation["valid"] is True
 
 
+def test_strict_validator_repairs_unambiguous_count_field_alias(tmp_path: Path) -> None:
+    example = _example(tmp_path)
+    example.metadata["fields"].append(
+        FieldMetadata(name="COUNT(month)", dtype="integer", role="measure").to_dict()
+    )
+    raw = '{"mark":"bar","encoding":{"x":{"field":"month","type":"temporal"},"y":{"field":"count(*","type":"quantitative"}}}'
+
+    validation = validate_generated_spec(raw, example, strict_json=True)
+
+    assert validation["valid"] is True
+    assert validation["spec"]["encoding"]["y"]["field"] == "COUNT(month)"
+    assert validation["repair_status"] == "repaired_count_field_alias"
+
+
+def test_strict_validator_does_not_guess_ambiguous_count_alias(tmp_path: Path) -> None:
+    example = _example(tmp_path)
+    example.metadata["fields"].extend(
+        [
+            FieldMetadata(name="COUNT(month)", dtype="integer", role="measure").to_dict(),
+            FieldMetadata(name="COUNT(region)", dtype="integer", role="measure").to_dict(),
+        ]
+    )
+    raw = '{"mark":"bar","encoding":{"x":{"field":"month","type":"temporal"},"y":{"field":"count(*)","type":"quantitative"}}}'
+
+    validation = validate_generated_spec(raw, example, strict_json=True)
+
+    assert validation["valid"] is False
+    assert validation["error"] == "unknown_field:encoding.y.field:count(*)"
+
+
 def test_generate_validated_retries_with_validator_feedback(tmp_path: Path) -> None:
     example = _example(tmp_path)
     predictor = _FakePredictor(
