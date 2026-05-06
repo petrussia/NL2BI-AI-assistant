@@ -1,0 +1,23 @@
+[0m16:45:43  Running with dbt=1.10.8
+[0m16:45:44  [[33mWARNING[0m]: Deprecated functionality
+The `fivetran/asana_source` package is deprecated in favor of `fivetran/asana`.
+Please update your `packages.yml` configuration to use `fivetran/asana` instead.
+[0m16:45:44  Installing fivetran/asana_source
+[0m16:45:45  Installed from version 0.8.2
+[0m16:45:45  Updated version available: 0.9.0
+[0m16:45:45  Installing fivetran/fivetran_utils
+[0m16:45:45  Installed from version 0.4.11
+[0m16:45:45  Up to date!
+[0m16:45:45  Installing dbt-labs/dbt_utils
+[0m16:45:45  Installed from version 1.3.3
+[0m16:45:45  Up to date!
+[0m16:45:45  
+[0m16:45:45  Updates available for packages: ['fivetran/asana_source']                 
+Update your versions in packages.yml, then run dbt deps
+[0m16:45:45  [[33mWARNING[0m][DeprecationsSummary]: Deprecated functionality
+Summary of encountered deprecations:
+- PackageRedirectDeprecation: 1 occurrence
+To see all deprecation instances instead of just the first occurrence of each,
+run command again with the `--show-all-deprecations` flag. You may also need to
+run with `--no-partial-parse` as some deprecations are only encountered during
+parsing.
