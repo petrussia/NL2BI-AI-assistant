@@ -25,6 +25,7 @@ import pandas as pd
 
 from t2v_eval.data.quality import (
     build_quality_metadata,
+    is_pie_or_arc_example,
     select_examples,
     summarize_dataset_quality,
     table_groups,
@@ -617,16 +618,30 @@ def prepare_nvbench_dataset(
                 table_path=table_path,
                 require_table_file=False,
             )
+            full_metadata = {
+                **example_metadata,
+                **quality_metadata,
+            }
+            unsupported_reason = None
+            if is_pie_or_arc_example(full_metadata):
+                unsupported_reason = "unsupported_pie_or_arc"
+            elif not full_metadata.get("acceptable_marks"):
+                unsupported_reason = f"unsupported_mark_type:{full_metadata.get('primary_mark') or 'missing'}"
+            if unsupported_reason is not None:
+                quality = dict(full_metadata.get("quality") or {})
+                errors = list(quality.get("errors") or [])
+                if unsupported_reason not in errors:
+                    errors.append(unsupported_reason)
+                quality["errors"] = errors
+                quality["status"] = "failed"
+                full_metadata["quality"] = quality
             example = T2VExample(
                 example_id=example_id,
                 benchmark="nvbench",
                 benchmark_source="TsinghuaDatabaseGroup/nvBench",
                 query=query,
                 table_path=str(table_path),
-                metadata={
-                    **example_metadata,
-                    **quality_metadata,
-                },
+                metadata=full_metadata,
                 gold_spec=gold_spec,
                 gold_spec_normalized=normalized,
             )
@@ -651,7 +666,15 @@ def prepare_nvbench_dataset(
         if quality.get("status") == "ok":
             quality_passed_examples.append(example)
             continue
-        reason = "quality_validation_failed"
+        errors = quality.get("errors") or []
+        reason = (
+            "unsupported_pie_or_arc"
+            if "unsupported_pie_or_arc" in errors
+            else next(
+                (str(error) for error in errors if str(error).startswith("unsupported_mark_type:")),
+                "quality_validation_failed",
+            )
+        )
         failure_reasons[reason] = failure_reasons.get(reason, 0) + 1
         failures.append(
             {

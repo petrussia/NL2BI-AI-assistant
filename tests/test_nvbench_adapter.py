@@ -75,6 +75,38 @@ def test_prepare_nvbench_default_sampling_does_not_stop_at_first_n(tmp_path: Pat
     assert len(list(tables_dir.glob("*.csv"))) == 1
 
 
+def test_prepare_nvbench_filters_pie_and_arc_examples(tmp_path: Path) -> None:
+    drive_root = tmp_path / "drive"
+    raw_root = drive_root / "datasets" / "raw" / "nvbench_fixture"
+    create_smoke_nvbench_source(raw_root)
+    fixture_path = raw_root / "NVBench.json"
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    fixture["10"] = {
+        **fixture["8"],
+        "nl_queries": ["Create a pie chart of faculty count by rank."],
+        "chart": "Pie",
+        "vis_obj": {**fixture["8"]["vis_obj"], "chart": "pie"},
+    }
+    fixture_path.write_text(json.dumps(fixture), encoding="utf-8")
+
+    result = prepare_nvbench_dataset(
+        drive_root=drive_root,
+        sample_size=4,
+        min_successful=3,
+        allow_download=False,
+        seed=42,
+    )
+
+    assert result.status == "ok"
+    assert result.candidate_examples == 4
+    assert result.successful_examples == 3
+    assert result.failure_reasons["unsupported_pie_or_arc"] == 1
+    rows = read_jsonl(result.output_jsonl)
+    assert all(row["metadata"]["primary_mark"] != "arc" for row in rows)
+    assert all(row["metadata"]["mentioned_chart_type"] != "pie" for row in rows)
+    assert all("pie" not in row["query"].lower() for row in rows)
+
+
 def test_prepare_nvbench_blocks_without_source(tmp_path: Path) -> None:
     result = prepare_nvbench_dataset(
         drive_root=tmp_path / "empty_drive",

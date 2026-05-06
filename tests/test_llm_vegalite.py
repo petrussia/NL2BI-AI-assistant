@@ -69,6 +69,9 @@ def test_prompt_contains_required_inputs(tmp_path: Path) -> None:
     assert "Schema metadata as JSON" in prompt
     assert "First 1 table rows as JSON" in prompt
     assert "Allowed chart mark types" in prompt
+    assert "bar, line, point, area, tick, text" in prompt
+    assert "arc" not in prompt
+    assert "pie" not in prompt
     assert "Return only one minimal valid JSON object" in prompt
     assert "Do not use markdown" in prompt
     assert "Do not output <think> blocks" in prompt
@@ -145,3 +148,21 @@ def test_prediction_from_text_returns_common_prediction_shape(tmp_path: Path) ->
     assert prediction.normalized_spec
     assert prediction.candidates
     assert prediction.raw_output == raw
+
+
+@pytest.mark.parametrize("mark", ["arc", "pie"])
+def test_prediction_rejects_unsupported_pie_marks(tmp_path: Path, mark: str) -> None:
+    raw = """
+    {
+      "mark": "%s",
+      "encoding": {
+        "theta": {"field": "sales", "type": "quantitative"},
+        "color": {"field": "region", "type": "nominal"}
+      }
+    }
+    """ % mark
+
+    prediction = prediction_from_text(_example(tmp_path), raw, run_id="unit")
+
+    assert prediction.status == "failed"
+    assert prediction.error == f"unsupported_mark_type:{mark}"

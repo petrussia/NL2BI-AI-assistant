@@ -333,6 +333,15 @@ def extract_and_repair_spec(raw_output: str, example: T2VExample) -> dict[str, A
             "spec": repaired,
             "repair_status": ",".join(repair_notes) or "unrepaired_invalid",
         }
+    chart_type = str(normalized.get("chart_type") or "").lower()
+    if chart_type not in ALLOWED_CHART_TYPES:
+        return {
+            "valid": False,
+            "error": f"unsupported_mark_type:{chart_type or 'missing'}",
+            "spec": repaired,
+            "normalized_spec": normalized,
+            "repair_status": ",".join(repair_notes) or "unsupported_mark_type",
+        }
     return {
         "valid": True,
         "error": None,

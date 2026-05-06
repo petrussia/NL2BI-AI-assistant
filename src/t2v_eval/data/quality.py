@@ -15,6 +15,10 @@ import pandas as pd
 from t2v_eval.normalization.vega_lite import mark_type
 
 
+UNSUPPORTED_PIE_MARKS = {"arc", "pie"}
+SUPPORTED_DATASET_MARKS = {"bar", "line", "point", "area", "tick", "text"}
+
+
 EXPLICIT_CHART_PATTERN = re.compile(
     r"\b(stacked\s+bar|bar(?:s)?|pie|scatter|line|histogram|area\s+chart|heatmap|map)\b",
     flags=re.IGNORECASE,
@@ -97,10 +101,27 @@ def acceptable_marks(primary_mark: str | None, chart_signal: str) -> list[str]:
     """Return strict gold mark plus relaxed alternatives for known ambiguous cases."""
 
     mark = (primary_mark or "bar").lower()
+    if mark in UNSUPPORTED_PIE_MARKS or mark not in SUPPORTED_DATASET_MARKS:
+        return []
     marks = [mark]
-    if mark == "arc" and chart_signal == "proportion":
-        marks.append("bar")
     return marks
+
+
+def is_pie_or_arc_example(metadata: dict[str, Any]) -> bool:
+    """Return whether an example should be excluded from the no-pie dataset."""
+
+    primary_mark = str(metadata.get("primary_mark") or "").lower()
+    mentioned_chart_type = str(metadata.get("mentioned_chart_type") or "").lower()
+    chart_type_signal = str(metadata.get("chart_type_signal") or "").lower()
+    chart = str(metadata.get("chart") or "").lower()
+    acceptable = {str(mark).lower() for mark in metadata.get("acceptable_marks") or []}
+    return (
+        primary_mark in UNSUPPORTED_PIE_MARKS
+        or mentioned_chart_type == "pie"
+        or chart_type_signal == "explicit_pie"
+        or "pie" in chart
+        or bool(acceptable & UNSUPPORTED_PIE_MARKS)
+    )
 
 
 def spec_field_names(spec: dict[str, Any]) -> set[str]:

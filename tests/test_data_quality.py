@@ -4,6 +4,7 @@ from t2v_eval.data.quality import (
     acceptable_marks,
     build_quality_metadata,
     detect_chart_type_signal,
+    is_pie_or_arc_example,
     select_examples,
 )
 
@@ -18,9 +19,40 @@ def test_detect_chart_type_signal_distinguishes_explicit_and_implicit() -> None:
     assert implicit["chart_type_signal"] == "proportion"
 
 
-def test_acceptable_marks_keeps_strict_gold_and_relaxed_alternative() -> None:
-    assert acceptable_marks("arc", "proportion") == ["arc", "bar"]
+def test_acceptable_marks_excludes_arc_from_relaxed_marks() -> None:
+    assert acceptable_marks("arc", "proportion") == []
+    assert acceptable_marks("arc", "explicit_pie") == []
     assert acceptable_marks("bar", "none") == ["bar"]
+
+
+def test_pie_or_arc_examples_are_flagged_as_unsupported() -> None:
+    assert is_pie_or_arc_example(
+        {
+            "primary_mark": "arc",
+            "chart_type_signal": "proportion",
+            "mentioned_chart_type": None,
+            "chart": "Pie",
+            "acceptable_marks": ["bar"],
+        }
+    )
+    assert is_pie_or_arc_example(
+        {
+            "primary_mark": "bar",
+            "chart_type_signal": "explicit_pie",
+            "mentioned_chart_type": "pie",
+            "chart": "Bar",
+            "acceptable_marks": ["bar"],
+        }
+    )
+    assert not is_pie_or_arc_example(
+        {
+            "primary_mark": "bar",
+            "chart_type_signal": "explicit_bar",
+            "mentioned_chart_type": "bar",
+            "chart": "Bar",
+            "acceptable_marks": ["bar"],
+        }
+    )
 
 
 def test_quality_metadata_validates_fields_and_table(tmp_path) -> None:
@@ -51,7 +83,7 @@ def test_quality_metadata_validates_fields_and_table(tmp_path) -> None:
 
     assert quality["quality"]["status"] == "ok"
     assert quality["chart_type_signal"] == "proportion"
-    assert quality["acceptable_marks"] == ["arc", "bar"]
+    assert quality["acceptable_marks"] == []
     assert quality["table_shape"] == "1_dimension_1_measure"
 
 
