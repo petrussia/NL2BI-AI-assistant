@@ -1,53 +1,40 @@
 # Stage 8: large LLM JSON-validator baseline
 
-Stage 8 запускает новые Hugging Face модели через тот же строгий контур, что и
-Stage 6/7:
+Stage 8 запускает Hugging Face модели через тот же строгий контур, что и Stage 6/7:
 
 - модель генерирует один компактный Vega-Lite JSON;
-- validator проверяет синтаксис JSON, `mark`, `encoding`, поля схемы, типы и
-  агрегации;
-- при ошибке model получает текст ошибки и подсказку, как исправить ответ;
+- validator проверяет синтаксис JSON, `mark`, `encoding`, поля схемы, типы и агрегации;
+- при ошибке модель получает текст ошибки и подсказку, как исправить ответ;
 - максимум три повторные попытки;
 - невалидный JSON не проходит в метрики как нормальный prediction.
 
 ## Файлы
 
-- `configs/stage8_large_llm_models.json` - список моделей, method names,
-  квантизация и минимальная VRAM.
+- `configs/stage8_large_llm_models.json` - список моделей, method names, квантизация и минимальная VRAM.
 - `scripts/run_stage8_large_llm.py` - единый runner для одной Stage 8 модели.
-- `notebooks/06_run_stage8_large_llms.ipynb` - Colab notebook с отдельной
-  ячейкой на каждую модель.
+- `notebooks/06_run_stage8_large_llms.ipynb` - Colab notebook с отдельной ячейкой на каждую модель.
 
 ## Модели
 
 | key | HF model | quantization | заметка |
 |---|---|---|---|
-| `qwen36_35b_a3b` | `bombman/Qwen3.6-35B-A3B-4bit-Native` | pre-quantized native 4-bit | text-only quant of base `Qwen/Qwen3.6-35B-A3B`; A100 40GB OOMs during weight loading |
-| `qwen3_coder_next_awq4` | `bullpoint/Qwen3-Coder-Next-AWQ-4bit` | pre-quantized AWQ 4-bit | base model is `Qwen/Qwen3-Coder-Next`; quantized size is about 45GB |
-| `gemma4_e2b_it` | `google/gemma-4-E2B-it` | bitsandbytes 4-bit NF4 | small smoke/quality run |
-| `gemma4_26b_a4b_it_mtp` | `google/gemma-4-26B-A4B-it` + `google/gemma-4-26B-A4B-it-assistant` | target in bitsandbytes 4-bit NF4, assistant in native precision | speculative/MTP assistant model |
+| `gemma4_e2b_it` | `google/gemma-4-E2B-it` | bitsandbytes 4-bit NF4 | маленький контрольный Stage 8 baseline |
+| `qwen3_14b` | `Qwen/Qwen3-14B` | bitsandbytes 4-bit NF4 | замена Qwen3.6-35B-A3B для A100 40GB |
+| `gemma3_12b_it` | `google/gemma-3-12b-it` | bitsandbytes 4-bit NF4 | замена Gemma 4 26B-A4B MTP для A100 40GB |
+| `mistral_small_31_24b_bnb4` | `unsloth/Mistral-Small-3.1-24B-Instruct-2503-bnb-4bit` | pre-quantized bitsandbytes 4-bit | квантизованный Mistral Small 3.1 |
+| `mistral_small_32_24b_bnb4` | `unsloth/Mistral-Small-3.2-24B-Instruct-2506-bnb-4bit` | pre-quantized bitsandbytes 4-bit | квантизованный Mistral Small 3.2 |
 
-## Colab Pro+ GPU choice
+## Colab Pro+ GPU
 
-- Для `gemma4_e2b_it`: сначала бери `L4 24GB`. `T4 16GB` должен подойти для
-  smoke/small run, но будет медленнее.
-- Для `gemma4_26b_a4b_it_mtp`: нужна `A100 80GB` или `H100`; на `A100 40GB`
-  загрузка падает по OOM до генерации.
-- Для `qwen36_35b_a3b`: нужна `A100 80GB` или `H100`; на `A100 40GB` не влезли
-  ни официальный checkpoint с bitsandbytes 4-bit, ни native 4-bit text-only
-  checkpoint.
-- Для `qwen3_coder_next_awq4`: нужна карта примерно от 48GB VRAM. Если в Colab
-  доступна только `A100 40GB`, не запускай эту ячейку без явного риска OOM.
-  Практичный вариант - `A100 80GB` или `H100`, если они доступны.
+- `qwen3_14b` и `gemma3_12b_it`: `A100 40GB` с запасом; `L4 24GB` тоже должен подойти для sample20.
+- `mistral_small_31_24b_bnb4` и `mistral_small_32_24b_bnb4`: используй `A100 40GB`. `L4 24GB` лучше не тратить на полный прогон.
+- `gemma4_e2b_it`: можно запускать на `L4 24GB`; на `A100 40GB` он быстрый, но карта избыточна.
 
-Runner сам проверяет `min_vram_gb` перед загрузкой весов и падает раньше, чем
-Colab убьёт runtime из-за OOM. Обойти проверку можно только через
-`STAGE8_ALLOW_LOW_VRAM=1`.
+Runner сам проверяет `min_vram_gb` перед загрузкой весов и падает раньше, чем Colab убьет runtime из-за OOM. Обойти проверку можно только через `STAGE8_ALLOW_LOW_VRAM=1`.
 
 ## Запуск через VS Code/Colab runner
 
-Сначала открой `notebooks/06_run_stage8_large_llms.ipynb` как единственный
-активный notebook в VS Code и подключи нужный Colab runtime.
+Сначала открой `notebooks/06_run_stage8_large_llms.ipynb` как единственный активный notebook в VS Code и подключи нужный Colab runtime.
 
 Setup:
 
@@ -77,15 +64,15 @@ Setup:
   -Json
 ```
 
-Пример запуска Gemma 4 E2B:
+Пример запуска Qwen3-14B:
 
 ```powershell
 .\scripts\colab\run_colab_notebook.ps1 `
   -NotebookPath .\notebooks\06_run_stage8_large_llms.ipynb `
   -Action cell `
-  -CellId stage8-run-gemma4-e2b-it `
+  -CellId stage8-run-qwen3-14b `
   -WaitForCellCompletion `
-  -CompletionText STAGE8_GEMMA4_E2B_IT_OK `
+  -CompletionText STAGE8_QWEN3_14B_OK `
   -WaitSeconds 7200 `
   -ReloadFromDisk:$false `
   -Json
@@ -99,5 +86,4 @@ os.environ["STAGE8_SAMPLE_SIZE"] = "200"
 os.environ["STAGE8_RENDER_LIMIT"] = "0"
 ```
 
-По умолчанию Stage 8 запускается на 20 примерах, чтобы сначала проверить
-валидность, скорость и память.
+По умолчанию Stage 8 запускается на 20 примерах, чтобы сначала проверить валидность, скорость и память.

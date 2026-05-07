@@ -13,22 +13,28 @@ def test_stage8_config_contains_requested_model_family() -> None:
     models = config["models"]
 
     assert set(stage8_model_keys()) == {
-        "gemma4_26b_a4b_it_mtp",
+        "gemma3_12b_it",
         "gemma4_e2b_it",
-        "qwen36_35b_a3b",
-        "qwen3_coder_next_awq4",
+        "mistral_small_31_24b_bnb4",
+        "mistral_small_32_24b_bnb4",
+        "qwen3_14b",
     }
-    assert models["qwen36_35b_a3b"]["requested_model_id"] == "Qwen/Qwen3.6-35B-A3B"
-    assert models["qwen36_35b_a3b"]["model_id"] == "bombman/Qwen3.6-35B-A3B-4bit-Native"
-    assert models["qwen36_35b_a3b"]["quantization"] == "prequantized"
-    assert models["qwen36_35b_a3b"]["device_map"] == "single_gpu"
-    assert models["qwen3_coder_next_awq4"]["requested_model_id"] == "Qwen/Qwen3-Coder-Next"
-    assert models["qwen3_coder_next_awq4"]["quantization"] == "prequantized"
+    assert models["qwen3_14b"]["model_id"] == "Qwen/Qwen3-14B"
+    assert models["qwen3_14b"]["quantization"] == "4bit"
+    assert models["qwen3_14b"]["device_map"] == "single_gpu"
+    assert models["gemma3_12b_it"]["model_id"] == "google/gemma-3-12b-it"
+    assert models["gemma3_12b_it"]["model_loader"] == "gemma3_conditional_generation"
     assert models["gemma4_e2b_it"]["model_id"] == "google/gemma-4-E2B-it"
-    assert models["gemma4_26b_a4b_it_mtp"]["assistant_model_id"] == (
-        "google/gemma-4-26B-A4B-it-assistant"
+    assert models["mistral_small_31_24b_bnb4"]["model_id"] == (
+        "unsloth/Mistral-Small-3.1-24B-Instruct-2503-bnb-4bit"
     )
-    assert models["gemma4_26b_a4b_it_mtp"]["device_map"] == "single_gpu"
+    assert models["mistral_small_31_24b_bnb4"]["model_loader"] == (
+        "mistral3_conditional_generation"
+    )
+    assert models["mistral_small_32_24b_bnb4"]["model_id"] == (
+        "unsloth/Mistral-Small-3.2-24B-Instruct-2506-bnb-4bit"
+    )
+    assert models["mistral_small_32_24b_bnb4"]["quantization"] == "prequantized"
 
 
 def test_stage8_dry_run_builds_validator_run_without_loading_model(tmp_path: Path) -> None:
@@ -57,9 +63,9 @@ def test_stage8_low_vram_guard_can_fail_before_model_load(tmp_path: Path, monkey
         lambda: {"cuda_available": True, "vram_total_mb": 16 * 1024},
     )
 
-    with pytest.raises(RuntimeError, match="needs about 48GB VRAM"):
+    with pytest.raises(RuntimeError, match="needs about 28GB VRAM"):
         run_stage8_model(
-            model_key="qwen36_35b_a3b",
+            model_key="mistral_small_31_24b_bnb4",
             examples_path=tmp_path / "examples.jsonl",
             drive_root=tmp_path,
             dry_run=True,
@@ -73,15 +79,30 @@ def test_llm_configs_support_stage8_method_and_loaders() -> None:
         model_loader="processor_causal_lm",
     )
     rerank = LLMRerankerConfig(
-        model_id="Qwen/Qwen3.6-35B-A3B",
-        method_name="B5_stage8_qwen36_35b_a3b",
+        model_id="Qwen/Qwen3-14B",
+        method_name="B5_stage8_qwen3_14b",
         quantization="prequantized",
     )
 
     assert config.method_name == "B5_stage8_gemma4_e2b_it"
     assert config.model_loader == "processor_causal_lm"
-    assert rerank.to_llm_config().method_name == "B5_stage8_qwen36_35b_a3b"
+    assert rerank.to_llm_config().method_name == "B5_stage8_qwen3_14b"
     assert rerank.to_dict()["quantization"] == "prequantized"
+
+
+def test_stage8_configs_accept_new_processor_model_loaders() -> None:
+    gemma = LLMVegaLiteConfig(
+        model_id="google/gemma-3-12b-it",
+        model_loader="gemma3_conditional_generation",
+    )
+    mistral = LLMVegaLiteConfig(
+        model_id="unsloth/Mistral-Small-3.2-24B-Instruct-2506-bnb-4bit",
+        model_loader="mistral3_conditional_generation",
+        quantization="prequantized",
+    )
+
+    assert gemma.model_loader == "gemma3_conditional_generation"
+    assert mistral.model_loader == "mistral3_conditional_generation"
 
 
 def test_single_gpu_device_map_expands_to_accelerate_mapping() -> None:

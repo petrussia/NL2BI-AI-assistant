@@ -28,7 +28,13 @@ except ModuleNotFoundError:  # pragma: no cover - dependency is in requirements.
 METHOD_NAME = "B3_local_llm_qwen3_8b"
 DEFAULT_MODEL_ID = "Qwen/Qwen3-8B"
 ALLOWED_CHART_TYPES = ("bar", "line", "point", "area", "tick", "text")
-ALLOWED_MODEL_LOADERS = ("causal_lm", "processor_causal_lm", "image_text_to_text")
+ALLOWED_MODEL_LOADERS = (
+    "causal_lm",
+    "processor_causal_lm",
+    "image_text_to_text",
+    "gemma3_conditional_generation",
+    "mistral3_conditional_generation",
+)
 ALLOWED_QUANTIZATIONS = (None, "4bit", "prequantized")
 DEFAULT_SAMPLE_ROWS = 5
 DEFAULT_MAX_NEW_TOKENS = 384
@@ -321,6 +327,22 @@ def _load_text_interface(
     )
     if loader == "processor_causal_lm":
         return processor, AutoModelForCausalLM
+    if loader == "gemma3_conditional_generation":
+        try:
+            from transformers import Gemma3ForConditionalGeneration
+        except ImportError as exc:  # pragma: no cover - Colab path.
+            raise RuntimeError(
+                "Gemma3ForConditionalGeneration is required for this model loader."
+            ) from exc
+        return processor, Gemma3ForConditionalGeneration
+    if loader == "mistral3_conditional_generation":
+        try:
+            from transformers import Mistral3ForConditionalGeneration
+        except ImportError as exc:  # pragma: no cover - Colab path.
+            raise RuntimeError(
+                "Mistral3ForConditionalGeneration is required for this model loader."
+            ) from exc
+        return processor, Mistral3ForConditionalGeneration
     if loader == "image_text_to_text":
         try:
             from transformers import AutoModelForImageTextToText
@@ -452,7 +474,11 @@ def tokenize_prompt_for_model(
             prompt,
             enable_thinking=enable_thinking,
         )
-        for kwargs in ({"text": text, "return_tensors": "pt"}, {"return_tensors": "pt"}):
+        for kwargs in (
+            {"text": text, "add_special_tokens": False, "return_tensors": "pt"},
+            {"text": text, "return_tensors": "pt"},
+            {"return_tensors": "pt"},
+        ):
             try:
                 inputs = tokenizer(text, **kwargs) if "text" not in kwargs else tokenizer(**kwargs)
                 if _has_input_ids(inputs):
