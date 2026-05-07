@@ -18,8 +18,8 @@
       "temperature": 0.0,
       "top_p": 1.0,
       "sample_rows": 5,
-      "min_vram_gb": 24,
-      "recommended_colab_gpu": "A100 40GB; L4 24GB may fit but is slower"
+      "min_vram_gb": 48,
+      "recommended_colab_gpu": "A100 80GB or H100; A100 40GB OOMs during weight loading"
     },
     "qwen3_coder_next_awq4": {
       "label": "Qwen3-Coder-Next AWQ 4-bit",
@@ -76,8 +76,8 @@
       "temperature": 0.0,
       "top_p": 1.0,
       "sample_rows": 5,
-      "min_vram_gb": 24,
-      "recommended_colab_gpu": "A100 40GB; L4 24GB is borderline"
+      "min_vram_gb": 48,
+      "recommended_colab_gpu": "A100 80GB or H100; A100 40GB OOMs during weight loading"
     }
   }
 }

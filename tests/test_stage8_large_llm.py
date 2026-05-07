@@ -57,7 +57,7 @@ def test_stage8_low_vram_guard_can_fail_before_model_load(tmp_path: Path, monkey
         lambda: {"cuda_available": True, "vram_total_mb": 16 * 1024},
     )
 
-    with pytest.raises(RuntimeError, match="needs about 24GB VRAM"):
+    with pytest.raises(RuntimeError, match="needs about 48GB VRAM"):
         run_stage8_model(
             model_key="qwen36_35b_a3b",
             examples_path=tmp_path / "examples.jsonl",
