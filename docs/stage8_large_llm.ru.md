@@ -63,6 +63,20 @@ Setup:
   -Json
 ```
 
+Если Colab падает с `No space left on device`, сначала очисти локальный cache:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 `
+  -NotebookPath .\notebooks\06_run_stage8_large_llms.ipynb `
+  -Action cell `
+  -CellId stage8-clean-hf-cache `
+  -WaitForCellCompletion `
+  -CompletionText STAGE8_CLEAN_HF_CACHE_OK `
+  -WaitSeconds 600 `
+  -ReloadFromDisk:$false `
+  -Json
+```
+
 Пример запуска Qwen3-14B:
 
 ```powershell
