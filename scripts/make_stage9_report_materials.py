@@ -108,6 +108,42 @@ FINAL_RUNS = [
         family="Локальная LLM + validation",
         role="3 кандидата + validator/reranker",
     ),
+    FinalRun(
+        label="B5a",
+        method="B5_stage8_qwen3_14b",
+        run_id="stage8_qwen3_14b_sample20",
+        metrics_method_dir="B5_stage8_qwen3_14b",
+        sample_size=20,
+        family="Stage 8 LLM + strict JSON validator",
+        role="Qwen3-14B, один кандидат, validator retry",
+    ),
+    FinalRun(
+        label="B5b",
+        method="B5_stage8_mistral_small_32_24b_bnb4",
+        run_id="stage8_mistral_small_32_24b_bnb4_sample20",
+        metrics_method_dir="B5_stage8_mistral_small_32_24b_bnb4",
+        sample_size=20,
+        family="Stage 8 LLM + strict JSON validator",
+        role="Mistral Small 3.2 24B bnb-4bit, один кандидат",
+    ),
+    FinalRun(
+        label="B5c",
+        method="B5_stage8_gemma3_12b_it",
+        run_id="stage8_gemma3_12b_it_sample20",
+        metrics_method_dir="B5_stage8_gemma3_12b_it",
+        sample_size=20,
+        family="Stage 8 LLM + strict JSON validator",
+        role="Gemma 3 12B IT, gated HF model",
+    ),
+    FinalRun(
+        label="B5d",
+        method="B5_stage8_gemma4_e2b_it",
+        run_id="stage8_gemma4_e2b_it_sample20",
+        metrics_method_dir="B5_stage8_gemma4_e2b_it",
+        sample_size=20,
+        family="Stage 8 LLM + strict JSON validator",
+        role="Gemma 4 E2B IT, малый контрольный LLM baseline",
+    ),
 ]
 
 
@@ -197,6 +233,74 @@ FALLBACK_METRICS: dict[str, dict[str, float]] = {
         "memory_peak_mb": 2127.145,
         "failure_rate": 0.05,
     },
+    "B5_stage8_qwen3_14b": {
+        "examples": 20,
+        "predictions": 20,
+        "chart_type_accuracy": 0.9,
+        "x_field_accuracy": 0.95,
+        "y_field_accuracy": 0.95,
+        "field_selection_f1": 1.0,
+        "encoding_accuracy": 0.575,
+        "aggregation_accuracy": 0.85,
+        "normalized_exact_match": 0.3,
+        "vega_lite_validity": 1.0,
+        "top1_success": 0.3,
+        "oracle_success_at_k": 0.3,
+        "latency_ms": 8133.003999999999,
+        "memory_peak_mb": 2064.027,
+        "failure_rate": 0.0,
+    },
+    "B5_stage8_mistral_small_32_24b_bnb4": {
+        "examples": 20,
+        "predictions": 20,
+        "chart_type_accuracy": 0.85,
+        "x_field_accuracy": 0.65,
+        "y_field_accuracy": 0.6,
+        "field_selection_f1": 0.99,
+        "encoding_accuracy": 0.4,
+        "aggregation_accuracy": 0.8,
+        "normalized_exact_match": 0.25,
+        "vega_lite_validity": 1.0,
+        "top1_success": 0.25,
+        "oracle_success_at_k": 0.25,
+        "latency_ms": 6045.25885,
+        "memory_peak_mb": 1889.961,
+        "failure_rate": 0.0,
+    },
+    "B5_stage8_gemma3_12b_it": {
+        "examples": 20,
+        "predictions": 20,
+        "chart_type_accuracy": 0.15,
+        "x_field_accuracy": 0.15,
+        "y_field_accuracy": 0.15,
+        "field_selection_f1": 0.15,
+        "encoding_accuracy": 0.075,
+        "aggregation_accuracy": 0.15,
+        "normalized_exact_match": 0.05,
+        "vega_lite_validity": 0.15,
+        "top1_success": 0.05,
+        "oracle_success_at_k": 0.05,
+        "latency_ms": 69237.6294,
+        "memory_peak_mb": 2556.523,
+        "failure_rate": 0.85,
+    },
+    "B5_stage8_gemma4_e2b_it": {
+        "examples": 20,
+        "predictions": 20,
+        "chart_type_accuracy": 0.7,
+        "x_field_accuracy": 0.7,
+        "y_field_accuracy": 0.75,
+        "field_selection_f1": 0.89,
+        "encoding_accuracy": 0.35,
+        "aggregation_accuracy": 0.65,
+        "normalized_exact_match": 0.1,
+        "vega_lite_validity": 0.9,
+        "top1_success": 0.1,
+        "oracle_success_at_k": 0.1,
+        "latency_ms": 44562.2476,
+        "memory_peak_mb": 2200.0,
+        "failure_rate": 0.1,
+    },
 }
 
 
@@ -209,8 +313,10 @@ def main() -> int:
     write_figures(rows, drive_root)
     write_workbook(rows)
     write_latex_table(rows)
+    write_quality_metrics_pdf(rows)
     write_markdown(rows, inventory, drive_root)
     write_review(rows, inventory, drive_root)
+    write_archive()
     sync_to_drive(drive_root)
     print(json.dumps({"output_dir": str(OUT_DIR), "drive_root": CANONICAL_DRIVE_ROOT_STR if drive_root else None}, ensure_ascii=False, indent=2))
     return 0
@@ -400,10 +506,36 @@ def write_tables(rows: list[dict[str, Any]], inventory: list[dict[str, Any]]) ->
             "Ценность для интеграции": "Рекомендуемый исследовательский кандидат",
             "Ограничение": "Три генерации на пример; примерно в 3.4 раза медленнее B3",
         },
+        {
+            "Подход": "B5a",
+            "Когда применять": "Лучший протестированный одиночный LLM baseline на Stage 8",
+            "Ценность для интеграции": "Qwen3-14B дает 100% validity и сильные метрики без reranking",
+            "Ограничение": "Проверен на sample20; медленнее детерминированных B0-B2",
+        },
+        {
+            "Подход": "B5b",
+            "Когда применять": "Быстрый Stage 8 LLM baseline с квантизованным Mistral Small 3.2",
+            "Ценность для интеграции": "Хороший компромисс скорости и валидности",
+            "Ограничение": "Уступает Qwen3-14B по chart type и exact match",
+        },
+        {
+            "Подход": "B5c",
+            "Когда применять": "Отрицательный контроль для Gemma 3 12B в текущем prompt/schema режиме",
+            "Ценность для интеграции": "Показывает риск gated VLM/LLM без точной настройки JSON-формата",
+            "Ограничение": "85% failed на sample20; не рекомендуется как baseline без доработки промпта",
+        },
+        {
+            "Подход": "B5d",
+            "Когда применять": "Малый контрольный Stage 8 LLM baseline",
+            "Ценность для интеграции": "Показывает нижнюю границу качества для малой Gemma",
+            "Ограничение": "Хуже Qwen3-14B и Mistral Small 3.2 по основным метрикам",
+        },
     ]
     risks = [
         {"Риск": "Репрезентативность датасета", "Влияние": "Метрики зависят от примеров, полученных из nvBench", "Снижение риска": "Фиксировать размеры выборок и сохранять воспроизводимые артефакты"},
-        {"Риск": "Задержка LLM", "Влияние": "B3/B4 медленнее детерминированных базовых подходов", "Снижение риска": "Отключать thinking, останавливать генерацию после JSON, ограничивать tokens"},
+        {"Риск": "Задержка LLM", "Влияние": "B3/B4/B5 медленнее детерминированных базовых подходов", "Снижение риска": "Отключать thinking, останавливать генерацию после JSON, ограничивать tokens"},
+        {"Риск": "Разные размеры выборок", "Влияние": "B0-B2 посчитаны на sample200, B3 на sample50, B4/B5 на sample20", "Снижение риска": "Явно показывать Sample в таблицах и не делать вывод о победе без полного прогона"},
+        {"Риск": "Нестабильность JSON у отдельных LLM", "Влияние": "Gemma 3 12B показала высокий failure rate в текущем Stage 8 контуре", "Снижение риска": "Использовать строгий validator/retry и отдельно дорабатывать chat template/prompt"},
         {"Риск": "Ошибки рендеринга", "Влияние": "Некоторые валидные specs могут не отрендериться", "Снижение риска": "Сохранять render_failures.json и визуально проверять примеры"},
         {"Риск": "Несовместимость NL4DV", "Влияние": "Полный базовый подход на существующем инструменте не был установлен", "Снижение риска": "Зафиксировать dependency conflict и использовать B2 как частичный резервный вариант"},
         {"Риск": "Нет оценки Text-to-SQL", "Влияние": "Качество upstream SQL здесь не измеряется", "Снижение риска": "Явно фиксировать границу post-query постановки"},
@@ -580,6 +712,41 @@ def write_latex_table(rows: list[dict[str, Any]]) -> None:
     )
 
 
+def write_quality_metrics_pdf(rows: list[dict[str, Any]]) -> None:
+    if plt is None:
+        return
+    configure_matplotlib()
+    columns = ["Подход", "Validity", "Field F1", "Encoding", "Exact", "Failure"]
+    table_rows = [
+        [
+            display_method_label(row, multiline=False),
+            fmt(row["vega_lite_validity"]),
+            fmt(row["field_selection_f1"]),
+            fmt(row["encoding_accuracy"]),
+            fmt(row["normalized_exact_match"]),
+            fmt(row["failure_rate"]),
+        ]
+        for row in rows
+    ]
+    fig_height = max(4.8, 1.0 + len(table_rows) * 0.35)
+    fig, axis = plt.subplots(figsize=(11.5, fig_height))
+    axis.axis("off")
+    axis.set_title("Итоговое сравнение качества Text-to-Visualization", fontsize=15, fontweight="bold", pad=18)
+    table = axis.table(cellText=table_rows, colLabels=columns, cellLoc="center", loc="center")
+    table.auto_set_font_size(False)
+    table.set_fontsize(9)
+    table.scale(1.0, 1.35)
+    for (row_index, _col_index), cell in table.get_celld().items():
+        if row_index == 0:
+            cell.set_text_props(weight="bold", color="white")
+            cell.set_facecolor("#1F4E79")
+        else:
+            cell.set_facecolor("#F8FAFC" if row_index % 2 == 0 else "white")
+        cell.set_edgecolor("#D1D5DB")
+    fig.savefig(LATEX_DIR / "quality_metrics_table.pdf", bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
 def write_figures(rows: list[dict[str, Any]], drive_root: Path | None) -> None:
     draw_pipeline_architecture(FIGURES_DIR / "pipeline_architecture.png")
     draw_nvbench_flow(FIGURES_DIR / "nvbench_postquery_flow.png")
@@ -601,7 +768,7 @@ def draw_pipeline_architecture(path: Path) -> None:
     boxes = [
         (80, 190, 260, "Готовая таблица\nCSV + метаданные"),
         (420, 190, 260, "NL-запрос\nпосле SQL"),
-        (760, 190, 260, "Подходы\nB0..B4"),
+        (760, 190, 260, "Подходы\nB0..B5"),
         (1100, 190, 260, "Vega-Lite\nспецификация\nили ошибка"),
         (1440, 190, 280, "Оценщик + рендерер\nметрики + PNG"),
     ]
@@ -656,7 +823,7 @@ def draw_metrics_bars(rows: list[dict[str, Any]], path: Path) -> None:
         ("aggregation_accuracy", "Aggregation"),
         ("normalized_exact_match", "Exact match"),
     ]
-    colors = ["#5B8FF9", "#61DDAA", "#65789B", "#F6BD16", "#E8684A"]
+    colors = chart_colors(len(rows))
     labels = [display_method_label(row, multiline=True) for row in rows]
     fig, axes = plt.subplots(2, 3, figsize=(18, 10), constrained_layout=False)
     fig.patch.set_facecolor("white")
@@ -698,10 +865,10 @@ def draw_metrics_bars(rows: list[dict[str, Any]], path: Path) -> None:
     note_axis.text(
         0.0,
         0.76,
-        "B4 выигрывает по Exact match и Aggregation,\n"
-        "но сравнивается на меньшей выборке из-за GPU latency.\n\n"
-        "B0/B1/B2 быстрые и стабильные baseline/fallback,\n"
-        "но хуже по строгому совпадению с gold spec.",
+        "Qwen3-14B в Stage 8 повторяет B4 по Exact match,\n"
+        "но дает 100% validity и заметно меньшую задержку.\n\n"
+        "B1 остается сильнейшим быстрым baseline на sample200;\n"
+        "Gemma 3 12B в текущем формате неустойчива.",
         fontsize=10.5,
         color="#374151",
         linespacing=1.35,
@@ -716,12 +883,13 @@ def draw_system_metrics(rows: list[dict[str, Any]], path: Path) -> None:
         draw_system_metrics_fallback(rows, path)
         return
     configure_matplotlib()
-    colors = ["#5B8FF9", "#61DDAA", "#65789B", "#F6BD16", "#E8684A"]
+    colors = chart_colors(len(rows))
     labels = [display_method_label(row, multiline=False) for row in rows]
     latency = [as_optional_float(row.get("latency_ms")) for row in rows]
     latency_zoom = latency[:3]
     memory = [as_optional_float(row.get("memory_peak_mb")) for row in rows]
     failure = [float(row.get("failure_rate") or 0.0) for row in rows]
+    failure_limit = max(0.2, max(failure or [0.0]) * 1.15)
 
     fig, axes = plt.subplots(2, 2, figsize=(17, 10), constrained_layout=False)
     fig.patch.set_facecolor("white")
@@ -730,7 +898,7 @@ def draw_system_metrics(rows: list[dict[str, Any]], path: Path) -> None:
     fig.text(
         0.5,
         0.905,
-        "Latency показывает среднее время на пример. Для B3/B4 значения на порядки выше; для B2 надежный runtime-замер отсутствует.",
+        "Latency показывает среднее время на пример. Для B3/B4/B5 значения на порядки выше быстрых rule-based подходов; для B2 надежный runtime-замер отсутствует.",
         ha="center",
         fontsize=11,
         color="#374151",
@@ -763,7 +931,7 @@ def draw_system_metrics(rows: list[dict[str, Any]], path: Path) -> None:
         title="Failure rate: доля неуспешных предсказаний",
         value_formatter=lambda value: f"{value:.0%}",
         x_label="share of examples",
-        x_limit=0.2,
+        x_limit=failure_limit,
         percent_axis=True,
     )
     draw_horizontal_bar_panel(
@@ -792,6 +960,21 @@ def configure_matplotlib() -> None:
             "figure.facecolor": "white",
         }
     )
+
+
+def chart_colors(count: int) -> list[str]:
+    palette = [
+        "#5B8FF9",
+        "#61DDAA",
+        "#65789B",
+        "#F6BD16",
+        "#E8684A",
+        "#6DC8EC",
+        "#9270CA",
+        "#FF9D4D",
+        "#269A99",
+    ]
+    return [palette[index % len(palette)] for index in range(count)]
 
 
 def draw_horizontal_bar_panel(
@@ -853,6 +1036,10 @@ def display_method_label(row: dict[str, Any], *, multiline: bool) -> str:
         "B2": "partial-recommender",
         "B3": "Qwen3-8B",
         "B4": "validator-reranker",
+        "B5a": "Qwen3-14B",
+        "B5b": "Mistral 3.2",
+        "B5c": "Gemma3-12B",
+        "B5d": "Gemma4-E2B",
     }
     separator = "\n" if multiline else " "
     return f"{row['label']}{separator}{names.get(str(row['label']), str(row['method']))}"
@@ -870,7 +1057,7 @@ def draw_metrics_bars_fallback(rows: list[dict[str, Any]], path: Path) -> None:
         ("aggregation_accuracy", "Aggregation"),
         ("normalized_exact_match", "Exact match"),
     ]
-    colors = ["#5B8FF9", "#61DDAA", "#65789B", "#F6BD16", "#E8684A"]
+    colors = chart_colors(len(rows))
     chart_left, chart_top = 120, 220
     group_width = 310
     max_bar_height = 560
@@ -896,7 +1083,7 @@ def draw_system_metrics_fallback(rows: list[dict[str, Any]], path: Path) -> None
     draw = ImageDraw.Draw(image)
     font = load_font(28)
     small = load_font(22)
-    colors = ["#5B8FF9", "#61DDAA", "#65789B", "#F6BD16", "#E8684A"]
+    colors = chart_colors(len(rows))
     metrics = [
         ("latency_ms", "Latency ms"),
         ("failure_rate", "Failure rate"),
@@ -1026,11 +1213,11 @@ def build_report_markdown(rows: list[dict[str, Any]], inventory: list[dict[str, 
 
 ## Что реализовано
 
-Реализованы пять подходов:
+Реализованы базовые подходы B0-B4 и дополнительные Stage 8 LLM-подходы B5a-B5d:
 
 {comparison_md}
 
-Этап 8 намеренно пропущен как опциональный: дополнительные LLM-эксперименты требуют GPU-времени, а для отчета уже есть сравнение пяти подходов `B0`-`B4`.
+Этап 8 добавлен отдельным блоком: `B5a`-`B5d` сравнивают новые LLM-модели с тем же строгим JSON/Vega-Lite validator и retry-контуром. Эти прогоны выполнены на `sample20`, поэтому они полезны для выбора LLM-кандидата, но не заменяют полное сравнение `B0`-`B2` на `sample200`.
 
 ## Методика экспериментов
 
@@ -1038,7 +1225,7 @@ def build_report_markdown(rows: list[dict[str, Any]], inventory: list[dict[str, 
 2. Все runs сохранялись в канонической папке Google Drive: `{CANONICAL_DRIVE_ROOT_STR}`.
 3. Для каждого метода сохранялись файлы предсказаний jsonl, агрегированные и попримерные метрики, информация о среде выполнения, pip freeze и артефакты рендеринга.
 4. Основные метрики: `vega_lite_validity`, `field_selection_f1`, `encoding_accuracy`, `aggregation_accuracy`, `normalized_exact_match`, `failure_rate`, `latency_ms`, `memory_peak_mb`.
-5. Для B4 дополнительно сохраняются все 3 кандидата на пример и считается `oracle_success_at_k`.
+5. Для B4 дополнительно сохраняются все 3 кандидата на пример и считается `oracle_success_at_k`; для Stage 8 моделей фиксируется один основной кандидат после validator retry.
 
 ## Итоговые результаты
 
@@ -1050,17 +1237,17 @@ def build_report_markdown(rows: list[dict[str, Any]], inventory: list[dict[str, 
 
 {system_md}
 
-Ключевой результат: `B4_llm_validator_reranker` дает лучший top-1 exact match среди финальных запусков, но проверен на меньшей выборке и дороже по задержке, так как генерирует три кандидата на пример. Среди быстрых детерминированных подходов сильнее всего выглядит `B1_constraint_ranker`, а `B2_partial_recommender` стал заметно лучше после пересборки данных. Практический вариант для интеграции - гибрид: быстрый детерминированный резервный подход (`B1`/`B2`) плюс B4 для случаев, где важнее качество и допустима задержка.
+Ключевой результат: среди быстрых детерминированных подходов сильнее всего выглядит `B1_constraint_ranker`, а среди новых LLM baseline лучший результат на `sample20` дал `Qwen3-14B` (`B5a`): он повторил B4 по exact match, получил 100% validity и оказался заметно быстрее B4. `Mistral Small 3.2` (`B5b`) выглядит как быстрый LLM-кандидат, но немного уступает Qwen3-14B по качеству. `Gemma 3 12B` (`B5c`) в текущем prompt/schema режиме не рекомендуется из-за высокого failure rate. Практический вариант для интеграции - гибрид: быстрый детерминированный резервный подход (`B1`/`B2`) плюс `Qwen3-14B` или B4 для случаев, где важнее качество и допустима задержка.
 
 ## Выбор подхода для дальнейшей интеграции
 
 Рекомендация:
 
 - Для рабочего резервного варианта: `B1_constraint_ranker` или `B2_partial_recommender`, потому что они быстрые, валидные и воспроизводимые.
-- Для исследовательского качества и демонстрации LLM-возможностей: `B4_llm_validator_reranker`.
-- Для одиночного LLM-подхода без reranking: `B3_local_llm_qwen3_8b`, если нужно снизить задержку относительно B4.
+- Для исследовательского качества и демонстрации LLM-возможностей: `B5_stage8_qwen3_14b` как лучший одиночный LLM baseline на sample20; B4 остается полезным как reranker/validator baseline.
+- Для быстрого одиночного LLM-подхода без reranking: `B5_stage8_mistral_small_32_24b_bnb4`, если важна задержка и допускается небольшое снижение качества относительно Qwen3-14B.
 
-Итоговая архитектура интеграции: сначала быстрый базовый подход формирует гарантированную валидную визуализацию; при наличии GPU/времени B4 генерирует несколько кандидатов, валидатор фильтрует незаконные спецификации, reranker выбирает лучший результат.
+Итоговая архитектура интеграции: сначала быстрый базовый подход формирует гарантированную валидную визуализацию; при наличии GPU/времени LLM-контур генерирует Vega-Lite JSON, validator не пропускает некорректные спецификации, а reranker используется только там, где несколько кандидатов реально улучшают качество.
 
 ## Рисунки для отчета
 
@@ -1119,7 +1306,7 @@ python -m pytest -q
 
 ## Ограничения
 
-- Метрики B3/B4 получены на меньших sample sizes из-за задержки на GPU.
+- Метрики B3/B4/B5 получены на меньших sample sizes из-за задержки на GPU; B0-B2 посчитаны на sample200, B3 на sample50, B4/B5 на sample20.
 - B2 является частичным резервным подходом в стиле существующих инструментов, а не полноценной NL4DV интеграцией.
 - Rendered PNG используется как smoke/inspection artifact; корректность графика определяется метриками качества и ручным анализом.
 - Text-to-SQL не входит в оценку.
@@ -1131,11 +1318,11 @@ def write_review(rows: list[dict[str, Any]], inventory: list[dict[str, Any]], dr
     review.write_text(
         f"""# Отчет по проверке этапа 9: финальные материалы для отчета по практике
 
-Дата: 2026-04-26
+Дата: 2026-05-08
 
 Статус: завершен.
 
-Этап 8 намеренно пропущен как опциональный. После обновления валидатора повторно запущены B2/B3/B4, а Stage 9 пересобран на актуальных метриках.
+Этап 8 включен в обновленную сборку: добавлены Stage 8 LLM baseline `B5a`-`B5d`, включая Qwen3-14B, Mistral Small 3.2, Gemma 3 12B и Gemma 4 E2B.
 
 ## Финальные запуски
 
@@ -1213,6 +1400,10 @@ reports/stage9_report_materials/run_inventory.json
 - `stage5_partial_sample200`: B2
 - `stage6_qwen3_8b_fast_sample50`: B3
 - `stage7_b4_sample20_tokens384`: B4
+- `stage8_qwen3_14b_sample20`: B5a
+- `stage8_mistral_small_32_24b_bnb4_sample20`: B5b
+- `stage8_gemma3_12b_it_sample20`: B5c
+- `stage8_gemma4_e2b_it_sample20`: B5d
 
 ## Проверка
 
@@ -1222,12 +1413,12 @@ reports/stage9_report_materials/run_inventory.json
 - Colab-проверка нашла обязательные Drive-артефакты и вывела `STAGE9_VERIFY_OK`.
 - Итоговая рекомендация включена в `practice_report_materials.md`.
 - Все финальные run_id и пути к артефактам перечислены.
-- Работа по этапу 8 не начиналась.
+- Этап 8 пересчитан на sample20. Qwen3-14B стал лучшим новым одиночным LLM baseline; Gemma 3 12B показала высокий failure rate и требует отдельной доработки prompt/chat template.
 
 ## Проблемы и замечания
 
-- Этап 8 намеренно пропущен, потому что уже сравнены пять подходов, а дополнительные LLM runs увеличили бы GPU-затраты.
-- B3/B4 повторно запускались после правок валидатора; B4 может немного плавать по `oracle_success_at_k`, потому что часть кандидатов генерируется с температурой.
+- Этап 8 включен в отчет как дополнительное сравнение LLM-моделей. Метрики Stage 8 нужно читать с учетом sample20.
+- B3/B4/Stage8 запускались на меньших выборках из-за GPU-задержки; B4 может немного плавать по `oracle_success_at_k`, потому что часть кандидатов генерируется с температурой.
 - Логика B0/B1/B2 не менялась после финального Stage 4/5 прогона; для Stage 9 обновлены только метрики и материалы.
 - Локальная пересборка workbook может быть пропущена, если `stage9_tables.xlsx` открыт в Excel; Colab создает workbook штатно.
 - Сетка примеров генерируется из Drive-артефактов финального B4 run; при локальной пересборке без Drive генератор использует резервную схему.
@@ -1250,6 +1441,17 @@ def sync_to_drive(drive_root: Path | None) -> None:
     if target.exists():
         shutil.rmtree(target)
     shutil.copytree(OUT_DIR, target)
+    archive = OUT_DIR.with_suffix(".zip")
+    if archive.exists():
+        shutil.copy2(archive, drive_root / "reports" / archive.name)
+
+
+def write_archive() -> Path:
+    archive = OUT_DIR.with_suffix(".zip")
+    if archive.exists():
+        archive.unlink()
+    shutil.make_archive(str(OUT_DIR), "zip", root_dir=OUT_DIR)
+    return archive
 
 
 def canvas(title: str, *, width: int = 1600, height: int = 900) -> Image.Image:
