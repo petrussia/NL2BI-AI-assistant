@@ -15,7 +15,6 @@ def test_stage8_config_contains_requested_model_family() -> None:
     assert set(stage8_model_keys()) == {
         "gemma3_12b_it",
         "gemma4_e2b_it",
-        "mistral_small_31_24b_bnb4",
         "mistral_small_32_24b_bnb4",
         "qwen3_14b",
     }
@@ -25,12 +24,6 @@ def test_stage8_config_contains_requested_model_family() -> None:
     assert models["gemma3_12b_it"]["model_id"] == "google/gemma-3-12b-it"
     assert models["gemma3_12b_it"]["model_loader"] == "gemma3_conditional_generation"
     assert models["gemma4_e2b_it"]["model_id"] == "google/gemma-4-E2B-it"
-    assert models["mistral_small_31_24b_bnb4"]["model_id"] == (
-        "unsloth/Mistral-Small-3.1-24B-Instruct-2503-bnb-4bit"
-    )
-    assert models["mistral_small_31_24b_bnb4"]["model_loader"] == (
-        "mistral3_conditional_generation"
-    )
     assert models["mistral_small_32_24b_bnb4"]["model_id"] == (
         "unsloth/Mistral-Small-3.2-24B-Instruct-2506-bnb-4bit"
     )
@@ -65,7 +58,7 @@ def test_stage8_low_vram_guard_can_fail_before_model_load(tmp_path: Path, monkey
 
     with pytest.raises(RuntimeError, match="needs about 28GB VRAM"):
         run_stage8_model(
-            model_key="mistral_small_31_24b_bnb4",
+            model_key="mistral_small_32_24b_bnb4",
             examples_path=tmp_path / "examples.jsonl",
             drive_root=tmp_path,
             dry_run=True,

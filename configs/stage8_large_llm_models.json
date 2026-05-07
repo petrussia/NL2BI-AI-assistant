@@ -60,24 +60,6 @@
       "min_vram_gb": 16,
       "recommended_colab_gpu": "A100 40GB or L4 24GB"
     },
-    "mistral_small_31_24b_bnb4": {
-      "label": "Mistral Small 3.1 24B bnb 4-bit",
-      "requested_model_id": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
-      "model_id": "unsloth/Mistral-Small-3.1-24B-Instruct-2503-bnb-4bit",
-      "method_name": "B5_stage8_mistral_small_31_24b_bnb4",
-      "run_id": "stage8_mistral_small_31_24b_bnb4_sample20",
-      "mode": "single",
-      "quantization": "prequantized",
-      "model_loader": "mistral3_conditional_generation",
-      "torch_dtype": "auto",
-      "device_map": "single_gpu",
-      "max_new_tokens": 384,
-      "temperature": 0.0,
-      "top_p": 1.0,
-      "sample_rows": 5,
-      "min_vram_gb": 28,
-      "recommended_colab_gpu": "A100 40GB"
-    },
     "mistral_small_32_24b_bnb4": {
       "label": "Mistral Small 3.2 24B bnb 4-bit",
       "requested_model_id": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",

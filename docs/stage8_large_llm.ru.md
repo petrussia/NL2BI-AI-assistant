@@ -21,13 +21,12 @@ Stage 8 запускает Hugging Face модели через тот же ст
 | `gemma4_e2b_it` | `google/gemma-4-E2B-it` | bitsandbytes 4-bit NF4 | маленький контрольный Stage 8 baseline |
 | `qwen3_14b` | `Qwen/Qwen3-14B` | bitsandbytes 4-bit NF4 | замена Qwen3.6-35B-A3B для A100 40GB |
 | `gemma3_12b_it` | `google/gemma-3-12b-it` | bitsandbytes 4-bit NF4 | замена Gemma 4 26B-A4B MTP для A100 40GB |
-| `mistral_small_31_24b_bnb4` | `unsloth/Mistral-Small-3.1-24B-Instruct-2503-bnb-4bit` | pre-quantized bitsandbytes 4-bit | квантизованный Mistral Small 3.1 |
 | `mistral_small_32_24b_bnb4` | `unsloth/Mistral-Small-3.2-24B-Instruct-2506-bnb-4bit` | pre-quantized bitsandbytes 4-bit | квантизованный Mistral Small 3.2 |
 
 ## Colab Pro+ GPU
 
 - `qwen3_14b` и `gemma3_12b_it`: `A100 40GB` с запасом; `L4 24GB` тоже должен подойти для sample20.
-- `mistral_small_31_24b_bnb4` и `mistral_small_32_24b_bnb4`: используй `A100 40GB`. `L4 24GB` лучше не тратить на полный прогон.
+- `mistral_small_32_24b_bnb4`: используй `A100 40GB`. `L4 24GB` лучше не тратить на полный прогон.
 - `gemma4_e2b_it`: можно запускать на `L4 24GB`; на `A100 40GB` он быстрый, но карта избыточна.
 
 Runner сам проверяет `min_vram_gb` перед загрузкой весов и падает раньше, чем Colab убьет runtime из-за OOM. Обойти проверку можно только через `STAGE8_ALLOW_LOW_VRAM=1`.
