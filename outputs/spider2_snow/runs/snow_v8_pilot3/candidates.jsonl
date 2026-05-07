@@ -1,0 +1,9 @@
+{"source": "C0_direct", "parses": false, "executable": null, "sql_chars": 450, "error_type": "object_not_found", "instance_id": "sf_bq029"}
+{"source": "C1_retrieval_docs", "parses": false, "executable": null, "sql_chars": 539, "error_type": "object_not_found", "instance_id": "sf_bq029"}
+{"source": "C2_cte_decomp", "parses": false, "executable": null, "sql_chars": 1118, "error_type": "syntax", "instance_id": "sf_bq029"}
+{"source": "C0_direct", "parses": false, "executable": null, "sql_chars": 392, "error_type": "wrong_dialect", "instance_id": "sf_bq026"}
+{"source": "C1_retrieval_docs", "parses": false, "executable": null, "sql_chars": 355, "error_type": "wrong_dialect", "instance_id": "sf_bq026"}
+{"source": "C2_cte_decomp", "parses": false, "executable": null, "sql_chars": 939, "error_type": "wrong_dialect", "instance_id": "sf_bq026"}
+{"source": "C0_direct", "parses": false, "executable": null, "sql_chars": 374, "error_type": "wrong_dialect", "instance_id": "sf_bq091"}
+{"source": "C1_retrieval_docs", "parses": false, "executable": null, "sql_chars": 276, "error_type": "wrong_dialect", "instance_id": "sf_bq091"}
+{"source": "C2_cte_decomp", "parses": false, "executable": null, "sql_chars": 673, "error_type": "wrong_dialect", "instance_id": "sf_bq091"}

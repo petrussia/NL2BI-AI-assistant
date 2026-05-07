@@ -17,3 +17,21 @@ __pycache__/
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Secrets / credentials — NEVER commit
+snowflake_setup/.env
+**/*sa.json
+**/*service_account*.json
+**/secrets/
+
+# Ephemeral bridge URL (changes per Cloudflare quick-tunnel session)
+tools/.bridge_url
+
+# Raw downloaded benchmark data + lazy-pulled schema cache
+data/spider2_lite/raw/
+data/spider2_lite/resource/
+
+# Local logs / temp files
+outputs/spider2_snow/_*.log
+outputs/spider2_lite/_*.log
+outputs/spider2_dbt/_*.log

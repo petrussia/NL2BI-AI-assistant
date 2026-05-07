@@ -1,0 +1,9 @@
+ts,lane,lane_label,check,ok,wall_s,detail
+2026-05-07T22:49:54+00:00,bridge,colab_bridge,health,True,0.56,pid=1139 url=https://mathematical-selecting-belkin-marketing.trycloudflare.com
+2026-05-07T22:49:55+00:00,colab,colab_inference,hf_token,True,0.48,HF_OK
+2026-05-07T22:49:57+00:00,bigquery,bq,bq_full,True,1.86,project=project-0e0fc8a5-27b1-4e00-912 dry=0B live_n=164656 cap=52428800
+2026-05-07T22:50:27+00:00,snowflake,sf,sf_full,True,30.07,role=PARTICIPANT wh=COMPUTE_WH_PARTICIPANT db=PATENTS | ALL_OK=True | PATENTS.tables=64
+2026-05-07T22:50:28+00:00,spider2_lite,s2lite,dataset,True,0.86,"n=547 lanes={'bigquery': 205, 'snowflake': 207, 'sqlite': 135} dbs=158 gold=3 res_dbs=3"
+2026-05-07T22:50:28+00:00,spider2_snow,s2snow,dataset,True,0.5,sf_subset_n=207 dbs=58 snow_dir_present=False
+2026-05-07T22:50:31+00:00,spider2_dbt,s2dbt,env,True,3.37,ssh=True dbt='Core:' DUCKDB= 1.5.2 examples=70 eval_suite=yes
+2026-05-07T22:50:31+00:00,security,security,no_secrets_in_git,True,0.03,"tracked_risky=['tools/.bridge_url'] (note: tools/.bridge_url is non-credential, ephemeral URL only)"

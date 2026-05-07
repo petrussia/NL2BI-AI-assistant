@@ -1,0 +1,6 @@
+benchmark,lane,n_pilot,parse_ok,execute_ok,non_comparable,note
+spider2_snow,A_sf,3,0,0,no,PILOT only
+spider2_lite,A_bq,1,0,0,no,PILOT only
+spider2_lite,A_sf,1,0,0,no,PILOT only
+spider2_lite,C_sqlite_stub,1,0,0,YES,non-comparable stub
+spider2_dbt,dbt_v4,1,1,1,no,PILOT only — score 1/1 on playbook001

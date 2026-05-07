@@ -1,0 +1,4 @@
+instance_id,db,wall_time_s,elapsed_ms_chosen,candidate_count
+sf_bq029,PATENTS,63.5,0,3
+sf_bq026,PATENTS,41.49,0,3
+sf_bq091,PATENTS,33.13,0,3
