@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=20mm}
+\renewcommand{\tablename}{Таблица}
+\begin{document}
+\begin{table}[ht]
+\centering
+\caption{Итоговое сравнение качества Text-to-Visualization}
+\begin{tabular}{lrrrrr}
+\toprule
+Подход & Validity & Field F1 & Encoding & Exact match & Failure rate \\
+\midrule
+B0 & 1 & 0.96 & 0.5 & 0.225 & 0 \\
+B1 & 1 & 0.995 & 0.531 & 0.285 & 0 \\
+B2 & 1 & 0.973 & 0.577 & 0.22 & 0 \\
+B3 & 0.92 & 0.92 & 0.553 & 0.28 & 0.08 \\
+B4 & 0.95 & 0.95 & 0.533 & 0.3 & 0.05 \\
+B5a & 1 & 1 & 0.575 & 0.3 & 0 \\
+B5b & 1 & 0.99 & 0.4 & 0.25 & 0 \\
+B5c & 0.15 & 0.15 & 0.075 & 0.05 & 0.85 \\
+B5d & 0.9 & 0.89 & 0.35 & 0.1 & 0.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{document}

@@ -1,0 +1,22 @@
+[
+  {
+    "file": "pipeline_architecture.png",
+    "caption": "Архитектура экспериментального pipeline для post-query T2V."
+  },
+  {
+    "file": "nvbench_postquery_flow.png",
+    "caption": "Поток адаптации nvBench из записей бенчмарка в post-query примеры."
+  },
+  {
+    "file": "key_metrics_comparison.png",
+    "caption": "Столбчатое сравнение ключевых метрик качества и устойчивости."
+  },
+  {
+    "file": "system_metrics_comparison.png",
+    "caption": "Сравнение latency, memory и failure rate по финальным runs."
+  },
+  {
+    "file": "examples_grid_gold_vs_predicted.png",
+    "caption": "Примеры эталонных и предсказанных графиков из финального B4 run."
+  }
+]

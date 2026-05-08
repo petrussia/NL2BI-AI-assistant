@@ -1,0 +1,105 @@
+﻿# VS Code Colab Notebook Runner
+
+`scripts/colab/run_colab_notebook.ps1` presses Jupyter notebook commands in Microsoft Visual Studio Code on Windows. It is intended for notebooks already connected to a runtime such as Google Colab, where an agent can edit `.ipynb` files but cannot click notebook run buttons directly.
+
+## Requirements
+
+- Windows desktop session.
+- Microsoft Visual Studio Code, not Cursor or Windsurf.
+- Microsoft Jupyter extension installed in VS Code.
+- The target `.ipynb` is a valid notebook file, open in VS Code, active as the notebook editor, and already connected to the desired kernel/runtime. Empty scaffold `.ipynb` placeholders are not runnable until populated.
+- Exactly one VS Code notebook editor is active: the target notebook. Regular README, script, and other non-notebook tabs do not need to be closed.
+
+## Examples
+
+### Preferred mode for Colab
+
+For real Colab cell runs, use `-Action cell` with `-WaitForCellCompletion` and
+an explicit final output marker. This is the preferred mode: `-WaitSeconds`
+becomes a timeout rather than a fixed sleep.
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 `
+  -NotebookPath .\notebooks\02_run_baselines_cpu.ipynb `
+  -Action cell `
+  -CellId stage4-run-sample200 `
+  -WaitForCellCompletion `
+  -CompletionText STAGE4_SAMPLE200_OK `
+  -WaitSeconds 1800 `
+  -ReloadFromDisk:$false `
+  -Json
+```
+
+If a cell prints a marker like `STAGE*_OK`, always pass that marker through
+`-CompletionText`. The runner then exits as soon as the cell actually finishes
+instead of sleeping for the whole timeout.
+
+Run all cells:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action run-all
+```
+
+Run the current focused cell:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
+```
+
+Run a specific cell by 0-based index:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2
+```
+
+For agent-driven runs, explicitly activate the target notebook first, then invoke the runner:
+
+```powershell
+& "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" -r -g "$PWD\notebooks\example.ipynb:1:1"
+Start-Sleep -Seconds 3
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 2 -WaitForCellCompletion -CompletionText EXAMPLE_OK -WaitSeconds 1800 -ReloadFromDisk:$false -Json
+```
+
+Run a specific cell by notebook cell id:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellId setup-cell
+```
+
+Run a specific cell whose source contains a unique marker:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellText "TRAINING_MARKER"
+```
+
+Preview what would be done without touching VS Code:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -DryRun -Json
+```
+
+Saving is disabled by default because some VS Code setups bind `Ctrl+S` to another command:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action current-cell
+```
+
+Do not attempt to reload the notebook editor from disk:
+
+```powershell
+.\scripts\colab\run_colab_notebook.ps1 -NotebookPath .\notebooks\example.ipynb -Action cell -CellIndex 0 -ReloadFromDisk:$false
+```
+
+## Notes
+
+- Before running, the script checks active VS Code notebook windows. If the target notebook is not active or multiple notebook windows are open, the runner returns a BLOCKER and asks the agent to stop, activate the one target notebook, and close extra notebook tabs/windows. Non-notebook tabs do not matter.
+- `-Action cell` reads the notebook JSON, resolves the requested cell to an index, focuses it with notebook keyboard navigation (`Ctrl+Home`, then `J`), and runs the current cell with `Shift+Enter`.
+- In strict single-notebook mode, `-ReloadFromDisk` does not close or reopen the notebook, so the runner does not lose the selected tab or switch to a different file.
+- `run-all` uses a keyboard loop over notebook cells because this proved more reliable in the tested VS Code/Colab setup than the Command Palette action. For production Colab stages, prefer running cells one by one with `-Action cell -WaitForCellCompletion -CompletionText ...`, because the runner can detect actual completion of each cell.
+- `-CellText` must match exactly one cell source.
+- `-CellId` also works for notebooks where some cells do not have an `id` field.
+- `-WaitForCellCompletion` polls the saved `.ipynb` and exits when the selected cell gets a new `execution_count`/output and, when provided, prints `-CompletionText`. This is the preferred Colab mode.
+- `-CompletionText` should match the cell's explicit final marker, for example `STAGE4_SAMPLE200_OK`, `STAGE6_SAMPLE50_OK`, or `STAGE9_VERIFY_OK`.
+- `-WaitSeconds` without `-WaitForCellCompletion` is only a fixed sleep. Use it only as a fallback for short commands or cells without a final marker. Do not rerun the same long cell until it is clear whether the previous attempt has finished.
+- The script temporarily uses the text clipboard to paste paths and command titles. It restores the previous text clipboard when possible.
+- If VS Code uses a non-English UI, `-PaletteLanguage auto` tries to detect it. You can override it, for example `-PaletteLanguage ru`.

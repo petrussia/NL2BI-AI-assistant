@@ -1,0 +1,17 @@
+extends: colab_llm_8b.yaml
+
+llm:
+  method: B4_llm_validator_reranker
+  model_id: Qwen/Qwen3-8B
+  quantization: 4bit
+  max_new_tokens: 384
+  top_p: 0.9
+  seed: 42
+  sample_rows: 5
+  candidate_count: 3
+  candidate_temperatures:
+    - 0.0
+    - 0.2
+    - 0.3
+  enable_thinking: false
+  stop_after_json: true

@@ -1,0 +1,66 @@
+[
+  {
+    "run_id": "stage4_cpu_sample200",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage4_cpu_sample200",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage5_partial_sample200",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage5_partial_sample200",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage6_qwen3_8b_fast_sample50",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage6_qwen3_8b_fast_sample50",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage7_b4_sample20_tokens384",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage7_b4_sample20_tokens384",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage8_qwen3_14b_sample20",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage8_qwen3_14b_sample20",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage8_mistral_small_32_24b_bnb4_sample20",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage8_mistral_small_32_24b_bnb4_sample20",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage8_gemma3_12b_it_sample20",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage8_gemma3_12b_it_sample20",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  },
+  {
+    "run_id": "stage8_gemma4_e2b_it_sample20",
+    "path": "/content/drive/MyDrive/diploma/petr_text_to_visualization_part/runs/stage8_gemma4_e2b_it_sample20",
+    "has_summary": null,
+    "has_metrics": null,
+    "has_predictions": null,
+    "has_rendered": null
+  }
+]
