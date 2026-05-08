@@ -1,0 +1,1 @@
+{"run_id": "lite_bq_v17_qwen3coder30b_bf16_pilot10", "n_total": 10, "chosen_schema_valid": 4, "parse_ok": 0, "execute_ok": 0, "constrained_repair_helpful": 3, "nested_rewrite_applied": 0, "struct_fp_skips": 72, "wildcard_resolves": 16, "ts": "2026-05-08T23:22:46.505565+00:00"}

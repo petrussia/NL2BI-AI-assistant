@@ -1,0 +1,4 @@
+error_type,count
+schema_invalid,7
+BadRequest,2
+object_not_found,1
