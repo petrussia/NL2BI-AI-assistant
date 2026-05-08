@@ -1,0 +1,6 @@
+benchmark,lane,n,parse_ok,exec_ok,schema_valid,non_comparable,status,note
+spider2_dbt,dbt_v4,68,—,27 (run_ok),—,no,FULL_DONE_phase11,task_success 9/68 = 13.2%
+spider2_lite,A_bq,10,0,0,—,no,PILOT_only_v10,object_not_found 10/10 — same root cause as Snow
+spider2_snow,A_sf,10,0,0,1,no,PILOT_only_v11,schema-grounding moved chosen_schema_valid 0→1
+spider2_lite,A_sf,—,—,—,—,no,not_piloted_v11,backport pending
+spider2_lite,C_sqlite,—,—,—,—,YES,non_comparable_always,materializer F4 in Phase 12

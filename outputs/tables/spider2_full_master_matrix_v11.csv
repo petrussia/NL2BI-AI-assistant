@@ -1,0 +1,6 @@
+benchmark,n_full,n_pilot_v11,parse_ok_pilot,exec_ok_pilot,schema_valid_pilot,task_success_full,non_comparable,status,key_finding
+spider2_dbt_v4,68,—,—,—,—,9 (13.2%),no,FULL_DONE_phase11,publishable
+spider2_snow_canonical,547,10,0,0,1 (10.0%),—,no,FULL_DEFERRED_gate_failed,v11 schema-grounding lifted chosen_schema_valid 0→1; object_not_found at engine: 6→0
+spider2_lite_bq,205,10,0,0,—,—,no,FULL_DEFERRED_gate_failed,async batch fixed Cloudflare 524; 10/10 object_not_found = same root cause as Snow
+spider2_lite_sf,207,—,—,—,—,—,no,FULL_DEFERRED_no_v11_pilot_yet,backport Snow v11 schema-grounding next session
+spider2_lite_sqlite,135,—,—,—,—,—,YES,FULL_DEFERRED_non_comparable,materializer F4 fixed in Phase 12; non-comparable always
