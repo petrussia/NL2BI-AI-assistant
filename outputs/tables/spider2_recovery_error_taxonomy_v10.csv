@@ -1,0 +1,8 @@
+benchmark,error_type,count_pilot_v10,delta_vs_v9,note
+spider2_snow,object_not_found,7,+1,model invents columns/tables not in canonical schema
+spider2_snow,syntax,3,-1,quadruple-qualified ident class no longer present after H1
+spider2_snow,wrong_dialect,0,0,fully eliminated since v9 (BQ-isms normalizer)
+spider2_lite_sqlite,object_not_found,8,+8,real SQLite errors now visible (model invents tables/columns)
+spider2_lite_sqlite,syntax,2,+2,real SQLite errors now visible (was masked by sqlite_db_missing in v8/v9)
+spider2_lite_sqlite,sqlite_db_missing,0,-100% (was 3/3 in v9),F4 materializer fixed root cause
+spider2_lite_bq,—,—,—,pilot deferred to next session (kernel restart + retry wrapper ready)

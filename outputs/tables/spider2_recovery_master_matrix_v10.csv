@@ -1,0 +1,6 @@
+benchmark,n_full,n_pilot_v10,parse_ok_pilot,task_success_full,non_comparable,status,key_finding
+spider2_dbt_v4,68,—,—,9 (13.2%),no,FULL_DONE_phase11,publishable
+spider2_snow_canonical,547,10,0,—,no,FULL_DEFERRED_gate_failed,58 4-part identifier collapses; semantic errors dominate
+spider2_lite_bq,205,—,—,—,no,FULL_DEFERRED_pilot_pending,retry-wrapper built; needs kernel restart
+spider2_lite_sf,207,10 (shared with snow),0,—,no,FULL_DEFERRED_gate_failed,same root cause as Snow lane
+spider2_lite_sqlite,135,10,0,—,YES,FULL_DEFERRED_non_comparable,F4 verified — sqlite_db_missing 3/3→0/10; object_not_found 8 + syntax 2 (real model errors)

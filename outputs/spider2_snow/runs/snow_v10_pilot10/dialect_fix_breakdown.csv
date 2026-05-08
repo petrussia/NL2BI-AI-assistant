@@ -1,0 +1,3 @@
+fix_name,candidate_count
+sqlglot_transpile,2
+unnest_to_flatten,1
