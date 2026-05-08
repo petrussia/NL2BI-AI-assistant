@@ -1,0 +1,6 @@
+benchmark,lane,n,parse_ok,exec_ok,schema_valid,non_comparable,status,note
+spider2_dbt,dbt_v4,68,—,27 (run_ok),—,no,FULL_DONE_phase11,task_success 9/68 = 13.2%
+spider2_lite,A_bq,10,0,0,6,no,PILOT_v16,constrained repair lift 1->6; parse_ok blocked by catalog/live divergence (5x object_not_found AT engine after gate)
+spider2_snow,A_sf,10,0,0,0,no,PILOT_v16,constrained repair did not help; semantic-not-typo hallucinations
+spider2_lite,A_sf,—,—,—,—,no,SKIPPED,gated by Snow
+spider2_lite,C_sqlite,—,—,—,—,YES,non_comparable_always,F4 Phase 12

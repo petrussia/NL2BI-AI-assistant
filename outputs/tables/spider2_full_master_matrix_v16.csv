@@ -1,0 +1,6 @@
+benchmark,n_full,n_pilot_v16,parse_ok_pilot,exec_ok_pilot,schema_valid_pilot,task_success_full,non_comparable,status,key_finding
+spider2_dbt_v4,68,—,—,—,—,9 (13.2%),no,FULL_DONE_phase11,publishable
+spider2_lite_bq,205,10 (v16),0,0,6 (60%),—,no,FULL_DEFERRED_parse_ok_gate_failed,constrained repair lifted schema_valid 1->6 BUT BQ rejects 5/6 with object_not_found - catalog stale vs live
+spider2_snow_canonical,547,10 (v16),0,0,0 (0%),—,no,FULL_DEFERRED_gate_failed,constrained repair did not help Snow (semantic vs typo errors); same as v11/v12/v13 floor
+spider2_lite_sf,207,—,—,—,—,—,no,SKIPPED_per_gate,Snow v16 didn't pass schema_valid gate
+spider2_lite_sqlite,135,—,—,—,—,—,YES,non_comparable_always,F4 Phase 12

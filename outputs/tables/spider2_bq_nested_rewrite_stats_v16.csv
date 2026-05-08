@@ -1,0 +1,2 @@
+pilot,n_candidates,n_with_nested_rewrite,n_schema_valid,n_repair_succeeded
+lite_bq_v16_pilot10,30,2,12,12
