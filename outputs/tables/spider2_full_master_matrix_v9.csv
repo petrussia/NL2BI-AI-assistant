@@ -1,0 +1,6 @@
+benchmark,n_full,n_pilot,parse_ok_pilot,execute_ok_pilot,task_success,non_comparable,status,run_id_or_dataset
+spider2_dbt_v4,68,68,—,—,9 (13.2%),no,FULL_DONE,dbt_v8_FULL_68
+spider2_snow_canonical,547,10,0,0,—,no,FULL_DEFERRED_gate_failed,snow_v9_pilot10
+spider2_lite_bq,205,4,0,0,—,no,FULL_DEFERRED_gate_failed,lite_v9_pilot10
+spider2_lite_sf,207,3,0,0,—,no,FULL_DEFERRED_gate_failed,lite_v9_pilot10
+spider2_lite_sqlite,135,3,0,0,—,YES,FULL_DEFERRED_non_comparable,lite_v9_pilot10

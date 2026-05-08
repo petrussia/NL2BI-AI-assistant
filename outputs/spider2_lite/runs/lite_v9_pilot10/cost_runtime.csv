@@ -1,0 +1,11 @@
+instance_id,lane,db,wall_time_s
+bq011,A_bq,ga4,0.56
+bq010,A_bq,ga360,1248.47
+bq009,A_bq,ga360,0.52
+bq001,A_bq,ga360,0.51
+sf_bq029,A_sf,PATENTS,16.27
+sf_bq026,A_sf,PATENTS,3.48
+sf_bq091,A_sf,PATENTS,2.84
+local002,C_sqlite_stub,E_commerce,0.0
+local003,C_sqlite_stub,E_commerce,0.0
+local004,C_sqlite_stub,E_commerce,0.0

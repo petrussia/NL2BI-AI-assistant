@@ -1,0 +1,4 @@
+lane,error_type,count
+A_bq,agent_exception,4
+A_sf,syntax,3
+C_sqlite_stub,sqlite_db_missing,3

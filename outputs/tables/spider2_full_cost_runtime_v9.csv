@@ -1,0 +1,4 @@
+benchmark,n,total_wall_s,s_per_task_avg,note
+spider2_dbt_v4,68,3360,49.4,real FULL run (~56 min)
+spider2_snow_v9_pilot10,10,1018,101.8,canonical 547 dataset; rendering large for many-table dbs
+spider2_lite_v9_pilot10,10,1271,127.1,distorted by bridge HTTP 500 wave (1248 s on bq010 task alone)
