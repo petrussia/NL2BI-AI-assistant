@@ -1,0 +1,8 @@
+metric,value
+n,10
+chosen_schema_valid,1
+parse_ok,0
+execute_ok,0
+repair_helpful,0
+false_positive_struct_skips,68
+wildcard_table_resolves,19

@@ -1,0 +1,4 @@
+pilot,n,total_wall_s,s_per_task,engine_cost,note
+spider2_snow_v13_pilot10,9,1751,194,0 SF credits,crashed task 10 with len(None) on external_knowledge
+spider2_lite_bq_v12_pilot10,10,1168,116,negligible BQ bytes,1 schema_valid candidate hit BQ live execute (BadRequest)
+spider2_dbt_v4_FULL_68 (Phase 11),68,3360,49,server compute,task_success 9/68

@@ -1,0 +1,6 @@
+benchmark,n_full,n_pilot_v13,parse_ok_pilot,exec_ok_pilot,schema_valid_pilot,task_success_full,non_comparable,status,key_finding
+spider2_dbt_v4,68,—,—,—,—,9 (13.2%),no,FULL_DONE_phase11,publishable
+spider2_snow_canonical,547,9 (v13 crashed task10),0,0,0 (0%),—,no,FULL_DEFERRED_gate_failed,Snow stuck at 0-1/10 across v11/v12/v13 — schema-grounding direction exhausted
+spider2_lite_bq,205,10 (v12),0,0,1 (10%),—,no,FULL_DEFERRED_gate_failed,validator fixes (struct 68 + wildcard 19 + 4-part collapse) lifted 0/10 -> 1/10
+spider2_lite_sf,207,—,—,—,—,—,no,SKIPPED_per_gate,Snow gate failed
+spider2_lite_sqlite,135,—,—,—,—,—,YES,non_comparable_always,F4 from Phase 12

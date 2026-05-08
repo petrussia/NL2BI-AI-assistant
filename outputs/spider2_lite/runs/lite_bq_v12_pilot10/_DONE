@@ -1,0 +1,1 @@
+{"run_id": "lite_bq_v12_pilot10", "n_total": 10, "chosen_schema_valid": 1, "parse_ok": 0, "execute_ok": 0, "repair_helpful": 0, "struct_fp_skips": 68, "wildcard_resolves": 19, "ts": "2026-05-08T18:15:15.229393+00:00"}
