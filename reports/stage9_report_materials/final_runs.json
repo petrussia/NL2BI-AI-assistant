@@ -43,5 +43,41 @@
     "Sample": 20,
     "Семейство": "Локальная LLM + validation",
     "Роль": "3 кандидата + validator/reranker"
+  },
+  {
+    "Подход": "B5a",
+    "Метод": "B5_stage8_qwen3_14b",
+    "run_id": "stage8_qwen3_14b_sample20",
+    "Папка метрик": "B5_stage8_qwen3_14b",
+    "Sample": 20,
+    "Семейство": "Stage 8 LLM + strict JSON validator",
+    "Роль": "Qwen3-14B, один кандидат, validator retry"
+  },
+  {
+    "Подход": "B5b",
+    "Метод": "B5_stage8_mistral_small_32_24b_bnb4",
+    "run_id": "stage8_mistral_small_32_24b_bnb4_sample20",
+    "Папка метрик": "B5_stage8_mistral_small_32_24b_bnb4",
+    "Sample": 20,
+    "Семейство": "Stage 8 LLM + strict JSON validator",
+    "Роль": "Mistral Small 3.2 24B bnb-4bit, один кандидат"
+  },
+  {
+    "Подход": "B5c",
+    "Метод": "B5_stage8_gemma3_12b_it",
+    "run_id": "stage8_gemma3_12b_it_sample20",
+    "Папка метрик": "B5_stage8_gemma3_12b_it",
+    "Sample": 20,
+    "Семейство": "Stage 8 LLM + strict JSON validator",
+    "Роль": "Gemma 3 12B IT, gated HF model"
+  },
+  {
+    "Подход": "B5d",
+    "Метод": "B5_stage8_gemma4_e2b_it",
+    "run_id": "stage8_gemma4_e2b_it_sample20",
+    "Папка метрик": "B5_stage8_gemma4_e2b_it",
+    "Sample": 20,
+    "Семейство": "Stage 8 LLM + strict JSON validator",
+    "Роль": "Gemma 4 E2B IT, малый контрольный LLM baseline"
   }
 ]

@@ -46,6 +46,12 @@ print a final STAGE*_OK marker.
 Optional output text marker to require when using -WaitForCellCompletion. This is
 the most reliable mode for long Colab cells that print a final OK marker.
 
+.PARAMETER CompletionSaveSeconds
+When using -WaitForCellCompletion, periodically save the notebook through the
+VS Code command palette before reading the saved .ipynb file. This keeps Colab
+outputs from sitting only in the UI while the runner waits on stale disk
+contents. Set to 0 to disable.
+
 .PARAMETER PaletteLanguage
 Command palette language. "auto" reads the running VS Code language and then
 falls back to the extension bundle and English.
@@ -81,7 +87,8 @@ Print a machine-readable JSON result.
 .NOTES
 The runner does not save the notebook with Ctrl+S by default. Some VS Code
 installations bind Ctrl+S to a custom command, and notebook outputs can still be
-persisted by VS Code auto-save or by saving manually from the UI.
+persisted by VS Code auto-save, by the completion waiter using the command
+palette File: Save command, or by saving manually from the UI.
 #>
 [CmdletBinding()]
 param(
@@ -113,6 +120,8 @@ param(
     [string]$CompletionText,
 
     [int]$CompletionPollSeconds = 2,
+
+    [int]$CompletionSaveSeconds = 15,
 
     [string]$PaletteLanguage = 'auto',
 
@@ -716,7 +725,12 @@ function Wait-NotebookCellCompletion {
         [object]$Baseline,
         [int]$TimeoutSeconds,
         [int]$PollSeconds,
-        [string]$RequiredOutputText
+        [string]$RequiredOutputText,
+        [System.__ComObject]$Shell,
+        [System.Diagnostics.Process]$Process,
+        [string]$NotebookTitle,
+        [int]$SaveEverySeconds,
+        [int]$PaletteOpenDelayMs
     )
 
     if ($TimeoutSeconds -le 0) {
@@ -725,14 +739,27 @@ function Wait-NotebookCellCompletion {
     if ($PollSeconds -le 0) {
         throw 'CompletionPollSeconds must be positive.'
     }
+    if ($SaveEverySeconds -lt 0) {
+        throw 'CompletionSaveSeconds cannot be negative.'
+    }
 
     $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
     $lastSnapshot = $Baseline
+    $lastSaveAttempt = Get-Date
+    $saveAttempts = 0
     $baselineHasRequiredText = (-not [string]::IsNullOrWhiteSpace($RequiredOutputText) -and $Baseline.OutputText.Contains($RequiredOutputText))
-    Add-Trace ("wait for cell completion: index={0}; timeout={1}s; poll={2}s; completionText={3}" -f $Index, $TimeoutSeconds, $PollSeconds, [bool](-not [string]::IsNullOrWhiteSpace($RequiredOutputText)))
+    Add-Trace ("wait for cell completion: index={0}; timeout={1}s; poll={2}s; saveEvery={3}s; completionText={4}" -f $Index, $TimeoutSeconds, $PollSeconds, $SaveEverySeconds, [bool](-not [string]::IsNullOrWhiteSpace($RequiredOutputText)))
 
     while ((Get-Date) -lt $deadline) {
         Start-Sleep -Seconds $PollSeconds
+        $now = Get-Date
+        if ($SaveEverySeconds -gt 0 -and ($now - $lastSaveAttempt).TotalSeconds -ge $SaveEverySeconds) {
+            Assert-ProcessStillTargetsNotebook -Process $Process -NotebookTitle $NotebookTitle -Stage 'before completion save' | Out-Null
+            Save-Notebook -Shell $Shell -PaletteOpenDelayMs $PaletteOpenDelayMs
+            $saveAttempts++
+            $lastSaveAttempt = Get-Date
+            Invoke-Delay -Milliseconds 600 -Reason 'wait after completion save'
+        }
         $current = Get-NotebookCellSnapshot -Path $Path -Index $Index
         $lastSnapshot = $current
 
@@ -751,6 +778,8 @@ function Wait-NotebookCellCompletion {
                     RequiredOutputText  = $RequiredOutputText
                     TimeoutSeconds      = $TimeoutSeconds
                     PollSeconds         = $PollSeconds
+                    SaveEverySeconds    = $SaveEverySeconds
+                    SaveAttempts        = $saveAttempts
                 }
             }
             if ($executionChanged -and $current.HasErrorOutput) {
@@ -763,6 +792,8 @@ function Wait-NotebookCellCompletion {
                     RequiredOutputText  = $RequiredOutputText
                     TimeoutSeconds      = $TimeoutSeconds
                     PollSeconds         = $PollSeconds
+                    SaveEverySeconds    = $SaveEverySeconds
+                    SaveAttempts        = $saveAttempts
                 }
             }
             continue
@@ -778,13 +809,74 @@ function Wait-NotebookCellCompletion {
                 RequiredOutputText  = $null
                 TimeoutSeconds      = $TimeoutSeconds
                 PollSeconds         = $PollSeconds
+                SaveEverySeconds    = $SaveEverySeconds
+                SaveAttempts        = $saveAttempts
+            }
+        }
+    }
+
+    if ($SaveEverySeconds -gt 0) {
+        Add-Trace 'final completion save before timeout'
+        Assert-ProcessStillTargetsNotebook -Process $Process -NotebookTitle $NotebookTitle -Stage 'before final completion save' | Out-Null
+        Save-Notebook -Shell $Shell -PaletteOpenDelayMs $PaletteOpenDelayMs
+        $saveAttempts++
+        Invoke-Delay -Milliseconds 600 -Reason 'wait after final completion save'
+
+        $current = Get-NotebookCellSnapshot -Path $Path -Index $Index
+        $lastSnapshot = $current
+        $executionChanged = ($current.ExecutionCount -ne $Baseline.ExecutionCount -and $null -ne $current.ExecutionCount)
+        $outputsChanged = ($current.OutputSignature -ne $Baseline.OutputSignature)
+        $hasRequiredText = (-not [string]::IsNullOrWhiteSpace($RequiredOutputText) -and $current.OutputText.Contains($RequiredOutputText))
+
+        if (-not [string]::IsNullOrWhiteSpace($RequiredOutputText)) {
+            if ($hasRequiredText -and ((-not $baselineHasRequiredText) -or $executionChanged -or $outputsChanged)) {
+                Add-Trace ("cell completion observed via output marker after final save: {0}" -f $RequiredOutputText)
+                return [pscustomobject]@{
+                    Status              = 'completed'
+                    Reason              = 'completion_text_after_final_save'
+                    Baseline            = $Baseline
+                    Final               = $current
+                    RequiredOutputText  = $RequiredOutputText
+                    TimeoutSeconds      = $TimeoutSeconds
+                    PollSeconds         = $PollSeconds
+                    SaveEverySeconds    = $SaveEverySeconds
+                    SaveAttempts        = $saveAttempts
+                }
+            }
+            if ($executionChanged -and $current.HasErrorOutput) {
+                Add-Trace 'cell completion observed via error output after final save'
+                return [pscustomobject]@{
+                    Status              = 'completed_with_error'
+                    Reason              = 'error_output_after_final_save'
+                    Baseline            = $Baseline
+                    Final               = $current
+                    RequiredOutputText  = $RequiredOutputText
+                    TimeoutSeconds      = $TimeoutSeconds
+                    PollSeconds         = $PollSeconds
+                    SaveEverySeconds    = $SaveEverySeconds
+                    SaveAttempts        = $saveAttempts
+                }
+            }
+        } elseif ($executionChanged -or $outputsChanged) {
+            Add-Trace 'cell completion observed via notebook execution/output update after final save'
+            return [pscustomobject]@{
+                Status              = 'completed'
+                Reason              = 'execution_or_output_changed_after_final_save'
+                Baseline            = $Baseline
+                Final               = $current
+                RequiredOutputText  = $null
+                TimeoutSeconds      = $TimeoutSeconds
+                PollSeconds         = $PollSeconds
+                SaveEverySeconds    = $SaveEverySeconds
+                SaveAttempts        = $saveAttempts
             }
         }
     }
 
     throw (
         "Timed out after $TimeoutSeconds seconds waiting for cell $Index to complete. " +
-        "Last observed execution_count=$($lastSnapshot.ExecutionCount), output_count=$($lastSnapshot.OutputCount)."
+        "Last observed execution_count=$($lastSnapshot.ExecutionCount), output_count=$($lastSnapshot.OutputCount), " +
+        "completion_save_attempts=$saveAttempts."
     )
 }
 
@@ -1103,8 +1195,8 @@ function Invoke-NotebookDispatch {
     )
 
     if ($CommandSpec.DispatchAction -eq 'current-cell') {
-        Send-Keys -Shell $Shell -Keys '+{ENTER}' -Description 'run focused notebook cell'
-        return 'shortcut-shift-enter'
+        Send-Keys -Shell $Shell -Keys '^{ENTER}' -Description 'run focused notebook cell'
+        return 'shortcut-ctrl-enter'
     }
 
     if ($CommandSpec.DispatchAction -eq 'current-cell-and-advance') {
@@ -1163,9 +1255,13 @@ function Focus-NotebookCell {
 }
 
 function Save-Notebook {
-    param([System.__ComObject]$Shell)
+    param(
+        [System.__ComObject]$Shell,
+        [int]$PaletteOpenDelayMs = 500
+    )
 
-    throw 'SaveAfterRun is disabled: the runner must not send Ctrl+S because it can be rebound by the user. Use VS Code auto-save or save manually from the UI.'
+    Add-Trace 'save notebook through command palette'
+    Invoke-PaletteCommand -Shell $Shell -CommandTitle 'File: Save' -PaletteOpenDelayMs $PaletteOpenDelayMs
 }
 
 function New-ResultObject {
@@ -1210,6 +1306,7 @@ function New-ResultObject {
         waitSeconds           = $WaitSeconds
         waitForCellCompletion = [bool]$WaitForCellCompletion
         completionPollSeconds = $CompletionPollSeconds
+        completionSaveSeconds = $CompletionSaveSeconds
         completionText        = $CompletionText
         completionResult      = $CompletionResult
         saveAfterRun          = [bool]$SaveAfterRun
@@ -1247,9 +1344,11 @@ function Write-RunnerOutput {
         Write-Output ("Target window: " + $Result.process.MainWindowTitle)
     }
     Write-Output ("Wait for cell completion: " + $Result.waitForCellCompletion)
+    Write-Output ("Completion save seconds: " + $Result.completionSaveSeconds)
     if ($null -ne $Result.completionResult) {
         Write-Output ("Completion status: " + $Result.completionResult.Status)
         Write-Output ("Completion reason: " + $Result.completionResult.Reason)
+        Write-Output ("Completion save attempts: " + $Result.completionResult.SaveAttempts)
     }
     Write-Output ("Save after run: " + $Result.saveAfterRun)
     Write-Output ("Reload from disk: " + $Result.reloadFromDisk)
@@ -1298,6 +1397,10 @@ try {
 
     if (-not [bool]$WaitForCellCompletion -and -not [string]::IsNullOrWhiteSpace($CompletionText)) {
         throw '-CompletionText requires -WaitForCellCompletion.'
+    }
+
+    if ($CompletionSaveSeconds -lt 0) {
+        throw 'CompletionSaveSeconds cannot be negative.'
     }
 
     if ($Action -ne 'cell' -and ($CellIndex -ge 0 -or -not [string]::IsNullOrWhiteSpace($CellId) -or -not [string]::IsNullOrWhiteSpace($CellText))) {
@@ -1387,14 +1490,19 @@ try {
                     -Baseline $completionBaseline `
                     -TimeoutSeconds $WaitSeconds `
                     -PollSeconds $CompletionPollSeconds `
-                    -RequiredOutputText $CompletionText
+                    -RequiredOutputText $CompletionText `
+                    -Shell $shell `
+                    -Process $process `
+                    -NotebookTitle $effectiveNotebookTitle `
+                    -SaveEverySeconds $CompletionSaveSeconds `
+                    -PaletteOpenDelayMs $PaletteDelayMs
             } else {
                 Invoke-Delay -Milliseconds ($WaitSeconds * 1000) -Reason 'wait for notebook action'
             }
 
             if ([bool]$SaveAfterRun) {
                 Assert-ProcessStillTargetsNotebook -Process $process -NotebookTitle $effectiveNotebookTitle -Stage 'before notebook save' | Out-Null
-                Save-Notebook -Shell $shell
+                Save-Notebook -Shell $shell -PaletteOpenDelayMs $PaletteDelayMs
                 Invoke-Delay -Milliseconds 500 -Reason 'wait after save'
             }
         } finally {

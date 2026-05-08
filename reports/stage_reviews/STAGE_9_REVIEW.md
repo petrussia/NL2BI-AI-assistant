@@ -1,10 +1,10 @@
 # Отчет по проверке этапа 9: финальные материалы для отчета по практике
 
-Дата: 2026-04-26
+Дата: 2026-05-08
 
 Статус: завершен.
 
-Этап 8 намеренно пропущен как опциональный. После обновления валидатора повторно запущены B2/B3/B4, а Stage 9 пересобран на актуальных метриках.
+Этап 8 включен в обновленную сборку: добавлены Stage 8 LLM baseline `B5a`-`B5d`, включая Qwen3-14B, Mistral Small 3.2, Gemma 3 12B и Gemma 4 E2B.
 
 ## Финальные запуски
 
@@ -15,6 +15,10 @@
 | B2 | B2_partial_recommender | stage5_partial_sample200 | B2_partial_recommender | 200 | Подход в стиле существующих инструментов | Частичный recommender fallback |
 | B3 | B3_local_llm_qwen3_8b | stage6_qwen3_8b_fast_sample50 | B3_local_llm_qwen3_8b | 50 | Локальная LLM | Один кандидат Qwen3-8B |
 | B4 | B4_llm_validator_reranker | stage7_b4_sample20_tokens384 | B4_llm_validator_reranker | 20 | Локальная LLM + validation | 3 кандидата + validator/reranker |
+| B5a | B5_stage8_qwen3_14b | stage8_qwen3_14b_sample20 | B5_stage8_qwen3_14b | 20 | Stage 8 LLM + strict JSON validator | Qwen3-14B, один кандидат, validator retry |
+| B5b | B5_stage8_mistral_small_32_24b_bnb4 | stage8_mistral_small_32_24b_bnb4_sample20 | B5_stage8_mistral_small_32_24b_bnb4 | 20 | Stage 8 LLM + strict JSON validator | Mistral Small 3.2 24B bnb-4bit, один кандидат |
+| B5c | B5_stage8_gemma3_12b_it | stage8_gemma3_12b_it_sample20 | B5_stage8_gemma3_12b_it | 20 | Stage 8 LLM + strict JSON validator | Gemma 3 12B IT, gated HF model |
+| B5d | B5_stage8_gemma4_e2b_it | stage8_gemma4_e2b_it_sample20 | B5_stage8_gemma4_e2b_it | 20 | Stage 8 LLM + strict JSON validator | Gemma 4 E2B IT, малый контрольный LLM baseline |
 
 ## Выходные материалы
 
@@ -74,7 +78,7 @@ Colab через runner:
 
 ## Инвентаризация runs
 
-Найдено папок runs: 4
+Найдено папок runs: 8
 
 Файл инвентаризации:
 
@@ -88,6 +92,10 @@ reports/stage9_report_materials/run_inventory.json
 - `stage5_partial_sample200`: B2
 - `stage6_qwen3_8b_fast_sample50`: B3
 - `stage7_b4_sample20_tokens384`: B4
+- `stage8_qwen3_14b_sample20`: B5a
+- `stage8_mistral_small_32_24b_bnb4_sample20`: B5b
+- `stage8_gemma3_12b_it_sample20`: B5c
+- `stage8_gemma4_e2b_it_sample20`: B5d
 
 ## Проверка
 
@@ -97,12 +105,12 @@ reports/stage9_report_materials/run_inventory.json
 - Colab-проверка нашла обязательные Drive-артефакты и вывела `STAGE9_VERIFY_OK`.
 - Итоговая рекомендация включена в `practice_report_materials.md`.
 - Все финальные run_id и пути к артефактам перечислены.
-- Работа по этапу 8 не начиналась.
+- Этап 8 пересчитан на sample20. Qwen3-14B стал лучшим новым одиночным LLM baseline; Gemma 3 12B показала высокий failure rate и требует отдельной доработки prompt/chat template.
 
 ## Проблемы и замечания
 
-- Этап 8 намеренно пропущен, потому что уже сравнены пять подходов, а дополнительные LLM runs увеличили бы GPU-затраты.
-- B3/B4 повторно запускались после правок валидатора; B4 может немного плавать по `oracle_success_at_k`, потому что часть кандидатов генерируется с температурой.
+- Этап 8 включен в отчет как дополнительное сравнение LLM-моделей. Метрики Stage 8 нужно читать с учетом sample20.
+- B3/B4/Stage8 запускались на меньших выборках из-за GPU-задержки; B4 может немного плавать по `oracle_success_at_k`, потому что часть кандидатов генерируется с температурой.
 - Логика B0/B1/B2 не менялась после финального Stage 4/5 прогона; для Stage 9 обновлены только метрики и материалы.
 - Локальная пересборка workbook может быть пропущена, если `stage9_tables.xlsx` открыт в Excel; Colab создает workbook штатно.
 - Сетка примеров генерируется из Drive-артефактов финального B4 run; при локальной пересборке без Drive генератор использует резервную схему.
