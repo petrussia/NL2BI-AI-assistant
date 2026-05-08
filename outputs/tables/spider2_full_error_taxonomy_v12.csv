@@ -1,0 +1,7 @@
+benchmark,lane,error_type,count_pilot,delta_vs_prev,note
+spider2_lite,A_bq,schema_invalid,10,new (was object_not_found 10),v11 validator gate stops invented identifiers BEFORE BQ
+spider2_lite,A_bq,object_not_found AT engine,0,-10 (was 10/10 in v10),validator gate working
+spider2_snow,A_sf,schema_invalid,10,+1 (was 9 in v11),v12 stricter render leaves no schema-valid candidates
+spider2_snow,A_sf,syntax,0,-1 (was 1 in v11),no schema-valid candidates reach SF dry_run
+spider2_snow,A_sf,object_not_found AT engine,0,maintained at 0,validator gate working since v11
+spider2_snow,A_sf,wrong_dialect,0,maintained at 0,v9 dialect normalizer + v10 ident normalizer both still active in v12
