@@ -92,6 +92,10 @@ def _column_in_pack(name: str, columns: set) -> bool:
 
 
 def validate_plan(plan: dict, pack: dict) -> PlanValidation:
+    """v20: closed-set residency check operates on the canonicalised
+    plan slots (see identifier_canonicalize_v20). Original FQN forms
+    are preserved in the input `plan` and surfaced in `_canon` so
+    error reports can show what the model actually emitted."""
     reasons = []
     dbs, schemas, project_dataset, tables, wildcard_bases, columns = _closed_sets(pack)
 
@@ -99,9 +103,17 @@ def validate_plan(plan: dict, pack: dict) -> PlanValidation:
         if k not in plan:
             reasons.append(f'missing_key:{k}')
 
+    # Canonicalise identifier slots BEFORE residency check. Same helper
+    # the renderer uses, so plan / render / validate agree.
+    try:
+        from identifier_canonicalize_v20 import canonicalize_identifier_slots
+    except Exception:
+        canonicalize_identifier_slots = None
+    cplan = canonicalize_identifier_slots(plan, pack) if canonicalize_identifier_slots else plan
+
     # selected_database / selected_schema: tolerate either bare project,
     # bare dataset, or "project.dataset" composite.
-    sd = plan.get('selected_database') or ''
+    sd = cplan.get('selected_database') or ''
     if sd and sd not in dbs and sd not in project_dataset:
         # if dotted, accept if at least the project part is in dbs
         if '.' in sd:
@@ -113,7 +125,7 @@ def validate_plan(plan: dict, pack: dict) -> PlanValidation:
         else:
             reasons.append(f'unknown_database:{sd}')
 
-    ss = plan.get('selected_schema') or ''
+    ss = cplan.get('selected_schema') or ''
     if ss and ss not in schemas:
         # accept if it's a "project.dataset" path with a known dataset tail
         if '.' in ss:
@@ -125,13 +137,19 @@ def validate_plan(plan: dict, pack: dict) -> PlanValidation:
         else:
             reasons.append(f'unknown_schema:{ss}')
 
-    for t in plan.get('selected_tables', []) or []:
-        # accept FQN forms by stripping prefix to bare table name
-        bare = t.split('.')[-1] if '.' in t else t
-        if not _table_in_pack(bare, tables, wildcard_bases):
+    # Validator uses the canonicalised tables list (already FQN-stripped)
+    for t in cplan.get('selected_tables', []) or []:
+        if not _table_in_pack(t, tables, wildcard_bases):
             reasons.append(f'unknown_table:{t}')
 
-    for c in plan.get('selected_columns', []) or []:
+    # Pseudo-columns / globals always residency-OK
+    _PSEUDO = {
+        '_TABLE_SUFFIX', '_PARTITIONTIME', '_PARTITIONDATE', '_FILE_NAME',
+        'CURRENT_DATE', 'CURRENT_TIMESTAMP', 'CURRENT_DATETIME',
+    }
+    for c in cplan.get('selected_columns', []) or []:
+        if c in _PSEUDO:
+            continue
         if not _column_in_pack(c, columns):
             reasons.append(f'unknown_column:{c}')
 
@@ -150,13 +168,25 @@ def validate_plan(plan: dict, pack: dict) -> PlanValidation:
         'COALESCE','IFNULL','NULLIF','GREATEST','LEAST','ROW_NUMBER','RANK','DENSE_RANK',
         '_TABLE_SUFFIX','TABLE_SUFFIX','APPROX_COUNT_DISTINCT','PERCENTILE_CONT',
     }
+    # v20: capture full dotted identifier paths (e.g. hits.product.productRevenue)
+    # FIRST, then fall through to bare-ident scan for the remainder. This stops
+    # the previous bug where dotted paths got split into separate tokens
+    # (e.g. `hits`, `product`, `productRevenue`) and middle segments got flagged.
+    _DOTTED_PATH_RE = re.compile(r'[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)+')
     for which in ('metrics', 'filters', 'sorting'):
         for item in plan.get(which, []) or []:
             expr = item.get('expr', '') if isinstance(item, dict) else str(item)
-            # Use the hyphen-tolerant tokenizer so 'bigquery-public-data'
-            # is one token, not three.
-            for tok in _HYPH_IDENT_RE.findall(expr):
+            # Strip dotted paths first if their leaf or root is in columns
+            stripped = expr
+            for path in _DOTTED_PATH_RE.findall(expr):
+                root = path.split('.')[0]
+                leaf = path.split('.')[-1]
+                if path in columns or leaf in columns or root in columns or root.upper() in {'E1','E2','T1','T2'}:
+                    stripped = stripped.replace(path, ' ')
+            for tok in _HYPH_IDENT_RE.findall(stripped):
                 if tok.upper() in sql_keywords:
+                    continue
+                if tok in _PSEUDO:
                     continue
                 if tok in dbs or tok in schemas or tok in tables or tok in columns:
                     continue
@@ -166,14 +196,8 @@ def validate_plan(plan: dict, pack: dict) -> PlanValidation:
                     continue
                 if tok.isdigit() or len(tok) <= 1:
                     continue
-                # Tolerate single-letter+digit aliases (e1, t2, etc.)
                 if re.fullmatch(r'[a-z]\d?', tok):
                     continue
-                # leaf/root of dotted ident
-                if '.' in tok:
-                    leaf = tok.split('.')[-1]
-                    if leaf in columns:
-                        continue
                 # date shard <table>_YYYYMMDD
                 m = _DATE_SHARD_RE.match(tok)
                 if m and m.group('base') in wildcard_bases:

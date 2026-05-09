@@ -1,0 +1,1 @@
+{"run_id": "lite_bq_v20_pilot10", "limit": 10, "planner_alias": "qwen3_coder_30b_bf16", "emitter_alias": "qwen2_5_coder_7b", "ts": 1778299654.8515468}

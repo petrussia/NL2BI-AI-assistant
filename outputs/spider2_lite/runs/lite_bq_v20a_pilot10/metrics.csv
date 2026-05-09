@@ -1,0 +1,8 @@
+metric,value
+n,10
+plan_validation_ok,5
+chosen_schema_valid,4
+parse_ok,9
+execute_ok,3
+chosen_family_A,7
+chosen_family_B,3

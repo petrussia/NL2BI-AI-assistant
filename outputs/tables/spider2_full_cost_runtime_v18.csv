@@ -1,2 +1,2 @@
 run_id,lane,wall_seconds,cost_usd_estimate
-lite_bq_v18_1b_pilot50,bq,3894.0,0 (dry_run only)
+lite_bq_v20a_pilot50_b,bq,4047.9,0 (dry_run only)

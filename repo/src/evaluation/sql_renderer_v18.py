@@ -58,7 +58,23 @@ def _qualify_table(plan: dict, *, pack: Optional[dict] = None) -> str:
     """Build a clean `project.dataset.table` FQN from the plan, tolerating
     over-qualified planner output. Also handles the wildcard case where
     selected_tables[0] already contains `_*` or several date shards
-    were concatenated."""
+    were concatenated.
+
+    Phase 20: when a pack is available, defer to the shared canonicaliser
+    so renderer + validator agree on what counts as a clean FQN."""
+    if pack is not None:
+        try:
+            from identifier_canonicalize_v20 import canonical_table_for_render
+            project, dataset, table = canonical_table_for_render(plan, pack)
+            if project and dataset and table:
+                return f'`{project}.{dataset}.{table}`'
+            if dataset and table:
+                return f'`{dataset}.{table}`'
+            if table:
+                return f'`{table}`'
+        except Exception:
+            pass
+    # Legacy path retained for the no-pack smoke tests.
     db_field = plan.get('selected_database', '') or ''
     schema_field = plan.get('selected_schema', '') or ''
     tables = plan.get('selected_tables') or []

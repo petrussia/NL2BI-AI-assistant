@@ -3,3 +3,6 @@ lite_bq_v18_pilot10,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,10,0,0,10,1,9,1
 lite_bq_v18_1_pilot10,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,10,0,3,9,1,6,4
 lite_bq_v18_1b_pilot10,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,10,0,3,9,3,6,4
 lite_bq_v18_1b_pilot50,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,50,21,26,48,23,40,10
+lite_bq_v20_pilot10,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,10,0,3,9,3,6,4
+lite_bq_v20a_pilot10,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,10,5,4,9,3,7,3
+lite_bq_v20a_pilot50_b,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,50,27,26,48,21,41,9
