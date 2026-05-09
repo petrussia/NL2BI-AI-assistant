@@ -1,0 +1,74 @@
+{
+  "ok": true,
+  "baseUrl": "http://127.0.0.1:3002",
+  "user": "button_smoke_1778366940049",
+  "checkedButtons": [
+    "Initial auth screen",
+    "Create account",
+    "Use existing account",
+    "Register",
+    "New chat",
+    "Session button",
+    "Send",
+    "Sign in form filled",
+    "Sign in"
+  ],
+  "results": [
+    {
+      "button": "Initial auth screen",
+      "ok": true,
+      "detail": "Sign in and Create account visible",
+      "screenshot": "docs/e2e_results/button_smoke/00_auth_initial.png"
+    },
+    {
+      "button": "Create account",
+      "ok": true,
+      "detail": "Switches auth form to Register mode",
+      "screenshot": "docs/e2e_results/button_smoke/01_create_account_clicked.png"
+    },
+    {
+      "button": "Use existing account",
+      "ok": true,
+      "detail": "Switches auth form back to Sign in mode",
+      "screenshot": "docs/e2e_results/button_smoke/02_use_existing_clicked.png"
+    },
+    {
+      "button": "Register",
+      "ok": true,
+      "detail": "Creates user button_smoke_1778366940049 and opens chat shell",
+      "screenshot": "docs/e2e_results/button_smoke/03_register_success.png"
+    },
+    {
+      "button": "New chat",
+      "ok": true,
+      "detail": "Creates a new active chat session",
+      "screenshot": "docs/e2e_results/button_smoke/04_new_chat_clicked.png"
+    },
+    {
+      "button": "Session button",
+      "ok": true,
+      "detail": "Switches active chat session to Demo NL2BI",
+      "screenshot": "docs/e2e_results/button_smoke/05_session_button_clicked.png"
+    },
+    {
+      "button": "Send",
+      "ok": true,
+      "detail": "Sends NL2BI query, renders table + chart artifacts, then disables with empty input",
+      "screenshot": "docs/e2e_results/button_smoke/06_send_clicked_artifacts.png"
+    },
+    {
+      "button": "Sign in form filled",
+      "ok": true,
+      "detail": "Existing user button_smoke_1778366940049 entered",
+      "screenshot": "docs/e2e_results/button_smoke/07_sign_in_form_filled.png"
+    },
+    {
+      "button": "Sign in",
+      "ok": true,
+      "detail": "Logs in existing user button_smoke_1778366940049",
+      "screenshot": "docs/e2e_results/button_smoke/08_sign_in_clicked.png"
+    }
+  ],
+  "consoleMessages": [],
+  "failedRequests": []
+}
