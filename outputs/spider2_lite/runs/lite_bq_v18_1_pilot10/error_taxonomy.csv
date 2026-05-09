@@ -1,0 +1,4 @@
+error_class,count
+schema_invalid,6
+bq_dry_run_failed,3
+parse_error,1

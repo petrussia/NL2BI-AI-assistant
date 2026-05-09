@@ -117,17 +117,36 @@ def _gen_emitter(prompt, max_new=900):
     return _gen(g["_TOK_EMIT"], g["_MDL_EMIT"], g["_PROF_EMIT"], prompt, max_new)
 
 
-def _v18_plan(prompt, pack):
-    """Inline copy of structured_plan_v18.plan() that uses _gen_planner."""
+def _v18_plan(prompt, pack, max_attempts=2):
+    """v18.1: validator-feedback retry. On the first failure, the
+    planner is re-prompted with the exact validation reasons + the
+    previous plan, and asked to correct only the offending identifiers."""
     import structured_plan_v18 as sp
-    raw = _gen_planner(prompt)
-    try:
-        cand = sp.parse_plan(raw)
-    except Exception as e:
-        return {"plan": None, "validation": None, "raw": raw, "attempts": 1,
-                  "last_parse_err": f"parse_err:{type(e).__name__}:{str(e)[:200]}"}
-    v = sp.validate_plan(cand, pack)
-    return {"plan": cand, "validation": v, "raw": raw, "attempts": 1}
+    raw = ""
+    last_err = None
+    last_plan = None
+    last_val = None
+    cur_prompt = prompt
+    retry_used = False
+    for attempt in range(1, max_attempts + 1):
+        raw = _gen_planner(cur_prompt)
+        try:
+            cand = sp.parse_plan(raw)
+        except Exception as e:
+            last_err = f"parse_err:{type(e).__name__}:{str(e)[:200]}"
+            continue
+        v = sp.validate_plan(cand, pack)
+        last_plan = cand
+        last_val = v
+        if v.ok:
+            return {"plan": cand, "validation": v, "raw": raw,
+                      "attempts": attempt, "retry_used": retry_used}
+        if attempt < max_attempts:
+            cur_prompt = sp._retry_prompt(prompt, v.reasons, cand)
+            retry_used = True
+    return {"plan": last_plan, "validation": last_val, "raw": raw,
+              "attempts": max_attempts, "last_parse_err": last_err,
+              "retry_used": retry_used}
 
 
 def start_v18_bq_bg(limit, run_id, max_rows=100, no_execute=False,

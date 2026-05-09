@@ -1,24 +1,14 @@
 """structured_plan_v18 — Qwen3-Coder structured planner.
 
-Calls Qwen3-Coder-30B-A3B-Instruct (or whichever generator is loaded by
-model_registry_v17) to produce a strict JSON plan over a closed-set
-schema pack. Validates the plan structurally — any identifier outside
-the pack invalidates the plan.
-
-This module assumes the Colab kernel has already imported and loaded a
-model+tokenizer via `model_registry_v17.load_model_and_tokenizer(alias)`
-and exposed them as globals `_TOK`, `_MDL`, `_MODEL_PROFILE`. (Same
-contract as the v17 launcher's _ensure_model patch.) For local CLI tests
-without a model, plan() raises NotImplementedError.
-
-Plan validation rules (closed set):
-  - selected_database in pack.databases[*].name
-  - selected_schema  in pack.databases[*].schemas[*]
-  - selected_tables ⊆ {t.table for t in pack.tables}
-  - every identifier appearing in selected_columns / metrics.expr /
-    filters.expr / grouping / sorting.expr must reference a column in
-    one of the listed tables (loose substring containment is fine for
-    free-form expressions; strict membership for plain identifiers).
+v18.1 patches:
+  - validate_plan: wildcard date-shard recognition (`<table>_YYYYMMDD`
+    accepted when the pack lists a sibling shard); leaf/root struct
+    path normalization; hyphenated project names handled by checking
+    the bare project token, not split-by-hyphen pieces.
+  - plan(): validator-feedback retry — when the first attempt fails
+    closed-set validation, the second attempt re-prompts the planner
+    with the exact validation reasons appended, asking it to correct
+    the specific identifiers rather than blind regenerate.
 """
 from __future__ import annotations
 
@@ -36,6 +26,8 @@ _REQUIRED_KEYS = (
     'ambiguity_points', 'expected_shape',
 )
 
+_DATE_SHARD_RE = re.compile(r'^(?P<base>.+?)_(?P<date>\d{6,8})$')
+
 
 @dataclass
 class PlanValidation:
@@ -48,45 +40,102 @@ class PlanValidation:
 
 
 def _closed_sets(pack: dict) -> tuple:
+    """Return rich identifier sets including wildcard families."""
     dbs = {d['name'] for d in pack.get('databases', [])}
     schemas = set()
+    project_dataset = set()
     for d in pack.get('databases', []):
         for s in d.get('schemas', []):
             schemas.add(s)
-    tables = {(t['db'], t['schema'], t['table']) for t in pack.get('tables', [])}
-    table_names = {t['table'] for t in pack.get('tables', [])}
-    columns = set()
+            project_dataset.add(f"{d.get('name','')}.{s}")
+    tables = set()
+    wildcard_bases = set()
+    for t in pack.get('tables', []):
+        tables.add(t['table'])
+        m = _DATE_SHARD_RE.match(t['table'])
+        if m:
+            wildcard_bases.add(m.group('base'))
+    columns = set()  # full names + roots + leaves
     for t in pack.get('tables', []):
         for c in t.get('columns', []):
-            columns.add((t['db'], t['schema'], t['table'], c['name']))
-    column_names = {c['name'] for t in pack.get('tables', []) for c in t.get('columns', [])}
-    return dbs, schemas, tables, table_names, columns, column_names
+            cn = c['name']
+            columns.add(cn)
+            if '.' in cn:
+                columns.add(cn.split('.')[0])
+                columns.add(cn.split('.')[-1])
+            else:
+                columns.add(cn)
+    return dbs, schemas, project_dataset, tables, wildcard_bases, columns
 
 
 _IDENT_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+_HYPH_IDENT_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_\-]*")
+
+
+def _table_in_pack(name: str, tables: set, wildcard_bases: set) -> bool:
+    if name in tables:
+        return True
+    if name.endswith('_*') and name[:-2] in wildcard_bases:
+        return True
+    m = _DATE_SHARD_RE.match(name)
+    if m and m.group('base') in wildcard_bases:
+        return True
+    return False
+
+
+def _column_in_pack(name: str, columns: set) -> bool:
+    if name in columns:
+        return True
+    leaf = name.split('.')[-1] if '.' in name else name
+    root = name.split('.')[0] if '.' in name else name
+    return leaf in columns or root in columns
 
 
 def validate_plan(plan: dict, pack: dict) -> PlanValidation:
     reasons = []
-    dbs, schemas, tables, table_names, columns, column_names = _closed_sets(pack)
+    dbs, schemas, project_dataset, tables, wildcard_bases, columns = _closed_sets(pack)
+
     for k in _REQUIRED_KEYS:
         if k not in plan:
             reasons.append(f'missing_key:{k}')
-    if 'selected_database' in plan and plan['selected_database'] not in dbs:
-        reasons.append(f'unknown_database:{plan.get("selected_database")}')
-    if 'selected_schema' in plan and plan['selected_schema'] not in schemas:
-        reasons.append(f'unknown_schema:{plan.get("selected_schema")}')
+
+    # selected_database / selected_schema: tolerate either bare project,
+    # bare dataset, or "project.dataset" composite.
+    sd = plan.get('selected_database') or ''
+    if sd and sd not in dbs and sd not in project_dataset:
+        # if dotted, accept if at least the project part is in dbs
+        if '.' in sd:
+            head = sd.split('.', 1)[0]
+            if head in dbs:
+                pass  # ok
+            else:
+                reasons.append(f'unknown_database:{sd}')
+        else:
+            reasons.append(f'unknown_database:{sd}')
+
+    ss = plan.get('selected_schema') or ''
+    if ss and ss not in schemas:
+        # accept if it's a "project.dataset" path with a known dataset tail
+        if '.' in ss:
+            tail = ss.rsplit('.', 1)[-1]
+            if tail in schemas:
+                pass
+            else:
+                reasons.append(f'unknown_schema:{ss}')
+        else:
+            reasons.append(f'unknown_schema:{ss}')
+
     for t in plan.get('selected_tables', []) or []:
-        if t not in table_names:
+        # accept FQN forms by stripping prefix to bare table name
+        bare = t.split('.')[-1] if '.' in t else t
+        if not _table_in_pack(bare, tables, wildcard_bases):
             reasons.append(f'unknown_table:{t}')
+
     for c in plan.get('selected_columns', []) or []:
-        # Strip table prefix if any: "table.col" => "col"
-        leaf = c.split('.')[-1] if '.' in c else c
-        if c not in column_names and leaf not in column_names:
+        if not _column_in_pack(c, columns):
             reasons.append(f'unknown_column:{c}')
-    # Light check on metrics/filters expressions: every identifier-looking
-    # token must either be a SQL keyword (we cheat with a whitelist) or
-    # appear in column_names/table_names.
+
+    # SQL keyword whitelist for free-form expressions
     sql_keywords = {
         'SELECT','FROM','WHERE','GROUP','BY','ORDER','HAVING','AS','AND','OR',
         'NOT','IN','LIKE','BETWEEN','IS','NULL','TRUE','FALSE','LIMIT',
@@ -94,33 +143,53 @@ def validate_plan(plan: dict, pack: dict) -> PlanValidation:
         'COUNT','SUM','AVG','MIN','MAX','CAST','EXTRACT','DATE','TIMESTAMP',
         'INT','INT64','FLOAT','STRING','ARRAY','STRUCT','UNNEST','SAFE_CAST',
         'OVER','PARTITION','WITH','EXISTS','TRY_CAST','THEN','CASE','WHEN','ELSE','END',
+        'INTERVAL','CURRENT_DATE','CURRENT_TIMESTAMP','LATERAL','FLATTEN','INPUT',
+        'DATETIME','TIME','BOOL','BOOLEAN','BYTES','NUMERIC','BIGNUMERIC','DESC','ASC',
+        'YEAR','MONTH','DAY','QUARTER','WEEK','HOUR','MINUTE','SECOND',
+        'DATE_DIFF','DATE_ADD','DATE_SUB','TIMESTAMP_DIFF','UNIX_SECONDS','UNIX_MILLIS',
+        'COALESCE','IFNULL','NULLIF','GREATEST','LEAST','ROW_NUMBER','RANK','DENSE_RANK',
+        '_TABLE_SUFFIX','TABLE_SUFFIX','APPROX_COUNT_DISTINCT','PERCENTILE_CONT',
     }
     for which in ('metrics', 'filters', 'sorting'):
         for item in plan.get(which, []) or []:
             expr = item.get('expr', '') if isinstance(item, dict) else str(item)
-            for tok in _IDENT_RE.findall(expr):
+            # Use the hyphen-tolerant tokenizer so 'bigquery-public-data'
+            # is one token, not three.
+            for tok in _HYPH_IDENT_RE.findall(expr):
                 if tok.upper() in sql_keywords:
                     continue
-                if tok in column_names or tok in table_names:
+                if tok in dbs or tok in schemas or tok in tables or tok in columns:
+                    continue
+                if tok in wildcard_bases:
                     continue
                 if tok.lower() in {'true', 'false', 'null'}:
                     continue
-                # numeric-only or short noise -> skip
                 if tok.isdigit() or len(tok) <= 1:
                     continue
+                # Tolerate single-letter+digit aliases (e1, t2, etc.)
+                if re.fullmatch(r'[a-z]\d?', tok):
+                    continue
+                # leaf/root of dotted ident
+                if '.' in tok:
+                    leaf = tok.split('.')[-1]
+                    if leaf in columns:
+                        continue
+                # date shard <table>_YYYYMMDD
+                m = _DATE_SHARD_RE.match(tok)
+                if m and m.group('base') in wildcard_bases:
+                    continue
                 reasons.append(f'unknown_ident_in_{which}:{tok}')
+
     ok = not reasons
     return PlanValidation(ok=ok, reasons=reasons,
                             closed_set_db=dbs, closed_set_schemas=schemas,
-                            closed_set_tables=table_names,
-                            closed_set_columns=column_names)
+                            closed_set_tables=tables,
+                            closed_set_columns=columns)
 
 
 def parse_plan(raw_text: str) -> dict:
-    """Parse LLM output into a JSON plan. Robust to fenced code blocks and
-    leading prose."""
+    """Parse LLM output into a JSON plan."""
     s = raw_text.strip()
-    # try to grab the first {...} block
     if '```' in s:
         m = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', s)
         if m:
@@ -133,11 +202,7 @@ def parse_plan(raw_text: str) -> dict:
 
 
 def plan_with_loaded_model(prompt: str, *, max_new: int = 1100) -> str:
-    """Call the loaded HF model+tokenizer to generate the plan text.
-
-    Reads `_TOK`, `_MDL`, `_MODEL_PROFILE` from globals. Same contract as
-    v17 launcher's _gen replacement, but runs in the standard kernel.
-    """
+    """Call the loaded HF model+tokenizer to generate the plan text."""
     g = globals()
     if g.get('_GEN_READY') is not True:
         raise NotImplementedError(
@@ -163,16 +228,38 @@ def plan_with_loaded_model(prompt: str, *, max_new: int = 1100) -> str:
     return g['_TOK'].decode(gen, skip_special_tokens=True)
 
 
+def _retry_prompt(original_prompt: str, reasons: list, prev_plan: Optional[dict]) -> str:
+    """Append the validator's complaint list to the prompt for a second
+    attempt. The model gets the explicit reasons and is asked to fix
+    only those identifiers, not regenerate the whole plan."""
+    fb = ['', '---', 'Your previous JSON plan failed validation. Issues:']
+    for r in reasons[:12]:
+        fb.append(f'  - {r}')
+    if prev_plan is not None:
+        fb.append('')
+        fb.append('Previous plan was:')
+        try:
+            fb.append(json.dumps(prev_plan, indent=2)[:1500])
+        except Exception:
+            pass
+    fb.append('')
+    fb.append('Return a corrected JSON plan that uses ONLY identifiers from the')
+    fb.append('Available identifiers list above. Same JSON shape, no prose.')
+    return original_prompt + '\n'.join(fb)
+
+
 def plan(prompt: str, pack: dict, *, max_attempts: int = 2) -> dict:
-    """High-level entry: generate -> parse -> validate. Returns dict:
-       {'plan': ..., 'validation': PlanValidation, 'raw': str, 'attempts': N}
-    """
+    """High-level entry: generate -> parse -> validate, with v18.1
+    feedback-retry. Returns dict {'plan', 'validation', 'raw',
+    'attempts', 'last_parse_err', 'retry_used'}."""
     raw = ''
     last_err = None
     last_plan = None
     last_val = None
+    retry_used = False
+    cur_prompt = prompt
     for attempt in range(1, max_attempts + 1):
-        raw = plan_with_loaded_model(prompt)
+        raw = plan_with_loaded_model(cur_prompt)
         try:
             cand = parse_plan(raw)
         except Exception as e:
@@ -182,7 +269,11 @@ def plan(prompt: str, pack: dict, *, max_attempts: int = 2) -> dict:
         last_plan = cand
         last_val = v
         if v.ok:
-            return {'plan': cand, 'validation': v, 'raw': raw, 'attempts': attempt}
-        # else: re-prompt with reasons would be nice; for now we just retry once
-    return {'plan': last_plan, 'validation': last_val, 'raw': raw, 'attempts': max_attempts,
-              'last_parse_err': last_err}
+            return {'plan': cand, 'validation': v, 'raw': raw,
+                      'attempts': attempt, 'retry_used': retry_used}
+        if attempt < max_attempts:
+            cur_prompt = _retry_prompt(prompt, v.reasons, cand)
+            retry_used = True
+    return {'plan': last_plan, 'validation': last_val, 'raw': raw,
+              'attempts': max_attempts, 'last_parse_err': last_err,
+              'retry_used': retry_used}

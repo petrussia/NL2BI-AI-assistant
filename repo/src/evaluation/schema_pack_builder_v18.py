@@ -108,12 +108,36 @@ def build_pack(linker_out: LinkerOutput, *, lane: str, alias: Optional[str],
     ]
     databases.sort(key=lambda d: -d['score'])
 
+    # v18.1: detect date-shard families and surface them as wildcards.
+    # Spider2-Lite-BQ has many `ga_sessions_YYYYMMDD`, `events_YYYYMMDD`,
+    # `bikeshare_trips_YYYYMM` style shards. The pack should advertise
+    # the wildcard form so the planner can target it as a closed-set
+    # identifier rather than enumerate dates.
+    import re as _re
+    _SHARD = _re.compile(r'^(?P<base>.+?)_(?P<date>\d{6,8})$')
+    wildcards: list = []
+    seen_bases: set = set()
+    for t in tables:
+        m = _SHARD.match(t['table'])
+        if not m:
+            continue
+        key = (t['db'], t['schema'], m.group('base'))
+        if key in seen_bases:
+            continue
+        seen_bases.add(key)
+        wildcards.append({
+            'fqn': f'{t["db"]}.{t["schema"]}.{m.group("base")}_*',
+            'base': m.group('base'),
+            'sample_shard': t['table'],
+            'note': 'wildcard family — use _TABLE_SUFFIX for date filtering',
+        })
+
     pack = {
         'lane': lane,
         'alias': alias,
         'databases': databases,
         'tables': tables,
-        'wildcards': [],
+        'wildcards': wildcards,
         'join_hints': [],
     }
     pack['token_budget_used'] = len(json.dumps(pack)) // 4
@@ -132,6 +156,11 @@ def pack_to_planner_prompt(pack: dict, question: str, *,
     for t in pack['tables']:
         cols = ', '.join(f"{c['name']}:{c['type'] or '?'}" for c in t['columns'])
         lines.append(f'  - `{t["db"]}.{t["schema"]}.{t["table"]}` columns=[{cols}]')
+    if pack.get('wildcards'):
+        lines.append('Wildcard table families (prefer these over individual date shards; '
+                       'use _TABLE_SUFFIX BETWEEN \'YYYYMMDD\' AND \'YYYYMMDD\'):')
+        for w in pack['wildcards']:
+            lines.append(f'  - `{w["fqn"]}`  (sample: {w["sample_shard"]})')
     if external_knowledge:
         lines.append('External knowledge:')
         lines.append(external_knowledge)
@@ -159,6 +188,15 @@ _PLANNER_JSON_INSTRUCTIONS = """Return ONE JSON object with this shape:
 }
 RULES:
 - Every identifier in selected_tables, selected_columns, metrics.expr, filters.expr,
-  grouping, sorting.expr MUST appear under one of the listed tables.
-- If a column is a struct/array path (contains '.'), keep it as written.
+  grouping, sorting.expr MUST appear under one of the listed tables OR be a
+  wildcard family base name from the wildcard list.
+- selected_database is a project NAME like `bigquery-public-data`. NOT
+  `bigquery-public-data.google_analytics_sample` and NOT `bq`.
+- selected_schema is the dataset/schema NAME like `google_analytics_sample`.
+- selected_tables[*] is the bare table name like `ga_sessions_20170201`,
+  OR the wildcard form `ga_sessions_*` when querying a date range.
+- For date ranges over wildcard tables, set time_constraints with the
+  start and end dates and let _TABLE_SUFFIX handle filtering.
+- If a column is a struct/array path (contains '.'), keep it as written
+  (e.g. `hits.product.productRevenue`).
 - Output JSON only. No prose, no fences."""
