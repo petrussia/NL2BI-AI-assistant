@@ -1,0 +1,128 @@
+{
+  "request_id": "demo-empty-001",
+  "status": "partial_success",
+  "user_query": "Покажи продажи по несуществующей категории empty",
+  "normalized_query": null,
+  "data_source": {
+    "id": "demo_sales",
+    "name": "Demo Sales",
+    "dialect": "sqlite",
+    "schema_version": "demo.v1"
+  },
+  "plan": {
+    "raw": {},
+    "validated": true,
+    "intent": null,
+    "tables": [
+      "sales"
+    ],
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "filters": [],
+    "aggregations": [],
+    "group_by": [],
+    "order_by": [],
+    "limit": null,
+    "joins": [],
+    "assumptions": []
+  },
+  "sql": {
+    "query": "SELECT category, revenue FROM sales WHERE category = '___empty___'",
+    "dialect": "sqlite",
+    "validated": true,
+    "read_only": true
+  },
+  "result_table": {
+    "format": "records",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "rows": [],
+    "uri": null,
+    "row_count": 0,
+    "truncated": false
+  },
+  "field_metadata": [
+    {
+      "name": "category",
+      "source_table": "sales",
+      "source_column": "category",
+      "display_name": null,
+      "description": null,
+      "sql_type": null,
+      "data_type": "string",
+      "semantic_role": "dimension",
+      "unit": null,
+      "periodicity": null,
+      "allowed_aggregations": [
+        "none"
+      ],
+      "default_aggregation": "none",
+      "nullable": false,
+      "examples": [],
+      "provenance": {
+        "expression": null,
+        "aggregation": null,
+        "derived": false
+      }
+    },
+    {
+      "name": "revenue",
+      "source_table": "sales",
+      "source_column": "revenue",
+      "display_name": null,
+      "description": null,
+      "sql_type": null,
+      "data_type": "number",
+      "semantic_role": "measure",
+      "unit": "RUB",
+      "periodicity": null,
+      "allowed_aggregations": [
+        "sum",
+        "avg",
+        "min",
+        "max",
+        "none"
+      ],
+      "default_aggregation": "sum",
+      "nullable": false,
+      "examples": [],
+      "provenance": {
+        "expression": null,
+        "aggregation": null,
+        "derived": false
+      }
+    }
+  ],
+  "execution": {
+    "latency_ms": 120,
+    "row_limit": 1000,
+    "timeout_ms": 8000,
+    "executable": true
+  },
+  "quality": {
+    "confidence": null,
+    "warnings": [
+      {
+        "code": "empty_result",
+        "message": "SQL returned zero rows",
+        "source": "extraction",
+        "retryable": false,
+        "details": {}
+      }
+    ]
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "empty_result",
+      "message": "SQL returned zero rows",
+      "source": "extraction",
+      "retryable": false,
+      "details": {}
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  title: NL2BI Server + Colab MVP API
+  version: 0.2.0-server-colab
+paths:
+  /api/health:
+    get:
+      summary: Server liveness
+      responses:
+        '200':
+          description: OK
+  /api/ready:
+    get:
+      summary: Server readiness
+      responses:
+        '200':
+          description: OK
+  /api/runtime:
+    get:
+      summary: Runtime split status
+      responses:
+        '200':
+          description: Runtime status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_runtime: {type: boolean}
+                  gpu_in_backend: {type: boolean}
+                  extraction_mode: {type: string, enum: [mock, colab, disabled]}
+                  visualization_mode: {type: string, enum: [local_cpu]}
+                  colab_service_url_configured: {type: boolean}
+                  colab_available: {type: boolean}
+  /api/nl2chart:
+    post:
+      summary: Run NL2BI pipeline
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Nl2ChartRequest'
+      responses:
+        '200':
+          description: NL2BI response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Nl2ChartResponse'
+  /api/artifacts/{artifact_id}:
+    get:
+      summary: Get artifact
+      parameters:
+        - name: artifact_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: Artifact
+  /health:
+    get:
+      summary: Colab service health
+      description: This endpoint is served by Colab runtime, not by the main server.
+      responses:
+        '200':
+          description: Colab health
+  /extract:
+    post:
+      summary: Colab Text-to-SQL extraction
+      description: This endpoint is served by Colab runtime, not by the main server.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataExtractionRequest'
+      responses:
+        '200':
+          description: Data extraction response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExtractionResponse'
+components:
+  schemas:
+    Nl2ChartRequest:
+      type: object
+      required: [user_query, data_source_id]
+      properties:
+        user_query: {type: string}
+        data_source_id: {type: string}
+        locale: {type: string, default: ru-RU}
+        timezone: {type: string, default: Europe/Moscow}
+        presentation_preferences:
+          type: object
+          properties:
+            preferred_output: {type: string, enum: [auto, chart, table], default: auto}
+    Nl2ChartResponse:
+      type: object
+      required: [request_id, status, message]
+      properties:
+        request_id: {type: string}
+        status: {type: string, enum: [success, partial_success, failed]}
+        message: {type: string}
+        selected_view: {type: object}
+        artifacts:
+          type: array
+          items: {$ref: '#/components/schemas/ArtifactRef'}
+        warnings:
+          type: array
+          items: {$ref: '#/components/schemas/WarningItem'}
+        errors:
+          type: array
+          items: {$ref: '#/components/schemas/ErrorItem'}
+        debug: {type: object}
+    ArtifactRef:
+      type: object
+      properties:
+        artifact_id: {type: string}
+        artifact_type: {type: string, enum: [table, chart_spec, chart_image, warning, error, debug_sql]}
+        title: {type: string}
+        uri: {type: string, nullable: true}
+        payload: {type: object}
+    ErrorItem:
+      type: object
+      required: [code, message, source, retryable]
+      properties:
+        code: {type: string}
+        message: {type: string}
+        source: {type: string}
+        retryable: {type: boolean}
+        details: {type: object}
+    WarningItem:
+      type: object
+      properties:
+        code: {type: string}
+        message: {type: string}
+        source: {type: string}
+        details: {type: object}
+    DataExtractionRequest:
+      type: object
+      required: [request_id, user_query, data_source, constraints]
+      properties:
+        request_id: {type: string}
+        user_query: {type: string}
+        locale: {type: string}
+        timezone: {type: string}
+        data_source: {type: object}
+        constraints: {type: object}
+        presentation_hint: {type: object}
+    DataExtractionResponse:
+      type: object
+      required: [request_id, status, user_query, data_source, sql, result_table, field_metadata]
+      properties:
+        request_id: {type: string}
+        status: {type: string, enum: [success, partial_success, failed]}
+        user_query: {type: string}
+        normalized_query: {type: string, nullable: true}
+        data_source: {type: object}
+        plan: {type: object}
+        sql: {type: object}
+        result_table: {type: object}
+        field_metadata:
+          type: array
+          items: {type: object}
+        execution: {type: object}
+        quality: {type: object}
+        errors:
+          type: array
+          items: {$ref: '#/components/schemas/ErrorItem'}
+        warnings:
+          type: array
+          items: {$ref: '#/components/schemas/WarningItem'}

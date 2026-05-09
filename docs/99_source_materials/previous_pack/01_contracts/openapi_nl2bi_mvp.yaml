@@ -1,0 +1,323 @@
+openapi: 3.1.0
+info:
+  title: NL2BI AI Assistant MVP API
+  version: 0.1.0
+paths:
+  /api/health:
+    get:
+      summary: Common backend health
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, const: ok }
+                  runtime: { type: string }
+  /api/ready:
+    get:
+      summary: Common backend readiness
+      responses:
+        '200':
+          description: Ready status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  extract_ready: { type: boolean }
+                  visualize_ready: { type: boolean }
+                  artifact_storage_ready: { type: boolean }
+  /api/nl2chart:
+    post:
+      summary: Convert natural language request into table/chart result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Nl2ChartRequest'
+      responses:
+        '200':
+          description: Result or partial result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Nl2ChartResponse'
+        '400':
+          description: Invalid request
+        '503':
+          description: Pipeline unavailable
+  /api/nl2chart/{request_id}:
+    get:
+      summary: Get current pipeline status or completed result
+      parameters:
+        - in: path
+          name: request_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Stored result or status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Nl2ChartResponse'
+  /api/artifacts/{artifact_id}:
+    get:
+      summary: Download or view chart/table/spec artifact
+      parameters:
+        - in: path
+          name: artifact_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Artifact bytes or JSON
+        '404':
+          description: Artifact not found
+  /extract:
+    post:
+      summary: Text-to-SQL/DataExtraction service endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataExtractionRequest'
+      responses:
+        '200':
+          description: Extraction response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExtractionResponse'
+  /visualize:
+    post:
+      summary: Text-to-Visualization service endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisualizationRequest'
+      responses:
+        '200':
+          description: Visualization response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisualizationResponse'
+components:
+  schemas:
+    Status:
+      type: string
+      enum: [success, partial_success, failed]
+    ErrorItem:
+      type: object
+      required: [code, message, source]
+      properties:
+        code:
+          type: string
+          enum:
+            - schema_not_found
+            - ambiguous_query
+            - plan_invalid
+            - sql_generation_failed
+            - sql_validation_failed
+            - sql_execution_failed
+            - timeout
+            - empty_result
+            - row_limit_exceeded
+            - permission_denied
+            - metadata_incomplete
+            - visualization_failed
+            - render_failed
+            - invalid_request
+            - internal_error
+        message: { type: string }
+        source: { type: string, enum: [gateway, extract, adapter, visualize, renderer, frontend] }
+        retryable: { type: boolean, default: false }
+        details: { type: object, additionalProperties: true }
+    WarningItem:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string }
+        message: { type: string }
+        source: { type: string }
+        details: { type: object, additionalProperties: true }
+    DataSourceRequest:
+      type: object
+      required: [id]
+      properties:
+        id: { type: string }
+        dialect: { type: string, enum: [postgresql, sqlite, clickhouse, trino, unknown], default: unknown }
+        connection_ref: { type: [string, 'null'] }
+        schema_version: { type: [string, 'null'] }
+    ExtractionConstraints:
+      type: object
+      properties:
+        read_only: { type: boolean, default: true }
+        timeout_ms: { type: integer, default: 8000 }
+        row_limit: { type: integer, default: 1000 }
+        max_joins: { type: [integer, 'null'] }
+        allow_llm_repair: { type: boolean, default: true }
+    PresentationPreferences:
+      type: object
+      properties:
+        preferred_output: { type: string, enum: [chart, table, auto], default: auto }
+        preferred_chart_type: { type: [string, 'null'] }
+        style_template: { type: [string, 'null'] }
+        max_candidates: { type: integer, default: 3 }
+        render: { type: boolean, default: true }
+        mode: { type: string, enum: [fast, quality, fallback], default: fast }
+    Nl2ChartRequest:
+      type: object
+      required: [user_query]
+      properties:
+        request_id: { type: [string, 'null'] }
+        user_query: { type: string, minLength: 1 }
+        data_source:
+          anyOf:
+            - $ref: '#/components/schemas/DataSourceRequest'
+            - type: 'null'
+        locale: { type: string, default: ru-RU }
+        timezone: { type: string, default: Europe/Moscow }
+        constraints: { $ref: '#/components/schemas/ExtractionConstraints' }
+        presentation_preferences: { $ref: '#/components/schemas/PresentationPreferences' }
+    ResultTable:
+      type: object
+      required: [format, columns, row_count, truncated]
+      properties:
+        format: { type: string, enum: [records, csv_uri, arrow_uri], default: records }
+        columns:
+          type: array
+          minItems: 1
+          items: { type: string }
+        rows:
+          type: array
+          items: { type: object, additionalProperties: true }
+        uri: { type: [string, 'null'] }
+        row_count: { type: integer, minimum: 0 }
+        truncated: { type: boolean, default: false }
+    FieldMetadata:
+      type: object
+      required: [name, data_type, semantic_role]
+      properties:
+        name: { type: string }
+        source_table: { type: [string, 'null'] }
+        source_column: { type: [string, 'null'] }
+        display_name: { type: [string, 'null'] }
+        description: { type: [string, 'null'] }
+        sql_type: { type: [string, 'null'] }
+        data_type: { type: string, enum: [number, string, date, datetime, boolean, unknown] }
+        semantic_role: { type: string, enum: [measure, dimension, time, id, text, unknown] }
+        unit: { type: [string, 'null'] }
+        periodicity: { type: [string, 'null'], enum: [day, week, month, quarter, year, null] }
+        allowed_aggregations:
+          type: array
+          items: { type: string, enum: [sum, avg, count, min, max, none] }
+        default_aggregation: { type: [string, 'null'], enum: [sum, avg, count, min, max, none, null] }
+        nullable: { type: [boolean, 'null'] }
+        examples: { type: array }
+        provenance:
+          type: object
+          properties:
+            expression: { type: [string, 'null'] }
+            aggregation: { type: [string, 'null'] }
+            derived: { type: boolean }
+    QueryContext:
+      type: object
+      properties:
+        sql: { type: [string, 'null'] }
+        plan: { type: [object, 'null'], additionalProperties: true }
+        filters: { type: array, items: { type: object, additionalProperties: true } }
+        group_by: { type: array, items: { type: string } }
+        aggregations: { type: array, items: { type: object, additionalProperties: true } }
+        order_by: { type: array, items: { type: object, additionalProperties: true } }
+        limit: { type: [integer, 'null'] }
+        assumptions: { type: array, items: { type: string } }
+    DataExtractionRequest:
+      type: object
+      required: [request_id, user_query, data_source]
+      properties:
+        request_id: { type: string }
+        user_query: { type: string }
+        locale: { type: string }
+        timezone: { type: string }
+        user_context: { type: object, additionalProperties: true }
+        data_source: { $ref: '#/components/schemas/DataSourceRequest' }
+        constraints: { $ref: '#/components/schemas/ExtractionConstraints' }
+        presentation_hint: { type: object, additionalProperties: true }
+    DataExtractionResponse:
+      type: object
+      required: [request_id, status, user_query, data_source, result_table]
+      properties:
+        request_id: { type: string }
+        status: { $ref: '#/components/schemas/Status' }
+        user_query: { type: string }
+        normalized_query: { type: [string, 'null'] }
+        data_source: { type: object, additionalProperties: true }
+        plan: { type: object, additionalProperties: true }
+        sql: { type: object, additionalProperties: true }
+        result_table: { $ref: '#/components/schemas/ResultTable' }
+        field_metadata:
+          type: array
+          items: { $ref: '#/components/schemas/FieldMetadata' }
+        execution: { type: object, additionalProperties: true }
+        quality: { type: object, additionalProperties: true }
+        errors:
+          type: array
+          items: { $ref: '#/components/schemas/ErrorItem' }
+    VisualizationRequest:
+      type: object
+      required: [request_id, user_query, data_source, result_table, field_metadata]
+      properties:
+        request_id: { type: string }
+        user_query: { type: string }
+        locale: { type: string }
+        timezone: { type: string }
+        data_source: { type: object, additionalProperties: true }
+        result_table: { $ref: '#/components/schemas/ResultTable' }
+        field_metadata:
+          type: array
+          items: { $ref: '#/components/schemas/FieldMetadata' }
+        query_context: { $ref: '#/components/schemas/QueryContext' }
+        presentation_preferences: { $ref: '#/components/schemas/PresentationPreferences' }
+    VisualizationResponse:
+      type: object
+      required: [request_id, status]
+      properties:
+        request_id: { type: string }
+        status: { $ref: '#/components/schemas/Status' }
+        selected_view: { type: [object, 'null'], additionalProperties: true }
+        candidates: { type: array, items: { type: object, additionalProperties: true } }
+        table_view: { type: object, additionalProperties: true }
+        explanation: { type: object, additionalProperties: true }
+        quality: { type: object, additionalProperties: true }
+        performance: { type: object, additionalProperties: true }
+        errors:
+          type: array
+          items: { $ref: '#/components/schemas/ErrorItem' }
+    Nl2ChartResponse:
+      type: object
+      required: [request_id, status, assistant_message]
+      properties:
+        request_id: { type: string }
+        status: { $ref: '#/components/schemas/Status' }
+        assistant_message: { type: string }
+        extraction: { anyOf: [ { $ref: '#/components/schemas/DataExtractionResponse' }, { type: 'null' } ] }
+        visualization: { anyOf: [ { $ref: '#/components/schemas/VisualizationResponse' }, { type: 'null' } ] }
+        artifacts:
+          type: array
+          items: { type: object, additionalProperties: true }
+        warnings:
+          type: array
+          items: { $ref: '#/components/schemas/WarningItem' }
+        errors:
+          type: array
+          items: { $ref: '#/components/schemas/ErrorItem' }

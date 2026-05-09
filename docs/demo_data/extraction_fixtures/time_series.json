@@ -1,0 +1,142 @@
+{
+  "request_id": "demo-time-series-001",
+  "status": "success",
+  "user_query": "Покажи динамику выручки по месяцам",
+  "normalized_query": null,
+  "data_source": {
+    "id": "demo_sales",
+    "name": "Demo Sales",
+    "dialect": "sqlite",
+    "schema_version": "demo.v1"
+  },
+  "plan": {
+    "raw": {},
+    "validated": true,
+    "intent": "trend",
+    "tables": [
+      "sales"
+    ],
+    "columns": [
+      "month",
+      "revenue"
+    ],
+    "filters": [],
+    "aggregations": [
+      {
+        "field": "revenue",
+        "function": "sum",
+        "alias": "revenue"
+      }
+    ],
+    "group_by": [
+      "month"
+    ],
+    "order_by": [
+      {
+        "field": "month",
+        "direction": "asc"
+      }
+    ],
+    "limit": null,
+    "joins": [],
+    "assumptions": []
+  },
+  "sql": {
+    "query": "SELECT month, SUM(revenue) AS revenue FROM sales GROUP BY month ORDER BY month",
+    "dialect": "sqlite",
+    "validated": true,
+    "read_only": true
+  },
+  "result_table": {
+    "format": "records",
+    "columns": [
+      "month",
+      "revenue"
+    ],
+    "rows": [
+      {
+        "month": "2026-01",
+        "revenue": 120000
+      },
+      {
+        "month": "2026-02",
+        "revenue": 135000
+      },
+      {
+        "month": "2026-03",
+        "revenue": 128000
+      }
+    ],
+    "uri": null,
+    "row_count": 3,
+    "truncated": false
+  },
+  "field_metadata": [
+    {
+      "name": "month",
+      "source_table": "sales",
+      "source_column": "month",
+      "display_name": null,
+      "description": null,
+      "sql_type": "TEXT",
+      "data_type": "date",
+      "semantic_role": "time",
+      "unit": null,
+      "periodicity": "month",
+      "allowed_aggregations": [
+        "none"
+      ],
+      "default_aggregation": "none",
+      "nullable": false,
+      "examples": [
+        "2026-01"
+      ],
+      "provenance": {
+        "expression": null,
+        "aggregation": null,
+        "derived": false
+      }
+    },
+    {
+      "name": "revenue",
+      "source_table": "sales",
+      "source_column": "revenue",
+      "display_name": null,
+      "description": null,
+      "sql_type": "REAL",
+      "data_type": "number",
+      "semantic_role": "measure",
+      "unit": "RUB",
+      "periodicity": null,
+      "allowed_aggregations": [
+        "sum",
+        "avg",
+        "min",
+        "max",
+        "none"
+      ],
+      "default_aggregation": "sum",
+      "nullable": false,
+      "examples": [
+        120000
+      ],
+      "provenance": {
+        "expression": null,
+        "aggregation": "sum",
+        "derived": true
+      }
+    }
+  ],
+  "execution": {
+    "latency_ms": 120,
+    "row_limit": 1000,
+    "timeout_ms": 8000,
+    "executable": true
+  },
+  "quality": {
+    "confidence": null,
+    "warnings": []
+  },
+  "errors": [],
+  "warnings": []
+}

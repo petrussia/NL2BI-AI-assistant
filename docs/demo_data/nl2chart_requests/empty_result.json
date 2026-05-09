@@ -1,0 +1,7 @@
+{
+  "user_query": "Покажи продажи по несуществующей категории empty",
+  "data_source_id": "demo_sales",
+  "locale": "ru-RU",
+  "timezone": "Europe/Moscow",
+  "presentation_preferences": {"preferred_output": "auto"}
+}

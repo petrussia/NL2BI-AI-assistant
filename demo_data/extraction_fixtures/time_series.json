@@ -1,0 +1,76 @@
+{
+  "request_id": "fixture_time_series",
+  "status": "success",
+  "user_query": "Покажи динамику продаж по месяцам",
+  "normalized_query": "sales revenue by month",
+  "data_source": {
+    "id": "demo_sales",
+    "name": "Demo Sales",
+    "dialect": "sqlite",
+    "schema_version": "demo-v1"
+  },
+  "plan": {
+    "raw": {},
+    "validated": true,
+    "intent": "trend",
+    "tables": ["sales"],
+    "columns": ["month", "revenue"],
+    "filters": [],
+    "aggregations": [{"field": "revenue", "aggregation": "sum"}],
+    "group_by": ["month"],
+    "order_by": [{"field": "month", "direction": "asc"}],
+    "limit": null,
+    "joins": [],
+    "assumptions": ["Demo fixture data"]
+  },
+  "sql": {
+    "query": "select month, sum(revenue) as revenue from sales group by month order by month",
+    "dialect": "sqlite",
+    "validated": true,
+    "read_only": true
+  },
+  "result_table": {
+    "format": "records",
+    "columns": ["month", "revenue"],
+    "rows": [
+      {"month": "2026-01", "revenue": 128000},
+      {"month": "2026-02", "revenue": 142500},
+      {"month": "2026-03", "revenue": 137200},
+      {"month": "2026-04", "revenue": 161400}
+    ],
+    "uri": null,
+    "row_count": 4,
+    "truncated": false
+  },
+  "field_metadata": [
+    {
+      "name": "month",
+      "display_name": "Месяц",
+      "sql_type": "text",
+      "data_type": "date",
+      "semantic_role": "time",
+      "periodicity": "month",
+      "allowed_aggregations": ["none"],
+      "default_aggregation": "none",
+      "examples": ["2026-01"],
+      "provenance": {"expression": "month", "aggregation": null, "derived": false}
+    },
+    {
+      "name": "revenue",
+      "display_name": "Выручка",
+      "sql_type": "numeric",
+      "data_type": "number",
+      "semantic_role": "measure",
+      "unit": "RUB",
+      "allowed_aggregations": ["sum", "avg", "min", "max"],
+      "default_aggregation": "sum",
+      "examples": [128000],
+      "provenance": {"expression": "sum(revenue)", "aggregation": "sum", "derived": true}
+    }
+  ],
+  "execution": {"latency_ms": 24, "row_limit": 1000, "timeout_ms": 8000, "executable": true},
+  "quality": {"confidence": 0.94, "warnings": []},
+  "errors": [],
+  "warnings": []
+}
+
