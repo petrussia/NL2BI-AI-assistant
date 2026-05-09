@@ -1,0 +1,2 @@
+run_id,lane,planner,emitter,n,plan_validation_ok,chosen_schema_valid,parse_ok,execute_ok,chosen_family_A,chosen_family_B
+lite_bq_v18_pilot10,bq,qwen3_coder_30b_bf16,qwen2_5_coder_7b,10,0,0,10,1,9,1

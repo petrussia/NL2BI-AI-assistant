@@ -1,0 +1,11 @@
+run_id,instance_id,family_A_parse_ok,family_A_schema_valid,family_A_dry_run_ok,family_B_parse_ok,family_B_schema_valid,family_B_dry_run_ok,plan_valid,chosen_family
+lite_bq_v18_pilot10,bq011,1,0,0,1,0,1,0,B
+lite_bq_v18_pilot10,bq010,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq009,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq001,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq002,1,0,0,0,0,0,0,A
+lite_bq_v18_pilot10,bq003,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq004,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq008,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq269,1,0,0,1,0,0,0,A
+lite_bq_v18_pilot10,bq268,1,0,0,1,0,0,0,A

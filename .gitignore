@@ -35,3 +35,10 @@ data/spider2_lite/resource/
 outputs/spider2_snow/_*.log
 outputs/spider2_lite/_*.log
 outputs/spider2_dbt/_*.log
+
+# Phase 18 large live-catalog jsonls — regenerable via tools/harvest_*_v18.py.
+# Logs and audit md ARE committed.
+outputs/cache/spider2_bq_live_catalog_v18.jsonl
+outputs/cache/spider2_snow_live_catalog_v18.jsonl
+outputs/cache/_*_HARVEST_*
+outputs/cache/_v18_*.log

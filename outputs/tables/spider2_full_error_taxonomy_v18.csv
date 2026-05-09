@@ -1,0 +1,2 @@
+lane,run_id,error_class,count
+bq,lite_bq_v18_pilot10,schema_invalid,10
