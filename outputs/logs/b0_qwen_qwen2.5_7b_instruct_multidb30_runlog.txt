@@ -1,0 +1,10 @@
+b0_qwen_qwen2.5_7b_instruct_multidb30 run log
+checked_at: 2026-04-30T19:20:15.276451+00:00
+model: Qwen/Qwen2.5-7B-Instruct
+subset: multidb_30
+benchmark_group: internal_core
+total: 30
+executable_count: 30
+execution_match_count: 24
+EX: 0.8
+elapsed_seconds: 25.81

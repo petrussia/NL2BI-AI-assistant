@@ -1,0 +1,10 @@
+b0_qwen2p5_coder_14b_bird_minidev_30 run log
+checked_at: 2026-04-30T18:18:52.515069+00:00
+model: Qwen/Qwen2.5-Coder-14B-Instruct
+subset: bird_minidev_30
+benchmark_group: external_validation
+total: 30
+executable_count: 27
+execution_match_count: 7
+EX: 0.23333333333333334
+elapsed_seconds: 112.53

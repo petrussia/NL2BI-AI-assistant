@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy
+b0_qwen2p5_coder_14b_instruct_smoke25,Qwen/Qwen2.5-Coder-14B-Instruct,smoke_25,25,24,0.96,25,bf16,full_schema

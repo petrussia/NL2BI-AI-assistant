@@ -1,0 +1,12 @@
+benchmark,lane,error_type,count,note
+spider2_dbt,dbt_v4,done_pipeline,66,Spider2-DBT pipeline completed (eval ran)
+spider2_dbt,dbt_v4,inference_failed,1,one task model inference failed
+spider2_dbt,dbt_v4,agent_exception,1,one task hit an agent-level exception
+spider2_dbt,dbt_v4,dbt_run_rc_zero,27,Spider2-DBT — dbt run rc=0 on 27/68 (39.7%)
+spider2_dbt,dbt_v4,dbt_run_rc_one,—,non-zero dbt_run rc on the rest (compile or runtime issue)
+spider2_snow,A_sf,object_not_found,6,Spider2-Snow v9 pilot10 — invented columns/tables
+spider2_snow,A_sf,syntax,4,Spider2-Snow v9 pilot10 — quadruple-qualified table refs / wrong LATERAL JOIN
+spider2_snow,A_sf,wrong_dialect,0,zero — v9 dialect normalizer eliminated this class
+spider2_lite,A_bq,agent_exception,4,Cloudflare bridge HTTP 500 wave
+spider2_lite,A_sf,syntax,3,kernel degraded
+spider2_lite,C_sqlite_stub,sqlite_db_missing,3,case mismatch (E_commerce vs e_commerce) + bridge wave

@@ -1,0 +1,102 @@
+[0m16:45:48  Running with dbt=1.10.8
+[0m16:45:48  Registered adapter: duckdb=1.10.1
+[0m16:45:49  [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 12 unused configuration paths:
+- seeds.main.team_data
+- seeds.main.user_data
+- seeds.main
+- seeds.main.task_data
+- seeds.main.story_data
+- seeds.main.task_tag_data
+- seeds.main.project_data
+- seeds.main.section_data
+- seeds.main.task_section_data
+- seeds.main.project_task_data
+- seeds.main.task_follower_data
+- seeds.main.tag_data
+[0m16:45:49  Found 40 models, 51 data tests, 11 sources, 665 macros
+[0m16:45:49  
+[0m16:45:49  Concurrency: 1 threads (target='dev')
+[0m16:45:49  
+[0m16:45:49  1 of 40 START sql table model main.asana__bridge_smoke ......................... [RUN]
+[0m16:45:49  1 of 40 OK created sql table model main.asana__bridge_smoke .................... [[32mOK[0m in 0.10s]
+[0m16:45:50  2 of 40 START sql table model main_stg_asana.stg_asana__project_task_tmp ....... [RUN]
+[0m16:45:50  2 of 40 OK created sql table model main_stg_asana.stg_asana__project_task_tmp .. [[32mOK[0m in 0.05s]
+[0m16:45:50  3 of 40 START sql table model main_stg_asana.stg_asana__project_tmp ............ [RUN]
+[0m16:45:50  3 of 40 OK created sql table model main_stg_asana.stg_asana__project_tmp ....... [[32mOK[0m in 0.06s]
+[0m16:45:50  4 of 40 START sql table model main_stg_asana.stg_asana__section_tmp ............ [RUN]
+[0m16:45:50  4 of 40 OK created sql table model main_stg_asana.stg_asana__section_tmp ....... [[32mOK[0m in 0.18s]
+[0m16:45:50  5 of 40 START sql table model main_stg_asana.stg_asana__story_tmp .............. [RUN]
+[0m16:45:50  5 of 40 OK created sql table model main_stg_asana.stg_asana__story_tmp ......... [[32mOK[0m in 0.05s]
+[0m16:45:50  6 of 40 START sql table model main_stg_asana.stg_asana__tag_tmp ................ [RUN]
+[0m16:45:50  6 of 40 OK created sql table model main_stg_asana.stg_asana__tag_tmp ........... [[32mOK[0m in 0.05s]
+[0m16:45:50  7 of 40 START sql table model main_stg_asana.stg_asana__task_follower_tmp ...... [RUN]
+[0m16:45:50  7 of 40 OK created sql table model main_stg_asana.stg_asana__task_follower_tmp . [[32mOK[0m in 0.08s]
+[0m16:45:50  8 of 40 START sql table model main_stg_asana.stg_asana__task_section_tmp ....... [RUN]
+[0m16:45:50  8 of 40 OK created sql table model main_stg_asana.stg_asana__task_section_tmp .. [[32mOK[0m in 0.08s]
+[0m16:45:50  9 of 40 START sql table model main_stg_asana.stg_asana__task_tag_tmp ........... [RUN]
+[0m16:45:50  9 of 40 OK created sql table model main_stg_asana.stg_asana__task_tag_tmp ...... [[32mOK[0m in 0.05s]
+[0m16:45:50  10 of 40 START sql table model main_stg_asana.stg_asana__task_tmp .............. [RUN]
+[0m16:45:50  10 of 40 OK created sql table model main_stg_asana.stg_asana__task_tmp ......... [[32mOK[0m in 0.04s]
+[0m16:45:50  11 of 40 START sql table model main_stg_asana.stg_asana__team_tmp .............. [RUN]
+[0m16:45:50  11 of 40 OK created sql table model main_stg_asana.stg_asana__team_tmp ......... [[32mOK[0m in 0.11s]
+[0m16:45:50  12 of 40 START sql table model main_stg_asana.stg_asana__user_tmp .............. [RUN]
+[0m16:45:50  12 of 40 OK created sql table model main_stg_asana.stg_asana__user_tmp ......... [[32mOK[0m in 0.05s]
+[0m16:45:50  13 of 40 START sql table model main_stg_asana.stg_asana__project_task .......... [RUN]
+[0m16:45:50  13 of 40 OK created sql table model main_stg_asana.stg_asana__project_task ..... [[32mOK[0m in 0.08s]
+[0m16:45:50  14 of 40 START sql table model main_stg_asana.stg_asana__project ............... [RUN]
+[0m16:45:51  14 of 40 OK created sql table model main_stg_asana.stg_asana__project .......... [[32mOK[0m in 0.08s]
+[0m16:45:51  15 of 40 START sql table model main_stg_asana.stg_asana__section ............... [RUN]
+[0m16:45:51  15 of 40 OK created sql table model main_stg_asana.stg_asana__section .......... [[32mOK[0m in 0.07s]
+[0m16:45:51  16 of 40 START sql table model main_stg_asana.stg_asana__story ................. [RUN]
+[0m16:45:51  16 of 40 OK created sql table model main_stg_asana.stg_asana__story ............ [[32mOK[0m in 0.07s]
+[0m16:45:51  17 of 40 START sql table model main_stg_asana.stg_asana__tag ................... [RUN]
+[0m16:45:51  17 of 40 OK created sql table model main_stg_asana.stg_asana__tag .............. [[32mOK[0m in 0.06s]
+[0m16:45:51  18 of 40 START sql table model main_stg_asana.stg_asana__task_follower ......... [RUN]
+[0m16:45:51  18 of 40 OK created sql table model main_stg_asana.stg_asana__task_follower .... [[32mOK[0m in 0.05s]
+[0m16:45:51  19 of 40 START sql table model main_stg_asana.stg_asana__task_section .......... [RUN]
+[0m16:45:51  19 of 40 OK created sql table model main_stg_asana.stg_asana__task_section ..... [[32mOK[0m in 0.12s]
+[0m16:45:51  20 of 40 START sql table model main_stg_asana.stg_asana__task_tag .............. [RUN]
+[0m16:45:51  20 of 40 OK created sql table model main_stg_asana.stg_asana__task_tag ......... [[32mOK[0m in 0.06s]
+[0m16:45:51  21 of 40 START sql table model main_stg_asana.stg_asana__task .................. [RUN]
+[0m16:45:51  21 of 40 ERROR creating sql table model main_stg_asana.stg_asana__task ......... [[31mERROR[0m in 0.05s]
+[0m16:45:51  22 of 40 START sql table model main_stg_asana.stg_asana__team .................. [RUN]
+[0m16:45:51  22 of 40 OK created sql table model main_stg_asana.stg_asana__team ............. [[32mOK[0m in 0.07s]
+[0m16:45:51  23 of 40 START sql table model main_stg_asana.stg_asana__user .................. [RUN]
+[0m16:45:52  23 of 40 OK created sql table model main_stg_asana.stg_asana__user ............. [[32mOK[0m in 0.04s]
+[0m16:45:52  24 of 40 START sql table model main.int_asana__task_projects ................... [RUN]
+[0m16:45:52  24 of 40 OK created sql table model main.int_asana__task_projects .............. [[32mOK[0m in 0.06s]
+[0m16:45:52  25 of 40 START sql table model main.int_asana__task_tags ....................... [RUN]
+[0m16:45:52  25 of 40 OK created sql table model main.int_asana__task_tags .................. [[32mOK[0m in 0.07s]
+[0m16:45:52  26 of 40 SKIP relation main.int_asana__task_assignee ........................... [[33mSKIP[0m]
+[0m16:45:52  27 of 40 START sql table model main.int_asana__task_followers .................. [RUN]
+[0m16:45:52  27 of 40 OK created sql table model main.int_asana__task_followers ............. [[32mOK[0m in 0.06s]
+[0m16:45:52  28 of 40 START sql table model main.int_asana__task_story ...................... [RUN]
+[0m16:45:52  28 of 40 OK created sql table model main.int_asana__task_story ................. [[32mOK[0m in 0.06s]
+[0m16:45:52  29 of 40 SKIP relation main.int_asana__project_user ............................ [[33mSKIP[0m]
+[0m16:45:52  30 of 40 SKIP relation main.int_asana__subtask_parent .......................... [[33mSKIP[0m]
+[0m16:45:52  31 of 40 START sql table model main.int_asana__task_comments ................... [RUN]
+[0m16:45:52  31 of 40 OK created sql table model main.int_asana__task_comments .............. [[32mOK[0m in 0.05s]
+[0m16:45:52  32 of 40 START sql table model main.int_asana__task_first_modifier ............. [RUN]
+[0m16:45:52  32 of 40 OK created sql table model main.int_asana__task_first_modifier ........ [[32mOK[0m in 0.06s]
+[0m16:45:52  33 of 40 SKIP relation main.int_asana__task_open_length ........................ [[33mSKIP[0m]
+[0m16:45:52  34 of 40 SKIP relation main.asana__task ........................................ [[33mSKIP[0m]
+[0m16:45:52  35 of 40 SKIP relation main.asana__daily_metrics ............................... [[33mSKIP[0m]
+[0m16:45:52  36 of 40 SKIP relation main.asana__metrics ..................................... [[33mSKIP[0m]
+[0m16:45:52  37 of 40 SKIP relation main.asana__tag ......................................... [[33mSKIP[0m]
+[0m16:45:52  38 of 40 SKIP relation main.int_asana__project_task_metrics .................... [[33mSKIP[0m]
+[0m16:45:52  39 of 40 SKIP relation main.int_asana__user_task_metrics ....................... [[33mSKIP[0m]
+[0m16:45:52  40 of 40 SKIP relation main.asana__project ..................................... [[33mSKIP[0m]
+[0m16:45:52  
+[0m16:45:52  Finished running 40 table models in 0 hours 0 minutes and 2.76 seconds (2.76s).
+[0m16:45:52  
+[0m16:45:52  [31mCompleted with 1 error, 0 partial successes, and 0 warnings:[0m
+[0m16:45:52  
+[0m16:45:52  [31mFailure in model stg_asana__task (models/stg_asana__task.sql)[0m
+[0m16:45:52    Runtime Error in model stg_asana__task (models/stg_asana__task.sql)
+  Binder Error: Cannot mix values of type TIMESTAMP and INTEGER in COALESCE operator - an explicit cast is required
+[0m16:45:52  
+[0m16:45:52    compiled code at target/compiled/asana_source/models/stg_asana__task.sql
+[0m16:45:52  
+[0m16:45:52  Done. PASS=28 WARN=0 ERROR=1 SKIP=11 NO-OP=0 TOTAL=40
+DBT_RUN_RC=1

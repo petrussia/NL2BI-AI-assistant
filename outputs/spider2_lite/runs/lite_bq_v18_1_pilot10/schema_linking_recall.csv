@@ -1,0 +1,11 @@
+instance_id,alias,n_columns_indexed,n_tables_indexed,top_db,top_table,top_table_score,pack_token_budget
+bq011,ga4,422562,3989,bigquery-public-data,bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_20210109,8.35,535
+bq010,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170710,4.21,12985
+bq009,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170127,21.07,1033
+bq001,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170127,23.67,1033
+bq002,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170710,21.12,12987
+bq003,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170127,31.9,1031
+bq004,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170710,15.5,12985
+bq008,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170127,15.76,12935
+bq269,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170127,24.29,519
+bq268,ga360,422562,3989,bigquery-public-data,bigquery-public-data.google_analytics_sample.ga_sessions_20170127,34.23,1307

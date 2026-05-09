@@ -1,0 +1,6 @@
+benchmark,lane,n,parse_ok,execute_ok,task_success,non_comparable,status,note
+spider2_dbt,dbt_v4,68,—,27 (dbt_run_ok),9,no,FULL_DONE,real FULL: dbt_run_rc=0 on 27/68 (39.7%); evaluator matched>0 on 9/68 (13.2%)
+spider2_snow,A_sf,10,0,0,—,no,PILOT_only,gate ≥50% failed; 0/10 parse_ok; dialect_fix removed wrong_dialect (2→0); semantic errors dominate
+spider2_lite,A_bq,4,0,0,—,no,PILOT_only,bridge HTTP 500 wave on every BQ task
+spider2_lite,A_sf,3,0,0,—,no,PILOT_only,kernel degraded by BQ wave; syntax errors fast
+spider2_lite,C_sqlite_stub,3,0,0,—,YES,PILOT_only,sqlite_db_missing (E_commerce vs e_commerce) + same bridge wave

@@ -1,0 +1,13 @@
+metric,value
+completed,true
+EX,0.2
+executable_count,2
+total,10
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,smoke_10
+quantization,4bit_bitsandbytes_config
+schema_strategy,lexical_schema_linking+knowledge_proxy_dual_retrieval
+planner,json_plan_v1 + patches
+plan_valid_count,2
+plan_parse_failures,0
+avg_reduction_ratio,0.475

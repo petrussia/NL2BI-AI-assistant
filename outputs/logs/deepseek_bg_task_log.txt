@@ -1,0 +1,4 @@
+[2026-04-30T11:20:13.941457+00:00] DEEPSEEK_BG_START
+[2026-04-30T11:20:14.160527+00:00] gpu free=23.46 total=23.66 GB
+[2026-04-30T11:20:34.167472+00:00] LOAD_FAILED ImportError: cannot import name 'is_torch_fx_available' from 'transformers.utils.import_utils' (/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py)
+[2026-04-30T11:20:34.168490+00:00] DEEPSEEK_BG_DONE_BLOCKED

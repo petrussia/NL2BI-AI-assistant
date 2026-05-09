@@ -1,0 +1,9 @@
+baseline,model,benchmark,subset,n,EX,executable,eval_mode,gold_execution,struct_pct_safe_select,struct_pct_has_join,struct_pct_has_groupby,struct_avg_len_tokens_est,fallback_policy
+b0,Qwen/Qwen2.5-Coder-7B-Instruct,BIRD-Mini-Dev,bird_minidev_30,30,0.26666666666666666,26,,sqlite_minidev,100.0000,63.3333,16.6667,26.7000,
+b2v2,Qwen/Qwen2.5-Coder-7B-Instruct,BIRD-Mini-Dev,bird_minidev_30,30,0.2,22,,sqlite_minidev,100.0000,50.0000,13.3333,25.5667,b1_on_invalid_plan
+b0,Qwen/Qwen2.5-Coder-7B-Instruct,Spider-2-Lite,spider2lite_30,30,0.0,0,prediction_only_structural_metrics,NOT_AVAILABLE_bigquery_snowflake_only,96.6667,40.0000,60.0000,43.2333,
+b2v2,Qwen/Qwen2.5-Coder-7B-Instruct,Spider-2-Lite,spider2lite_30,30,0.0,0,prediction_only_structural_metrics,NOT_AVAILABLE_bigquery_snowflake_only,96.6667,53.3333,60.0000,46.1000,b1_on_invalid_plan
+b0,meta-llama/Llama-3.1-8B-Instruct,BIRD-Mini-Dev,bird_minidev_30,30,0.13333333333333333,20,,sqlite_minidev,100.0000,66.6667,13.3333,25.1000,
+b2v2,meta-llama/Llama-3.1-8B-Instruct,BIRD-Mini-Dev,bird_minidev_30,30,0.06666666666666667,16,,sqlite_minidev,100.0000,50.0000,10.0000,22.2333,b1_on_invalid_plan
+b0,meta-llama/Llama-3.1-8B-Instruct,Spider-2-Lite,spider2lite_30,30,0.0,0,prediction_only_structural_metrics,NOT_AVAILABLE_bigquery_snowflake_only,100.0000,66.6667,36.6667,51.8000,
+b2v2,meta-llama/Llama-3.1-8B-Instruct,Spider-2-Lite,spider2lite_30,30,0.0,0,prediction_only_structural_metrics,NOT_AVAILABLE_bigquery_snowflake_only,100.0000,43.3333,36.6667,51.5667,b1_on_invalid_plan

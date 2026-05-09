@@ -1,0 +1,1 @@
+{"error_type": "TypeError", "error": "object of type 'NoneType' has no len()", "traceback": "Traceback (most recent call last):\n  File \"<string>\", line 721, in _runner\n  File \"<string>\", line 659, in run_pilot_v13\nTypeError: object of type 'NoneType' has no len()\n", "ts": "2026-05-08T17:54:25.290786+00:00"}

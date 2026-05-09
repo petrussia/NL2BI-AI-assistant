@@ -1,0 +1,78 @@
+path,size_bytes,subfolder,must_read,priority,purpose
+01_master/README_FIRST.txt,2177,01_master,YES,1,Первое что прочитать
+01_master/REPORT.md,4872,01_master,YES,1,Главный обзорный отчёт
+01_master/final_experiment_master_matrix.csv,15763,01_master,optional,3,Вспомогательный файл
+01_master/final_experiment_master_matrix.md,9862,01_master,optional,3,Вспомогательный файл
+01_master/final_negative_result_analysis.md,2210,01_master,optional,3,Вспомогательный файл
+01_master/final_scientific_findings.md,4392,01_master,optional,3,Вспомогательный файл
+01_master/final_submission_readiness.md,2540,01_master,optional,3,Вспомогательный файл
+02_numbers/final_numbers_for_joint_report.csv,2173,02_numbers,optional,3,Вспомогательный файл
+02_numbers/final_numbers_for_joint_report.md,4172,02_numbers,YES,1,Все цифры для вставки
+03_tables/b3v2_vs_b3v1.csv,362,03_tables,YES,2,Таблица для вставки
+03_tables/b4v2_vs_b4final.csv,378,03_tables,YES,2,Таблица для вставки
+03_tables/component_registry.csv,1185,03_tables,YES,2,Таблица для вставки
+03_tables/external_validation_matrix.md,1333,03_tables,YES,2,Таблица для вставки
+03_tables/full_closure_gap_matrix.md,6961,03_tables,YES,2,Таблица для вставки
+03_tables/master_matrix.md,9862,03_tables,YES,2,Таблица для вставки
+03_tables/multidb30_strongest_configs.md,716,03_tables,YES,2,Таблица для вставки
+03_tables/qwen14b_vs_qwen7b_comparison.md,1628,03_tables,YES,2,Таблица для вставки
+03_tables/table_insertion_order.md,938,03_tables,YES,2,Таблица для вставки
+03_tables/table_list_for_joint_report.md,2242,03_tables,YES,2,Таблица для вставки
+04_figures/ablation_pipeline_ladder.png,73464,04_figures,YES,2,Рисунок для вставки
+04_figures/external_validation_overview.png,100501,04_figures,YES,2,Рисунок для вставки
+04_figures/figure_captions_ready.md,1079,04_figures,optional,3,Вспомогательный файл
+04_figures/figure_list_for_joint_report.md,2162,04_figures,optional,3,Вспомогательный файл
+04_figures/master_overview.png,62810,04_figures,YES,2,Рисунок для вставки
+04_figures/model_comparison_multidb30.png,53343,04_figures,YES,2,Рисунок для вставки
+04_figures/model_comparison_smoke25.png,50580,04_figures,YES,2,Рисунок для вставки
+04_figures/multidb30_strongest_configs.png,49340,04_figures,YES,2,Рисунок для вставки
+04_figures/strongest_baselines_overview.png,67215,04_figures,YES,2,Рисунок для вставки
+04_figures/system_architecture_overview.png,96975,04_figures,YES,2,Рисунок для вставки
+05_text_blocks/01_section3_shubin_ready_blocks.md,5286,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/02_section5_shubin_ready_blocks.md,4114,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/03_section6_shubin_ready_blocks.md,7084,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/04_conclusion_shubin_ready_blocks.md,4587,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/05_personal_contribution_shubin_ready_block.md,3732,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/06_limitations_and_blockers_ready_block.md,3813,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/07_results_summary_short_block.md,1884,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/08_results_summary_full_block.md,2115,05_text_blocks,YES,2,Готовый текстовый блок для вставки
+05_text_blocks/09_docx_patch_map_for_joint_report.md,6327,05_text_blocks,YES,1,Куда какой блок вставлять
+06_experiment_evidence/analytics_payload_v1_example.csv,7,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/analytics_payload_v1_example.json,729,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/b0_qwen14b_multidb_rightsizing_neg.jsonl,14001,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/b0_qwen7b_bird_strongest_external.jsonl,31967,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/b0_qwen7b_multidb30_strongest_direct.jsonl,13784,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/b0_qwen7b_smoke10_strongest_direct.jsonl,4383,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/b2v2_qwen7b_multidb30_strongest_layered.jsonl,16233,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/b3_qwen7b_smoke10_negative_case.jsonl,11177,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/deepseek_blocker_evidence.md,2043,06_experiment_evidence,optional,3,Доказательная база per-item
+06_experiment_evidence/evidence_shortlist.md,1684,06_experiment_evidence,optional,3,Доказательная база per-item
+07_design_and_arch/architecture_document.md,9199,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/architecture_document_v2.md,6310,07_design_and_arch,YES,2,Архитектурный документ defense-final
+07_design_and_arch/architecture_ops_short_defense_notes.md,1804,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/design_docs_guide.md,1931,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/functional_specification.md,3311,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/installation_and_runtime.md,3635,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/io_contracts.md,3588,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/operations_manual.md,6037,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/operations_manual_v2.md,5527,07_design_and_arch,YES,2,Operations manual defense-final
+07_design_and_arch/plan_schema.json,3549,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/plan_schema_v1.json,3700,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/testing_methodology.md,4136,07_design_and_arch,optional,3,Вспомогательный файл
+07_design_and_arch/use_cases_and_scenarios.md,3864,07_design_and_arch,optional,3,Вспомогательный файл
+08_appendices/appendix_map.md,2095,08_appendices,optional,3,Приложение к ВКР
+08_appendices/bird_mini_dev_acquisition.md,859,08_appendices,optional,3,Приложение к ВКР
+08_appendices/deepseek_blocker_final_h100.md,2043,08_appendices,optional,3,Приложение к ВКР
+08_appendices/deepseek_blocker_reproduction_checklist.csv,1479,08_appendices,optional,3,Приложение к ВКР
+08_appendices/external_adapter_design.md,1866,08_appendices,optional,3,Приложение к ВКР
+08_appendices/external_benchmark_acquisition_summary.md,1107,08_appendices,optional,3,Приложение к ВКР
+08_appendices/external_validation_scientific_readout.md,4246,08_appendices,optional,3,Приложение к ВКР
+08_appendices/full_closure_gap_matrix.csv,19118,08_appendices,optional,3,Приложение к ВКР
+08_appendices/full_closure_gap_matrix.md,6961,08_appendices,optional,3,Приложение к ВКР
+08_appendices/full_closure_plan.md,2723,08_appendices,optional,3,Приложение к ВКР
+08_appendices/llama_blocker_final.md,1098,08_appendices,optional,3,Приложение к ВКР
+08_appendices/model_block_closure.md,2462,08_appendices,optional,3,Приложение к ВКР
+08_appendices/multidb30_scientific_readout_final.md,1535,08_appendices,optional,3,Приложение к ВКР
+08_appendices/qwen14b_blocker.md,1836,08_appendices,optional,3,Приложение к ВКР
+08_appendices/spider2_lite_acquisition.md,859,08_appendices,optional,3,Приложение к ВКР
+08_appendices/spider2_lite_eval_limitations.md,1795,08_appendices,optional,3,Приложение к ВКР

@@ -1,0 +1,14 @@
+# b0_llama_3p1_8b_instruct_smoke25 Error Cases
+
+|idx|question|db_id|generated_sql|executable|execution_match|error_type|path|
+|---|---|---|---|---|---|---|---|
+|6|Show the name and the release year of the song by the youngest singer.|concert_singer|SELECT T2.Name, T2.`Song_release_year` <br>FROM singer_in_concert AS T1 <br>JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID <br>WHERE T2.Age = ( SELECT MIN(T2.Age) FROM singer_in_concert AS T1 <br>                 JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID );|True|False|result_mismatch|direct_full_schema|
+|7|What are the names and release years for all the songs of the youngest singer?|concert_singer|SELECT T2.Name, T2.Song_Name, T2.Song_release_year <br>FROM singer_in_concert AS T1 <br>JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID <br>WHERE T2.Age = ( SELECT MIN(T2.Age) FROM singer AS T2 );|True|False|result_mismatch|direct_full_schema|
+|8|What are all distinct countries where singers above age 20 are from?|concert_singer|SELECT T2.Country <br>FROM singer_in_concert AS T1 <br>JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID <br>WHERE T2.Age > 20;|True|False|result_mismatch|direct_full_schema|
+|9|What are  the different countries with singers above age 20?|concert_singer|SELECT DISTINCT T2.Country FROM singer AS T1 INNER JOIN singer_in_concert AS T2 ON T1.Singer_ID = T2.Singer_ID WHERE T1.Age > 20;|False|False|OperationalError|direct_full_schema|
+|10|Show all countries and the number of singers in each country.|concert_singer|SELECT T2.Country, COUNT(T1.Singer_ID) FROM singer_in_concert AS T1 INNER JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID GROUP BY T2.Country;|True|False|result_mismatch|direct_full_schema|
+|11|How many singers are from each country?|concert_singer|SELECT COUNT(Singer_ID), Country FROM singer GROUP BY Country;|True|False|result_mismatch|direct_full_schema|
+|12|List all song names by singers above the average age.|concert_singer|SELECT T2.Song_Name <br>FROM singer AS T1 <br>JOIN singer_in_concert AS T2 ON T1.Singer_ID = T2.Singer_ID <br>JOIN concert AS T3 ON T2.concert_ID = T3.concert_ID <br>JOIN stadium AS T4 ON T3.Stadium_ID = T4.Stadium_ID <br>WHERE T1.Age > ( SELECT AVG(Age) FROM singer );|False|False|OperationalError|direct_full_schema|
+|13|What are all the song names by singers who are older than average?|concert_singer|SELECT T2.Song_Name <br>FROM singer_in_concert AS T1 <br>JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID <br>JOIN (SELECT AVG(Age) AS Average_Age FROM singer) AS T3 ON 1=1 <br>WHERE T2.Age > T3.Average_Age;|True|False|result_mismatch|direct_full_schema|
+|16|What is the maximum capacity and the average of all stadiums ?|concert_singer|SELECT MAX(Capacity), AVG(Capacity) FROM stadium;|True|False|result_mismatch|direct_full_schema|
+|23|For each stadium, how many concerts play there?|concert_singer|SELECT Stadium_ID, COUNT(concert_ID) FROM concert GROUP BY Stadium_ID;|True|False|result_mismatch|direct_full_schema|

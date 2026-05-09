@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,avg_reduction_ratio,fallback_full_schema_count
+b1_spider_smoke25,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_25,25,24,0.96,25,4bit_bitsandbytes_config,lexical_schema_linking,0.58,6

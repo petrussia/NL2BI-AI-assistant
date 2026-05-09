@@ -1,0 +1,9 @@
+metric,value
+completed,true
+EX,0.6
+executable_count,23
+total,25
+model,meta-llama/Llama-3.1-8B-Instruct
+subset,smoke_25
+quantization,bf16
+schema_strategy,full_schema

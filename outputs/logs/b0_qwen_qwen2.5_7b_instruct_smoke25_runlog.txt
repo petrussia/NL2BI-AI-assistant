@@ -1,0 +1,10 @@
+b0_qwen_qwen2.5_7b_instruct_smoke25 run log
+checked_at: 2026-04-30T19:17:43.292572+00:00
+model: Qwen/Qwen2.5-7B-Instruct
+subset: smoke_25
+benchmark_group: internal_core
+total: 25
+executable_count: 23
+execution_match_count: 18
+EX: 0.72
+elapsed_seconds: 30.74

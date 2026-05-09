@@ -1,0 +1,10 @@
+metric,value
+completed,true
+EX,0.72
+executable_count,23
+total,25
+model,meta-llama/Llama-3.1-8B-Instruct
+subset,smoke_25
+quantization,bf16
+schema_strategy,lexical_schema_linking
+avg_reduction_ratio,0.58

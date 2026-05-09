@@ -1,0 +1,9 @@
+metric,value
+n,10
+chosen_schema_valid,3
+parse_ok,0
+execute_ok,0
+constrained_repair_helpful,3
+nested_rewrite_applied,0
+false_positive_struct_skips,29
+wildcard_table_resolves,6

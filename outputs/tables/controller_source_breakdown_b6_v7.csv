@@ -1,0 +1,9 @@
+benchmark,source,count,pct,em,em_rate
+spider_dev,C0_anchor,946,0.9149,759,0.8023
+spider_dev,C3_planner_compiled,60,0.058,23,0.3833
+spider_dev,C2_retrieval_evidence,15,0.0145,8,0.5333
+spider_dev,C1_retrieval_direct,13,0.0126,4,0.3077
+bird_full,C0_anchor,234,0.468,109,0.4658
+bird_full,C2_retrieval_evidence,170,0.34,69,0.4059
+bird_full,C3_planner_compiled,49,0.098,10,0.2041
+bird_full,C1_retrieval_direct,47,0.094,6,0.1277

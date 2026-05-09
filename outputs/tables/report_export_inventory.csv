@@ -1,0 +1,6 @@
+category,count,source_dir
+metrics_csv,98,outputs/metrics/
+predictions_jsonl,98,outputs/predictions/
+plots_png,16,outputs/plots/
+docs_md,10,outputs/docs/
+thesis_pack_md,17,outputs/thesis_pack_shubin/

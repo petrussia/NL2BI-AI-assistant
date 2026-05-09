@@ -1,0 +1,9 @@
+b3v2_multidb30 run log
+checked_at: 2026-04-30T11:32:26.857679+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: multidb_30
+total: 30
+executable_count: 29
+execution_match_count: 22
+EX: 0.7333333333333333
+elapsed_seconds: 183.22

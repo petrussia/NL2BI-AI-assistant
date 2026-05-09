@@ -1,0 +1,23 @@
+{
+  "run_id": "sf_limit10_1778084145",
+  "utc": "2026-05-06T16:16:00.832741+00:00",
+  "benchmark": "spider2-lite",
+  "engine": "snowflake",
+  "limit": 10,
+  "inference": "manual",
+  "execute_flag": "true",
+  "will_execute": false,
+  "readiness_can_execute_real_sql": false,
+  "readiness_missing_dbs_n": 1,
+  "readiness_reason": "1 required databases not visible (first missing: ['PATENTS'])",
+  "required_dbs": [
+    "PATENTS"
+  ],
+  "visible_dbs_count": 3,
+  "self_host_eligible": false,
+  "cloud": "AWS",
+  "region": "ap-south-1",
+  "predictions_path": "D:\\HSE\\Диплом\\NL2BI-AI-assistant\\outputs\\snowflake\\runs\\sf_limit10_1778084145\\predictions.jsonl",
+  "rows_written": 10,
+  "rows_blocked": 10
+}

@@ -1,0 +1,5 @@
+baseline,subset,n,EX,executable_count,avg_reduction_ratio
+B0,smoke_10,10,1.0,10,
+B1,smoke_10,10,1.0,10,0.475
+B0,smoke_25,25,0.96,25,
+B1,smoke_25,25,0.96,25,0.58

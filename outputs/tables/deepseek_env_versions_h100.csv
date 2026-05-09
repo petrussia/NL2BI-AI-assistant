@@ -1,0 +1,10 @@
+name,path
+tokenizers,/tmp/ds_env/tokenizers
+tokenizers-0.19.1.dist-info,/tmp/ds_env/tokenizers-0.19.1.dist-info
+huggingface_hub-0.24.7.dist-info,/tmp/ds_env/huggingface_hub-0.24.7.dist-info
+transformers,/tmp/ds_env/transformers
+bin,/tmp/ds_env/bin
+safetensors,/tmp/ds_env/safetensors
+safetensors-0.7.0.dist-info,/tmp/ds_env/safetensors-0.7.0.dist-info
+huggingface_hub,/tmp/ds_env/huggingface_hub
+transformers-4.39.3.dist-info,/tmp/ds_env/transformers-4.39.3.dist-info

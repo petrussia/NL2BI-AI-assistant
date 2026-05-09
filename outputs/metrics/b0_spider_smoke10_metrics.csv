@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization
+b0_spider_smoke10,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_10,10,10,1.0,10,device_map_auto_no_4bit_fallback

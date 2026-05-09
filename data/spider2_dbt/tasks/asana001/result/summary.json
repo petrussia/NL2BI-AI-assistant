@@ -1,0 +1,11 @@
+{
+  "task_id": "asana001",
+  "remote_root": "/home/denis/dbt/outputs/colab_bridge/tasks/asana001",
+  "local_dir": "D:\\HSE\\Диплом\\NL2BI-AI-assistant\\data\\spider2_dbt\\tasks\\asana001\\result",
+  "has_result_json": true,
+  "has_run_results_json": true,
+  "dbt_run_rc": 1,
+  "dbt_test_rc": 1,
+  "overall_ok": false,
+  "eval_status": "ok"
+}

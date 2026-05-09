@@ -1,0 +1,12 @@
+file,present,size_b,expected_hits,suspicious_decimals,sample_suspicious,verdict
+REPORT.md,True,9400,27,0,,OK
+logs/final_scientific_findings.md,True,3468,16,0,,OK
+logs/final_negative_result_analysis.md,True,2125,18,2,0.2666|0.2666,CHECK
+logs/multidb30_scientific_readout_final.md,True,1535,14,0,,OK
+thesis_pack_shubin/01_final_numbers.md,True,2335,26,0,,OK
+thesis_pack_shubin/02_final_tables.md,True,5188,26,0,,OK
+thesis_pack_shubin/04_scientific_conclusions.md,True,3088,3,0,,OK
+thesis_pack_shubin/09_defense_narrative_shubin.md,True,4146,3,0,,OK
+thesis_pack_shubin/10_answers_to_expected_questions.md,True,7014,2,0,,OK
+thesis_pack_shubin/11_final_insertion_blocks.md,True,8653,16,0,,OK
+tables/final_experiment_master_matrix.md,True,3163,27,0,,OK

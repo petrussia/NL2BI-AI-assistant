@@ -1,0 +1,4 @@
+pilot,n,total_wall_s,s_per_task,engine_cost,note
+spider2_lite_bq_v11_pilot10,10,1232,123,0 BQ bytes billed,validator gate stopped all 30 candidate SQL strings before live execute
+spider2_snow_v12_pilot10,10,1573,157,0 SF credits (--no-execute),3-round repair adds ~30-50s/task vs v11
+spider2_dbt_v4_FULL_68 (Phase 11),68,3360,49,server compute only,task_success 9/68

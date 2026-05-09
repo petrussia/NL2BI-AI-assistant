@@ -1,0 +1,6 @@
+benchmark,n_full,n_pilot,parse_ok_pilot,execute_ok_pilot,task_success_pilot,non_comparable,status,run_id_pilot
+spider2_snow,547,3,0,0,0,no,PILOT_only_FULL_deferred,snow_v8_pilot3
+spider2_lite_bq,205,1,0,0,0,no,PILOT_only_FULL_deferred,lite_v8_pilot_1plus1plus1
+spider2_lite_sf,207,1,0,0,0,no,PILOT_only_FULL_deferred,lite_v8_pilot_1plus1plus1
+spider2_lite_sqlite,135,1,0,0,0,YES,PILOT_only_NON_COMPARABLE,lite_v8_pilot_1plus1plus1
+spider2_dbt_v4,68,3,3,1,1,no,PILOT_only_FULL_deferred,dbt_v8_pilot3

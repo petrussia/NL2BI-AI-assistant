@@ -1,0 +1,14 @@
+layer,component,module_or_artifact,closes_tz_item,status
+1. NL analysis,Query Analyzer,repo/src/evaluation/query_analysis.py,2.2.1,done
+2. Source linking,Lexical Schema Linker,repo/src/evaluation/baselines.py,2.2.2,done
+2b. Cross-DB retrieval,Lexical retrieval,repo/src/evaluation/retrieval.py,2.2.2,done
+2c. Knowledge channel,Per-table doc proxy,repo/src/evaluation/baselines_b3.py,2.2.2 (extended),done
+3. Planner,JSON Plan emitter,repo/src/evaluation/baselines_b2.py + b2_v1.py,2.2.4,done
+4. Plan validator,jsonschema,repo/docs/plan_schema_v1.json,2.2.4,done
+5. SQL synthesizer,plan→sql prompt,baselines_b2*.py + baselines_b3.py,2.2.3,done
+6. Validation gate,SELECT-only AST guard,baselines_b4.py::is_safe_select,2.2.3 (safety),done
+7. Multi-candidate + Repair,sampling + consistency,baselines_b4.py,2.2.4,done
+8. Executor,SQLite + 8s timeout,func_timeout-wrapped execute_sql,2.2.3 (performance),done
+9. Postprocess,normalize + summary,postprocess.py,2.2.5,done
+10. Analytics handoff,v1 JSON+CSV contract,postprocess.py::build_analytics_payload,2.2.6,done
+11. Bridge tooling,Flask + cloudflared + exec_remote,notebook cell 7f6bca53 + tools/exec_remote.py,infra,done

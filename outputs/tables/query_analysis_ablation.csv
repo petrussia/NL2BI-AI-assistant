@@ -1,0 +1,14 @@
+subset,n,aggregation_any,distinct,ordering_any,limit_any,comparison_any,time_any,join_hint
+smoke_10,10,7,2,4,3,2,2,0
+smoke_25,25,20,2,7,4,3,5,1
+
+subset,intent,count
+smoke_10,select_aggregate,2
+smoke_10,select_count,2
+smoke_10,select_distinct,2
+smoke_10,select_orderby,4
+smoke_25,select_aggregate,6
+smoke_25,select_count,8
+smoke_25,select_distinct,2
+smoke_25,select_orderby,7
+smoke_25,select_other,2

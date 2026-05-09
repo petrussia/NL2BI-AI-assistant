@@ -1,0 +1,14 @@
+B1 smoke10 run log
+checked_at: 2026-04-25T15:46:39.158433+00:00
+project_root: /content/drive/MyDrive/diploma_plan_sql
+spider_dir: /content/drive/MyDrive/diploma_plan_sql/data/spider
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+quantization: 4bit_bitsandbytes_config
+schema_strategy: lexical_schema_linking
+total: 10
+executable_count: 10
+execution_match_count: 10
+EX: 1.0
+avg_reduction_ratio: 0.475
+fallback_full_schema_count: 2
+elapsed_seconds: 303.91

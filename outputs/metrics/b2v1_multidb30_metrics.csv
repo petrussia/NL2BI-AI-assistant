@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,planner,plan_valid_count,plan_parse_failures,avg_reduction_ratio
+b2v1_multidb30,Qwen/Qwen2.5-Coder-7B-Instruct,multidb_30,30,19,0.6333333333333333,26,4bit_bitsandbytes_config,lexical_schema_linking,json_plan_v1 + patches,28,0,0.5527777777777777

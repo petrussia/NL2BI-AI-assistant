@@ -1,0 +1,9 @@
+b1_qwen_qwen2.5_7b_instruct_smoke10 run log
+checked_at: 2026-04-29T14:43:32.794858+00:00
+model: Qwen/Qwen2.5-7B-Instruct
+subset: smoke_10
+total: 10
+executable_count: 10
+execution_match_count: 10
+EX: 1.0
+elapsed_seconds: 20.15

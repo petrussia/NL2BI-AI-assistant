@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,planner,plan_valid_count,plan_parse_failures,avg_reduction_ratio
+b3_spider_smoke10,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_10,10,2,0.2,2,4bit_bitsandbytes_config,lexical_schema_linking+knowledge_proxy_dual_retrieval,json_plan_v1 + patches,2,0,0.475

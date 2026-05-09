@@ -1,0 +1,6 @@
+metric,value
+N,500
+planner_used,500
+plan_valid,2
+fallback_used,498
+execution_match,98

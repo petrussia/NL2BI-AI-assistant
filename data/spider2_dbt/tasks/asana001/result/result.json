@@ -1,0 +1,21 @@
+{
+  "task_id": "asana001",
+  "workspace": "/home/denis/dbt/outputs/colab_bridge/tasks/asana001/workspace",
+  "logs_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/asana001/logs",
+  "dbt_deps_skipped": false,
+  "dbt_test_skipped": false,
+  "dbt_run_rc": 1,
+  "dbt_test_rc": 1,
+  "has_run_results_json": true,
+  "eval_status": "ok",
+  "overall_ok": false,
+  "official_score": {
+    "rate": 0.0,
+    "matched": 0,
+    "total": 1
+  },
+  "official_eval_rc": 0,
+  "official_stdout_tail": "1\n0.0 0 1\n",
+  "official_stderr_tail": "\n  0%|          | 0/1 [00:00<?, ?it/s]\n100%|██████████| 1/1 [00:00<00:00, 11.63it/s]\n",
+  "official_eval_command": "/home/denis/dbt/.venv/bin/python /home/denis/dbt/vendor/Spider2/spider2-dbt/evaluation_suite/evaluate.py --result_dir /tmp/spider2_eval_asana001_2epl6upy --gold_dir /home/denis/dbt/vendor/Spider2/spider2-dbt/evaluation_suite/gold"
+}

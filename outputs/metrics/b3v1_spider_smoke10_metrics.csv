@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,quantization,schema_strategy,planner,plan_valid_count,plan_parse_failures,avg_reduction_ratio,knowledge_enabled_count
+b3v1_spider_smoke10,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_10,10,3,0.3,5,4bit_bitsandbytes_config,adaptive_dual_retrieval (knowledge OFF when <5 tables),json_plan_v1 + patches (compact prompt),5,0,0.475,0

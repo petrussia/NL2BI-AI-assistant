@@ -1,0 +1,10 @@
+b3v2_llama_3p1_8b_multidb30 run log
+checked_at: 2026-04-30T17:34:05.508622+00:00
+model: meta-llama/Llama-3.1-8B-Instruct
+subset: multidb_30
+benchmark_group: internal_core
+total: 30
+executable_count: 29
+execution_match_count: 20
+EX: 0.6666666666666666
+elapsed_seconds: 87.66

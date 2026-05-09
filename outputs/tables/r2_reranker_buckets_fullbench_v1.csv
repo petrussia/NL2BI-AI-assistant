@@ -1,0 +1,9 @@
+benchmark,reranker_bucket,reranker_lo,reranker_hi,n,em,em_rate
+spider_dev,low,0.0,0.5,0,0,0.0
+spider_dev,mid,0.5,0.8,1,1,1.0
+spider_dev,high,0.8,0.95,9,4,0.4444
+spider_dev,very_high,0.95,1.01,1024,787,0.7686
+bird_full,low,0.0,0.5,3,0,0.0
+bird_full,mid,0.5,0.8,5,1,0.2
+bird_full,high,0.8,0.95,8,0,0.0
+bird_full,very_high,0.95,1.01,484,155,0.3202

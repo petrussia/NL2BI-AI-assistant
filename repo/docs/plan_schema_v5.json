@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "plan_schema_v5",
+  "title": "Phase B Plan IR (v5 stack — drives sql_compiler_v2)",
+  "description": "Structured semantic plan IR consumed by sql_compiler_v2. Designed so the compiler can deterministically render SQL for the supported families: count/aggregate/filter/top-k/simple-join/group-by/having/distinct/set-op. Replaces v2 (compact) plan schema for the new v5 stack; the v2 file stays committed and used by older B2_v3/B4_v3 baselines for reproducibility.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["answer_shape", "join_anchor_nodes"],
+  "properties": {
+    "answer_shape": {
+      "type": "string",
+      "enum": ["scalar", "table", "grouped"],
+      "description": "scalar = exactly one row/value (COUNT, SUM, MAX...); table = list of rows; grouped = aggregated by dimensions"
+    },
+    "measures": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": ["agg", "expr"],
+        "properties": {
+          "agg": {"type": "string", "enum": ["count", "count_distinct", "sum", "avg", "min", "max", "none"]},
+          "expr": {"type": "string", "description": "qualified table.column or '*' or 'table.*'"},
+          "alias": {"type": ["string", "null"], "default": null}
+        }
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": ["expr"],
+        "properties": {
+          "expr": {"type": "string", "description": "qualified table.column"},
+          "time_grain": {"type": ["string", "null"], "enum": [null, "year", "month", "day", "week", "quarter"], "default": null},
+          "alias": {"type": ["string", "null"], "default": null}
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": ["expr", "op"],
+        "properties": {
+          "expr": {"type": "string", "description": "qualified table.column"},
+          "op": {"type": "string", "enum": ["=", "!=", "<", "<=", ">", ">=", "in", "not in", "like", "not like", "between", "is null", "is not null"]},
+          "rhs": {},
+          "rhs_type": {"type": ["string", "null"], "enum": [null, "int", "float", "string", "date", "column", "list_int", "list_string", "tuple"], "default": "string"}
+        }
+      }
+    },
+    "join_anchor_nodes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "join_path_ids": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "edge as 'tableA.colA -> tableB.colB'"
+        }
+      }
+    },
+    "having": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": ["agg", "expr", "op"],
+        "properties": {
+          "agg": {"type": "string", "enum": ["count", "sum", "avg", "min", "max"]},
+          "expr": {"type": "string"},
+          "op": {"type": "string", "enum": ["=", "!=", "<", "<=", ">", ">="]},
+          "rhs": {},
+          "rhs_type": {"type": ["string", "null"], "default": "int"}
+        }
+      }
+    },
+    "ordering": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "required": ["expr"],
+        "properties": {
+          "expr": {"type": "string"},
+          "direction": {"type": "string", "enum": ["asc", "desc"], "default": "asc"}
+        }
+      }
+    },
+    "limit": {"type": ["integer", "null"], "default": null},
+    "distinct": {"type": "boolean", "default": false},
+    "set_operation": {
+      "type": ["object", "null"],
+      "default": null,
+      "properties": {
+        "op": {"type": "string", "enum": ["union", "union_all", "intersect", "except"]},
+        "other_plan": {"$ref": "#"}
+      }
+    },
+    "requires_nested": {"type": "boolean", "default": false},
+    "requires_window": {"type": "boolean", "default": false},
+    "time_grain": {"type": ["string", "null"], "default": null},
+    "dialect": {"type": "string", "default": "sqlite"},
+    "confidence": {"type": "number", "default": 0.5}
+  }
+}

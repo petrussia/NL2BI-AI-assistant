@@ -1,0 +1,27 @@
+[2026-04-29T14:35:04.180941+00:00] B3_B4_BG_START
+[2026-04-29T14:35:04.181996+00:00] smoke10 N=10
+[2026-04-29T14:35:04.182238+00:00] === B3 smoke10 ===
+[2026-04-29T14:35:10.260049+00:00]   B3  0 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-29T14:35:14.035090+00:00]   B3  1 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-29T14:35:21.416543+00:00]   B3  2 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:35:28.830372+00:00]   B3  3 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:35:36.774669+00:00]   B3  4 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:35:44.700618+00:00]   B3  5 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:35:53.648659+00:00]   B3  6 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:00.223854+00:00]   B3  7 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:04.516267+00:00]   B3  8 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:08.823376+00:00]   B3  9 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:08.825211+00:00] B3_smoke10_DONE EX=0.2000
+[2026-04-29T14:36:08.825264+00:00] === B4 smoke10 ===
+[2026-04-29T14:36:14.650772+00:00]   B4  0 concert_singer       plan_valid=True cand=3 chosen='consistency_winner' exec=True match=True err=''
+[2026-04-29T14:36:20.231845+00:00]   B4  1 concert_singer       plan_valid=True cand=3 chosen='consistency_winner' exec=True match=True err=''
+[2026-04-29T14:36:27.555010+00:00]   B4  2 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:34.879813+00:00]   B4  3 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:42.758308+00:00]   B4  4 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:50.588616+00:00]   B4  5 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:59.525463+00:00]   B4  6 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:59.528217+00:00]   B4  7 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:59.530368+00:00]   B4  8 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:59.532386+00:00]   B4  9 concert_singer       plan_valid=False cand=0 chosen='' exec=False match=False err='plan_invalid'
+[2026-04-29T14:36:59.533572+00:00] B4_smoke10_DONE EX=0.2000 repaired=0 rejected_unsafe=0
+[2026-04-29T14:36:59.533625+00:00] B3_B4_BG_DONE

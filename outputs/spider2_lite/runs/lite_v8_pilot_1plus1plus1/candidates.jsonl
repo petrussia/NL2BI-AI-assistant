@@ -1,0 +1,7 @@
+{"source": "C0_direct", "parses": false, "table_refs_n": 2, "unknown_tables_n": 0, "sql_chars": 723, "error_type": "unknown", "bytes_processed": 0, "score": 3.3, "instance_id": "bq011", "lane": "A_bq"}
+{"source": "C1_retrieval_docs", "parses": false, "table_refs_n": 2, "unknown_tables_n": 0, "sql_chars": 771, "error_type": "unknown", "bytes_processed": 0, "score": 3.35, "instance_id": "bq011", "lane": "A_bq"}
+{"source": "C2_cte_decomp", "parses": false, "table_refs_n": 2, "unknown_tables_n": 2, "sql_chars": 882, "error_type": "unknown", "bytes_processed": 0, "score": 2.4, "instance_id": "bq011", "lane": "A_bq"}
+{"source": "C0_direct", "parses": false, "executable": null, "sql_chars": 450, "error_type": "object_not_found", "instance_id": "sf_bq029", "lane": "A_sf"}
+{"source": "C1_retrieval_docs", "parses": false, "executable": null, "sql_chars": 539, "error_type": "object_not_found", "instance_id": "sf_bq029", "lane": "A_sf"}
+{"source": "C2_cte_decomp", "parses": false, "executable": null, "sql_chars": 1118, "error_type": "syntax", "instance_id": "sf_bq029", "lane": "A_sf"}
+{"source": "C0_direct", "parses": false, "executable": false, "sql_chars": 131, "error_type": "sqlite_db_missing", "instance_id": "local002", "lane": "C_sqlite_stub"}

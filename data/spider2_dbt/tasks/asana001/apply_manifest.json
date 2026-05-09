@@ -1,0 +1,11 @@
+{
+  "task_id": "asana001",
+  "kind": "sql_file",
+  "files_pushed": [
+    "models/asana__metrics.sql"
+  ],
+  "remote_workspace": "/home/denis/dbt/outputs/colab_bridge/tasks/asana001/workspace",
+  "remote_incoming": "/home/denis/dbt/outputs/colab_bridge/tasks/asana001/incoming",
+  "response_chars": 662,
+  "fenced_blocks_n": 1
+}

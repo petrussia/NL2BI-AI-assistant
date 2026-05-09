@@ -1,0 +1,3 @@
+cell,n,em,em_rate,demo_chars_avg,demo_n_avg,C0_anchor,C1_retrieval,C2_evidence,C3_planner
+S1_v7,1034,789,0.7631,612.6634429400386,3.0,815,154,20,45
+B6_v7 (no demos),1034,794,0.7679,0,0,946,13,15,60

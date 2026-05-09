@@ -1,0 +1,143 @@
+"""
+run_cell.py — convenient tool for the agent to drive the Colab-attached notebook.
+
+Usage:
+  python run_cell.py CELL_ID [--max-wait SEC] [--poll SEC] [--initial-wait SEC] [--quiet]
+
+What it does:
+  1. Reads notebook JSON, snapshots cell's current execution_count.
+  2. Invokes the PowerShell helper to send Shift+Enter on that cell.
+  3. Polls notebook JSON every `--poll` seconds; waits until execution_count
+     changes or until `--max-wait` elapses.
+  4. Prints the cell's stdout/stderr outputs and exits with appropriate code.
+
+Exit codes:
+  0 = cell ran, no error in outputs
+  1 = cell ran but errored (notebook 'error' output present)
+  2 = could not find cell / helper failed
+  3 = timed out waiting for execution_count to change
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+NB = Path(r"D:\HSE\Диплом\NL2BI-AI-assistant\notebooks\example.ipynb")
+HELPER = Path(r"D:\HSE\Диплом\NL2BI-AI-assistant\scripts\run_colab_notebook.ps1")
+
+
+def load_nb():
+    return json.loads(NB.read_text(encoding="utf-8"))
+
+
+def find_cell(nb_data, cell_id):
+    for i, c in enumerate(nb_data.get("cells", [])):
+        if c.get("id") == cell_id:
+            return i, c
+    return None, None
+
+
+def cell_outputs_text(cell):
+    parts = []
+    has_error = False
+    for o in cell.get("outputs", []):
+        ot = o.get("output_type")
+        if ot == "stream":
+            parts.append("".join(o.get("text", [])))
+        elif ot == "execute_result":
+            data = o.get("data", {})
+            if "text/plain" in data:
+                parts.append("".join(data["text/plain"]))
+        elif ot == "error":
+            has_error = True
+            ename = o.get("ename", "")
+            evalue = o.get("evalue", "")
+            parts.append(f"\n[CELL ERROR] {ename}: {evalue}\n")
+            tb = o.get("traceback", [])
+            for line in tb:
+                parts.append(line)
+                parts.append("\n")
+    return "".join(parts), has_error
+
+
+def invoke_helper(cell_id, initial_wait, quiet=False):
+    cmd = [
+        "powershell.exe",
+        "-ExecutionPolicy", "Bypass",
+        "-File", str(HELPER),
+        "-NotebookPath", str(NB),
+        "-Action", "cell",
+        "-CellId", cell_id,
+        "-WaitSeconds", str(initial_wait),
+    ]
+    if not quiet:
+        print(f"[run_cell] invoking helper: {' '.join(cmd)}", flush=True)
+    res = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    if res.returncode != 0:
+        print(f"[run_cell] helper rc={res.returncode}", flush=True)
+        print(f"[run_cell] STDOUT:\n{res.stdout}", flush=True)
+        print(f"[run_cell] STDERR:\n{res.stderr}", flush=True)
+    return res
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("cell_id", help="Notebook cell id (8-char hex)")
+    ap.add_argument("--max-wait", type=int, default=300, help="Max seconds to wait for completion")
+    ap.add_argument("--poll", type=int, default=5, help="Poll interval seconds")
+    ap.add_argument("--initial-wait", type=int, default=8, help="WaitSeconds passed to helper")
+    ap.add_argument("--quiet", action="store_true")
+    args = ap.parse_args()
+
+    nb = load_nb()
+    idx, cell = find_cell(nb, args.cell_id)
+    if cell is None:
+        print(f"[run_cell] FAIL: cell '{args.cell_id}' not found in {NB}", flush=True)
+        sys.exit(2)
+    pre_exec = cell.get("execution_count")
+    if not args.quiet:
+        print(f"[run_cell] cell={args.cell_id} idx={idx} pre_exec={pre_exec}", flush=True)
+
+    res = invoke_helper(args.cell_id, args.initial_wait, quiet=args.quiet)
+    if res.returncode != 0:
+        sys.exit(2)
+
+    deadline = time.time() + args.max_wait
+    waited = 0
+    last_print = 0
+    while time.time() < deadline:
+        time.sleep(args.poll)
+        waited += args.poll
+        try:
+            nb2 = load_nb()
+        except json.JSONDecodeError:
+            # File mid-write by VS Code; retry
+            continue
+        _, cell2 = find_cell(nb2, args.cell_id)
+        if cell2 is None:
+            continue
+        new_exec = cell2.get("execution_count")
+        if new_exec is not None and new_exec != pre_exec:
+            txt, has_error = cell_outputs_text(cell2)
+            if not args.quiet:
+                print(f"[run_cell] DONE after ~{waited}s, new_exec={new_exec}, error={has_error}", flush=True)
+                print("---OUTPUT---", flush=True)
+            print(txt, flush=True)
+            if not args.quiet:
+                print("---END---", flush=True)
+            sys.exit(1 if has_error else 0)
+        if waited - last_print >= 15:
+            if not args.quiet:
+                print(f"[run_cell] waiting... {waited}s, exec still {new_exec}", flush=True)
+            last_print = waited
+
+    print(f"[run_cell] TIMEOUT after {waited}s, no exec_count change", flush=True)
+    sys.exit(3)
+
+
+if __name__ == "__main__":
+    main()

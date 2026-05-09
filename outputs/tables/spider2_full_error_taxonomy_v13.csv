@@ -1,0 +1,8 @@
+benchmark,lane,error_type,count_pilot,delta_vs_prev,note
+spider2_lite,A_bq,schema_invalid,9,-1 (was 10 in v11),validator now skips struct/wildcard false positives
+spider2_lite,A_bq,BadRequest,1,new,1 schema_valid candidate hit BQ live execute and was rejected (likely bytes-billed cap or runtime syntax)
+spider2_lite,A_bq,object_not_found AT engine,0,maintained,validator gate stops invented identifiers
+spider2_lite,A_bq,wildcard_table_resolves (positive),19,new in v12,events_* patterns matched against catalog prefixes
+spider2_lite,A_bq,struct_field_skips (positive),68,new in v12,event_params.key etc. no longer flagged unknown
+spider2_snow,A_sf,schema_invalid,9,maintained at floor,5 Snow pilots × 10 tasks each → only 1 schema_valid total
+spider2_snow,A_sf,object_not_found AT engine,0,maintained,validator gate working since v11

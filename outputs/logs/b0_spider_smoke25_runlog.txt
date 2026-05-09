@@ -1,0 +1,10 @@
+b0_spider_smoke25 run log (after retry pass)
+checked_at: 2026-04-25T17:10:42.874532+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: smoke_25
+total: 25
+executable_count: 25
+execution_match_count: 24
+EX: 0.96
+elapsed_seconds_retry: 16.75
+extra: {"quantization": "4bit_bitsandbytes_config"}

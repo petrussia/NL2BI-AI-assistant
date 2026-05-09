@@ -1,0 +1,10 @@
+metric,value
+completed,true
+EX,0.6
+executable_count,9
+total,10
+model,Qwen/Qwen2.5-7B-Instruct
+subset,smoke_10
+quantization,4bit_bitsandbytes_config
+schema_strategy,full_schema
+comparator_role,cross_model_baseline

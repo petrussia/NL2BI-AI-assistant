@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "diploma_plan_sql/plan_schema_v1.json",
+  "title": "B2 Plan v1",
+  "description": "Compact JSON Plan emitted by the v1 planner. v1 = v0 + top-level \"distinct\" boolean.",
+  "type": "object",
+  "required": [
+    "intent",
+    "tables",
+    "operations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "intent": {
+      "type": "string",
+      "enum": [
+        "select_count",
+        "select_aggregate",
+        "select_filter",
+        "select_join",
+        "select_groupby",
+        "select_orderby",
+        "select_other"
+      ],
+      "description": "High-level shape of the answer the user wants."
+    },
+    "tables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "Tables required to answer; subset of the reduced schema."
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Columns to project or aggregate over."
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "column",
+          "op",
+          "value"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "column": {
+            "type": "string"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "=",
+              "!=",
+              ">",
+              "<",
+              ">=",
+              "<=",
+              "LIKE",
+              "IN",
+              "BETWEEN"
+            ]
+          },
+          "value": {}
+        }
+      }
+    },
+    "aggregations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "function",
+          "column"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "function": {
+            "type": "string",
+            "enum": [
+              "COUNT",
+              "SUM",
+              "AVG",
+              "MIN",
+              "MAX"
+            ]
+          },
+          "column": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "group_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "order_by": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "column",
+          "dir"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "column": {
+            "type": "string"
+          },
+          "dir": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        }
+      }
+    },
+    "limit": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "joins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "left_table",
+          "right_table",
+          "on"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "left_table": {
+            "type": "string"
+          },
+          "right_table": {
+            "type": "string"
+          },
+          "on": {
+            "type": "string",
+            "description": "Free-form join condition, e.g. 'a.id = b.a_id'."
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Short verbs describing what SQL will do."
+    },
+    "distinct": {
+      "type": "boolean",
+      "description": "Whether SQL must include DISTINCT in projection."
+    }
+  }
+}

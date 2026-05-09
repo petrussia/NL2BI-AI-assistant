@@ -1,0 +1,32 @@
+# Spider2-DBT bridge config. Copy to spider2_dbt_bridge/config.yaml and edit.
+# Never commit your real config.yaml; only the .example variant lives in git.
+
+ssh:
+  host: 103.54.18.91
+  user: denis
+  # The bridge uses your default ~/.ssh/id_* private key by passwordless auth.
+  # If you must use a non-default key, point to it here:
+  private_key_path: ~/.ssh/id_ed25519
+  # Optional: pass-through extra OpenSSH options (one per line)
+  extra_opts:
+    - "-o BatchMode=yes"
+    - "-o ConnectTimeout=10"
+
+remote:
+  project_path: /home/denis/dbt
+  spider2_dbt_root: /home/denis/dbt/vendor/Spider2/spider2-dbt
+  bridge_root: /home/denis/dbt/colab_bridge
+  workspace_root: /home/denis/dbt/outputs/colab_bridge/tasks
+
+local:
+  data_root: data/spider2_dbt
+  reports_root: reports
+
+bridge:
+  inference_backend: manual   # manual | local_function | colab_file | hf_local
+  # Single-task mode is the only supported path right now.
+  refuse_full_benchmark: true
+  # Soft cap on dbt run wall time (seconds). Tunable per task.
+  dbt_timeout_s: 300
+  # Whether to run `dbt deps` before `dbt run` (some tasks need it; harmless to keep on)
+  run_dbt_deps: true

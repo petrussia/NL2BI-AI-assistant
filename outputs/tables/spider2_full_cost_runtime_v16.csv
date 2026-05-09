@@ -1,0 +1,4 @@
+pilot,n,total_wall_s,s_per_task,engine_cost,note
+spider2_lite_bq_v16_pilot10,10,739,74,small bytes (1 BadRequest reached engine),constrained repair faster than LLM repair (v12 took 1232s for same 10 tasks)
+spider2_snow_v16_pilot10,10,860,86,0 SF credits (--no-execute),per-task try/except + constrained repair did not lift schema_valid
+spider2_dbt_v4_FULL_68 (Phase 11),68,3360,49,server compute,task_success 9/68

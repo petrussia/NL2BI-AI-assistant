@@ -1,0 +1,326 @@
+# Spider2-DBT vNext experiment registry
+#
+# Single source of truth for the variant chain V1 → V10 plus V0 floor and
+# V3 ReAct (deferred). Phase-N runners read this file to know what each
+# variant means; readouts cross-reference variant IDs back here.
+
+version: 1
+generated_for_branch: experiments/denis
+last_committed_baseline: 8f57eea  # ablation V1/V2/V4 on n=6
+
+variants:
+
+  - id: v0_floor
+    name: "Floor (no agent)"
+    phase: 0
+    type: control
+    description: |
+      Skip generation entirely. cp -R upstream example, run dbt + tests,
+      run official_eval. Establishes do-nothing baseline; identifies
+      tasks confounded by upstream models that already produce gold.
+    inference: false
+    apply_kind: none
+    candidates: 0
+    repair_rounds: 0
+    judge: false
+    cost_per_task_s: 30
+    artifact_dir_template: outputs/dbt_ablation/{run_id}/v0_floor/
+
+  - id: v1
+    name: "Single-shot baseline"
+    phase: 0
+    type: baseline
+    description: |
+      Current build_model_prompt.py — single fenced block, free-form name.
+      Reference for paired comparison.
+    inference: true
+    prompt_builder: spider2_dbt_bridge/build_model_prompt.py
+    apply_kind: sql_file_or_diff
+    candidates: 1
+    repair_rounds: 0
+    judge: false
+    cost_per_task_s: 50
+    artifact_dir_template: outputs/dbt_ablation/{run_id}/v1/
+
+  - id: v2
+    name: "Better grounding"
+    phase: 1
+    type: ablation
+    description: |
+      V1 + group existing models by class (staging/intermediate/final) +
+      extract column names from each .sql + naming-convention hint.
+    prompt_builder: spider2_dbt_bridge/build_model_prompt_v2.py --variant v2
+    paired_against: v1
+    expected_effect_pp: [-2, +5]   # range
+    risk: prompt budget cost without policy change
+    falsification: matched <= V1 AND prompt_chars > 1.3 * V1_prompt_chars
+    cost_per_task_s: 55
+
+  - id: v4
+    name: "Diff-form priority"
+    phase: 1
+    type: adopted_default
+    description: |
+      Output rule: prefer unified diff against an existing file; new SQL
+      only if no fit. Verified n=6: 2/6 dbt_run_rc=0, 3/6 matched.
+    prompt_builder: spider2_dbt_bridge/build_model_prompt_v2.py --variant v4
+    paired_against: v1
+    measured_n6:
+      dbt_run_rc_zero_count: 2
+      matched_count: 3
+      helpful_vs_v1: 1
+      harmful_vs_v1: 0
+    cost_per_task_s: 50
+
+  - id: v5
+    name: "Strict target-file policy"
+    phase: 2
+    type: planned
+    description: |
+      V4 + apply step REFUSES fresh SQL outside an explicit <<NEW_FILE>>
+      tag. Forces grounding via existing-file naming.
+    prompt_builder: TBD spider2_dbt_bridge/build_model_prompt_v3.py --variant v5
+    paired_against: v4
+    hypothesis: |
+      Models that emit fresh files when a patch suffices account for most
+      V4 dbt_run_rc != 0 cases.
+    expected_effect_pp: [+2, +6]
+    risk: |
+      Tasks needing new files fail unless the tag flow works. False
+      refusals on bucket=create_new_model.
+    falsification: |
+      Helpful_v5_vs_v4 - harmful_v5_vs_v4 < 1 OR new harmful items in
+      bucket=create_new_model.
+    cost_per_task_s: 50
+
+  - id: v6
+    name: "Typed planner"
+    phase: 3
+    type: planned
+    description: |
+      Pre-step LLM call returns strict JSON action_type/target_file/
+      expected_output_columns_n/expected_grain. Generator sees these.
+    prompt_builder: TBD
+    planner: TBD spider2_dbt_bridge/planner_v6.py
+    paired_against: v5
+    hypothesis: |
+      Planner anchors target file; generator stops drifting.
+    expected_effect_pp: [+2, +5]
+    risk: |
+      Phase B taught us planner-only hurts. Mitigation: planner is hint,
+      executor is ranker.
+    falsification: |
+      matched <= V5 AND planner_target_match >= 80%
+    cost_per_task_s: 80
+    extra_inference_calls_per_task: 1
+
+  - id: v7
+    name: "Graph-conditioned retrieval"
+    phase: 4
+    type: planned
+    description: |
+      Replace flat file listing with BFS-derived neighborhood centered
+      on planner's target_file (1-hop bodies + 2-hop summaries +
+      relevant schema.yml fragment).
+    paired_against: v6
+    hypothesis: |
+      Better context within same budget; neighbor models carry the
+      reusable building blocks.
+    expected_effect_pp: [+1, +3]
+    risk: wrong target_file from planner -> wrong neighborhood -> worse
+    falsification: |
+      matched <= V6 AND target_file_in_pack >= 95%
+    cost_per_task_s: 80
+
+  - id: v8
+    name: "Execution-guided repair"
+    phase: 5
+    type: planned
+    description: |
+      Add bounded repair (N=2). On dbt_run_rc != 0, classify error,
+      re-emit with verbatim error text in prompt.
+    paired_against: v7
+    hypothesis: |
+      Catches dialect typos / wrong column names; smaller fix surface.
+    expected_effect_pp: [+2, +4]
+    risk: repair chases irrelevant changes; mitigated by patch-minimality
+    falsification: repair_helpful_n < repair_harmful_n
+    cost_per_task_s: 110
+    extra_inference_calls_per_task: 1
+    max_repair_rounds: 2
+
+  - id: v9
+    name: "Multi-candidate (k=4)"
+    phase: 6
+    type: planned
+    description: |
+      4 candidates per task with mixed action types; fresh workspace
+      per candidate.
+    paired_against: v8
+    hypothesis: diversity hedges single-shot bias
+    expected_effect_pp: [+1, +3]
+    risk: 4x cost; gate to dev_20 only until proven
+    falsification: matched <= V8 AND wall_s >= 4 * V8_wall_s
+    cost_per_task_s: 280
+    candidates: 4
+
+  - id: v10
+    name: "LLM-as-judge"
+    phase: 6
+    type: planned
+    description: |
+      When >= 2 executable candidates have close soft scores, judge picks
+      via question + diff + test summary. No gold.
+    paired_against: v9
+    hypothesis: calibration above heuristic ranker (Phase 6 BIRD pattern)
+    expected_effect_pp: [0, +2]
+    risk: judge can override correct heuristic; Phase R2 saturation lesson
+    falsification: judge_overrode_helpful <= judge_overrode_harmful
+    cost_per_task_s: 295
+    judge: true
+
+  - id: v3_react
+    name: "Multi-step ReAct"
+    phase: deferred
+    type: deferred
+    description: |
+      Server-stateful step machine. Up to 8 steps. Action vocab:
+      {write_file, edit_file, list_models, read_file, dbt_run, dbt_test,
+       terminate}. Skeleton in spider2_dbt_bridge/react_loop_skeleton_v3.md.
+    paired_against: v8
+    expected_effect_pp: [+5, +10]
+    deferral_reason: |
+      Single-shot architecture (planner+retrieval+controlled diff+repair+
+      judge) must stabilize first. Free-running ReAct without these
+      foundations multiplies failure modes.
+
+task_sets:
+
+  smoke:
+    description: Same 6 tasks used in the V1/V2/V4 ablation.
+    members:
+      - asana001
+      - playbook001
+      - retail001
+      - recharge002
+      - xero001
+      - lever001
+    notes: |
+      Caution: retail001 is a confirmed floor (upstream produces gold
+      regardless of agent). Phase 0 marks this in floor_baseline.json.
+
+  dev_20:
+    description: Stratified across taxonomy buckets, excludes smoke, n=20.
+    source_doc: outputs/spider2_dbt/dev_holdout_split.json
+    used_for: variant promotion decisions
+    statistical_threshold: report direction; p <= 0.10 only
+
+  holdout_30:
+    description: Held out, never seen during prompt iteration, n=30.
+    source_doc: outputs/spider2_dbt/dev_holdout_split.json
+    used_for: final reporting before full
+    statistical_threshold: p <= 0.05 required
+
+  full_68:
+    description: Full benchmark.
+    source_doc: vendor/Spider2/spider2-dbt/examples/spider2-dbt.jsonl
+    used_for: final diploma number
+    statistical_threshold: bootstrap 95% CI
+
+phases:
+
+  - id: 0
+    objective: Audit, baseline freeze, taxonomy
+    deliverables:
+      - outputs/spider2_dbt/task_taxonomy.csv
+      - outputs/spider2_dbt/floor_baseline.json
+      - outputs/spider2_dbt/dev_holdout_split.json
+      - outputs/dbt_ablation/floor/
+      - outputs/dbt_ablation/v4_vs_floor_dev20/
+    cost_estimate_min: 60
+    next_prompt: outputs/logs/spider2_dbt_next_implementation_prompt.md
+
+  - id: 1
+    objective: V4 sanity on dev_20 (already part of Phase 0 in this design)
+    deliverables: covered by phase 0 deliverable 4
+    cost_estimate_min: 30
+
+  - id: 2
+    objective: V5 strict target-file policy
+    deliverables:
+      - spider2_dbt_bridge/build_model_prompt_v3.py with --variant v5
+      - outputs/dbt_ablation/v5_vs_v4_dev20/
+    cost_estimate_min: 60
+
+  - id: 3
+    objective: Typed planner v6
+    deliverables:
+      - spider2_dbt_bridge/planner_v6.py
+      - prompt template for planner JSON
+      - outputs/dbt_ablation/v6_vs_v5_dev20/
+    cost_estimate_min: 120
+
+  - id: 4
+    objective: Graph retrieval v7
+    deliverables:
+      - spider2_dbt_bridge/dbt_graph_index.py
+      - spider2_dbt_bridge/context_pack_v7.py
+      - outputs/dbt_ablation/v7_vs_v6_dev20/
+    cost_estimate_min: 180
+
+  - id: 5
+    objective: Execution-guided repair v8
+    deliverables:
+      - spider2_dbt_bridge/error_classifier.py
+      - spider2_dbt_bridge/repair_controller_v8.py
+      - outputs/dbt_ablation/v8_vs_v7_dev20/
+    cost_estimate_min: 180
+
+  - id: 6
+    objective: Candidate pool + selector + judge (v9, v10)
+    deliverables:
+      - spider2_dbt_bridge/candidate_pool_v9.py
+      - spider2_dbt_bridge/selector_judge_v10.py
+      - outputs/dbt_ablation/v9_vs_v8_dev20/
+      - outputs/dbt_ablation/v10_vs_v9_dev20/
+    cost_estimate_min: 240
+
+  - id: 7
+    objective: Holdout_30 + full 68 with winning variant
+    deliverables:
+      - outputs/dbt_ablation/<winner>_holdout30/
+      - outputs/dbt_ablation/<winner>_full68/
+      - outputs/REPORT_DBT_FINAL.md
+    cost_estimate_min: 90
+
+statistical_policy:
+  primary_metric: matched (binary per task)
+  secondary_metric: dbt_run_rc_zero_rate
+  test_for_ablation: McNemar continuity-corrected (paired)
+  test_for_full_run: McNemar + bootstrap 95% CI on rate
+  promotion_rule: |
+    helpful - harmful >= 1 on dev_20 AND no harmful in critical taxonomy bucket
+  significance_thresholds:
+    dev_20: 0.10
+    holdout_30: 0.05
+    full_68: 0.05 + bootstrap CI required
+
+reproducibility:
+  required_per_run:
+    - manifest.json with commit_hash, seed, model_id, dtype, prompt_template_hash
+    - per_task.jsonl conforming to metrics_contract
+    - summary.csv flat
+    - readout.md human-readable
+  retain_for_audit:
+    - model_response_<variant>.txt per task
+    - apply_manifest.json per task
+    - dbt logs (deps/run/test)
+    - workspace_snapshot.tgz on demand only
+
+safety:
+  no_leakage_check_script: tools/check_no_leakage.py    # Phase 0 deliverable
+  metrics_contract_check_script: tools/check_metrics_contract.py  # Phase 0 deliverable
+  pre_commit:
+    - run no_leakage_check
+    - run metrics_contract_check
+    - grep for SECRET / PASSWORD / PRIVATE KEY in staged files

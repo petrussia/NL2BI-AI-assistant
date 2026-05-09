@@ -1,0 +1,8 @@
+benchmark,lane,error_type,count_pilot,delta_vs_v12,note
+spider2_lite,A_bq,object_not_found AT engine (after schema_valid),5,+5 (NEW class),catalog says ok BQ says no such table — 5/6 schema-valid candidates
+spider2_lite,A_bq,schema_invalid,4,-5 (was 9),validator passed 6 candidates after substitution
+spider2_lite,A_bq,syntax,1,+1,1 schema-valid candidate had runtime syntax issue
+spider2_lite,A_bq,struct_field_skips (positive),65,maintained,validator skips event_params nested fields
+spider2_lite,A_bq,wildcard_resolves (positive),17,maintained,events_* prefix matched
+spider2_snow,A_sf,schema_invalid,10,maintained at floor,constrained repair found 0 typo-recoverable hallucinations
+spider2_snow,A_sf,object_not_found AT engine,0,maintained,validator gate working since v11

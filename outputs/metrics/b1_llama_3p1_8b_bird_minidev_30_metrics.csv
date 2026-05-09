@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,n,execution_match_count,ex,executable_count,struct_avg_len_chars,struct_avg_len_tokens_est,struct_pct_starts_with_select,struct_pct_has_join,struct_pct_has_groupby,struct_pct_has_orderby,struct_pct_has_limit,struct_pct_safe_select,quantization,schema_strategy,avg_reduction_ratio
+b1_llama_3p1_8b_bird_minidev_30,meta-llama/Llama-3.1-8B-Instruct,bird_minidev_30,external_validation,30,4,0.13333333333333333,21,153.6333,23.8000,100.0000,53.3333,13.3333,13.3333,13.3333,100.0000,bf16,lexical_schema_linking,0.5311263736263736

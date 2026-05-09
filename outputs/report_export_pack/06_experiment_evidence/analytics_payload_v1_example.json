@@ -1,0 +1,37 @@
+{
+  "schema_version": "v1",
+  "produced_at": "2026-04-29T14:36:55.820828+00:00",
+  "source": {
+    "baseline": "B0",
+    "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+    "subset": "smoke_10",
+    "idx": 0,
+    "db_id": "concert_singer",
+    "question": "How many singers do we have?",
+    "generated_sql": "SELECT COUNT(*) FROM singer;",
+    "gold_sql_present": true
+  },
+  "rows": [
+    {
+      "c0": 6
+    }
+  ],
+  "summary": {
+    "row_count": 1,
+    "columns": {
+      "c0": {
+        "count": 1,
+        "null_count": 0,
+        "distinct_count": 1,
+        "dtype": "numeric",
+        "min": 6,
+        "max": 6,
+        "sum": 6,
+        "mean": 6.0
+      }
+    }
+  },
+  "n_rows": 1,
+  "is_executable": true,
+  "notes": []
+}

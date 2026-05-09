@@ -1,0 +1,2 @@
+run_id,model,subset,n,execution_match_count,ex,executable_count,schema_strategy,plan_validator,fallback_policy,multi_candidate,repair_depth,avg_reduction_ratio
+b4v2_multidb30,Qwen/Qwen2.5-Coder-7B-Instruct,multidb_30,30,22,0.7333333333333333,29,lex_linker_planner_full_schema_synth,plan_schema_v1,b1_on_invalid_or_no_executable,"k=3,T=0.7,top_p=0.95",1,0.5527777777777777

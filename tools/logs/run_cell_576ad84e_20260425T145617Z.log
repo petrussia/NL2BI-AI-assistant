@@ -1,0 +1,11 @@
+[2026-04-25T14:56:17.254565+00:00] START cell=576ad84e max_wait=45 poll=3 init=5
+[2026-04-25T14:56:17.255565+00:00] cell idx=12 pre_exec=9 pre_outputs=1
+[2026-04-25T14:56:17.255565+00:00] invoking helper: powershell.exe -ExecutionPolicy Bypass -File D:\HSE\Диплом\NL2BI-AI-assistant\scripts\run_colab_notebook.ps1 -NotebookPath D:\HSE\Диплом\NL2BI-AI-assistant\notebooks\example.ipynb -Action cell -CellId 576ad84e -WaitSeconds 5
+[2026-04-25T14:56:28.741581+00:00] helper rc=0
+[2026-04-25T14:56:58.755295+00:00]   [30s] still running; pre_exec=9 cur_exec=9 outputs=1
+[2026-04-25T14:56:58.755295+00:00]   partial tail: '0 | '
+[2026-04-25T14:57:13.763304+00:00] TIMEOUT after 45s, no exec_count change
+[2026-04-25T14:57:13.764683+00:00] --- PARTIAL CELL OUTPUT ON TIMEOUT (last 8000 chars) ---
+[2026-04-25T14:57:13.764683+00:00] 0
+
+[2026-04-25T14:57:13.764683+00:00] --- END PARTIAL ---

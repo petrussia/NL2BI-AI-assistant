@@ -1,0 +1,25 @@
+{
+  "connection_ok": true,
+  "role_ok": true,
+  "warehouse_ok": true,
+  "default_db_set": true,
+  "visible_databases": [
+    "SNOWFLAKE",
+    "SNOWFLAKE_SAMPLE_DATA",
+    "SPIDER2_WORK"
+  ],
+  "required_databases": [
+    "PATENTS"
+  ],
+  "missing_databases": [
+    "PATENTS"
+  ],
+  "visible_match": [],
+  "has_patents": false,
+  "cloud": "AWS",
+  "region": "ap-south-1",
+  "self_host_eligible": false,
+  "can_execute_real_sql": false,
+  "reason": "1 required databases not visible (first missing: ['PATENTS'])",
+  "error": ""
+}

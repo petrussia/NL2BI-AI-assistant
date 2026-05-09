@@ -1,0 +1,11 @@
+bench,A,B,n,A_em,B_em,a_only,b_only,both,neither,diff_pp,mcnemar_p,boot_lo_pp,boot_hi_pp,helpful,harmful,neutral
+Spider,B4_v5,B4_v5_planner_qwen3_8b,0,0,0,0,0,0,0,,,,,0,0,0
+Spider,B4_v5,B4_v5_planner_gemma_12b,0,0,0,0,0,0,0,,,,,0,0,0
+Spider,B4_v5_planner_qwen3_8b,B4_v5_planner_gemma_12b,0,0,0,0,0,0,0,,,,,0,0,0
+BIRD,B4_v5,B4_v5_planner_qwen3_8b,500,0.34,0.276,33,1,137,329,-6.4,0.0,-8.8,-4.2,1,33,466
+BIRD,B4_v5,B4_v5_planner_gemma_12b,253,0.3557,0.2411,29,0,61,163,-11.46,0.0,-15.81,-7.91,0,29,224
+BIRD,B4_v5_planner_qwen3_8b,B4_v5_planner_gemma_12b,253,0.2767,0.2411,14,5,56,178,-3.56,0.06357,-7.11,-0.4,5,14,234
+Spider,B0,B4_v5_planner_qwen3_8b,0,0,0,0,0,0,0,,,,,0,0,0
+Spider,B0,B4_v5_planner_gemma_12b,0,0,0,0,0,0,0,,,,,0,0,0
+BIRD,B2_v5,B4_v5_planner_qwen3_8b,500,0.376,0.276,77,27,111,285,-10.0,0.0,-14.0,-6.0,27,77,396
+BIRD,B2_v5,B4_v5_planner_gemma_12b,253,0.3794,0.2411,52,17,44,140,-13.83,3e-05,-19.76,-7.91,17,52,184

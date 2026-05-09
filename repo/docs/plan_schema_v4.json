@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "plan_schema_v4",
+  "title": "NL→SQL Plan v4 (extended)",
+  "description": "Plan for B2_v4 / B4_v4. Adds nested_needed, set_operation, time_grain, arithmetic, join_paths with provenance, filter_value_source, plan_confidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intent", "tables", "operations"],
+  "properties": {
+    "intent": {
+      "type": "string",
+      "enum": ["select_count","select_aggregate","select_filter","select_join",
+               "select_groupby","select_orderby","select_other"]
+    },
+    "tables": {"type": "array","items": {"type": "string"},"minItems": 1,"maxItems": 20},
+    "operations": {"type": "array","items": {"type": "string"},"minItems": 1,"maxItems": 12},
+    "columns": {"type": "array","items": {"type": "string"}},
+    "filters": {"type": "array","items": {"type": "object"}},
+    "aggregations": {"type": "array","items": {"type": "string"}},
+    "group_by": {"type": "array","items": {"type": "string"}},
+    "having": {"type": ["array","string","null"]},
+    "order_by": {"type": "array","items": {"type": "string"}},
+    "limit": {"type": ["integer","null"]},
+    "joins": {"type": "array","items": {"type": "object"}},
+    "join_paths": {"type": "array","items": {"type": "object"}},
+    "distinct": {"type": "boolean"},
+    "nested_needed": {"type": "boolean"},
+    "set_operation": {"type": ["string","null"], "enum": ["union","intersect","except",null]},
+    "time_grain": {"type": ["string","null"]},
+    "arithmetic": {"type": "array","items": {"type": "string"}},
+    "filter_value_source": {"type": ["string","null"]},
+    "answer_shape": {"type": "string","enum": ["scalar","row","table","unknown"]},
+    "expected_card": {"type": "string","enum": ["one","few","many","unknown"]},
+    "evidence_used": {"type": "boolean"},
+    "plan_confidence": {"type": ["number","null"], "minimum": 0, "maximum": 1},
+    "notes": {"type": "string"}
+  }
+}

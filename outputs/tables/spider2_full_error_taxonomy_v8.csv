@@ -1,0 +1,7 @@
+benchmark,error_type,count_pilot
+spider2_snow,wrong_dialect,2
+spider2_snow,object_not_found,1
+spider2_lite_bq,unknown_bq_cast,1
+spider2_lite_sf,object_not_found,1
+spider2_lite_sqlite,sqlite_db_missing,1
+spider2_dbt,done,1

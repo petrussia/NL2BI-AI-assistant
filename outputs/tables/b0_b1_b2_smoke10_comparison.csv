@@ -1,0 +1,7 @@
+metric,b0,b1,b2
+EX,1.0000,1.0000,0.7000
+executable_count,10,10,9
+n,10,10,10
+avg_reduction_ratio,,0.4750,0.4750
+plan_valid_count,,,9
+plan_parse_failures,,,0

@@ -1,0 +1,304 @@
+{
+  "CPTAC_PDC": [
+    "isb-cgc-bq.CPTAC",
+    "isb-cgc-bq.PDC_metadata"
+  ],
+  "CYMBAL_INVESTMENTS": [
+    "bigquery-public-data.cymbal_investments"
+  ],
+  "HTAN_1": [
+    "isb-cgc-bq.HTAN_versioned"
+  ],
+  "TCGA_bioclin_v0": [
+    "isb-cgc.GDC_metadata",
+    "isb-cgc.TCGA_bioclin_v0"
+  ],
+  "_1000_genomes": [
+    "spider2-public-data.1000_genomes"
+  ],
+  "austin": [
+    "bigquery-public-data.austin_311",
+    "bigquery-public-data.austin_bikeshare",
+    "bigquery-public-data.austin_crime",
+    "bigquery-public-data.austin_incidents",
+    "bigquery-public-data.austin_waste"
+  ],
+  "bbc": [
+    "bigquery-public-data.bbc_news"
+  ],
+  "bls": [
+    "bigquery-public-data.bls",
+    "bigquery-public-data.bls_qcew",
+    "bigquery-public-data.geo_us_boundaries"
+  ],
+  "census_bureau_acs_1": [
+    "bigquery-public-data.census_bureau_acs",
+    "bigquery-public-data.geo_census_tracts",
+    "bigquery-public-data.geo_us_boundaries"
+  ],
+  "census_bureau_international": [
+    "bigquery-public-data.census_bureau_international"
+  ],
+  "census_bureau_usa": [
+    "bigquery-public-data.census_bureau_usa",
+    "bigquery-public-data.utility_us"
+  ],
+  "chicago": [
+    "bigquery-public-data.chicago_crime",
+    "bigquery-public-data.chicago_taxi_trips"
+  ],
+  "cms_data": [
+    "bigquery-public-data.cms_codes",
+    "bigquery-public-data.cms_medicare",
+    "bigquery-public-data.cms_synthetic_patient_data_omop"
+  ],
+  "covid19_jhu_world_bank": [
+    "bigquery-public-data.covid19_jhu_csse",
+    "bigquery-public-data.world_bank_global_population",
+    "bigquery-public-data.world_bank_health_population",
+    "bigquery-public-data.world_bank_intl_debt",
+    "bigquery-public-data.world_bank_intl_education",
+    "bigquery-public-data.world_bank_wdi"
+  ],
+  "covid19_nyt": [
+    "bigquery-public-data.covid19_nyt"
+  ],
+  "covid19_open_data": [
+    "bigquery-public-data.covid19_open_data"
+  ],
+  "covid19_open_world_bank": [
+    "bigquery-public-data.covid19_open_data",
+    "bigquery-public-data.world_bank_global_population",
+    "bigquery-public-data.world_bank_health_population",
+    "bigquery-public-data.world_bank_intl_debt",
+    "bigquery-public-data.world_bank_intl_education",
+    "bigquery-public-data.world_bank_wdi"
+  ],
+  "covid19_symptom_search": [
+    "bigquery-public-data.covid19_symptom_search"
+  ],
+  "covid19_usa": [
+    "bigquery-public-data.census_bureau_acs",
+    "bigquery-public-data.covid19_usafacts",
+    "bigquery-public-data.covid19_vaccination_access"
+  ],
+  "dimensions_ai_covid19": [
+    "bigquery-public-data.dimensions_ai_covid19"
+  ],
+  "ebi_chembl": [
+    "bigquery-public-data.ebi_chembl"
+  ],
+  "eclipse_megamovie": [
+    "bigquery-public-data.eclipse_megamovie"
+  ],
+  "ecommerce": [
+    "data-to-insights.ecommerce"
+  ],
+  "epa_historical_air_quality": [
+    "bigquery-public-data.epa_historical_air_quality"
+  ],
+  "fda": [
+    "bigquery-public-data.census_utility",
+    "bigquery-public-data.fda_food",
+    "bigquery-public-data.fdic_banks",
+    "bigquery-public-data.geo_census_blockgroups",
+    "bigquery-public-data.geo_us_boundaries"
+  ],
+  "fec": [
+    "bigquery-public-data.census_bureau_acs",
+    "bigquery-public-data.fdic_banks",
+    "bigquery-public-data.fec",
+    "bigquery-public-data.geo_census_tracts",
+    "bigquery-public-data.hud_zipcode_crosswalk"
+  ],
+  "fhir_synthea": [
+    "bigquery-public-data.fhir_synthea"
+  ],
+  "firebase": [
+    "firebase-public-project.analytics_153293282"
+  ],
+  "ga360": [
+    "bigquery-public-data.google_analytics_sample"
+  ],
+  "ga4": [
+    "bigquery-public-data.ga4_obfuscated_sample_ecommerce"
+  ],
+  "gbif": [
+    "bigquery-public-data.gbif"
+  ],
+  "ghcn_d": [
+    "bigquery-public-data.ghcn_d"
+  ],
+  "gnomAD": [
+    "bigquery-public-data.gnomAD"
+  ],
+  "google_dei": [
+    "bigquery-public-data.bls",
+    "bigquery-public-data.bls_qcew",
+    "bigquery-public-data.google_dei"
+  ],
+  "hacker_news": [
+    "bigquery-public-data.hacker_news"
+  ],
+  "iowa_liquor_sales": [
+    "bigquery-public-data.iowa_liquor_sales"
+  ],
+  "iowa_liquor_sales_plus": [
+    "bigquery-public-data.census_bureau_usa",
+    "bigquery-public-data.iowa_liquor_sales"
+  ],
+  "irs_990": [
+    "bigquery-public-data.irs_990"
+  ],
+  "libraries_io": [
+    "bigquery-public-data.libraries_io"
+  ],
+  "london": [
+    "bigquery-public-data.london_crime",
+    "bigquery-public-data.london_fire_brigade"
+  ],
+  "mitelman": [
+    "mitelman-db.prod"
+  ],
+  "mlb": [
+    "bigquery-public-data.baseball"
+  ],
+  "ncaa_basketball": [
+    "bigquery-public-data.ncaa_basketball"
+  ],
+  "ncaa_insights": [
+    "data-to-insights.ncaa"
+  ],
+  "new_york": [
+    "bigquery-public-data.new_york"
+  ],
+  "new_york_geo": [
+    "bigquery-public-data.geo_us_boundaries",
+    "bigquery-public-data.new_york"
+  ],
+  "new_york_ghcn": [
+    "bigquery-public-data.ghcn_d",
+    "bigquery-public-data.new_york"
+  ],
+  "new_york_noaa": [
+    "bigquery-public-data.new_york",
+    "bigquery-public-data.noaa_gsod"
+  ],
+  "new_york_plus": [
+    "bigquery-public-data.new_york_311",
+    "bigquery-public-data.new_york_citibike",
+    "bigquery-public-data.new_york_mv_collisions",
+    "bigquery-public-data.new_york_subway",
+    "bigquery-public-data.new_york_taxi_trips",
+    "bigquery-public-data.new_york_trees"
+  ],
+  "nhtsa_traffic_fatalities": [
+    "bigquery-public-data.nhtsa_traffic_fatalities"
+  ],
+  "nhtsa_traffic_fatalities_plus": [
+    "bigquery-public-data.census_bureau_usa",
+    "bigquery-public-data.nhtsa_traffic_fatalities",
+    "bigquery-public-data.utility_us"
+  ],
+  "noaa_data": [
+    "bigquery-public-data.noaa_gsod",
+    "bigquery-public-data.noaa_historic_severe_storms",
+    "bigquery-public-data.noaa_hurricanes",
+    "bigquery-public-data.noaa_icoads",
+    "bigquery-public-data.noaa_passive_acoustic_index",
+    "bigquery-public-data.noaa_passive_bioacoustic",
+    "bigquery-public-data.noaa_pifsc_metadata",
+    "bigquery-public-data.noaa_preliminary_severe_storms",
+    "bigquery-public-data.noaa_significant_earthquakes",
+    "bigquery-public-data.noaa_tsunami"
+  ],
+  "noaa_gsod": [
+    "bigquery-public-data.noaa_gsod"
+  ],
+  "noaa_ports": [
+    "bigquery-public-data.geo_international_ports",
+    "bigquery-public-data.geo_us_boundaries",
+    "bigquery-public-data.noaa_hurricanes"
+  ],
+  "nppes": [
+    "bigquery-public-data.nppes"
+  ],
+  "open_images": [
+    "bigquery-public-data.open_images"
+  ],
+  "open_targets_genetics_1": [
+    "open-targets-genetics.genetics"
+  ],
+  "open_targets_platform_1": [
+    "open-targets-prod.platform"
+  ],
+  "open_targets_platform_2": [
+    "bigquery-public-data.open_targets_platform"
+  ],
+  "openaq": [
+    "bigquery-public-data.epa_historical_air_quality",
+    "bigquery-public-data.openaq"
+  ],
+  "pancancer_atlas_2": [
+    "isb-cgc-bq.pancancer_atlas"
+  ],
+  "san_francisco": [
+    "bigquery-public-data.san_francisco"
+  ],
+  "san_francisco_plus": [
+    "bigquery-public-data.san_francisco_311",
+    "bigquery-public-data.san_francisco_bikeshare",
+    "bigquery-public-data.san_francisco_film_locations",
+    "bigquery-public-data.san_francisco_neighborhoods",
+    "bigquery-public-data.san_francisco_sffd_service_calls",
+    "bigquery-public-data.san_francisco_sfpd_incidents",
+    "bigquery-public-data.san_francisco_transit_muni",
+    "bigquery-public-data.san_francisco_trees"
+  ],
+  "sdoh": [
+    "bigquery-public-data.census_bureau_acs",
+    "bigquery-public-data.sdoh_bea_cainc30",
+    "bigquery-public-data.sdoh_cdc_wonder_natality",
+    "bigquery-public-data.sdoh_cms_dual_eligible_enrollment",
+    "bigquery-public-data.sdoh_hrsa_shortage_areas",
+    "bigquery-public-data.sdoh_hud_housing",
+    "bigquery-public-data.sdoh_hud_pit_homelessness",
+    "bigquery-public-data.sdoh_snap_enrollment"
+  ],
+  "sec_quarterly_financials": [
+    "bigquery-public-data.sec_quarterly_financials"
+  ],
+  "stackoverflow": [
+    "bigquery-public-data.stackoverflow"
+  ],
+  "stackoverflow_plus": [
+    "bigquery-public-data.stackoverflow",
+    "fh-bigquery.hackernews"
+  ],
+  "sunroof_solar": [
+    "bigquery-public-data.sunroof_solar"
+  ],
+  "targetome_reactome": [
+    "isb-cgc-bq.reactome_versioned",
+    "isb-cgc-bq.targetome_versioned"
+  ],
+  "the_met": [
+    "bigquery-public-data.the_met"
+  ],
+  "usa_names": [
+    "bigquery-public-data.usa_names"
+  ],
+  "usda_nass_agriculture": [
+    "bigquery-public-data.usda_nass_agriculture"
+  ],
+  "usfs_fia": [
+    "bigquery-public-data.usfs_fia"
+  ],
+  "world_bank": [
+    "bigquery-public-data.world_bank_global_population",
+    "bigquery-public-data.world_bank_health_population",
+    "bigquery-public-data.world_bank_intl_debt",
+    "bigquery-public-data.world_bank_intl_education",
+    "bigquery-public-data.world_bank_wdi"
+  ]
+}

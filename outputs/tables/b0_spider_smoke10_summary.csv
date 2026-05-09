@@ -1,0 +1,7 @@
+metric,value
+completed,true
+EX on smoke10,1.0
+executable queries count,10
+total,10
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+quantization,device_map_auto_no_4bit_fallback

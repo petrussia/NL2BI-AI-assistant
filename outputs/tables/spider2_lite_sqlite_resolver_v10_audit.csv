@@ -1,0 +1,11 @@
+iid,dataset_db,disk_db,local_sqlite,n_tables,n_rows,error
+local002,E_commerce,E_commerce,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\E_commerce\E_commerce.sqlite,11,0,
+local003,E_commerce,E_commerce,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\E_commerce\E_commerce.sqlite,11,0,
+local004,E_commerce,E_commerce,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\E_commerce\E_commerce.sqlite,11,0,
+local007,Baseball,Baseball,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\Baseball\Baseball.sqlite,26,130,
+local008,Baseball,Baseball,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\Baseball\Baseball.sqlite,26,0,
+local009,Airlines,Airlines,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\Airlines\Airlines.sqlite,8,40,
+local010,Airlines,Airlines,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\Airlines\Airlines.sqlite,8,0,
+local015,California_Traffic_Collision,California_Traffic_Collision,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\California_Traffic_Collision\California_Traffic_Collision.sqlite,4,20,
+local017,California_Traffic_Collision,California_Traffic_Collision,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\California_Traffic_Collision\California_Traffic_Collision.sqlite,4,0,
+local018,California_Traffic_Collision,California_Traffic_Collision,D:\HSE\Диплом\NL2BI-AI-assistant\data\spider2_lite\resource\databases\sqlite\California_Traffic_Collision\California_Traffic_Collision.sqlite,4,0,

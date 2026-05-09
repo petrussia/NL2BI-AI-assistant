@@ -1,0 +1,10 @@
+metric,value
+completed,true
+EX,1.0
+executable_count,10
+total,10
+model,Qwen/Qwen2.5-Coder-14B-Instruct
+subset,smoke_10
+quantization,4bit_bitsandbytes_config
+schema_strategy,full_schema
+comparator_role,larger_qwen_coder

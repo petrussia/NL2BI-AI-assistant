@@ -1,0 +1,3 @@
+benchmark,n_total,em_total,n_repair,em_repair,em_repair_rate,n_norepair,em_norepair,em_norepair_rate,n_fallback_to_anchor,em_fallback
+spider_dev,1034,793,22,4,0.1818,1012,789,0.7796,986,778
+bird_full,500,170,9,0,0.0,491,170,0.3462,348,120

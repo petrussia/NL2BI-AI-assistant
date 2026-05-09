@@ -1,0 +1,16 @@
+{
+  "cell_id": "e40d182b",
+  "status": "focus_suspect",
+  "exit_code": 3,
+  "started_at": "2026-04-25T15:29:40.080133+00:00",
+  "ended_at": "2026-04-25T15:31:57.913833+00:00",
+  "elapsed_seconds": 137.83,
+  "max_wait": 120,
+  "poll": 4,
+  "initial_wait": 8,
+  "log_path": "D:\\HSE\\Диплом\\NL2BI-AI-assistant\\tools\\logs\\run_cell_e40d182b_20260425T152940Z.log",
+  "pre_exec": null,
+  "helper_rc": 0,
+  "focus_ok": true,
+  "output_tail": ""
+}

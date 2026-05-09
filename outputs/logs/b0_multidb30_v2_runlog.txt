@@ -1,0 +1,7 @@
+b0_multidb30_v2 run log
+checked_at: 2026-04-29T15:17:06.964735+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: multidb_30
+total: 30; exec_count: 30; match_count: 28; EX: 0.9333333333333333
+elapsed_seconds: 51.47
+extra: {"quantization": "4bit_bitsandbytes_config", "schema_strategy": "full_schema"}

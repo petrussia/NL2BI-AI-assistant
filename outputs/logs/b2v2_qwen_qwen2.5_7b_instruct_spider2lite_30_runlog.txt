@@ -1,0 +1,10 @@
+b2v2_qwen_qwen2.5_7b_instruct_spider2lite_30 run log
+checked_at: 2026-04-30T19:40:28.092671+00:00
+model: Qwen/Qwen2.5-7B-Instruct
+subset: spider2lite_30
+benchmark_group: external_validation
+total: 30
+executable_count: 0
+execution_match_count: 0
+EX: 0.0
+elapsed_seconds: 395.22

@@ -1,0 +1,11 @@
+step,description,expected_outcome,status,notes
+1,Open NEW Colab notebook (not the Qwen-runtime one),blank kernel,pending,must be a fresh Python process
+2,Cell 1: pip install -q transformers==4.39.3 accelerate==0.26.1 bitsandbytes==0.43.1 tokenizers<0.20 huggingface_hub<0.25 sentencepiece safetensors einops func_timeout jsonschema,installs without conflict,pending,no transformers import before this
+3,Cell 2: from transformers.utils.import_utils import is_torch_fx_available,import succeeds,pending,"if it fails, env is wrong"
+4,"Cell 3: AutoTokenizer.from_pretrained(MODEL_ID, trust_remote_code=True)",tokenizer loads,pending,MODEL_ID = deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
+5,Cell 4: AutoModelForCausalLM.from_pretrained 4-bit nf4 device_map=auto,"model loads in 1-2 min, VRAM ~9-12 GB",pending,BF16 also works on 80GB
+6,Cell 5: AGENT_BRIDGE_SETUP from notebooks/example.ipynb,BRIDGE_URL printed,pending,same bridge cell as Qwen-runtime
+7,Update tools/.bridge_url with new URL on local machine,file updated,pending,no token in URL
+8,Run python tools/exec_remote.py --code-file tools/remote_scripts/60_deepseek_b0_b1_bg.py,BG starts and eventually DEEPSEEK_BG_DONE_OK,pending,~25 min runtime
+9,"Verify outputs/predictions/deepseek_b0_smoke10_predictions.jsonl present, 10 lines",file present and complete,pending,spot-check 1-2 lines
+10,Add results to master matrix; refresh REPORT v5,master matrix grows by 2 rows,pending,re-run 65_final_consolidation_v2.py

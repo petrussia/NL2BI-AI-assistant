@@ -1,0 +1,13 @@
+metric,value
+completed,true
+EX,0.8
+executable_count,10
+total,10
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,smoke_10
+schema_strategy,lex_linker_planner_full_schema_synth
+plan_validator,plan_schema_v1
+fallback_policy,b1_on_invalid_or_no_executable
+multi_candidate,"k=3,T=0.7,top_p=0.95"
+repair_depth,1
+avg_reduction_ratio,0.475

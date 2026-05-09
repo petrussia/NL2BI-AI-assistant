@@ -1,0 +1,9 @@
+metric,value
+completed,true
+EX,0.96
+executable_count,25
+total,25
+model,Qwen/Qwen2.5-Coder-14B-Instruct
+subset,smoke_25
+quantization,bf16
+schema_strategy,full_schema

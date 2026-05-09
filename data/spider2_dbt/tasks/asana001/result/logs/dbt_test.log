@@ -1,0 +1,339 @@
+[0m16:45:55  Running with dbt=1.10.8
+[0m16:45:56  Registered adapter: duckdb=1.10.1
+[0m16:45:56  [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 12 unused configuration paths:
+- seeds.main.tag_data
+- seeds.main.user_data
+- seeds.main.team_data
+- seeds.main.task_follower_data
+- seeds.main.task_section_data
+- seeds.main.section_data
+- seeds.main.project_task_data
+- seeds.main.task_tag_data
+- seeds.main.story_data
+- seeds.main
+- seeds.main.task_data
+- seeds.main.project_data
+[0m16:45:56  Found 40 models, 51 data tests, 11 sources, 665 macros
+[0m16:45:56  
+[0m16:45:56  Concurrency: 1 threads (target='dev')
+[0m16:45:56  
+[0m16:45:56  1 of 51 START test dbt_utils_unique_combination_of_columns_int_asana__project_user_project_id__user_id__role__currently_working_on  [RUN]
+[0m16:45:56  1 of 51 ERROR dbt_utils_unique_combination_of_columns_int_asana__project_user_project_id__user_id__role__currently_working_on  [[31mERROR[0m in 0.05s]
+[0m16:45:56  2 of 51 START test not_null_asana__daily_metrics_date_day ...................... [RUN]
+[0m16:45:56  2 of 51 ERROR not_null_asana__daily_metrics_date_day ........................... [[31mERROR[0m in 0.02s]
+[0m16:45:56  3 of 51 START test not_null_asana__project_project_id .......................... [RUN]
+[0m16:45:56  3 of 51 ERROR not_null_asana__project_project_id ............................... [[31mERROR[0m in 0.02s]
+[0m16:45:56  4 of 51 START test not_null_asana__tag_tag_id .................................. [RUN]
+[0m16:45:56  4 of 51 ERROR not_null_asana__tag_tag_id ....................................... [[31mERROR[0m in 0.02s]
+[0m16:45:56  5 of 51 START test not_null_asana__task_task_id ................................ [RUN]
+[0m16:45:56  5 of 51 ERROR not_null_asana__task_task_id ..................................... [[31mERROR[0m in 0.02s]
+[0m16:45:56  6 of 51 START test not_null_int_asana__project_task_metrics_project_id ......... [RUN]
+[0m16:45:56  6 of 51 ERROR not_null_int_asana__project_task_metrics_project_id .............. [[31mERROR[0m in 0.02s]
+[0m16:45:56  7 of 51 START test not_null_int_asana__subtask_parent_subtask_id ............... [RUN]
+[0m16:45:56  7 of 51 ERROR not_null_int_asana__subtask_parent_subtask_id .................... [[31mERROR[0m in 0.02s]
+[0m16:45:56  8 of 51 START test not_null_int_asana__task_assignee_task_id ................... [RUN]
+[0m16:45:56  8 of 51 ERROR not_null_int_asana__task_assignee_task_id ........................ [[31mERROR[0m in 0.02s]
+[0m16:45:56  9 of 51 START test not_null_int_asana__task_comments_task_id ................... [RUN]
+[0m16:45:56  9 of 51 PASS not_null_int_asana__task_comments_task_id ......................... [[32mPASS[0m in 0.02s]
+[0m16:45:56  10 of 51 START test not_null_int_asana__task_first_modifier_task_id ............ [RUN]
+[0m16:45:56  10 of 51 PASS not_null_int_asana__task_first_modifier_task_id .................. [[32mPASS[0m in 0.02s]
+[0m16:45:56  11 of 51 START test not_null_int_asana__task_followers_task_id ................. [RUN]
+[0m16:45:56  11 of 51 PASS not_null_int_asana__task_followers_task_id ....................... [[32mPASS[0m in 0.02s]
+[0m16:45:56  12 of 51 START test not_null_int_asana__task_open_length_task_id ............... [RUN]
+[0m16:45:56  12 of 51 ERROR not_null_int_asana__task_open_length_task_id .................... [[31mERROR[0m in 0.02s]
+[0m16:45:56  13 of 51 START test not_null_int_asana__task_projects_task_id .................. [RUN]
+[0m16:45:56  13 of 51 PASS not_null_int_asana__task_projects_task_id ........................ [[32mPASS[0m in 0.02s]
+[0m16:45:56  14 of 51 START test not_null_int_asana__task_story_story_id .................... [RUN]
+[0m16:45:56  14 of 51 PASS not_null_int_asana__task_story_story_id .......................... [[32mPASS[0m in 0.01s]
+[0m16:45:56  15 of 51 START test not_null_int_asana__task_tags_task_id ...................... [RUN]
+[0m16:45:57  15 of 51 PASS not_null_int_asana__task_tags_task_id ............................ [[32mPASS[0m in 0.02s]
+[0m16:45:57  16 of 51 START test not_null_int_asana__user_task_metrics_user_id .............. [RUN]
+[0m16:45:57  16 of 51 ERROR not_null_int_asana__user_task_metrics_user_id ................... [[31mERROR[0m in 0.02s]
+[0m16:45:57  17 of 51 START test unique_asana__daily_metrics_date_day ....................... [RUN]
+[0m16:45:57  17 of 51 ERROR unique_asana__daily_metrics_date_day ............................ [[31mERROR[0m in 0.02s]
+[0m16:45:57  18 of 51 START test unique_asana__project_project_id ........................... [RUN]
+[0m16:45:57  18 of 51 ERROR unique_asana__project_project_id ................................ [[31mERROR[0m in 0.02s]
+[0m16:45:57  19 of 51 START test unique_asana__tag_tag_id ................................... [RUN]
+[0m16:45:57  19 of 51 ERROR unique_asana__tag_tag_id ........................................ [[31mERROR[0m in 0.02s]
+[0m16:45:57  20 of 51 START test unique_asana__task_task_id ................................. [RUN]
+[0m16:45:57  20 of 51 ERROR unique_asana__task_task_id ...................................... [[31mERROR[0m in 0.02s]
+[0m16:45:57  21 of 51 START test unique_int_asana__project_task_metrics_project_id .......... [RUN]
+[0m16:45:57  21 of 51 ERROR unique_int_asana__project_task_metrics_project_id ............... [[31mERROR[0m in 0.02s]
+[0m16:45:57  22 of 51 START test unique_int_asana__subtask_parent_subtask_id ................ [RUN]
+[0m16:45:57  22 of 51 ERROR unique_int_asana__subtask_parent_subtask_id ..................... [[31mERROR[0m in 0.02s]
+[0m16:45:57  23 of 51 START test unique_int_asana__task_assignee_task_id .................... [RUN]
+[0m16:45:57  23 of 51 ERROR unique_int_asana__task_assignee_task_id ......................... [[31mERROR[0m in 0.02s]
+[0m16:45:57  24 of 51 START test unique_int_asana__task_comments_task_id .................... [RUN]
+[0m16:45:57  24 of 51 PASS unique_int_asana__task_comments_task_id .......................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  25 of 51 START test unique_int_asana__task_first_modifier_task_id .............. [RUN]
+[0m16:45:57  25 of 51 PASS unique_int_asana__task_first_modifier_task_id .................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  26 of 51 START test unique_int_asana__task_followers_task_id ................... [RUN]
+[0m16:45:57  26 of 51 PASS unique_int_asana__task_followers_task_id ......................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  27 of 51 START test unique_int_asana__task_open_length_task_id ................. [RUN]
+[0m16:45:57  27 of 51 ERROR unique_int_asana__task_open_length_task_id ...................... [[31mERROR[0m in 0.02s]
+[0m16:45:57  28 of 51 START test unique_int_asana__task_projects_task_id .................... [RUN]
+[0m16:45:57  28 of 51 PASS unique_int_asana__task_projects_task_id .......................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  29 of 51 START test unique_int_asana__task_story_story_id ...................... [RUN]
+[0m16:45:57  29 of 51 PASS unique_int_asana__task_story_story_id ............................ [[32mPASS[0m in 0.02s]
+[0m16:45:57  30 of 51 START test unique_int_asana__task_tags_task_id ........................ [RUN]
+[0m16:45:57  30 of 51 PASS unique_int_asana__task_tags_task_id .............................. [[32mPASS[0m in 0.02s]
+[0m16:45:57  31 of 51 START test unique_int_asana__user_task_metrics_user_id ................ [RUN]
+[0m16:45:57  31 of 51 ERROR unique_int_asana__user_task_metrics_user_id ..................... [[31mERROR[0m in 0.02s]
+[0m16:45:57  32 of 51 START test not_null_stg_asana__project_project_id ..................... [RUN]
+[0m16:45:57  32 of 51 PASS not_null_stg_asana__project_project_id ........................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  33 of 51 START test not_null_stg_asana__project_task_project_id ................ [RUN]
+[0m16:45:57  33 of 51 PASS not_null_stg_asana__project_task_project_id ...................... [[32mPASS[0m in 0.01s]
+[0m16:45:57  34 of 51 START test not_null_stg_asana__project_task_task_id ................... [RUN]
+[0m16:45:57  34 of 51 PASS not_null_stg_asana__project_task_task_id ......................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  35 of 51 START test not_null_stg_asana__section_section_id ..................... [RUN]
+[0m16:45:57  35 of 51 PASS not_null_stg_asana__section_section_id ........................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  36 of 51 START test not_null_stg_asana__story_story_id ......................... [RUN]
+[0m16:45:57  36 of 51 PASS not_null_stg_asana__story_story_id ............................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  37 of 51 START test not_null_stg_asana__story_target_task_id ................... [RUN]
+[0m16:45:57  37 of 51 PASS not_null_stg_asana__story_target_task_id ......................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  38 of 51 START test not_null_stg_asana__task_follower_task_id .................. [RUN]
+[0m16:45:57  38 of 51 PASS not_null_stg_asana__task_follower_task_id ........................ [[32mPASS[0m in 0.02s]
+[0m16:45:57  39 of 51 START test not_null_stg_asana__task_follower_user_id .................. [RUN]
+[0m16:45:57  39 of 51 PASS not_null_stg_asana__task_follower_user_id ........................ [[32mPASS[0m in 0.02s]
+[0m16:45:57  40 of 51 START test not_null_stg_asana__task_section_section_id ................ [RUN]
+[0m16:45:57  40 of 51 PASS not_null_stg_asana__task_section_section_id ...................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  41 of 51 START test not_null_stg_asana__task_section_task_id ................... [RUN]
+[0m16:45:57  41 of 51 PASS not_null_stg_asana__task_section_task_id ......................... [[32mPASS[0m in 0.14s]
+[0m16:45:57  42 of 51 START test not_null_stg_asana__task_task_id ........................... [RUN]
+[0m16:45:57  42 of 51 ERROR not_null_stg_asana__task_task_id ................................ [[31mERROR[0m in 0.02s]
+[0m16:45:57  43 of 51 START test not_null_stg_asana__team_team_id ........................... [RUN]
+[0m16:45:57  43 of 51 PASS not_null_stg_asana__team_team_id ................................. [[32mPASS[0m in 0.02s]
+[0m16:45:57  44 of 51 START test not_null_stg_asana__user_user_id ........................... [RUN]
+[0m16:45:57  44 of 51 PASS not_null_stg_asana__user_user_id ................................. [[32mPASS[0m in 0.02s]
+[0m16:45:57  45 of 51 START test unique_stg_asana__project_project_id ....................... [RUN]
+[0m16:45:57  45 of 51 PASS unique_stg_asana__project_project_id ............................. [[32mPASS[0m in 0.02s]
+[0m16:45:57  46 of 51 START test unique_stg_asana__section_section_id ....................... [RUN]
+[0m16:45:57  46 of 51 PASS unique_stg_asana__section_section_id ............................. [[32mPASS[0m in 0.02s]
+[0m16:45:57  47 of 51 START test unique_stg_asana__story_story_id ........................... [RUN]
+[0m16:45:57  47 of 51 PASS unique_stg_asana__story_story_id ................................. [[32mPASS[0m in 0.02s]
+[0m16:45:57  48 of 51 START test unique_stg_asana__tag_tag_id ............................... [RUN]
+[0m16:45:57  48 of 51 PASS unique_stg_asana__tag_tag_id ..................................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  49 of 51 START test unique_stg_asana__task_task_id ............................. [RUN]
+[0m16:45:57  49 of 51 ERROR unique_stg_asana__task_task_id .................................. [[31mERROR[0m in 0.02s]
+[0m16:45:57  50 of 51 START test unique_stg_asana__team_team_id ............................. [RUN]
+[0m16:45:57  50 of 51 PASS unique_stg_asana__team_team_id ................................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  51 of 51 START test unique_stg_asana__user_user_id ............................. [RUN]
+[0m16:45:57  51 of 51 PASS unique_stg_asana__user_user_id ................................... [[32mPASS[0m in 0.02s]
+[0m16:45:57  
+[0m16:45:57  Finished running 51 data tests in 0 hours 0 minutes and 1.27 seconds (1.27s).
+[0m16:45:57  
+[0m16:45:57  [31mCompleted with 21 errors, 0 partial successes, and 0 warnings:[0m
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test dbt_utils_unique_combination_of_columns_int_asana__project_user_project_id__user_id__role__currently_working_on (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test dbt_utils_unique_combination_of_columns_int_asana__project_user_project_id__user_id__role__currently_working_on (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__project_user does not exist!
+  Did you mean "int_asana__task_projects"?
+  
+  LINE 20:     from "asana"."main"."int_asana__project_user"
+                    ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/dbt_utils_unique_combination_o_2eee10354a4e647bd50fdf44bb16839c.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_asana__daily_metrics_date_day (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_asana__daily_metrics_date_day (models/asana.yml)
+  Catalog Error: Table with name asana__daily_metrics does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 17: from "asana"."main"."asana__daily_metrics"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/not_null_asana__daily_metrics_date_day.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_asana__project_project_id (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_asana__project_project_id (models/asana.yml)
+  Catalog Error: Table with name asana__project does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 17: from "asana"."main"."asana__project"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/not_null_asana__project_project_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_asana__tag_tag_id (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_asana__tag_tag_id (models/asana.yml)
+  Catalog Error: Table with name asana__tag does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 17: from "asana"."main"."asana__tag"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/not_null_asana__tag_tag_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_asana__task_task_id (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_asana__task_task_id (models/asana.yml)
+  Catalog Error: Table with name asana__task does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 17: from "asana"."main"."asana__task"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/not_null_asana__task_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_int_asana__project_task_metrics_project_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_int_asana__project_task_metrics_project_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__project_task_metrics does not exist!
+  Did you mean "int_asana__task_projects"?
+  
+  LINE 17: from "asana"."main"."int_asana__project_task_metrics"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/not_null_int_asana__project_task_metrics_project_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_int_asana__subtask_parent_subtask_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_int_asana__subtask_parent_subtask_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__subtask_parent does not exist!
+  Did you mean "int_asana__task_tags"?
+  
+  LINE 17: from "asana"."main"."int_asana__subtask_parent"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/not_null_int_asana__subtask_parent_subtask_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_int_asana__task_assignee_task_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_int_asana__task_assignee_task_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__task_assignee does not exist!
+  Did you mean "int_asana__task_tags"?
+  
+  LINE 17: from "asana"."main"."int_asana__task_assignee"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/not_null_int_asana__task_assignee_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_int_asana__task_open_length_task_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_int_asana__task_open_length_task_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__task_open_length does not exist!
+  Did you mean "int_asana__task_comments"?
+  
+  LINE 17: from "asana"."main"."int_asana__task_open_length"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/not_null_int_asana__task_open_length_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_int_asana__user_task_metrics_user_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_int_asana__user_task_metrics_user_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__user_task_metrics does not exist!
+  Did you mean "int_asana__task_comments"?
+  
+  LINE 17: from "asana"."main"."int_asana__user_task_metrics"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/not_null_int_asana__user_task_metrics_user_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_asana__daily_metrics_date_day (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_asana__daily_metrics_date_day (models/asana.yml)
+  Catalog Error: Table with name asana__daily_metrics does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 18: from "asana"."main"."asana__daily_metrics"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/unique_asana__daily_metrics_date_day.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_asana__project_project_id (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_asana__project_project_id (models/asana.yml)
+  Catalog Error: Table with name asana__project does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 18: from "asana"."main"."asana__project"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/unique_asana__project_project_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_asana__tag_tag_id (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_asana__tag_tag_id (models/asana.yml)
+  Catalog Error: Table with name asana__tag does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 18: from "asana"."main"."asana__tag"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/unique_asana__tag_tag_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_asana__task_task_id (models/asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_asana__task_task_id (models/asana.yml)
+  Catalog Error: Table with name asana__task does not exist!
+  Did you mean "asana__bridge_smoke"?
+  
+  LINE 18: from "asana"."main"."asana__task"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/asana.yml/unique_asana__task_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_int_asana__project_task_metrics_project_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_int_asana__project_task_metrics_project_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__project_task_metrics does not exist!
+  Did you mean "int_asana__task_projects"?
+  
+  LINE 18: from "asana"."main"."int_asana__project_task_metrics"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/unique_int_asana__project_task_metrics_project_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_int_asana__subtask_parent_subtask_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_int_asana__subtask_parent_subtask_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__subtask_parent does not exist!
+  Did you mean "int_asana__task_tags"?
+  
+  LINE 18: from "asana"."main"."int_asana__subtask_parent"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/unique_int_asana__subtask_parent_subtask_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_int_asana__task_assignee_task_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_int_asana__task_assignee_task_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__task_assignee does not exist!
+  Did you mean "int_asana__task_tags"?
+  
+  LINE 18: from "asana"."main"."int_asana__task_assignee"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/unique_int_asana__task_assignee_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_int_asana__task_open_length_task_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_int_asana__task_open_length_task_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__task_open_length does not exist!
+  Did you mean "int_asana__task_comments"?
+  
+  LINE 18: from "asana"."main"."int_asana__task_open_length"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/unique_int_asana__task_open_length_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_int_asana__user_task_metrics_user_id (models/intermediate/intermediate_asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_int_asana__user_task_metrics_user_id (models/intermediate/intermediate_asana.yml)
+  Catalog Error: Table with name int_asana__user_task_metrics does not exist!
+  Did you mean "int_asana__task_comments"?
+  
+  LINE 18: from "asana"."main"."int_asana__user_task_metrics"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana/models/intermediate/intermediate_asana.yml/unique_int_asana__user_task_metrics_user_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test not_null_stg_asana__task_task_id (models/stg_asana.yml)[0m
+[0m16:45:57    Runtime Error in test not_null_stg_asana__task_task_id (models/stg_asana.yml)
+  Catalog Error: Table with name stg_asana__task does not exist!
+  Did you mean "stg_asana__tag"?
+  
+  LINE 17: from "asana"."main_stg_asana"."stg_asana__task"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana_source/models/stg_asana.yml/not_null_stg_asana__task_task_id.sql
+[0m16:45:57  
+[0m16:45:57  [31mFailure in test unique_stg_asana__task_task_id (models/stg_asana.yml)[0m
+[0m16:45:57    Runtime Error in test unique_stg_asana__task_task_id (models/stg_asana.yml)
+  Catalog Error: Table with name stg_asana__task does not exist!
+  Did you mean "stg_asana__tag"?
+  
+  LINE 18: from "asana"."main_stg_asana"."stg_asana__task"
+                ^
+[0m16:45:57  
+[0m16:45:57    compiled code at target/compiled/asana_source/models/stg_asana.yml/unique_stg_asana__task_task_id.sql
+[0m16:45:57  
+[0m16:45:57  Done. PASS=30 WARN=0 ERROR=21 SKIP=0 NO-OP=0 TOTAL=51
+DBT_TEST_RC=1

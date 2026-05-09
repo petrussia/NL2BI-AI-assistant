@@ -1,0 +1,1511 @@
+[2026-04-30T17:02:16.120065+00:00] FULL_CLOSURE_SUBPROC_START
+[2026-04-30T17:02:17.423064+00:00] data loaded: smoke10=10 smoke25=25 multidb30=30 bird=30 s2=30
+[2026-04-30T17:02:19.091876+00:00] PLAN_TOTAL_RUNS=52
+[2026-04-30T17:02:19.094598+00:00] >>> RUN [1/52] model=Qwen/Qwen2.5-Coder-7B-Instruct bl=B1 sub=bird_minidev_30
+[2026-04-30T17:02:24.560073+00:00] loading Qwen/Qwen2.5-Coder-7B-Instruct: gpu_free=84.20 GB total=85.09 GB
+[2026-04-30T17:02:32.268663+00:00] LOADED Qwen/Qwen2.5-Coder-7B-Instruct in 7.7s VRAM=14525 MB
+[2026-04-30T17:02:32.271444+00:00] === B1 b1_qwen2p5_coder_7b_bird_minidev_30 ===
+[2026-04-30T17:02:33.969673+00:00]   B1  0 california_schools       sel=1 exec=False match=False
+[2026-04-30T17:02:36.554312+00:00]   B1  1 card_games               sel=1 exec=True match=False
+[2026-04-30T17:02:37.775038+00:00]   B1  2 codebase_community       sel=8 exec=True match=False
+[2026-04-30T17:02:39.420025+00:00]   B1  3 debit_card_specializing  sel=1 exec=True match=True
+[2026-04-30T17:02:42.242842+00:00]   B1  4 european_football_2      sel=5 exec=True match=False
+[2026-04-30T17:02:48.360670+00:00]   B1  5 financial                sel=8 exec=False match=False
+[2026-04-30T17:02:50.135714+00:00]   B1  6 formula_1                sel=3 exec=True match=False
+[2026-04-30T17:02:51.680422+00:00]   B1  7 student_club             sel=8 exec=True match=True
+[2026-04-30T17:02:53.480060+00:00]   B1  8 superhero                sel=10 exec=True match=True
+[2026-04-30T17:02:59.688343+00:00]   B1  9 thrombosis_prediction    sel=3 exec=False match=False
+[2026-04-30T17:03:00.330500+00:00]   B1 10 toxicology               sel=2 exec=True match=True
+[2026-04-30T17:03:00.985789+00:00]   B1 11 california_schools       sel=2 exec=False match=False
+[2026-04-30T17:03:03.040247+00:00]   B1 12 card_games               sel=1 exec=True match=False
+[2026-04-30T17:03:03.853797+00:00]   B1 13 codebase_community       sel=1 exec=True match=True
+[2026-04-30T17:03:04.992835+00:00]   B1 14 debit_card_specializing  sel=1 exec=True match=False
+[2026-04-30T17:03:09.330458+00:00]   B1 15 european_football_2      sel=3 exec=True match=False
+[2026-04-30T17:03:11.991135+00:00]   B1 16 financial                sel=8 exec=True match=False
+[2026-04-30T17:03:13.771925+00:00]   B1 17 formula_1                sel=6 exec=True match=False
+[2026-04-30T17:03:15.637709+00:00]   B1 18 student_club             sel=3 exec=False match=False
+[2026-04-30T17:03:17.544532+00:00]   B1 19 superhero                sel=3 exec=True match=True
+[2026-04-30T17:03:19.184542+00:00]   B1 20 thrombosis_prediction    sel=1 exec=True match=False
+[2026-04-30T17:03:20.619138+00:00]   B1 21 toxicology               sel=4 exec=True match=False
+[2026-04-30T17:03:22.210262+00:00]   B1 22 california_schools       sel=2 exec=True match=False
+[2026-04-30T17:03:24.172931+00:00]   B1 23 card_games               sel=1 exec=False match=False
+[2026-04-30T17:03:25.122742+00:00]   B1 24 codebase_community       sel=1 exec=True match=False
+[2026-04-30T17:03:27.534560+00:00]   B1 25 debit_card_specializing  sel=2 exec=True match=False
+[2026-04-30T17:03:28.738087+00:00]   B1 26 european_football_2      sel=1 exec=False match=False
+[2026-04-30T17:03:31.694015+00:00]   B1 27 financial                sel=8 exec=False match=False
+[2026-04-30T17:03:32.885927+00:00]   B1 28 formula_1                sel=3 exec=True match=False
+[2026-04-30T17:03:34.456137+00:00]   B1 29 student_club             sel=8 exec=True match=False
+[2026-04-30T17:03:34.485039+00:00] >>> RUN [2/52] model=Qwen/Qwen2.5-Coder-7B-Instruct bl=B3_v2 sub=bird_minidev_30
+[2026-04-30T17:03:34.487237+00:00] === B3_v2 b3v2_qwen2p5_coder_7b_bird_minidev_30 ===
+[2026-04-30T17:03:39.695863+00:00]   B3_v2  0 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:03:47.040120+00:00]   B3_v2  1 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:03:52.494656+00:00]   B3_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:03:58.976804+00:00]   B3_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:04:10.392936+00:00]   B3_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:04:23.634635+00:00]   B3_v2  5 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:04:30.315340+00:00]   B3_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:04:37.235107+00:00]   B3_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:04:44.418745+00:00]   B3_v2  8 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:04:53.325368+00:00]   B3_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:04:56.580389+00:00]   B3_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:04:59.516243+00:00]   B3_v2 11 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:05:10.085056+00:00]   B3_v2 12 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:05:13.090580+00:00]   B3_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:05:18.158046+00:00]   B3_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:05:30.426190+00:00]   B3_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:05:39.475373+00:00]   B3_v2 16 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:05:48.376660+00:00]   B3_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:05:55.234428+00:00]   B3_v2 18 student_club             path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:06:03.193616+00:00]   B3_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:06:08.329456+00:00]   B3_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:06:16.492560+00:00]   B3_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:06:22.170408+00:00]   B3_v2 22 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:06:27.393891+00:00]   B3_v2 23 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:06:30.403585+00:00]   B3_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:06:38.893174+00:00]   B3_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:06:47.316832+00:00]   B3_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:06:57.265952+00:00]   B3_v2 27 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:07:01.958235+00:00]   B3_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:07:06.930297+00:00]   B3_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:07:06.968665+00:00] >>> RUN [3/52] model=Qwen/Qwen2.5-Coder-7B-Instruct bl=B4_v2 sub=bird_minidev_30
+[2026-04-30T17:07:06.970903+00:00] === B4_v2 b4v2_qwen2p5_coder_7b_bird_minidev_30 ===
+[2026-04-30T17:07:12.175310+00:00]   B4_v2  0 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:07:19.654298+00:00]   B4_v2  1 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:07:25.049643+00:00]   B4_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:07:31.534090+00:00]   B4_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:07:42.997266+00:00]   B4_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:07:56.226835+00:00]   B4_v2  5 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:08:02.833005+00:00]   B4_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:08:09.783774+00:00]   B4_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:08:16.919430+00:00]   B4_v2  8 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:08:25.959075+00:00]   B4_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:08:29.236165+00:00]   B4_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:08:32.190657+00:00]   B4_v2 11 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:08:42.788318+00:00]   B4_v2 12 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:08:45.819514+00:00]   B4_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:08:50.918915+00:00]   B4_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:03.140753+00:00]   B4_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:12.147396+00:00]   B4_v2 16 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:21.006793+00:00]   B4_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:27.839475+00:00]   B4_v2 18 student_club             path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:09:35.600425+00:00]   B4_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:09:40.664353+00:00]   B4_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:48.626185+00:00]   B4_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:54.229870+00:00]   B4_v2 22 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:09:59.384153+00:00]   B4_v2 23 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:10:02.376498+00:00]   B4_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:10:10.917997+00:00]   B4_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:10:19.404871+00:00]   B4_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:10:29.544093+00:00]   B4_v2 27 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:10:34.209801+00:00]   B4_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:10:39.307395+00:00]   B4_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:10:39.355694+00:00] >>> RUN [4/52] model=Qwen/Qwen2.5-Coder-7B-Instruct bl=B1 sub=spider2lite_30
+[2026-04-30T17:10:39.358250+00:00] === B1 b1_qwen2p5_coder_7b_spider2lite_30 ===
+[2026-04-30T17:10:47.966084+00:00]   B1  0 AMAZON_VENDOR_ANALYTICS_ sel=0 exec=None match=None
+[2026-04-30T17:10:51.902611+00:00]   B1  1 AUSTIN                   sel=0 exec=None match=None
+[2026-04-30T17:10:58.642904+00:00]   B1  2 AdventureWorks           sel=1 exec=None match=None
+[2026-04-30T17:11:00.256568+00:00]   B1  3 Airlines                 sel=8 exec=None match=None
+[2026-04-30T17:11:02.930422+00:00]   B1  4 BRAZE_USER_EVENT_DEMO_DA sel=0 exec=None match=None
+[2026-04-30T17:11:07.725296+00:00]   B1  5 Baseball                 sel=1 exec=None match=None
+[2026-04-30T17:11:14.942012+00:00]   B1  6 BowlingLeague            sel=3 exec=None match=None
+[2026-04-30T17:11:21.774054+00:00]   B1  7 Brazilian_E_Commerce     sel=1 exec=None match=None
+[2026-04-30T17:11:28.575128+00:00]   B1  8 CENSUS_BUREAU_ACS_2      sel=0 exec=None match=None
+[2026-04-30T17:11:31.855692+00:00]   B1  9 CENSUS_GALAXY__AIML_MODE sel=0 exec=None match=None
+[2026-04-30T17:11:35.018421+00:00]   B1 10 CENSUS_GALAXY__ZIP_CODE_ sel=0 exec=None match=None
+[2026-04-30T17:11:40.200299+00:00]   B1 11 CPTAC_PDC                sel=0 exec=None match=None
+[2026-04-30T17:11:47.620656+00:00]   B1 12 CRYPTO                   sel=0 exec=None match=None
+[2026-04-30T17:11:49.636828+00:00]   B1 13 CYMBAL_INVESTMENTS       sel=0 exec=None match=None
+[2026-04-30T17:11:53.775030+00:00]   B1 14 California_Traffic_Colli sel=2 exec=None match=None
+[2026-04-30T17:11:57.610627+00:00]   B1 15 DEATH                    sel=0 exec=None match=None
+[2026-04-30T17:11:59.359644+00:00]   B1 16 DEPS_DEV_V1              sel=0 exec=None match=None
+[2026-04-30T17:12:02.877332+00:00]   B1 17 Db-IMDB                  sel=0 exec=None match=None
+[2026-04-30T17:12:06.172618+00:00]   B1 18 ETHEREUM_BLOCKCHAIN      sel=0 exec=None match=None
+[2026-04-30T17:12:08.939599+00:00]   B1 19 EU_soccer                sel=9 exec=None match=None
+[2026-04-30T17:12:14.895182+00:00]   B1 20 E_commerce               sel=11 exec=None match=None
+[2026-04-30T17:12:18.847474+00:00]   B1 21 EntertainmentAgency      sel=2 exec=None match=None
+[2026-04-30T17:12:22.302964+00:00]   B1 22 FINANCE__ECONOMICS       sel=0 exec=None match=None
+[2026-04-30T17:12:23.273456+00:00]   B1 23 GENOMICS_CANNABIS        sel=0 exec=None match=None
+[2026-04-30T17:12:25.991978+00:00]   B1 24 GEO_OPENSTREETMAP        sel=0 exec=None match=None
+[2026-04-30T17:12:30.121520+00:00]   B1 25 GEO_OPENSTREETMAP_BOUNDA sel=0 exec=None match=None
+[2026-04-30T17:12:34.528450+00:00]   B1 26 GEO_OPENSTREETMAP_CENSUS sel=0 exec=None match=None
+[2026-04-30T17:12:39.522573+00:00]   B1 27 GEO_OPENSTREETMAP_WORLDP sel=0 exec=None match=None
+[2026-04-30T17:12:41.365316+00:00]   B1 28 GITHUB_REPOS             sel=0 exec=None match=None
+[2026-04-30T17:12:46.099488+00:00]   B1 29 GITHUB_REPOS_DATE        sel=0 exec=None match=None
+[2026-04-30T17:12:46.141941+00:00] >>> RUN [5/52] model=Qwen/Qwen2.5-Coder-7B-Instruct bl=B3_v2 sub=spider2lite_30
+[2026-04-30T17:12:46.144025+00:00] === B3_v2 b3v2_qwen2p5_coder_7b_spider2lite_30 ===
+[2026-04-30T17:13:03.220704+00:00]   B3_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:13:15.676725+00:00]   B3_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:13:29.918295+00:00]   B3_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:13:36.024646+00:00]   B3_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:13:46.291446+00:00]   B3_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:13:56.971553+00:00]   B3_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:14:12.828104+00:00]   B3_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:14:27.477005+00:00]   B3_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:14:42.978368+00:00]   B3_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:14:54.854327+00:00]   B3_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:15:05.240228+00:00]   B3_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:15:19.292826+00:00]   B3_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:15:35.548521+00:00]   B3_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:15:46.208518+00:00]   B3_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:15:58.970588+00:00]   B3_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:16:11.407202+00:00]   B3_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:16:19.594044+00:00]   B3_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:16:31.695356+00:00]   B3_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:16:43.539383+00:00]   B3_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:16:51.104327+00:00]   B3_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:17:05.627744+00:00]   B3_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:17:17.081614+00:00]   B3_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:17:28.048805+00:00]   B3_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:17:35.714576+00:00]   B3_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:17:47.031586+00:00]   B3_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:17:59.082626+00:00]   B3_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:18:11.972901+00:00]   B3_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:18:25.602430+00:00]   B3_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:18:32.393625+00:00]   B3_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:18:45.758642+00:00]   B3_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:18:45.795917+00:00] >>> RUN [6/52] model=Qwen/Qwen2.5-Coder-7B-Instruct bl=B4_v2 sub=spider2lite_30
+[2026-04-30T17:18:45.798050+00:00] === B4_v2 b4v2_qwen2p5_coder_7b_spider2lite_30 ===
+[2026-04-30T17:19:02.855000+00:00]   B4_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:19:15.168369+00:00]   B4_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:19:29.387711+00:00]   B4_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:19:35.522180+00:00]   B4_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:19:45.691321+00:00]   B4_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:19:56.326184+00:00]   B4_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:20:12.215185+00:00]   B4_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:20:26.820402+00:00]   B4_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:20:42.368088+00:00]   B4_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:20:54.291880+00:00]   B4_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:21:04.699224+00:00]   B4_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:21:18.447932+00:00]   B4_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:21:34.803544+00:00]   B4_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:21:45.532361+00:00]   B4_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:21:58.057406+00:00]   B4_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:22:10.453345+00:00]   B4_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:22:18.666739+00:00]   B4_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:22:30.746927+00:00]   B4_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:22:42.716161+00:00]   B4_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:22:50.408843+00:00]   B4_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:23:05.019884+00:00]   B4_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:23:16.477654+00:00]   B4_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:23:27.519670+00:00]   B4_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:23:35.084024+00:00]   B4_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:23:46.248233+00:00]   B4_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:23:58.243305+00:00]   B4_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:24:11.199070+00:00]   B4_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:24:24.751595+00:00]   B4_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:24:31.502548+00:00]   B4_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:24:45.023881+00:00]   B4_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:24:45.062737+00:00] >>> RUN [7/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B2_v2 sub=smoke_10
+[2026-04-30T17:24:45.336291+00:00] loading meta-llama/Llama-3.1-8B-Instruct: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T17:24:53.803774+00:00] LOADED meta-llama/Llama-3.1-8B-Instruct in 8.5s VRAM=15326 MB
+[2026-04-30T17:24:53.806578+00:00] === B2_v2 b2v2_llama_3p1_8b_smoke10 ===
+[2026-04-30T17:24:55.274044+00:00]   B2_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:24:56.703427+00:00]   B2_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:24:59.423205+00:00]   B2_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:02.162919+00:00]   B2_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:07.046189+00:00]   B2_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:10.829560+00:00]   B2_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:14.461675+00:00]   B2_v2  6 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T17:25:20.019879+00:00]   B2_v2  7 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T17:25:23.346706+00:00]   B2_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:26.231266+00:00]   B2_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:26.271643+00:00] >>> RUN [8/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B3_v2 sub=smoke_10
+[2026-04-30T17:25:26.274067+00:00] === B3_v2 b3v2_llama_3p1_8b_smoke10 ===
+[2026-04-30T17:25:27.969322+00:00]   B3_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:25:29.662028+00:00]   B3_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:25:32.344371+00:00]   B3_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:34.755105+00:00]   B3_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:40.433781+00:00]   B3_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:43.977689+00:00]   B3_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:48.602290+00:00]   B3_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:25:53.537479+00:00]   B3_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:25:56.414844+00:00]   B3_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:59.371338+00:00]   B3_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:25:59.405093+00:00] >>> RUN [9/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B4_v2 sub=smoke_10
+[2026-04-30T17:25:59.408025+00:00] === B4_v2 b4v2_llama_3p1_8b_smoke10 ===
+[2026-04-30T17:26:01.196608+00:00]   B4_v2  0 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:26:02.929904+00:00]   B4_v2  1 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:26:05.623430+00:00]   B4_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:08.041267+00:00]   B4_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:13.761985+00:00]   B4_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:17.314563+00:00]   B4_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:22.009309+00:00]   B4_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:26:26.961016+00:00]   B4_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:26:29.841581+00:00]   B4_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:32.845122+00:00]   B4_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:32.873778+00:00] >>> RUN [10/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B2_v2 sub=smoke_25
+[2026-04-30T17:26:32.876084+00:00] === B2_v2 b2v2_llama_3p1_8b_smoke25 ===
+[2026-04-30T17:26:34.336105+00:00]   B2_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:26:35.784662+00:00]   B2_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:26:38.536582+00:00]   B2_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:41.287205+00:00]   B2_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:46.237506+00:00]   B2_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:50.084404+00:00]   B2_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:26:53.727951+00:00]   B2_v2  6 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T17:26:59.315755+00:00]   B2_v2  7 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T17:27:02.658314+00:00]   B2_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:27:05.536138+00:00]   B2_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:27:07.651095+00:00]   B2_v2 10 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T17:27:10.115351+00:00]   B2_v2 11 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:13.580920+00:00]   B2_v2 12 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:16.952086+00:00]   B2_v2 13 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:21.268710+00:00]   B2_v2 14 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:25.592049+00:00]   B2_v2 15 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:29.636307+00:00]   B2_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:27:32.715402+00:00]   B2_v2 17 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:27:36.266355+00:00]   B2_v2 18 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:39.748029+00:00]   B2_v2 19 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:27:42.668763+00:00]   B2_v2 20 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:27:45.607924+00:00]   B2_v2 21 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:27:50.914898+00:00]   B2_v2 22 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:27:56.185132+00:00]   B2_v2 23 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:28:04.177372+00:00]   B2_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:04.221989+00:00] >>> RUN [11/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B3_v2 sub=smoke_25
+[2026-04-30T17:28:04.224140+00:00] === B3_v2 b3v2_llama_3p1_8b_smoke25 ===
+[2026-04-30T17:28:05.942953+00:00]   B3_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:28:07.635713+00:00]   B3_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:28:10.336292+00:00]   B3_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:12.756986+00:00]   B3_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:18.451070+00:00]   B3_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:22.006221+00:00]   B3_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:26.678521+00:00]   B3_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:28:31.681695+00:00]   B3_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:28:34.569723+00:00]   B3_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:37.553670+00:00]   B3_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:41.553841+00:00]   B3_v2 10 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:28:44.035874+00:00]   B3_v2 11 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:28:48.423644+00:00]   B3_v2 12 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:28:51.655657+00:00]   B3_v2 13 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:55.581231+00:00]   B3_v2 14 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:28:59.772327+00:00]   B3_v2 15 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:02.561988+00:00]   B3_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:29:05.207792+00:00]   B3_v2 17 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:08.392837+00:00]   B3_v2 18 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:11.448680+00:00]   B3_v2 19 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:14.500933+00:00]   B3_v2 20 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:17.581136+00:00]   B3_v2 21 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:23.702975+00:00]   B3_v2 22 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:29.459072+00:00]   B3_v2 23 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:29:38.118349+00:00]   B3_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:38.147723+00:00] >>> RUN [12/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B4_v2 sub=smoke_25
+[2026-04-30T17:29:38.150207+00:00] === B4_v2 b4v2_llama_3p1_8b_smoke25 ===
+[2026-04-30T17:29:39.870351+00:00]   B4_v2  0 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:29:41.586231+00:00]   B4_v2  1 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:29:44.301832+00:00]   B4_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:46.713816+00:00]   B4_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:52.363403+00:00]   B4_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:29:55.924540+00:00]   B4_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:00.625753+00:00]   B4_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:30:05.624127+00:00]   B4_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:30:08.552173+00:00]   B4_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:11.537926+00:00]   B4_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:15.511386+00:00]   B4_v2 10 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:30:18.049756+00:00]   B4_v2 11 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:30:22.416270+00:00]   B4_v2 12 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:30:25.589431+00:00]   B4_v2 13 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:29.469411+00:00]   B4_v2 14 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:33.616055+00:00]   B4_v2 15 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:36.413003+00:00]   B4_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:30:39.040764+00:00]   B4_v2 17 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:42.262485+00:00]   B4_v2 18 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:45.348953+00:00]   B4_v2 19 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:48.448967+00:00]   B4_v2 20 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:51.514174+00:00]   B4_v2 21 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:30:57.624790+00:00]   B4_v2 22 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:03.384049+00:00]   B4_v2 23 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:31:12.077105+00:00]   B4_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:12.114739+00:00] >>> RUN [13/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B2_v2 sub=multidb_30
+[2026-04-30T17:31:12.116804+00:00] === B2_v2 b2v2_llama_3p1_8b_multidb30 ===
+[2026-04-30T17:31:15.209895+00:00]   B2_v2  0 battle_death             path=plan_then_sql            exec=True match=False
+[2026-04-30T17:31:17.780304+00:00]   B2_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:19.488080+00:00]   B2_v2  2 battle_death             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:31:23.430928+00:00]   B2_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:26.760107+00:00]   B2_v2  4 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:28.543330+00:00]   B2_v2  5 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:30.324180+00:00]   B2_v2  6 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:35.482637+00:00]   B2_v2  7 car_1                    path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:31:41.377411+00:00]   B2_v2  8 car_1                    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:31:42.764639+00:00]   B2_v2  9 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:44.281517+00:00]   B2_v2 10 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:45.899202+00:00]   B2_v2 11 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:48.213576+00:00]   B2_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:50.568020+00:00]   B2_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:52.206051+00:00]   B2_v2 14 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:31:53.939533+00:00]   B2_v2 15 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:55.563488+00:00]   B2_v2 16 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T17:31:57.726993+00:00]   B2_v2 17 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:00.109081+00:00]   B2_v2 18 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:03.401635+00:00]   B2_v2 19 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T17:32:06.747421+00:00]   B2_v2 20 dog_kennels              path=plan_then_sql            exec=True match=True
+[2026-04-30T17:32:10.016262+00:00]   B2_v2 21 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:15.171715+00:00]   B2_v2 22 dog_kennels              path=plan_then_sql            exec=True match=False
+[2026-04-30T17:32:21.076765+00:00]   B2_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:32:27.058251+00:00]   B2_v2 24 dog_kennels              path=plan_then_sql            exec=True match=False
+[2026-04-30T17:32:28.723814+00:00]   B2_v2 25 employee_hire_evaluation path=plan_then_sql            exec=True match=True
+[2026-04-30T17:32:30.373868+00:00]   B2_v2 26 employee_hire_evaluation path=plan_then_sql            exec=True match=True
+[2026-04-30T17:32:32.825372+00:00]   B2_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:35.284316+00:00]   B2_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:37.806651+00:00]   B2_v2 29 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:32:37.845844+00:00] >>> RUN [14/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B3_v2 sub=multidb_30
+[2026-04-30T17:32:37.848209+00:00] === B3_v2 b3v2_llama_3p1_8b_multidb30 ===
+[2026-04-30T17:32:40.992652+00:00]   B3_v2  0 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:43.626634+00:00]   B3_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:45.352312+00:00]   B3_v2  2 battle_death             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:32:48.006885+00:00]   B3_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:50.891738+00:00]   B3_v2  4 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:32:52.839127+00:00]   B3_v2  5 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T17:32:55.047257+00:00]   B3_v2  6 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T17:33:01.187305+00:00]   B3_v2  7 car_1                    path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:33:04.460781+00:00]   B3_v2  8 car_1                    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:33:06.155153+00:00]   B3_v2  9 car_1                    path=plan_then_sql            exec=True match=False
+[2026-04-30T17:33:07.787282+00:00]   B3_v2 10 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T17:33:09.446557+00:00]   B3_v2 11 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T17:33:11.424800+00:00]   B3_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:13.774963+00:00]   B3_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:15.595314+00:00]   B3_v2 14 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:17.243654+00:00]   B3_v2 15 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T17:33:18.943830+00:00]   B3_v2 16 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=False
+[2026-04-30T17:33:22.827200+00:00]   B3_v2 17 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:25.178202+00:00]   B3_v2 18 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:29.398276+00:00]   B3_v2 19 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:33.596825+00:00]   B3_v2 20 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:36.503171+00:00]   B3_v2 21 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:33:39.950439+00:00]   B3_v2 22 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:33:43.398103+00:00]   B3_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:33:55.840166+00:00]   B3_v2 24 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:33:57.502664+00:00]   B3_v2 25 employee_hire_evaluation path=plan_then_sql            exec=True match=True
+[2026-04-30T17:33:59.809199+00:00]   B3_v2 26 employee_hire_evaluation path=plan_then_sql            exec=True match=False
+[2026-04-30T17:34:01.742686+00:00]   B3_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:03.805926+00:00]   B3_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:05.493021+00:00]   B3_v2 29 employee_hire_evaluation path=plan_then_sql            exec=True match=False
+[2026-04-30T17:34:05.521507+00:00] >>> RUN [15/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B4_v2 sub=multidb_30
+[2026-04-30T17:34:05.523645+00:00] === B4_v2 b4v2_llama_3p1_8b_multidb30 ===
+[2026-04-30T17:34:08.618841+00:00]   B4_v2  0 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:11.238648+00:00]   B4_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:12.970822+00:00]   B4_v2  2 battle_death             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:34:15.620540+00:00]   B4_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:18.480082+00:00]   B4_v2  4 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:20.446784+00:00]   B4_v2  5 car_1                    path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:34:22.675727+00:00]   B4_v2  6 car_1                    path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:34:28.850800+00:00]   B4_v2  7 car_1                    path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:34:32.117371+00:00]   B4_v2  8 car_1                    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:34:33.830752+00:00]   B4_v2  9 car_1                    path=multicand:consistency_wi exec=True match=False
+[2026-04-30T17:34:35.531151+00:00]   B4_v2 10 course_teach             path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:34:37.242386+00:00]   B4_v2 11 course_teach             path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:34:39.205951+00:00]   B4_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:41.502297+00:00]   B4_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:43.305213+00:00]   B4_v2 14 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:44.999869+00:00]   B4_v2 15 cre_Doc_Template_Mgt     path=multicand:consistency_wi exec=True match=True
+[2026-04-30T17:34:46.838283+00:00]   B4_v2 16 cre_Doc_Template_Mgt     path=multicand:consistency_wi exec=True match=False
+[2026-04-30T17:34:50.764469+00:00]   B4_v2 17 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:53.146555+00:00]   B4_v2 18 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:34:57.472356+00:00]   B4_v2 19 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:35:01.710756+00:00]   B4_v2 20 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:35:04.666910+00:00]   B4_v2 21 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:35:08.136653+00:00]   B4_v2 22 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:35:11.697960+00:00]   B4_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:35:24.371057+00:00]   B4_v2 24 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:35:26.091488+00:00]   B4_v2 25 employee_hire_evaluation path=multicand:consistency_wi exec=True match=False
+[2026-04-30T17:35:28.481519+00:00]   B4_v2 26 employee_hire_evaluation path=multicand:consistency_wi exec=True match=False
+[2026-04-30T17:35:30.454399+00:00]   B4_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:35:32.540101+00:00]   B4_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:35:34.329497+00:00]   B4_v2 29 employee_hire_evaluation path=multicand:consistency_wi exec=True match=False
+[2026-04-30T17:35:34.357371+00:00] >>> RUN [16/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B1 sub=bird_minidev_30
+[2026-04-30T17:35:34.359480+00:00] === B1 b1_llama_3p1_8b_bird_minidev_30 ===
+[2026-04-30T17:35:35.329399+00:00]   B1  0 california_schools       sel=1 exec=True match=False
+[2026-04-30T17:35:36.132111+00:00]   B1  1 card_games               sel=1 exec=False match=False
+[2026-04-30T17:35:37.372501+00:00]   B1  2 codebase_community       sel=8 exec=True match=False
+[2026-04-30T17:35:39.116318+00:00]   B1  3 debit_card_specializing  sel=1 exec=True match=True
+[2026-04-30T17:35:42.097707+00:00]   B1  4 european_football_2      sel=5 exec=True match=False
+[2026-04-30T17:35:45.169224+00:00]   B1  5 financial                sel=8 exec=True match=False
+[2026-04-30T17:35:46.799425+00:00]   B1  6 formula_1                sel=3 exec=True match=False
+[2026-04-30T17:35:48.562976+00:00]   B1  7 student_club             sel=8 exec=True match=True
+[2026-04-30T17:35:50.018036+00:00]   B1  8 superhero                sel=10 exec=False match=False
+[2026-04-30T17:35:54.634350+00:00]   B1  9 thrombosis_prediction    sel=3 exec=True match=False
+[2026-04-30T17:35:55.434621+00:00]   B1 10 toxicology               sel=2 exec=True match=True
+[2026-04-30T17:35:56.118704+00:00]   B1 11 california_schools       sel=2 exec=False match=False
+[2026-04-30T17:35:56.841058+00:00]   B1 12 card_games               sel=1 exec=False match=False
+[2026-04-30T17:35:57.415424+00:00]   B1 13 codebase_community       sel=1 exec=False match=False
+[2026-04-30T17:35:58.511708+00:00]   B1 14 debit_card_specializing  sel=1 exec=True match=False
+[2026-04-30T17:36:00.904396+00:00]   B1 15 european_football_2      sel=3 exec=False match=False
+[2026-04-30T17:36:03.318093+00:00]   B1 16 financial                sel=8 exec=True match=False
+[2026-04-30T17:36:05.418075+00:00]   B1 17 formula_1                sel=6 exec=True match=False
+[2026-04-30T17:36:08.316021+00:00]   B1 18 student_club             sel=3 exec=True match=False
+[2026-04-30T17:36:10.722118+00:00]   B1 19 superhero                sel=3 exec=True match=True
+[2026-04-30T17:36:12.843097+00:00]   B1 20 thrombosis_prediction    sel=1 exec=True match=False
+[2026-04-30T17:36:16.609016+00:00]   B1 21 toxicology               sel=4 exec=True match=False
+[2026-04-30T17:36:18.135615+00:00]   B1 22 california_schools       sel=2 exec=False match=False
+[2026-04-30T17:36:18.880521+00:00]   B1 23 card_games               sel=1 exec=False match=False
+[2026-04-30T17:36:19.624521+00:00]   B1 24 codebase_community       sel=1 exec=True match=False
+[2026-04-30T17:36:21.929911+00:00]   B1 25 debit_card_specializing  sel=2 exec=True match=False
+[2026-04-30T17:36:23.665004+00:00]   B1 26 european_football_2      sel=1 exec=False match=False
+[2026-04-30T17:36:25.282480+00:00]   B1 27 financial                sel=8 exec=True match=False
+[2026-04-30T17:36:26.634460+00:00]   B1 28 formula_1                sel=3 exec=True match=False
+[2026-04-30T17:36:28.531162+00:00]   B1 29 student_club             sel=8 exec=True match=False
+[2026-04-30T17:36:28.560147+00:00] >>> RUN [17/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B3_v2 sub=bird_minidev_30
+[2026-04-30T17:36:28.562308+00:00] === B3_v2 b3v2_llama_3p1_8b_bird_minidev_30 ===
+[2026-04-30T17:36:35.613841+00:00]   B3_v2  0 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:36:39.831411+00:00]   B3_v2  1 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:36:46.999264+00:00]   B3_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:36:55.324976+00:00]   B3_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:37:05.764241+00:00]   B3_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:37:13.243896+00:00]   B3_v2  5 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:37:17.649649+00:00]   B3_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:37:22.786503+00:00]   B3_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:37:29.365592+00:00]   B3_v2  8 superhero                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:37:38.478714+00:00]   B3_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:37:42.714689+00:00]   B3_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:37:46.072637+00:00]   B3_v2 11 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:37:56.002497+00:00]   B3_v2 12 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:37:59.075736+00:00]   B3_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:38:04.949365+00:00]   B3_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:38:13.225706+00:00]   B3_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:38:24.073079+00:00]   B3_v2 16 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:38:30.739815+00:00]   B3_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:38:40.484309+00:00]   B3_v2 18 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:38:48.272730+00:00]   B3_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:38:55.864627+00:00]   B3_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:39:07.100729+00:00]   B3_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:39:14.502958+00:00]   B3_v2 22 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:39:18.661915+00:00]   B3_v2 23 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:39:22.608468+00:00]   B3_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:39:30.945630+00:00]   B3_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:39:38.792807+00:00]   B3_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:39:47.409649+00:00]   B3_v2 27 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:39:53.059836+00:00]   B3_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:02.227814+00:00]   B3_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:02.255684+00:00] >>> RUN [18/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B4_v2 sub=bird_minidev_30
+[2026-04-30T17:40:02.257725+00:00] === B4_v2 b4v2_llama_3p1_8b_bird_minidev_30 ===
+[2026-04-30T17:40:09.302181+00:00]   B4_v2  0 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:13.507628+00:00]   B4_v2  1 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:40:20.622202+00:00]   B4_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:28.962686+00:00]   B4_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:40:39.300719+00:00]   B4_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:46.775291+00:00]   B4_v2  5 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:51.189286+00:00]   B4_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:40:56.280909+00:00]   B4_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:41:02.918690+00:00]   B4_v2  8 superhero                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:41:12.086488+00:00]   B4_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:41:16.362708+00:00]   B4_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:41:19.714545+00:00]   B4_v2 11 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:41:29.659408+00:00]   B4_v2 12 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:41:32.709824+00:00]   B4_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:41:38.568771+00:00]   B4_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:41:46.850561+00:00]   B4_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:41:57.702801+00:00]   B4_v2 16 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:42:04.473215+00:00]   B4_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:42:14.318839+00:00]   B4_v2 18 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:42:22.181333+00:00]   B4_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T17:42:29.760076+00:00]   B4_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:42:41.189549+00:00]   B4_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:42:48.683889+00:00]   B4_v2 22 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:42:52.956174+00:00]   B4_v2 23 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:42:56.977457+00:00]   B4_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:43:05.570115+00:00]   B4_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:43:13.471330+00:00]   B4_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T17:43:22.079780+00:00]   B4_v2 27 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:43:27.654722+00:00]   B4_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:43:36.727744+00:00]   B4_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T17:43:36.768503+00:00] >>> RUN [19/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B1 sub=spider2lite_30
+[2026-04-30T17:43:36.770652+00:00] === B1 b1_llama_3p1_8b_spider2lite_30 ===
+[2026-04-30T17:43:46.086831+00:00]   B1  0 AMAZON_VENDOR_ANALYTICS_ sel=0 exec=None match=None
+[2026-04-30T17:43:50.914007+00:00]   B1  1 AUSTIN                   sel=0 exec=None match=None
+[2026-04-30T17:43:55.920333+00:00]   B1  2 AdventureWorks           sel=1 exec=None match=None
+[2026-04-30T17:43:58.431285+00:00]   B1  3 Airlines                 sel=8 exec=None match=None
+[2026-04-30T17:44:01.190635+00:00]   B1  4 BRAZE_USER_EVENT_DEMO_DA sel=0 exec=None match=None
+[2026-04-30T17:44:05.843015+00:00]   B1  5 Baseball                 sel=1 exec=None match=None
+[2026-04-30T17:44:09.405950+00:00]   B1  6 BowlingLeague            sel=3 exec=None match=None
+[2026-04-30T17:44:18.692017+00:00]   B1  7 Brazilian_E_Commerce     sel=1 exec=None match=None
+[2026-04-30T17:44:25.600157+00:00]   B1  8 CENSUS_BUREAU_ACS_2      sel=0 exec=None match=None
+[2026-04-30T17:44:32.471031+00:00]   B1  9 CENSUS_GALAXY__AIML_MODE sel=0 exec=None match=None
+[2026-04-30T17:44:37.234976+00:00]   B1 10 CENSUS_GALAXY__ZIP_CODE_ sel=0 exec=None match=None
+[2026-04-30T17:44:46.140185+00:00]   B1 11 CPTAC_PDC                sel=0 exec=None match=None
+[2026-04-30T17:44:53.401177+00:00]   B1 12 CRYPTO                   sel=0 exec=None match=None
+[2026-04-30T17:44:55.307421+00:00]   B1 13 CYMBAL_INVESTMENTS       sel=0 exec=None match=None
+[2026-04-30T17:45:03.911544+00:00]   B1 14 California_Traffic_Colli sel=2 exec=None match=None
+[2026-04-30T17:45:09.388130+00:00]   B1 15 DEATH                    sel=0 exec=None match=None
+[2026-04-30T17:45:11.721839+00:00]   B1 16 DEPS_DEV_V1              sel=0 exec=None match=None
+[2026-04-30T17:45:15.957513+00:00]   B1 17 Db-IMDB                  sel=0 exec=None match=None
+[2026-04-30T17:45:25.351934+00:00]   B1 18 ETHEREUM_BLOCKCHAIN      sel=0 exec=None match=None
+[2026-04-30T17:45:27.114787+00:00]   B1 19 EU_soccer                sel=9 exec=None match=None
+[2026-04-30T17:45:36.475521+00:00]   B1 20 E_commerce               sel=11 exec=None match=None
+[2026-04-30T17:45:40.970418+00:00]   B1 21 EntertainmentAgency      sel=2 exec=None match=None
+[2026-04-30T17:45:44.344553+00:00]   B1 22 FINANCE__ECONOMICS       sel=0 exec=None match=None
+[2026-04-30T17:45:45.073536+00:00]   B1 23 GENOMICS_CANNABIS        sel=0 exec=None match=None
+[2026-04-30T17:45:47.595748+00:00]   B1 24 GEO_OPENSTREETMAP        sel=0 exec=None match=None
+[2026-04-30T17:45:51.512549+00:00]   B1 25 GEO_OPENSTREETMAP_BOUNDA sel=0 exec=None match=None
+[2026-04-30T17:45:58.173603+00:00]   B1 26 GEO_OPENSTREETMAP_CENSUS sel=0 exec=None match=None
+[2026-04-30T17:46:07.459868+00:00]   B1 27 GEO_OPENSTREETMAP_WORLDP sel=0 exec=None match=None
+[2026-04-30T17:46:08.347520+00:00]   B1 28 GITHUB_REPOS             sel=0 exec=None match=None
+[2026-04-30T17:46:15.412991+00:00]   B1 29 GITHUB_REPOS_DATE        sel=0 exec=None match=None
+[2026-04-30T17:46:15.447734+00:00] >>> RUN [20/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B3_v2 sub=spider2lite_30
+[2026-04-30T17:46:15.449810+00:00] === B3_v2 b3v2_llama_3p1_8b_spider2lite_30 ===
+[2026-04-30T17:46:33.967006+00:00]   B3_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:46:47.268620+00:00]   B3_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:47:00.869298+00:00]   B3_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:47:09.638129+00:00]   B3_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:47:18.085521+00:00]   B3_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:47:32.049964+00:00]   B3_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:47:44.917125+00:00]   B3_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:48:00.965589+00:00]   B3_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:48:17.124217+00:00]   B3_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:48:33.131963+00:00]   B3_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:48:46.497100+00:00]   B3_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:49:04.557030+00:00]   B3_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:49:21.105947+00:00]   B3_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:49:30.551671+00:00]   B3_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:49:47.112278+00:00]   B3_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:50:01.946522+00:00]   B3_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:50:10.632165+00:00]   B3_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:50:24.001391+00:00]   B3_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:50:42.546104+00:00]   B3_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:50:51.845400+00:00]   B3_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:51:10.606429+00:00]   B3_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:51:22.120821+00:00]   B3_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:51:32.196967+00:00]   B3_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:51:37.517700+00:00]   B3_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:51:46.976741+00:00]   B3_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:52:00.020478+00:00]   B3_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:52:15.189390+00:00]   B3_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:52:33.766666+00:00]   B3_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:52:40.317913+00:00]   B3_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:52:56.927298+00:00]   B3_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:52:56.971547+00:00] >>> RUN [21/52] model=meta-llama/Llama-3.1-8B-Instruct bl=B4_v2 sub=spider2lite_30
+[2026-04-30T17:52:56.974568+00:00] === B4_v2 b4v2_llama_3p1_8b_spider2lite_30 ===
+[2026-04-30T17:53:15.505460+00:00]   B4_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:53:28.928690+00:00]   B4_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:53:42.565286+00:00]   B4_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:53:51.330002+00:00]   B4_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:53:59.755649+00:00]   B4_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:54:13.785498+00:00]   B4_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:54:26.606057+00:00]   B4_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:54:42.633642+00:00]   B4_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:54:58.812030+00:00]   B4_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:55:14.974336+00:00]   B4_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:55:28.337010+00:00]   B4_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:55:46.430502+00:00]   B4_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:56:02.786622+00:00]   B4_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:56:12.168307+00:00]   B4_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:56:28.723930+00:00]   B4_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:56:43.383211+00:00]   B4_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:56:52.068840+00:00]   B4_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:57:05.506688+00:00]   B4_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:57:24.078376+00:00]   B4_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:57:33.329121+00:00]   B4_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:57:51.908843+00:00]   B4_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:58:03.416080+00:00]   B4_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:58:13.564784+00:00]   B4_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:58:18.881253+00:00]   B4_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:58:28.437641+00:00]   B4_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:58:41.621575+00:00]   B4_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:58:56.777437+00:00]   B4_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:59:15.467028+00:00]   B4_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:59:21.990436+00:00]   B4_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:59:38.628401+00:00]   B4_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T17:59:38.667071+00:00] >>> RUN [22/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B2_v2 sub=smoke_10
+[2026-04-30T17:59:38.939922+00:00] loading Qwen/Qwen2.5-Coder-14B-Instruct: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T17:59:50.603084+00:00] LOADED Qwen/Qwen2.5-Coder-14B-Instruct in 11.7s VRAM=28180 MB
+[2026-04-30T17:59:50.606559+00:00] === B2_v2 b2v2_qwen2p5_coder_14b_smoke10 ===
+[2026-04-30T17:59:52.819586+00:00]   B2_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:59:55.005650+00:00]   B2_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T17:59:59.363081+00:00]   B2_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:00:03.715703+00:00]   B2_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:00:13.445881+00:00]   B2_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:00:23.185591+00:00]   B2_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:00:29.114719+00:00]   B2_v2  6 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T18:00:35.200361+00:00]   B2_v2  7 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T18:00:40.222818+00:00]   B2_v2  8 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:00:45.299714+00:00]   B2_v2  9 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:00:45.338627+00:00] >>> RUN [23/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B3_v2 sub=smoke_10
+[2026-04-30T18:00:45.340809+00:00] === B3_v2 b3v2_qwen2p5_coder_14b_smoke10 ===
+[2026-04-30T18:00:47.529650+00:00]   B3_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:00:49.692726+00:00]   B3_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:00:54.484107+00:00]   B3_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:00:59.102758+00:00]   B3_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:06.907825+00:00]   B3_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:14.735048+00:00]   B3_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:23.216061+00:00]   B3_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:32.408131+00:00]   B3_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:37.140473+00:00]   B3_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:41.917191+00:00]   B3_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:41.957103+00:00] >>> RUN [24/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B4_v2 sub=smoke_10
+[2026-04-30T18:01:41.959532+00:00] === B4_v2 b4v2_qwen2p5_coder_14b_smoke10 ===
+[2026-04-30T18:01:44.215283+00:00]   B4_v2  0 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:01:46.179453+00:00]   B4_v2  1 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:01:50.998667+00:00]   B4_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:01:55.618441+00:00]   B4_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:03.447155+00:00]   B4_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:11.286493+00:00]   B4_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:19.761758+00:00]   B4_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:29.063562+00:00]   B4_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:33.749904+00:00]   B4_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:38.583039+00:00]   B4_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:38.625100+00:00] >>> RUN [25/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B2_v2 sub=smoke_25
+[2026-04-30T18:02:38.627448+00:00] === B2_v2 b2v2_qwen2p5_coder_14b_smoke25 ===
+[2026-04-30T18:02:40.808675+00:00]   B2_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:02:42.953586+00:00]   B2_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:02:47.326440+00:00]   B2_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:02:51.721333+00:00]   B2_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:03:01.400894+00:00]   B2_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:03:11.063885+00:00]   B2_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:03:17.029423+00:00]   B2_v2  6 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T18:03:22.949498+00:00]   B2_v2  7 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T18:03:28.017663+00:00]   B2_v2  8 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:03:33.096457+00:00]   B2_v2  9 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:03:38.953610+00:00]   B2_v2 10 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:03:42.313672+00:00]   B2_v2 11 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:03:47.655896+00:00]   B2_v2 12 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:03:53.615424+00:00]   B2_v2 13 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:01.019042+00:00]   B2_v2 14 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:08.496700+00:00]   B2_v2 15 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:14.713764+00:00]   B2_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:04:19.425640+00:00]   B2_v2 17 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:24.943211+00:00]   B2_v2 18 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:30.453076+00:00]   B2_v2 19 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:36.987496+00:00]   B2_v2 20 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:43.476069+00:00]   B2_v2 21 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:04:51.482293+00:00]   B2_v2 22 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:00.817008+00:00]   B2_v2 23 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:14.531658+00:00]   B2_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:14.561200+00:00] >>> RUN [26/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B3_v2 sub=smoke_25
+[2026-04-30T18:05:14.563466+00:00] === B3_v2 b3v2_qwen2p5_coder_14b_smoke25 ===
+[2026-04-30T18:05:16.762542+00:00]   B3_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:05:18.936559+00:00]   B3_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:05:23.752701+00:00]   B3_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:28.369884+00:00]   B3_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:36.248587+00:00]   B3_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:44.123044+00:00]   B3_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:05:52.691082+00:00]   B3_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:01.975240+00:00]   B3_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:06.713232+00:00]   B3_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:11.526424+00:00]   B3_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:16.607380+00:00]   B3_v2 10 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:19.926845+00:00]   B3_v2 11 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T18:06:25.004633+00:00]   B3_v2 12 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:31.168853+00:00]   B3_v2 13 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:37.061488+00:00]   B3_v2 14 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:43.057021+00:00]   B3_v2 15 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:06:48.698469+00:00]   B3_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:06:53.283841+00:00]   B3_v2 17 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:06:57.524546+00:00]   B3_v2 18 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:01.758559+00:00]   B3_v2 19 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:06.163597+00:00]   B3_v2 20 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:10.522366+00:00]   B3_v2 21 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:18.474691+00:00]   B3_v2 22 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:28.113544+00:00]   B3_v2 23 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:44.262348+00:00]   B3_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:44.292230+00:00] >>> RUN [27/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B4_v2 sub=smoke_25
+[2026-04-30T18:07:44.294606+00:00] === B4_v2 b4v2_qwen2p5_coder_14b_smoke25 ===
+[2026-04-30T18:07:46.547309+00:00]   B4_v2  0 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:07:48.771941+00:00]   B4_v2  1 concert_singer           path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:07:53.578957+00:00]   B4_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:07:58.236788+00:00]   B4_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:06.063029+00:00]   B4_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:13.881775+00:00]   B4_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:22.330740+00:00]   B4_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:31.586356+00:00]   B4_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:36.242430+00:00]   B4_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:41.085353+00:00]   B4_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:46.099054+00:00]   B4_v2 10 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:08:49.707936+00:00]   B4_v2 11 concert_singer           path=multicand:consistency_wi exec=True match=False
+[2026-04-30T18:08:54.817261+00:00]   B4_v2 12 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:00.969426+00:00]   B4_v2 13 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:06.903090+00:00]   B4_v2 14 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:12.840989+00:00]   B4_v2 15 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:18.589294+00:00]   B4_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:09:23.183408+00:00]   B4_v2 17 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:09:27.462048+00:00]   B4_v2 18 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:31.693318+00:00]   B4_v2 19 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:36.020473+00:00]   B4_v2 20 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:40.421562+00:00]   B4_v2 21 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:48.369442+00:00]   B4_v2 22 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:09:58.168205+00:00]   B4_v2 23 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:10:14.429448+00:00]   B4_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:10:14.462980+00:00] >>> RUN [28/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B2_v2 sub=multidb_30
+[2026-04-30T18:10:14.465021+00:00] === B2_v2 b2v2_qwen2p5_coder_14b_multidb30 ===
+[2026-04-30T18:10:19.038527+00:00]   B2_v2  0 battle_death             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:10:23.166722+00:00]   B2_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:10:26.163136+00:00]   B2_v2  2 battle_death             path=plan_then_sql            exec=True match=False
+[2026-04-30T18:10:32.722696+00:00]   B2_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:10:35.470316+00:00]   B2_v2  4 battle_death             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:10:37.609501+00:00]   B2_v2  5 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T18:10:39.744221+00:00]   B2_v2  6 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T18:10:52.082807+00:00]   B2_v2  7 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:11:02.279328+00:00]   B2_v2  8 car_1                    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:11:04.368460+00:00]   B2_v2  9 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:06.443668+00:00]   B2_v2 10 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:08.601127+00:00]   B2_v2 11 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:12.394892+00:00]   B2_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:11:16.080622+00:00]   B2_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:11:18.884953+00:00]   B2_v2 14 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:20.989616+00:00]   B2_v2 15 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:23.098536+00:00]   B2_v2 16 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:26.420592+00:00]   B2_v2 17 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:29.963521+00:00]   B2_v2 18 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:35.193514+00:00]   B2_v2 19 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:38.429358+00:00]   B2_v2 20 dog_kennels              path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:41.897486+00:00]   B2_v2 21 dog_kennels              path=plan_then_sql            exec=True match=True
+[2026-04-30T18:11:48.928343+00:00]   B2_v2 22 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:11:57.630522+00:00]   B2_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:14.593926+00:00]   B2_v2 24 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:16.673687+00:00]   B2_v2 25 employee_hire_evaluation path=plan_then_sql            exec=True match=True
+[2026-04-30T18:12:18.769391+00:00]   B2_v2 26 employee_hire_evaluation path=plan_then_sql            exec=True match=True
+[2026-04-30T18:12:22.481441+00:00]   B2_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:26.475553+00:00]   B2_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:29.764477+00:00]   B2_v2 29 employee_hire_evaluation path=plan_then_sql            exec=True match=False
+[2026-04-30T18:12:29.793987+00:00] >>> RUN [29/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B3_v2 sub=multidb_30
+[2026-04-30T18:12:29.796298+00:00] === B3_v2 b3v2_qwen2p5_coder_14b_multidb30 ===
+[2026-04-30T18:12:33.873849+00:00]   B3_v2  0 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:38.494894+00:00]   B3_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:41.500000+00:00]   B3_v2  2 battle_death             path=plan_then_sql            exec=True match=False
+[2026-04-30T18:12:46.903165+00:00]   B3_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:12:49.339095+00:00]   B3_v2  4 battle_death             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:12:51.204002+00:00]   B3_v2  5 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T18:12:53.094846+00:00]   B3_v2  6 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:04.968401+00:00]   B3_v2  7 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:13:10.633610+00:00]   B3_v2  8 car_1                    path=plan_then_sql            exec=True match=False
+[2026-04-30T18:13:12.422064+00:00]   B3_v2  9 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:14.502432+00:00]   B3_v2 10 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:16.653238+00:00]   B3_v2 11 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:20.125772+00:00]   B3_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:13:24.280055+00:00]   B3_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:13:27.099750+00:00]   B3_v2 14 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:29.197361+00:00]   B3_v2 15 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:31.260390+00:00]   B3_v2 16 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=False
+[2026-04-30T18:13:34.592410+00:00]   B3_v2 17 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:37.905353+00:00]   B3_v2 18 cre_Doc_Template_Mgt     path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:42.476424+00:00]   B3_v2 19 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:13:45.696067+00:00]   B3_v2 20 dog_kennels              path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:48.910468+00:00]   B3_v2 21 dog_kennels              path=plan_then_sql            exec=True match=True
+[2026-04-30T18:13:58.091024+00:00]   B3_v2 22 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:07.155113+00:00]   B3_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:26.595126+00:00]   B3_v2 24 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:28.657913+00:00]   B3_v2 25 employee_hire_evaluation path=plan_then_sql            exec=True match=True
+[2026-04-30T18:14:30.943990+00:00]   B3_v2 26 employee_hire_evaluation path=plan_then_sql            exec=True match=False
+[2026-04-30T18:14:35.324813+00:00]   B3_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:39.665714+00:00]   B3_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:43.797035+00:00]   B3_v2 29 employee_hire_evaluation path=plan_then_sql            exec=True match=False
+[2026-04-30T18:14:43.845072+00:00] >>> RUN [30/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B4_v2 sub=multidb_30
+[2026-04-30T18:14:43.848186+00:00] === B4_v2 b4v2_qwen2p5_coder_14b_multidb30 ===
+[2026-04-30T18:14:47.929893+00:00]   B4_v2  0 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:52.573991+00:00]   B4_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:14:55.603759+00:00]   B4_v2  2 battle_death             path=multicand:consistency_wi exec=True match=False
+[2026-04-30T18:15:00.953086+00:00]   B4_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:15:03.687453+00:00]   B4_v2  4 battle_death             path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:05.865139+00:00]   B4_v2  5 car_1                    path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:08.058453+00:00]   B4_v2  6 car_1                    path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:19.960376+00:00]   B4_v2  7 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:15:25.736979+00:00]   B4_v2  8 car_1                    path=multicand:consistency_wi exec=True match=False
+[2026-04-30T18:15:27.862570+00:00]   B4_v2  9 car_1                    path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:29.963588+00:00]   B4_v2 10 course_teach             path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:32.129379+00:00]   B4_v2 11 course_teach             path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:35.625510+00:00]   B4_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:15:39.853754+00:00]   B4_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:15:42.698098+00:00]   B4_v2 14 course_teach             path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:44.552805+00:00]   B4_v2 15 cre_Doc_Template_Mgt     path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:46.678253+00:00]   B4_v2 16 cre_Doc_Template_Mgt     path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:50.200288+00:00]   B4_v2 17 cre_Doc_Template_Mgt     path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:53.596703+00:00]   B4_v2 18 cre_Doc_Template_Mgt     path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:15:58.069907+00:00]   B4_v2 19 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:16:01.450372+00:00]   B4_v2 20 dog_kennels              path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:16:04.918123+00:00]   B4_v2 21 dog_kennels              path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:16:14.120572+00:00]   B4_v2 22 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:16:23.139887+00:00]   B4_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:16:42.782403+00:00]   B4_v2 24 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:16:44.619017+00:00]   B4_v2 25 employee_hire_evaluation path=multicand:consistency_wi exec=True match=True
+[2026-04-30T18:16:46.974786+00:00]   B4_v2 26 employee_hire_evaluation path=multicand:consistency_wi exec=True match=False
+[2026-04-30T18:16:51.360281+00:00]   B4_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:16:55.732777+00:00]   B4_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:16:59.956252+00:00]   B4_v2 29 employee_hire_evaluation path=multicand:consistency_wi exec=True match=False
+[2026-04-30T18:16:59.985395+00:00] >>> RUN [31/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B0 sub=bird_minidev_30
+[2026-04-30T18:16:59.987591+00:00] === B0 b0_qwen2p5_coder_14b_bird_minidev_30 ===
+[2026-04-30T18:17:03.078064+00:00]   B0  0 california_schools       exec=True match=False
+[2026-04-30T18:17:05.916900+00:00]   B0  1 card_games               exec=True match=False
+[2026-04-30T18:17:08.199984+00:00]   B0  2 codebase_community       exec=True match=False
+[2026-04-30T18:17:11.680112+00:00]   B0  3 debit_card_specializing  exec=True match=True
+[2026-04-30T18:17:16.121175+00:00]   B0  4 european_football_2      exec=True match=False
+[2026-04-30T18:17:21.090005+00:00]   B0  5 financial                exec=False match=False
+[2026-04-30T18:17:35.811056+00:00]   B0  6 formula_1                exec=False match=False
+[2026-04-30T18:17:38.376036+00:00]   B0  7 student_club             exec=True match=True
+[2026-04-30T18:17:41.224136+00:00]   B0  8 superhero                exec=True match=True
+[2026-04-30T18:17:44.960999+00:00]   B0  9 thrombosis_prediction    exec=True match=False
+[2026-04-30T18:17:46.298442+00:00]   B0 10 toxicology               exec=True match=True
+[2026-04-30T18:17:48.085109+00:00]   B0 11 california_schools       exec=True match=False
+[2026-04-30T18:17:50.956375+00:00]   B0 12 card_games               exec=True match=False
+[2026-04-30T18:17:52.527797+00:00]   B0 13 codebase_community       exec=True match=True
+[2026-04-30T18:17:57.162227+00:00]   B0 14 debit_card_specializing  exec=True match=False
+[2026-04-30T18:18:04.112071+00:00]   B0 15 european_football_2      exec=True match=False
+[2026-04-30T18:18:07.219587+00:00]   B0 16 financial                exec=False match=False
+[2026-04-30T18:18:10.423085+00:00]   B0 17 formula_1                exec=True match=False
+[2026-04-30T18:18:14.208338+00:00]   B0 18 student_club             exec=True match=True
+[2026-04-30T18:18:17.687884+00:00]   B0 19 superhero                exec=True match=True
+[2026-04-30T18:18:20.799320+00:00]   B0 20 thrombosis_prediction    exec=True match=False
+[2026-04-30T18:18:26.957850+00:00]   B0 21 toxicology               exec=True match=False
+[2026-04-30T18:18:30.680596+00:00]   B0 22 california_schools       exec=True match=False
+[2026-04-30T18:18:34.248509+00:00]   B0 23 card_games               exec=True match=False
+[2026-04-30T18:18:36.007384+00:00]   B0 24 codebase_community       exec=True match=False
+[2026-04-30T18:18:39.413704+00:00]   B0 25 debit_card_specializing  exec=True match=False
+[2026-04-30T18:18:41.385976+00:00]   B0 26 european_football_2      exec=True match=False
+[2026-04-30T18:18:47.432103+00:00]   B0 27 financial                exec=True match=False
+[2026-04-30T18:18:49.312111+00:00]   B0 28 formula_1                exec=True match=False
+[2026-04-30T18:18:52.497542+00:00]   B0 29 student_club             exec=True match=False
+[2026-04-30T18:18:52.528560+00:00] >>> RUN [32/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B1 sub=bird_minidev_30
+[2026-04-30T18:18:52.543485+00:00] === B1 b1_qwen2p5_coder_14b_bird_minidev_30 ===
+[2026-04-30T18:18:55.237422+00:00]   B1  0 california_schools       sel=1 exec=False match=False
+[2026-04-30T18:18:57.946475+00:00]   B1  1 card_games               sel=1 exec=True match=False
+[2026-04-30T18:19:00.232131+00:00]   B1  2 codebase_community       sel=8 exec=True match=False
+[2026-04-30T18:19:03.733724+00:00]   B1  3 debit_card_specializing  sel=1 exec=True match=True
+[2026-04-30T18:19:08.034305+00:00]   B1  4 european_football_2      sel=5 exec=True match=False
+[2026-04-30T18:19:21.084628+00:00]   B1  5 financial                sel=8 exec=False match=False
+[2026-04-30T18:19:23.607279+00:00]   B1  6 formula_1                sel=3 exec=True match=False
+[2026-04-30T18:19:26.162918+00:00]   B1  7 student_club             sel=8 exec=True match=True
+[2026-04-30T18:19:28.969142+00:00]   B1  8 superhero                sel=10 exec=True match=True
+[2026-04-30T18:19:32.798080+00:00]   B1  9 thrombosis_prediction    sel=3 exec=True match=False
+[2026-04-30T18:19:34.153758+00:00]   B1 10 toxicology               sel=2 exec=True match=True
+[2026-04-30T18:19:35.950429+00:00]   B1 11 california_schools       sel=2 exec=True match=False
+[2026-04-30T18:19:38.768577+00:00]   B1 12 card_games               sel=1 exec=True match=False
+[2026-04-30T18:19:40.365498+00:00]   B1 13 codebase_community       sel=1 exec=True match=True
+[2026-04-30T18:19:42.557381+00:00]   B1 14 debit_card_specializing  sel=1 exec=True match=False
+[2026-04-30T18:19:47.921974+00:00]   B1 15 european_football_2      sel=3 exec=True match=False
+[2026-04-30T18:19:51.117384+00:00]   B1 16 financial                sel=8 exec=False match=False
+[2026-04-30T18:19:54.621097+00:00]   B1 17 formula_1                sel=6 exec=True match=False
+[2026-04-30T18:19:59.750002+00:00]   B1 18 student_club             sel=3 exec=False match=False
+[2026-04-30T18:20:03.298817+00:00]   B1 19 superhero                sel=3 exec=True match=True
+[2026-04-30T18:20:06.577017+00:00]   B1 20 thrombosis_prediction    sel=1 exec=True match=False
+[2026-04-30T18:20:12.679964+00:00]   B1 21 toxicology               sel=4 exec=True match=False
+[2026-04-30T18:20:16.280253+00:00]   B1 22 california_schools       sel=2 exec=True match=False
+[2026-04-30T18:20:18.949233+00:00]   B1 23 card_games               sel=1 exec=True match=False
+[2026-04-30T18:20:20.666460+00:00]   B1 24 codebase_community       sel=1 exec=True match=False
+[2026-04-30T18:20:24.170352+00:00]   B1 25 debit_card_specializing  sel=2 exec=True match=False
+[2026-04-30T18:20:26.104840+00:00]   B1 26 european_football_2      sel=1 exec=False match=False
+[2026-04-30T18:20:31.546237+00:00]   B1 27 financial                sel=8 exec=False match=False
+[2026-04-30T18:20:33.392051+00:00]   B1 28 formula_1                sel=3 exec=True match=False
+[2026-04-30T18:20:36.560401+00:00]   B1 29 student_club             sel=8 exec=True match=False
+[2026-04-30T18:20:36.601234+00:00] >>> RUN [33/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B2_v2 sub=bird_minidev_30
+[2026-04-30T18:20:36.603426+00:00] === B2_v2 b2v2_qwen2p5_coder_14b_bird_minidev_30 ===
+[2026-04-30T18:20:47.743258+00:00]   B2_v2  0 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:20:56.203752+00:00]   B2_v2  1 card_games               path=plan_then_sql            exec=True match=False
+[2026-04-30T18:21:05.964238+00:00]   B2_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:21:20.076069+00:00]   B2_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:21:37.484926+00:00]   B2_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:22:02.246080+00:00]   B2_v2  5 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:22:09.188834+00:00]   B2_v2  6 formula_1                path=plan_then_sql            exec=False match=False
+[2026-04-30T18:22:20.391587+00:00]   B2_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:22:34.458501+00:00]   B2_v2  8 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:22:48.817312+00:00]   B2_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:22:55.966245+00:00]   B2_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:23:01.774363+00:00]   B2_v2 11 california_schools       path=plan_then_sql            exec=False match=False
+[2026-04-30T18:23:08.797137+00:00]   B2_v2 12 card_games               path=plan_then_sql            exec=True match=False
+[2026-04-30T18:23:17.422995+00:00]   B2_v2 13 codebase_community       path=plan_then_sql            exec=True match=True
+[2026-04-30T18:23:27.024707+00:00]   B2_v2 14 debit_card_specializing  path=plan_then_sql            exec=True match=False
+[2026-04-30T18:23:47.018199+00:00]   B2_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:24:04.411450+00:00]   B2_v2 16 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:24:18.625974+00:00]   B2_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:24:36.048113+00:00]   B2_v2 18 student_club             path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:24:50.662275+00:00]   B2_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:25:02.640651+00:00]   B2_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:25:21.228766+00:00]   B2_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:25:37.448893+00:00]   B2_v2 22 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:25:49.503189+00:00]   B2_v2 23 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:25:54.946634+00:00]   B2_v2 24 codebase_community       path=plan_then_sql            exec=True match=False
+[2026-04-30T18:26:10.558599+00:00]   B2_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:26:19.037486+00:00]   B2_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:26:36.346804+00:00]   B2_v2 27 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:26:45.601281+00:00]   B2_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:26:57.391089+00:00]   B2_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:26:57.419493+00:00] >>> RUN [34/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B3_v2 sub=bird_minidev_30
+[2026-04-30T18:26:57.421628+00:00] === B3_v2 b3v2_qwen2p5_coder_14b_bird_minidev_30 ===
+[2026-04-30T18:27:06.789475+00:00]   B3_v2  0 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:27:20.016715+00:00]   B3_v2  1 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:27:29.553066+00:00]   B3_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:27:41.512680+00:00]   B3_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:27:55.761212+00:00]   B3_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:28:23.150368+00:00]   B3_v2  5 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:28:29.287429+00:00]   B3_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:28:39.272982+00:00]   B3_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:28:53.085451+00:00]   B3_v2  8 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:29:06.454265+00:00]   B3_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:29:12.232394+00:00]   B3_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:29:19.633934+00:00]   B3_v2 11 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:29:27.608330+00:00]   B3_v2 12 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:29:32.823117+00:00]   B3_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:29:41.821203+00:00]   B3_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:29:55.059258+00:00]   B3_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:30:10.680306+00:00]   B3_v2 16 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:30:23.833868+00:00]   B3_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:30:38.959385+00:00]   B3_v2 18 student_club             path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:30:56.081405+00:00]   B3_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:31:07.483474+00:00]   B3_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:31:27.366149+00:00]   B3_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:31:43.165207+00:00]   B3_v2 22 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:31:50.549724+00:00]   B3_v2 23 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:31:55.908182+00:00]   B3_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:32:09.292203+00:00]   B3_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:32:16.184002+00:00]   B3_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:32:33.970198+00:00]   B3_v2 27 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:32:41.244657+00:00]   B3_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:32:52.644742+00:00]   B3_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:32:52.686927+00:00] >>> RUN [35/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B4_v2 sub=bird_minidev_30
+[2026-04-30T18:32:52.688984+00:00] === B4_v2 b4v2_qwen2p5_coder_14b_bird_minidev_30 ===
+[2026-04-30T18:33:02.093561+00:00]   B4_v2  0 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:33:15.574817+00:00]   B4_v2  1 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:33:25.165545+00:00]   B4_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:33:37.234375+00:00]   B4_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:33:51.441083+00:00]   B4_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:34:18.849310+00:00]   B4_v2  5 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:34:25.007427+00:00]   B4_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:34:35.048375+00:00]   B4_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:34:48.870773+00:00]   B4_v2  8 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:35:02.265649+00:00]   B4_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:35:08.075164+00:00]   B4_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:35:15.554160+00:00]   B4_v2 11 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:35:23.380789+00:00]   B4_v2 12 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:35:28.685425+00:00]   B4_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:35:37.708573+00:00]   B4_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:35:51.000321+00:00]   B4_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:36:06.898526+00:00]   B4_v2 16 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:36:20.255199+00:00]   B4_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:36:35.556521+00:00]   B4_v2 18 student_club             path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:36:52.745001+00:00]   B4_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T18:37:04.255454+00:00]   B4_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:37:24.392623+00:00]   B4_v2 21 toxicology               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:37:40.170377+00:00]   B4_v2 22 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:37:47.585313+00:00]   B4_v2 23 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:37:52.915659+00:00]   B4_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:38:06.581665+00:00]   B4_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:38:13.393521+00:00]   B4_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:38:31.155431+00:00]   B4_v2 27 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T18:38:38.430437+00:00]   B4_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:38:49.667966+00:00]   B4_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T18:38:49.695660+00:00] >>> RUN [36/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B0 sub=spider2lite_30
+[2026-04-30T18:38:49.697899+00:00] === B0 b0_qwen2p5_coder_14b_spider2lite_30 ===
+[2026-04-30T18:39:04.352166+00:00]   B0  0 AMAZON_VENDOR_ANALYTICS_ exec=None match=None
+[2026-04-30T18:39:11.360123+00:00]   B0  1 AUSTIN                   exec=None match=None
+[2026-04-30T18:39:17.257619+00:00]   B0  2 AdventureWorks           exec=None match=None
+[2026-04-30T18:39:21.565108+00:00]   B0  3 Airlines                 exec=None match=None
+[2026-04-30T18:39:25.725774+00:00]   B0  4 BRAZE_USER_EVENT_DEMO_DA exec=None match=None
+[2026-04-30T18:39:31.220191+00:00]   B0  5 Baseball                 exec=None match=None
+[2026-04-30T18:39:41.830025+00:00]   B0  6 BowlingLeague            exec=None match=None
+[2026-04-30T18:39:52.604781+00:00]   B0  7 Brazilian_E_Commerce     exec=None match=None
+[2026-04-30T18:40:01.738829+00:00]   B0  8 CENSUS_BUREAU_ACS_2      exec=None match=None
+[2026-04-30T18:40:07.110577+00:00]   B0  9 CENSUS_GALAXY__AIML_MODE exec=None match=None
+[2026-04-30T18:40:11.770805+00:00]   B0 10 CENSUS_GALAXY__ZIP_CODE_ exec=None match=None
+[2026-04-30T18:40:23.452921+00:00]   B0 11 CPTAC_PDC                exec=None match=None
+[2026-04-30T18:40:34.560999+00:00]   B0 12 CRYPTO                   exec=None match=None
+[2026-04-30T18:40:37.887519+00:00]   B0 13 CYMBAL_INVESTMENTS       exec=None match=None
+[2026-04-30T18:40:45.998589+00:00]   B0 14 California_Traffic_Colli exec=None match=None
+[2026-04-30T18:40:52.241470+00:00]   B0 15 DEATH                    exec=None match=None
+[2026-04-30T18:40:56.062288+00:00]   B0 16 DEPS_DEV_V1              exec=None match=None
+[2026-04-30T18:41:04.848469+00:00]   B0 17 Db-IMDB                  exec=None match=None
+[2026-04-30T18:41:15.187714+00:00]   B0 18 ETHEREUM_BLOCKCHAIN      exec=None match=None
+[2026-04-30T18:41:17.686267+00:00]   B0 19 EU_soccer                exec=None match=None
+[2026-04-30T18:41:32.427147+00:00]   B0 20 E_commerce               exec=None match=None
+[2026-04-30T18:41:39.347406+00:00]   B0 21 EntertainmentAgency      exec=None match=None
+[2026-04-30T18:41:44.224842+00:00]   B0 22 FINANCE__ECONOMICS       exec=None match=None
+[2026-04-30T18:41:46.019742+00:00]   B0 23 GENOMICS_CANNABIS        exec=None match=None
+[2026-04-30T18:41:48.453523+00:00]   B0 24 GEO_OPENSTREETMAP        exec=None match=None
+[2026-04-30T18:42:03.112174+00:00]   B0 25 GEO_OPENSTREETMAP_BOUNDA exec=None match=None
+[2026-04-30T18:42:07.545716+00:00]   B0 26 GEO_OPENSTREETMAP_CENSUS exec=None match=None
+[2026-04-30T18:42:16.236564+00:00]   B0 27 GEO_OPENSTREETMAP_WORLDP exec=None match=None
+[2026-04-30T18:42:20.171970+00:00]   B0 28 GITHUB_REPOS             exec=None match=None
+[2026-04-30T18:42:23.659216+00:00]   B0 29 GITHUB_REPOS_DATE        exec=None match=None
+[2026-04-30T18:42:23.704461+00:00] >>> RUN [37/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B1 sub=spider2lite_30
+[2026-04-30T18:42:23.706909+00:00] === B1 b1_qwen2p5_coder_14b_spider2lite_30 ===
+[2026-04-30T18:42:38.431142+00:00]   B1  0 AMAZON_VENDOR_ANALYTICS_ sel=0 exec=None match=None
+[2026-04-30T18:42:45.471936+00:00]   B1  1 AUSTIN                   sel=0 exec=None match=None
+[2026-04-30T18:42:51.488112+00:00]   B1  2 AdventureWorks           sel=1 exec=None match=None
+[2026-04-30T18:42:55.834005+00:00]   B1  3 Airlines                 sel=8 exec=None match=None
+[2026-04-30T18:43:00.011115+00:00]   B1  4 BRAZE_USER_EVENT_DEMO_DA sel=0 exec=None match=None
+[2026-04-30T18:43:05.625226+00:00]   B1  5 Baseball                 sel=1 exec=None match=None
+[2026-04-30T18:43:16.484992+00:00]   B1  6 BowlingLeague            sel=3 exec=None match=None
+[2026-04-30T18:43:27.713470+00:00]   B1  7 Brazilian_E_Commerce     sel=1 exec=None match=None
+[2026-04-30T18:43:37.404364+00:00]   B1  8 CENSUS_BUREAU_ACS_2      sel=0 exec=None match=None
+[2026-04-30T18:43:43.027075+00:00]   B1  9 CENSUS_GALAXY__AIML_MODE sel=0 exec=None match=None
+[2026-04-30T18:43:47.906884+00:00]   B1 10 CENSUS_GALAXY__ZIP_CODE_ sel=0 exec=None match=None
+[2026-04-30T18:43:59.967164+00:00]   B1 11 CPTAC_PDC                sel=0 exec=None match=None
+[2026-04-30T18:44:11.527760+00:00]   B1 12 CRYPTO                   sel=0 exec=None match=None
+[2026-04-30T18:44:14.969234+00:00]   B1 13 CYMBAL_INVESTMENTS       sel=0 exec=None match=None
+[2026-04-30T18:44:23.364293+00:00]   B1 14 California_Traffic_Colli sel=2 exec=None match=None
+[2026-04-30T18:44:29.722815+00:00]   B1 15 DEATH                    sel=0 exec=None match=None
+[2026-04-30T18:44:33.628733+00:00]   B1 16 DEPS_DEV_V1              sel=0 exec=None match=None
+[2026-04-30T18:44:42.579972+00:00]   B1 17 Db-IMDB                  sel=0 exec=None match=None
+[2026-04-30T18:44:53.128036+00:00]   B1 18 ETHEREUM_BLOCKCHAIN      sel=0 exec=None match=None
+[2026-04-30T18:44:55.693836+00:00]   B1 19 EU_soccer                sel=9 exec=None match=None
+[2026-04-30T18:45:10.834147+00:00]   B1 20 E_commerce               sel=11 exec=None match=None
+[2026-04-30T18:45:17.980042+00:00]   B1 21 EntertainmentAgency      sel=2 exec=None match=None
+[2026-04-30T18:45:23.078228+00:00]   B1 22 FINANCE__ECONOMICS       sel=0 exec=None match=None
+[2026-04-30T18:45:24.951620+00:00]   B1 23 GENOMICS_CANNABIS        sel=0 exec=None match=None
+[2026-04-30T18:45:27.459994+00:00]   B1 24 GEO_OPENSTREETMAP        sel=0 exec=None match=None
+[2026-04-30T18:45:42.520435+00:00]   B1 25 GEO_OPENSTREETMAP_BOUNDA sel=0 exec=None match=None
+[2026-04-30T18:45:47.067984+00:00]   B1 26 GEO_OPENSTREETMAP_CENSUS sel=0 exec=None match=None
+[2026-04-30T18:45:55.935423+00:00]   B1 27 GEO_OPENSTREETMAP_WORLDP sel=0 exec=None match=None
+[2026-04-30T18:46:00.013811+00:00]   B1 28 GITHUB_REPOS             sel=0 exec=None match=None
+[2026-04-30T18:46:03.870248+00:00]   B1 29 GITHUB_REPOS_DATE        sel=0 exec=None match=None
+[2026-04-30T18:46:03.903208+00:00] >>> RUN [38/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B2_v2 sub=spider2lite_30
+[2026-04-30T18:46:03.905840+00:00] === B2_v2 b2v2_qwen2p5_coder_14b_spider2lite_30 ===
+[2026-04-30T18:46:34.250602+00:00]   B2_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:46:56.682376+00:00]   B2_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:47:17.646210+00:00]   B2_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:47:35.104048+00:00]   B2_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:47:49.397401+00:00]   B2_v2  4 BRAZE_USER_EVENT_DEMO_DA path=plan_then_sql            exec=None match=None
+[2026-04-30T18:48:01.668334+00:00]   B2_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:48:27.482091+00:00]   B2_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:48:53.025953+00:00]   B2_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:49:15.139715+00:00]   B2_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:49:30.074618+00:00]   B2_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:49:43.992366+00:00]   B2_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=plan_then_sql            exec=None match=None
+[2026-04-30T18:50:11.143533+00:00]   B2_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:50:37.005447+00:00]   B2_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:50:51.805701+00:00]   B2_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:51:15.042290+00:00]   B2_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:51:33.566289+00:00]   B2_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:51:47.899517+00:00]   B2_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:52:11.881139+00:00]   B2_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:52:37.556819+00:00]   B2_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:52:48.876937+00:00]   B2_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:53:19.328270+00:00]   B2_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:53:33.839839+00:00]   B2_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:53:51.596593+00:00]   B2_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:53:57.734836+00:00]   B2_v2 23 GENOMICS_CANNABIS        path=plan_then_sql            exec=None match=None
+[2026-04-30T18:54:07.288246+00:00]   B2_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:54:30.674951+00:00]   B2_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:54:45.488657+00:00]   B2_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:55:09.733971+00:00]   B2_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:55:21.818723+00:00]   B2_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:55:40.422525+00:00]   B2_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:55:40.455293+00:00] >>> RUN [39/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B3_v2 sub=spider2lite_30
+[2026-04-30T18:55:40.457723+00:00] === B3_v2 b3v2_qwen2p5_coder_14b_spider2lite_30 ===
+[2026-04-30T18:56:10.675040+00:00]   B3_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:56:33.363606+00:00]   B3_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:56:54.578269+00:00]   B3_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:57:14.084011+00:00]   B3_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:57:29.965271+00:00]   B3_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:57:45.289648+00:00]   B3_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:58:11.176339+00:00]   B3_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:58:31.562819+00:00]   B3_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:58:56.291605+00:00]   B3_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:59:13.196476+00:00]   B3_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:59:32.905651+00:00]   B3_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T18:59:59.680213+00:00]   B3_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:00:26.104193+00:00]   B3_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:00:41.173647+00:00]   B3_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:01:04.868326+00:00]   B3_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:01:26.418212+00:00]   B3_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:01:40.154245+00:00]   B3_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:02:04.723310+00:00]   B3_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:02:30.528637+00:00]   B3_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:02:41.181837+00:00]   B3_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:03:11.436596+00:00]   B3_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:03:30.550379+00:00]   B3_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:03:50.452384+00:00]   B3_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:04:03.460995+00:00]   B3_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:04:17.442522+00:00]   B3_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:04:44.530923+00:00]   B3_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:05:02.096316+00:00]   B3_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:05:26.048467+00:00]   B3_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:05:42.432812+00:00]   B3_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:06:01.354372+00:00]   B3_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:06:01.383164+00:00] >>> RUN [40/52] model=Qwen/Qwen2.5-Coder-14B-Instruct bl=B4_v2 sub=spider2lite_30
+[2026-04-30T19:06:01.385411+00:00] === B4_v2 b4v2_qwen2p5_coder_14b_spider2lite_30 ===
+[2026-04-30T19:06:31.527490+00:00]   B4_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:06:54.036701+00:00]   B4_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:07:15.174397+00:00]   B4_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:07:34.349056+00:00]   B4_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:07:50.001056+00:00]   B4_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:08:05.358667+00:00]   B4_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:08:31.163433+00:00]   B4_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:08:51.209080+00:00]   B4_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:09:15.972598+00:00]   B4_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:09:32.909203+00:00]   B4_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:09:52.595816+00:00]   B4_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:10:19.387523+00:00]   B4_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:10:46.043594+00:00]   B4_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:11:01.081900+00:00]   B4_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:11:24.562549+00:00]   B4_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:11:46.168096+00:00]   B4_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:11:59.779806+00:00]   B4_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:12:23.765170+00:00]   B4_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:12:49.655464+00:00]   B4_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:13:00.280187+00:00]   B4_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:13:30.123904+00:00]   B4_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:13:49.452762+00:00]   B4_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:14:09.618791+00:00]   B4_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:14:22.612085+00:00]   B4_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:14:36.387794+00:00]   B4_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:15:03.489465+00:00]   B4_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:15:21.166950+00:00]   B4_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:15:45.156501+00:00]   B4_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:16:01.455955+00:00]   B4_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:16:20.502797+00:00]   B4_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:16:20.550387+00:00] >>> RUN [41/52] model=Qwen/Qwen2.5-7B-Instruct bl=B0 sub=smoke_25
+[2026-04-30T19:16:20.873263+00:00] loading Qwen/Qwen2.5-7B-Instruct: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T19:17:12.543072+00:00] LOADED Qwen/Qwen2.5-7B-Instruct in 51.7s VRAM=14534 MB
+[2026-04-30T19:17:12.547312+00:00] === B0 b0_qwen_qwen2.5_7b_instruct_smoke25 ===
+[2026-04-30T19:17:15.581712+00:00]   B0  0 concert_singer           exec=True match=True
+[2026-04-30T19:17:16.370430+00:00]   B0  1 concert_singer           exec=True match=True
+[2026-04-30T19:17:17.126281+00:00]   B0  2 concert_singer           exec=True match=True
+[2026-04-30T19:17:17.878510+00:00]   B0  3 concert_singer           exec=True match=True
+[2026-04-30T19:17:19.305448+00:00]   B0  4 concert_singer           exec=True match=True
+[2026-04-30T19:17:20.834938+00:00]   B0  5 concert_singer           exec=True match=True
+[2026-04-30T19:17:22.370800+00:00]   B0  6 concert_singer           exec=False match=False
+[2026-04-30T19:17:23.880461+00:00]   B0  7 concert_singer           exec=False match=False
+[2026-04-30T19:17:24.595263+00:00]   B0  8 concert_singer           exec=True match=True
+[2026-04-30T19:17:25.339267+00:00]   B0  9 concert_singer           exec=True match=True
+[2026-04-30T19:17:26.303442+00:00]   B0 10 concert_singer           exec=True match=True
+[2026-04-30T19:17:27.178168+00:00]   B0 11 concert_singer           exec=True match=True
+[2026-04-30T19:17:28.833069+00:00]   B0 12 concert_singer           exec=True match=False
+[2026-04-30T19:17:30.474778+00:00]   B0 13 concert_singer           exec=True match=False
+[2026-04-30T19:17:31.464132+00:00]   B0 14 concert_singer           exec=True match=True
+[2026-04-30T19:17:32.456438+00:00]   B0 15 concert_singer           exec=True match=True
+[2026-04-30T19:17:33.548222+00:00]   B0 16 concert_singer           exec=True match=False
+[2026-04-30T19:17:34.629489+00:00]   B0 17 concert_singer           exec=True match=True
+[2026-04-30T19:17:35.538591+00:00]   B0 18 concert_singer           exec=True match=True
+[2026-04-30T19:17:36.441489+00:00]   B0 19 concert_singer           exec=True match=True
+[2026-04-30T19:17:37.350693+00:00]   B0 20 concert_singer           exec=True match=True
+[2026-04-30T19:17:38.270398+00:00]   B0 21 concert_singer           exec=True match=True
+[2026-04-30T19:17:40.003852+00:00]   B0 22 concert_singer           exec=True match=False
+[2026-04-30T19:17:41.069127+00:00]   B0 23 concert_singer           exec=True match=False
+[2026-04-30T19:17:43.273747+00:00]   B0 24 concert_singer           exec=True match=True
+[2026-04-30T19:17:43.307409+00:00] >>> RUN [42/52] model=Qwen/Qwen2.5-7B-Instruct bl=B1 sub=smoke_25
+[2026-04-30T19:17:43.310082+00:00] === B1 b1_qwen_qwen2.5_7b_instruct_smoke25 ===
+[2026-04-30T19:17:43.723303+00:00]   B1  0 concert_singer           sel=4 exec=True match=True
+[2026-04-30T19:17:44.483418+00:00]   B1  1 concert_singer           sel=4 exec=True match=True
+[2026-04-30T19:17:45.142735+00:00]   B1  2 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:45.886742+00:00]   B1  3 concert_singer           sel=2 exec=True match=True
+[2026-04-30T19:17:47.401287+00:00]   B1  4 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:48.907905+00:00]   B1  5 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:49.817520+00:00]   B1  6 concert_singer           sel=3 exec=True match=True
+[2026-04-30T19:17:51.051372+00:00]   B1  7 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:51.763254+00:00]   B1  8 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:52.464644+00:00]   B1  9 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:53.437616+00:00]   B1 10 concert_singer           sel=4 exec=True match=True
+[2026-04-30T19:17:54.311332+00:00]   B1 11 concert_singer           sel=4 exec=True match=True
+[2026-04-30T19:17:55.151723+00:00]   B1 12 concert_singer           sel=2 exec=True match=True
+[2026-04-30T19:17:56.014118+00:00]   B1 13 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:56.991409+00:00]   B1 14 concert_singer           sel=3 exec=True match=True
+[2026-04-30T19:17:57.972175+00:00]   B1 15 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:17:59.059494+00:00]   B1 16 concert_singer           sel=1 exec=True match=False
+[2026-04-30T19:18:00.009449+00:00]   B1 17 concert_singer           sel=1 exec=True match=True
+[2026-04-30T19:18:00.926565+00:00]   B1 18 concert_singer           sel=3 exec=True match=True
+[2026-04-30T19:18:02.573874+00:00]   B1 19 concert_singer           sel=3 exec=False match=False
+[2026-04-30T19:18:03.477363+00:00]   B1 20 concert_singer           sel=2 exec=True match=True
+[2026-04-30T19:18:04.394388+00:00]   B1 21 concert_singer           sel=4 exec=True match=True
+[2026-04-30T19:18:06.118512+00:00]   B1 22 concert_singer           sel=3 exec=True match=False
+[2026-04-30T19:18:07.179335+00:00]   B1 23 concert_singer           sel=4 exec=True match=False
+[2026-04-30T19:18:09.419391+00:00]   B1 24 concert_singer           sel=3 exec=True match=True
+[2026-04-30T19:18:09.467674+00:00] >>> RUN [43/52] model=Qwen/Qwen2.5-7B-Instruct bl=B2_v2 sub=smoke_25
+[2026-04-30T19:18:09.470219+00:00] === B2_v2 b2v2_qwen_qwen2.5_7b_instruct_smoke25 ===
+[2026-04-30T19:18:11.292189+00:00]   B2_v2  0 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T19:18:13.132616+00:00]   B2_v2  1 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T19:18:15.846798+00:00]   B2_v2  2 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:18.339700+00:00]   B2_v2  3 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:23.353268+00:00]   B2_v2  4 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:27.334095+00:00]   B2_v2  5 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:30.738972+00:00]   B2_v2  6 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:37.472190+00:00]   B2_v2  7 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:40.808915+00:00]   B2_v2  8 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:43.599709+00:00]   B2_v2  9 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:46.688707+00:00]   B2_v2 10 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:49.431038+00:00]   B2_v2 11 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:53.934404+00:00]   B2_v2 12 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:18:57.287620+00:00]   B2_v2 13 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:01.107685+00:00]   B2_v2 14 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:04.934812+00:00]   B2_v2 15 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:08.577831+00:00]   B2_v2 16 concert_singer           path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:19:11.563815+00:00]   B2_v2 17 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:16.368114+00:00]   B2_v2 18 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:23.358814+00:00]   B2_v2 19 concert_singer           path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:19:26.222291+00:00]   B2_v2 20 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T19:19:29.228633+00:00]   B2_v2 21 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:32.932976+00:00]   B2_v2 22 concert_singer           path=plan_then_sql            exec=True match=True
+[2026-04-30T19:19:37.850597+00:00]   B2_v2 23 concert_singer           path=plan_then_sql            exec=True match=False
+[2026-04-30T19:19:49.435025+00:00]   B2_v2 24 concert_singer           path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:19:49.465774+00:00] >>> RUN [44/52] model=Qwen/Qwen2.5-7B-Instruct bl=B0 sub=multidb_30
+[2026-04-30T19:19:49.468436+00:00] === B0 b0_qwen_qwen2.5_7b_instruct_multidb30 ===
+[2026-04-30T19:19:50.189427+00:00]   B0  0 battle_death             exec=True match=True
+[2026-04-30T19:19:50.878517+00:00]   B0  1 battle_death             exec=True match=True
+[2026-04-30T19:19:51.402319+00:00]   B0  2 battle_death             exec=True match=False
+[2026-04-30T19:19:52.547561+00:00]   B0  3 battle_death             exec=True match=False
+[2026-04-30T19:19:53.203837+00:00]   B0  4 battle_death             exec=True match=True
+[2026-04-30T19:19:53.792171+00:00]   B0  5 car_1                    exec=True match=True
+[2026-04-30T19:19:54.536151+00:00]   B0  6 car_1                    exec=True match=True
+[2026-04-30T19:19:56.175318+00:00]   B0  7 car_1                    exec=True match=True
+[2026-04-30T19:19:57.805466+00:00]   B0  8 car_1                    exec=True match=True
+[2026-04-30T19:19:58.205464+00:00]   B0  9 car_1                    exec=True match=True
+[2026-04-30T19:19:58.615965+00:00]   B0 10 course_teach             exec=True match=True
+[2026-04-30T19:19:59.211007+00:00]   B0 11 course_teach             exec=True match=True
+[2026-04-30T19:19:59.729896+00:00]   B0 12 course_teach             exec=True match=True
+[2026-04-30T19:20:00.261514+00:00]   B0 13 course_teach             exec=True match=True
+[2026-04-30T19:20:00.742188+00:00]   B0 14 course_teach             exec=True match=True
+[2026-04-30T19:20:01.152551+00:00]   B0 15 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T19:20:01.677436+00:00]   B0 16 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T19:20:02.304254+00:00]   B0 17 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T19:20:02.945389+00:00]   B0 18 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T19:20:03.733520+00:00]   B0 19 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T19:20:05.933516+00:00]   B0 20 dog_kennels              exec=True match=False
+[2026-04-30T19:20:06.813510+00:00]   B0 21 dog_kennels              exec=True match=True
+[2026-04-30T19:20:08.007753+00:00]   B0 22 dog_kennels              exec=True match=False
+[2026-04-30T19:20:09.145870+00:00]   B0 23 dog_kennels              exec=True match=False
+[2026-04-30T19:20:12.202389+00:00]   B0 24 dog_kennels              exec=True match=True
+[2026-04-30T19:20:12.727634+00:00]   B0 25 employee_hire_evaluation exec=True match=True
+[2026-04-30T19:20:13.252259+00:00]   B0 26 employee_hire_evaluation exec=True match=True
+[2026-04-30T19:20:13.772466+00:00]   B0 27 employee_hire_evaluation exec=True match=True
+[2026-04-30T19:20:14.296122+00:00]   B0 28 employee_hire_evaluation exec=True match=True
+[2026-04-30T19:20:15.258825+00:00]   B0 29 employee_hire_evaluation exec=True match=False
+[2026-04-30T19:20:15.294061+00:00] >>> RUN [45/52] model=Qwen/Qwen2.5-7B-Instruct bl=B1 sub=multidb_30
+[2026-04-30T19:20:15.296785+00:00] === B1 b1_qwen_qwen2.5_7b_instruct_multidb30 ===
+[2026-04-30T19:20:15.996769+00:00]   B1  0 battle_death             sel=3 exec=True match=True
+[2026-04-30T19:20:16.693153+00:00]   B1  1 battle_death             sel=2 exec=True match=True
+[2026-04-30T19:20:17.045369+00:00]   B1  2 battle_death             sel=1 exec=True match=False
+[2026-04-30T19:20:18.095669+00:00]   B1  3 battle_death             sel=1 exec=True match=False
+[2026-04-30T19:20:18.747843+00:00]   B1  4 battle_death             sel=1 exec=True match=True
+[2026-04-30T19:20:18.980024+00:00]   B1  5 car_1                    sel=1 exec=True match=True
+[2026-04-30T19:20:19.754435+00:00]   B1  6 car_1                    sel=6 exec=True match=True
+[2026-04-30T19:20:21.410728+00:00]   B1  7 car_1                    sel=2 exec=True match=True
+[2026-04-30T19:20:22.282377+00:00]   B1  8 car_1                    sel=1 exec=True match=False
+[2026-04-30T19:20:22.684696+00:00]   B1  9 car_1                    sel=1 exec=True match=True
+[2026-04-30T19:20:23.093500+00:00]   B1 10 course_teach             sel=3 exec=True match=True
+[2026-04-30T19:20:23.621124+00:00]   B1 11 course_teach             sel=3 exec=True match=True
+[2026-04-30T19:20:24.136838+00:00]   B1 12 course_teach             sel=3 exec=True match=True
+[2026-04-30T19:20:24.654237+00:00]   B1 13 course_teach             sel=3 exec=True match=True
+[2026-04-30T19:20:24.956366+00:00]   B1 14 course_teach             sel=1 exec=True match=True
+[2026-04-30T19:20:25.367806+00:00]   B1 15 cre_Doc_Template_Mgt     sel=1 exec=True match=True
+[2026-04-30T19:20:25.894702+00:00]   B1 16 cre_Doc_Template_Mgt     sel=1 exec=True match=False
+[2026-04-30T19:20:26.523073+00:00]   B1 17 cre_Doc_Template_Mgt     sel=2 exec=True match=True
+[2026-04-30T19:20:27.151507+00:00]   B1 18 cre_Doc_Template_Mgt     sel=4 exec=True match=True
+[2026-04-30T19:20:27.954949+00:00]   B1 19 cre_Doc_Template_Mgt     sel=4 exec=True match=True
+[2026-04-30T19:20:28.732665+00:00]   B1 20 dog_kennels              sel=2 exec=True match=True
+[2026-04-30T19:20:29.507843+00:00]   B1 21 dog_kennels              sel=2 exec=True match=True
+[2026-04-30T19:20:30.398541+00:00]   B1 22 dog_kennels              sel=1 exec=True match=False
+[2026-04-30T19:20:31.293564+00:00]   B1 23 dog_kennels              sel=1 exec=True match=False
+[2026-04-30T19:20:33.418609+00:00]   B1 24 dog_kennels              sel=6 exec=False match=False
+[2026-04-30T19:20:33.842514+00:00]   B1 25 employee_hire_evaluation sel=4 exec=True match=True
+[2026-04-30T19:20:34.362529+00:00]   B1 26 employee_hire_evaluation sel=1 exec=True match=False
+[2026-04-30T19:20:34.901181+00:00]   B1 27 employee_hire_evaluation sel=3 exec=True match=True
+[2026-04-30T19:20:35.426150+00:00]   B1 28 employee_hire_evaluation sel=4 exec=True match=True
+[2026-04-30T19:20:36.091180+00:00]   B1 29 employee_hire_evaluation sel=1 exec=True match=False
+[2026-04-30T19:20:36.124544+00:00] >>> RUN [46/52] model=Qwen/Qwen2.5-7B-Instruct bl=B2_v2 sub=multidb_30
+[2026-04-30T19:20:36.127315+00:00] === B2_v2 b2v2_qwen_qwen2.5_7b_instruct_multidb30 ===
+[2026-04-30T19:20:38.752403+00:00]   B2_v2  0 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:20:42.690810+00:00]   B2_v2  1 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:20:44.166600+00:00]   B2_v2  2 battle_death             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:20:47.530119+00:00]   B2_v2  3 battle_death             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:20:50.107623+00:00]   B2_v2  4 battle_death             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:20:51.517914+00:00]   B2_v2  5 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:20:53.439694+00:00]   B2_v2  6 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:00.355669+00:00]   B2_v2  7 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:04.422122+00:00]   B2_v2  8 car_1                    path=plan_then_sql            exec=True match=True
+[2026-04-30T19:21:05.986732+00:00]   B2_v2  9 car_1                    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:07.325516+00:00]   B2_v2 10 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T19:21:08.660992+00:00]   B2_v2 11 course_teach             path=plan_then_sql            exec=True match=True
+[2026-04-30T19:21:12.225303+00:00]   B2_v2 12 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:15.736467+00:00]   B2_v2 13 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:17.296652+00:00]   B2_v2 14 course_teach             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:18.858436+00:00]   B2_v2 15 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:20.538447+00:00]   B2_v2 16 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:21:22.591289+00:00]   B2_v2 17 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:24.618779+00:00]   B2_v2 18 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:27.350739+00:00]   B2_v2 19 cre_Doc_Template_Mgt     path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:31.839566+00:00]   B2_v2 20 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:34.805748+00:00]   B2_v2 21 dog_kennels              path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:38.647517+00:00]   B2_v2 22 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:21:43.031464+00:00]   B2_v2 23 dog_kennels              path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:21:51.408256+00:00]   B2_v2 24 dog_kennels              path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:21:52.989906+00:00]   B2_v2 25 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:21:54.669931+00:00]   B2_v2 26 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:21:58.303068+00:00]   B2_v2 27 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:22:00.618065+00:00]   B2_v2 28 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:22:03.238213+00:00]   B2_v2 29 employee_hire_evaluation path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:22:03.275127+00:00] >>> RUN [47/52] model=Qwen/Qwen2.5-7B-Instruct bl=B0 sub=bird_minidev_30
+[2026-04-30T19:22:03.289206+00:00] === B0 b0_qwen_qwen2.5_7b_instruct_bird_minidev_30 ===
+[2026-04-30T19:22:05.372915+00:00]   B0  0 california_schools       exec=True match=False
+[2026-04-30T19:22:09.004392+00:00]   B0  1 card_games               exec=True match=False
+[2026-04-30T19:22:11.877025+00:00]   B0  2 codebase_community       exec=True match=False
+[2026-04-30T19:22:14.214848+00:00]   B0  3 debit_card_specializing  exec=True match=False
+[2026-04-30T19:22:17.133800+00:00]   B0  4 european_football_2      exec=True match=True
+[2026-04-30T19:22:19.823457+00:00]   B0  5 financial                exec=False match=False
+[2026-04-30T19:22:22.090177+00:00]   B0  6 formula_1                exec=False match=False
+[2026-04-30T19:22:23.436075+00:00]   B0  7 student_club             exec=True match=True
+[2026-04-30T19:22:25.220962+00:00]   B0  8 superhero                exec=True match=True
+[2026-04-30T19:22:28.095660+00:00]   B0  9 thrombosis_prediction    exec=True match=False
+[2026-04-30T19:22:29.086684+00:00]   B0 10 toxicology               exec=True match=True
+[2026-04-30T19:22:29.970455+00:00]   B0 11 california_schools       exec=False match=False
+[2026-04-30T19:22:32.503050+00:00]   B0 12 card_games               exec=True match=False
+[2026-04-30T19:22:33.908809+00:00]   B0 13 codebase_community       exec=True match=False
+[2026-04-30T19:22:37.001544+00:00]   B0 14 debit_card_specializing  exec=True match=False
+[2026-04-30T19:22:43.347322+00:00]   B0 15 european_football_2      exec=True match=False
+[2026-04-30T19:22:46.731813+00:00]   B0 16 financial                exec=True match=False
+[2026-04-30T19:22:50.260811+00:00]   B0 17 formula_1                exec=True match=False
+[2026-04-30T19:22:52.407441+00:00]   B0 18 student_club             exec=True match=True
+[2026-04-30T19:22:54.537227+00:00]   B0 19 superhero                exec=True match=True
+[2026-04-30T19:22:56.364451+00:00]   B0 20 thrombosis_prediction    exec=False match=False
+[2026-04-30T19:23:00.001792+00:00]   B0 21 toxicology               exec=False match=False
+[2026-04-30T19:23:04.481342+00:00]   B0 22 california_schools       exec=False match=False
+[2026-04-30T19:23:06.960420+00:00]   B0 23 card_games               exec=True match=False
+[2026-04-30T19:23:08.078122+00:00]   B0 24 codebase_community       exec=True match=False
+[2026-04-30T19:23:10.773789+00:00]   B0 25 debit_card_specializing  exec=True match=False
+[2026-04-30T19:23:13.186731+00:00]   B0 26 european_football_2      exec=False match=False
+[2026-04-30T19:23:17.288027+00:00]   B0 27 financial                exec=True match=False
+[2026-04-30T19:23:18.533421+00:00]   B0 28 formula_1                exec=True match=False
+[2026-04-30T19:23:20.604516+00:00]   B0 29 student_club             exec=True match=False
+[2026-04-30T19:23:20.654865+00:00] >>> RUN [48/52] model=Qwen/Qwen2.5-7B-Instruct bl=B1 sub=bird_minidev_30
+[2026-04-30T19:23:20.657312+00:00] === B1 b1_qwen_qwen2.5_7b_instruct_bird_minidev_30 ===
+[2026-04-30T19:23:22.800007+00:00]   B1  0 california_schools       sel=1 exec=True match=False
+[2026-04-30T19:23:26.073214+00:00]   B1  1 card_games               sel=1 exec=True match=False
+[2026-04-30T19:23:28.951845+00:00]   B1  2 codebase_community       sel=8 exec=True match=False
+[2026-04-30T19:23:30.457211+00:00]   B1  3 debit_card_specializing  sel=1 exec=True match=False
+[2026-04-30T19:23:33.495822+00:00]   B1  4 european_football_2      sel=5 exec=True match=False
+[2026-04-30T19:23:36.176660+00:00]   B1  5 financial                sel=8 exec=False match=False
+[2026-04-30T19:23:37.745455+00:00]   B1  6 formula_1                sel=3 exec=True match=False
+[2026-04-30T19:23:39.078012+00:00]   B1  7 student_club             sel=8 exec=True match=True
+[2026-04-30T19:23:40.875364+00:00]   B1  8 superhero                sel=10 exec=True match=True
+[2026-04-30T19:23:43.729607+00:00]   B1  9 thrombosis_prediction    sel=3 exec=True match=False
+[2026-04-30T19:23:44.713012+00:00]   B1 10 toxicology               sel=2 exec=True match=True
+[2026-04-30T19:23:45.601953+00:00]   B1 11 california_schools       sel=2 exec=False match=False
+[2026-04-30T19:23:47.933254+00:00]   B1 12 card_games               sel=1 exec=True match=False
+[2026-04-30T19:23:48.723637+00:00]   B1 13 codebase_community       sel=1 exec=False match=False
+[2026-04-30T19:23:50.495482+00:00]   B1 14 debit_card_specializing  sel=1 exec=True match=False
+[2026-04-30T19:23:55.645360+00:00]   B1 15 european_football_2      sel=3 exec=False match=False
+[2026-04-30T19:23:59.077473+00:00]   B1 16 financial                sel=8 exec=True match=False
+[2026-04-30T19:24:00.944202+00:00]   B1 17 formula_1                sel=6 exec=True match=False
+[2026-04-30T19:24:10.280364+00:00]   B1 18 student_club             sel=3 exec=False match=False
+[2026-04-30T19:24:12.370754+00:00]   B1 19 superhero                sel=3 exec=True match=True
+[2026-04-30T19:24:14.388818+00:00]   B1 20 thrombosis_prediction    sel=1 exec=True match=True
+[2026-04-30T19:24:18.166331+00:00]   B1 21 toxicology               sel=4 exec=False match=False
+[2026-04-30T19:24:19.997557+00:00]   B1 22 california_schools       sel=2 exec=True match=False
+[2026-04-30T19:24:21.346967+00:00]   B1 23 card_games               sel=1 exec=False match=False
+[2026-04-30T19:24:22.482146+00:00]   B1 24 codebase_community       sel=1 exec=True match=False
+[2026-04-30T19:24:24.605803+00:00]   B1 25 debit_card_specializing  sel=2 exec=False match=False
+[2026-04-30T19:24:27.805257+00:00]   B1 26 european_football_2      sel=1 exec=False match=False
+[2026-04-30T19:24:31.875199+00:00]   B1 27 financial                sel=8 exec=True match=False
+[2026-04-30T19:24:33.119816+00:00]   B1 28 formula_1                sel=3 exec=True match=False
+[2026-04-30T19:24:35.881262+00:00]   B1 29 student_club             sel=8 exec=True match=False
+[2026-04-30T19:24:35.923187+00:00] >>> RUN [49/52] model=Qwen/Qwen2.5-7B-Instruct bl=B2_v2 sub=bird_minidev_30
+[2026-04-30T19:24:35.925392+00:00] === B2_v2 b2v2_qwen_qwen2.5_7b_instruct_bird_minidev_30 ===
+[2026-04-30T19:24:43.879077+00:00]   B2_v2  0 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:24:49.497264+00:00]   B2_v2  1 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:24:56.074023+00:00]   B2_v2  2 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:25:01.164482+00:00]   B2_v2  3 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:25:10.477235+00:00]   B2_v2  4 european_football_2      path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:25:17.866183+00:00]   B2_v2  5 financial                path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:25:26.776480+00:00]   B2_v2  6 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:25:31.864994+00:00]   B2_v2  7 student_club             path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:25:39.002817+00:00]   B2_v2  8 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:25:44.900771+00:00]   B2_v2  9 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:25:49.007807+00:00]   B2_v2 10 toxicology               path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:25:52.182849+00:00]   B2_v2 11 california_schools       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:25:57.165423+00:00]   B2_v2 12 card_games               path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:26:00.117777+00:00]   B2_v2 13 codebase_community       path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:26:06.878932+00:00]   B2_v2 14 debit_card_specializing  path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:26:21.350408+00:00]   B2_v2 15 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:26:30.719508+00:00]   B2_v2 16 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:26:40.334826+00:00]   B2_v2 17 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:26:54.048120+00:00]   B2_v2 18 student_club             path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:27:00.937587+00:00]   B2_v2 19 superhero                path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:27:07.062468+00:00]   B2_v2 20 thrombosis_prediction    path=b1_fallback_invalid_plan exec=True match=True
+[2026-04-30T19:27:18.444667+00:00]   B2_v2 21 toxicology               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:27:27.312399+00:00]   B2_v2 22 california_schools       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:27:36.227249+00:00]   B2_v2 23 card_games               path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:27:39.430416+00:00]   B2_v2 24 codebase_community       path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:27:47.859773+00:00]   B2_v2 25 debit_card_specializing  path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:27:57.926049+00:00]   B2_v2 26 european_football_2      path=b1_fallback_invalid_plan exec=False match=False
+[2026-04-30T19:28:06.797840+00:00]   B2_v2 27 financial                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:28:11.024005+00:00]   B2_v2 28 formula_1                path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:28:18.280969+00:00]   B2_v2 29 student_club             path=b1_fallback_invalid_plan exec=True match=False
+[2026-04-30T19:28:18.309585+00:00] >>> RUN [50/52] model=Qwen/Qwen2.5-7B-Instruct bl=B0 sub=spider2lite_30
+[2026-04-30T19:28:18.311727+00:00] === B0 b0_qwen_qwen2.5_7b_instruct_spider2lite_30 ===
+[2026-04-30T19:28:27.455799+00:00]   B0  0 AMAZON_VENDOR_ANALYTICS_ exec=None match=None
+[2026-04-30T19:28:32.188648+00:00]   B0  1 AUSTIN                   exec=None match=None
+[2026-04-30T19:28:37.261023+00:00]   B0  2 AdventureWorks           exec=None match=None
+[2026-04-30T19:28:39.702332+00:00]   B0  3 Airlines                 exec=None match=None
+[2026-04-30T19:28:42.345915+00:00]   B0  4 BRAZE_USER_EVENT_DEMO_DA exec=None match=None
+[2026-04-30T19:28:50.844262+00:00]   B0  5 Baseball                 exec=None match=None
+[2026-04-30T19:29:00.129442+00:00]   B0  6 BowlingLeague            exec=None match=None
+[2026-04-30T19:29:05.741780+00:00]   B0  7 Brazilian_E_Commerce     exec=None match=None
+[2026-04-30T19:29:14.890755+00:00]   B0  8 CENSUS_BUREAU_ACS_2      exec=None match=None
+[2026-04-30T19:29:17.843434+00:00]   B0  9 CENSUS_GALAXY__AIML_MODE exec=None match=None
+[2026-04-30T19:29:22.450890+00:00]   B0 10 CENSUS_GALAXY__ZIP_CODE_ exec=None match=None
+[2026-04-30T19:29:30.145285+00:00]   B0 11 CPTAC_PDC                exec=None match=None
+[2026-04-30T19:29:38.697962+00:00]   B0 12 CRYPTO                   exec=None match=None
+[2026-04-30T19:29:40.902799+00:00]   B0 13 CYMBAL_INVESTMENTS       exec=None match=None
+[2026-04-30T19:29:48.298016+00:00]   B0 14 California_Traffic_Colli exec=None match=None
+[2026-04-30T19:29:52.101140+00:00]   B0 15 DEATH                    exec=None match=None
+[2026-04-30T19:29:55.759242+00:00]   B0 16 DEPS_DEV_V1              exec=None match=None
+[2026-04-30T19:30:02.254533+00:00]   B0 17 Db-IMDB                  exec=None match=None
+[2026-04-30T19:30:09.365796+00:00]   B0 18 ETHEREUM_BLOCKCHAIN      exec=None match=None
+[2026-04-30T19:30:11.606377+00:00]   B0 19 EU_soccer                exec=None match=None
+[2026-04-30T19:30:20.702699+00:00]   B0 20 E_commerce               exec=None match=None
+[2026-04-30T19:30:25.049519+00:00]   B0 21 EntertainmentAgency      exec=None match=None
+[2026-04-30T19:30:30.743346+00:00]   B0 22 FINANCE__ECONOMICS       exec=None match=None
+[2026-04-30T19:30:31.550816+00:00]   B0 23 GENOMICS_CANNABIS        exec=None match=None
+[2026-04-30T19:30:39.286969+00:00]   B0 24 GEO_OPENSTREETMAP        exec=None match=None
+[2026-04-30T19:30:45.357272+00:00]   B0 25 GEO_OPENSTREETMAP_BOUNDA exec=None match=None
+[2026-04-30T19:30:52.436022+00:00]   B0 26 GEO_OPENSTREETMAP_CENSUS exec=None match=None
+[2026-04-30T19:30:59.925725+00:00]   B0 27 GEO_OPENSTREETMAP_WORLDP exec=None match=None
+[2026-04-30T19:31:01.896335+00:00]   B0 28 GITHUB_REPOS             exec=None match=None
+[2026-04-30T19:31:05.271626+00:00]   B0 29 GITHUB_REPOS_DATE        exec=None match=None
+[2026-04-30T19:31:05.307816+00:00] >>> RUN [51/52] model=Qwen/Qwen2.5-7B-Instruct bl=B1 sub=spider2lite_30
+[2026-04-30T19:31:05.310220+00:00] === B1 b1_qwen_qwen2.5_7b_instruct_spider2lite_30 ===
+[2026-04-30T19:31:14.553172+00:00]   B1  0 AMAZON_VENDOR_ANALYTICS_ sel=0 exec=None match=None
+[2026-04-30T19:31:19.425875+00:00]   B1  1 AUSTIN                   sel=0 exec=None match=None
+[2026-04-30T19:31:24.458105+00:00]   B1  2 AdventureWorks           sel=1 exec=None match=None
+[2026-04-30T19:31:26.866437+00:00]   B1  3 Airlines                 sel=8 exec=None match=None
+[2026-04-30T19:31:29.479292+00:00]   B1  4 BRAZE_USER_EVENT_DEMO_DA sel=0 exec=None match=None
+[2026-04-30T19:31:37.776978+00:00]   B1  5 Baseball                 sel=1 exec=None match=None
+[2026-04-30T19:31:46.836192+00:00]   B1  6 BowlingLeague            sel=3 exec=None match=None
+[2026-04-30T19:31:52.503405+00:00]   B1  7 Brazilian_E_Commerce     sel=1 exec=None match=None
+[2026-04-30T19:32:01.714778+00:00]   B1  8 CENSUS_BUREAU_ACS_2      sel=0 exec=None match=None
+[2026-04-30T19:32:04.732476+00:00]   B1  9 CENSUS_GALAXY__AIML_MODE sel=0 exec=None match=None
+[2026-04-30T19:32:09.461519+00:00]   B1 10 CENSUS_GALAXY__ZIP_CODE_ sel=0 exec=None match=None
+[2026-04-30T19:32:17.299773+00:00]   B1 11 CPTAC_PDC                sel=0 exec=None match=None
+[2026-04-30T19:32:26.040344+00:00]   B1 12 CRYPTO                   sel=0 exec=None match=None
+[2026-04-30T19:32:28.273189+00:00]   B1 13 CYMBAL_INVESTMENTS       sel=0 exec=None match=None
+[2026-04-30T19:32:35.588850+00:00]   B1 14 California_Traffic_Colli sel=2 exec=None match=None
+[2026-04-30T19:32:39.319813+00:00]   B1 15 DEATH                    sel=0 exec=None match=None
+[2026-04-30T19:32:42.927125+00:00]   B1 16 DEPS_DEV_V1              sel=0 exec=None match=None
+[2026-04-30T19:32:49.347777+00:00]   B1 17 Db-IMDB                  sel=0 exec=None match=None
+[2026-04-30T19:32:56.382692+00:00]   B1 18 ETHEREUM_BLOCKCHAIN      sel=0 exec=None match=None
+[2026-04-30T19:32:58.586240+00:00]   B1 19 EU_soccer                sel=9 exec=None match=None
+[2026-04-30T19:33:07.767995+00:00]   B1 20 E_commerce               sel=11 exec=None match=None
+[2026-04-30T19:33:12.177832+00:00]   B1 21 EntertainmentAgency      sel=2 exec=None match=None
+[2026-04-30T19:33:17.979044+00:00]   B1 22 FINANCE__ECONOMICS       sel=0 exec=None match=None
+[2026-04-30T19:33:18.799873+00:00]   B1 23 GENOMICS_CANNABIS        sel=0 exec=None match=None
+[2026-04-30T19:33:26.638831+00:00]   B1 24 GEO_OPENSTREETMAP        sel=0 exec=None match=None
+[2026-04-30T19:33:32.823290+00:00]   B1 25 GEO_OPENSTREETMAP_BOUNDA sel=0 exec=None match=None
+[2026-04-30T19:33:40.010626+00:00]   B1 26 GEO_OPENSTREETMAP_CENSUS sel=0 exec=None match=None
+[2026-04-30T19:33:47.279335+00:00]   B1 27 GEO_OPENSTREETMAP_WORLDP sel=0 exec=None match=None
+[2026-04-30T19:33:49.227851+00:00]   B1 28 GITHUB_REPOS             sel=0 exec=None match=None
+[2026-04-30T19:33:52.829049+00:00]   B1 29 GITHUB_REPOS_DATE        sel=0 exec=None match=None
+[2026-04-30T19:33:52.873395+00:00] >>> RUN [52/52] model=Qwen/Qwen2.5-7B-Instruct bl=B2_v2 sub=spider2lite_30
+[2026-04-30T19:33:52.875536+00:00] === B2_v2 b2v2_qwen_qwen2.5_7b_instruct_spider2lite_30 ===
+[2026-04-30T19:34:11.148238+00:00]   B2_v2  0 AMAZON_VENDOR_ANALYTICS_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:34:25.142887+00:00]   B2_v2  1 AUSTIN                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:34:39.460162+00:00]   B2_v2  2 AdventureWorks           path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:34:48.113683+00:00]   B2_v2  3 Airlines                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:34:55.985147+00:00]   B2_v2  4 BRAZE_USER_EVENT_DEMO_DA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:35:13.465668+00:00]   B2_v2  5 Baseball                 path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:35:31.760637+00:00]   B2_v2  6 BowlingLeague            path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:35:43.457844+00:00]   B2_v2  7 Brazilian_E_Commerce     path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:36:02.155844+00:00]   B2_v2  8 CENSUS_BUREAU_ACS_2      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:36:11.849814+00:00]   B2_v2  9 CENSUS_GALAXY__AIML_MODE path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:36:23.550552+00:00]   B2_v2 10 CENSUS_GALAXY__ZIP_CODE_ path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:36:40.568427+00:00]   B2_v2 11 CPTAC_PDC                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:36:58.620475+00:00]   B2_v2 12 CRYPTO                   path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:37:06.900308+00:00]   B2_v2 13 CYMBAL_INVESTMENTS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:37:21.884261+00:00]   B2_v2 14 California_Traffic_Colli path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:37:34.761511+00:00]   B2_v2 15 DEATH                    path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:37:42.269270+00:00]   B2_v2 16 DEPS_DEV_V1              path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:37:58.145911+00:00]   B2_v2 17 Db-IMDB                  path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:38:14.723754+00:00]   B2_v2 18 ETHEREUM_BLOCKCHAIN      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:38:22.441743+00:00]   B2_v2 19 EU_soccer                path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:38:40.803704+00:00]   B2_v2 20 E_commerce               path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:38:48.576477+00:00]   B2_v2 21 EntertainmentAgency      path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:39:03.597644+00:00]   B2_v2 22 FINANCE__ECONOMICS       path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:39:08.345464+00:00]   B2_v2 23 GENOMICS_CANNABIS        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:39:21.650995+00:00]   B2_v2 24 GEO_OPENSTREETMAP        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:39:36.770842+00:00]   B2_v2 25 GEO_OPENSTREETMAP_BOUNDA path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:39:52.978903+00:00]   B2_v2 26 GEO_OPENSTREETMAP_CENSUS path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:40:09.426772+00:00]   B2_v2 27 GEO_OPENSTREETMAP_WORLDP path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:40:16.557599+00:00]   B2_v2 28 GITHUB_REPOS             path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:40:28.074951+00:00]   B2_v2 29 GITHUB_REPOS_DATE        path=b1_fallback_invalid_plan exec=None match=None
+[2026-04-30T19:40:28.119301+00:00] FULL_CLOSURE_SUBPROC_DONE

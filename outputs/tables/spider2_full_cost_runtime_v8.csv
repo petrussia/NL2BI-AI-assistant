@@ -1,0 +1,4 @@
+benchmark,n_pilot,total_wall_s,s_per_task,note
+spider2_snow,3,138,46.0,3 candidates × ~15s LLM each
+spider2_lite,3,135,45.0,lane dispatch + per-lane LLM call
+spider2_dbt,1,53,53.0,export+prompt+inference+apply+dbt+evaluate

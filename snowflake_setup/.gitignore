@@ -1,0 +1,10 @@
+# Never commit live Snowflake secrets from this folder.
+.env
+*.env
+*.pem
+*.p8
+*.key
+secrets/
+credentials/
+snowflake_credential.json
+private_key*

@@ -1,0 +1,5 @@
+final_source,n,parses,exec_ok,em,em_rate
+C2_cte_decomp,80,26,16,2,2.5
+C1_retrieval_docs,65,41,35,1,1.54
+C0_direct,42,35,26,2,4.76
+C3_repaired,18,18,16,0,0.0

@@ -1,0 +1,14 @@
+[2026-04-25T17:26:14.623755+00:00] B2_BG_START
+[2026-04-25T17:26:14.624747+00:00] smoke10 N=10
+[2026-04-25T17:27:16.624019+00:00]   B2  0 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:28:18.640727+00:00]   B2  1 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:30:14.899795+00:00]   B2  2 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:32:11.101036+00:00]   B2  3 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:35:36.580678+00:00]   B2  4 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:39:40.237582+00:00]   B2  5 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:43:01.667977+00:00]   B2  6 concert_singer       plan_valid=True exec=True match=False err='result_mismatch'
+[2026-04-25T17:45:57.440077+00:00]   B2  7 concert_singer       plan_valid=True exec=True match=False err='result_mismatch'
+[2026-04-25T17:47:54.332040+00:00]   B2  8 concert_singer       plan_valid=False exec=False match=False err='plan_invalid'
+[2026-04-25T17:51:19.056684+00:00]   B2  9 concert_singer       plan_valid=True exec=True match=True err=''
+[2026-04-25T17:51:19.057962+00:00] B2_DONE EX=0.7000 executable=9/10 plan_valid=9/10
+[2026-04-25T17:51:19.058018+00:00] B2_BG_DONE

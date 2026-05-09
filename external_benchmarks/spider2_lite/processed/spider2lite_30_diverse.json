@@ -1,0 +1,364 @@
+[
+  {
+    "idx": 0,
+    "original_id": "sf029",
+    "db_id": "AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET",
+    "question": "Generate a daily detailed sales report for each product under the 'Manufacturing' distributor view, covering the 30 days leading up to February 6, 2022, by joining the sales, traffic, inventory, and net PPM data on date, ASIN, program, period, and distributor_view. The report must include total ordered units, ordered revenue, average selling price, glance views, conversion rate, shipped units, shipped revenue, average net PPM, average procurable product OOS, total on-hand units and value, net received units and value, open purchase order quantities, unfilled customer ordered units, and average vendor confirmation rate, receive fill rate, sell-through rate, and vendor lead time.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 1,
+    "original_id": "sf_bq283",
+    "db_id": "AUSTIN",
+    "question": "Among all stations that are currently active, identify those that rank in the top 15 (including ties) based on the total number of trips that start at each station. For each of these stations, return the station ID, the total number of starting trips, the percentage of those trips out of the overall starting trips from active stations, and the average trip duration in minutes. Order the results by the station’s rank.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "temporal": "Yes",
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 2,
+    "original_id": "local141",
+    "db_id": "AdventureWorks",
+    "question": "How did each salesperson's annual total sales compare to their annual sales quota? Provide the difference between their total sales and the quota for each year, organized by salesperson and year.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 3,
+    "original_id": "local009",
+    "db_id": "Airlines",
+    "question": "What is the distance of the longest route where Abakan is either the departure or destination city (in kilometers)?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "haversine_formula.md"
+    }
+  },
+  {
+    "idx": 4,
+    "original_id": "sf018",
+    "db_id": "BRAZE_USER_EVENT_DEMO_DATASET",
+    "question": "Examine user engagement with push notifications within a specified one-hour window on June 1, 2023.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "temporal": "Yes",
+      "external_knowledge": "PushNotificationAnalysis.md"
+    }
+  },
+  {
+    "idx": 5,
+    "original_id": "local007",
+    "db_id": "Baseball",
+    "question": "Could you help me calculate the average single career span value in years for all baseball players? Please precise the result as a float number. First, calculate the difference in years, months, and days between the debut and final game dates. For each player, the career span is computed as the sum of the absolute number of years, plus the absolute number of months divided by 12, plus the absolute number of days divided by 365. Round each part to two decimal places before summing. Finally, average the career spans and round the result to a float number.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 6,
+    "original_id": "local128",
+    "db_id": "BowlingLeague",
+    "question": "List the bowlers (including their ID, first name, and last name), match number, game number, handicap score, tournament date, and location for only those bowlers who have won games with a handicap score of 190 or less at all three venues: Thunderbird Lanes, Totem Lanes, and Bolero Lanes. Only include the specific game records where they won with a handicap score of 190 or less at these three locations.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 7,
+    "original_id": "local028",
+    "db_id": "Brazilian_E_Commerce",
+    "question": "Could you generate a report that shows the number of delivered orders for each month in the years 2016, 2017, and 2018? Each column represents a year, and each row represents a month",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 8,
+    "original_id": "sf_bq007",
+    "db_id": "CENSUS_BUREAU_ACS_2",
+    "question": "Identify the top 10 U.S. states with the highest vulnerable population, calculated based on a weighted sum of employment sectors using 2017 ACS 5-Year data, and determine their average median income change from 2015 to 2018 using zip code data. ",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "total_vulnerable_weights.md"
+    }
+  },
+  {
+    "idx": 9,
+    "original_id": "sf014",
+    "db_id": "CENSUS_GALAXY__AIML_MODEL_DATA_ENRICHMENT_SAMPLE",
+    "question": "What is the New York State ZIP code with the highest number of commuters traveling over one hour, according to 2021 ACS data? Include the zip code, the total commuters, state benchmark for this duration, and state population.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 10,
+    "original_id": "sf011",
+    "db_id": "CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE",
+    "question": "Determine the population distribution within each block group relative to its census tract in New York State using 2021 ACS data. Include block group ID, census value, state county tract ID, total tract population, and the population ratio of each block group.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 11,
+    "original_id": "bq143",
+    "db_id": "CPTAC_PDC",
+    "question": "Use CPTAC proteomics and RNAseq data for Clear Cell Renal Cell Carcinoma to select 'Primary Tumor' and 'Solid Tissue Normal' samples. Join the datasets on sample submitter IDs and gene symbols. Calculate the correlation between protein abundance (log2 ratio) and gene expression levels (log-transformed+1 FPKM) for each gene and sample type. Filter out correlations with an absolute value greater than 0.5, and compute the average correlation for each sample type.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 12,
+    "original_id": "sf_bq083",
+    "db_id": "CRYPTO",
+    "question": "Can you calculate the daily change in the market value of USDC tokens (address `0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`) for 2023, based on Ethereum transactions? The change should be computed from minting (input pattern `0x40c10f19%`) and burning (input pattern `0x42966c68%`) operations. For each transaction, minting should be positive and burning negative. Extract the relevant amount from the 'input' field as a hexadecimal, convert it to millions, express it in USD format. Group the results by date and order them in descending order.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "Total_Market_Value_Change.md"
+    }
+  },
+  {
+    "idx": 13,
+    "original_id": "bq090",
+    "db_id": "CYMBAL_INVESTMENTS",
+    "question": "How much higher the average intrinsic value is for trades using the feeling-lucky strategy compared to those using the momentum strategy under long-side trades?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 14,
+    "original_id": "local015",
+    "db_id": "California_Traffic_Collision",
+    "question": "Please calculate the fatality rate for motorcycle collisions, separated by helmet usage. Specifically, calculate two percentages: 1) the percentage of motorcyclist fatalities in collisions where parties (drivers or passengers) were wearing helmets, and 2) the percentage of motorcyclist fatalities in collisions where parties were not wearing helmets. For each group, compute this by dividing the total number of motorcyclist fatalities by the total number of collisions involving that group. Use the parties table to determine helmet usage (from party_safety_equipment fields).",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 15,
+    "original_id": "sf_bq118",
+    "db_id": "DEATH",
+    "question": "Among individuals identified as white, how much higher is the average number of deaths from ICD-10 codes whose descriptions contain the word “discharge” (specifically excluding “Urethral discharge,” “Discharge of firework,” and “Legal intervention involving firearm discharge”) compared to the average number of deaths from ICD-10 codes whose descriptions contain the word “vehicle,” when aggregated by age groups?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 16,
+    "original_id": "sf_bq016",
+    "db_id": "DEPS_DEV_V1",
+    "question": "Considering only the highest release versions of NPM packages, which dependency (package and its version) appears most frequently among the dependencies of these packages?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 17,
+    "original_id": "local096",
+    "db_id": "Db-IMDB",
+    "question": "For each year, calculate the percentage of films that had exclusively female actors (meaning no male actors and no actors with unknown/unspecified gender). Consider actors with gender marked as 'Male' or 'None' as non-female. For the results, display the year, the total number of movies in that year, and the percentage of movies with exclusively female actors. Extract the year from the Movie.year field by taking the last 4 characters and converting to a number.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 18,
+    "original_id": "sf_bq012",
+    "db_id": "ETHEREUM_BLOCKCHAIN",
+    "question": "Calculate the average balance (in quadrillions, 10^15) of the top 10 Ethereum addresses by net balance, including incoming and outgoing transfers from traces (only successful transactions and excluding call types like delegatecall, callcode, and staticcall), miner rewards (sum of gas fees per block), and sender gas fee deductions. Exclude null addresses and round the result to two decimal places.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 19,
+    "original_id": "local218",
+    "db_id": "EU_soccer",
+    "question": "Can you calculate the median from the highest season goals of each team?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 20,
+    "original_id": "local002",
+    "db_id": "E_commerce",
+    "question": "Can you calculate the 5-day symmetric moving average of predicted toy sales for December 5 to 8, 2018, using daily sales data from January 1, 2017, to August 29, 2018, with a simple linear regression model? Finally provide the sum of those four 5-day moving averages?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 21,
+    "original_id": "local131",
+    "db_id": "EntertainmentAgency",
+    "question": "Could you list each musical style with the number of times it appears as a 1st, 2nd, or 3rd preference in a single row per style?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 22,
+    "original_id": "sf002",
+    "db_id": "FINANCE__ECONOMICS",
+    "question": "As of December 31, 2022, list the top 10 active banks with assets exceeding $10 billion, ranked by the highest percentage of uninsured assets, where the percentage is calculated as one minus the value of the '% Insured (Estimated)' variable from quarterly estimates. Provide the names of these banks and their respective percentages of uninsured assets.",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 23,
+    "original_id": "sf_bq020",
+    "db_id": "GENOMICS_CANNABIS",
+    "question": "What is the name of the reference sequence with the highest variant density in the given cannabis genome dataset?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 24,
+    "original_id": "sf_bq017",
+    "db_id": "GEO_OPENSTREETMAP",
+    "question": "What are the five longest types of highways within the multipolygon boundary of Denmark (as defined by Wikidata ID 'Q35') by total length, analyzed through planet features?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "functions_st_dwithin.md"
+    }
+  },
+  {
+    "idx": 25,
+    "original_id": "sf_bq056",
+    "db_id": "GEO_OPENSTREETMAP_BOUNDARIES",
+    "question": "How many different pairs of roads classified as motorway, trunk, primary, secondary, or residential in California overlap each other without sharing nodes and do not have a bridge tag, where these roads are tagged with 'highway', analyzed through planet ways",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "functions_st_intersects.md"
+    }
+  },
+  {
+    "idx": 26,
+    "original_id": "sf_bq289",
+    "db_id": "GEO_OPENSTREETMAP_CENSUS_PLACES",
+    "question": "Can you find the shortest distance between any two amenities (either a library, place of worship, or community center) located within Philadelphia, analyzed through pennsylvania table and planet features points?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "functions_st_contains.md"
+    }
+  },
+  {
+    "idx": 27,
+    "original_id": "sf_bq250",
+    "db_id": "GEO_OPENSTREETMAP_WORLDPOP",
+    "question": "Based on the most recent 1km population grid data in Singapore before January 2023, using ST_CONVEXHULL to aggregate all population grid centroids into a bounding region and ST_INTERSECTS to identify hospitals from OpenStreetMap’s planet layer (layer_code in (2110, 2120)) that fall within this region, then calculating the distance from each grid cell to its nearest hospital, what is the total population of the grid cell that is farthest from any hospital?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": "OpenStreetMap_data_in_layered_GIS_format.md"
+    }
+  },
+  {
+    "idx": 28,
+    "original_id": "sf_bq036",
+    "db_id": "GITHUB_REPOS",
+    "question": "What was the average number of GitHub commits made per month in 2016 for repositories containing Python code?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  },
+  {
+    "idx": 29,
+    "original_id": "sf_bq182",
+    "db_id": "GITHUB_REPOS_DATE",
+    "question": "Which primary programming languages, determined by the highest number of bytes in each repository, had at least 5 PullRequestEvents on January 18, 2023 across all their repositories?",
+    "gold_sql": "",
+    "source_split": "spider2-lite",
+    "source_path": "spider2_lite/raw/Spider2/spider2-lite/spider2-lite.jsonl",
+    "extras": {
+      "external_knowledge": null
+    }
+  }
+]

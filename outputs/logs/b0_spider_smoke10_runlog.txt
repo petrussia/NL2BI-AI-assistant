@@ -1,0 +1,13 @@
+B0 smoke10 run log
+checked_at: 2026-04-25T15:41:33.787960+00:00
+project_root: /content/drive/MyDrive/diploma_plan_sql
+spider_dir: /content/drive/MyDrive/diploma_plan_sql/data/spider
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+quantization: device_map_auto_no_4bit_fallback
+total: 10
+executable_count: 10
+execution_match_count: 10
+EX: 1.0
+elapsed_seconds: 264.80
+func_timeout: OK
+bitsandbytes: OK

@@ -1,0 +1,9 @@
+benchmark,bucket,lo,hi,n,em,em_rate,overrode,override_rate
+spider_dev,low,0.0,0.5,1,1,1.0,0,0.0
+spider_dev,mid,0.5,0.65,0,0,0.0,0,0.0
+spider_dev,high,0.65,0.8,0,0,0.0,0,0.0
+spider_dev,very_high,0.8,1.01,383,260,0.6789,51,0.1332
+bird_full,low,0.0,0.5,0,0,0.0,0,0.0
+bird_full,mid,0.5,0.65,0,0,0.0,0,0.0
+bird_full,high,0.65,0.8,0,0,0.0,0,0.0
+bird_full,very_high,0.8,1.01,326,110,0.3374,190,0.5828

@@ -1,0 +1,11 @@
+instance_id,alias,pack_n_tables,pack_n_columns,pack_token_budget,plan_validation_ok,chosen_family
+bq011,ga4,8,8,486,0,B
+bq010,ga360,8,8,12934,0,A
+bq009,ga360,8,8,982,0,A
+bq001,ga360,8,8,982,0,A
+bq002,ga360,8,8,12936,0,A
+bq003,ga360,8,8,980,0,A
+bq004,ga360,8,8,12934,0,A
+bq008,ga360,8,8,12884,0,A
+bq269,ga360,8,8,468,0,A
+bq268,ga360,8,8,1256,0,A

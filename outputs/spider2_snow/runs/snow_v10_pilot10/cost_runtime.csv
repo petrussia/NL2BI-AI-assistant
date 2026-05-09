@@ -1,0 +1,11 @@
+instance_id,db,wall_time_s,elapsed_ms_chosen,candidate_count
+sf_bq011,GA4,91.56,0,3
+sf_bq010,GA360,72.93,0,3
+sf_bq009,GA360,61.48,0,3
+sf_bq001,GA360,76.19,0,3
+sf_bq002,GA360,79.82,0,3
+sf_bq003,GA360,159.01,0,3
+sf_bq004,GA360,67.35,0,3
+sf_bq008,GA360,54.25,0,3
+sf_bq269,GA360,114.66,0,3
+sf_bq268,GA360,51.29,0,3
