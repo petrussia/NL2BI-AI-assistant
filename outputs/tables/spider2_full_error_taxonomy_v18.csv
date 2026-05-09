@@ -1,5 +1,5 @@
 lane,run_id,error_class,count
-bq,lite_bq_v18_1b_pilot10,schema_invalid,6
-bq,lite_bq_v18_1b_pilot10,ok,2
-bq,lite_bq_v18_1b_pilot10,parse_error,1
-bq,lite_bq_v18_1b_pilot10,bq_dry_run_failed,1
+bq,lite_bq_v18_1b_pilot50,schema_invalid,22
+bq,lite_bq_v18_1b_pilot50,ok,17
+bq,lite_bq_v18_1b_pilot50,bq_dry_run_failed,9
+bq,lite_bq_v18_1b_pilot50,parse_error,2

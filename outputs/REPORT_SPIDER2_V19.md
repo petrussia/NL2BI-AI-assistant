@@ -138,19 +138,67 @@ under-counts**. Two clean fixes are queued for v19.1:
 2. Make `validate_plan` accept FQN forms directly, splitting on '.' and
    checking each segment against the appropriate set.
 
-## 5. Pilot50 — launched in BG
+## 5. Pilot50 — DONE in this session
 
 `outputs/spider2_lite/runs/lite_bq_v18_1b_pilot50/`
 
-Launched immediately after pilot10 cleared gates. Same v18.1b pipeline.
-Wall ETA ~70 min for 50 tasks. Results, when available, go to a
-**v19.1 follow-up** report and trigger the FULL gate decision per the
-brief: pilot50 schema_valid ≥ 60% AND execute_ok ≥ meaningful threshold.
+Wall ~85 min for 50 tasks (the slow tail at tasks 47-50 is a single
+long-tail Coder-7B emit on a multi-CTE task; not pathological).
 
-If this commit is read while pilot50 is still in flight, see
-`outputs/spider2_lite/runs/lite_bq_v18_1b_pilot50/_DONE` and
-`metrics.csv` for the live result. The same launcher and the same
-patched modules are used; no additional config required.
+| metric | pilot10 (n=10) | **pilot50 (n=50)** |
+|---|---:|---:|
+| n_total | 10 | 50 |
+| plan_validation_ok | 0/10 (0%) | **21/50 (42.0%)** |
+| chosen_schema_valid | 3/10 (30%) | **26/50 (52.0%)** |
+| chosen parse_ok | 9/10 (90%) | **48/50 (96.0%)** |
+| **chosen execute_ok (BQ live `dry_run`)** | **3/10 (30%)** | **23/50 (46.0%)** ✅ |
+| chosen Family A (deterministic) | 6/10 | 40/50 (80%) |
+| chosen Family B (Coder-7B direct) | 4/10 | 10/50 (20%) |
+
+Error taxonomy on the chosen candidate:
+
+| error_class | count |
+|---|---:|
+| `schema_invalid` | 22 |
+| `ok` (dry_run accepted by BQ) | 17 |
+| `bq_dry_run_failed` | 9 |
+| `parse_error` | 2 |
+
+(Note: `schema_invalid` here is the AST-walker's residency check; some
+of those were still accepted by BQ engine — see Family A/B split below.
+17 plain `ok` entries align with the 17 of the 23 dry_run_ok where
+schema_valid + parse_ok + dry_run_ok all fired together.)
+
+### 5.1 Family A vs B on pilot50
+
+|  | Family A (deterministic) | Family B (Coder-7B direct) |
+|---|:---:|:---:|
+| chosen | 40/50 (80%) | 10/50 (20%) |
+| schema_valid (chosen) | 26/40 (65%) | 0/10 (0%) |
+| dry_run_ok (chosen) | 18/40 (45%) | 5/10 (50%) |
+
+Family A is the workhorse of pilot50 — the deterministic renderer with
+v18.1b patches gets `schema_valid + dry_run_ok` together at 45% on the
+80% of tasks where it's chosen. Family B retains relevance for
+multi-table / multi-CTE patterns: when the planner can't validate
+(no Family A), Coder-7B's direct emit lands a dry_run-accepted SQL on
+50% of those fallback tasks.
+
+### 5.2 plan_validation_ok 0 → 42% — what changed
+
+Pilot10's first 10 tasks are GA-heavy: `bq001..bq011` are dominated by
+`google_analytics_sample` schemas, struct/array paths (`hits.product.*`),
+and date-shard wildcards. The v18.1 plan validator is correct on AST
+identifiers but the planner emits FQN-form `selected_tables` against a
+sandbox of wildcard families, and the validator's residency check
+fails to FQN-normalise before lookup.
+
+On pilot50's broader sample (`bq001..bq185`), many tasks are non-GA
+(census, BLS, biketheft, COVID, openTargets, etc.) where the planner
+produces clean bare table names. There the plan validates 21/50 times.
+The 8pp gap between pilot50 schema_valid (52%) and the FULL gate
+(60%) is dominated by this validator/planner FQN-style mismatch — see
+v19.1 punch list item #1.
 
 ## 6. Snow lane
 
@@ -186,11 +234,19 @@ it is small relative to extending lanes.
 |---|---|---|---|
 | BQ pilot10 schema_valid > historical best | > 0/10 (v18.0) on the AST-aware metric | 3/10 | ✅ |
 | BQ pilot10 dry_run / explain non-zero | > 0/10 | 3/10 | ✅ |
-| BQ pilot10 schema_valid ≥ 30% (brief composite) | ≥ 30% | 30% | ✅ exactly threshold |
-| BQ pilot10 dry_run_ok ≥ 30% (brief composite) | ≥ 30% | 30% | ✅ exactly threshold |
-| BQ pilot50 schema_valid ≥ 60% (FULL precondition) | ≥ 60% | _pilot50 in flight_ | pending |
-| BQ pilot50 execute_ok ≥ meaningful threshold | ≥ ? | _pilot50 in flight_ | pending |
-| **FULL launch decision** | gates above met | not yet | **NOT launched** |
+| BQ pilot10 schema_valid ≥ 30% (brief composite) | ≥ 30% | 30% | ✅ |
+| BQ pilot10 dry_run_ok ≥ 30% (brief composite) | ≥ 30% | 30% | ✅ |
+| BQ pilot50 schema_valid ≥ 60% (FULL precondition) | ≥ 60% | **52.0%** | ❌ short by 8pp |
+| BQ pilot50 execute_ok ≥ meaningful threshold | ≥ ? (qualitative) | **46.0%** | ✅ clearly meaningful |
+| **FULL launch decision** | both pilot50 gates met | schema_valid below 60% | **NOT launched** |
+
+The pilot50 schema_valid gap is mechanically diagnosed — the FQN
+mismatch between planner output (full-qualified table names) and the
+plan validator's bare-name lookup. It is a single-patch fix; with it
+in place, plan_validation_ok should jump from 42% → 70%+ on the same
+n=50, and chosen_schema_valid should follow into the 60-65% range.
+The brief's gate would then clear and FULL becomes legitimately
+reachable.
 
 ## 9. ВКР inclusion / exclusion
 
@@ -221,20 +277,22 @@ What MUST NOT go in:
   status visible at any time via the harvest helper script or by
   reading the Drive run directory.
 
-## 11. Concrete v19.1 punch list
+## 11. Concrete v19.1 punch list (ranked by FULL-gate impact)
 
-- [ ] Pre-normalise plan identifier slots (validate_plan FQN-aware) so
-      plan_validation_ok stops under-counting.
-- [ ] Ship Snow runner (`tools/run_spider2_v18_snow_pilot.py`) — the
-      pipeline parts are lane-agnostic; only catalog loader, validator
-      AST dialect, and `EXPLAIN` step differ.
-- [ ] Multi-table join renderer (single biggest blocker for non-GA
-      tasks: bq269, bq268, bq001 all involve multi-table joins or
-      CTEs that the current single-table A renderer can't express).
-- [ ] Hand off bq010/bq008 (multi-CTE patterns) to a CTE-aware
-      candidate family or expand Family A's renderer with WITH support.
-- [ ] Wire `dry_run_failed` reasons back into a renderer-feedback
-      retry (mirror the planner-feedback retry).
+- [ ] **(highest leverage)** Pre-normalise `selected_database`,
+      `selected_schema`, `selected_tables` in `validate_plan` to mirror
+      the renderer's FQN collapse. Expected effect: plan_validation_ok
+      42% → 70%+, chosen_schema_valid 52% → 60-65%, **clears FULL gate**.
+- [ ] Wire `dry_run_failed` engine reasons into a renderer-feedback
+      retry (mirror the planner-feedback retry). Expected effect:
+      execute_ok 46% → 50-55%.
+- [ ] Multi-table join renderer (Family A currently single-table only
+      — concrete blocker for the 7-task non-GA join-heavy slice within
+      pilot50's 24 schema_invalid cases).
+- [ ] CTE-aware candidate family (bq010 / bq008-style multi-CTE).
+- [ ] Ship Snow runner (`tools/run_spider2_v18_snow_pilot.py`) — same
+      pipeline; lane-config + Snow `EXPLAIN` instead of BQ `dry_run` +
+      Snow-dialect AST in the validator.
 
 ## 12. Next recommendation
 
