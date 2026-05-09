@@ -36,7 +36,7 @@ python3 -m pytest -q
 
 ```text
 cd apps/web && npm run build
-Next.js 14.2.35 build compiled successfully.
+Next.js 16.2.6 build compiled successfully with system Node 24.15.0.
 ```
 
 ```json
@@ -67,9 +67,11 @@ Next.js 14.2.35 build compiled successfully.
 - Metadata incomplete: `docs/e2e_results/06_metadata_incomplete_mock.json`
 - Chat artifact smoke: `docs/e2e_results/09_chat_message_artifacts.json`
 - UI screenshot: `docs/e2e_results/frontend_chat_artifact.png`
+- Next 16 UI smoke screenshot: `docs/e2e_results/frontend_next16_chat_artifact.png`
 
-## Known Issues
+## Dependency Status
 
 - Real Colab GPU endpoint was not available on this server, so real Colab `/health` and `/extract` remain external/manual.
-- `npm audit --omit=dev` reports current Next/PostCSS advisories. The suggested automatic fix installs Next 16.2.6, which requires Node >=20.9.0; this server has Node 18.19.1. Functional build is green on Next 14.2.35.
-
+- Frontend dependencies were updated to current `next@16.2.6`, `react@19.2.6`, and `react-dom@19.2.6`.
+- Server Node was upgraded to `v24.15.0` with npm `11.12.1`.
+- `npm audit --omit=dev` returns `found 0 vulnerabilities`.

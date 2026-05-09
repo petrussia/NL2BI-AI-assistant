@@ -76,15 +76,16 @@
 - Unit/integration: `python3 -m pytest -q` -> `19 passed`.
 - Frontend build: `npm run build` -> passed.
 - UI smoke: Playwright Chromium register/send/artifact render -> passed.
-- Screenshot: `docs/e2e_results/frontend_chat_artifact.png`.
-- Audit: `npm audit --omit=dev` reports Next/PostCSS advisories; see risks.
+- Screenshot: `docs/e2e_results/frontend_next16_chat_artifact.png`.
+- Audit: `npm audit --omit=dev` -> `found 0 vulnerabilities`.
+- Frontend runtime: `next@16.2.6`, `react@19.2.6`, system `node@24.15.0`.
 
 ## 9. Remaining Risks
 
 | Risk | Impact | Owner | Fix |
 |---|---|---|---|
 | Real Colab endpoint not connected during this pass | Cannot prove GPU Text-to-SQL output shape end-to-end | Denis/Colab | Run prompt 03 in Colab and repeat server `EXTRACTION_MODE=colab` smoke. |
-| Next/PostCSS audit advisories on Node 18-compatible Next | Security review item for public deployment | Peter/server | Upgrade server Node to >=20.9 and move frontend to fixed Next 16 line, then rebuild. |
+| Node 24 installed under `/usr/local` via `n` | Services launched with a restricted PATH could still find older `/usr/bin/node` | Peter/server | Ensure production service PATH prefers `/usr/local/bin` or install Node 24 through the OS package workflow. |
 | Rule-based visualization only | Limited chart selection quality | Peter | Replace/extend B0/B1/B2 rules while keeping CPU-only path. |
 | Local artifact storage | Not production durable across hosts | Peter | Add S3/Blob/Postgres-backed artifact store when deployment target is fixed. |
 
@@ -94,5 +95,5 @@
 - Runtime JSON: `docs/e2e_results/runtime_mock.json`.
 - Five `/api/nl2chart` responses: `docs/e2e_results/01_time_series_mock.json`, `02_category_comparison_mock.json`, `03_top_n_mock.json`, `04_empty_result_mock.json`, `05_colab_unavailable.json`.
 - Colab `/health` JSON: not available until Colab tunnel is running.
-- UI screenshot: `docs/e2e_results/frontend_chat_artifact.png`.
-- Test/build output: `pytest 19 passed`; `npm run build` passed.
+- UI screenshot: `docs/e2e_results/frontend_next16_chat_artifact.png`.
+- Test/build output: `pytest 19 passed`; `npm run build` passed; `npm audit --omit=dev` found 0 vulnerabilities.

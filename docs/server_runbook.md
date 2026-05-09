@@ -33,6 +33,9 @@ npm run build
 npm run dev -- --hostname 0.0.0.0 --port 3001
 ```
 
+Frontend expects Node 24.15.0 or newer. This server was upgraded to
+`node v24.15.0` and `npm 11.12.1`.
+
 The Next.js frontend proxies server API calls through `/api/server/*`.
 Set a different backend URL with:
 
@@ -57,4 +60,3 @@ python3 scripts/smoke_server_colab.py
 
 Broken Colab URL should return a safe `colab_unavailable` error and must not
 return stack traces.
-
