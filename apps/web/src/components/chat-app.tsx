@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Loader2, LogIn, MessageSquarePlus, Send } from "lucide-react";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useState } from "react";
+import { ChevronDown, ChevronRight, Database, Loader2, LogIn, MessageSquarePlus, Send, Sparkles } from "lucide-react";
 import {
   ChatMessage,
   ChatSession,
@@ -14,11 +14,33 @@ import {
   sendMessage,
 } from "@/lib/api";
 import { ArtifactRenderer } from "@/components/artifact-renderer";
+import {
+  DEMO_DATA_SOURCE_ID,
+  DEMO_DATA_SOURCE_LABEL,
+  DEMO_TABLES,
+  SUGGESTED_QUERIES,
+} from "@/lib/demo-schema";
 
 type User = {
   username: string;
   role: string;
 };
+
+function lastAssistantHasSqlExecutionError(messages: ChatMessage[]): boolean {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const m = messages[i];
+    if (m.role !== "assistant") {
+      continue;
+    }
+    return (m.artifacts ?? []).some(
+      (a) =>
+        a.artifact_type === "error" &&
+        typeof a.payload?.code === "string" &&
+        (a.payload.code === "sql_execution_failed" || a.payload.code === "schema_not_found"),
+    );
+  }
+  return false;
+}
 
 export function ChatApp() {
   const [user, setUser] = useState<User | null>(null);
@@ -28,12 +50,13 @@ export function ChatApp() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeSession, setActiveSession] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState("Покажи динамику продаж по месяцам");
+  const [input, setInput] = useState(SUGGESTED_QUERIES[0]);
   const [preferredOutput, setPreferredOutput] = useState<"auto" | "chart" | "table">("auto");
   const [responseStyle, setResponseStyle] = useState<"business" | "technical">("business");
   const [loading, setLoading] = useState(false);
   const [statusText, setStatusText] = useState("");
   const [error, setError] = useState("");
+  const [schemaOpen, setSchemaOpen] = useState(false);
 
   useEffect(() => {
     me()
@@ -87,8 +110,8 @@ export function ChatApp() {
     }
   }
 
-  async function handleSend(event: FormEvent) {
-    event.preventDefault();
+  async function handleSend(event?: FormEvent) {
+    event?.preventDefault();
     if (!activeSession || !input.trim()) {
       return;
     }
@@ -128,9 +151,24 @@ export function ChatApp() {
     }
   }
 
+  function fillSuggestion(query: string) {
+    setInput(query);
+  }
+
+  function handleComposerKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+      event.preventDefault();
+      void handleSend();
+    }
+  }
+
   const activeTitle = useMemo(() => {
     return sessions.find((session) => session.session_id === activeSession)?.title ?? "Чат";
   }, [activeSession, sessions]);
+
+  const showSuggestions = useMemo(() => {
+    return messages.length === 0 || lastAssistantHasSqlExecutionError(messages);
+  }, [messages]);
 
   if (!user) {
     return (
@@ -196,9 +234,20 @@ export function ChatApp() {
       </aside>
       <section className="chatPane">
         <header className="chatHeader">
-          <div>
+          <div className="chatHeaderTitle">
             <h1>{activeTitle}</h1>
-            <p>Demo data source: demo_concert_singer</p>
+            <button
+              type="button"
+              className="schemaToggle"
+              onClick={() => setSchemaOpen((open) => !open)}
+              aria-expanded={schemaOpen}
+            >
+              {schemaOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+              <Database size={14} />
+              <span>
+                Источник: <code>{DEMO_DATA_SOURCE_ID}</code> ({DEMO_DATA_SOURCE_LABEL})
+              </span>
+            </button>
           </div>
           <div className="toggles">
             <select value={preferredOutput} onChange={(event) => setPreferredOutput(event.target.value as "auto" | "chart" | "table")}>
@@ -212,9 +261,36 @@ export function ChatApp() {
             </select>
           </div>
         </header>
+        {schemaOpen ? (
+          <section className="schemaPanel" aria-label="Схема демонстрационной БД">
+            <p className="schemaHint">
+              В этом источнике четыре таблицы Spider <code>concert_singer</code>. Запросы про продажи/клиентов/выручку
+              работать не будут — таких сущностей здесь нет.
+            </p>
+            <ul>
+              {DEMO_TABLES.map((table) => (
+                <li key={table.name}>
+                  <strong>{table.name}</strong>
+                  <span className="schemaTableDesc">{table.description}</span>
+                  <div className="schemaCols">
+                    {table.columns.map((col) => (
+                      <span key={col.name} className="schemaCol">
+                        {col.name}
+                        <em>{col.type}</em>
+                      </span>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         <div className="messages">
           {messages.length === 0 ? (
-            <div className="emptyState">Введите бизнес-вопрос, чтобы получить таблицу или график.</div>
+            <div className="emptyState">
+              <Sparkles size={18} />
+              <p>Введите бизнес-вопрос — получите таблицу и график. Подсказки ниже работают на этой БД:</p>
+            </div>
           ) : (
             messages.map((message) => (
               <article key={message.message_id} className={`message ${message.role}`}>
@@ -228,9 +304,38 @@ export function ChatApp() {
           {statusText ? <div className="statusLine"><Loader2 className="spin" size={16} />{statusText}</div> : null}
           {error ? <div className="notice error">{error}</div> : null}
         </div>
+        {showSuggestions ? (
+          <section className="suggestions" aria-label="Готовые запросы">
+            {lastAssistantHasSqlExecutionError(messages) ? (
+              <p className="suggestionsLead">
+                Похоже, запрос не подходит под схему <code>{DEMO_DATA_SOURCE_ID}</code>. Попробуйте один из этих:
+              </p>
+            ) : (
+              <p className="suggestionsLead">Готовые запросы:</p>
+            )}
+            <div className="chipRow">
+              {SUGGESTED_QUERIES.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  className="chip"
+                  onClick={() => fillSuggestion(q)}
+                  disabled={loading}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
         <form className="composer" onSubmit={handleSend}>
-          <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Например: Покажи топ клиентов по выручке" />
-          <button type="submit" disabled={loading || !input.trim()}>
+          <input
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            onKeyDown={handleComposerKeyDown}
+            placeholder="Например: Сравни количество певцов по странам (Ctrl+Enter — отправить)"
+          />
+          <button type="submit" disabled={loading || !input.trim()} title="Send (Ctrl+Enter)">
             <Send size={16} />
             Send
           </button>
