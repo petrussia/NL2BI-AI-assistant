@@ -1,0 +1,4 @@
+# npm audit on main HEAD 83744b2
+# Date: 2026-05-11T00:18:31+02:00
+
+found 0 vulnerabilities

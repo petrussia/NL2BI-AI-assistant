@@ -1,0 +1,74 @@
+{
+  "type": "chart",
+  "chart_type": "bar",
+  "title": "Сравнение по категориям",
+  "spec": {
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Country",
+        "type": "nominal",
+        "title": "Country"
+      },
+      "y": {
+        "field": "NumberOfSingers",
+        "type": "quantitative",
+        "title": "NumberOfSingers"
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "Country": "France",
+          "NumberOfSingers": 4
+        },
+        {
+          "Country": "Netherlands",
+          "NumberOfSingers": 1
+        },
+        {
+          "Country": "United States",
+          "NumberOfSingers": 1
+        }
+      ]
+    },
+    "title": "Сравнение по категориям"
+  },
+  "normalized_spec": {
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Country",
+        "type": "nominal",
+        "title": "Country"
+      },
+      "y": {
+        "field": "NumberOfSingers",
+        "type": "quantitative",
+        "title": "NumberOfSingers"
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "Country": "France",
+          "NumberOfSingers": 4
+        },
+        {
+          "Country": "Netherlands",
+          "NumberOfSingers": 1
+        },
+        {
+          "Country": "United States",
+          "NumberOfSingers": 1
+        }
+      ]
+    },
+    "title": "Сравнение по категориям"
+  },
+  "rendered_artifacts": {
+    "png_uri": null,
+    "svg_uri": null,
+    "html_uri": null
+  }
+}

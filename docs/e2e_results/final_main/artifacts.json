@@ -1,0 +1,74 @@
+[
+  {
+    "artifact_id": "28faa3b6135a48af8a020e04ede2a78d-table-758b2e1d",
+    "artifact_type": "table",
+    "title": "Таблица результата",
+    "uri": "/api/artifacts/28faa3b6135a48af8a020e04ede2a78d-table-758b2e1d",
+    "payload": {
+      "columns": [
+        "Country",
+        "NumberOfSingers"
+      ],
+      "rows": [
+        {
+          "Country": "France",
+          "NumberOfSingers": 4
+        },
+        {
+          "Country": "Netherlands",
+          "NumberOfSingers": 1
+        },
+        {
+          "Country": "United States",
+          "NumberOfSingers": 1
+        }
+      ],
+      "row_count": 3,
+      "truncated": false,
+      "request_id": "28faa3b6135a48af8a020e04ede2a78d"
+    },
+    "metadata": {}
+  },
+  {
+    "artifact_id": "28faa3b6135a48af8a020e04ede2a78d-chart_spec-c052e8f1",
+    "artifact_type": "chart_spec",
+    "title": "Сравнение по категориям",
+    "uri": "/api/artifacts/28faa3b6135a48af8a020e04ede2a78d-chart_spec-c052e8f1",
+    "payload": {
+      "spec": {
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "Country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          "y": {
+            "field": "NumberOfSingers",
+            "type": "quantitative",
+            "title": "NumberOfSingers"
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "Country": "France",
+              "NumberOfSingers": 4
+            },
+            {
+              "Country": "Netherlands",
+              "NumberOfSingers": 1
+            },
+            {
+              "Country": "United States",
+              "NumberOfSingers": 1
+            }
+          ]
+        },
+        "title": "Сравнение по категориям"
+      },
+      "request_id": "28faa3b6135a48af8a020e04ede2a78d"
+    },
+    "metadata": {}
+  }
+]

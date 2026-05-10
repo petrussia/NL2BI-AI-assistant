@@ -1,0 +1,2 @@
+No headless browser or PIL available on the agent host.
+To capture: open http://103.54.18.109/ -> send query -> save PNG.

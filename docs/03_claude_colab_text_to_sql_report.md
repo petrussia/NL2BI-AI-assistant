@@ -1,11 +1,31 @@
 # Report — Colab Text-to-SQL `/extract` endpoint (Claude / Denis)
 
-Branch used: **`integration/nl2bi-mvp`** (merged server + Colab MVP)
-HEAD at validation: `e4e3a0a` — *Post-merge cleanup for NL2BI MVP*
+Branch used: **`main`** (post-merge production)
+Server HEAD: `83744b2 Merge branch 'integration/nl2bi-mvp'`
 Spec: `docs/03_claude_colab_text_to_sql_endpoint.md`
 GPU: NVIDIA L4, VRAM 22.03 GB total / 7.85 GB free (≈14 GB held by Qwen2.5-Coder-7B in 4-bit)
+Final evidence pack: `docs/e2e_results/final_main/` (10 files)
 
-This report covers the revalidation pass on the merged MVP branch. All checks were performed against the live Colab L4 runtime, with `PUBLIC_URL` partially redacted below.
+This report covers the **final revalidation on `main`**. Both the server runtime in `/home/NL2BI-AI-assistant` and the Colab clone in `/content/nl2bi-colab` were switched to `main`; the notebook default `NL2BI_GIT_BRANCH` is now `main`. All checks were performed against the live production server (`http://103.54.18.109`) and the live Colab L4 (`https://db34-34-***-***-***.ngrok-free.app`).
+
+## 0. Final on-`main` evidence (this pass)
+
+| Check | Source | Result |
+| --- | --- | --- |
+| `pytest -q` on `/home/NL2BI-AI-assistant` | `e2e_results/final_main/pytest.txt` | **25 passed in 0.39s** |
+| `npm audit` in `apps/web/` | `e2e_results/final_main/npm_audit.txt` | **0 vulnerabilities** |
+| `npm run build` | `e2e_results/final_main/npm_build.txt` | Blocked by root-owned `.next/diagnostics/`; production `.next` already matches `main` HEAD. See README.md for the sudo-required rebuild path. |
+| `GET /api/server/health` | `e2e_results/final_main/health.json` | `http 200`, `status=ok`, `service=nl2bi-gateway` |
+| `GET /api/server/runtime` | `e2e_results/final_main/runtime.json` | `extraction_mode=colab`, `colab_available=true`, `colab_health.model_loaded=true`, `gpu_name=NVIDIA L4` — server already wired to live Colab |
+| `POST /api/server/nl2chart` live (concert_singer query) | `e2e_results/final_main/nl2chart_live_response.json` | `status=success`, 2 artifacts (table + chart_spec), 2.4s round-trip |
+| `selected_view` Vega-lite spec | `e2e_results/final_main/selected_view.json` | bar chart, France 4 / Netherlands 1 / United States 1 |
+| Public HTML | `e2e_results/final_main/public_ui.html` | `http 200`, 6087 bytes |
+| Public screenshot | `e2e_results/final_main/public_ui_screenshot.png` | 1×1 placeholder — see Known limitations |
+| Colab `/extract` × 4 fixtures (auth) | live | smoke exit 0 (`category_comparison`, `top_n`, `time_series`, `empty_result`) |
+| Colab `/extract` no auth | live | `http 401` |
+| Notebook default `NL2BI_GIT_BRANCH` | `colab/text_to_sql_colab_server.ipynb` cell-fetch-repo | `'main'` |
+
+`docs/e2e_results/final_main/README.md` enumerates every captured file and the two known limitations (no passwordless `sudo systemctl restart`; no headless browser for a real PNG). Neither limitation gates the validation — the production services were already running on `main` HEAD before this pass, with `extraction_mode=colab` actively calling the live Colab.
 
 ## 1. Branch + notebook wiring
 

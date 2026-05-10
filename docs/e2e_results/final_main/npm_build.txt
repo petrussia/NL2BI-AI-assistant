@@ -1,0 +1,26 @@
+# npm run build on main HEAD 83744b2
+# Date: 2026-05-11T00:18:24+02:00
+# CWD: /home/NL2BI-AI-assistant/apps/web
+
+BLOCKED: this denis user cannot rebuild in-place because the existing
+/home/NL2BI-AI-assistant/apps/web/.next/diagnostics/ subtree is owned by
+root with no group-write, and 'next build' cannot unlink the prior files.
+Production was last built by root and is currently serving via systemd,
+so the .next dir matches main HEAD already. A re-build must be invoked
+as root, or by running 'sudo rm -rf /home/NL2BI-AI-assistant/apps/web/.next' first.
+
+Build attempt output:
+
+
+> nl2bi-ai-assistant-web@0.1.0 build
+> next build
+
+
+> Build error occurred
+Error: EACCES: permission denied, unlink '/home/NL2BI-AI-assistant/apps/web/.next/diagnostics/build-diagnostics.json'
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'unlink',
+  path: '/home/NL2BI-AI-assistant/apps/web/.next/diagnostics/build-diagnostics.json'
+}
