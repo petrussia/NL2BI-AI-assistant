@@ -56,7 +56,7 @@ class ChatMessageListResponse(BaseModel):
 
 class SendMessageRequest(BaseModel):
     content: str
-    data_source_id: str = "demo_sales"
+    data_source_id: str = "demo_concert_singer"
     preferred_output: Literal["auto", "chart", "table"] = "auto"
     response_style: Literal["business", "technical"] = "business"
 
@@ -64,4 +64,3 @@ class SendMessageRequest(BaseModel):
 class SendMessageResponse(BaseModel):
     user_message: ChatMessageResponse
     assistant_message: ChatMessageResponse
-

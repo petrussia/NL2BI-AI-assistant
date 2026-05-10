@@ -7,7 +7,7 @@ def test_all_text_fields_falls_back_to_table():
     request = VisualizationRequest(
         request_id="r1",
         user_query="Покажи список комментариев",
-        data_source=DataSourceInfo(id="demo_sales"),
+        data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(
             columns=["comment"],
             rows=[{"comment": "ok"}],
@@ -23,7 +23,7 @@ def test_invalid_metadata_field_failed():
     request = VisualizationRequest(
         request_id="r1",
         user_query="Покажи продажи",
-        data_source=DataSourceInfo(id="demo_sales"),
+        data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(
             columns=["revenue"],
             rows=[{"revenue": 10}],
@@ -34,4 +34,3 @@ def test_invalid_metadata_field_failed():
     response = CpuVisualizationService().visualize(request)
     assert response.status == "failed"
     assert response.errors[0].code == "invalid_field_metadata"
-

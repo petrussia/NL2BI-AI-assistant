@@ -89,7 +89,7 @@ export function sendMessage(
     method: "POST",
     body: JSON.stringify({
       content,
-      data_source_id: "demo_sales",
+      data_source_id: "demo_concert_singer",
       preferred_output: options.preferred_output,
       response_style: options.response_style,
     }),

@@ -33,7 +33,7 @@ def main() -> int:
     server_url = os.getenv("SERVER_URL", "http://127.0.0.1:8100").rstrip("/")
     payload = {
         "user_query": os.getenv("SMOKE_QUERY", "Покажи динамику продаж по месяцам"),
-        "data_source_id": os.getenv("SMOKE_DATA_SOURCE_ID", "demo_sales"),
+        "data_source_id": os.getenv("SMOKE_DATA_SOURCE_ID", "demo_concert_singer"),
     }
     smoke_id = uuid.uuid4().hex[:8]
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

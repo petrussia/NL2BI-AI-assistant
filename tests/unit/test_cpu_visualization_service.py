@@ -9,7 +9,7 @@ def test_time_series_becomes_line():
     request = VisualizationRequest(
         request_id="r1",
         user_query="Покажи динамику продаж по месяцам",
-        data_source=DataSourceInfo(id="demo_sales"),
+        data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(
             columns=["month", "revenue"],
             rows=[{"month": "2026-01", "revenue": 10}, {"month": "2026-02", "revenue": 20}],
@@ -29,7 +29,7 @@ def test_empty_rows_failed_safely():
     request = VisualizationRequest(
         request_id="r1",
         user_query="Покажи пустой результат",
-        data_source=DataSourceInfo(id="demo_sales"),
+        data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(columns=["category", "revenue"], rows=[], row_count=0),
         field_metadata=[
             FieldMetadata(name="category", data_type="string", semantic_role="dimension"),

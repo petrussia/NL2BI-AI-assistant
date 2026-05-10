@@ -8,6 +8,5 @@ curl -sS "${SERVER_URL}/api/runtime"
 printf '\n'
 curl -sS -X POST "${SERVER_URL}/api/nl2chart" \
   -H 'Content-Type: application/json' \
-  -d '{"user_query":"Покажи динамику продаж по месяцам","data_source_id":"demo_sales"}'
+  -d '{"user_query":"Покажи динамику продаж по месяцам","data_source_id":"demo_concert_singer"}'
 printf '\n'
-

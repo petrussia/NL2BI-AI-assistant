@@ -198,7 +198,7 @@ export function ChatApp() {
         <header className="chatHeader">
           <div>
             <h1>{activeTitle}</h1>
-            <p>Demo data source: demo_sales</p>
+            <p>Demo data source: demo_concert_singer</p>
           </div>
           <div className="toggles">
             <select value={preferredOutput} onChange={(event) => setPreferredOutput(event.target.value as "auto" | "chart" | "table")}>

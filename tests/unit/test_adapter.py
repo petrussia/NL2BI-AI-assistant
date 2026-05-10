@@ -9,7 +9,7 @@ def test_adapter_infers_missing_metadata():
         request_id="r1",
         status="success",
         user_query="Сравни продажи по категориям",
-        data_source=DataSourceInfo(id="demo_sales"),
+        data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(
             columns=["category", "revenue"],
             rows=[{"category": "A", "revenue": 10}],
@@ -28,7 +28,7 @@ def test_adapter_rejects_invalid_columns():
         request_id="r1",
         status="success",
         user_query="bad",
-        data_source=DataSourceInfo(id="demo_sales"),
+        data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(
             columns=["category", "revenue"],
             rows=[{"category": "A"}],
@@ -37,4 +37,3 @@ def test_adapter_rejects_invalid_columns():
     )
     with pytest.raises(AdapterError):
         adapt_extraction_to_visualization(response)
-

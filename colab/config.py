@@ -79,7 +79,7 @@ class ColabServerConfig:
             ),
             data_sources_path=data_sources_path,
             default_data_source_id=os.environ.get(
-                "COLAB_DEFAULT_DATA_SOURCE_ID", "demo_sales"
+                "COLAB_DEFAULT_DATA_SOURCE_ID", "demo_concert_singer"
             ),
             artifacts_dir=artifacts_dir,
             log_dir=log_dir,

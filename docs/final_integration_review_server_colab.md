@@ -69,11 +69,20 @@ demo_data/extraction_requests/top_n.json
 | Colab Bearer auth support | Pass | `TEXT_TO_SQL_AUTH_TOKEN` + tests in `tests/unit/test_colab_extraction_client.py`. |
 | Double aggregation guard | Pass | Derived or already aggregated fields do not get Vega `aggregate`. |
 
-## 4. Validation
+## 4. Post-merge cleanup
+
+- Colab README branch updated from `integration/colab-text-to-sql` to `integration/nl2bi-mvp`.
+- Colab README now uses server env `TEXT_TO_SQL_SERVICE_URL` and documents `COLAB_REQUIRE_AUTH=true` as the default.
+- Notebook clone branch updated to `integration/nl2bi-mvp`; no tunnel URLs, auth tokens, or real secrets were added.
+- Frontend and server-facing smoke defaults changed to `demo_concert_singer`.
+- `demo_sales` remains in `demo_data/data_sources.json` as a legacy alias.
+- Live Colab smoke still must be rerun after cleanup.
+
+## 5. Validation
 
 ```text
 python3 -m pytest -q
-25 passed in 1.28s
+25 passed in 0.51s
 ```
 
 ```text
@@ -93,9 +102,9 @@ rg '\b(torch|transformers|bitsandbytes|openai|mcp-use|langchain)\b' requirements
 no matches
 ```
 
-## 5. Live Colab Smoke
+## 6. Live Colab Smoke
 
-Status for this final merge: not rerun during the branch merge.
+Status for this final merge: not rerun during the branch merge or post-merge cleanup.
 
 Previous server-branch evidence remains available and had passed:
 
@@ -107,7 +116,7 @@ Previous server-branch evidence remains available and had passed:
 
 COUNT alias check from the previous live smoke: `selected_view.spec.encoding.y.field == "NumberOfSingers"` and there is no `selected_view.spec.encoding.y.aggregate`.
 
-## 6. Remaining Risks
+## 7. Remaining Risks
 
 | Risk | Impact | Next step |
 |---|---|---|

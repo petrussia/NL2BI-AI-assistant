@@ -10,7 +10,7 @@ from contracts.visualization import PresentationPreferences
 
 class Nl2ChartRequest(ContractModel):
     user_query: str
-    data_source_id: str = "demo_sales"
+    data_source_id: str = "demo_concert_singer"
     locale: str = "ru-RU"
     timezone: str = "Europe/Moscow"
     presentation_preferences: PresentationPreferences = Field(default_factory=PresentationPreferences)
@@ -25,4 +25,3 @@ class Nl2ChartResponse(ContractModel):
     warnings: list[WarningItem] = Field(default_factory=list)
     errors: list[ErrorItem] = Field(default_factory=list)
     debug: dict[str, Any] = Field(default_factory=dict)
-

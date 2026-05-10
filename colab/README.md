@@ -28,16 +28,19 @@ External GPU inference service for NL2BI. Boots a FastAPI app on Google Colab Pr
 2. Choose a GPU runtime: **Runtime → Change runtime type → T4 / L4 / A100**.
 3. **Runtime → Run all.** The notebook:
    - mounts Drive,
-   - clones `integration/colab-text-to-sql`,
+   - clones `integration/nl2bi-mvp`,
    - installs `requirements-colab.txt`,
    - loads `Qwen2.5-Coder-7B-Instruct` in 4-bit,
    - starts uvicorn on `:8000`,
    - opens an ngrok HTTPS tunnel,
    - prints the public URL,
    - runs the smoke client against the tunnel.
-4. Hand the printed `PUBLIC_URL` to the main server (`COLAB_SERVICE_URL`).
+4. Hand the printed `PUBLIC_URL` to the main server as `TEXT_TO_SQL_SERVICE_URL`.
 
 `NGROK_AUTHTOKEN` is read from `/content/drive/MyDrive/nl2bi_colab/.env` — never paste it into a cell.
+`COLAB_REQUIRE_AUTH=true` is the default; set it to `false` only for private local contract experiments.
+
+After this integration is merged to `main`, switch the Colab clone branch to `main` by setting `NL2BI_GIT_BRANCH=main` in the Colab Drive `.env` or by changing the notebook default.
 
 ## Run locally in mock mode (no GPU)
 
@@ -78,6 +81,7 @@ python -m colab.smoke_extract --base-url http://127.0.0.1:8000
 | `COLAB_PORT` | `8000` | uvicorn port |
 | `COLAB_SPIDER_DB_ROOT` | `/content/drive/MyDrive/diploma_plan_sql/data/spider/database` | Spider DBs |
 | `COLAB_DATA_SOURCES_PATH` | `<repo>/demo_data/data_sources.json` | id → db mapping |
-| `COLAB_DEFAULT_DATA_SOURCE_ID` | `demo_sales` | aliased to `concert_singer` in the bundled mapping |
+| `COLAB_DEFAULT_DATA_SOURCE_ID` | `demo_concert_singer` | canonical bundled demo source; `demo_sales` remains a legacy alias |
+| `COLAB_REQUIRE_AUTH` | `true` | Bearer auth is enabled by default |
 | `COLAB_ARTIFACTS_DIR` / `COLAB_LOG_DIR` | `/content/drive/MyDrive/nl2bi_colab/{artifacts,logs}` | persisted on Drive |
 | `NGROK_AUTHTOKEN` | (required for tunnel) | read from Drive `.env` |

@@ -8,7 +8,7 @@ def _request() -> DataExtractionRequest:
     return DataExtractionRequest(
         request_id="r1",
         user_query="Покажи динамику",
-        data_source=DataSourceRequest(id="demo_sales"),
+        data_source=DataSourceRequest(id="demo_concert_singer"),
     )
 
 
@@ -20,7 +20,7 @@ def test_colab_success_with_mock_transport():
                 "request_id": "r1",
                 "status": "success",
                 "user_query": "Покажи динамику",
-                "data_source": {"id": "demo_sales", "dialect": "unknown"},
+                "data_source": {"id": "demo_concert_singer", "dialect": "unknown"},
                 "result_table": {"format": "records", "columns": ["x"], "rows": [{"x": 1}], "row_count": 1, "truncated": False},
                 "field_metadata": [{"name": "x", "data_type": "number", "semantic_role": "measure"}],
                 "errors": [],
@@ -46,7 +46,7 @@ def test_colab_auth_token_sends_bearer_header():
                 "request_id": "r1",
                 "status": "success",
                 "user_query": "Покажи динамику",
-                "data_source": {"id": "demo_sales", "dialect": "unknown"},
+                "data_source": {"id": "demo_concert_singer", "dialect": "unknown"},
                 "result_table": {"format": "records", "columns": ["x"], "rows": [{"x": 1}], "row_count": 1, "truncated": False},
                 "field_metadata": [{"name": "x", "data_type": "number", "semantic_role": "measure"}],
                 "errors": [],
@@ -78,7 +78,7 @@ def test_colab_without_auth_token_sends_no_authorization_header():
                 "request_id": "r1",
                 "status": "success",
                 "user_query": "Покажи динамику",
-                "data_source": {"id": "demo_sales", "dialect": "unknown"},
+                "data_source": {"id": "demo_concert_singer", "dialect": "unknown"},
                 "result_table": {"format": "records", "columns": ["x"], "rows": [{"x": 1}], "row_count": 1, "truncated": False},
                 "field_metadata": [{"name": "x", "data_type": "number", "semantic_role": "measure"}],
                 "errors": [],
