@@ -1,0 +1,1 @@
+{"n_total": 14, "n_target": 205, "plan_ok": 4, "schema_valid": 4, "parse_ok": 6, "execute_ok": 2, "family_counts": {"B": 1, "A": 5}, "err_top": [["OutOfMemoryError", 8], ["bq_dry_run_failed", 3], ["schema_invalid", 2], ["ok", 1]], "wall_sec": 731.3, "last_task": "bq019"}

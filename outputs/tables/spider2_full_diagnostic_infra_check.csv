@@ -1,0 +1,19 @@
+component,status,detail
+git_branch,ok,experiments/denis @ 1ba0b8f
+bridge_health,ok,/health 200 pid=3960
+bridge_url,ok,https://corpus-vatican-technical-pennsylvania.trycloudflare.com
+gpu,ok,A100-80GB 79.5/80 GB used
+planner_model,ok,Qwen/Qwen3-Coder-30B-A3B-Instruct
+emitter_model,ok,Qwen/Qwen2.5-Coder-7B-Instruct
+lite_dataset,ok,547 rows
+snow_dataset,ok,547 rows
+dbt_dataset,ok,68 task dirs (local)
+bq_catalog,ok,428424 columns
+snow_catalog,ok,586472 columns
+bq_auth,ok,project-0e0fc8a5-27b1-4e00-912 dry_run probe 0 bytes
+snow_auth,blocked,SNOWFLAKE_USER/ACCOUNT env vars not set on bridge kernel
+dbt_server_ssh,ok,denis@103.54.18.91 (petrthefirst24.fvds.ru)
+dbt_binary,ok,/home/denis/dbt/.venv/bin/dbt
+dbt_tasks_local,ok,data/spider2_dbt/tasks/ contains 68 dirs
+v18_eval_modules,ok,all 6 modules present (sl/pack/plan/cf/render/cs)
+disk_free_drive,ok,121.3 GB free

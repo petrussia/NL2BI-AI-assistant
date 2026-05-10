@@ -1,0 +1,1 @@
+{"n_total": 32, "n_target": 547, "plan_ok": 0, "schema_valid": 0, "parse_ok": 0, "execute_ok": null, "err_top": [["OutOfMemoryError", 32]], "wall_sec": 407.3, "last_task": "sf_bq223"}

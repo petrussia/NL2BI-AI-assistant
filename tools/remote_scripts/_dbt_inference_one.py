@@ -13,12 +13,19 @@ prompt = base64.b64decode(PROMPT_B64).decode('utf-8')
 print(f'TASK_ID={TASK_ID} prompt_chars={len(prompt)}')
 
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# Reuse if already loaded
+# Phase 23: prefer the already-loaded Coder-7B emitter from the v18+ stack.
+# Falls back to a fresh load only if neither _MDL_EMIT nor _MODEL is present.
 g = globals()
-if g.get('_TOK') is None or g.get('_MODEL') is None:
-    print('LOADING coder...')
+if g.get('_MDL_EMIT') is not None and g.get('_TOK_EMIT') is not None:
+    tok = g['_TOK_EMIT']; model = g['_MDL_EMIT']
+    print('REUSING _MDL_EMIT (Phase 18+ Coder-7B emitter)')
+elif g.get('_TOK') is not None and g.get('_MODEL') is not None:
+    tok = g['_TOK']; model = g['_MODEL']
+    print('REUSING _MODEL (legacy DBT cache)')
+else:
+    from transformers import AutoTokenizer, AutoModelForCausalLM
+    print('LOADING coder fresh (no cached model found)...')
     t0 = time.time()
     tok = AutoTokenizer.from_pretrained(MODEL_ID)
     model = AutoModelForCausalLM.from_pretrained(MODEL_ID,
@@ -27,9 +34,6 @@ if g.get('_TOK') is None or g.get('_MODEL') is None:
     model.eval()
     g['_TOK'] = tok; g['_MODEL'] = model
     print(f'LOADED in {time.time()-t0:.1f}s VRAM={torch.cuda.memory_allocated()//(1<<20)} MB')
-else:
-    tok = g['_TOK']; model = g['_MODEL']
-    print('REUSING cached model')
 
 t0 = time.time()
 messages = [{'role': 'user', 'content': prompt}]
