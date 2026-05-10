@@ -1,7 +1,21 @@
 "use client";
 
-import { FormEvent, KeyboardEvent, useEffect, useMemo, useState } from "react";
-import { ChevronDown, ChevronRight, Database, Loader2, LogIn, MessageSquarePlus, Send, Sparkles } from "lucide-react";
+import { FormEvent, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  BarChart3,
+  ChevronDown,
+  ChevronRight,
+  Database,
+  Info,
+  Loader2,
+  LogIn,
+  Menu,
+  MessageSquarePlus,
+  Send,
+  Sparkles,
+  Table2,
+  X,
+} from "lucide-react";
 import {
   ChatMessage,
   ChatSession,
@@ -14,12 +28,12 @@ import {
   sendMessage,
 } from "@/lib/api";
 import { ArtifactRenderer } from "@/components/artifact-renderer";
-import {
-  DEMO_DATA_SOURCE_ID,
-  DEMO_DATA_SOURCE_LABEL,
-  DEMO_TABLES,
-  SUGGESTED_QUERIES,
-} from "@/lib/demo-schema";
+import { StatusPill } from "@/components/status-pill";
+import { ModelPicker } from "@/components/model-picker";
+import { MessageActions } from "@/components/message-actions";
+import { SkeletonMessage } from "@/components/skeleton-message";
+import { AboutModal } from "@/components/about-modal";
+import { DEFAULT_DATA_SOURCE_ID, DEMO_DATA_SOURCES, findDataSource } from "@/lib/demo-schema";
 
 type User = {
   username: string;
@@ -42,6 +56,21 @@ function lastAssistantHasSqlExecutionError(messages: ChatMessage[]): boolean {
   return false;
 }
 
+function timingFor(message: ChatMessage): { extraction?: number; visualization?: number; total?: number } | null {
+  const debug = (message.metadata?.debug ?? {}) as Record<string, unknown>;
+  const timing = (debug.timing ?? {}) as Record<string, unknown>;
+  const out: { extraction?: number; visualization?: number; total?: number } = {};
+  if (typeof timing.extraction_ms === "number") out.extraction = timing.extraction_ms;
+  if (typeof timing.visualization_ms === "number") out.visualization = timing.visualization_ms;
+  if (typeof timing.total_ms === "number") out.total = timing.total_ms;
+  return Object.keys(out).length > 0 ? out : null;
+}
+
+function fmtMs(ms: number): string {
+  if (ms < 1000) return `${ms} ms`;
+  return `${(ms / 1000).toFixed(1)} s`;
+}
+
 export function ChatApp() {
   const [user, setUser] = useState<User | null>(null);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
@@ -50,13 +79,18 @@ export function ChatApp() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeSession, setActiveSession] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState(SUGGESTED_QUERIES[0]);
+  const [dataSourceId, setDataSourceId] = useState<string>(DEFAULT_DATA_SOURCE_ID);
+  const [input, setInput] = useState<string>(findDataSource(DEFAULT_DATA_SOURCE_ID).suggestions[0]);
   const [preferredOutput, setPreferredOutput] = useState<"auto" | "chart" | "table">("auto");
   const [responseStyle, setResponseStyle] = useState<"business" | "technical">("business");
   const [loading, setLoading] = useState(false);
-  const [statusText, setStatusText] = useState("");
   const [error, setError] = useState("");
   const [schemaOpen, setSchemaOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  const dataSource = useMemo(() => findDataSource(dataSourceId), [dataSourceId]);
 
   useEffect(() => {
     me()
@@ -72,7 +106,7 @@ export function ChatApp() {
     if (!user) {
       return;
     }
-    refreshChats();
+    void refreshChats();
   }, [user]);
 
   useEffect(() => {
@@ -83,6 +117,10 @@ export function ChatApp() {
       .then((payload) => setMessages(payload.messages))
       .catch((err: Error) => setError(err.message));
   }, [activeSession]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages.length, loading]);
 
   async function refreshChats() {
     const payload = await listChats();
@@ -110,45 +148,57 @@ export function ChatApp() {
     }
   }
 
-  async function handleSend(event?: FormEvent) {
-    event?.preventDefault();
-    if (!activeSession || !input.trim()) {
-      return;
-    }
-    setError("");
-    setLoading(true);
-    setStatusText("Обрабатываю запрос...");
-    const optimistic: ChatMessage = {
-      message_id: `local-${Date.now()}`,
-      session_id: activeSession,
-      role: "user",
-      content: input,
-      metadata: {},
-      artifacts: [],
-      created_at: Math.floor(Date.now() / 1000),
-    };
-    setMessages((current) => [...current, optimistic]);
-    try {
-      setStatusText("Получаю данные...");
-      const result = await sendMessage(activeSession, input, {
-        preferred_output: preferredOutput,
-        response_style: responseStyle,
-      });
-      setStatusText("Строю визуализацию...");
-      setMessages((current) => [
-        ...current.filter((message) => message.message_id !== optimistic.message_id),
-        result.user_message,
-        result.assistant_message,
-      ]);
-      setInput("");
-      await refreshChats();
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Request failed";
-      setError(message.includes("colab") ? "Модель извлечения данных временно недоступна. Можно попробовать mock/demo режим." : message);
-    } finally {
-      setStatusText("");
-      setLoading(false);
-    }
+  const handleSend = useCallback(
+    async (rawContent?: string, opts?: { dropOptimistic?: boolean }) => {
+      const content = (rawContent ?? input).trim();
+      if (!activeSession || !content) return;
+      setError("");
+      setLoading(true);
+      const optimistic: ChatMessage = {
+        message_id: `local-${Date.now()}`,
+        session_id: activeSession,
+        role: "user",
+        content,
+        metadata: {},
+        artifacts: [],
+        created_at: Math.floor(Date.now() / 1000),
+      };
+      if (!opts?.dropOptimistic) {
+        setMessages((current) => [...current, optimistic]);
+      }
+      try {
+        const result = await sendMessage(activeSession, content, {
+          preferred_output: preferredOutput,
+          response_style: responseStyle,
+          data_source_id: dataSourceId,
+        });
+        setMessages((current) => [
+          ...current.filter((m) => m.message_id !== optimistic.message_id),
+          result.user_message,
+          result.assistant_message,
+        ]);
+        setInput("");
+        await refreshChats();
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Request failed";
+        setError(
+          message.includes("colab")
+            ? "Модель извлечения данных временно недоступна."
+            : message,
+        );
+      } finally {
+        setLoading(false);
+      }
+    },
+    [activeSession, input, preferredOutput, responseStyle, dataSourceId],
+  );
+
+  function regenerate(messageId: string) {
+    const idx = messages.findIndex((m) => m.message_id === messageId);
+    if (idx < 1) return;
+    const userMsg = messages[idx - 1];
+    if (!userMsg || userMsg.role !== "user") return;
+    void handleSend(userMsg.content);
   }
 
   function fillSuggestion(query: string) {
@@ -174,26 +224,60 @@ export function ChatApp() {
     return (
       <main className="authScreen">
         <section className="authPanel">
-          <div>
+          <div className="authHero">
+            <div className="brandMark" aria-hidden="true">
+              <BarChart3 size={22} />
+            </div>
             <h1>NL2BI AI Assistant</h1>
-            <p>Server-only MVP: FastAPI, mock/Colab extraction, CPU visualization, local artifacts.</p>
+            <p>
+              Дипломный проект: бизнес-вопрос на естественном языке → SQL → таблица и график.
+              Colab-GPU Qwen2.5-Coder, без OpenAI.
+            </p>
+          </div>
+          <div className="authTabs" role="tablist">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={authMode === "login"}
+              className={`authTab ${authMode === "login" ? "authTab--active" : ""}`}
+              onClick={() => setAuthMode("login")}
+            >
+              Войти
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={authMode === "register"}
+              className={`authTab ${authMode === "register" ? "authTab--active" : ""}`}
+              onClick={() => setAuthMode("register")}
+            >
+              Зарегистрироваться
+            </button>
           </div>
           <form onSubmit={handleAuth} className="authForm">
             <label>
-              Login
-              <input value={username} onChange={(event) => setUsername(event.target.value)} />
+              Логин
+              <input
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                autoComplete="username"
+                spellCheck={false}
+              />
             </label>
             <label>
-              Password
-              <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+              Пароль
+              <input
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete={authMode === "login" ? "current-password" : "new-password"}
+              />
             </label>
+            <p className="authHint">Demo-доступ: <code>analyst</code> / <code>demo123</code>.</p>
             {error ? <p className="formError">{error}</p> : null}
             <button type="submit" disabled={loading}>
               {loading ? <Loader2 className="spin" size={16} /> : <LogIn size={16} />}
-              {authMode === "login" ? "Sign in" : "Register"}
-            </button>
-            <button type="button" className="linkButton" onClick={() => setAuthMode(authMode === "login" ? "register" : "login")}>
-              {authMode === "login" ? "Create account" : "Use existing account"}
+              {authMode === "login" ? "Войти" : "Создать аккаунт"}
             </button>
           </form>
         </section>
@@ -202,11 +286,17 @@ export function ChatApp() {
   }
 
   return (
-    <main className="appShell">
+    <main className={`appShell ${sidebarOpen ? "appShell--sidebarOpen" : ""}`}>
+      {sidebarOpen ? (
+        <div className="sidebarBackdrop" onClick={() => setSidebarOpen(false)} aria-hidden="true" />
+      ) : null}
       <aside className="sidebar">
         <div className="brand">
+          <div className="brandMark brandMark--sm" aria-hidden="true">
+            <BarChart3 size={16} />
+          </div>
           <strong>NL2BI</strong>
-          <span>{user.username}</span>
+          <span className="brandUser">{user.username}</span>
         </div>
         <button
           className="newChat"
@@ -215,6 +305,7 @@ export function ChatApp() {
             setSessions((current) => [created, ...current]);
             setActiveSession(created.session_id);
             setMessages([]);
+            setSidebarOpen(false);
           }}
         >
           <MessageSquarePlus size={16} />
@@ -225,15 +316,30 @@ export function ChatApp() {
             <button
               key={session.session_id}
               className={session.session_id === activeSession ? "session active" : "session"}
-              onClick={() => setActiveSession(session.session_id)}
+              onClick={() => {
+                setActiveSession(session.session_id);
+                setSidebarOpen(false);
+              }}
             >
               {session.title}
             </button>
           ))}
         </nav>
+        <button type="button" className="sidebarFooter" onClick={() => setAboutOpen(true)}>
+          <Info size={14} />
+          О проекте
+        </button>
       </aside>
       <section className="chatPane">
         <header className="chatHeader">
+          <button
+            type="button"
+            className="hamburger"
+            onClick={() => setSidebarOpen((v) => !v)}
+            aria-label={sidebarOpen ? "Закрыть меню" : "Открыть меню"}
+          >
+            {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
           <div className="chatHeaderTitle">
             <h1>{activeTitle}</h1>
             <button
@@ -245,17 +351,37 @@ export function ChatApp() {
               {schemaOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
               <Database size={14} />
               <span>
-                Источник: <code>{DEMO_DATA_SOURCE_ID}</code> ({DEMO_DATA_SOURCE_LABEL})
+                Источник: <code>{dataSource.id}</code> ({dataSource.label})
               </span>
             </button>
           </div>
           <div className="toggles">
-            <select value={preferredOutput} onChange={(event) => setPreferredOutput(event.target.value as "auto" | "chart" | "table")}>
+            <StatusPill />
+            <ModelPicker />
+            <select
+              value={dataSourceId}
+              onChange={(event) => setDataSourceId(event.target.value)}
+              title="Выбрать демо-источник данных"
+            >
+              {DEMO_DATA_SOURCES.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.label}
+                </option>
+              ))}
+            </select>
+            <select
+              value={preferredOutput}
+              onChange={(event) => setPreferredOutput(event.target.value as "auto" | "chart" | "table")}
+            >
               <option value="auto">Auto</option>
               <option value="chart">Chart</option>
               <option value="table">Table</option>
             </select>
-            <select value={responseStyle} onChange={(event) => setResponseStyle(event.target.value as "business" | "technical")}>
+            <select
+              value={responseStyle}
+              onChange={(event) => setResponseStyle(event.target.value as "business" | "technical")}
+              title="Technical: показывать SQL и тех. детали"
+            >
               <option value="business">Business</option>
               <option value="technical">Technical</option>
             </select>
@@ -264,11 +390,11 @@ export function ChatApp() {
         {schemaOpen ? (
           <section className="schemaPanel" aria-label="Схема демонстрационной БД">
             <p className="schemaHint">
-              В этом источнике четыре таблицы Spider <code>concert_singer</code>. Запросы про продажи/клиентов/выручку
-              работать не будут — таких сущностей здесь нет.
+              <strong>{dataSource.label}</strong> — {dataSource.blurb} Запросы про сущности, которых нет
+              в таблицах, упрутся в <code>sql_execution_failed</code>.
             </p>
             <ul>
-              {DEMO_TABLES.map((table) => (
+              {dataSource.tables.map((table) => (
                 <li key={table.name}>
                   <strong>{table.name}</strong>
                   <span className="schemaTableDesc">{table.description}</span>
@@ -286,35 +412,74 @@ export function ChatApp() {
           </section>
         ) : null}
         <div className="messages">
-          {messages.length === 0 ? (
+          {messages.length === 0 && !loading ? (
             <div className="emptyState">
               <Sparkles size={18} />
-              <p>Введите бизнес-вопрос — получите таблицу и график. Подсказки ниже работают на этой БД:</p>
+              <div>
+                <p>Введите бизнес-вопрос — получите таблицу и график.</p>
+                <div className="emptyStateMock" aria-hidden="true">
+                  <div className="emptyStateMock__col">
+                    <Table2 size={12} />
+                    <div className="skelTableRow skelTableRow--mini" />
+                    <div className="skelTableRow skelTableRow--mini" />
+                    <div className="skelTableRow skelTableRow--mini" />
+                  </div>
+                  <div className="emptyStateMock__col">
+                    <BarChart3 size={12} />
+                    <div className="emptyStateMock__bars">
+                      <span style={{ height: "60%" }} />
+                      <span style={{ height: "30%" }} />
+                      <span style={{ height: "85%" }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
-            messages.map((message) => (
-              <article key={message.message_id} className={`message ${message.role}`}>
-                <p>{message.content}</p>
-                {message.artifacts?.map((artifact) => (
-                  <ArtifactRenderer key={artifact.artifact_id} artifact={artifact} />
-                ))}
-              </article>
-            ))
+            messages.map((message) => {
+              const t = timingFor(message);
+              const technicalArtifacts = message.artifacts ?? [];
+              return (
+                <article key={message.message_id} className={`message ${message.role}`}>
+                  <p>{message.content}</p>
+                  {technicalArtifacts.map((artifact) => (
+                    <ArtifactRenderer key={artifact.artifact_id} artifact={artifact} />
+                  ))}
+                  {message.role === "assistant" ? (
+                    <div className="messageFooter">
+                      {t ? (
+                        <div className="timingStrip" title="Время компонентов пайплайна">
+                          {t.extraction !== undefined ? <span>~SQL {fmtMs(t.extraction)}</span> : null}
+                          {t.visualization !== undefined ? <span>· viz {fmtMs(t.visualization)}</span> : null}
+                          {t.total !== undefined ? <span>· total {fmtMs(t.total)}</span> : null}
+                        </div>
+                      ) : null}
+                      <MessageActions
+                        artifacts={technicalArtifacts}
+                        onRegenerate={() => regenerate(message.message_id)}
+                        regenerateDisabled={loading}
+                      />
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })
           )}
-          {statusText ? <div className="statusLine"><Loader2 className="spin" size={16} />{statusText}</div> : null}
+          {loading ? <SkeletonMessage /> : null}
           {error ? <div className="notice error">{error}</div> : null}
+          <div ref={messagesEndRef} />
         </div>
         {showSuggestions ? (
           <section className="suggestions" aria-label="Готовые запросы">
             {lastAssistantHasSqlExecutionError(messages) ? (
               <p className="suggestionsLead">
-                Похоже, запрос не подходит под схему <code>{DEMO_DATA_SOURCE_ID}</code>. Попробуйте один из этих:
+                Похоже, запрос не подходит под схему <code>{dataSource.id}</code>. Попробуйте один из этих:
               </p>
             ) : (
-              <p className="suggestionsLead">Готовые запросы:</p>
+              <p className="suggestionsLead">Готовые запросы для <code>{dataSource.id}</code>:</p>
             )}
             <div className="chipRow">
-              {SUGGESTED_QUERIES.map((q) => (
+              {dataSource.suggestions.map((q) => (
                 <button
                   key={q}
                   type="button"
@@ -328,12 +493,12 @@ export function ChatApp() {
             </div>
           </section>
         ) : null}
-        <form className="composer" onSubmit={handleSend}>
+        <form className="composer" onSubmit={(e) => { e.preventDefault(); void handleSend(); }}>
           <input
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={handleComposerKeyDown}
-            placeholder="Например: Сравни количество певцов по странам (Ctrl+Enter — отправить)"
+            placeholder={`Например: ${dataSource.suggestions[0]} (Ctrl+Enter — отправить)`}
           />
           <button type="submit" disabled={loading || !input.trim()} title="Send (Ctrl+Enter)">
             <Send size={16} />
@@ -341,6 +506,7 @@ export function ChatApp() {
           </button>
         </form>
       </section>
+      {aboutOpen ? <AboutModal onClose={() => setAboutOpen(false)} /> : null}
     </main>
   );
 }

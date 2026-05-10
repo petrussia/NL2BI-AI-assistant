@@ -52,9 +52,10 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
           anchor: "start",
           offset: 8,
         },
-        bar: { color: "#2563eb", cornerRadiusEnd: 4 },
-        line: { color: "#2563eb", strokeWidth: 2.5 },
+        bar: { color: "#2563eb", cornerRadiusEnd: 4, tooltip: true },
+        line: { color: "#2563eb", strokeWidth: 2.5, tooltip: true, point: true },
         point: { color: "#1e3a8a", filled: true, size: 60 },
+        rect: { tooltip: true },
         view: { stroke: "transparent" },
       },
     };
