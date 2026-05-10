@@ -1,10 +1,10 @@
 {
-  "request_id": "smoke-time-series",
-  "user_query": "Покажи количество концертов по годам",
+  "request_id": "smoke-category-comparison",
+  "user_query": "Сравни количество певцов по странам",
   "locale": "ru-RU",
   "timezone": "Europe/Moscow",
   "data_source": {
-    "id": "demo_sales",
+    "id": "demo_concert_singer",
     "dialect": "sqlite",
     "connection_ref": null,
     "schema_version": "spider-v1"

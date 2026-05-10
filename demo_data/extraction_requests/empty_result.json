@@ -1,6 +1,6 @@
 {
-  "request_id": "smoke-time-series",
-  "user_query": "Покажи количество концертов по годам",
+  "request_id": "smoke-empty",
+  "user_query": "Покажи певцов с возрастом меньше нуля",
   "locale": "ru-RU",
   "timezone": "Europe/Moscow",
   "data_source": {

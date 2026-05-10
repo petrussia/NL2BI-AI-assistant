@@ -1,0 +1,14 @@
+# Pinned reasonably for Colab Pro+ (Python 3.10–3.12).
+fastapi>=0.115,<0.118
+uvicorn>=0.30,<0.34
+pydantic>=2.7,<3
+pyngrok>=7.1
+nest_asyncio>=1.6
+python-dotenv>=1.0
+flask>=3.0
+# Inference stack — Colab usually has compatible versions preinstalled,
+# but keep these minimums for reproducibility:
+torch>=2.1
+transformers>=4.43
+accelerate>=0.30
+bitsandbytes>=0.43

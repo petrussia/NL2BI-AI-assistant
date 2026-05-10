@@ -1,6 +1,6 @@
 {
-  "request_id": "smoke-time-series",
-  "user_query": "Покажи количество концертов по годам",
+  "request_id": "smoke-top-n",
+  "user_query": "Покажи топ-5 стадионов по вместимости",
   "locale": "ru-RU",
   "timezone": "Europe/Moscow",
   "data_source": {
