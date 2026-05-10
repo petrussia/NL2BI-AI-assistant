@@ -1,0 +1,240 @@
+from __future__ import annotations
+
+import time
+from typing import Any
+
+from contracts.common import ErrorItem, WarningItem
+from contracts.extraction import (
+    DataExtractionRequest,
+    DataExtractionResponse,
+    DataSourceInfo,
+    ExecutionInfo,
+    QualityInfo,
+    ResultTable,
+    SqlInfo,
+)
+from colab.config import ColabServerConfig, resolve_sqlite_path
+from colab.errors import SAFE_USER_MESSAGES, ExtractionErrorCode
+from colab.metadata import infer_field_metadata
+from colab.model import TextToSqlModel
+from colab.plan import build_plan
+from colab.schema_loader import DatabaseSchema, load_schema
+from colab.sql_guard import apply_row_limit, extract_sql, validate_select_only
+from colab.sql_runner import execute_select
+
+
+def _empty_data_source_info(req: DataExtractionRequest) -> DataSourceInfo:
+    return DataSourceInfo(
+        id=req.data_source.id,
+        dialect=req.data_source.dialect,
+        schema_version=req.data_source.schema_version,
+    )
+
+
+def _failed_response(
+    req: DataExtractionRequest,
+    code: ExtractionErrorCode,
+    *,
+    message: str | None = None,
+    retryable: bool = False,
+    details: dict[str, Any] | None = None,
+    warnings: list[WarningItem] | None = None,
+    sql: SqlInfo | None = None,
+    plan_partial: bool = False,
+) -> DataExtractionResponse:
+    return DataExtractionResponse(
+        request_id=req.request_id,
+        status="failed",
+        user_query=req.user_query,
+        data_source=_empty_data_source_info(req),
+        sql=sql or SqlInfo(query=None, dialect=req.data_source.dialect or "sqlite", validated=False, read_only=True),
+        execution=ExecutionInfo(
+            latency_ms=None,
+            row_limit=req.constraints.row_limit,
+            timeout_ms=req.constraints.timeout_ms,
+            executable=False,
+        ),
+        quality=QualityInfo(confidence=None, warnings=[]),
+        errors=[
+            ErrorItem(
+                code=code.value,
+                message=message or SAFE_USER_MESSAGES[code],
+                source="colab",
+                retryable=retryable,
+                details=details or {},
+            )
+        ],
+        warnings=warnings or [],
+    )
+
+
+def run_extraction(
+    request: DataExtractionRequest,
+    config: ColabServerConfig,
+    model: TextToSqlModel,
+) -> DataExtractionResponse:
+    started = time.monotonic()
+
+    if not model.is_ready():
+        return _failed_response(
+            request,
+            ExtractionErrorCode.MODEL_NOT_LOADED,
+            retryable=True,
+            details={"model_id": config.model_id, "load_error": model.state.load_error},
+        )
+
+    sqlite_path = resolve_sqlite_path(config, request.data_source.id)
+    if sqlite_path is None or not sqlite_path.exists():
+        return _failed_response(
+            request,
+            ExtractionErrorCode.SCHEMA_NOT_FOUND,
+            retryable=False,
+            details={"data_source_id": request.data_source.id},
+        )
+
+    try:
+        schema: DatabaseSchema = load_schema(
+            sqlite_path,
+            data_source_id=request.data_source.id,
+            schema_version=request.data_source.schema_version,
+        )
+    except Exception:
+        return _failed_response(
+            request,
+            ExtractionErrorCode.SCHEMA_NOT_FOUND,
+            retryable=False,
+            details={"data_source_id": request.data_source.id},
+        )
+
+    try:
+        raw_output = model.generate_sql(
+            request.user_query,
+            schema,
+            locale=request.locale,
+        )
+    except Exception as exc:
+        return _failed_response(
+            request,
+            ExtractionErrorCode.SQL_GENERATION_FAILED,
+            retryable=True,
+            details={"error_type": type(exc).__name__},
+        )
+
+    candidate_sql = extract_sql(raw_output)
+    guard = validate_select_only(candidate_sql)
+    if not guard.ok:
+        return _failed_response(
+            request,
+            ExtractionErrorCode.SQL_VALIDATION_FAILED,
+            retryable=True,
+            details={"reason": guard.reason},
+            sql=SqlInfo(query=candidate_sql or None, dialect="sqlite", validated=False, read_only=True),
+        )
+
+    bounded_sql, limit_added = apply_row_limit(guard.sql, request.constraints.row_limit)
+    sql_info = SqlInfo(query=bounded_sql, dialect="sqlite", validated=True, read_only=True)
+
+    exec_result = execute_select(
+        sqlite_path,
+        bounded_sql,
+        timeout_ms=request.constraints.timeout_ms,
+        row_limit=request.constraints.row_limit,
+        read_only=True,
+    )
+
+    if exec_result.timed_out:
+        return _failed_response(
+            request,
+            ExtractionErrorCode.TIMEOUT,
+            retryable=True,
+            details={"timeout_ms": request.constraints.timeout_ms},
+            sql=sql_info,
+        )
+    if exec_result.error is not None:
+        return _failed_response(
+            request,
+            ExtractionErrorCode.SQL_EXECUTION_FAILED,
+            retryable=False,
+            details={"sqlite_error": exec_result.error[:200]},
+            sql=sql_info,
+        )
+
+    field_metadata, metadata_warnings = infer_field_metadata(
+        exec_result.columns,
+        exec_result.column_sql_types,
+        exec_result.rows,
+        bounded_sql,
+        schema,
+    )
+    plan = build_plan(bounded_sql, exec_result.columns)
+
+    warnings: list[WarningItem] = []
+    if exec_result.truncated:
+        warnings.append(
+            WarningItem(
+                code=ExtractionErrorCode.ROW_LIMIT_EXCEEDED.value,
+                message=SAFE_USER_MESSAGES[ExtractionErrorCode.ROW_LIMIT_EXCEEDED],
+                source="colab",
+                details={"row_limit": request.constraints.row_limit},
+            )
+        )
+    if exec_result.row_count == 0:
+        warnings.append(
+            WarningItem(
+                code=ExtractionErrorCode.EMPTY_RESULT.value,
+                message=SAFE_USER_MESSAGES[ExtractionErrorCode.EMPTY_RESULT],
+                source="colab",
+            )
+        )
+    for code in metadata_warnings:
+        warnings.append(
+            WarningItem(
+                code=code,
+                message=SAFE_USER_MESSAGES[ExtractionErrorCode(code)],
+                source="colab",
+            )
+        )
+
+    status = "success"
+    if exec_result.row_count == 0 or any(
+        w.code == ExtractionErrorCode.METADATA_INCOMPLETE.value for w in warnings
+    ):
+        status = "partial_success"
+
+    overall_latency = int((time.monotonic() - started) * 1000)
+
+    return DataExtractionResponse(
+        request_id=request.request_id,
+        status=status,
+        user_query=request.user_query,
+        normalized_query=None,
+        data_source=DataSourceInfo(
+            id=request.data_source.id,
+            name=None,
+            dialect="sqlite",
+            schema_version=schema.schema_version or request.data_source.schema_version,
+        ),
+        plan=plan,
+        sql=sql_info,
+        result_table=ResultTable(
+            format="records",
+            columns=exec_result.columns,
+            rows=exec_result.rows,
+            uri=None,
+            row_count=exec_result.row_count,
+            truncated=exec_result.truncated,
+        ),
+        field_metadata=field_metadata,
+        execution=ExecutionInfo(
+            latency_ms=max(overall_latency, exec_result.latency_ms),
+            row_limit=request.constraints.row_limit,
+            timeout_ms=request.constraints.timeout_ms,
+            executable=True,
+        ),
+        quality=QualityInfo(
+            confidence=None,
+            warnings=[w.code for w in warnings],
+        ),
+        errors=[],
+        warnings=warnings,
+    )

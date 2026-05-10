@@ -1,0 +1,145 @@
+"""FastAPI Colab Text-to-SQL service.
+
+Run from Colab notebook (or locally) with:
+
+    uvicorn colab.text_to_sql_colab_server:app --host 0.0.0.0 --port 8000
+
+In Colab, the bundled notebook (text_to_sql_colab_server.ipynb) handles
+Drive mount, ngrok tunnel, and uvicorn startup.
+
+Mock-model mode for HTTP smoke tests:
+
+    COLAB_MOCK_MODEL=true uvicorn colab.text_to_sql_colab_server:app
+"""
+from __future__ import annotations
+
+import logging
+import sys
+from pathlib import Path
+
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from contracts.common import ErrorItem  # noqa: E402
+from contracts.extraction import (  # noqa: E402
+    DataExtractionRequest,
+    DataExtractionResponse,
+    DataSourceInfo,
+    ExecutionInfo,
+    QualityInfo,
+    SqlInfo,
+)
+from colab.config import ColabServerConfig  # noqa: E402
+from colab.errors import SAFE_USER_MESSAGES, ExtractionErrorCode  # noqa: E402
+from colab.extract_pipeline import run_extraction  # noqa: E402
+from colab.gpu import gpu_info  # noqa: E402
+from colab.model import TextToSqlModel  # noqa: E402
+
+logger = logging.getLogger("colab.text_to_sql")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+
+
+_config = ColabServerConfig.from_env()
+_model = TextToSqlModel(_config)
+app = FastAPI(title="NL2BI Colab Text-to-SQL Service", version="0.1.0")
+
+
+@app.on_event("startup")
+def _on_startup() -> None:
+    try:
+        _config.artifacts_dir.mkdir(parents=True, exist_ok=True)
+        _config.log_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        logger.warning("could not create artifacts/log dirs: %s", exc)
+    state = _model.load()
+    logger.info(
+        "model load: loaded=%s mock=%s id=%s err=%s",
+        state.loaded,
+        state.mock,
+        state.model_id,
+        state.load_error,
+    )
+
+
+def _health_payload() -> dict[str, object]:
+    info = gpu_info()
+    sqlite_root_exists = _config.spider_db_root.exists()
+    return {
+        "status": "ok",
+        "model_loaded": _model.is_ready(),
+        "model_id": _model.state.model_id or _config.model_id,
+        "mock_model": _model.state.mock,
+        "device": info["device"],
+        "gpu_name": info["gpu_name"],
+        "vram_total_gb": info["vram_total_gb"],
+        "vram_free_gb": info["vram_free_gb"],
+        "demo_db_ready": sqlite_root_exists,
+        "server_role": _config.server_role,
+    }
+
+
+@app.get("/health")
+def health() -> dict[str, object]:
+    return _health_payload()
+
+
+@app.post("/extract", response_model=DataExtractionResponse, response_model_exclude_none=False)
+def extract(body: DataExtractionRequest) -> DataExtractionResponse:
+    try:
+        return run_extraction(body, _config, _model)
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("extract failed: %s", exc)
+        return DataExtractionResponse(
+            request_id=body.request_id,
+            status="failed",
+            user_query=body.user_query,
+            data_source=DataSourceInfo(
+                id=body.data_source.id,
+                dialect=body.data_source.dialect,
+                schema_version=body.data_source.schema_version,
+            ),
+            sql=SqlInfo(query=None, dialect="sqlite", validated=False, read_only=True),
+            execution=ExecutionInfo(
+                latency_ms=None,
+                row_limit=body.constraints.row_limit,
+                timeout_ms=body.constraints.timeout_ms,
+                executable=False,
+            ),
+            quality=QualityInfo(),
+            errors=[
+                ErrorItem(
+                    code=ExtractionErrorCode.SQL_EXECUTION_FAILED.value,
+                    message=SAFE_USER_MESSAGES[ExtractionErrorCode.SQL_EXECUTION_FAILED],
+                    source="colab",
+                    retryable=True,
+                    details={"error_type": type(exc).__name__},
+                )
+            ],
+        )
+
+
+@app.post("/reload_model")
+def reload_model() -> JSONResponse:
+    _model._tokenizer = None  # type: ignore[attr-defined]
+    _model._model = None  # type: ignore[attr-defined]
+    _model.state = type(_model.state)(
+        loaded=False,
+        model_id=_config.model_id,
+        mock=_config.mock_model,
+        quantization=None,
+    )
+    new_state = _model.load()
+    return JSONResponse(
+        {
+            "status": "ok" if new_state.loaded else "failed",
+            "model_loaded": new_state.loaded,
+            "model_id": new_state.model_id,
+            "mock_model": new_state.mock,
+            "load_error": new_state.load_error,
+            "load_latency_ms": new_state.load_latency_ms,
+        }
+    )

@@ -1,0 +1,22 @@
+{
+  "demo_sales": {
+    "db_name": "concert_singer",
+    "name": "Spider concert_singer (used as demo_sales)",
+    "schema_version": "spider-v1"
+  },
+  "concert_singer": {
+    "db_name": "concert_singer",
+    "name": "Spider concert_singer",
+    "schema_version": "spider-v1"
+  },
+  "wrestler": {
+    "db_name": "wrestler",
+    "name": "Spider wrestler",
+    "schema_version": "spider-v1"
+  },
+  "world_1": {
+    "db_name": "world_1",
+    "name": "Spider world_1",
+    "schema_version": "spider-v1"
+  }
+}

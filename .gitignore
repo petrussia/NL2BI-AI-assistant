@@ -1,0 +1,11 @@
+.claude/settings.local.json
+.vscode/settings.json
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
