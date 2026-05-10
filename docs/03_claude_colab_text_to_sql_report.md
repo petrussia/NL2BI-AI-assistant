@@ -1,8 +1,45 @@
 # Report — Colab Text-to-SQL `/extract` endpoint (Claude / Denis)
 
 Branch: `integration/colab-text-to-sql`
+Latest commit: `722fe24` (Bearer auth + derived metadata fix)
 Spec: `docs/03_claude_colab_text_to_sql_endpoint.md`
 Pair branch: `integration/server-colab-nl2chart-mvp` (Codex / Peter — already done)
+
+## 0. Pre-integration security + metadata pass (commit 722fe24)
+
+What changed since the v0.1 report:
+
+- **Bearer auth** on `/extract` + `/reload_model` (env `COLAB_REQUIRE_AUTH=true`,
+  shared secret `COLAB_API_TOKEN`).
+- **Endpoint gating**: `/debug/datasources` and `/admin/bridge_url` return `404`
+  unless `COLAB_DEBUG_ENDPOINTS=true` / `COLAB_BRIDGE_ENABLED=true`; once enabled
+  they always require the same Bearer token. Defaults are both `false`.
+- **Agent bridge fail-closed**: refuses to start without `BRIDGE_TOKEN`; per-request
+  check also rejects when no token is configured (defense in depth).
+- **Derived metadata fix**: any column whose `provenance.derived=true` or
+  `provenance.aggregation` is set now reports `default_aggregation="none"` and
+  `allowed_aggregations=["none"]`, so the downstream visualizer can't
+  double-aggregate a `COUNT(*) AS NumberOfSingers`. The original SQL function is
+  still preserved in `provenance.aggregation` for traceability.
+- **Demo datasource clarity**: `data_sources.json` now ships a canonical
+  `demo_concert_singer` id alongside the legacy `demo_sales` alias. `_doc` field
+  explains the alias; `load_data_sources` strips `_`-prefixed keys.
+- **Tokens never logged**: notebook cell-env and FastAPI startup log only
+  `bool()` of presence; uvicorn logs do not contain secrets.
+
+Validated live on Colab L4 (commit `722fe24`):
+
+| Check | Result |
+| --- | --- |
+| `/extract` without Authorization | `http 401` `{"detail":"missing or invalid Authorization header"}` |
+| `/extract` with valid Bearer (all 4 fixtures) | `http 200`, `status` ∈ {success, partial_success}, smoke exit 0 |
+| `/reload_model` without Authorization | `http 401` |
+| `/debug/datasources` without Authorization (flag on) | `http 401` |
+| `/admin/bridge_url` without Authorization (flag on) | `http 401` |
+| `/admin/bridge_url` with auth (flag on) | `http 200`, returns the live bridge URL |
+| Either flag off | `http 404` (endpoint not even discoverable) |
+| `category_comparison` → `NumberOfSingers` | `default_aggregation="none"`, `allowed=["none"]`, `provenance.aggregation="count"`, `derived=true` |
+| `Country` (non-derived) | `default_aggregation="count"`, `semantic_role="dimension"` |
 
 ## 1. Files created
 
@@ -79,7 +116,7 @@ PUBLIC_URL = tunnel.public_url.replace('http://', 'https://')
 
 The token is never written to stdout or to a notebook cell.
 
-## 4. `/health` example output (real, from Colab L4)
+## 4. `/health` example output (real, from Colab L4 after auth rollout)
 
 ```json
 {
@@ -90,11 +127,19 @@ The token is never written to stdout or to a notebook cell.
   "device": "cuda",
   "gpu_name": "NVIDIA L4",
   "vram_total_gb": 22.03,
-  "vram_free_gb": 7.69,
+  "vram_free_gb": 7.74,
   "demo_db_ready": true,
-  "server_role": "colab-runtime"
+  "server_role": "colab-runtime",
+  "auth": {
+    "require_auth": true,
+    "api_token_set": true,
+    "debug_endpoints": true,
+    "bridge_enabled": true
+  }
 }
 ```
+
+(`/health` is intentionally unauthenticated so the server-side `ColabExtractionClient.health()` works without a token; nothing sensitive is exposed.)
 
 `/debug/datasources` output (added for diagnosing schema_not_found remotely):
 
@@ -113,7 +158,53 @@ The token is never written to stdout or to a notebook cell.
 }
 ```
 
-## 5. `/extract` example output (real, Qwen2.5-Coder-7B on L4)
+## 5. `/extract` example outputs (real, Qwen2.5-Coder-7B on L4, commit 722fe24)
+
+### 5a. `category_comparison` — derived COUNT alias
+
+Request: `demo_data/extraction_requests/category_comparison.json` (`"Сравни количество певцов по странам"`, `data_source.id="demo_concert_singer"`):
+
+```json
+{
+  "request_id": "smoke-category-comparison",
+  "status": "success",
+  "sql": {
+    "query": "SELECT Country, COUNT(*) AS NumberOfSingers\nFROM singer\nGROUP BY Country\nLIMIT 1000",
+    "dialect": "sqlite", "validated": true, "read_only": true
+  },
+  "result_table": {"row_count": 3, "columns": ["Country", "NumberOfSingers"]},
+  "field_metadata": [
+    {
+      "name": "Country",
+      "data_type": "string",
+      "semantic_role": "dimension",
+      "default_aggregation": "count",
+      "allowed_aggregations": ["count"],
+      "provenance": {"expression": null, "aggregation": null, "derived": false}
+    },
+    {
+      "name": "NumberOfSingers",
+      "data_type": "number",
+      "semantic_role": "measure",
+      "default_aggregation": "none",
+      "allowed_aggregations": ["none"],
+      "provenance": {"expression": "*", "aggregation": "count", "derived": true}
+    }
+  ]
+}
+```
+
+The downstream visualization layer reads `default_aggregation` — for `NumberOfSingers` it now sees `"none"` and won't sum the SUMs.
+
+### 5b. Unauthorized `/extract`
+
+```bash
+$ curl -X POST .../extract -H 'Content-Type: application/json' -d @top_n.json
+HTTP/1.1 401 Unauthorized
+{"detail":"missing or invalid Authorization header"}
+```
+
+### 5c. `top_n` — full DataExtractionResponse (compact)
 
 Request: `demo_data/extraction_requests/top_n.json` (`"Покажи топ-5 стадионов по вместимости"`):
 
@@ -153,14 +244,16 @@ Request: `demo_data/extraction_requests/top_n.json` (`"Покажи топ-5 с�
 }
 ```
 
-Smoke results (against `https://beaa-34-143-155-54.ngrok-free.app`, exit code 0):
+Smoke results (against `https://db34-34-124-208-160.ngrok-free.app` with Bearer auth, commit 722fe24, exit 0):
 
 | Fixture | Status | Generated SQL | Rows | Latency |
 | --- | --- | --- | --- | --- |
 | `top_n.json` | success | `SELECT Name, Capacity FROM stadium ORDER BY Capacity DESC LIMIT 5` | 5 | 1.9 s |
 | `time_series.json` | success | `SELECT COUNT(*) AS concerts_count, YEAR FROM concert GROUP BY YEAR` | 2 | 1.3 s |
-| `category_comparison.json` | success | `SELECT Country, COUNT(*) AS NumberOfSingers FROM singer GROUP BY Country` | 3 | 2.6 s |
+| `category_comparison.json` | success | `SELECT Country, COUNT(*) AS NumberOfSingers FROM singer GROUP BY Country` | 3 | 2.5 s |
 | `empty_result.json` | partial_success | `SELECT Name FROM singer WHERE Age < 0` | 0 (warning `empty_result`) | 1.0 s |
+
+Smoke client now auto-checks that derived columns have `default_aggregation="none"`. Zero failures on this run.
 
 ## 6. GPU info (real)
 
@@ -229,8 +322,24 @@ GITHUB_PAT=ghp_... (with repo:read on petrussia/NL2BI-AI-assistant)
 ## 11. What to send to ChatGPT after this stage
 
 - This report (`docs/03_claude_colab_text_to_sql_report.md`).
-- `/health` JSON (есть в §4).
-- `/extract` JSON для одного запроса (есть в §5, top_n).
-- `gpu_name=NVIDIA L4`, `vram_total_gb=22.03`.
-- Текущий `PUBLIC_URL` (берётся из output ячейки 7 при свежем запуске Colab).
-- При проблемах — содержимое `/content/drive/MyDrive/nl2bi_colab/logs/uvicorn.stderr.log`.
+- `/health` JSON with `auth` block (§4).
+- `/extract` JSON for `category_comparison` showing `NumberOfSingers` with
+  `default_aggregation="none"` (§5a).
+- Unauthorized example `http 401` (§5b).
+- `gpu_name=NVIDIA L4`, `vram_total_gb=22.03`, `vram_free_gb=7.74`.
+- Current `PUBLIC_URL` (from the live notebook output of cell 7).
+
+## 12. Files changed in this iteration (commit 722fe24)
+
+```
+.env.example                                       |  33 ++-
+colab/agent_bridge.py                              |  34 ++-
+colab/config.py                                    |  42 ++-
+colab/metadata.py                                  |  11 +-
+colab/smoke_extract.py                             |  86 +++++-
+colab/text_to_sql_colab_server.ipynb               | 294 +++++++++++++--------
+colab/text_to_sql_colab_server.py                  | 127 +++++++--
+demo_data/data_sources.json                        |   8 +-
+demo_data/extraction_requests/category_comparison.json |   2 +-
+9 files changed, 465 insertions(+), 172 deletions(-)
+```
