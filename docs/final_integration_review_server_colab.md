@@ -76,13 +76,13 @@ demo_data/extraction_requests/top_n.json
 - Notebook clone branch updated to `integration/nl2bi-mvp`; no tunnel URLs, auth tokens, or real secrets were added.
 - Frontend and server-facing smoke defaults changed to `demo_concert_singer`.
 - `demo_sales` remains in `demo_data/data_sources.json` as a legacy alias.
-- Live Colab smoke still must be rerun after cleanup.
+- Live Colab smoke was rerun after cleanup and passed.
 
 ## 5. Validation
 
 ```text
 python3 -m pytest -q
-25 passed in 0.51s
+25 passed in 0.45s
 ```
 
 ```text
@@ -104,17 +104,35 @@ no matches
 
 ## 6. Live Colab Smoke
 
-Status for this final merge: not rerun during the branch merge or post-merge cleanup.
+Status for this final merge: passed after the post-merge cleanup.
 
-Previous server-branch evidence remains available and had passed:
+Runtime configuration used for the smoke:
 
-- `docs/e2e_results/live_colab/runtime.json`
-- `docs/e2e_results/live_colab/nl2chart_response.json`
-- `docs/e2e_results/live_colab/selected_view.json`
-- `docs/e2e_results/live_colab/artifacts.json`
-- `docs/e2e_results/live_colab/summary.json`
+- Branch: `integration/nl2bi-mvp`
+- `EXTRACTION_MODE=colab`
+- `TEXT_TO_SQL_SERVICE_URL=<redacted Colab URL>`
+- `TEXT_TO_SQL_AUTH_TOKEN=<redacted>`
+- `TEXT_TO_SQL_TIMEOUT_SECONDS=90`
+- `VISUALIZATION_MODE=local_cpu`
 
-COUNT alias check from the previous live smoke: `selected_view.spec.encoding.y.field == "NumberOfSingers"` and there is no `selected_view.spec.encoding.y.aggregate`.
+Evidence:
+
+- `docs/e2e_results/final_integration/runtime.json`
+- `docs/e2e_results/final_integration/nl2chart_response.json`
+- `docs/e2e_results/final_integration/selected_view.json`
+- `docs/e2e_results/final_integration/artifacts.json`
+- `docs/e2e_results/final_integration/summary.json`
+
+Live checks:
+
+- `GET /api/health`: 200
+- `GET /api/ready`: 200
+- `GET /api/runtime`: 200
+- Runtime: `colab_available=true`, `model_loaded=true`, `gpu_name=NVIDIA L4`, `mock_model=false`
+- `POST /api/nl2chart`: `status=success`
+- Error codes: none
+- Artifacts: `table`, `chart_spec`
+- COUNT alias check: `selected_view.type == "chart"`, `selected_view.chart_type == "bar"`, `selected_view.spec.encoding.y.field == "NumberOfSingers"`, and there is no `selected_view.spec.encoding.y.aggregate`.
 
 ## 7. Remaining Risks
 

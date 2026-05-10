@@ -1,0 +1,28 @@
+{
+  "request_id": "5dce6a9ca4734c00b8ebe2cc951cfae6",
+  "status": "success",
+  "server_url": "http://127.0.0.1:8100",
+  "query": "Сравни количество певцов по странам",
+  "data_source_id": "demo_concert_singer",
+  "http": {
+    "/api/health": 200,
+    "/api/ready": 200,
+    "/api/runtime": 200
+  },
+  "runtime_path": "docs/e2e_results/final_integration/runtime.json",
+  "response_path": "docs/e2e_results/final_integration/nl2chart_response.json",
+  "selected_view_path": "docs/e2e_results/final_integration/selected_view.json",
+  "artifacts_path": "docs/e2e_results/final_integration/artifacts.json",
+  "table_artifact_count": 1,
+  "chart_spec_artifact_count": 1,
+  "artifact_types": [
+    "table",
+    "chart_spec"
+  ],
+  "selected_view_type": "chart",
+  "chart_type": "bar",
+  "y_field": "NumberOfSingers",
+  "y_aggregate_present": false,
+  "error_codes": [],
+  "ok": true
+}
