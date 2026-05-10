@@ -14,6 +14,7 @@ Mock-model mode for HTTP smoke tests:
 from __future__ import annotations
 
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -85,6 +86,26 @@ def _health_payload() -> dict[str, object]:
 @app.get("/health")
 def health() -> dict[str, object]:
     return _health_payload()
+
+
+@app.get("/admin/bridge_url")
+def admin_bridge_url() -> dict[str, object]:
+    """Return the agent bridge URL recorded by colab.agent_bridge.start_bridge.
+
+    Lets the agent fetch the (rotating) bridge URL through the stable FastAPI
+    URL — i.e. with one known endpoint the agent can find both /extract (here)
+    and /exec (the bridge), without the human re-pasting URLs after restarts.
+    """
+    marker_path = Path(
+        os.environ.get(
+            "COLAB_BRIDGE_URL_MARKER",
+            "/content/drive/MyDrive/nl2bi_colab/.bridge_url",
+        )
+    )
+    if not marker_path.exists():
+        return {"bridge_url": None, "marker_path": str(marker_path), "exists": False}
+    text = marker_path.read_text(encoding="utf-8").strip() or None
+    return {"bridge_url": text, "marker_path": str(marker_path), "exists": True}
 
 
 @app.get("/debug/datasources")
