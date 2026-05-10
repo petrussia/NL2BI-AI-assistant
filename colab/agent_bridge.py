@@ -52,6 +52,10 @@ except ImportError as exc:  # pragma: no cover - deps installed by notebook
 
 _BRIDGE_PORT = int(os.environ.get("COLAB_BRIDGE_PORT", "5050"))
 _DEFAULT_MARKER = Path("/content/drive/MyDrive/nl2bi_colab/.bridge_url")
+_TOKEN_FILE_CANDIDATES = (
+    Path("/content/drive/MyDrive/nl2bi_colab/.bridge_token"),
+    Path("/content/drive/MyDrive/.bridge_token"),
+)
 
 _app = Flask(__name__)
 _SHARED_GLOBALS: dict[str, object] = {"__name__": "bridge_remote"}
@@ -59,8 +63,29 @@ _BRIDGE_THREAD: threading.Thread | None = None
 _BRIDGE_TUNNEL_URL: str | None = None
 
 
+def _resolve_expected_token() -> str | None:
+    """Pick the bridge auth token from env (BRIDGE_TOKEN) first, then Drive.
+
+    Drive fallback exists because the claude.ai Drive MCP scope can only
+    write into folders the app created — so I deposit the token at MyDrive
+    root and read it back here. None disables auth (open /exec).
+    """
+    env_token = os.environ.get("BRIDGE_TOKEN")
+    if env_token:
+        return env_token
+    for candidate in _TOKEN_FILE_CANDIDATES:
+        if candidate.exists():
+            try:
+                text = candidate.read_text(encoding="utf-8").strip()
+            except OSError:
+                continue
+            if text:
+                return text
+    return None
+
+
 def _check_token() -> tuple[bool, str | None]:
-    expected = os.environ.get("BRIDGE_TOKEN")
+    expected = _resolve_expected_token()
     if not expected:
         return True, None
     received = request.headers.get("X-Bridge-Token")
