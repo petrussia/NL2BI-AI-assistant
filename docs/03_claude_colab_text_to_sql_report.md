@@ -1,9 +1,67 @@
 # Report — Colab Text-to-SQL `/extract` endpoint (Claude / Denis)
 
 Branch: `integration/colab-text-to-sql`
-Latest commit: `722fe24` (Bearer auth + derived metadata fix)
+Latest commit: `46624e3` (secure-by-default + `.env.example` split for merge)
 Spec: `docs/03_claude_colab_text_to_sql_endpoint.md`
 Pair branch: `integration/server-colab-nl2chart-mvp` (Codex / Peter — already done)
+
+## 0a. Merge-prep pass (commit 46624e3)
+
+Addressing the pre-merge review items in scope of this branch:
+
+- **2.1 Secure-by-default.** `colab/config.py` now reads
+  `require_auth=_envbool("COLAB_REQUIRE_AUTH", True)`. If the env var is not
+  set, `/extract` and `/reload_model` stay locked. Operators must explicitly
+  set `COLAB_REQUIRE_AUTH=false` to disable — loud rather than silent.
+  Docstrings on the module + the dependency function updated accordingly.
+- **2.2 Production posture on live Colab.** Flipped `COLAB_DEBUG_ENDPOINTS`
+  and `COLAB_BRIDGE_ENABLED` to `false` in the running kernel and restarted
+  uvicorn through the bridge. `/health.auth` now reports
+  `debug_endpoints=false`, `bridge_enabled=false`. `/debug/datasources` and
+  `/admin/bridge_url` return `404`. `/extract` still 401 → 200 with Bearer.
+- **2.4 `.env.example` split.** Renamed top-level `.env.example` to
+  `colab/.env.colab.example`. Avoids the merge clash with the server-side
+  `.env.example` (which covers `TEXT_TO_SQL_SERVICE_URL`,
+  `TEXT_TO_SQL_AUTH_TOKEN`, `EXTRACTION_MODE`, …).
+
+Out-of-scope for this branch, flagged for the server side:
+
+- **2.3** `colab/text_to_sql_colab_server.py` scaffold/MockExtractionClient
+  in `integration/server-colab-nl2chart-mvp` should be deleted at merge —
+  the real implementation lives here.
+- **2.5** `apps/web/src/lib/api.ts` hardcoded `data_source_id: "demo_sales"`
+  should be flipped to `demo_concert_singer` (or made selectable) on the
+  server branch. `demo_sales` keeps working as an alias on this branch.
+
+Live `/health` after the production-posture restart (commit `46624e3`):
+
+```json
+{
+  "status": "ok",
+  "model_loaded": true,
+  "model_id": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "mock_model": false,
+  "device": "cuda",
+  "gpu_name": "NVIDIA L4",
+  "vram_total_gb": 22.03,
+  "vram_free_gb": 7.88,
+  "demo_db_ready": true,
+  "server_role": "colab-runtime",
+  "auth": {
+    "require_auth": true,
+    "api_token_set": true,
+    "debug_endpoints": false,
+    "bridge_enabled": false
+  }
+}
+```
+
+| Check | Result |
+| --- | --- |
+| `/extract` without Authorization | `http 401` |
+| `/extract` with valid Bearer (`top_n`) | `http 200`, status=success, 5 rows |
+| `/debug/datasources` (flag now off) | `http 404` `{"detail":"Not Found"}` |
+| `/admin/bridge_url` (flag now off) | `http 404` `{"detail":"Not Found"}` |
 
 ## 0. Pre-integration security + metadata pass (commit 722fe24)
 
