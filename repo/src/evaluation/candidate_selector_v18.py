@@ -93,8 +93,14 @@ def _normalize_pack_names(pack: dict) -> dict:
         m = _DATE_SHARD_RE.match(tname)
         if m:
             wildcard_bases.add(m.group('base'))
-        for c in t.get('columns', []):
-            cn = c.get('name') or ''
+        # v22 STAGE A2: union BM25 top-K columns AND full all_columns side
+        # channel for residency. Resolves the v21 audit finding that 10/24
+        # ast_leak chosen-candidate failures were validator false positives
+        # where the planner correctly used a real column not in the pack
+        # top-K (e.g. totals.transactionRevenue, event_timestamp).
+        bm25_cols = [c.get('name') or '' for c in t.get('columns', [])]
+        all_cols = t.get('all_columns', []) or []
+        for cn in list(bm25_cols) + list(all_cols):
             if not cn:
                 continue
             columns_full.add(cn)

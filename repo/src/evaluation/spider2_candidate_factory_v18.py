@@ -44,6 +44,16 @@ def family_A_deterministic(plan: dict, pack: dict, *, lane: str = 'bq') -> dict:
               'meta': {'tables_used': plan.get('selected_tables', [])}}
 
 
+def family_C_join_aware(plan: dict, pack: dict, *, lane: str = 'bq') -> dict:
+    """v22 STAGE A3 — deterministic multi-table JOIN rendering when the
+    plan picks ≥2 tables and pack.join_hints lists a connecting hint."""
+    from sql_renderer_v18 import render_bq_with_joins
+    sql = render_bq_with_joins(plan, pack=pack)
+    return {'family': 'C', 'sql_raw': sql, 'sql': sql,
+              'meta': {'tables_used': plan.get('selected_tables', []),
+                          'join_hints_in_pack': len(pack.get('join_hints') or [])}}
+
+
 def family_B_coder7b(question: str, pack: dict, external_knowledge: str = '',
                       *, _gen_fn=None) -> dict:
     """Family B uses Qwen2.5-Coder-7B-Instruct as a control direct emitter.
@@ -73,6 +83,19 @@ def emit_candidates(question: str, pack: dict, plan: Optional[dict],
         except Exception as e:
             cands.append({'family': 'A', 'sql': '', 'sql_raw': '',
                           'meta': {'error': f'{type(e).__name__}:{str(e)[:200]}'}})
+        # v22 STAGE A3: emit Family C only when the plan picks multiple
+        # tables AND a join hint exists. The renderer falls back to
+        # single-table render when conditions don't hold; we still emit
+        # it to give the selector a multi-table option to evaluate.
+        sel_tabs = plan.get('selected_tables') or []
+        bare_tabs = {t.split('.')[-1] if '.' in t else t for t in sel_tabs}
+        n_join_hints = len(pack.get('join_hints') or [])
+        if len(bare_tabs) >= 2 and n_join_hints > 0:
+            try:
+                cands.append(family_C_join_aware(plan, pack, lane=lane))
+            except Exception as e:
+                cands.append({'family': 'C', 'sql': '', 'sql_raw': '',
+                              'meta': {'error': f'{type(e).__name__}:{str(e)[:200]}'}})
     if _gen_fn is not None:
         try:
             cands.append(family_B_coder7b(question, pack, external_knowledge,

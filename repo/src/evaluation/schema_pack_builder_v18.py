@@ -65,13 +65,30 @@ def _short(s: Optional[str], n: int) -> Optional[str]:
 
 def build_pack(linker_out: LinkerOutput, *, lane: str, alias: Optional[str],
                max_tables: int = 8, max_cols_per_table: int = 25,
-               max_desc_chars: int = 120) -> dict:
+               max_desc_chars: int = 120,
+               all_catalog_cols: Optional[list] = None) -> dict:
+    """Build compact schema pack from linker hits.
+
+    v22 STAGE A2: when `all_catalog_cols` is supplied (the linker's
+    full column list), each chosen table's `all_columns` field is
+    populated with every known column name for that (db,schema,table).
+    The validator uses this fuller set for residency checks while the
+    planner prompt still sees only the compact `columns` BM25 top-K.
+    Resolves the v21 pilot50 audit's 24 ast_leak / 10 false-positive
+    schema_invalid class.
+    """
     # Group hits by (db, schema, table). Use the highest-scoring table set.
     grouped: dict = defaultdict(list)  # (db, schema, table) -> list[LinkerHit]
     for h in linker_out.hits:
         c = h.record
         key = (c.db, c.schema, c.table)
         grouped[key].append(h)
+
+    # v22 STAGE A2: index full catalog by (db, schema, table) for residency
+    full_table_cols: dict = defaultdict(set)
+    if all_catalog_cols is not None:
+        for c in all_catalog_cols:
+            full_table_cols[(c.db, c.schema, c.table)].add(c.field_path or c.column)
 
     # Score per table = sum of column hit scores
     table_scores = sorted(
@@ -94,11 +111,15 @@ def build_pack(linker_out: LinkerOutput, *, lane: str, alias: Optional[str],
                 nullable=c.is_nullable,
                 description=_short(c.description, max_desc_chars),
             )))
-        tables.append(asdict(PackTable(
+        tdict = asdict(PackTable(
             db=db, schema=schema, table=table,
             score=round(sum(h.score for h in hits), 2),
             columns=cols,
-        )))
+        ))
+        # v22 STAGE A2: side-channel full column list for the validator
+        if all_catalog_cols is not None:
+            tdict['all_columns'] = sorted(full_table_cols.get((db, schema, table), set()))
+        tables.append(tdict)
         seen_dbs[db].add(schema)
 
     databases = [
@@ -132,13 +153,70 @@ def build_pack(linker_out: LinkerOutput, *, lane: str, alias: Optional[str],
             'note': 'wildcard family — use _TABLE_SUFFIX for date filtering',
         })
 
+    # v22 STAGE A2: derive join_hints from co-occurring column names + FK-like
+    # naming conventions across the chosen tables. This is heuristic but
+    # deterministic and provides Family C with seed join paths.
+    join_hints: list = []
+    if all_catalog_cols is not None and len(tables) >= 2:
+        # Build full column sets per chosen table (already in `full_table_cols`)
+        cols_by_table = {}
+        for t in tables:
+            key = (t['db'], t['schema'], t['table'])
+            cols_by_table[t['table']] = full_table_cols.get(key, set())
+        # Pairwise: shared exact-match column names (likely join keys)
+        seen_pairs = set()
+        table_list = list(cols_by_table.keys())
+        for i, ta in enumerate(table_list):
+            for tb in table_list[i+1:]:
+                shared = cols_by_table[ta] & cols_by_table[tb]
+                # Prefer columns that look like keys
+                for col in sorted(shared):
+                    cn = col.split('.')[-1].lower()
+                    is_key = (cn.endswith('_id') or cn == 'id'
+                                or cn.endswith('_key') or cn == 'key'
+                                or cn.endswith('id') and len(cn) <= 12)
+                    if not is_key:
+                        continue
+                    pair = (ta, tb, col)
+                    if pair in seen_pairs:
+                        continue
+                    seen_pairs.add(pair)
+                    join_hints.append({
+                        'left_table': ta, 'right_table': tb,
+                        'on': col,
+                        'reason': 'shared_column_name_with_key_shape',
+                    })
+        # FK-like naming: column `<table>_id` in B referring to `id` in A
+        for ta in table_list:
+            cols_a = cols_by_table[ta]
+            if 'id' not in {c.split('.')[-1].lower() for c in cols_a}:
+                continue
+            for tb in table_list:
+                if tb == ta: continue
+                target_fk = ta.lower().rstrip('s') + '_id'
+                for col_b in cols_by_table[tb]:
+                    cb = col_b.split('.')[-1].lower()
+                    if cb == target_fk or cb == ta.lower() + 'id':
+                        # find the actual id column in ta
+                        id_col = next((c for c in cols_a if c.split('.')[-1].lower() == 'id'), 'id')
+                        pair = (ta, tb, f'{id_col}={col_b}')
+                        if pair in seen_pairs: continue
+                        seen_pairs.add(pair)
+                        join_hints.append({
+                            'left_table': ta, 'right_table': tb,
+                            'on_left': id_col, 'on_right': col_b,
+                            'reason': 'fk_like_naming',
+                        })
+        # Cap to keep prompt small
+        join_hints = join_hints[:10]
+
     pack = {
         'lane': lane,
         'alias': alias,
         'databases': databases,
         'tables': tables,
         'wildcards': wildcards,
-        'join_hints': [],
+        'join_hints': join_hints,
     }
     pack['token_budget_used'] = len(json.dumps(pack)) // 4
     return pack

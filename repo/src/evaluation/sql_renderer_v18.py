@@ -300,6 +300,139 @@ def render_bq(plan: dict, *, pack: Optional[dict] = None) -> str:
     return sql
 
 
+def render_bq_with_joins(plan: dict, *, pack: Optional[dict] = None) -> str:
+    """v22 STAGE A3 — Family C: deterministic multi-table JOIN render.
+
+    Renders SQL of the form
+        FROM `proj.ds.A` AS a INNER JOIN `proj.ds.B` AS b ON a.id = b.a_id
+    when:
+      - plan.selected_tables has >= 2 distinct bare tables
+      - pack.join_hints lists a connecting hint (or a fallback heuristic
+        finds a shared key)
+
+    If those conditions are not met, falls back to single-table render.
+    Caller (candidate_factory) decides whether to dispatch here or to A.
+    """
+    sel = plan.get('selected_tables') or []
+    bare = []
+    seen = set()
+    for t in sel:
+        b = t.split('.')[-1] if '.' in t else t
+        if b and b not in seen:
+            seen.add(b); bare.append(b)
+    if len(bare) < 2 or pack is None:
+        return render_bq(plan, pack=pack)
+
+    # Resolve project/dataset prefix consistently
+    db_field = plan.get('selected_database', '') or ''
+    schema_field = plan.get('selected_schema', '') or ''
+    proj, _ = (db_field.split('.', 1) + [''])[:2] if '.' in db_field else (db_field, '')
+    dataset = schema_field.split('.', 1)[-1] if '.' in schema_field else schema_field
+
+    def _qual(t: str) -> str:
+        parts = [p for p in (proj, dataset, t) if p]
+        return '`' + '.'.join(parts) + '`'
+
+    # Find a join hint connecting the first two tables
+    join_hints = pack.get('join_hints') or []
+    base = bare[0]
+    other = bare[1]
+    chosen_hint = None
+    for h in join_hints:
+        lt, rt = h.get('left_table'), h.get('right_table')
+        if (lt == base and rt == other) or (lt == other and rt == base):
+            chosen_hint = h
+            break
+    if chosen_hint is None:
+        # No hint — fall back to single-table render
+        return render_bq(plan, pack=pack)
+
+    # Build SELECT
+    selects = []
+    metric_exprs = []
+    for m in plan.get('metrics') or []:
+        label = m.get('label') or 'metric'
+        expr = m.get('expr') or ''
+        if expr:
+            label_clean = re.sub(r'[^A-Za-z0-9_]+', '_', str(label)).strip('_')
+            if not label_clean or label_clean[0].isdigit():
+                label_clean = 'metric_' + (label_clean or 'x')
+            selects.append(f'{expr} AS {label_clean}')
+            metric_exprs.append(expr)
+    selected_cols_dedup: list = []
+    for c in plan.get('selected_columns') or []:
+        if any(c in mx for mx in metric_exprs):
+            continue
+        if c in selected_cols_dedup:
+            continue
+        selected_cols_dedup.append(c)
+        selects.append(c)
+    if not selects:
+        selects.append('*')
+
+    # FROM + JOIN
+    a_alias, b_alias = 'a', 'b'
+    base_q = _qual(base)
+    other_q = _qual(other)
+    if 'on_left' in chosen_hint and 'on_right' in chosen_hint:
+        if chosen_hint.get('left_table') == base:
+            on_l, on_r = chosen_hint['on_left'], chosen_hint['on_right']
+        else:
+            on_l, on_r = chosen_hint['on_right'], chosen_hint['on_left']
+        on_clause = f'{a_alias}.{on_l} = {b_alias}.{on_r}'
+    else:
+        on_col = chosen_hint.get('on', '')
+        on_clause = f'{a_alias}.{on_col} = {b_alias}.{on_col}'
+    from_clause = (f'{base_q} AS {a_alias}\n'
+                    f'INNER JOIN {other_q} AS {b_alias} ON {on_clause}')
+    sql = 'SELECT ' + ', '.join(selects) + '\nFROM ' + from_clause
+
+    # WHERE
+    where_parts = []
+    for f in plan.get('filters') or []:
+        e = f.get('expr') if isinstance(f, dict) else f
+        if e:
+            where_parts.append(f'({e})')
+    for tc in plan.get('time_constraints') or []:
+        if tc:
+            where_parts.append(f'({tc})')
+    if where_parts:
+        sql += '\nWHERE ' + ' AND '.join(where_parts)
+
+    # GROUP BY (auto + explicit)
+    group = plan.get('grouping') or []
+    has_aggregate = any(_is_aggregate_expr(mx) for mx in metric_exprs)
+    if has_aggregate:
+        non_agg_select = [c for c in selected_cols_dedup
+                              if c and not _is_aggregate_expr(c)]
+        for c in non_agg_select:
+            if c not in group:
+                group.append(c)
+    if group:
+        sql += '\nGROUP BY ' + ', '.join(group)
+
+    sortings = plan.get('sorting') or []
+    if sortings:
+        order_parts = []
+        for s in sortings:
+            if isinstance(s, dict):
+                e = s.get('expr', '')
+                d = (s.get('dir') or 'asc').upper()
+                if e: order_parts.append(f'{e} {d}')
+            else:
+                order_parts.append(str(s))
+        if order_parts:
+            sql += '\nORDER BY ' + ', '.join(order_parts)
+
+    lim = plan.get('limit')
+    if lim not in (None, '', 0):
+        try:
+            sql += f'\nLIMIT {int(lim)}'
+        except (TypeError, ValueError):
+            pass
+    return sql
+
+
 def render_coder7b_direct_prompt(question: str, pack: dict, external_knowledge: str = '') -> str:
     """Prompt for the Coder-7B control direct emitter."""
     lines = []

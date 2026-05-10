@@ -218,7 +218,8 @@ def start_v18_bq_bg(limit, run_id, max_rows=100, no_execute=False,
                     link = linker.query(question, alias_filter=alias,
                                           top_columns=80, top_tables=20)
                     pack = sb.build_pack(link, lane="bq", alias=alias,
-                                          max_tables=8, max_cols_per_table=22)
+                                          max_tables=8, max_cols_per_table=22,
+                                          all_catalog_cols=catalog_cols)
                     top_table = pack["tables"][0] if pack["tables"] else None
                     top_db = pack["databases"][0]["name"] if pack["databases"] else ""
                     recall_fh.write(",".join([
