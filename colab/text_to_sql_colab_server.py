@@ -33,7 +33,7 @@ from contracts.extraction import (  # noqa: E402
     QualityInfo,
     SqlInfo,
 )
-from colab.config import ColabServerConfig  # noqa: E402
+from colab.config import ColabServerConfig, load_data_sources, resolve_sqlite_path  # noqa: E402
 from colab.errors import SAFE_USER_MESSAGES, ExtractionErrorCode  # noqa: E402
 from colab.extract_pipeline import run_extraction  # noqa: E402
 from colab.gpu import gpu_info  # noqa: E402
@@ -85,6 +85,38 @@ def _health_payload() -> dict[str, object]:
 @app.get("/health")
 def health() -> dict[str, object]:
     return _health_payload()
+
+
+@app.get("/debug/datasources")
+def debug_datasources() -> dict[str, object]:
+    """Diagnose schema_not_found errors: list each id and whether its file exists."""
+    sources = load_data_sources(_config)
+    items: list[dict[str, object]] = []
+    for ds_id in sorted(set(list(sources.keys()) + [_config.default_data_source_id])):
+        path = resolve_sqlite_path(_config, ds_id)
+        items.append({
+            "data_source_id": ds_id,
+            "resolved_path": str(path) if path else None,
+            "exists": bool(path and path.exists()),
+        })
+    spider_root = _config.spider_db_root
+    spider_root_exists = spider_root.exists()
+    sample_db_dirs: list[str] = []
+    if spider_root_exists:
+        try:
+            sample_db_dirs = sorted(p.name for p in spider_root.iterdir() if p.is_dir())[:30]
+        except OSError:
+            sample_db_dirs = []
+    return {
+        "data_sources_path": str(_config.data_sources_path),
+        "data_sources_path_exists": _config.data_sources_path.exists(),
+        "data_sources_loaded_keys": sorted(sources.keys()),
+        "default_data_source_id": _config.default_data_source_id,
+        "spider_db_root": str(spider_root),
+        "spider_db_root_exists": spider_root_exists,
+        "spider_db_root_first_dirs": sample_db_dirs,
+        "data_source_resolutions": items,
+    }
 
 
 @app.post("/extract", response_model=DataExtractionResponse, response_model_exclude_none=False)

@@ -12,7 +12,9 @@ SYSTEM_PROMPT = (
     "3. The query must start with SELECT or WITH and must be read-only.\n"
     "4. Prefer explicit column names over SELECT *.\n"
     "5. If aggregations are needed, give them readable aliases (e.g. SUM(revenue) AS revenue).\n"
-    "6. If the question is ambiguous, choose the most natural interpretation and proceed."
+    "6. Do NOT use UNION, UNION ALL, INTERSECT, or EXCEPT. A single SELECT (or a single WITH ... SELECT) is enough.\n"
+    "7. Do NOT chain multiple statements with `;` — produce only one statement.\n"
+    "8. If the question is ambiguous, choose the most natural interpretation and proceed."
 )
 
 

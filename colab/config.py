@@ -29,6 +29,16 @@ class ColabServerConfig:
     @classmethod
     def from_env(cls) -> "ColabServerConfig":
         repo_root = Path(__file__).resolve().parent.parent
+        repo_default_sources = repo_root / "demo_data" / "data_sources.json"
+        env_sources = os.environ.get("COLAB_DATA_SOURCES_PATH")
+        # If env var points at a non-existent file, fall back to the bundled
+        # one inside the repo. Bad env values silently broke schema resolution
+        # before — now the in-repo JSON wins as long as it exists.
+        if env_sources and Path(env_sources).exists():
+            data_sources_path = Path(env_sources)
+        else:
+            data_sources_path = repo_default_sources
+
         default_artifacts = Path("/content/drive/MyDrive/nl2bi_colab/artifacts")
         default_logs = Path("/content/drive/MyDrive/nl2bi_colab/logs")
         artifacts_dir = Path(os.environ.get("COLAB_ARTIFACTS_DIR", str(default_artifacts)))
@@ -44,12 +54,7 @@ class ColabServerConfig:
                     "/content/drive/MyDrive/diploma_plan_sql/data/spider/database",
                 )
             ),
-            data_sources_path=Path(
-                os.environ.get(
-                    "COLAB_DATA_SOURCES_PATH",
-                    str(repo_root / "demo_data" / "data_sources.json"),
-                )
-            ),
+            data_sources_path=data_sources_path,
             default_data_source_id=os.environ.get(
                 "COLAB_DEFAULT_DATA_SOURCE_ID", "demo_sales"
             ),
