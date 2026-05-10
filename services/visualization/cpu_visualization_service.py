@@ -187,7 +187,7 @@ class CpuVisualizationService:
             explanation=VisualizationExplanation(
                 intent=intent,
                 used_fields=used_fields,
-                used_aggregations=[field.default_aggregation for field in metadata if field.name in used_fields and field.default_aggregation],
+                used_aggregations=self._used_aggregations(metadata, used_fields),
                 reason=selected_candidate.reason,
             ),
             quality=VisualizationQuality(
@@ -211,6 +211,17 @@ class CpuVisualizationService:
         if user_query:
             return "Таблица результата"
         return "Результат"
+
+    @staticmethod
+    def _used_aggregations(fields: list, used_fields: list[str]) -> list[str]:
+        aggregations: list[str] = []
+        for field in fields:
+            if field.name not in used_fields or field.semantic_role != "measure":
+                continue
+            aggregation = field.provenance.aggregation or field.default_aggregation
+            if aggregation and aggregation != "none":
+                aggregations.append(aggregation)
+        return aggregations
 
     @staticmethod
     def _performance(started: float, mode: str = "fast") -> VisualizationPerformance:
@@ -242,4 +253,3 @@ class CpuVisualizationService:
             errors=errors,
             warnings=warnings,
         )
-

@@ -28,6 +28,7 @@ class Settings:
     app_env: str
     extraction_mode: str
     text_to_sql_service_url: str
+    text_to_sql_auth_token: str
     text_to_sql_timeout_seconds: float
     visualization_mode: str
     artifact_storage: str
@@ -43,6 +44,7 @@ class Settings:
             app_env=os.getenv("APP_ENV", "development").strip() or "development",
             extraction_mode=os.getenv("EXTRACTION_MODE", "mock").strip().lower() or "mock",
             text_to_sql_service_url=os.getenv("TEXT_TO_SQL_SERVICE_URL", "").strip(),
+            text_to_sql_auth_token=os.getenv("TEXT_TO_SQL_AUTH_TOKEN", "").strip(),
             text_to_sql_timeout_seconds=float(os.getenv("TEXT_TO_SQL_TIMEOUT_SECONDS", "60") or "60"),
             visualization_mode=os.getenv("VISUALIZATION_MODE", "local_cpu").strip().lower() or "local_cpu",
             artifact_storage=os.getenv("ARTIFACT_STORAGE", "local").strip().lower() or "local",
@@ -57,4 +59,3 @@ class Settings:
 
 def get_settings() -> Settings:
     return Settings.from_env()
-

@@ -10,6 +10,7 @@ def test_mock_mode_unaffected(tmp_path):
         app_env="test",
         extraction_mode="mock",
         text_to_sql_service_url="",
+        text_to_sql_auth_token="",
         text_to_sql_timeout_seconds=1,
         visualization_mode="local_cpu",
         artifact_storage="local",
@@ -24,4 +25,3 @@ def test_mock_mode_unaffected(tmp_path):
     )
     assert response.status == "success"
     assert response.selected_view["chart_type"] == "line"
-

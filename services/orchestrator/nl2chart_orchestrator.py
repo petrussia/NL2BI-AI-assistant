@@ -32,6 +32,7 @@ class Nl2ChartOrchestrator:
             return ColabExtractionClient(
                 self.settings.text_to_sql_service_url,
                 self.settings.text_to_sql_timeout_seconds,
+                self.settings.text_to_sql_auth_token,
             )
         return DisabledExtractionClient()
 

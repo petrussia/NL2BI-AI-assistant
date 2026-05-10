@@ -18,6 +18,13 @@ def runtime(settings: Settings = Depends(get_app_settings)) -> dict[str, object]
         "visualization_mode": settings.visualization_mode,
         "artifact_storage": settings.artifact_storage,
         "colab_service_url_configured": bool(settings.text_to_sql_service_url),
+        "colab_auth_token_configured": bool(settings.text_to_sql_auth_token),
+        "colab_available": False,
+        "colab_health": {
+            "model_loaded": None,
+            "gpu_name": None,
+            "mock_model": None,
+        },
         "server_allows_llm_imports": False,
         "debug_sql_visible": settings.debug_sql_visible,
     }
@@ -25,11 +32,15 @@ def runtime(settings: Settings = Depends(get_app_settings)) -> dict[str, object]
         client = ColabExtractionClient(
             settings.text_to_sql_service_url,
             settings.text_to_sql_timeout_seconds,
+            settings.text_to_sql_auth_token,
         )
         available, health = client.health()
         payload["colab_available"] = available
-        if available:
-            payload["colab_health"] = health
-        else:
+        payload["colab_health"] = {
+            "model_loaded": health.get("model_loaded"),
+            "gpu_name": health.get("gpu_name"),
+            "mock_model": health.get("mock_model"),
+        }
+        if not available:
             payload.update(health)
     return payload

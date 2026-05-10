@@ -1,0 +1,17 @@
+{
+  "server_runtime": true,
+  "gpu_in_backend": false,
+  "extraction_mode": "colab",
+  "visualization_mode": "local_cpu",
+  "artifact_storage": "local",
+  "colab_service_url_configured": true,
+  "colab_auth_token_configured": true,
+  "colab_available": true,
+  "colab_health": {
+    "model_loaded": true,
+    "gpu_name": "NVIDIA L4",
+    "mock_model": false
+  },
+  "server_allows_llm_imports": false,
+  "debug_sql_visible": false
+}

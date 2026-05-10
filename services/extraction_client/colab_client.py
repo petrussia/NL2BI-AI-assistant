@@ -16,11 +16,18 @@ class ColabExtractionClient(ExtractionClient):
         self,
         service_url: str,
         timeout_seconds: float = 60,
+        auth_token: str | None = None,
         http_client: httpx.Client | None = None,
     ):
         self.service_url = service_url.rstrip("/")
         self.timeout_seconds = timeout_seconds
+        self.auth_token = auth_token.strip() if auth_token and auth_token.strip() else None
         self.http_client = http_client
+
+    def _headers(self) -> dict[str, str]:
+        if not self.auth_token:
+            return {}
+        return {"Authorization": f"Bearer {self.auth_token}"}
 
     def _failed(
         self,
@@ -62,12 +69,13 @@ class ColabExtractionClient(ExtractionClient):
 
         payload = request.model_dump(mode="json")
         timeout = httpx.Timeout(self.timeout_seconds, connect=min(10.0, self.timeout_seconds))
+        headers = self._headers()
         try:
             if self.http_client is None:
                 with httpx.Client(timeout=timeout) as client:
-                    response = client.post(f"{self.service_url}/extract", json=payload)
+                    response = client.post(f"{self.service_url}/extract", json=payload, headers=headers)
             else:
-                response = self.http_client.post(f"{self.service_url}/extract", json=payload)
+                response = self.http_client.post(f"{self.service_url}/extract", json=payload, headers=headers)
         except httpx.TimeoutException:
             return self._failed(
                 request,
@@ -136,9 +144,13 @@ class ColabExtractionClient(ExtractionClient):
         if not self.service_url:
             return False, {"colab_error_code": "colab_unavailable"}
         timeout = httpx.Timeout(min(5.0, self.timeout_seconds), connect=min(3.0, self.timeout_seconds))
+        headers = self._headers()
         try:
-            with httpx.Client(timeout=timeout) as client:
-                response = client.get(f"{self.service_url}/health")
+            if self.http_client is None:
+                with httpx.Client(timeout=timeout) as client:
+                    response = client.get(f"{self.service_url}/health", headers=headers)
+            else:
+                response = self.http_client.get(f"{self.service_url}/health", headers=headers)
             if response.status_code >= 400:
                 return False, {
                     "colab_error_code": "colab_service_error",
@@ -154,4 +166,3 @@ class ColabExtractionClient(ExtractionClient):
             return False, {"colab_error_code": "colab_unavailable"}
         except json.JSONDecodeError:
             return False, {"colab_error_code": "invalid_extraction_response"}
-

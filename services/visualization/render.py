@@ -15,6 +15,16 @@ def _vega_type(field: FieldMetadata) -> str:
     return "nominal"
 
 
+def _should_aggregate_in_vega(field: FieldMetadata) -> bool:
+    if not field.default_aggregation or field.default_aggregation == "none":
+        return False
+    if field.provenance.derived:
+        return False
+    if field.provenance.aggregation is not None:
+        return False
+    return True
+
+
 def chart_spec(
     *,
     chart_type: str,
@@ -37,7 +47,7 @@ def chart_spec(
             "type": _vega_type(y_field),
             "title": y_field.display_name or y_field.name,
         }
-        if y_field.default_aggregation and y_field.default_aggregation != "none":
+        if _should_aggregate_in_vega(y_field):
             y_encoding["aggregate"] = y_field.default_aggregation
         encoding["y"] = y_encoding
     return {
@@ -57,4 +67,3 @@ def table_spec(title: str, table: ResultTable) -> dict[str, Any]:
         "row_count": table.row_count,
         "truncated": table.truncated or table.row_count > 100,
     }
-
