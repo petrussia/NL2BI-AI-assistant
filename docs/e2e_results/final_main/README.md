@@ -19,6 +19,10 @@
 | `artifacts.json` | `artifacts` array from the live response | table artifact + chart_spec artifact |
 | `public_ui.html` | `GET http://103.54.18.109/` (server-rendered HTML body) | `http 200`, 6087 bytes |
 | `public_ui_screenshot.png` | **1×1 placeholder** | See §Known limitations |
+| `ui_flow_send_message.json` | `POST /api/server/chats/{sid}/messages` — exact call the UI makes when you press Send | `assistant_message` with 2 artifacts (table + chart_spec), no errors/warnings |
+| `ui_flow_list_messages.json` | `GET /api/server/chats/{sid}/messages` — the call on page reload | both messages persisted, role/content match |
+| `ui_flow_chart_spec_artifact.json` | `GET /api/server/artifacts/{chart_spec_id}` — what the UI fetches to render the chart | Vega-lite `bar` spec with `Country` × `NumberOfSingers`, 3 rows |
+| `ui_flow_table_artifact.json` | `GET /api/server/artifacts/{table_id}` — what the UI fetches to render the table | columns `['Country','NumberOfSingers']`, 3 rows |
 
 ## Known limitations
 
@@ -28,6 +32,41 @@
    sudo systemctl restart nl2bi-api.service nl2bi-web.service nginx
    ```
 3. **`public_ui_screenshot.png` is a 1×1 placeholder.** No headless browser (chromium / playwright / wkhtmltopdf) is installed on the agent host, so a real screenshot cannot be produced automatically. The same end-to-end flow is fully evidenced in `nl2chart_live_response.json` (table + chart_spec artifacts), `selected_view.json` (the Vega-lite spec the UI would render), and `public_ui.html` (the actual HTML served by the production web service). To capture a real PNG: open http://103.54.18.109/ in a browser, send `"Сравни количество певцов по странам"`, and save the full-page screenshot over this file.
+
+## UI flow validation
+
+I cannot run a headless browser on the agent host, but the UI lives entirely in `apps/web/src/lib/api.ts` and makes exactly four authenticated REST calls per user interaction. I replayed those calls end-to-end against `http://103.54.18.109/` using `curl` with a cookie jar and a freshly registered user (role `analyst`). Each call returned the same payload the React app feeds into its components.
+
+```
+GET  /                                  -> 200, 6087 bytes HTML
+POST /api/server/auth/register          -> 200, {username, role:'analyst'}
+GET  /api/server/auth/me                -> 200, authenticated:true
+POST /api/server/chats                  -> 200, session_id created
+POST /api/server/chats/{sid}/messages   -> 200, assistant_message with 2 artifacts (table + chart_spec)
+GET  /api/server/chats/{sid}/messages   -> 200, both messages persisted
+GET  /api/server/artifacts/{chart_id}   -> 200, Vega-lite bar spec ready for vega-embed
+GET  /api/server/artifacts/{table_id}   -> 200, columns + rows
+GET  /api/server/runtime                -> 200, colab_available=true, model_loaded=true
+```
+
+The chart_spec payload that the UI hands to vega-embed:
+
+```json
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "Country", "type": "nominal"},
+    "y": {"field": "NumberOfSingers", "type": "quantitative"}
+  },
+  "data": {"values": [
+    {"Country": "France", "NumberOfSingers": 4},
+    {"Country": "Netherlands", "NumberOfSingers": 1},
+    {"Country": "United States", "NumberOfSingers": 1}
+  ]}
+}
+```
+
+This is what a real browser would render as a 3-bar chart. The pipeline behind the curtain: Next.js → FastAPI gateway → ColabExtractionClient (Bearer auth) → ngrok → Qwen2.5-Coder-7B on Colab L4 → SQL guard → SQLite on Spider concert_singer → metadata inference → visualization adapter → Vega-lite spec → artifact store → UI.
 
 ## Colab side (recap)
 
