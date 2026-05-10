@@ -79,26 +79,7 @@ PUBLIC_URL = tunnel.public_url.replace('http://', 'https://')
 
 The token is never written to stdout or to a notebook cell.
 
-## 4. `/health` example output
-
-(captured locally in mock mode — on Colab the GPU fields fill in)
-
-```json
-{
-  "status": "ok",
-  "model_loaded": true,
-  "model_id": "Qwen/Qwen2.5-Coder-7B-Instruct",
-  "mock_model": true,
-  "device": "cpu",
-  "gpu_name": null,
-  "vram_total_gb": null,
-  "vram_free_gb": null,
-  "demo_db_ready": true,
-  "server_role": "colab-runtime"
-}
-```
-
-On Colab (real run, expected shape):
+## 4. `/health` example output (real, from Colab L4)
 
 ```json
 {
@@ -108,91 +89,99 @@ On Colab (real run, expected shape):
   "mock_model": false,
   "device": "cuda",
   "gpu_name": "NVIDIA L4",
-  "vram_total_gb": 22.16,
-  "vram_free_gb": 14.8,
+  "vram_total_gb": 22.03,
+  "vram_free_gb": 7.69,
   "demo_db_ready": true,
   "server_role": "colab-runtime"
 }
 ```
 
-## 5. `/extract` example output (truncated)
-
-Request: `demo_data/extraction_requests/time_series.json`. Below is the response captured against the local mock; on Colab the SQL will be model-generated and the row counts will match the underlying Spider DB.
+`/debug/datasources` output (added for diagnosing schema_not_found remotely):
 
 ```json
 {
-  "request_id": "smoke-time-series",
+  "data_sources_path": "/content/nl2bi-colab/demo_data/data_sources.json",
+  "data_sources_path_exists": true,
+  "data_sources_loaded_keys": ["concert_singer", "demo_sales", "world_1", "wrestler"],
+  "spider_db_root": "/content/drive/MyDrive/diploma_plan_sql/data/spider/database",
+  "spider_db_root_exists": true,
+  "data_source_resolutions": [
+    {"data_source_id": "demo_sales",
+     "resolved_path": ".../concert_singer/concert_singer.sqlite", "exists": true},
+    ...
+  ]
+}
+```
+
+## 5. `/extract` example output (real, Qwen2.5-Coder-7B on L4)
+
+Request: `demo_data/extraction_requests/top_n.json` (`"Покажи топ-5 стадионов по вместимости"`):
+
+```json
+{
+  "request_id": "smoke-top-n",
   "status": "success",
-  "user_query": "Покажи количество концертов по годам",
   "data_source": {"id": "demo_sales", "dialect": "sqlite", "schema_version": "spider-v1"},
   "plan": {
-    "tables": ["concert"], "columns": ["concert_ID", "concert_Name", "Theme", "Stadium_ID", "Year"],
-    "limit": 50, "validated": true
+    "intent": "top_n",
+    "tables": ["stadium"], "columns": ["Name", "Capacity"],
+    "order_by": [{"field": "Capacity", "direction": "desc"}],
+    "limit": 5
   },
   "sql": {
-    "query": "SELECT concert_ID, concert_Name, Theme, Stadium_ID, Year FROM \"concert\" LIMIT 50",
+    "query": "SELECT Name, Capacity \nFROM stadium \nORDER BY Capacity DESC \nLIMIT 5",
     "dialect": "sqlite", "validated": true, "read_only": true
   },
-  "result_table": {"row_count": 6, "truncated": false, "columns": ["concert_ID", "concert_Name", "Theme", "Stadium_ID", "Year"]},
+  "result_table": {
+    "row_count": 5,
+    "rows": [
+      {"Name": "Hampden Park", "Capacity": 52500},
+      {"Name": "Somerset Park", "Capacity": 11998},
+      {"Name": "Stark's Park", "Capacity": 10104},
+      {"Name": "Gayfield Park", "Capacity": 4125},
+      {"Name": "Balmoor", "Capacity": 4000}
+    ]
+  },
   "field_metadata": [
-    {"name":"concert_ID","data_type":"number","semantic_role":"id","sql_type":"INTEGER"},
-    {"name":"Year","data_type":"string","semantic_role":"time","sql_type":"TEXT"}
+    {"name":"Name","sql_type":"TEXT","data_type":"string","semantic_role":"dimension"},
+    {"name":"Capacity","sql_type":"INT","data_type":"number","semantic_role":"measure",
+     "allowed_aggregations":["sum","avg","min","max","count"],"default_aggregation":"sum"}
   ],
-  "execution": {"latency_ms": 2, "row_limit": 1000, "timeout_ms": 8000, "executable": true},
+  "execution": {"latency_ms": 1922, "row_limit": 1000, "timeout_ms": 8000, "executable": true},
   "errors": [],
   "warnings": []
 }
 ```
 
-Error-path example (`data_source.id="does_not_exist"`):
+Smoke results (against `https://beaa-34-143-155-54.ngrok-free.app`, exit code 0):
 
-```json
-{
-  "status": "failed",
-  "errors": [{
-    "code": "schema_not_found",
-    "message": "Схема для указанного источника данных не найдена.",
-    "source": "colab",
-    "retryable": false,
-    "details": {"data_source_id": "does_not_exist"}
-  }]
-}
-```
-
-Row-limit truncation (`row_limit=3` against a 6-row table):
-
-```json
-{
-  "status": "success",
-  "result_table": {"row_count": 3, "truncated": true},
-  "warnings": [{"code": "row_limit_exceeded", "source": "colab"}]
-}
-```
-
-## 6. GPU info
-
-Locally (CPU only — used for mock-mode smoke):
-
-```json
-{"device": "cpu", "gpu_name": null, "vram_total_gb": null, "cuda_available": false}
-```
-
-On Colab the `colab.gpu.gpu_info()` helper reports `device`, `gpu_name`, `vram_total_gb`, `vram_free_gb`, `cuda_available` from `torch.cuda.mem_get_info`.
-
-## 7. Smoke test results (local, mock-model)
-
-`python -m colab.smoke_extract --base-url http://127.0.0.1:8765`
-
-| Fixture | HTTP | Status | row_count | Notes |
+| Fixture | Status | Generated SQL | Rows | Latency |
 | --- | --- | --- | --- | --- |
-| `time_series.json` | 200 | success | 6 | mock SELECT — schema-agnostic |
-| `top_n.json` | 200 | success | 6 | mock fallback (no numeric measure col) |
-| `category_comparison.json` | 200 | success | 6 | mock fallback |
-| `empty_result.json` | 200 | success | 6 | mock can't apply WHERE; real model will |
-| ad-hoc bad source | 200 | failed | — | `errors[0].code == schema_not_found` |
-| ad-hoc `row_limit=3` | 200 | success | 3 | `truncated=true`, warning `row_limit_exceeded` |
+| `top_n.json` | success | `SELECT Name, Capacity FROM stadium ORDER BY Capacity DESC LIMIT 5` | 5 | 1.9 s |
+| `time_series.json` | success | `SELECT COUNT(*) AS concerts_count, YEAR FROM concert GROUP BY YEAR` | 2 | 1.3 s |
+| `category_comparison.json` | success | `SELECT Country, COUNT(*) AS NumberOfSingers FROM singer GROUP BY Country` | 3 | 2.6 s |
+| `empty_result.json` | partial_success | `SELECT Name FROM singer WHERE Age < 0` | 0 (warning `empty_result`) | 1.0 s |
 
-`sql_guard` unit checks: 10/10 cases pass (rejects `DROP`, `UPDATE`, `PRAGMA`, multiple statements; accepts `SELECT`/`WITH`; line comments don't smuggle keywords; `extract_sql` strips ```` ```sql ```` fences and `SQL:` prefixes).
+## 6. GPU info (real)
+
+```
+device:        cuda
+gpu_name:      NVIDIA L4
+vram_total_gb: 22.03
+vram_free_gb:  7.69    (≈14 GB занято под Qwen2.5-Coder-7B-Instruct в 4-bit)
+cuda_available: true
+```
+
+## 7. Smoke test results (Colab L4, real model)
+
+`python -m colab.smoke_extract --base-url <ngrok-url>` → exit 0. См. таблицу в §5.
+
+`sql_guard` unit checks (locally): 10/10 cases pass (rejects `DROP`, `UPDATE`, `PRAGMA`, multiple statements; accepts `SELECT`/`WITH`; line comments don't smuggle keywords; `extract_sql` strips ```` ```sql ```` fences and `SQL:` prefixes).
+
+Live error/warning paths confirmed via direct probes:
+- `data_source.id="does_not_exist"` → `errors[0].code == "schema_not_found"`, status `failed`.
+- `row_limit=3` против 6-строчной таблицы → `truncated=true`, warning `row_limit_exceeded`.
+- Запрос с `WHERE age < 0` → 0 rows → status `partial_success`, warning `empty_result`.
 
 ## 8. Contract guarantees (cross-checked against the spec)
 
@@ -218,34 +207,30 @@ On Colab the `colab.gpu.gpu_info()` helper reports `device`, `gpu_name`, `vram_t
 
 ## 9. Known limitations
 
-1. **Local smoke tests run mock-mode only** — this environment has no GPU, no `transformers` install, and no Drive. Real model load is exercised only when the notebook runs in Colab.
-2. **Mock heuristic is intentionally dumb** — for the four bundled fixtures it usually picks the first table (alphabetical: `concert`) and returns the first 5 columns. Real Qwen2.5-Coder will produce schema-aware SQL. The point of mock mode is HTTP-contract testing, not SQL quality.
-3. **`data_sources.json` aliases `demo_sales` → Spider's `concert_singer`** because that's where you said the demo data lives. To point at a different demo, edit `demo_data/data_sources.json` (no code change).
-4. **No retries on Colab cold-start** — the notebook waits up to 10 min for `/health` to flip `model_loaded=true`, then bails. First-run model download from HF can occasionally exceed that on T4 — re-run the cell if it fails (model files cache in `/root/.cache` for the session).
-5. **ngrok free-tier URL changes per session.** The main server's `COLAB_SERVICE_URL` env var must be re-pointed each time you reboot Colab. Stable URL needs a paid ngrok plan or a custom domain — out of scope here.
-6. **No persistent rate limiting / auth on `/extract`.** OK because the tunnel is private and short-lived; if you ever expose this beyond your team, add auth.
+1. **Local smoke runs mock-mode only**; real GPU pipeline валидируется только на Colab. Это сделано в этой сессии — все 4 фикстуры зелёные на L4.
+2. **`data_sources.json` aliases `demo_sales` → Spider `concert_singer`** — менять только в `demo_data/data_sources.json`, не в коде.
+3. **`Name` колонка из stadium иногда указывает `source_table: "singer"`** в `field_metadata`, потому что resolver берёт первое совпадение по lookup без учёта `FROM` clause. Не влияет на корректность SQL/данных, только на provenance. Минорное nice-to-have.
+4. **ngrok free-tier URL меняется при рестарте Colab.** На стороне основного сервера `COLAB_SERVICE_URL` нужно перенаправлять. Стабильный URL — платный ngrok / Cloudflare named tunnel.
+5. **Нет auth на `/extract` и `/debug/datasources`.** Туннель приватный и короткоживущий — ок. Если выставлять во внешний мир — добавить bearer-токен.
+6. **Cold-start модели ~3-5 минут на L4 первый раз** (скачивание весов с HF). Кэш `/root/.cache/huggingface` живёт до перезапуска runtime.
 
-## 10. What I needed from you and what's still pending
+## 10. End-to-end validation status
 
-**Already received (this session):**
+✅ **Запущено и проверено на Colab L4 в этой сессии.** Drive подключён, `.env` на Drive (`NGROK_AUTHTOKEN` + `GITHUB_PAT`), Spider-базы доступны, репо клонируется по PAT, Qwen2.5-Coder-7B загружается в 4-bit (≈14 GB VRAM), uvicorn + ngrok поднимаются. Все 4 фикстуры — `success`/`partial_success`, smoke exit 0.
 
-- Demo DB choice: reuse Spider DBs from `/content/drive/MyDrive/diploma_plan_sql/data/spider/database`. Wired via `COLAB_SPIDER_DB_ROOT` + `demo_data/data_sources.json`.
-- Model + quant: Qwen2.5-Coder-7B-Instruct, 4-bit bnb. Defaults in `colab/config.py`.
-- Tunnel: ngrok, token already in `.env`. Notebook reads it from Drive at runtime.
-- Drive mount: yes, logs/artifacts at `/content/drive/MyDrive/nl2bi_colab/`.
+Стабильный setup в `.env` на Drive (`/content/drive/MyDrive/nl2bi_colab/.env`):
+```
+NGROK_AUTHTOKEN=...
+GITHUB_PAT=ghp_... (with repo:read on petrussia/NL2BI-AI-assistant)
+```
 
-**Still needed from you to actually run end-to-end on Colab (one-time setup):**
-
-1. Copy `.env` to Drive at `/content/drive/MyDrive/nl2bi_colab/.env`. (Repo-level `.env` is gitignored and only used for local tests; Colab needs it on Drive.)
-2. Confirm Spider data is at `/content/drive/MyDrive/diploma_plan_sql/data/spider/database/` (you already have it there — I saw it referenced in your `experiments/denis` notebooks). If the path differs, override `COLAB_SPIDER_DB_ROOT` in the Drive `.env`.
-3. Push this branch to GitHub so the notebook can `git clone` it. Until pushed, either change `NL2BI_GIT_URL`/`NL2BI_GIT_BRANCH` in the notebook cell-2 or paste the repo into Drive manually.
-4. In Colab, attach a GPU runtime (T4 / L4 / A100). 7B-4bit fits T4 (~6 GB) so any of the three will work.
+Прочие переменные оставить дефолтные — resolver сам найдёт `<repo>/demo_data/data_sources.json`.
 
 ## 11. What to send to ChatGPT after this stage
 
 - This report (`docs/03_claude_colab_text_to_sql_report.md`).
-- `/health` JSON from a real Colab run (so GPU fields are populated).
-- One `/extract` JSON from a real Colab run (Qwen-generated SQL, not mock).
-- `nvidia-smi` output (or just `gpu_name` + `vram_total_gb`).
-- The `PUBLIC_URL` ngrok printed (so the server side can wire `COLAB_SERVICE_URL`).
-- Any errors from `colab/logs/uvicorn.stderr.log` on Drive if startup or generation failed.
+- `/health` JSON (есть в §4).
+- `/extract` JSON для одного запроса (есть в §5, top_n).
+- `gpu_name=NVIDIA L4`, `vram_total_gb=22.03`.
+- Текущий `PUBLIC_URL` (берётся из output ячейки 7 при свежем запуске Colab).
+- При проблемах — содержимое `/content/drive/MyDrive/nl2bi_colab/logs/uvicorn.stderr.log`.
