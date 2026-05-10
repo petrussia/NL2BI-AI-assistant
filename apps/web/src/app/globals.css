@@ -415,10 +415,24 @@ td.emptyRow {
   min-height: 280px;
 }
 
-.chartArtifact .vegaChart svg {
+/* Vega-embed renders the chart as <div class="vega-embed"><svg class="marks">…
+ * and an action menu <details class="vega-actions"> with its OWN small <svg>
+ * icon inside <summary>. The original `.vegaChart svg` rule blew up that
+ * icon to 100% width along with the chart — fixed by targeting marks only. */
+.chartArtifact .vegaChart .vega-embed > svg.marks {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Keep action menu icon at vega's intrinsic size + tuck it into the corner. */
+.chartArtifact .vegaChart details.vega-actions summary svg {
+  width: 16px;
+  height: 16px;
+}
+.chartArtifact .vegaChart details.vega-actions {
+  top: 6px;
+  right: 6px;
 }
 
 .chartLoader {
