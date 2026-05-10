@@ -1,0 +1,1 @@
+{"n_total": 50, "n_target": 50, "plan_ok": 27, "schema_valid": 27, "parse_ok": 49, "execute_ok": 22, "family_counts": {"B": 7, "A": 43}, "rewrite_counts": {"array_contains": 1}, "rewrite_helpful": {}, "err_top": [["schema_invalid", 22], ["bq_dry_run_failed", 14], ["ok", 13], ["parse_error", 1]], "wall_sec": 6467.4, "last_task": "bq035"}

@@ -1,0 +1,1 @@
+{"n_total": 50, "plan_ok": 27, "schema_valid": 27, "parse_ok": 49, "execute_ok": 22, "family_counts": {"B": 7, "A": 43}, "rewrite_helpful": {}, "wall_sec": 6467.5, "ts": 1778394225.6115136}

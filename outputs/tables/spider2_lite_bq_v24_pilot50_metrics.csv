@@ -1,0 +1,13 @@
+metric,phase22_v22_pilot50,phase24_v24_pilot50,delta_pp,gate_target,gate_passed
+n,50,50,0,—,—
+plan_validation_ok,27,27,0,—,—
+chosen_schema_valid,27,27,0,>=30 (60%),NO
+parse_ok,49,49,0,—,—
+execute_ok,22,22,0,>=25 (50%),NO
+chosen_family_A,43,43,0,—,—
+chosen_family_B,7,7,0,—,—
+chosen_family_A_v24,—,0,—,—,—
+chosen_family_B_v24,—,0,—,—,—
+engine_rewrites_emitted,—,1,—,—,—
+engine_rewrites_helpful,—,0,—,—,—
+wall_sec,3600,6467,+2867,—,—

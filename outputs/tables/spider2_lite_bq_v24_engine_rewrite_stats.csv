@@ -1,0 +1,7 @@
+rewrite_kind,emitted_count,helpful_count,notes
+array_contains,1,0,emitted on bq010 (ARRAY_CONTAINS function); A_v24 still failed dry_run because the SQL has other errors beyond ARRAY_CONTAINS
+nth,0,0,no NTH() patterns observed in pilot50
+multi_unnest,0,0,no chained UNNEST patterns observed in pilot50 (single-level UNNEST is fine)
+nested_agg,0,0,flagged-only (no auto-rewrite); detected on bq019 + bq172 but not rewritten (CTE rewrite needs GROUP-BY scope analysis to be safe)
+window_groupby,0,0,flagged-only diagnostic; no co-occurrence flag fired in pilot50 chosen candidates
+and_int_to_bool,0,0,target pattern is `AND <bare_id>` but actual v24 traces show the AND-on-int errors are caused by UNQUOTED DATE LITERALS (e.g. `AND (2023-10-01)`) parsed as integer arithmetic by BQ — different root cause; rewrite did not match
