@@ -1,0 +1,1 @@
+{"request_id":"cea46c83ead7421c947c036b972f3192","status":"failed","message":"Не удалось получить данные для запроса.","selected_view":{},"artifacts":[],"warnings":[],"errors":[{"code":"colab_unavailable","message":"Colab extraction service недоступен.","source":"colab","retryable":true,"details":{}}],"debug":{"sql_visible":false}}

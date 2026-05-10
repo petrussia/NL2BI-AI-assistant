@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+data/*.db
+data/*.db-*
+artifacts/*
+!artifacts/.gitkeep
+apps/web/.next/
+apps/web/node_modules/
+apps/web/out/
+apps/web/.env.local
+

@@ -1,0 +1,74 @@
+{
+  "request_id": "fixture_top_n",
+  "status": "success",
+  "user_query": "Покажи топ клиентов по выручке",
+  "normalized_query": "top customers by revenue",
+  "data_source": {
+    "id": "demo_sales",
+    "name": "Demo Sales",
+    "dialect": "sqlite",
+    "schema_version": "demo-v1"
+  },
+  "plan": {
+    "raw": {},
+    "validated": true,
+    "intent": "top_n",
+    "tables": ["sales"],
+    "columns": ["customer", "revenue"],
+    "filters": [],
+    "aggregations": [{"field": "revenue", "aggregation": "sum"}],
+    "group_by": ["customer"],
+    "order_by": [{"field": "revenue", "direction": "desc"}],
+    "limit": 5,
+    "joins": [],
+    "assumptions": ["Demo fixture data"]
+  },
+  "sql": {
+    "query": "select customer, sum(revenue) as revenue from sales group by customer order by revenue desc limit 5",
+    "dialect": "sqlite",
+    "validated": true,
+    "read_only": true
+  },
+  "result_table": {
+    "format": "records",
+    "columns": ["customer", "revenue"],
+    "rows": [
+      {"customer": "Northwind", "revenue": 91000},
+      {"customer": "Contoso", "revenue": 83500},
+      {"customer": "Fabrikam", "revenue": 74200},
+      {"customer": "Litware", "revenue": 59600},
+      {"customer": "Adventure Works", "revenue": 52100}
+    ],
+    "uri": null,
+    "row_count": 5,
+    "truncated": false
+  },
+  "field_metadata": [
+    {
+      "name": "customer",
+      "display_name": "Клиент",
+      "sql_type": "text",
+      "data_type": "string",
+      "semantic_role": "dimension",
+      "allowed_aggregations": ["none"],
+      "default_aggregation": "none",
+      "provenance": {"expression": "customer", "aggregation": null, "derived": false}
+    },
+    {
+      "name": "revenue",
+      "display_name": "Выручка",
+      "sql_type": "numeric",
+      "data_type": "number",
+      "semantic_role": "measure",
+      "unit": "RUB",
+      "allowed_aggregations": ["sum", "avg", "min", "max"],
+      "default_aggregation": "sum",
+      "provenance": {"expression": "sum(revenue)", "aggregation": "sum", "derived": true}
+    }
+  ],
+  "execution": {"latency_ms": 18, "row_limit": 1000, "timeout_ms": 8000, "executable": true},
+  "quality": {"confidence": 0.9, "warnings": []},
+  "errors": [],
+  "warnings": []
+}
+

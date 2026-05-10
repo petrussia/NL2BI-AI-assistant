@@ -1,0 +1,23 @@
+{
+  "request_id": "smoke-category-comparison",
+  "user_query": "Сравни количество певцов по странам",
+  "locale": "ru-RU",
+  "timezone": "Europe/Moscow",
+  "data_source": {
+    "id": "demo_concert_singer",
+    "dialect": "sqlite",
+    "connection_ref": null,
+    "schema_version": "spider-v1"
+  },
+  "constraints": {
+    "read_only": true,
+    "timeout_ms": 8000,
+    "row_limit": 1000,
+    "allow_llm_repair": true
+  },
+  "presentation_hint": {
+    "preferred_output": "auto",
+    "requested_fields": [],
+    "requested_metrics": []
+  }
+}

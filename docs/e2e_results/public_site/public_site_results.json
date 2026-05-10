@@ -1,0 +1,78 @@
+{
+  "baseUrl": "http://103.54.18.109/",
+  "username": "public_1778367774152",
+  "startedAt": "2026-05-09T23:02:54.152Z",
+  "steps": [
+    {
+      "name": "00_public_auth_initial.png",
+      "note": "Public URL loaded, Sign in button visible.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/00_public_auth_initial.png"
+    },
+    {
+      "name": "01_create_account_clicked.png",
+      "note": "Create account toggled the auth form to Register mode.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/01_create_account_clicked.png"
+    },
+    {
+      "name": "02_use_existing_clicked.png",
+      "note": "Use existing account toggled the auth form back to Sign in mode.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/02_use_existing_clicked.png"
+    },
+    {
+      "name": "03_register_form_filled.png",
+      "note": "Registration form filled with a unique test user.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/03_register_form_filled.png"
+    },
+    {
+      "name": "04_register_success.png",
+      "note": "Register button created the user and opened the chat app.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/04_register_success.png"
+    },
+    {
+      "name": "05_sign_in_form_filled.png",
+      "note": "Sign in form filled with the registered public test user.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/05_sign_in_form_filled.png"
+    },
+    {
+      "name": "06_sign_in_success.png",
+      "note": "Sign in button authenticated the test user.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/06_sign_in_success.png"
+    },
+    {
+      "name": "07_new_chat_clicked.png",
+      "note": "New chat button created and selected a new analysis session.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/07_new_chat_clicked.png"
+    },
+    {
+      "name": "08_session_button_clicked.png",
+      "note": "Session button in the sidebar is clickable and keeps the chat pane active.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/08_session_button_clicked.png"
+    },
+    {
+      "name": "09_select_controls_changed.png",
+      "note": "Output/style controls switched to Chart and Technical.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/09_select_controls_changed.png"
+    },
+    {
+      "name": "10_send_clicked_artifacts.png",
+      "note": "Send button submitted the query and rendered response artifacts.",
+      "screenshot": "/home/NL2BI-AI-assistant/docs/e2e_results/public_site/10_send_clicked_artifacts.png"
+    }
+  ],
+  "consoleMessages": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "badResponses": [],
+  "summary": {
+    "buttonTexts": [
+      "New chat",
+      "Новый анализ",
+      "Demo NL2BI",
+      "Send"
+    ],
+    "artifactCount": 2,
+    "messageCount": 2
+  },
+  "finishedAt": "2026-05-09T23:02:57.363Z",
+  "ok": true
+}

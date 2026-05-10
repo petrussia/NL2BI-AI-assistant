@@ -1,0 +1,14 @@
+{
+  "request_id": "334784a9633942bab638128d1db20772",
+  "status": "success",
+  "server_url": "http://127.0.0.1:8101",
+  "query": "Сравни количество певцов по странам",
+  "data_source_id": "demo_concert_singer",
+  "runtime_path": "docs/e2e_results/live_colab/runtime.json",
+  "response_path": "docs/e2e_results/live_colab/nl2chart_response.json",
+  "selected_view_path": "docs/e2e_results/live_colab/selected_view.json",
+  "artifacts_path": "docs/e2e_results/live_colab/artifacts.json",
+  "table_artifact_count": 1,
+  "error_codes": [],
+  "ok": true
+}

@@ -1,0 +1,142 @@
+{
+  "request_id": "demo-top-n-001",
+  "status": "success",
+  "user_query": "Покажи топ 5 категорий по продажам",
+  "normalized_query": null,
+  "data_source": {
+    "id": "demo_sales",
+    "name": "Demo Sales",
+    "dialect": "sqlite",
+    "schema_version": "demo.v1"
+  },
+  "plan": {
+    "raw": {},
+    "validated": true,
+    "intent": "top_n",
+    "tables": [
+      "sales"
+    ],
+    "columns": [
+      "category",
+      "sales_count"
+    ],
+    "filters": [],
+    "aggregations": [
+      {
+        "field": "sales_count",
+        "function": "sum",
+        "alias": "sales_count"
+      }
+    ],
+    "group_by": [
+      "category"
+    ],
+    "order_by": [
+      {
+        "field": "sales_count",
+        "direction": "desc"
+      }
+    ],
+    "limit": 5,
+    "joins": [],
+    "assumptions": []
+  },
+  "sql": {
+    "query": "SELECT category, SUM(sales_count) AS sales_count FROM sales GROUP BY category ORDER BY sales_count DESC LIMIT 5",
+    "dialect": "sqlite",
+    "validated": true,
+    "read_only": true
+  },
+  "result_table": {
+    "format": "records",
+    "columns": [
+      "category",
+      "sales_count"
+    ],
+    "rows": [
+      {
+        "category": "Electronics",
+        "sales_count": 420
+      },
+      {
+        "category": "Home",
+        "sales_count": 240
+      },
+      {
+        "category": "Books",
+        "sales_count": 180
+      }
+    ],
+    "uri": null,
+    "row_count": 3,
+    "truncated": false
+  },
+  "field_metadata": [
+    {
+      "name": "category",
+      "source_table": "sales",
+      "source_column": "category",
+      "display_name": null,
+      "description": null,
+      "sql_type": "TEXT",
+      "data_type": "string",
+      "semantic_role": "dimension",
+      "unit": null,
+      "periodicity": null,
+      "allowed_aggregations": [
+        "none"
+      ],
+      "default_aggregation": "none",
+      "nullable": false,
+      "examples": [
+        "Electronics"
+      ],
+      "provenance": {
+        "expression": null,
+        "aggregation": null,
+        "derived": false
+      }
+    },
+    {
+      "name": "sales_count",
+      "source_table": "sales",
+      "source_column": "sales_count",
+      "display_name": null,
+      "description": null,
+      "sql_type": "INTEGER",
+      "data_type": "number",
+      "semantic_role": "measure",
+      "unit": null,
+      "periodicity": null,
+      "allowed_aggregations": [
+        "sum",
+        "avg",
+        "min",
+        "max",
+        "none"
+      ],
+      "default_aggregation": "sum",
+      "nullable": false,
+      "examples": [
+        420
+      ],
+      "provenance": {
+        "expression": null,
+        "aggregation": "sum",
+        "derived": true
+      }
+    }
+  ],
+  "execution": {
+    "latency_ms": 120,
+    "row_limit": 1000,
+    "timeout_ms": 8000,
+    "executable": true
+  },
+  "quality": {
+    "confidence": null,
+    "warnings": []
+  },
+  "errors": [],
+  "warnings": []
+}
