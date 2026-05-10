@@ -13,6 +13,19 @@ def _envbool(name: str, default: bool = False) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
 
 
+def _read_file_secret(*candidates: Path) -> str | None:
+    """Return the first non-empty text from the given paths (utf-8 stripped)."""
+    for path in candidates:
+        try:
+            if path.exists():
+                text = path.read_text(encoding="utf-8").strip()
+                if text:
+                    return text
+        except OSError:
+            continue
+    return None
+
+
 @dataclass(frozen=True)
 class ColabServerConfig:
     model_id: str
@@ -25,15 +38,17 @@ class ColabServerConfig:
     artifacts_dir: Path
     log_dir: Path
     server_role: str
+    # Auth + feature flags
+    api_token: str | None
+    require_auth: bool
+    debug_endpoints: bool
+    bridge_enabled: bool
 
     @classmethod
     def from_env(cls) -> "ColabServerConfig":
         repo_root = Path(__file__).resolve().parent.parent
         repo_default_sources = repo_root / "demo_data" / "data_sources.json"
         env_sources = os.environ.get("COLAB_DATA_SOURCES_PATH")
-        # If env var points at a non-existent file, fall back to the bundled
-        # one inside the repo. Bad env values silently broke schema resolution
-        # before — now the in-repo JSON wins as long as it exists.
         if env_sources and Path(env_sources).exists():
             data_sources_path = Path(env_sources)
         else:
@@ -43,6 +58,14 @@ class ColabServerConfig:
         default_logs = Path("/content/drive/MyDrive/nl2bi_colab/logs")
         artifacts_dir = Path(os.environ.get("COLAB_ARTIFACTS_DIR", str(default_artifacts)))
         log_dir = Path(os.environ.get("COLAB_LOG_DIR", str(default_logs)))
+
+        # API token: env > Drive fallback files. Drive fallback exists because
+        # the claude.ai Drive MCP can only write at MyDrive root.
+        api_token = os.environ.get("COLAB_API_TOKEN") or _read_file_secret(
+            Path("/content/drive/MyDrive/nl2bi_colab/.colab_api_token"),
+            Path("/content/drive/MyDrive/.colab_api_token"),
+        )
+
         return cls(
             model_id=os.environ.get("COLAB_MODEL_ID", "Qwen/Qwen2.5-Coder-7B-Instruct"),
             mock_model=_envbool("COLAB_MOCK_MODEL", False),
@@ -61,17 +84,26 @@ class ColabServerConfig:
             artifacts_dir=artifacts_dir,
             log_dir=log_dir,
             server_role="colab-runtime",
+            api_token=api_token,
+            require_auth=_envbool("COLAB_REQUIRE_AUTH", False),
+            debug_endpoints=_envbool("COLAB_DEBUG_ENDPOINTS", False),
+            bridge_enabled=_envbool("COLAB_BRIDGE_ENABLED", False),
         )
 
 
 def load_data_sources(config: ColabServerConfig) -> dict[str, dict[str, str]]:
-    """Map of data_source.id -> {db_name, sqlite_path, name?, schema_version?}."""
+    """Map of data_source.id -> {db_name, sqlite_path, name?, schema_version?}.
+
+    Keys starting with `_` are treated as comments/documentation (e.g. `_doc`)
+    and excluded from the returned map.
+    """
     if not config.data_sources_path.exists():
         return {}
     try:
-        return json.loads(config.data_sources_path.read_text(encoding="utf-8"))
+        raw = json.loads(config.data_sources_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return {}
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
 
 
 def resolve_sqlite_path(

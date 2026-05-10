@@ -85,9 +85,16 @@ def _resolve_expected_token() -> str | None:
 
 
 def _check_token() -> tuple[bool, str | None]:
+    """Fail-closed: if no token is configured, every authed route rejects.
+
+    /exec must NEVER be reachable without a configured BRIDGE_TOKEN (env or
+    Drive-fallback file). Previously this returned `ok=True` when nothing was
+    set — that opened an RCE surface. The bridge now refuses both at startup
+    (see start_bridge) and per-request as a defense in depth.
+    """
     expected = _resolve_expected_token()
     if not expected:
-        return True, None
+        return False, "BRIDGE_TOKEN not configured on the server"
     received = request.headers.get("X-Bridge-Token")
     if received and received == expected:
         return True, None
@@ -276,11 +283,24 @@ def start_bridge(
 ) -> str | None:
     """Boot the Flask bridge in a daemon thread and publish via ngrok.
 
-    Idempotent: re-runs do not start a second flask thread or a second tunnel
-    on the same port (the ngrok teardown above clears prior bridge tunnels).
-    Returns the public URL.
+    Refuses to start when no BRIDGE_TOKEN is configured (env or Drive
+    fallback file). This makes it impossible to accidentally publish an
+    unauthenticated /exec to the internet.
+
+    Idempotent: re-runs do not start a second flask thread or a second
+    tunnel on the same port.
+
+    Returns the public URL, or None on startup failure.
     """
     global _BRIDGE_THREAD, _BRIDGE_TUNNEL_URL
+
+    if not _resolve_expected_token():
+        print(
+            "BRIDGE_REFUSED: BRIDGE_TOKEN not configured. Set BRIDGE_TOKEN in "
+            f"env, or place a non-empty file at one of {[str(p) for p in _TOKEN_FILE_CANDIDATES]}. "
+            "Refusing to start an open /exec endpoint."
+        )
+        return None
 
     if _BRIDGE_THREAD is None or not _BRIDGE_THREAD.is_alive():
         def _serve() -> None:
@@ -323,10 +343,8 @@ def start_bridge(
     if url:
         print()
         print(f"BRIDGE_URL: {url}")
-        if os.environ.get("BRIDGE_TOKEN"):
-            print("BRIDGE_AUTH: X-Bridge-Token header required (BRIDGE_TOKEN set)")
-        else:
-            print("BRIDGE_AUTH: open (set BRIDGE_TOKEN in .env to require auth)")
+        # Don't reveal where the token came from — only that auth is on.
+        print("BRIDGE_AUTH: X-Bridge-Token header required on all routes except /health")
         print("BRIDGE_READY")
     else:
         print("BRIDGE_FAILED: tunnel could not be opened (check NGROK_AUTHTOKEN)")

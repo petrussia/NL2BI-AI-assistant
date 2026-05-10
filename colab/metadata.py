@@ -191,8 +191,15 @@ def infer_field_metadata(
         if role == "dimension":
             allowed_aggs = ["count"]
             default_agg = "count"
-        if is_aggregate_numeric and provenance_agg in {"sum", "avg", "min", "max", "count"}:
-            default_agg = provenance_agg  # type: ignore[assignment]
+
+        # Already-aggregated columns must not be aggregated again downstream.
+        # Visualizer / chart adapter reads default_aggregation and would
+        # double-count if it saw 'sum' / 'count' on a SUM(...) / COUNT(*)
+        # alias. provenance.aggregation still carries the actual SQL function
+        # for traceability.
+        if derived and provenance_agg is not None:
+            allowed_aggs = ["none"]
+            default_agg = "none"
 
         examples: list[Any] = []
         for v in sample_values[:3]:

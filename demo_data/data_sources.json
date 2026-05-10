@@ -1,7 +1,13 @@
 {
+  "_doc": "data_source.id -> Spider DB mapping. 'demo_sales' is a legacy alias kept for backward compatibility with existing extraction_requests/*.json fixtures; new integrations should use 'demo_concert_singer' or any other concrete Spider DB name.",
+  "demo_concert_singer": {
+    "db_name": "concert_singer",
+    "name": "Spider concert_singer (canonical demo DB)",
+    "schema_version": "spider-v1"
+  },
   "demo_sales": {
     "db_name": "concert_singer",
-    "name": "Spider concert_singer (used as demo_sales)",
+    "name": "Legacy alias -> Spider concert_singer (kept for backward compat)",
     "schema_version": "spider-v1"
   },
   "concert_singer": {

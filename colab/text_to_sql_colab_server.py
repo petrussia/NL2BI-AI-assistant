@@ -10,6 +10,20 @@ Drive mount, ngrok tunnel, and uvicorn startup.
 Mock-model mode for HTTP smoke tests:
 
     COLAB_MOCK_MODEL=true uvicorn colab.text_to_sql_colab_server:app
+
+Auth / feature flags (read by colab.config.ColabServerConfig.from_env):
+
+    COLAB_API_TOKEN          shared secret for Bearer auth on /extract,
+                             /reload_model, and gated endpoints
+    COLAB_REQUIRE_AUTH       'true' to require Bearer on /extract +
+                             /reload_model (default off so old setups keep
+                             working)
+    COLAB_DEBUG_ENDPOINTS    'true' to expose /debug/datasources (always
+                             auth-protected once enabled)
+    COLAB_BRIDGE_ENABLED     'true' to expose /admin/bridge_url (always
+                             auth-protected once enabled)
+
+Auth never logs the token (only the response status).
 """
 from __future__ import annotations
 
@@ -18,7 +32,7 @@ import os
 import sys
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.responses import JSONResponse
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -46,7 +60,49 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 
 _config = ColabServerConfig.from_env()
 _model = TextToSqlModel(_config)
-app = FastAPI(title="NL2BI Colab Text-to-SQL Service", version="0.1.0")
+app = FastAPI(title="NL2BI Colab Text-to-SQL Service", version="0.2.0")
+
+
+def _validate_bearer(authorization: str | None) -> None:
+    """Raise 401 if the Authorization header doesn't carry the configured token.
+
+    Does NOT log the token — only the failure reason.
+    """
+    if not _config.api_token:
+        raise HTTPException(status_code=503, detail="server has no api_token configured")
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="missing or invalid Authorization header")
+    token = authorization[len("Bearer "):].strip()
+    if not token or token != _config.api_token:
+        raise HTTPException(status_code=401, detail="invalid bearer token")
+
+
+def require_api_auth(authorization: str | None = Header(None)) -> None:
+    """Bearer auth dependency for /extract + /reload_model.
+
+    No-op when COLAB_REQUIRE_AUTH is false (back-compat).
+    """
+    if not _config.require_auth:
+        return
+    _validate_bearer(authorization)
+
+
+def require_debug_enabled(authorization: str | None = Header(None)) -> None:
+    """Gate /debug/* — must be explicitly enabled, and the call must auth.
+
+    When disabled the endpoint pretends not to exist (404) so probes don't
+    leak its presence.
+    """
+    if not _config.debug_endpoints:
+        raise HTTPException(status_code=404, detail="Not Found")
+    _validate_bearer(authorization)
+
+
+def require_bridge_enabled(authorization: str | None = Header(None)) -> None:
+    """Gate /admin/* — same shape as require_debug_enabled."""
+    if not _config.bridge_enabled:
+        raise HTTPException(status_code=404, detail="Not Found")
+    _validate_bearer(authorization)
 
 
 @app.on_event("startup")
@@ -64,11 +120,18 @@ def _on_startup() -> None:
         state.model_id,
         state.load_error,
     )
+    # Never log token values; only whether each is configured.
+    logger.info(
+        "auth flags: require_auth=%s api_token_set=%s debug_endpoints=%s bridge_enabled=%s",
+        _config.require_auth,
+        bool(_config.api_token),
+        _config.debug_endpoints,
+        _config.bridge_enabled,
+    )
 
 
 def _health_payload() -> dict[str, object]:
     info = gpu_info()
-    sqlite_root_exists = _config.spider_db_root.exists()
     return {
         "status": "ok",
         "model_loaded": _model.is_ready(),
@@ -78,8 +141,14 @@ def _health_payload() -> dict[str, object]:
         "gpu_name": info["gpu_name"],
         "vram_total_gb": info["vram_total_gb"],
         "vram_free_gb": info["vram_free_gb"],
-        "demo_db_ready": sqlite_root_exists,
+        "demo_db_ready": _config.spider_db_root.exists(),
         "server_role": _config.server_role,
+        "auth": {
+            "require_auth": _config.require_auth,
+            "api_token_set": bool(_config.api_token),
+            "debug_endpoints": _config.debug_endpoints,
+            "bridge_enabled": _config.bridge_enabled,
+        },
     }
 
 
@@ -88,27 +157,7 @@ def health() -> dict[str, object]:
     return _health_payload()
 
 
-@app.get("/admin/bridge_url")
-def admin_bridge_url() -> dict[str, object]:
-    """Return the agent bridge URL recorded by colab.agent_bridge.start_bridge.
-
-    Lets the agent fetch the (rotating) bridge URL through the stable FastAPI
-    URL — i.e. with one known endpoint the agent can find both /extract (here)
-    and /exec (the bridge), without the human re-pasting URLs after restarts.
-    """
-    marker_path = Path(
-        os.environ.get(
-            "COLAB_BRIDGE_URL_MARKER",
-            "/content/drive/MyDrive/nl2bi_colab/.bridge_url",
-        )
-    )
-    if not marker_path.exists():
-        return {"bridge_url": None, "marker_path": str(marker_path), "exists": False}
-    text = marker_path.read_text(encoding="utf-8").strip() or None
-    return {"bridge_url": text, "marker_path": str(marker_path), "exists": True}
-
-
-@app.get("/debug/datasources")
+@app.get("/debug/datasources", dependencies=[Depends(require_debug_enabled)])
 def debug_datasources() -> dict[str, object]:
     """Diagnose schema_not_found errors: list each id and whether its file exists."""
     sources = load_data_sources(_config)
@@ -140,7 +189,31 @@ def debug_datasources() -> dict[str, object]:
     }
 
 
-@app.post("/extract", response_model=DataExtractionResponse, response_model_exclude_none=False)
+@app.get("/admin/bridge_url", dependencies=[Depends(require_bridge_enabled)])
+def admin_bridge_url() -> dict[str, object]:
+    """Return the agent bridge URL recorded by colab.agent_bridge.start_bridge.
+
+    Auth-gated. The returned URL itself is a credential; the gate prevents
+    casual discovery of the bridge from anyone who can reach /admin/*.
+    """
+    marker_path = Path(
+        os.environ.get(
+            "COLAB_BRIDGE_URL_MARKER",
+            "/content/drive/MyDrive/nl2bi_colab/.bridge_url",
+        )
+    )
+    if not marker_path.exists():
+        return {"bridge_url": None, "marker_path": str(marker_path), "exists": False}
+    text = marker_path.read_text(encoding="utf-8").strip() or None
+    return {"bridge_url": text, "marker_path": str(marker_path), "exists": True}
+
+
+@app.post(
+    "/extract",
+    response_model=DataExtractionResponse,
+    response_model_exclude_none=False,
+    dependencies=[Depends(require_api_auth)],
+)
 def extract(body: DataExtractionRequest) -> DataExtractionResponse:
     try:
         return run_extraction(body, _config, _model)
@@ -175,7 +248,7 @@ def extract(body: DataExtractionRequest) -> DataExtractionResponse:
         )
 
 
-@app.post("/reload_model")
+@app.post("/reload_model", dependencies=[Depends(require_api_auth)])
 def reload_model() -> JSONResponse:
     _model._tokenizer = None  # type: ignore[attr-defined]
     _model._model = None  # type: ignore[attr-defined]
