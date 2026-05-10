@@ -14,14 +14,18 @@ Mock-model mode for HTTP smoke tests:
 Auth / feature flags (read by colab.config.ColabServerConfig.from_env):
 
     COLAB_API_TOKEN          shared secret for Bearer auth on /extract,
-                             /reload_model, and gated endpoints
-    COLAB_REQUIRE_AUTH       'true' to require Bearer on /extract +
-                             /reload_model (default off so old setups keep
-                             working)
-    COLAB_DEBUG_ENDPOINTS    'true' to expose /debug/datasources (always
-                             auth-protected once enabled)
-    COLAB_BRIDGE_ENABLED     'true' to expose /admin/bridge_url (always
-                             auth-protected once enabled)
+                             /reload_model, and gated endpoints. Resolved
+                             from env or Drive-fallback files.
+    COLAB_REQUIRE_AUTH       default TRUE — secure-by-default. /extract and
+                             /reload_model require Authorization: Bearer
+                             <COLAB_API_TOKEN>. Set to 'false' only with
+                             explicit intent (private experiment).
+    COLAB_DEBUG_ENDPOINTS    default FALSE — /debug/datasources is hidden
+                             (404). When 'true', it is exposed but still
+                             auth-gated.
+    COLAB_BRIDGE_ENABLED     default FALSE — /admin/bridge_url is hidden
+                             (404). When 'true', it is exposed but still
+                             auth-gated.
 
 Auth never logs the token (only the response status).
 """
@@ -80,7 +84,9 @@ def _validate_bearer(authorization: str | None) -> None:
 def require_api_auth(authorization: str | None = Header(None)) -> None:
     """Bearer auth dependency for /extract + /reload_model.
 
-    No-op when COLAB_REQUIRE_AUTH is false (back-compat).
+    No-op only when an operator has explicitly set COLAB_REQUIRE_AUTH=false.
+    The default in colab.config.ColabServerConfig.from_env is True, so a
+    missing env var keeps the endpoints locked.
     """
     if not _config.require_auth:
         return

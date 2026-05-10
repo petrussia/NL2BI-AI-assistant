@@ -85,7 +85,10 @@ class ColabServerConfig:
             log_dir=log_dir,
             server_role="colab-runtime",
             api_token=api_token,
-            require_auth=_envbool("COLAB_REQUIRE_AUTH", False),
+            # Secure-by-default: if COLAB_REQUIRE_AUTH is unset, /extract and
+            # /reload_model still require a Bearer token. Operators must
+            # explicitly opt out with COLAB_REQUIRE_AUTH=false (don't).
+            require_auth=_envbool("COLAB_REQUIRE_AUTH", True),
             debug_endpoints=_envbool("COLAB_DEBUG_ENDPOINTS", False),
             bridge_enabled=_envbool("COLAB_BRIDGE_ENABLED", False),
         )
