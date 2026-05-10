@@ -192,6 +192,9 @@ def schema_valid_against_pack(sql: str, pack: dict) -> tuple:
 
     # Pull explicit aliases declared in the SQL — these should NOT
     # be flagged as leaks even if they aren't in the pack.
+    # v21 STAGE A1: also track UNNEST/Lateral aliases (so `param` in
+    # `UNNEST(event_params) AS param WHERE param.key=...` is recognised),
+    # CTE/With names, subquery aliases.
     aliases = set()
     for alias_node in ast.find_all(E.Alias):
         a = alias_node.alias_or_name
@@ -200,6 +203,33 @@ def schema_valid_against_pack(sql: str, pack: dict) -> tuple:
     for table in ast.find_all(E.Table):
         if table.alias:
             aliases.add(table.alias)
+    # CTE names (WITH cte AS (...))
+    for cte in ast.find_all(E.CTE):
+        try:
+            n = cte.alias_or_name
+            if n:
+                aliases.add(n)
+        except Exception:
+            pass
+    # UNNEST aliases — sqlglot represents as Unnest with .alias or
+    # surrounded by Lateral. Walk all nodes and grab any `alias` attr.
+    for node in ast.walk():
+        try:
+            a = getattr(node, 'alias_or_name', None) or getattr(node, 'alias', None)
+            if isinstance(a, str) and a:
+                aliases.add(a)
+            elif a and hasattr(a, 'name') and a.name:
+                aliases.add(a.name)
+        except Exception:
+            continue
+    # Subquery aliases captured by Subquery node
+    for sq in ast.find_all(E.Subquery):
+        try:
+            n = sq.alias_or_name
+            if n:
+                aliases.add(n)
+        except Exception:
+            pass
 
     for tab in ast.find_all(E.Table):
         # tab.parts gives ['proj', 'dataset', 'table'] when fully qualified
@@ -214,6 +244,31 @@ def schema_valid_against_pack(sql: str, pack: dict) -> tuple:
         if not _table_residency(parts, names):
             leaks.append(f'table:{sig}')
 
+    # Track which aliases came from UNNEST/Lateral specifically — column
+    # references rooted at those should be trusted (we can't validate
+    # inner struct fields without type info).
+    # In sqlglot BQ dialect, `UNNEST(arr) AS x` parses as Unnest with
+    # an `alias` arg of TableAlias whose `columns` list holds the
+    # identifier(s) — NOT alias_or_name on the Unnest itself.
+    unnest_aliases = set()
+    for node in ast.walk():
+        try:
+            if type(node).__name__ in ('Unnest', 'Lateral', 'TableFromRows'):
+                a = getattr(node, 'alias_or_name', None)
+                if isinstance(a, str) and a:
+                    unnest_aliases.add(a)
+                table_alias = node.args.get('alias') if hasattr(node, 'args') else None
+                if table_alias is not None:
+                    name = getattr(table_alias, 'name', '') or ''
+                    if name:
+                        unnest_aliases.add(name)
+                    for col_id in table_alias.args.get('columns', []) or []:
+                        cn = getattr(col_id, 'name', None) or getattr(col_id, 'this', None)
+                        if isinstance(cn, str) and cn:
+                            unnest_aliases.add(cn)
+        except Exception:
+            continue
+
     for col in ast.find_all(E.Column):
         try:
             parts = [p.name for p in col.parts] if hasattr(col, 'parts') else []
@@ -225,7 +280,12 @@ def schema_valid_against_pack(sql: str, pack: dict) -> tuple:
                 parts = [cname]
         if not parts:
             continue
-        # If the column root is a known alias (e.g. e1.user_id), drop it
+        # If the column root is a known alias, drop it. If it specifically
+        # came from UNNEST/Lateral, trust the residency entirely — we
+        # can't validate inner struct fields without type info, so flagging
+        # them is a guaranteed false positive.
+        if parts[0] in unnest_aliases:
+            continue
         if parts[0] in aliases and len(parts) > 1:
             parts = parts[1:]
         sig = '.'.join(parts)

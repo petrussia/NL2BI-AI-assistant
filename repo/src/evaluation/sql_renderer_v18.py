@@ -202,7 +202,13 @@ def render_bq(plan: dict, *, pack: Optional[dict] = None) -> str:
         label = m.get('label') or 'metric'
         expr = m.get('expr') or ''
         if expr:
-            selects.append(f'{expr} AS {label}')
+            # v21 STAGE A1 fix: planner sometimes emits aliases with spaces
+            # ("Total Revenue") — those break sqlglot parse. Normalise to
+            # snake_case while keeping it readable.
+            label_clean = re.sub(r'[^A-Za-z0-9_]+', '_', str(label)).strip('_')
+            if not label_clean or label_clean[0].isdigit():
+                label_clean = 'metric_' + (label_clean or 'x')
+            selects.append(f'{expr} AS {label_clean}')
             metric_exprs.append(expr)
     selected_cols = plan.get('selected_columns') or []
     selected_cols_dedup: list = []
