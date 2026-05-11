@@ -2440,3 +2440,34 @@ select { padding: 0 28px 0 12px; }
   border-top-color: transparent;
   border-bottom-color: #0f172a;
 }
+
+/* v0.10h — schemaPanel resize handle. Sticky to the bottom edge of the
+ * panel so the user can drag down to enlarge / up to shrink. Double-click
+ * resets to default (content-sized, capped at the original 38vh). */
+.schemaResize {
+  position: sticky;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 14px;
+  margin-top: 6px;
+  cursor: row-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(248, 250, 252, 0), rgba(248, 250, 252, 0.95));
+  user-select: none;
+  touch-action: none;
+}
+.schemaResize::before {
+  content: "";
+  width: 56px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border-strong);
+  transition: background 0.12s ease, width 0.12s ease;
+}
+.schemaResize:hover::before {
+  background: var(--accent);
+  width: 84px;
+}

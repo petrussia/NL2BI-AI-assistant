@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BarChart3,
   ChevronDown,
@@ -150,6 +150,12 @@ export function ChatApp() {
   const [composerMenuOpen, setComposerMenuOpen] = useState(false);
   // User can hide the suggestion-chip row beneath the composer
   const [suggestionsEnabled, setSuggestionsEnabled] = useState(true);
+  // User-resizable schema panel height. null = default (content-sized).
+  const [schemaHeight, setSchemaHeight] = useState<number | null>(() => {
+    if (typeof window === "undefined") return null;
+    const v = window.localStorage.getItem("nl2bi.schemaHeight");
+    return v ? Number(v) : null;
+  });
   // Local-only chat title overrides — backend has no PATCH /chats yet,
   // so when the user sends the first message we rename the chat in-memory
   // for the sidebar without round-tripping.
@@ -445,6 +451,31 @@ export function ChatApp() {
     void handleSend(query);
   }
 
+  function startSchemaResize(e: ReactPointerEvent<HTMLDivElement>) {
+    e.preventDefault();
+    const startY = e.clientY;
+    const panel = e.currentTarget.parentElement as HTMLElement | null;
+    const startH = panel?.getBoundingClientRect().height ?? 240;
+    function onMove(ev: PointerEvent) {
+      const min = 100;
+      const max = window.innerHeight - 240;
+      const next = Math.max(min, Math.min(max, startH + (ev.clientY - startY)));
+      setSchemaHeight(next);
+    }
+    function onUp() {
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+      // Persist the final height. We read it from the panel directly so
+      // we don't race with React state batching.
+      const h = panel?.getBoundingClientRect().height;
+      if (h && typeof window !== "undefined") {
+        window.localStorage.setItem("nl2bi.schemaHeight", String(Math.round(h)));
+      }
+    }
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
+  }
+
   function toggleSidebarCollapsed() {
     setSidebarCollapsed((prev) => {
       const next = !prev;
@@ -734,7 +765,11 @@ export function ChatApp() {
           </div>
         </header>
         {schemaOpen ? (
-          <section className="schemaPanel" aria-label="Схема демонстрационной БД">
+          <section
+            className="schemaPanel"
+            aria-label="Схема демонстрационной БД"
+            style={schemaHeight ? { height: `${schemaHeight}px`, maxHeight: "none" } : undefined}
+          >
             <p className="schemaHint">
               <strong>{dataSource.label}</strong> — {dataSource.blurb}{" "}
               {technical ? (
@@ -765,6 +800,20 @@ export function ChatApp() {
                 </li>
               ))}
             </ul>
+            <div
+              className="schemaResize"
+              role="separator"
+              aria-orientation="horizontal"
+              aria-label="Изменить высоту схемы"
+              title="Перетащите, чтобы изменить высоту"
+              onPointerDown={startSchemaResize}
+              onDoubleClick={() => {
+                if (typeof window !== "undefined") {
+                  window.localStorage.removeItem("nl2bi.schemaHeight");
+                }
+                setSchemaHeight(null);
+              }}
+            />
           </section>
         ) : null}
         <div className="messages">
