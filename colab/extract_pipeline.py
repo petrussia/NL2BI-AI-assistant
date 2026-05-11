@@ -78,6 +78,7 @@ def run_extraction(
     request: DataExtractionRequest,
     config: ColabServerConfig,
     model: TextToSqlModel,
+    planner: TextToSqlModel | None = None,
 ) -> DataExtractionResponse:
     started = time.monotonic()
 
@@ -121,12 +122,26 @@ def run_extraction(
             details={"data_source_id": request.data_source.id, "engine": spec.engine, "error": str(exc)[:200]},
         )
 
+    # Two-stage planner→emitter path is used whenever a planner instance
+    # was passed in AND it's ready. Otherwise fall back to single-shot
+    # anchor mode (current Qwen2.5-Coder-7B path).
+    plan_text: str | None = None
     try:
-        raw_output = model.generate_sql(
-            request.user_query,
-            schema,
-            locale=request.locale,
-        )
+        if planner is not None and planner.is_ready():
+            try:
+                plan_text = planner.generate_plan(
+                    request.user_query, schema, locale=request.locale,
+                )
+            except Exception:
+                plan_text = None
+        if plan_text:
+            raw_output = model.generate_sql_with_plan(
+                request.user_query, schema, plan_text, locale=request.locale,
+            )
+        else:
+            raw_output = model.generate_sql(
+                request.user_query, schema, locale=request.locale,
+            )
     except Exception as exc:
         return _failed_response(
             request,

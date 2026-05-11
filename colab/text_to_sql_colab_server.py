@@ -65,6 +65,29 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 
 _config = ColabServerConfig.from_env()
 _model = TextToSqlModel(_config)
+
+# Optional planner — loaded when COLAB_PLANNER_MODEL_ID is set. Lives in
+# a separate slot so the emitter (Qwen2.5-Coder-7B) and the planner
+# (Qwen3-Coder-30B or any larger HF model) coexist in GPU VRAM. Use the
+# `_PlannerConfig` shim so we don't pollute the main config.
+class _PlannerConfig:
+    def __init__(self, src: ColabServerConfig, model_id: str, quantization: str = "bf16"):
+        self.model_id = model_id
+        self.quantization = quantization
+        self.max_new_tokens = max(512, src.max_new_tokens)
+        self.mock_model = False
+
+
+_planner_model_id = os.environ.get("COLAB_PLANNER_MODEL_ID", "").strip()
+_planner: TextToSqlModel | None = None
+if _planner_model_id:
+    _planner_cfg = _PlannerConfig(
+        _config,
+        _planner_model_id,
+        quantization=os.environ.get("COLAB_PLANNER_QUANTIZATION", "bf16"),
+    )
+    _planner = TextToSqlModel(_planner_cfg)  # shares interface; load() called by background task
+
 app = FastAPI(title="NL2BI Colab Text-to-SQL Service", version="0.2.0")
 
 
@@ -121,12 +144,28 @@ def _on_startup() -> None:
         logger.warning("could not create artifacts/log dirs: %s", exc)
     state = _model.load()
     logger.info(
-        "model load: loaded=%s mock=%s id=%s err=%s",
+        "emitter load: loaded=%s mock=%s id=%s err=%s",
         state.loaded,
         state.mock,
         state.model_id,
         state.load_error,
     )
+    # Optional planner (Qwen3-Coder-30B BF16 or similar). Load in a
+    # background thread so the emitter is usable while the planner spools
+    # up — first load of a 30B model can take 5-10 min on a fresh kernel.
+    if _planner is not None:
+        def _bg_planner_load():
+            try:
+                logger.info("planner load starting: %s", _planner_model_id)
+                ps = _planner.load(model_id_override=_planner_model_id)
+                logger.info(
+                    "planner load: loaded=%s id=%s err=%s",
+                    ps.loaded, ps.model_id, ps.load_error,
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.exception("planner load failed: %s", exc)
+        import threading
+        threading.Thread(target=_bg_planner_load, daemon=True, name="planner-loader").start()
     # Never log token values; only whether each is configured.
     logger.info(
         "auth flags: require_auth=%s api_token_set=%s debug_endpoints=%s bridge_enabled=%s",
@@ -144,6 +183,9 @@ def _health_payload() -> dict[str, object]:
         "model_loaded": _model.is_ready(),
         "model_id": _model.state.model_id or _config.model_id,
         "mock_model": _model.state.mock,
+        "planner_enabled": _planner is not None,
+        "planner_loaded": (_planner.is_ready() if _planner is not None else False),
+        "planner_id": (_planner.state.model_id if _planner is not None else None),
         "device": info["device"],
         "gpu_name": info["gpu_name"],
         "vram_total_gb": info["vram_total_gb"],
@@ -235,7 +277,7 @@ def admin_bridge_url() -> dict[str, object]:
 )
 def extract(body: DataExtractionRequest) -> DataExtractionResponse:
     try:
-        return run_extraction(body, _config, _model)
+        return run_extraction(body, _config, _model, planner=_planner)
     except Exception as exc:  # noqa: BLE001
         logger.exception("extract failed: %s", exc)
         return DataExtractionResponse(

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from colab.config import ColabServerConfig
-from colab.prompt import build_chat_messages
+from colab.prompt import build_chat_messages, build_planner_messages, build_emitter_with_plan_messages
 from colab.schema_loader import DatabaseSchema
 
 
@@ -183,6 +183,42 @@ class TextToSqlModel:
             )
             return self.state
 
+    def _run_chat(self, messages: list[dict[str, str]], max_new_tokens: int | None = None) -> str:
+        """Run a chat-style generation with the loaded model + tokenizer.
+
+        Shared by generate_sql / generate_plan / generate_sql_with_plan so the
+        sampling parameters stay identical for all stages of the pipeline.
+        Returns "" if the model isn't loaded.
+        """
+        if self.state.mock or self._model is None or self._tokenizer is None:
+            return ""
+        try:
+            import torch
+        except Exception:
+            return ""
+        try:
+            text = self._tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+        except Exception:
+            text = "\n\n".join(m.get("content","") for m in messages) + "\n\n"
+        inputs = self._tokenizer(text, return_tensors="pt")
+        device = next(self._model.parameters()).device
+        inputs = {k: v.to(device) for k, v in inputs.items()}
+        with torch.no_grad():
+            output = self._model.generate(
+                **inputs,
+                max_new_tokens=max_new_tokens or self.config.max_new_tokens,
+                do_sample=False,
+                temperature=0.0,
+                top_p=1.0,
+                pad_token_id=self._tokenizer.eos_token_id,
+            )
+        generated_ids = output[0][inputs["input_ids"].shape[1]:]
+        return self._tokenizer.decode(generated_ids, skip_special_tokens=True)
+
     def generate_sql(
         self,
         user_query: str,
@@ -191,36 +227,38 @@ class TextToSqlModel:
     ) -> str:
         if self.state.mock or self._model is None or self._tokenizer is None:
             return _mock_sql(user_query, schema)
-        try:
-            import torch
-        except Exception:
-            return _mock_sql(user_query, schema)
+        return self._run_chat(build_chat_messages(user_query, schema, locale))
 
-        messages = build_chat_messages(user_query, schema, locale)
-        try:
-            text = self._tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-            )
-        except Exception:
-            text = (
-                f"{messages[0]['content']}\n\n{messages[1]['content']}\n\nSQL:\n"
-            )
-        inputs = self._tokenizer(text, return_tensors="pt")
-        device = next(self._model.parameters()).device
-        inputs = {k: v.to(device) for k, v in inputs.items()}
-        with torch.no_grad():
-            output = self._model.generate(
-                **inputs,
-                max_new_tokens=self.config.max_new_tokens,
-                do_sample=False,
-                temperature=0.0,
-                top_p=1.0,
-                pad_token_id=self._tokenizer.eos_token_id,
-            )
-        generated_ids = output[0][inputs["input_ids"].shape[1]:]
-        return self._tokenizer.decode(generated_ids, skip_special_tokens=True)
+    def generate_plan(
+        self,
+        user_query: str,
+        schema: DatabaseSchema,
+        locale: str | None = None,
+    ) -> str:
+        """Heavy-model plan stage: short natural-language analysis describing
+        target tables, join path, filters, aggregations. Used by the
+        planner→emitter architecture (Denis's C3 candidate path)."""
+        if self.state.mock or self._model is None or self._tokenizer is None:
+            return ""
+        # Planner deserves a bit more headroom than SQL gen — plans can be
+        # 100-200 tokens of structured text.
+        return self._run_chat(
+            build_planner_messages(user_query, schema, locale),
+            max_new_tokens=max(512, self.config.max_new_tokens),
+        )
+
+    def generate_sql_with_plan(
+        self,
+        user_query: str,
+        schema: DatabaseSchema,
+        plan: str,
+        locale: str | None = None,
+    ) -> str:
+        """Emitter stage of the two-stage pipeline: takes the plan from a
+        heavy planner + the schema + the question, emits the final SQL."""
+        if self.state.mock or self._model is None or self._tokenizer is None:
+            return _mock_sql(user_query, schema)
+        return self._run_chat(build_emitter_with_plan_messages(user_query, schema, plan, locale))
 
 
 def _mock_sql(user_query: str, schema: DatabaseSchema) -> str:
