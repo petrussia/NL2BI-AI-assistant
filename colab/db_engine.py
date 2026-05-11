@@ -427,11 +427,40 @@ def _duckdb_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
             tables.append(TableSchema(name=table_name, columns=cols))
     finally:
         conn.close()
+    # DuckDB (and dbt-built DBs) rarely declare FK constraints. Infer
+    # them heuristically: any column named "<X>_id" is assumed to point
+    # at table X.id (or X_data.id, X_table.id common dbt suffixes).
+    table_pk_by_name: dict[str, tuple[str, str]] = {}
+    for t in tables:
+        # treat any column named "id" as the PK of t for FK-target purposes
+        if any(c.name.lower() == "id" for c in t.columns):
+            # multiple keys: foo_data → foo, foo_table → foo, raw → raw
+            base = t.name.lower()
+            for suffix in ("_data", "_table"):
+                if base.endswith(suffix):
+                    base = base[: -len(suffix)]
+                    break
+            table_pk_by_name[base] = (t.name, "id")
+    fks: list[ForeignKey] = []
+    for t in tables:
+        for c in t.columns:
+            cn = c.name.lower()
+            if not cn.endswith("_id") or cn == "id":
+                continue
+            target_base = cn[:-3]
+            if target_base in table_pk_by_name:
+                tt, tc = table_pk_by_name[target_base]
+                if tt != t.name:  # don't self-FK
+                    fks.append(ForeignKey(
+                        from_table=t.name, from_column=c.name,
+                        to_table=tt, to_column=tc,
+                    ))
     return DatabaseSchema(
         data_source_id=spec.id,
         engine="duckdb",
         tables=tables,
         schema_version=spec.schema_version,
+        foreign_keys=fks,
     )
 
 
@@ -616,27 +645,34 @@ def _pg_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
                 )
             # Use plain table name (no schema prefix) for prompt simplicity.
             tables.append(TableSchema(name=tbl, columns=cols))
-        # FK collection — one query for all referential constraints in scope.
+        # FK collection — use pg_catalog (information_schema's
+        # constraint_column_usage is GRANT-gated; a read-only role sees
+        # empty results even when constraints exist).
         fks: list[ForeignKey] = []
         with conn.cursor() as cur:
             cur.execute(
-                f"""
+                """
                 SELECT
-                    tc.table_name, kcu.column_name,
-                    ccu.table_name AS to_table, ccu.column_name AS to_column
-                FROM information_schema.table_constraints tc
-                JOIN information_schema.key_column_usage kcu
-                  ON tc.constraint_name = kcu.constraint_name
-                 AND tc.table_schema = kcu.table_schema
-                JOIN information_schema.constraint_column_usage ccu
-                  ON ccu.constraint_name = tc.constraint_name
-                 AND ccu.table_schema = tc.table_schema
-                WHERE tc.constraint_type = 'FOREIGN KEY'
-                  AND tc.table_schema IN ({placeholders})
+                    ns.nspname || '.' || cls_from.relname AS from_qualified,
+                    cls_from.relname AS from_table,
+                    a_from.attname AS from_column,
+                    cls_to.relname AS to_table,
+                    a_to.attname AS to_column
+                FROM pg_constraint c
+                JOIN pg_class cls_from ON cls_from.oid = c.conrelid
+                JOIN pg_class cls_to   ON cls_to.oid   = c.confrelid
+                JOIN pg_namespace ns   ON ns.oid       = cls_from.relnamespace
+                JOIN unnest(c.conkey)  WITH ORDINALITY AS f(attnum, ord) ON true
+                JOIN unnest(c.confkey) WITH ORDINALITY AS t(attnum, ord) ON t.ord = f.ord
+                JOIN pg_attribute a_from ON a_from.attrelid = c.conrelid  AND a_from.attnum = f.attnum
+                JOIN pg_attribute a_to   ON a_to.attrelid   = c.confrelid AND a_to.attnum   = t.attnum
+                WHERE c.contype = 'f'
+                  AND ns.nspname = ANY(%s)
+                ORDER BY cls_from.relname, a_from.attname
                 """,
-                schemas_list,
+                [list(schemas_list)],
             )
-            for ft, fc, tt, tc in cur.fetchall():
+            for _, ft, fc, tt, tc in cur.fetchall():
                 fks.append(ForeignKey(
                     from_table=ft, from_column=fc, to_table=tt, to_column=tc,
                 ))
