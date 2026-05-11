@@ -53,7 +53,7 @@ from contracts.extraction import (  # noqa: E402
     QualityInfo,
     SqlInfo,
 )
-from colab.config import ColabServerConfig, load_data_sources, resolve_sqlite_path  # noqa: E402
+from colab.config import ColabServerConfig, load_data_sources, resolve_data_source, resolve_sqlite_path  # noqa: E402
 from colab.errors import SAFE_USER_MESSAGES, ExtractionErrorCode  # noqa: E402
 from colab.extract_pipeline import run_extraction  # noqa: E402
 from colab.gpu import gpu_info  # noqa: E402
@@ -170,12 +170,24 @@ def debug_datasources() -> dict[str, object]:
     sources = load_data_sources(_config)
     items: list[dict[str, object]] = []
     for ds_id in sorted(set(list(sources.keys()) + [_config.default_data_source_id])):
-        path = resolve_sqlite_path(_config, ds_id)
-        items.append({
-            "data_source_id": ds_id,
-            "resolved_path": str(path) if path else None,
-            "exists": bool(path and path.exists()),
-        })
+        spec = resolve_data_source(_config, ds_id)
+        entry: dict[str, object] = {"data_source_id": ds_id}
+        if spec is None:
+            entry["resolved"] = None
+            entry["engine"] = None
+            entry["exists"] = False
+        else:
+            entry["engine"] = spec.engine
+            entry["name"] = spec.name
+            if spec.engine in ("sqlite", "duckdb"):
+                entry["resolved_path"] = str(spec.path) if spec.path else None
+                entry["exists"] = bool(spec.path and spec.path.exists())
+            elif spec.engine == "postgres":
+                # Don't log full DSN (might contain password). Just signal presence.
+                entry["dsn_set"] = bool(spec.dsn)
+                entry["pg_schemas"] = list(spec.pg_schemas)
+                entry["exists"] = bool(spec.dsn)
+        items.append(entry)
     spider_root = _config.spider_db_root
     spider_root_exists = spider_root.exists()
     sample_db_dirs: list[str] = []

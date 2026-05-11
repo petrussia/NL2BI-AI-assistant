@@ -113,17 +113,101 @@ def resolve_sqlite_path(
     config: ColabServerConfig,
     data_source_id: str,
 ) -> Path | None:
+    """Legacy SQLite-only resolver kept for backward compatibility.
+
+    New callers should use resolve_data_source() which returns a full
+    DataSourceSpec (engine, dsn, etc). This function returns None for
+    non-sqlite engines.
+    """
+    spec = resolve_data_source(config, data_source_id)
+    if spec is None or spec.engine != "sqlite":
+        return None
+    return spec.path
+
+
+def resolve_data_source(
+    config: ColabServerConfig,
+    data_source_id: str,
+):
+    """Build a DataSourceSpec for the given id, supporting multi-engine.
+
+    Returns None if the source isn't known and there's no matching sqlite
+    file in the spider_db_root fallback.
+
+    Per-entry shape in data_sources.json (new, optional fields):
+      {
+        "db_name": "concert_singer",
+        "name": "Spider concert_singer",
+        "engine": "sqlite" | "duckdb" | "postgres",
+        "path": "/optional/abs/path",
+        "dsn": "postgresql://...",
+        "schema_version": "..."
+      }
+    Backward-compat: entries without "engine" are treated as sqlite, and
+    resolution falls back to spider_db_root/<db_name>/<db_name>.sqlite.
+    """
+    # Lazy import to avoid circular ref at module load.
+    from colab.db_engine import DataSourceSpec
+
     sources = load_data_sources(config)
     entry = sources.get(data_source_id)
-    if entry is None and data_source_id == config.default_data_source_id:
-        entry = sources.get(config.default_data_source_id)
     if entry is None:
+        # Fallback: try Spider directory layout.
         candidate = config.spider_db_root / data_source_id / f"{data_source_id}.sqlite"
         if candidate.exists():
-            return candidate
+            return DataSourceSpec(
+                id=data_source_id,
+                engine="sqlite",
+                path=candidate,
+                name=data_source_id,
+                db_name=data_source_id,
+            )
         return None
-    explicit = entry.get("sqlite_path")
-    if explicit:
-        return Path(explicit)
+
+    engine = (entry.get("engine") or "sqlite").lower()
+    name = entry.get("name")
     db_name = entry.get("db_name", data_source_id)
-    return config.spider_db_root / db_name / f"{db_name}.sqlite"
+    schema_version = entry.get("schema_version")
+
+    if engine == "sqlite":
+        explicit = entry.get("path") or entry.get("sqlite_path")
+        if explicit:
+            path = Path(explicit)
+        else:
+            path = config.spider_db_root / db_name / f"{db_name}.sqlite"
+        return DataSourceSpec(
+            id=data_source_id,
+            engine="sqlite",
+            path=path,
+            name=name,
+            db_name=db_name,
+            schema_version=schema_version,
+        )
+    if engine == "duckdb":
+        explicit = entry.get("path")
+        if not explicit:
+            return None
+        return DataSourceSpec(
+            id=data_source_id,
+            engine="duckdb",
+            path=Path(explicit),
+            name=name,
+            db_name=db_name,
+            schema_version=schema_version,
+        )
+    if engine == "postgres":
+        dsn = entry.get("dsn")
+        if not dsn:
+            return None
+        pg_schemas = tuple(entry.get("pg_schemas") or ("public",))
+        return DataSourceSpec(
+            id=data_source_id,
+            engine="postgres",
+            dsn=dsn,
+            name=name,
+            db_name=db_name,
+            schema_version=schema_version,
+            pg_schemas=pg_schemas,
+        )
+    # Unknown engine — surface as missing.
+    return None

@@ -1,26 +1,63 @@
 {
-  "_doc": "data_source.id -> Spider DB mapping. 'demo_sales' is a legacy alias kept for backward compatibility with existing extraction_requests/*.json fixtures; new integrations should use 'demo_concert_singer' or any other concrete Spider DB name.",
+  "_doc": "data_source.id -> {engine, path|dsn, db_name, name, schema_version}. v0.11 adds multi-engine (sqlite/duckdb/postgres). Legacy entries (demo_sales, concert_singer, wrestler, world_1) kept for backward compat with old fixtures and Spider-only flows.",
+
   "demo_concert_singer": {
+    "engine": "sqlite",
     "db_name": "concert_singer",
-    "name": "Spider concert_singer (canonical demo DB)",
+    "name": "Spider 1.0 · concert_singer",
     "schema_version": "spider-v1"
   },
+  "bird_student_club": {
+    "engine": "sqlite",
+    "path": "/content/drive/MyDrive/nl2bi_demo/bird/student_club/student_club.sqlite",
+    "db_name": "student_club",
+    "name": "BIRD · student_club (студенческие клубы, события, посещаемость)",
+    "schema_version": "bird-mini-dev"
+  },
+  "spider2_asana_dbt": {
+    "engine": "duckdb",
+    "path": "/content/drive/MyDrive/nl2bi_demo/spider2/asana.duckdb",
+    "db_name": "asana",
+    "name": "Spider 2 · asana_dbt (проекты, задачи, команды)",
+    "schema_version": "spider2-dbt"
+  },
+  "moscow_open": {
+    "engine": "sqlite",
+    "path": "/content/drive/MyDrive/nl2bi_demo/moscow/moscow_open.sqlite",
+    "db_name": "moscow_open",
+    "name": "Москва · метро и районы",
+    "schema_version": "v1"
+  },
+  "northwind_ru": {
+    "engine": "postgres",
+    "dsn": "postgresql://nl2bi_ro:nl2bi_ro@localhost:5432/northwind_ru",
+    "db_name": "northwind_ru",
+    "name": "Northwind RU · продажи (PostgreSQL)",
+    "schema_version": "v1",
+    "pg_schemas": ["public"]
+  },
+
+  "_legacy_aliases": "below: Spider-only IDs kept for backward compat with old fixtures",
   "demo_sales": {
+    "engine": "sqlite",
     "db_name": "concert_singer",
     "name": "Legacy alias -> Spider concert_singer (kept for backward compat)",
     "schema_version": "spider-v1"
   },
   "concert_singer": {
+    "engine": "sqlite",
     "db_name": "concert_singer",
     "name": "Spider concert_singer",
     "schema_version": "spider-v1"
   },
   "wrestler": {
+    "engine": "sqlite",
     "db_name": "wrestler",
     "name": "Spider wrestler",
     "schema_version": "spider-v1"
   },
   "world_1": {
+    "engine": "sqlite",
     "db_name": "world_1",
     "name": "Spider world_1",
     "schema_version": "spider-v1"

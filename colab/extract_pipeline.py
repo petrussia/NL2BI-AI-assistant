@@ -13,7 +13,8 @@ from contracts.extraction import (
     ResultTable,
     SqlInfo,
 )
-from colab.config import ColabServerConfig, resolve_sqlite_path
+from colab.config import ColabServerConfig, resolve_data_source
+from colab.db_engine import dialect_label
 from colab.errors import SAFE_USER_MESSAGES, ExtractionErrorCode
 from colab.metadata import infer_field_metadata
 from colab.model import TextToSqlModel
@@ -83,27 +84,36 @@ def run_extraction(
             details={"model_id": config.model_id, "load_error": model.state.load_error},
         )
 
-    sqlite_path = resolve_sqlite_path(config, request.data_source.id)
-    if sqlite_path is None or not sqlite_path.exists():
+    spec = resolve_data_source(config, request.data_source.id)
+    if spec is None:
         return _failed_response(
             request,
             ExtractionErrorCode.SCHEMA_NOT_FOUND,
             retryable=False,
             details={"data_source_id": request.data_source.id},
+        )
+    # For sqlite/duckdb, verify the file exists upfront — surfaces a
+    # clearer error than the engine's "open failed".
+    if spec.engine in ("sqlite", "duckdb") and (spec.path is None or not spec.path.exists()):
+        return _failed_response(
+            request,
+            ExtractionErrorCode.SCHEMA_NOT_FOUND,
+            retryable=False,
+            details={"data_source_id": request.data_source.id, "engine": spec.engine, "path": str(spec.path)},
         )
 
     try:
         schema: DatabaseSchema = load_schema(
-            sqlite_path,
+            spec,
             data_source_id=request.data_source.id,
             schema_version=request.data_source.schema_version,
         )
-    except Exception:
+    except Exception as exc:
         return _failed_response(
             request,
             ExtractionErrorCode.SCHEMA_NOT_FOUND,
             retryable=False,
-            details={"data_source_id": request.data_source.id},
+            details={"data_source_id": request.data_source.id, "engine": spec.engine, "error": str(exc)[:200]},
         )
 
     try:
@@ -128,14 +138,14 @@ def run_extraction(
             ExtractionErrorCode.SQL_VALIDATION_FAILED,
             retryable=True,
             details={"reason": guard.reason},
-            sql=SqlInfo(query=candidate_sql or None, dialect="sqlite", validated=False, read_only=True),
+            sql=SqlInfo(query=candidate_sql or None, dialect=spec.engine, validated=False, read_only=True),
         )
 
     bounded_sql, limit_added = apply_row_limit(guard.sql, request.constraints.row_limit)
-    sql_info = SqlInfo(query=bounded_sql, dialect="sqlite", validated=True, read_only=True)
+    sql_info = SqlInfo(query=bounded_sql, dialect=spec.engine, validated=True, read_only=True)
 
     exec_result = execute_select(
-        sqlite_path,
+        spec,
         bounded_sql,
         timeout_ms=request.constraints.timeout_ms,
         row_limit=request.constraints.row_limit,
@@ -210,8 +220,8 @@ def run_extraction(
         normalized_query=None,
         data_source=DataSourceInfo(
             id=request.data_source.id,
-            name=None,
-            dialect="sqlite",
+            name=spec.name,
+            dialect=spec.engine,
             schema_version=schema.schema_version or request.data_source.schema_version,
         ),
         plan=plan,

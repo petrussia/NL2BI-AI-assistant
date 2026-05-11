@@ -12,3 +12,7 @@ torch>=2.1
 transformers>=4.43
 accelerate>=0.30
 bitsandbytes>=0.43
+# Multi-engine adapters (v0.11): DuckDB for Spider2 demo, psycopg2 for
+# the Northwind-RU Postgres source.
+duckdb>=0.10
+psycopg2-binary>=2.9
