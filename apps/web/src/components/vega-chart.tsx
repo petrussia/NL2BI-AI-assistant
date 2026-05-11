@@ -14,6 +14,24 @@ type Spec = Record<string, unknown>;
 // thousand-separator + decimals. Same regex used in the table renderer.
 const YEAR_FIELD_RE = /(^|_)year$|^year_|^год$|_год$/i;
 
+// Split a long axis title into <= max-char lines at word boundaries.
+// Vega-Lite renders an array of strings as multi-line text. Used so the
+// horizontal Y-title "Количество концертов" doesn't stick out as one
+// chimney-like line at the left margin.
+function wrapAxisTitle(text: string, maxChars = 14): string[] {
+  if (text.length <= maxChars) return [text];
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let cur = "";
+  for (const w of words) {
+    if (!cur) { cur = w; continue; }
+    if (cur.length + 1 + w.length <= maxChars) cur += " " + w;
+    else { lines.push(cur); cur = w; }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+
 function humanizeEncoding(spec: Spec): void {
   const encoding = (spec.encoding as Record<string, unknown> | undefined) ?? undefined;
   if (!encoding) return;
@@ -27,6 +45,11 @@ function humanizeEncoding(spec: Spec): void {
     // Replace when title is empty, equals the field, or is the bare snake/camel id.
     if (!currentTitle || currentTitle === field) {
       obj.title = labelFor(field);
+    }
+    // Multi-line title for long Y-axis labels — see wrapAxisTitle above.
+    if (channel === "y" && typeof obj.title === "string") {
+      const wrapped = wrapAxisTitle(obj.title, 14);
+      if (wrapped.length > 1) obj.title = wrapped;
     }
     // Years: cast quantitative integers to ordinal so the axis prints
     // 2014, 2015, ... instead of 2,014.00, 2,014.50, ...

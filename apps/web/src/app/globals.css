@@ -2596,9 +2596,25 @@ html, body { overflow-x: hidden; }
  *    artifact-card width (kept at ~880px). */
 /* Shared width for chat content: message bubbles, composer pill,
  * and suggestion-chip row all sit on the same 1040px-wide rail so
- * they line up visually. */
-.message { width: min(1040px, 100%); }
-.message.user { width: min(720px, 100%); }
+ * they line up visually.
+ *
+ * justify-self defaults to "stretch" in CSS Grid — without an explicit
+ * override, .messages was stretching every bubble to the full chatPane
+ * width regardless of the width:min(...) cap. Pin assistant to start
+ * (left margin) and user to end (right margin), so each bubble respects
+ * its width and leaves visible margins on the opposite side. */
+.message { width: min(1040px, 100%); justify-self: start; }
+.message.user {
+  width: min(720px, 100%);
+  justify-self: end;
+  /* Stronger highlight for the user's own messages: accent-soft fill,
+   * accent-strong left rail to read as "your line", richer border. */
+  background: var(--accent-soft);
+  border-color: #93c5fd;
+  border-left: 3px solid var(--accent);
+  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.08);
+}
+.message.user p { color: #0c2542; font-weight: 500; }
 .message p,
 .message li {
   font-size: 13px;   /* down from default ~14.5px */
