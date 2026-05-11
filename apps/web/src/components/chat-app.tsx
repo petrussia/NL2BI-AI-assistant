@@ -3,6 +3,7 @@
 import { FormEvent, KeyboardEvent, PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BarChart3,
+  Check,
   ChevronDown,
   ChevronRight,
   Database,
@@ -148,6 +149,9 @@ export function ChatApp() {
   const [aboutOpen, setAboutOpen] = useState(false);
   // Composer popover with response-format / response-style / suggestions toggle
   const [composerMenuOpen, setComposerMenuOpen] = useState(false);
+  // Custom source-data dropdown (replaces native <select>)
+  const [sourceMenuOpen, setSourceMenuOpen] = useState(false);
+  const sourcePickerRef = useRef<HTMLDivElement | null>(null);
   // User can hide the suggestion-chip row beneath the composer
   const [suggestionsEnabled, setSuggestionsEnabled] = useState(true);
   // User-resizable schema panel height. null = default (content-sized).
@@ -163,6 +167,24 @@ export function ChatApp() {
   // Sidebar per-session menu: which session has its kebab menu open
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  // Close source picker on outside click + Escape
+  useEffect(() => {
+    if (!sourceMenuOpen) return;
+    function onPointer(e: MouseEvent) {
+      const node = sourcePickerRef.current;
+      if (node && !node.contains(e.target as Node)) setSourceMenuOpen(false);
+    }
+    function onKey(e: globalThis.KeyboardEvent) {
+      if (e.key === "Escape") setSourceMenuOpen(false);
+    }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [sourceMenuOpen]);
 
   // Close composer popover on outside click + Escape
   useEffect(() => {
@@ -734,18 +756,51 @@ export function ChatApp() {
               </span>
             </div>
             <div className="headerChip">
-              <select
-                value={dataSourceId}
-                onChange={(event) => setDataSourceId(event.target.value)}
-                title="Выбрать демо-источник данных"
-                className="toggleSelect toggleSelect--source"
+              <div
+                className={`sourcePicker ${sourceMenuOpen ? "sourcePicker--open" : ""}`}
+                ref={sourcePickerRef}
               >
-                {DEMO_DATA_SOURCES.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.label}
-                  </option>
-                ))}
-              </select>
+                <button
+                  type="button"
+                  className="sourcePicker__trigger"
+                  onClick={() => setSourceMenuOpen((v) => !v)}
+                  aria-expanded={sourceMenuOpen}
+                  aria-haspopup="listbox"
+                  title="Выбрать демо-источник данных"
+                >
+                  <Database size={14} />
+                  <span className="sourcePicker__label">{dataSource.label}</span>
+                  <ChevronDown size={12} className="sourcePicker__chev" />
+                </button>
+                {sourceMenuOpen ? (
+                  <ul className="sourcePicker__menu" role="listbox">
+                    {DEMO_DATA_SOURCES.map((d) => {
+                      const active = d.id === dataSourceId;
+                      return (
+                        <li key={d.id}>
+                          <button
+                            type="button"
+                            role="option"
+                            aria-selected={active}
+                            className={`sourcePicker__item ${active ? "sourcePicker__item--active" : ""}`}
+                            onClick={() => {
+                              setDataSourceId(d.id);
+                              setSourceMenuOpen(false);
+                            }}
+                          >
+                            <Database size={14} />
+                            <span className="sourcePicker__itemBody">
+                              <span className="sourcePicker__itemLabel">{d.label}</span>
+                              <em className="sourcePicker__itemMeta">{d.id}</em>
+                            </span>
+                            {active ? <Check size={14} /> : null}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
+              </div>
               <span
                 className="hintMark"
                 data-tooltip={

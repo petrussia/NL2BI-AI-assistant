@@ -2471,3 +2471,118 @@ select { padding: 0 28px 0 12px; }
   background: var(--accent);
   width: 84px;
 }
+
+/* ============================================================
+ * v0.10i — three more bugs:
+ * 1) Horizontal page scrollbar (body.scrollWidth > viewport)
+ *    caused by header tooltips overflowing the right edge.
+ *    Kill horizontal page scroll outright; tooltips that drift
+ *    past the viewport are still readable on hover anyway.
+ * 2) Schema cards stretched to fill the full grid row when only
+ *    2 tables exist. Cap card width with auto-fill + 280px max.
+ * 3) Source select: replace native <select> with a custom popover
+ *    picker (label + db-id meta + check tick on active).
+ * ============================================================ */
+
+/* 1) Body kill horizontal scroll. Vertical stays auto (browser
+ *    decides). Tooltips that drift past viewport are momentary
+ *    hover content — clipping them is fine. */
+html, body { overflow-x: hidden; }
+
+/* 2) Schema cards stop stretching past 280px. */
+.schemaPanel ul {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
+  justify-content: start;
+}
+
+/* 3) Source picker styled like the existing modelPicker. */
+.sourcePicker {
+  position: relative;
+  display: inline-flex;
+}
+.sourcePicker__trigger {
+  /* Header pill geometry — matches StatusPill / ModelPicker. */
+  height: 32px;
+  min-height: 32px;
+  padding: 0 12px 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.sourcePicker__trigger:hover {
+  background: var(--panel-strong);
+  border-color: var(--accent);
+}
+.sourcePicker--open .sourcePicker__trigger {
+  background: var(--panel-strong);
+  border-color: var(--accent);
+}
+.sourcePicker__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.sourcePicker__chev {
+  color: var(--muted);
+  transition: transform 0.12s ease;
+}
+.sourcePicker--open .sourcePicker__chev { transform: rotate(180deg); }
+
+.sourcePicker__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  min-width: 260px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+  display: grid;
+  gap: 2px;
+}
+.sourcePicker__item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+.sourcePicker__item:hover { background: var(--panel-strong); }
+.sourcePicker__item--active {
+  background: var(--accent-softer);
+  color: var(--accent-strong);
+}
+.sourcePicker__itemBody {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.sourcePicker__itemLabel {
+  font-size: 13px;
+  font-weight: 600;
+}
+.sourcePicker__itemMeta {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
