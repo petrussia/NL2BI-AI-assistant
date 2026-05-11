@@ -321,16 +321,14 @@ def _duckdb_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
     tables: list[TableSchema] = []
     conn = duckdb.connect(str(spec.path), read_only=True)
     try:
-        # information_schema lists both schema + table — needed for dbt
-        # projects where staging tables live in a separate schema
-        # (e.g. main_stg_asana) and PRAGMA on unqualified name fails.
+        # Restrict to schema 'main' — DuckDB's default search_path resolves
+        # unqualified names there, and dbt staging schemas (main_stg_*,
+        # main_int_*) are pollution we don't want to expose to the model.
         rows = conn.execute(
             "SELECT table_schema, table_name FROM information_schema.tables "
-            "WHERE table_schema NOT IN ('information_schema', 'pg_catalog') "
-            "ORDER BY table_schema, table_name"
+            "WHERE table_schema = 'main' "
+            "ORDER BY table_name"
         ).fetchall()
-        # Filter out dbt staging/intermediate artifacts that aren't
-        # source tables (would confuse the model with 40+ noisy names).
         def _is_demo_table(sch: str, tbl: str) -> bool:
             low = tbl.lower()
             if low.endswith("_tmp"):
@@ -342,12 +340,14 @@ def _duckdb_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
             return True
         rows = [(s, t) for s, t in rows if _is_demo_table(s, t)]
         for sch, table_name in rows:
-            qualified = f'"{sch}"."{table_name}"'
+            # Unqualified — DuckDB resolves "main" from default search_path.
+            # If we render "main.table_name" the model double-quotes the
+            # whole thing and DuckDB treats it as a single identifier.
+            qualified = f'"{table_name}"'
             try:
-                info = conn.execute(f"PRAGMA table_info('{sch}.{table_name}')").fetchall()
+                info = conn.execute(f"PRAGMA table_info('{table_name}')").fetchall()
             except Exception:
                 try:
-                    # Fallback: DESCRIBE shows columns for any qualified table.
                     info = conn.execute(f"DESCRIBE {qualified}").fetchall()
                 except Exception:
                     info = []
@@ -383,8 +383,8 @@ def _duckdb_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
                         examples=examples[:3],
                     )
                 )
-            # Use schema.table for table name so the model writes correct SQL.
-            tables.append(TableSchema(name=f"{sch}.{table_name}", columns=cols))
+            # Bare table name — schema is implicit via DuckDB search_path.
+            tables.append(TableSchema(name=table_name, columns=cols))
     finally:
         conn.close()
     return DatabaseSchema(
