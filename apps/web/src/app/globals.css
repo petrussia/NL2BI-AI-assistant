@@ -219,10 +219,19 @@ nav {
   min-width: 0;
   min-height: 0;
   display: grid;
-  /* header, (optional schema), messages (grows + scrolls), (optional suggestions), composer */
+  /* header (1), optional schema (2), messages — grows + scrolls (3),
+   * optional suggestions (4), composer (5).
+   * Explicit row assignments below — without them, auto-flow shifts the
+   * 1fr messages row up when schema/suggestions are absent, leaving the
+   * 1fr as an empty stretched gap above the composer. */
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
   height: 100vh;
 }
+.chatPane > .chatHeader  { grid-row: 1; }
+.chatPane > .schemaPanel { grid-row: 2; }
+.chatPane > .messages    { grid-row: 3; }
+.chatPane > .suggestions { grid-row: 4; }
+.chatPane > .composer    { grid-row: 5; }
 
 .chatHeader {
   border-bottom: 1px solid var(--border);
