@@ -77,10 +77,22 @@ def build_pack(linker_out: LinkerOutput, *, lane: str, alias: Optional[str],
     Resolves the v21 pilot50 audit's 24 ast_leak / 10 false-positive
     schema_invalid class.
     """
+    # Phase 27 STAGE F1: hard TABLE_CATALOG partitioning for Snow lanes.
+    # The Spider2-Snow / Lite-Snow catalog rows have `c.alias = ""`, so the
+    # alias_filter in the linker is a no-op and BM25 leaks hits across the
+    # entire 587K-column catalog. Defense-in-depth: also enforce here that
+    # the per-task pack only sees rows whose c.db (TABLE_CATALOG) matches
+    # the task's db_id. Gated on lane so BQ/SQLite paths are untouched.
+    _snow_lane_active = (lane in ('snow', 'lite_snow') and alias)
+    _task_db_upper = (alias or '').upper() if _snow_lane_active else None
+
     # Group hits by (db, schema, table). Use the highest-scoring table set.
     grouped: dict = defaultdict(list)  # (db, schema, table) -> list[LinkerHit]
     for h in linker_out.hits:
         c = h.record
+        # F1 filter: drop hits from other catalogs for Snow lanes
+        if _snow_lane_active and c.db.upper() != _task_db_upper:
+            continue
         key = (c.db, c.schema, c.table)
         grouped[key].append(h)
 
@@ -88,6 +100,9 @@ def build_pack(linker_out: LinkerOutput, *, lane: str, alias: Optional[str],
     full_table_cols: dict = defaultdict(set)
     if all_catalog_cols is not None:
         for c in all_catalog_cols:
+            # F1 filter on the side-channel too
+            if _snow_lane_active and c.db.upper() != _task_db_upper:
+                continue
             full_table_cols[(c.db, c.schema, c.table)].add(c.field_path or c.column)
 
     # Score per table = sum of column hit scores
@@ -228,12 +243,16 @@ def pack_to_planner_prompt(pack: dict, question: str, *,
     lines = []
     lines.append('You are an extractive SQL planner. Answer ONLY in JSON.')
     lines.append(f'Lane: {pack.get("lane", "bq")}.')
+    _snow_lane = pack.get('lane') in ('snow', 'lite_snow')
+    _task_db = (pack.get('alias') or '').upper() if _snow_lane else None
     if pack.get('alias'):
         lines.append(f'Spider2 alias: {pack["alias"]}')
     lines.append('Available identifiers (closed set; do NOT introduce any others):')
     for t in pack['tables']:
         cols = ', '.join(f"{c['name']}:{c['type'] or '?'}" for c in t['columns'])
-        lines.append(f'  - `{t["db"]}.{t["schema"]}.{t["table"]}` columns=[{cols}]')
+        # Phase 27 STAGE F1: force three-part Snow names with task_db catalog
+        db_render = (_task_db if _snow_lane and _task_db else t["db"])
+        lines.append(f'  - `{db_render}.{t["schema"]}.{t["table"]}` columns=[{cols}]')
     if pack.get('wildcards'):
         lines.append('Wildcard table families (prefer these over individual date shards; '
                        'use _TABLE_SUFFIX BETWEEN \'YYYYMMDD\' AND \'YYYYMMDD\'):')
@@ -242,6 +261,17 @@ def pack_to_planner_prompt(pack: dict, question: str, *,
     if external_knowledge:
         lines.append('External knowledge:')
         lines.append(external_knowledge)
+    # Phase 27 STAGE F1: hard Snowflake dialect rules + catalog allow-list
+    if _snow_lane and _task_db:
+        lines.append('')
+        lines.append('Snowflake SQL rules:')
+        lines.append('- ALWAYS use three-part identifiers: DATABASE.SCHEMA.TABLE.')
+        lines.append(f'- Available database for this query: {_task_db}.')
+        lines.append('- Do NOT reference any other database. Tables from other databases will be rejected at validation.')
+        lines.append('- Quote mixed-case identifiers: "ParticipantBarcode".')
+        lines.append('- Use LATERAL FLATTEN(INPUT => col) for array unnest, NOT UNNEST.')
+        lines.append('- Use IFF(c,a,b) or CASE WHEN. Use QUALIFY for window-row filtering.')
+        lines.append('- JSON path: payload:user.name::STRING (colon, not arrow).')
     lines.append('')
     lines.append('Question: ' + question)
     lines.append('')
