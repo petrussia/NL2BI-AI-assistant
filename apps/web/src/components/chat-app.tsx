@@ -471,10 +471,10 @@ export function ChatApp() {
     return s ? titleFor(s) : DEFAULT_CHAT_TITLE;
   }, [activeSession, sessions, localTitles]);
 
-  const showSuggestions = useMemo(() => {
-    if (!suggestionsEnabled) return false;
-    return messages.length === 0 || lastAssistantHasSqlExecutionError(messages);
-  }, [messages, suggestionsEnabled]);
+  // When the user explicitly turns suggestions ON in the composer popover,
+  // they want them visible at all times — not gated on empty chat / SQL
+  // error like the v0.9 auto-show behavior.
+  const showSuggestions = useMemo(() => suggestionsEnabled, [suggestionsEnabled]);
 
   if (!user) {
     return (
@@ -634,6 +634,17 @@ export function ChatApp() {
           </button>
         </div>
       </aside>
+      {sidebarCollapsed ? (
+        <button
+          type="button"
+          className="sidebarExpandFloat"
+          onClick={toggleSidebarCollapsed}
+          aria-label="Показать список чатов"
+          title="Показать боковую панель"
+        >
+          <PanelLeftOpen size={16} />
+        </button>
+      ) : null}
       <section className="chatPane">
         <header className="chatHeader">
           <button
@@ -644,17 +655,6 @@ export function ChatApp() {
           >
             {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
-          {sidebarCollapsed ? (
-            <button
-              type="button"
-              className="sidebarCollapseToggle sidebarCollapseToggle--header"
-              onClick={toggleSidebarCollapsed}
-              aria-label="Показать список чатов"
-              title="Показать боковую панель"
-            >
-              <PanelLeftOpen size={16} />
-            </button>
-          ) : null}
           <div className="chatHeaderTitle">
             <h1>{activeTitle}</h1>
             <button

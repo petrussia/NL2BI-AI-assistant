@@ -2211,3 +2211,208 @@ select { padding: 0 28px 0 12px; }
   left: max(24px, calc(50% - 440px));
   bottom: calc(100% - 4px);
 }
+
+/* ============================================================
+ * v0.10e — fix four UX bugs from second-look review:
+ * 1) Sidebar nav: many chats pushed the page into horizontal scroll
+ *    instead of scrolling inside the sidebar.
+ * 2a) "analyst" username on its own line, left-aligned.
+ * 2b) Expand button when collapsed: floats at the top edge of the
+ *     screen, no chatHeader border under it.
+ * 3) Suggestions always visible when toggle is on (state in JSX).
+ * 4) Composer overlays the message area so chart/text scroll
+ *    through the empty side margins of the pill instead of a
+ *    solid white rectangle.
+ * ============================================================ */
+
+/* 1) Sidebar grid sizes nav as 1fr but in some browsers the implicit
+ * min-height of grid items is content-size; explicit min-height:0 lets
+ * 1fr actually constrain nav so overflow:auto kicks in. */
+.sidebar { overflow: hidden; min-height: 0; }
+.sidebar nav { min-height: 0; }
+
+/* 2a) Defensive: keep username text-aligned to the start of its grid
+ *     cell — sometimes inherited justify-content from .brand reset it. */
+.brand .brandUser {
+  justify-self: start;
+  text-align: left;
+}
+
+/* 2b) Floating expand button — sits AT the top edge of the screen
+ *     (position: fixed; top: 0; left: 0), so there's no chatHeader
+ *     border-bottom drawn under it. It blends visually with the empty
+ *     left area when the sidebar is collapsed. */
+.sidebarExpandFloat {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 20;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.sidebarExpandFloat:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+/* Push the chatHeader title right so it doesn't sit under the floater. */
+.appShell--sidebarCollapsed .chatHeader { padding-left: 56px; }
+
+/* 4) Composer + suggestions overlay the message area so the side
+ *    margins around the pill are transparent and scrolling messages
+ *    show through them. ChatGPT-style "the input floats over content".
+ *
+ *    chatPane previously had composer as grid row 5 and messages as 1fr
+ *    row 3 — the composer's full-width row painted a solid white block
+ *    next to the centered pill. By taking composer (and suggestions)
+ *    out of grid flow and pinning them at the bottom, the same area
+ *    becomes part of the .messages render region. */
+.chatPane { position: relative; }
+.chatPane > .composer {
+  /* Override the v0.10 "grid-row: 5" rule with explicit absolute. */
+  grid-row: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  /* Wrapper itself doesn't block scroll-clicks — only the pill does. */
+  pointer-events: none;
+}
+.chatPane > .composer .composerPill,
+.chatPane > .composer .composerMenu { pointer-events: auto; }
+.chatPane > .suggestions {
+  grid-row: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 88px;
+  z-index: 5;
+  background: transparent;
+  border-top: none;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  padding: 0 24px;
+}
+.chatPane > .suggestions .chipRow,
+.chatPane > .suggestions .suggestionsLead { pointer-events: auto; }
+.chatPane > .suggestions .suggestionsLead { display: none; }
+.chatPane > .suggestions .chipRow {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  padding: 6px 8px;
+  border-radius: 999px;
+}
+
+/* Last messages should not be hidden by the floating composer + chips. */
+.messages { padding-bottom: 160px; }
+
+/* v0.10e Bug-4 tighten: widen the message bubble + composer so the
+ * chart and table extend toward the chatPane edges, and add a faint
+ * off-white tint on chatPane so the pill stops blending into a solid
+ * "white rectangle" perception. Combined effect: charts fill the
+ * area, side margins are minimal, and any white space that remains
+ * is clearly background, not part of the composer. */
+.chatPane { background: #f7f9fc; }
+.message { width: min(1080px, 100%); }
+.message.user { width: min(720px, 100%); }
+.composerPill { width: min(940px, 100%); }
+
+/* ============================================================
+ * v0.10f — three more UX bugs from the latest review:
+ * 1) Schema panel: tables stacked vertically, fields wrapping as
+ *    horizontal pills. With short tables that's a lot of wasted
+ *    width. Repack as a grid of vertical column-cards (one per
+ *    table) so multiple tables fit in one row.
+ * 2) StatusPill green tone lost its tinted background in v0.10c
+ *    (unification flattened all pills to white). Put it back.
+ * 3) Segmented controls in composer popover: active vs inactive
+ *    state was too subtle (white + soft shadow). Make active a
+ *    solid blue chip with white text; inactive stays muted.
+ * ============================================================ */
+
+/* 1) Schema panel as grid of vertical table-cards. */
+.schemaPanel ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  padding: 0;
+  margin: 12px 0 0;
+  list-style: none;
+}
+.schemaPanel li {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.schemaPanel li strong {
+  font-size: 13.5px;
+  color: var(--text);
+}
+.schemaPanel .schemaTableDesc {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+/* Vertical list of column pills instead of horizontal wrap. */
+.schemaPanel .schemaCols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+.schemaPanel .schemaCol {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 8px;
+  background: var(--panel-strong);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text);
+}
+.schemaPanel .schemaCol em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-left: auto;
+}
+
+/* 2) Bring back the green tinted background on the "ready" pill. */
+.chatHeader .statusPill--green {
+  background: rgba(16, 185, 129, 0.12);  /* soft green tint */
+  color: #047857;                         /* darker readable green */
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.chatHeader .statusPill--green svg { color: #047857; }
+
+/* 3) Segmented controls — solid blue active chip. */
+.composer .segmented {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+}
+.composer .segmented__btn--active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.35);
+  font-weight: 600;
+}
+.composer .segmented__btn--active:hover {
+  background: var(--accent-strong);
+  color: #fff;
+}
