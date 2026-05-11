@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AlertTriangle, Check, Cpu, Loader2 } from "lucide-react";
 import { listModels, loadModel, type ModelCatalog } from "@/lib/api";
 
@@ -9,6 +9,27 @@ export function ModelPicker() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  // Close the menu when the user clicks anywhere outside the picker, opens a
+  // different overlay (we react to Escape too), or scrolls/resizes hard.
+  useEffect(() => {
+    if (!open) return;
+    function onPointer(e: MouseEvent) {
+      const node = rootRef.current;
+      if (!node) return;
+      if (!node.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   async function refresh() {
     try {
@@ -63,7 +84,7 @@ export function ModelPicker() {
   const currentLabel = current?.label ?? catalog?.current ?? "—";
 
   return (
-    <div className={`modelPicker ${open ? "modelPicker--open" : ""}`}>
+    <div className={`modelPicker ${open ? "modelPicker--open" : ""}`} ref={rootRef}>
       <button
         type="button"
         className="modelPicker__trigger"

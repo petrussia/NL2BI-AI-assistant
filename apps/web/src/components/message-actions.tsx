@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, ClipboardCopy, Download, RotateCcw } from "lucide-react";
 import type { Artifact } from "@/lib/api";
+import { labelFor } from "@/lib/demo-schema";
 
 type Props = {
   artifacts: Artifact[];
@@ -30,7 +31,10 @@ function rowsToCsv(columns: string[], rows: Record<string, unknown>[]): string {
     if (/[",\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
     return s;
   };
-  const head = columns.join(",");
+  // CSV headers use the same Russian labels the on-screen table shows.
+  // Excel's «cp1251 default» reads our UTF-8 fine because we prepend a BOM
+  // at download time (see onCsv).
+  const head = columns.map((c) => esc(labelFor(c))).join(",");
   const body = rows.map((r) => columns.map((c) => esc(r[c])).join(",")).join("\n");
   return `${head}\n${body}\n`;
 }
@@ -68,7 +72,8 @@ export function MessageActions({ artifacts, onRegenerate, regenerateDisabled }: 
 
   function onCsv() {
     if (!canCsv) return;
-    const csv = rowsToCsv(tableCols, tableRows);
+    // BOM so Excel on Windows treats the file as UTF-8.
+    const csv = "﻿" + rowsToCsv(tableCols, tableRows);
     downloadBlob(`nl2bi-${Date.now()}.csv`, "text/csv;charset=utf-8", csv);
   }
 

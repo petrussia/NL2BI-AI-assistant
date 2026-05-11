@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { AlertCircle, BarChart3, ChevronDown, ChevronRight, Database, Info, Table2 } from "lucide-react";
 import type { Artifact } from "@/lib/api";
 import { VegaChart } from "@/components/vega-chart";
+import { labelFor } from "@/lib/demo-schema";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -74,8 +75,12 @@ function TableArtifact({ artifact }: { artifact: Artifact }) {
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={column} className={numericCols.has(column) ? "numeric" : undefined}>
-                  {column}
+                <th
+                  key={column}
+                  className={numericCols.has(column) ? "numeric" : undefined}
+                  title={column}
+                >
+                  {labelFor(column)}
                 </th>
               ))}
             </tr>

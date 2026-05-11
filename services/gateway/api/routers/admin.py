@@ -4,8 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from services.extraction_client.colab_client import ColabExtractionClient
-from services.gateway.api.deps import get_app_settings, get_auth_service
-from services.gateway.api.routers.auth import get_current_user
+from services.gateway.api.deps import get_app_settings, get_auth_service, get_current_user
 from services.gateway.auth_service import AuthService
 from services.gateway.config import Settings
 

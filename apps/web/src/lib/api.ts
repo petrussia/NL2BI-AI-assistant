@@ -142,6 +142,17 @@ export function createChat(title?: string) {
   });
 }
 
+export function updateChat(sessionId: string, patch: { title?: string }) {
+  return api<ChatSession>(`/chats/${sessionId}`, {
+    method: "PATCH",
+    body: JSON.stringify(patch),
+  });
+}
+
+export function deleteChat(sessionId: string) {
+  return api<{ message: string }>(`/chats/${sessionId}`, { method: "DELETE" });
+}
+
 export function listMessages(sessionId: string) {
   return api<{ messages: ChatMessage[] }>(`/chats/${sessionId}/messages`);
 }

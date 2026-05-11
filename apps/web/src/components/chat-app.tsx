@@ -140,6 +140,26 @@ export function ChatApp() {
   const dataSource = useMemo(() => findDataSource(dataSourceId), [dataSourceId]);
   const technical = responseStyle === "technical";
 
+  // Pull the request settings persisted on a message (by the server's
+  // chats router). Used by Regenerate so it replays the *original*
+  // data_source / output mode / response style, not the (possibly now
+  // changed) global toggles.
+  function settingsForMessage(message: ChatMessage): {
+    data_source_id: string;
+    preferred_output: "auto" | "chart" | "table";
+    response_style: "business" | "technical";
+  } | null {
+    const md = (message.metadata?.request_settings ?? null) as Record<string, unknown> | null;
+    if (!md) return null;
+    const ds = typeof md.data_source_id === "string" ? md.data_source_id : null;
+    const po = md.preferred_output === "auto" || md.preferred_output === "chart" || md.preferred_output === "table"
+      ? md.preferred_output
+      : null;
+    const rs = md.response_style === "business" || md.response_style === "technical" ? md.response_style : null;
+    if (!ds || !po || !rs) return null;
+    return { data_source_id: ds, preferred_output: po, response_style: rs };
+  }
+
   useEffect(() => {
     me()
       .then((payload) => {
@@ -158,7 +178,21 @@ export function ChatApp() {
   useEffect(() => {
     if (!activeSession) return;
     listMessages(activeSession)
-      .then((payload) => setMessages(payload.messages))
+      .then((payload) => {
+        setMessages(payload.messages);
+        // If the chat already has messages, drop the pre-filled suggestion
+        // from the composer so the user isn't tempted to accidentally send
+        // a duplicate of the first sample query. New empty chats keep the
+        // suggestion as a hint.
+        if (payload.messages.length > 0) {
+          setInput("");
+        } else {
+          // For a brand-new empty session, refresh the suggestion to match
+          // the *currently selected* data source (matters after switching
+          // sources without a reload).
+          setInput(findDataSource(dataSourceId).suggestions[0] ?? "");
+        }
+      })
       .catch((err: Error) => setError(err.message));
   }, [activeSession]);
 
@@ -214,9 +248,19 @@ export function ChatApp() {
   }
 
   const handleSend = useCallback(
-    async (rawContent?: string) => {
+    async (
+      rawContent?: string,
+      overrides?: {
+        preferred_output?: "auto" | "chart" | "table";
+        response_style?: "business" | "technical";
+        data_source_id?: string;
+      },
+    ) => {
       const content = (rawContent ?? input).trim();
       if (!activeSession || !content) return;
+      const usedSource = overrides?.data_source_id ?? dataSourceId;
+      const usedOutput = overrides?.preferred_output ?? preferredOutput;
+      const usedStyle = overrides?.response_style ?? responseStyle;
       setError("");
       setLoading(true);
       const optimistic: ChatMessage = {
@@ -224,7 +268,13 @@ export function ChatApp() {
         session_id: activeSession,
         role: "user",
         content,
-        metadata: {},
+        metadata: {
+          request_settings: {
+            data_source_id: usedSource,
+            preferred_output: usedOutput,
+            response_style: usedStyle,
+          },
+        },
         artifacts: [],
         created_at: Math.floor(Date.now() / 1000),
       };
@@ -237,9 +287,9 @@ export function ChatApp() {
       }
       try {
         const result = await sendMessage(activeSession, content, {
-          preferred_output: preferredOutput,
-          response_style: responseStyle,
-          data_source_id: dataSourceId,
+          preferred_output: usedOutput,
+          response_style: usedStyle,
+          data_source_id: usedSource,
         });
         setMessages((current) => [
           ...current.filter((m) => m.message_id !== optimistic.message_id),
@@ -262,12 +312,16 @@ export function ChatApp() {
     [activeSession, input, preferredOutput, responseStyle, dataSourceId, sessions, localTitles],
   );
 
-  function regenerate(messageId: string) {
-    const idx = messages.findIndex((m) => m.message_id === messageId);
+  function regenerate(assistantMessageId: string) {
+    const idx = messages.findIndex((m) => m.message_id === assistantMessageId);
     if (idx < 1) return;
     const userMsg = messages[idx - 1];
     if (!userMsg || userMsg.role !== "user") return;
-    void handleSend(userMsg.content);
+    // Replay with the *original* settings stored on the user message (the
+    // server persists request_settings on the user message metadata). Falls
+    // back to current globals if the message pre-dates that change.
+    const original = settingsForMessage(userMsg);
+    void handleSend(userMsg.content, original ?? undefined);
   }
 
   function fillSuggestion(query: string) {
@@ -475,8 +529,18 @@ export function ChatApp() {
         {schemaOpen ? (
           <section className="schemaPanel" aria-label="Схема демонстрационной БД">
             <p className="schemaHint">
-              <strong>{dataSource.label}</strong> — {dataSource.blurb} Запросы про сущности, которых нет
-              в таблицах, упрутся в <code>sql_execution_failed</code>.
+              <strong>{dataSource.label}</strong> — {dataSource.blurb}{" "}
+              {technical ? (
+                <>
+                  Запросы про сущности, которых нет в таблицах, упрутся в{" "}
+                  <code>sql_execution_failed</code>.
+                </>
+              ) : (
+                <>
+                  Если запрос не подходит под схему, система покажет понятную ошибку и
+                  предложит готовые варианты.
+                </>
+              )}
             </p>
             <ul>
               {dataSource.tables.map((table) => (
@@ -524,6 +588,9 @@ export function ChatApp() {
             messages.map((message) => {
               const t = timingFor(message);
               const arts = filteredArtifacts(message.artifacts, preferredOutput);
+              const msgSettings = settingsForMessage(message);
+              const msgSource = msgSettings?.data_source_id;
+              const msgSourceLabel = msgSource ? findDataSource(msgSource).label : null;
               return (
                 <article key={message.message_id} className={`message ${message.role}`}>
                   <p>{message.content}</p>
@@ -536,17 +603,35 @@ export function ChatApp() {
                   ))}
                   {message.role === "assistant" ? (
                     <div className="messageFooter">
-                      {t && technical ? (
-                        <div className="timingStrip" title="Время компонентов пайплайна">
-                          {t.extraction !== undefined ? <span>~SQL {fmtMs(t.extraction)}</span> : null}
-                          {t.visualization !== undefined ? <span>· визуализация {fmtMs(t.visualization)}</span> : null}
-                          {t.total !== undefined ? <span>· итого {fmtMs(t.total)}</span> : null}
-                        </div>
-                      ) : t && !technical ? (
-                        <div className="timingStrip" title="Время полного запроса">
-                          <span>{t.total !== undefined ? `Готово за ${fmtMs(t.total)}` : ""}</span>
-                        </div>
-                      ) : null}
+                      <div className="messageMeta">
+                        {msgSource ? (
+                          <span
+                            className={
+                              "sourceBadge" +
+                              (msgSource !== dataSourceId ? " sourceBadge--mismatch" : "")
+                            }
+                            title={
+                              msgSource !== dataSourceId
+                                ? `Этот ответ построен на источнике ${msgSource}, отличном от текущего ${dataSourceId}`
+                                : `Источник этого ответа: ${msgSource}`
+                            }
+                          >
+                            <Database size={11} />
+                            {msgSourceLabel ?? msgSource}
+                          </span>
+                        ) : null}
+                        {t && technical ? (
+                          <span className="timingStrip" title="Время компонентов пайплайна">
+                            {t.extraction !== undefined ? <span>~SQL {fmtMs(t.extraction)}</span> : null}
+                            {t.visualization !== undefined ? <span>· визуализация {fmtMs(t.visualization)}</span> : null}
+                            {t.total !== undefined ? <span>· итого {fmtMs(t.total)}</span> : null}
+                          </span>
+                        ) : t && !technical && t.total !== undefined ? (
+                          <span className="timingStrip" title="Время полного запроса">
+                            Готово за {fmtMs(t.total)}
+                          </span>
+                        ) : null}
+                      </div>
                       <MessageActions
                         artifacts={arts}
                         onRegenerate={() => regenerate(message.message_id)}
