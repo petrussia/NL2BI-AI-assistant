@@ -466,6 +466,30 @@ export function ChatApp() {
     void handleSend(userMsg.content, original ?? undefined);
   }
 
+  // Auto-retry-once when the tail of the conversation is a model_not_loaded
+  // failure. Colab takes 30–60s to materialize HF weights on first call; by
+  // the time we retry the next /extract is fast. Capped at 1 retry per
+  // message so we don't loop if the model genuinely can't load.
+  const retriedRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (loading) return;
+    const last = messages[messages.length - 1];
+    if (!last || last.role !== "assistant") return;
+    if (retriedRef.current.has(last.message_id)) return;
+    const arts = last.artifacts ?? [];
+    const errs = arts.filter((a) => a.artifact_type === "error");
+    const others = arts.filter((a) => a.artifact_type !== "error" && a.artifact_type !== "warning");
+    if (others.length > 0 || errs.length === 0) return;
+    const allLoading = errs.every((a) => {
+      const code = (a.payload as { code?: string } | undefined)?.code;
+      return code === "model_not_loaded";
+    });
+    if (!allLoading) return;
+    retriedRef.current.add(last.message_id);
+    const t = setTimeout(() => regenerate(last.message_id), 8000);
+    return () => clearTimeout(t);
+  }, [messages, loading]);
+
   function fillSuggestion(query: string) {
     // Auto-send on chip click: the chip text is a complete, well-formed
     // suggestion, so making the user click Send again is busywork.

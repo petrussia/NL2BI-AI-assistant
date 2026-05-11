@@ -544,6 +544,16 @@ td.emptyRow {
   border: 1px solid #ffb4ad;
 }
 
+.notice.loading {
+  background: #eef4ff;
+  color: #1d4ed8;
+  border: 1px solid #c7d8fd;
+}
+
+.notice.loading .spin {
+  animation: spin 1.2s linear infinite;
+}
+
 .statusLine {
   color: var(--muted);
   background: #fff;

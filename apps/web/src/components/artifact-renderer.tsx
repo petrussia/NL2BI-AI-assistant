@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertCircle, BarChart3, ChevronDown, ChevronRight, ChevronUp, Database, Info, Table2 } from "lucide-react";
+import { AlertCircle, BarChart3, ChevronDown, ChevronRight, ChevronUp, Database, Info, Loader2, Table2 } from "lucide-react";
 import type { Artifact } from "@/lib/api";
 import { VegaChart } from "@/components/vega-chart";
 import { labelFor } from "@/lib/demo-schema";
@@ -203,6 +203,20 @@ function NoticeArtifact({ artifact, technical }: { artifact: Artifact; technical
   const isError = artifact.artifact_type === "error";
   const payload = artifact.payload as { message?: string; code?: string; details?: Record<string, unknown> };
   const code = payload.code ?? artifact.title;
+  // model_not_loaded isn't a real failure — Colab is still spinning up the
+  // HF weights. Render as a loading state so the user waits instead of
+  // re-sending the same query (which just queues more model_not_loaded).
+  if (isError && code === "model_not_loaded") {
+    return (
+      <div className="notice loading">
+        <Loader2 size={16} className="spin" />
+        <div>
+          <strong>Модель загружается</strong>
+          <p>Первая загрузка занимает 30–60 секунд. Подождите и нажмите «Перезапустить» — повторный запуск отработает сразу.</p>
+        </div>
+      </div>
+    );
+  }
   const friendly = (typeof code === "string" ? FRIENDLY_ERROR_RU[code] : undefined) ?? payload.message ?? artifact.title;
   const detailEntries = payload.details ? Object.entries(payload.details) : [];
   return (
