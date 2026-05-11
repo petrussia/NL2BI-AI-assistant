@@ -35,6 +35,13 @@ function classify(
   if (r.colab_health.model_loaded === false) {
     return { tone: "yellow", label: "Модель не загружена", hint: "Colab жив, но model_loaded=false" };
   }
+  if (r.colab_health.demo_db_ready === false) {
+    return {
+      tone: "yellow",
+      label: "Нет демо-данных",
+      hint: "model_loaded=true, но demo_db_ready=false — Spider SQLite registry не подмонтирован, /extract вернёт schema_not_found",
+    };
+  }
   const gpu = r.colab_health.gpu_name ?? "GPU";
   return {
     tone: "green",

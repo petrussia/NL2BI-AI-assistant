@@ -36,6 +36,7 @@ export type RuntimeStatus = {
     model_loaded: boolean | null;
     gpu_name: string | null;
     mock_model: boolean | null;
+    demo_db_ready: boolean | null;
   };
   debug_sql_visible: boolean;
 };
