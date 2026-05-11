@@ -321,38 +321,70 @@ def _duckdb_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
     tables: list[TableSchema] = []
     conn = duckdb.connect(str(spec.path), read_only=True)
     try:
-        # information_schema.tables — works in DuckDB.
-        names = [r[0] for r in conn.execute(
-            "SELECT table_name FROM information_schema.tables "
+        # information_schema lists both schema + table — needed for dbt
+        # projects where staging tables live in a separate schema
+        # (e.g. main_stg_asana) and PRAGMA on unqualified name fails.
+        rows = conn.execute(
+            "SELECT table_schema, table_name FROM information_schema.tables "
             "WHERE table_schema NOT IN ('information_schema', 'pg_catalog') "
-            "ORDER BY table_name"
-        ).fetchall()]
-        for table_name in names:
-            info = conn.execute(
-                f'PRAGMA table_info("{table_name}")'
-            ).fetchall()
+            "ORDER BY table_schema, table_name"
+        ).fetchall()
+        # Filter out dbt staging/intermediate artifacts that aren't
+        # source tables (would confuse the model with 40+ noisy names).
+        def _is_demo_table(sch: str, tbl: str) -> bool:
+            low = tbl.lower()
+            if low.endswith("_tmp"):
+                return False
+            if low.startswith("stg_") or low.startswith("int_"):
+                return False
+            if "bridge_smoke" in low:
+                return False
+            return True
+        rows = [(s, t) for s, t in rows if _is_demo_table(s, t)]
+        for sch, table_name in rows:
+            qualified = f'"{sch}"."{table_name}"'
+            try:
+                info = conn.execute(f"PRAGMA table_info('{sch}.{table_name}')").fetchall()
+            except Exception:
+                try:
+                    # Fallback: DESCRIBE shows columns for any qualified table.
+                    info = conn.execute(f"DESCRIBE {qualified}").fetchall()
+                except Exception:
+                    info = []
             sample: list[dict[str, Any]] = []
             try:
-                desc = conn.execute(f'SELECT * FROM "{table_name}" LIMIT {sample_rows}')
+                desc = conn.execute(f"SELECT * FROM {qualified} LIMIT {sample_rows}")
                 cols_desc = [d[0] for d in desc.description]
                 sample = [dict(zip(cols_desc, r)) for r in desc.fetchall()]
             except Exception:
                 sample = []
             cols: list[ColumnSchema] = []
-            # PRAGMA table_info columns: cid, name, type, notnull, dflt_value, pk
+            # PRAGMA table_info: cid, name, type, notnull, dflt_value, pk
+            # DESCRIBE: column_name, column_type, null, key, default, extra
             for row in info:
-                col_name = row[1]
+                if len(row) >= 6 and isinstance(row[3], int):
+                    # Looks like PRAGMA table_info layout
+                    col_name = row[1]
+                    sql_type = row[2] or ""
+                    nullable = not row[3]
+                    primary_key = bool(row[5])
+                else:
+                    col_name = row[0]
+                    sql_type = row[1] or ""
+                    nullable = (row[2] != "NO" and str(row[2]).upper() != "FALSE")
+                    primary_key = False
                 examples = [r.get(col_name) for r in sample if r.get(col_name) is not None]
                 cols.append(
                     ColumnSchema(
                         name=col_name,
-                        sql_type=row[2] or "",
-                        nullable=not row[3],
-                        primary_key=bool(row[5]),
+                        sql_type=sql_type,
+                        nullable=nullable,
+                        primary_key=primary_key,
                         examples=examples[:3],
                     )
                 )
-            tables.append(TableSchema(name=table_name, columns=cols))
+            # Use schema.table for table name so the model writes correct SQL.
+            tables.append(TableSchema(name=f"{sch}.{table_name}", columns=cols))
     finally:
         conn.close()
     return DatabaseSchema(
