@@ -2686,3 +2686,27 @@ html, body { overflow-x: hidden; }
 .message { width: 100%; }
 .message.user { width: min(720px, 100%); }
 .composerPill { width: 100%; }
+
+/* v0.10n — fix action-button overflow on narrow bubbles.
+ *
+ * .messageActions was inline-flex so it didn't have a defined "max width"
+ * to wrap against — buttons just spilled past the bubble's right edge.
+ * Switch to flex with min-width:0 so it shrinks when the badge+timing on
+ * the left take half the row; remaining buttons then wrap to a 2nd line. */
+.messageActions {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+/* Buttons themselves stay one-line each but can shrink on tight rows. */
+.messageAction { white-space: nowrap; min-width: 0; }
+
+/* Chart artifact: ensure the bar plot can't draw past the card's right
+ * border. .artifact already has overflow:hidden — this min-width:0 lets
+ * the chart shrink with the bubble instead of forcing its grid cell
+ * wider. */
+.message { min-width: 0; }
+.artifact { min-width: 0; }
+.chartArtifact .vegaChartWrap { min-width: 0; max-width: 100%; overflow: hidden; }
