@@ -46,63 +46,17 @@ class TextToSqlModel:
             return True
         return self.state.loaded and self._model is not None
 
-    def unload(self) -> None:
-        """Release the loaded model + tokenizer + free GPU memory."""
-        with self._lock:
-            self._tokenizer = None
-            self._model = None
-            try:
-                import gc
-                gc.collect()
-                import torch
-                if torch.cuda.is_available():
-                    torch.cuda.empty_cache()
-            except Exception:
-                pass
-            self.state = ModelState(
-                loaded=False,
-                model_id=self.state.model_id,
-                mock=self.state.mock,
-                quantization=None,
-            )
-
-    def load(self, model_id_override: str | None = None) -> ModelState:
-        """Load the configured (or override-specified) model.
-
-        Pass `model_id_override` to switch to a different HF model id without
-        editing config. The override does not persist past this load — next
-        unload+load with no argument reverts to config.model_id.
-        """
-        target_model_id = model_id_override or self.config.model_id
+    def load(self) -> ModelState:
         if self.state.mock:
             self.state = ModelState(
                 loaded=True,
-                model_id=target_model_id,
+                model_id=self.config.model_id,
                 mock=True,
                 quantization="mock",
             )
             return self.state
         with self._lock:
-            # If a different model was requested while one is already loaded,
-            # release the current one first to avoid VRAM stacking.
-            if self.state.loaded and self.state.model_id != target_model_id:
-                self._tokenizer = None
-                self._model = None
-                self.state = ModelState(
-                    loaded=False,
-                    model_id=self.state.model_id,
-                    mock=False,
-                    quantization=None,
-                )
-                try:
-                    import gc
-                    gc.collect()
-                    import torch
-                    if torch.cuda.is_available():
-                        torch.cuda.empty_cache()
-                except Exception:
-                    pass
-            if self.state.loaded and self.state.model_id == target_model_id:
+            if self.state.loaded:
                 return self.state
             started = time.monotonic()
             try:
@@ -135,7 +89,7 @@ class TextToSqlModel:
 
             try:
                 tokenizer = AutoTokenizer.from_pretrained(
-                    target_model_id,
+                    self.config.model_id,
                     trust_remote_code=True,
                 )
                 kwargs: dict[str, Any] = {
@@ -147,14 +101,14 @@ class TextToSqlModel:
                 else:
                     kwargs["torch_dtype"] = torch.float16
                 model = AutoModelForCausalLM.from_pretrained(
-                    target_model_id,
+                    self.config.model_id,
                     **kwargs,
                 )
                 model.eval()
             except Exception as exc:
                 self.state = ModelState(
                     loaded=False,
-                    model_id=target_model_id,
+                    model_id=self.config.model_id,
                     mock=False,
                     quantization=quantization,
                     load_error=f"{type(exc).__name__}: {str(exc)[:200]}",
@@ -166,7 +120,7 @@ class TextToSqlModel:
             elapsed = int((time.monotonic() - started) * 1000)
             self.state = ModelState(
                 loaded=True,
-                model_id=target_model_id,
+                model_id=self.config.model_id,
                 mock=False,
                 quantization=quantization,
                 load_latency_ms=elapsed,

@@ -24,7 +24,6 @@ def runtime(settings: Settings = Depends(get_app_settings)) -> dict[str, object]
             "model_loaded": None,
             "gpu_name": None,
             "mock_model": None,
-            "demo_db_ready": None,
         },
         "server_allows_llm_imports": False,
         "debug_sql_visible": settings.debug_sql_visible,
@@ -41,7 +40,6 @@ def runtime(settings: Settings = Depends(get_app_settings)) -> dict[str, object]
             "model_loaded": health.get("model_loaded"),
             "gpu_name": health.get("gpu_name"),
             "mock_model": health.get("mock_model"),
-            "demo_db_ready": health.get("demo_db_ready"),
         }
         if not available:
             payload.update(health)

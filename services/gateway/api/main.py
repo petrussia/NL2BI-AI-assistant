@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from services.gateway.api.routers import admin, artifacts, auth, chats, health, nl2chart, runtime
+from services.gateway.api.routers import artifacts, auth, chats, health, nl2chart, runtime
 
 
 app = FastAPI(
@@ -27,5 +27,4 @@ app.include_router(artifacts.router)
 app.include_router(nl2chart.router)
 app.include_router(auth.router)
 app.include_router(chats.router)
-app.include_router(admin.router)
 

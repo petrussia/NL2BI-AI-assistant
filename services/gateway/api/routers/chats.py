@@ -11,10 +11,8 @@ from services.gateway.api.schemas import (
     ChatSessionListResponse,
     ChatSessionResponse,
     CreateChatRequest,
-    MessageResponse,
     SendMessageRequest,
     SendMessageResponse,
-    UpdateChatRequest,
 )
 from services.gateway.auth_service import AuthService
 from services.orchestrator.nl2chart_orchestrator import Nl2ChartOrchestrator
@@ -41,38 +39,6 @@ def create_chat(
     return ChatSessionResponse(**auth_service.create_session(current_user["username"], body.title))
 
 
-@router.patch("/{session_id}", response_model=ChatSessionResponse)
-def update_chat(
-    session_id: str,
-    body: UpdateChatRequest,
-    current_user=Depends(get_current_user),
-    auth_service: AuthService = Depends(get_auth_service),
-) -> ChatSessionResponse:
-    """Persist user-edited fields on a chat session. Today: title only."""
-    if body.title is None:
-        raise HTTPException(status_code=400, detail="Nothing to update.")
-    try:
-        updated = auth_service.update_chat_title(current_user["username"], session_id, body.title)
-    except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Chat session not found.") from exc
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return ChatSessionResponse(**updated)
-
-
-@router.delete("/{session_id}", response_model=MessageResponse)
-def delete_chat(
-    session_id: str,
-    current_user=Depends(get_current_user),
-    auth_service: AuthService = Depends(get_auth_service),
-) -> MessageResponse:
-    try:
-        auth_service.delete_chat(current_user["username"], session_id)
-    except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Chat session not found.") from exc
-    return MessageResponse(message="deleted")
-
-
 @router.get("/{session_id}/messages", response_model=ChatMessageListResponse)
 def list_messages(
     session_id: str,
@@ -94,24 +60,12 @@ def send_message(
     auth_service: AuthService = Depends(get_auth_service),
     orchestrator: Nl2ChartOrchestrator = Depends(get_orchestrator),
 ) -> SendMessageResponse:
-    # Persist the request settings on the user message metadata so that the
-    # frontend's "Regenerate" can replay the original data_source + output
-    # mode + response style, instead of using the (possibly-changed) current
-    # global toggles. Also lets us show a per-message "Источник: …" badge
-    # so old answers stay correctly attributed when the user later switches
-    # the source dropdown.
-    request_settings = {
-        "data_source_id": body.data_source_id,
-        "preferred_output": body.preferred_output,
-        "response_style": body.response_style,
-    }
     try:
         user_message = auth_service.add_message(
             username=current_user["username"],
             session_id=session_id,
             role="user",
             content=body.content,
-            metadata={"request_settings": request_settings},
         )
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Chat session not found.") from exc
@@ -162,10 +116,6 @@ def send_message(
             "status": result.status,
             "selected_view": result.selected_view,
             "debug": result.debug,
-            # Mirror the user request settings so the UI can show a per-answer
-            # "Источник: …" badge directly from message.metadata without
-            # needing to chase the previous user message in the array.
-            "request_settings": request_settings,
         },
         artifacts=artifacts,
     )
