@@ -45,7 +45,7 @@ import { ModelPicker } from "@/components/model-picker";
 import { MessageActions } from "@/components/message-actions";
 import { SkeletonMessage } from "@/components/skeleton-message";
 import { AboutModal } from "@/components/about-modal";
-import { DEFAULT_DATA_SOURCE_ID, DEMO_DATA_SOURCES, findDataSource } from "@/lib/demo-schema";
+import { DEFAULT_DATA_SOURCE_ID, DEMO_DATA_SOURCES, ENGINE_LABELS, findDataSource } from "@/lib/demo-schema";
 
 type User = {
   username: string;
@@ -770,6 +770,9 @@ export function ChatApp() {
                 >
                   <Database size={14} />
                   <span className="sourcePicker__label">{dataSource.label}</span>
+                  <span className={`engineBadge engineBadge--${dataSource.engine} engineBadge--sm`}>
+                    {ENGINE_LABELS[dataSource.engine]}
+                  </span>
                   <ChevronDown size={12} className="sourcePicker__chev" />
                 </button>
                 {sourceMenuOpen ? (
@@ -792,6 +795,9 @@ export function ChatApp() {
                             <span className="sourcePicker__itemBody">
                               <span className="sourcePicker__itemLabel">{d.label}</span>
                               <em className="sourcePicker__itemMeta">{d.id}</em>
+                            </span>
+                            <span className={`engineBadge engineBadge--${d.engine}`}>
+                              {ENGINE_LABELS[d.engine]}
                             </span>
                             {active ? <Check size={14} /> : null}
                           </button>

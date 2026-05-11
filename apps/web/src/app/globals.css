@@ -2710,3 +2710,36 @@ html, body { overflow-x: hidden; }
 .message { min-width: 0; }
 .artifact { min-width: 0; }
 .chartArtifact .vegaChartWrap { min-width: 0; max-width: 100%; overflow: hidden; }
+
+/* v0.11 — engine badge on .sourcePicker__item + trigger. */
+.sourcePicker__item {
+  grid-template-columns: auto 1fr auto auto;
+}
+.engineBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.engineBadge--sm { font-size: 10px; padding: 1px 6px; }
+.engineBadge--sqlite {
+  background: rgba(99, 102, 241, 0.10);   /* indigo soft */
+  color: #4338ca;
+  border-color: rgba(99, 102, 241, 0.25);
+}
+.engineBadge--duckdb {
+  background: rgba(245, 158, 11, 0.10);   /* amber soft */
+  color: #b45309;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+.engineBadge--postgres {
+  background: rgba(56, 161, 105, 0.10);   /* teal/green */
+  color: #047857;
+  border-color: rgba(56, 161, 105, 0.28);
+}
