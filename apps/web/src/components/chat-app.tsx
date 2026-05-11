@@ -842,7 +842,8 @@ export function ChatApp() {
                   Подсказки под композером
                   <span
                     className="hintMark"
-                    title="Когда включено, под полем ввода показываются готовые запросы для текущего источника. Клик по чипу сразу отправляет вопрос."
+                    data-tooltip="Под полем ввода показываются готовые запросы для текущего источника. Клик по чипу сразу отправляет вопрос."
+                    tabIndex={0}
                     aria-label="Подсказка"
                   >
                     <HelpCircle size={12} />
@@ -854,7 +855,8 @@ export function ChatApp() {
                     checked={suggestionsEnabled}
                     onChange={(e) => setSuggestionsEnabled(e.target.checked)}
                   />
-                  <span>{suggestionsEnabled ? "Вкл" : "Выкл"}</span>
+                  <span className="composerSwitch__track" aria-hidden="true" />
+                  <span className="composerSwitch__label">{suggestionsEnabled ? "Вкл" : "Выкл"}</span>
                 </label>
               </div>
 
@@ -863,7 +865,8 @@ export function ChatApp() {
                   Формат ответа
                   <span
                     className="hintMark"
-                    title="Авто — модель сама выбирает таблицу или график. График — всегда строить визуализацию. Таблица — только табличный результат."
+                    data-tooltip="Авто — модель сама выбирает таблицу или график. График — всегда строить визуализацию. Таблица — только табличный результат."
+                    tabIndex={0}
                     aria-label="Подсказка"
                   >
                     <HelpCircle size={12} />
@@ -890,7 +893,8 @@ export function ChatApp() {
                   Стиль ответа
                   <span
                     className="hintMark"
-                    title="Бизнес — короткая формулировка для пользователя. Технический — показывается SQL, коды ошибок, метаданные колонок."
+                    data-tooltip="Бизнес — короткая формулировка для пользователя. Технический — показывается SQL, коды ошибок, метаданные колонок."
+                    tabIndex={0}
                     aria-label="Подсказка"
                   >
                     <HelpCircle size={12} />

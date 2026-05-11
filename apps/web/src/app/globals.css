@@ -1842,29 +1842,96 @@ select { padding: 0 28px 0 12px; }
   justify-content: center;
   color: var(--muted);
   cursor: help;
+  position: relative;
 }
-.hintMark:hover { color: var(--accent); }
+.hintMark:hover,
+.hintMark:focus-visible { color: var(--accent); outline: none; }
 
+/* Custom tooltip rendered from data-tooltip — appears instantly on
+ * hover/focus, supports multi-line text, doesn't rely on browser native
+ * delay. Positioned above the icon; arrow via ::after. */
+.hintMark[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 7px 10px;
+  border-radius: 6px;
+  white-space: normal;
+  width: max-content;
+  max-width: 260px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease 0s;
+  z-index: 40;
+}
+.hintMark[data-tooltip]::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0f172a;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease 0s;
+  z-index: 40;
+}
+.hintMark:hover[data-tooltip]::before,
+.hintMark:hover[data-tooltip]::after,
+.hintMark:focus-visible[data-tooltip]::before,
+.hintMark:focus-visible[data-tooltip]::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* iOS-style toggle. <input type="checkbox"> can't host a ::before
+ * pseudo (void element), and global ".composer input" tries to force
+ * width:100% + 42px min-height onto it. Solution: hide the real input
+ * and use a sibling <span> as the visible track with a ::before knob. */
 .composerSwitch {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 12px;
   color: var(--muted);
   user-select: none;
   cursor: pointer;
+  position: relative;
 }
-.composerSwitch input[type="checkbox"] {
-  appearance: none;
-  width: 32px;
+.composer .composerSwitch input[type="checkbox"] {
+  /* Visually hidden but still focusable. Reset every cascade defender
+   * because ".composer input" tries to pin width:100% / min-height:42px. */
+  position: absolute;
+  width: 0;
+  height: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.composerSwitch__track {
+  position: relative;
+  display: inline-block;
+  width: 34px;
   height: 18px;
   border-radius: 999px;
   background: #cbd5e1;
-  position: relative;
-  transition: background 0.12s ease;
-  cursor: pointer;
+  transition: background 0.15s ease;
+  flex: 0 0 34px;
 }
-.composerSwitch input[type="checkbox"]::before {
+.composerSwitch__track::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -1873,14 +1940,19 @@ select { padding: 0 28px 0 12px; }
   height: 14px;
   border-radius: 50%;
   background: #fff;
-  transition: transform 0.12s ease;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+  transition: transform 0.15s ease;
 }
-.composerSwitch input[type="checkbox"]:checked {
+.composerSwitch input[type="checkbox"]:checked ~ .composerSwitch__track {
   background: var(--accent);
 }
-.composerSwitch input[type="checkbox"]:checked::before {
-  transform: translateX(14px);
+.composerSwitch input[type="checkbox"]:checked ~ .composerSwitch__track::before {
+  transform: translateX(16px);
 }
+.composerSwitch input[type="checkbox"]:focus-visible ~ .composerSwitch__track {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+.composerSwitch__label { color: var(--muted); }
 
 .segmented {
   display: inline-flex;
