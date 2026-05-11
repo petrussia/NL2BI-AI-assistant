@@ -11,7 +11,12 @@ def test_runtime_mock_mode():
     assert payload["gpu_in_backend"] is False
     assert payload["extraction_mode"] == "mock"
     assert payload["colab_available"] is False
-    assert payload["colab_health"] == {"model_loaded": None, "gpu_name": None, "mock_model": None}
+    assert payload["colab_health"] == {
+        "model_loaded": None,
+        "gpu_name": None,
+        "mock_model": None,
+        "demo_db_ready": None,
+    }
     assert payload["server_allows_llm_imports"] is False
 
 
@@ -56,6 +61,7 @@ def test_runtime_colab_health_is_sanitized(monkeypatch, tmp_path):
         "model_loaded": True,
         "gpu_name": "NVIDIA L4",
         "mock_model": False,
+        "demo_db_ready": None,
     }
     assert "https://colab.example" not in str(payload)
     assert "secret" not in str(payload)

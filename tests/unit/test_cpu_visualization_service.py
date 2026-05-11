@@ -12,8 +12,12 @@ def test_time_series_becomes_line():
         data_source=DataSourceInfo(id="demo_concert_singer"),
         result_table=ResultTable(
             columns=["month", "revenue"],
-            rows=[{"month": "2026-01", "revenue": 10}, {"month": "2026-02", "revenue": 20}],
-            row_count=2,
+            rows=[
+                {"month": "2026-01", "revenue": 10},
+                {"month": "2026-02", "revenue": 20},
+                {"month": "2026-03", "revenue": 30},
+            ],
+            row_count=3,
         ),
         field_metadata=[
             FieldMetadata(name="month", data_type="date", semantic_role="time", allowed_aggregations=["none"], default_aggregation="none"),
@@ -23,6 +27,38 @@ def test_time_series_becomes_line():
     response = CpuVisualizationService().visualize(request)
     assert response.status == "success"
     assert response.selected_view.chart_type == "line"
+
+
+def test_year_month_result_uses_combined_month_axis():
+    request = VisualizationRequest(
+        request_id="r1",
+        user_query="Number of completed tasks by month",
+        data_source=DataSourceInfo(id="spider2_asana_dbt"),
+        result_table=ResultTable(
+            columns=["year", "month", "completed_tasks_count"],
+            rows=[
+                {"year": 2023, "month": 8, "completed_tasks_count": 4},
+                {"year": 2023, "month": 9, "completed_tasks_count": 2},
+                {"year": 2024, "month": 1, "completed_tasks_count": 1},
+            ],
+            row_count=3,
+        ),
+        field_metadata=[
+            FieldMetadata(name="year", data_type="number", semantic_role="time", allowed_aggregations=["none"], default_aggregation="none"),
+            FieldMetadata(name="month", data_type="number", semantic_role="time", allowed_aggregations=["none"], default_aggregation="none"),
+            FieldMetadata(name="completed_tasks_count", data_type="number", semantic_role="measure", allowed_aggregations=["none"], default_aggregation="none"),
+        ],
+    )
+
+    response = CpuVisualizationService().visualize(request)
+
+    assert response.status == "success"
+    spec = response.selected_view.spec
+    assert spec["encoding"]["x"]["field"] == "__period_month"
+    assert spec["encoding"]["x"]["type"] == "temporal"
+    assert spec["encoding"]["x"]["axis"]["format"] == "%Y-%m"
+    assert spec["data"]["values"][0]["__period_month"] == "2023-08-01"
+    assert spec["data"]["values"][2]["__period_month"] == "2024-01-01"
 
 
 def test_empty_rows_failed_safely():
