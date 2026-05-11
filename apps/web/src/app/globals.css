@@ -170,20 +170,34 @@ button {
   gap: 18px;
 }
 
+/* Brand stack: icon + "NL2BI" on row 1, username on row 2.
+ * Side-by-side layout broke when usernames were longer than ~10 chars —
+ * "analyst_17785040071..." overflowed the 280px sidebar into chatHeader.
+ * Two-row grid + ellipsis on the username keeps the block fixed regardless. */
 .brand {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 2px;
 }
-
+.brand .brandMark--sm { grid-row: 1; grid-column: 1; }
 .brand strong {
+  grid-row: 1;
+  grid-column: 2;
   font-size: 20px;
+  line-height: 1.1;
 }
-
-.brand span {
+.brand .brandUser {
+  grid-row: 2;
+  grid-column: 1 / -1;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .newChat {
@@ -2051,3 +2065,35 @@ select { padding: 0 28px 0 12px; }
   color: var(--text);
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
 }
+
+/* ============================================================
+ * v0.10c — unify right-side header controls (status pill,
+ * model picker trigger, source select) to a single height +
+ * roundedness so the header looks coherent. Previously the
+ * StatusPill was 32h/r999, source was 42h/r6, ModelPicker
+ * something in between — visually shouty. Now: 32h, fully
+ * rounded pill (r999), matching backgrounds.
+ * ============================================================ */
+.chatHeader .statusPill,
+.chatHeader .modelPicker__trigger,
+.toggles select.toggleSelect,
+.toggles select.toggleSelect--source {
+  height: 32px;
+  min-height: 32px;
+  border-radius: 999px;
+  padding: 0 14px;
+  font-size: 12.5px;
+  line-height: 1;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.toggles select.toggleSelect,
+.toggles select.toggleSelect--source {
+  /* Native select chevron sits awkwardly close to the right edge at
+   * 999px radius — bump right padding a hair so it doesn't clip. */
+  padding-right: 28px;
+}
+/* StatusPill keeps its tone-specific tinted backgrounds — only
+ * normalize the geometry, not the colors. The tone classes already
+ * set background + color via .statusPill--green / --yellow / --red. */
+.chatHeader .statusPill { padding: 0 12px; }
