@@ -2658,3 +2658,31 @@ html, body { overflow-x: hidden; }
   align-self: center;
   padding-left: 4px;
 }
+
+/* ============================================================
+ * v0.10m — narrow chat column to 80% of chatPane.
+ *
+ * User wants the main chat content (messages, suggestions, composer)
+ * to NOT span the full chatPane width. ~10% margin each side, centered.
+ * Border thickness, sidebar, and header layout are untouched.
+ * ============================================================ */
+.messages,
+.chatPane > .suggestions,
+.chatPane > .composer {
+  width: min(80%, 1400px);
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Absolutes still need left/right reset so the auto-margins actually
+ * center them — left:0;right:0 from earlier rules would force full
+ * width regardless of `width`. */
+.chatPane > .composer,
+.chatPane > .suggestions {
+  left: 0;
+  right: 0;
+}
+/* Drop individual bubble / pill caps so they fill the (already-capped)
+ * column instead of being centered inside it as a smaller block. */
+.message { width: 100%; }
+.message.user { width: min(720px, 100%); }
+.composerPill { width: 100%; }
