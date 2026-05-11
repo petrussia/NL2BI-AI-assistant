@@ -19,7 +19,7 @@ _DATE_TYPES = {"date"}
 _BOOLEAN_TYPES = {"boolean", "bool"}
 
 _AGG_ALIAS_RE = re.compile(
-    r"\b(sum|avg|min|max|count|count_distinct)\s*\(\s*([^)]+)\)\s+as\s+([a-zA-Z_][a-zA-Z0-9_]*)",
+    r'\b(sum|avg|min|max|count|count_distinct)\s*\(\s*([^)]+)\)\s+as\s+("[^"]+"|[a-zA-Z_А-Яа-яЁё][\wА-Яа-яЁё]*)',
     re.IGNORECASE,
 )
 _AGG_NAKED_RE = re.compile(
@@ -72,7 +72,24 @@ def _looks_time(name: str) -> bool:
     n = name.lower()
     return any(
         n == k or n.endswith(f"_{k}") or n.startswith(f"{k}_") or k in n
-        for k in ("date", "time", "month", "year", "day", "week", "quarter")
+        for k in (
+            "date",
+            "time",
+            "month",
+            "year",
+            "day",
+            "week",
+            "quarter",
+            "decade",
+            "дата",
+            "время",
+            "месяц",
+            "год",
+            "день",
+            "недел",
+            "квартал",
+            "десятилет",
+        )
     )
 
 
@@ -83,9 +100,17 @@ def _looks_id(name: str) -> bool:
 
 def _periodicity(name: str) -> str | None:
     n = name.lower()
-    for p in ("day", "week", "month", "quarter", "year"):
-        if p in n:
-            return p
+    aliases = (
+        ("day", ("day", "день")),
+        ("week", ("week", "недел")),
+        ("month", ("month", "месяц")),
+        ("quarter", ("quarter", "квартал")),
+        ("year", ("decade", "десятилет")),
+        ("year", ("year", "год")),
+    )
+    for periodicity, tokens in aliases:
+        if any(token in n for token in tokens):
+            return periodicity
     return None
 
 
@@ -101,7 +126,7 @@ def _parse_aggregation_aliases(sql: str) -> dict[str, dict[str, str]]:
     """Returns alias -> {func, expression}."""
     found: dict[str, dict[str, str]] = {}
     for match in _AGG_ALIAS_RE.finditer(sql):
-        func, expr, alias = match.group(1).lower(), match.group(2).strip(), match.group(3)
+        func, expr, alias = match.group(1).lower(), match.group(2).strip(), match.group(3).strip('"')
         found[alias] = {"func": func, "expression": expr}
     return found
 

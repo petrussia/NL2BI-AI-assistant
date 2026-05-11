@@ -14,7 +14,23 @@ def infer_data_type(name: str, values: list[Any]) -> DataType:
     non_null = [value for value in values if value is not None]
     if not non_null:
         lowered = name.casefold()
-        if any(token in lowered for token in ("date", "time", "month", "day", "дата", "месяц")):
+        if any(
+            token in lowered
+            for token in (
+                "date",
+                "time",
+                "month",
+                "year",
+                "day",
+                "week",
+                "quarter",
+                "decade",
+                "дата",
+                "месяц",
+                "год",
+                "десятилет",
+            )
+        ):
             return "date"
         return "unknown"
 
@@ -27,4 +43,3 @@ def infer_data_type(name: str, values: list[Any]) -> DataType:
     if all(isinstance(value, str) and _DATE_RE.match(value.strip()) for value in non_null):
         return "date"
     return "string"
-

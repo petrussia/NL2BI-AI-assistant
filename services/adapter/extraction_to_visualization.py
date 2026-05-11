@@ -90,7 +90,11 @@ def adapt_extraction_to_visualization(
         current = metadata_by_name.get(column)
         values = [row.get(column) for row in response.result_table.rows]
         data_type = current.data_type if current and current.data_type != "unknown" else infer_data_type(column, values)
-        role = current.semantic_role if current and current.semantic_role != "unknown" else infer_semantic_role(column, data_type)
+        inferred_role = infer_semantic_role(column, data_type)
+        if inferred_role == "time":
+            role = "time"
+        else:
+            role = current.semantic_role if current and current.semantic_role != "unknown" else inferred_role
         allowed = list(current.allowed_aggregations) if current and current.allowed_aggregations else infer_allowed_aggregations(role)
         default = current.default_aggregation if current and current.default_aggregation else infer_default_aggregation(role)
 
@@ -154,4 +158,3 @@ def adapt_extraction_to_visualization(
         presentation_preferences=preferences or PresentationPreferences(),
     )
     return AdapterResult(request=request, warnings=warnings)
-

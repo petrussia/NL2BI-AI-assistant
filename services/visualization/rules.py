@@ -5,7 +5,7 @@ from contracts.extraction import FieldMetadata
 
 def detect_intent(user_query: str) -> str:
     query = user_query.casefold()
-    if any(token in query for token in ("динамик", "тренд", "trend", "month", "месяц", "по дня", "по год")):
+    if any(token in query for token in ("динамик", "тренд", "trend", "month", "месяц", "по дня", "по год", "decade", "десятилет")):
         return "trend"
     if any(token in query for token in ("топ", "top", "лучшие", "лидер")):
         return "top_n"
@@ -32,4 +32,3 @@ def fields_by_role(metadata: list[FieldMetadata]) -> dict[str, list[FieldMetadat
     for item in metadata:
         result.setdefault(item.semantic_role, []).append(item)
     return result
-

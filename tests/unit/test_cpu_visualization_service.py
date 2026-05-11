@@ -61,6 +61,149 @@ def test_year_month_result_uses_combined_month_axis():
     assert spec["data"]["values"][2]["__period_month"] == "2024-01-01"
 
 
+def test_russian_year_month_measure_uses_measure_on_y_axis():
+    request = VisualizationRequest(
+        request_id="r1",
+        user_query="Динамика продаж по месяцам в 2024",
+        data_source=DataSourceInfo(id="northwind_ru"),
+        result_table=ResultTable(
+            columns=["год", "месяц", "выручка"],
+            rows=[
+                {"год": 2024, "месяц": 1, "выручка": 100},
+                {"год": 2024, "месяц": 2, "выручка": 200},
+                {"год": 2024, "месяц": 3, "выручка": 150},
+            ],
+            row_count=3,
+        ),
+        field_metadata=[
+            FieldMetadata(name="год", data_type="number", semantic_role="time", allowed_aggregations=["none"], default_aggregation="none"),
+            FieldMetadata(name="месяц", data_type="number", semantic_role="time", allowed_aggregations=["none"], default_aggregation="none"),
+            FieldMetadata(name="выручка", data_type="number", semantic_role="measure", allowed_aggregations=["none"], default_aggregation="none"),
+        ],
+    )
+
+    response = CpuVisualizationService().visualize(request)
+
+    assert response.selected_view.chart_type == "line"
+    spec = response.selected_view.spec
+    assert spec["encoding"]["x"]["field"] == "__period_month"
+    assert spec["encoding"]["y"]["field"] == "выручка"
+    assert spec["data"]["values"][0]["__period_month"] == "2024-01-01"
+
+
+def test_visualizer_corrects_russian_time_fields_misclassified_as_measures():
+    request = VisualizationRequest(
+        request_id="r1",
+        user_query="Сколько заказов в месяц было сделано",
+        data_source=DataSourceInfo(id="northwind_ru"),
+        result_table=ResultTable(
+            columns=["год", "месяц", "количество_заказов"],
+            rows=[
+                {"год": 2024, "месяц": 1, "количество_заказов": 2},
+                {"год": 2024, "месяц": 2, "количество_заказов": 2},
+                {"год": 2024, "месяц": 3, "количество_заказов": 2},
+            ],
+            row_count=3,
+        ),
+        field_metadata=[
+            FieldMetadata(name="год", data_type="number", semantic_role="measure"),
+            FieldMetadata(name="месяц", data_type="number", semantic_role="measure"),
+            FieldMetadata(name="количество_заказов", data_type="number", semantic_role="measure", allowed_aggregations=["none"], default_aggregation="none"),
+        ],
+    )
+
+    response = CpuVisualizationService().visualize(request)
+
+    assert response.selected_view.chart_type == "line"
+    spec = response.selected_view.spec
+    assert spec["encoding"]["x"]["field"] == "__period_month"
+    assert spec["encoding"]["y"]["field"] == "количество_заказов"
+
+
+def test_decade_time_series_does_not_become_scatter():
+    request = VisualizationRequest(
+        request_id="r1",
+        user_query="Сколько станций открыто по десятилетиям",
+        data_source=DataSourceInfo(id="moscow_open"),
+        result_table=ResultTable(
+            columns=["decade", "station_count"],
+            rows=[
+                {"decade": 1980, "station_count": 3},
+                {"decade": 1990, "station_count": 4},
+                {"decade": 2000, "station_count": 5},
+            ],
+            row_count=3,
+        ),
+        field_metadata=[
+            FieldMetadata(name="decade", data_type="number", semantic_role="time"),
+            FieldMetadata(name="station_count", data_type="number", semantic_role="measure", allowed_aggregations=["none"], default_aggregation="none"),
+        ],
+    )
+
+    response = CpuVisualizationService().visualize(request)
+
+    assert response.selected_view.chart_type == "line"
+    assert response.selected_view.spec["encoding"]["x"]["type"] == "ordinal"
+    assert response.selected_view.spec["encoding"]["y"]["field"] == "station_count"
+
+
+def test_multi_metric_query_prefers_table_to_preserve_metrics():
+    request = VisualizationRequest(
+        request_id="r1",
+        user_query="Минимум, среднее и максимум населения районов по округам",
+        data_source=DataSourceInfo(id="moscow_open"),
+        result_table=ResultTable(
+            columns=["okrug_name", "min_population", "avg_population", "max_population"],
+            rows=[
+                {"okrug_name": "Центральный", "min_population": 10, "avg_population": 20, "max_population": 30},
+                {"okrug_name": "Северный", "min_population": 11, "avg_population": 21, "max_population": 31},
+            ],
+            row_count=2,
+        ),
+        field_metadata=[
+            FieldMetadata(name="okrug_name", data_type="string", semantic_role="dimension"),
+            FieldMetadata(name="min_population", data_type="number", semantic_role="measure"),
+            FieldMetadata(name="avg_population", data_type="number", semantic_role="measure"),
+            FieldMetadata(name="max_population", data_type="number", semantic_role="measure"),
+        ],
+    )
+
+    response = CpuVisualizationService().visualize(request)
+
+    assert response.selected_view.type == "table"
+
+
+def test_bar_uses_query_relevant_measure_not_first_numeric_column():
+    request = VisualizationRequest(
+        request_id="r1",
+        user_query="Линии с более чем 15 станциями",
+        data_source=DataSourceInfo(id="moscow_open"),
+        result_table=ResultTable(
+            columns=["line_id", "number", "name", "year_opened", "length_km", "station_count"],
+            rows=[
+                {"line_id": 1, "number": "1", "name": "Сокольническая", "year_opened": 1935, "length_km": 44.1, "station_count": 26},
+                {"line_id": 2, "number": "2", "name": "Замоскворецкая", "year_opened": 1938, "length_km": 42.8, "station_count": 24},
+                {"line_id": 3, "number": "3", "name": "Арбатско-Покровская", "year_opened": 1938, "length_km": 45.1, "station_count": 22},
+            ],
+            row_count=3,
+        ),
+        field_metadata=[
+            FieldMetadata(name="line_id", data_type="number", semantic_role="id"),
+            FieldMetadata(name="number", data_type="string", semantic_role="dimension"),
+            FieldMetadata(name="name", data_type="string", semantic_role="dimension"),
+            FieldMetadata(name="year_opened", data_type="number", semantic_role="time"),
+            FieldMetadata(name="length_km", data_type="number", semantic_role="measure"),
+            FieldMetadata(name="station_count", data_type="number", semantic_role="measure", allowed_aggregations=["none"], default_aggregation="none"),
+        ],
+    )
+
+    response = CpuVisualizationService().visualize(request)
+
+    assert response.selected_view.chart_type == "bar"
+    assert response.selected_view.spec["encoding"]["x"]["field"] == "name"
+    assert response.selected_view.spec["encoding"]["y"]["field"] == "station_count"
+
+
 def test_empty_rows_failed_safely():
     request = VisualizationRequest(
         request_id="r1",

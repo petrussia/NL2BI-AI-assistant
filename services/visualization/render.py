@@ -90,6 +90,8 @@ def _with_month_period_axis(
 def _vega_type(field: FieldMetadata) -> str:
     if field.data_type in {"date", "datetime"}:
         return "temporal"
+    if field.semantic_role == "time" and field.data_type == "number":
+        return "ordinal"
     if field.data_type == "number":
         return "quantitative"
     if field.data_type == "boolean":

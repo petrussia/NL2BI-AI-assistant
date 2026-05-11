@@ -3,6 +3,7 @@ from __future__ import annotations
 from time import perf_counter
 
 from contracts.common import ErrorItem, WarningItem
+from contracts.extraction import FieldMetadata
 from contracts.visualization import (
     SelectedView,
     VisualizationCandidate,
@@ -20,6 +21,91 @@ from services.visualization.rules import detect_intent, fields_by_role
 from services.visualization.validation import validate_visualization_request
 
 
+def _has_any(text: str, tokens: tuple[str, ...]) -> bool:
+    return any(token in text for token in tokens)
+
+
+def _is_multi_metric_query(user_query: str) -> bool:
+    query = user_query.casefold()
+    return _has_any(
+        query,
+        (
+            "min",
+            "max",
+            "avg",
+            "average",
+            "minimum",
+            "maximum",
+            "сред",
+            "миним",
+            "максим",
+        ),
+    )
+
+
+def _pick_measure_field(fields: list[FieldMetadata], user_query: str) -> FieldMetadata:
+    query = user_query.casefold()
+
+    def score(field: FieldMetadata) -> tuple[int, int]:
+        name = field.name.casefold()
+        value = 0
+        if _has_any(query, ("сколько", "how many", "count", "number of", "количество")) and _has_any(
+            name, ("count", "количество", "_n", " n", "total", "всего")
+        ):
+            value += 8
+        hints: tuple[tuple[tuple[str, ...], tuple[str, ...]], ...] = (
+            (("станц", "station"), ("station", "станц")),
+            (("заказ", "order"), ("order", "заказ")),
+            (("выруч", "продаж", "revenue", "sales"), ("revenue", "sales", "выруч", "сумм", "amount", "total")),
+            (("задач", "task"), ("task", "задач")),
+            (("насел", "population"), ("population", "насел")),
+            (("площад", "area"), ("area", "площад")),
+            (("событ", "event"), ("event", "событ")),
+            (("участ", "member"), ("member", "участ")),
+            (("певц", "singer"), ("singer", "певц")),
+            (("концерт", "concert"), ("concert", "концерт")),
+            (("расход", "expense"), ("expense", "cost", "расход")),
+            (("возраст", "age"), ("age", "возраст")),
+        )
+        for query_tokens, field_tokens in hints:
+            if _has_any(query, query_tokens) and _has_any(name, field_tokens):
+                value += 6
+        if field.provenance.derived or field.default_aggregation == "none":
+            value += 1
+        return value, -len(name)
+
+    return max(fields, key=score)
+
+
+def _pick_dimension_field(fields: list[FieldMetadata], user_query: str) -> FieldMetadata:
+    query = user_query.casefold()
+
+    def score(field: FieldMetadata) -> tuple[int, int]:
+        name = field.name.casefold()
+        value = 0
+        if field.semantic_role == "id" or name.endswith("_id"):
+            value -= 8
+        if _has_any(name, ("name", "название", "фио", "company", "компания")):
+            value += 8
+        if _has_any(name, ("category", "категор", "country", "страна", "segment", "сегмент", "okrug", "округ")):
+            value += 6
+        if _has_any(query, ("линии", "line")) and _has_any(name, ("name", "название", "line")):
+            value += 4
+        if _has_any(name, ("color", "цвет", "hex", "code", "код")):
+            value -= 4
+        return value, -len(name)
+
+    return max(fields, key=score)
+
+
+def _field_by_name(fields: list[FieldMetadata], name: str | None, fallback: FieldMetadata) -> FieldMetadata:
+    if name:
+        for field in fields:
+            if field.name == name:
+                return field
+    return fallback
+
+
 class CpuVisualizationService:
     def visualize(self, request: VisualizationRequest) -> VisualizationResponse:
         started = perf_counter()
@@ -33,7 +119,8 @@ class CpuVisualizationService:
         for item in request.field_metadata:
             values = [row.get(item.name) for row in table.rows]
             data_type = item.data_type if item.data_type != "unknown" else infer_data_type(item.name, values)
-            role = item.semantic_role if item.semantic_role != "unknown" else infer_semantic_role(item.name, data_type)
+            inferred_role = infer_semantic_role(item.name, data_type)
+            role = inferred_role if inferred_role == "time" else item.semantic_role if item.semantic_role != "unknown" else inferred_role
             allowed = item.allowed_aggregations or infer_allowed_aggregations(role)
             default = item.default_aggregation or infer_default_aggregation(role)
             if item.data_type == "unknown" or item.semantic_role == "unknown" or not item.allowed_aggregations:
@@ -103,6 +190,10 @@ class CpuVisualizationService:
         text_fields = roles.get("text", [])
         preferred_output = request.presentation_preferences.preferred_output
         preferred_chart_type = request.presentation_preferences.preferred_chart_type
+        selected_time_field = time_fields[0] if time_fields else None
+        selected_measure_field = _pick_measure_field(measure_fields, request.user_query) if measure_fields else None
+        selected_dimension_field = _pick_dimension_field(dimension_fields, request.user_query) if dimension_fields else None
+        multi_metric_query = len(measure_fields) >= 2 and _is_multi_metric_query(request.user_query)
 
         candidates: list[VisualizationCandidate] = []
 
@@ -118,12 +209,26 @@ class CpuVisualizationService:
             add_candidate("table", 1.0, "User requested table output.")
         if preferred_chart_type and preferred_chart_type != "table":
             add_candidate(preferred_chart_type, 0.95, "User preferred chart type.")
-        if time_fields and measure_fields:
-            add_candidate("line", 0.9 if intent == "trend" else 0.75, "Time field and measure are available.", time_fields[0].name, measure_fields[0].name)
-        if dimension_fields and measure_fields:
+        if multi_metric_query:
+            add_candidate("table", 0.93, "Several measures are requested; table preserves all metrics.")
+        if selected_time_field and selected_measure_field:
+            add_candidate(
+                "line",
+                0.9 if intent == "trend" else 0.55,
+                "Time field and measure are available.",
+                selected_time_field.name,
+                selected_measure_field.name,
+            )
+        if selected_dimension_field and selected_measure_field:
             score = 0.88 if intent in {"comparison", "top_n"} else 0.7
-            add_candidate("bar", score, "Dimension and measure are available.", dimension_fields[0].name, measure_fields[0].name)
-        if len(measure_fields) >= 2:
+            add_candidate(
+                "bar",
+                score,
+                "Dimension and measure are available.",
+                selected_dimension_field.name,
+                selected_measure_field.name,
+            )
+        if len(measure_fields) >= 2 and (intent == "correlation" or preferred_chart_type == "scatter"):
             add_candidate("scatter", 0.65 if intent == "correlation" else 0.45, "Two measures are available.", measure_fields[0].name, measure_fields[1].name)
         if not candidates or (text_fields and not measure_fields and not dimension_fields):
             add_candidate("table", 0.6, "Fallback table view is safest.")
@@ -143,28 +248,32 @@ class CpuVisualizationService:
 
         title = self._title_for(chart_type, request.user_query)
         if chart_type == "line" and time_fields and measure_fields:
+            x_field = _field_by_name(time_fields, selected_candidate.fields[0] if selected_candidate.fields else None, time_fields[0])
+            y_field = _field_by_name(measure_fields, selected_candidate.fields[1] if len(selected_candidate.fields) > 1 else None, measure_fields[0])
             # A line on 1-2 points reads worse than two bars; downgrade so the
             # reader actually sees the values.
             mark = "bar" if table.row_count < 3 else "line"
             spec = chart_spec(
                 chart_type=mark,
                 title=title,
-                x_field=time_fields[0],
-                y_field=measure_fields[0],
+                x_field=x_field,
+                y_field=y_field,
                 table=table,
             )
             selected = SelectedView(type="chart", chart_type=mark, title=title, spec=spec, normalized_spec=spec)
-            used_fields = [time_fields[0].name, measure_fields[0].name]
+            used_fields = [x_field.name, y_field.name]
         elif chart_type == "bar" and dimension_fields and measure_fields:
+            x_field = _field_by_name(dimension_fields, selected_candidate.fields[0] if selected_candidate.fields else None, dimension_fields[0])
+            y_field = _field_by_name(measure_fields, selected_candidate.fields[1] if len(selected_candidate.fields) > 1 else None, measure_fields[0])
             spec = chart_spec(
                 chart_type="bar",
                 title=title,
-                x_field=dimension_fields[0],
-                y_field=measure_fields[0],
+                x_field=x_field,
+                y_field=y_field,
                 table=table,
             )
             selected = SelectedView(type="chart", chart_type="bar", title=title, spec=spec, normalized_spec=spec)
-            used_fields = [dimension_fields[0].name, measure_fields[0].name]
+            used_fields = [x_field.name, y_field.name]
         elif chart_type == "scatter" and len(measure_fields) >= 2:
             spec = chart_spec(
                 chart_type="scatter",
