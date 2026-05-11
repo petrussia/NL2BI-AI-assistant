@@ -31,3 +31,36 @@
 2. **northwind_ru JOIN** — model occasionally mixes Cyrillic/Latin aliases
    (`к.` vs `k.`) within the same query, leading to "missing FROM-clause
    entry for k". Reproducible on "Топ-10 клиентов по выручке за 2024".
+
+---
+
+## v0.12 hardening on Blackwell + FK graph (final state)
+
+Switched emitter from 4-bit NF4 to **BF16** on RTX PRO 6000 Blackwell
+(95 GB VRAM). Added explicit FK graph + PK markers to the schema
+prompt. Added 3 new prompt rules: no nested aggregates, follow FK paths
+(don't invent direct joins through intermediate tables), check FK
+targets before writing nonexistent columns.
+
+| Source | Hard failures BEFORE | Hard failures NOW |
+|---|---:|---:|
+| demo_concert_singer | 0 | 0 |
+| bird_student_club | 0 | 0 |
+| spider2_asana_dbt | 2 | **0** |
+| moscow_open | 0 | 0 |
+| northwind_ru | 1 | **0** |
+| **TOTAL** | **3-5** | **0/25** |
+
+* Latency improved 4× (count query: 2.6s → 0.6s on BF16).
+* All 25/25 queries generate valid executable SQL.
+* Remaining 5 "partial_success" results have empty rows because the
+  underlying data is sparse (asana has only 1 task in task_data, BIRD
+  test slice is small), not because the SQL is wrong.
+
+### Underlying fixes (final commits)
+
+* `3553780` — BF16 quantization mode for fat GPUs
+* `822c110` — FK graph + PK markers + nested-aggregate prompt rule
+* `474c1dd` — pg_catalog query for FK collection (information_schema
+  was GRANT-gated for read-only role); heuristic FK inference for
+  DuckDB (dbt projects don't declare FK constraints).
