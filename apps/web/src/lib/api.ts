@@ -47,6 +47,7 @@ export type ModelDescriptor = {
   approx_vram_gb: number;
   family: string;
   default?: boolean;
+  role?: "emitter" | "planner";
 };
 
 export type ModelCatalog = {
@@ -54,6 +55,11 @@ export type ModelCatalog = {
   loaded: boolean;
   load_error: string | null;
   models: ModelDescriptor[];
+  architecture?: "anchor" | "planner_emitter" | "planner_loading";
+  architecture_label?: string;
+  planner_id?: string | null;
+  planner_loaded?: boolean;
+  planner_enabled?: boolean;
 };
 
 async function api<T>(path: string, init?: RequestInit): Promise<T> {

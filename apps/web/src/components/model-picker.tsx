@@ -99,6 +99,11 @@ export function ModelPicker() {
 
   const current = catalog.models.find((m) => m.id === catalog.current);
   const currentLabel = current?.label ?? catalog.current ?? "—";
+  const archLabel = catalog.architecture_label ?? null;
+  const plannerId = catalog.planner_id ?? null;
+  const plannerLoaded = catalog.planner_loaded ?? false;
+  const emitters = catalog.models.filter((m) => m.role !== "planner");
+  const planners = catalog.models.filter((m) => m.role === "planner");
 
   return (
     <div className={`modelPicker ${open ? "modelPicker--open" : ""}`} ref={rootRef}>
@@ -107,15 +112,47 @@ export function ModelPicker() {
         className="modelPicker__trigger"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        title={`HF id: ${catalog?.current ?? ""}`}
+        title={`HF id: ${catalog?.current ?? ""}${plannerId ? `\nPlanner: ${plannerId}` : ""}`}
       >
         {loading ? <Loader2 size={14} className="spin" /> : <Cpu size={14} />}
-        <span className="modelPicker__label">{currentLabel}</span>
+        <span className="modelPicker__label">
+          {archLabel ? `${archLabel} · ${currentLabel}` : currentLabel}
+        </span>
         {catalog?.loaded ? null : <AlertTriangle size={12} color="#b45309" />}
       </button>
       {open ? (
         <ul className="modelPicker__menu" role="listbox">
-          {catalog?.models.map((m) => {
+          {planners.length > 0 ? (
+            <li className="modelPicker__group">Planner</li>
+          ) : null}
+          {planners.map((m) => {
+            const isCurrent = m.id === plannerId;
+            return (
+              <li key={m.id}>
+                <div
+                  className={`modelPicker__item ${isCurrent ? "modelPicker__item--active" : ""}`}
+                  aria-disabled
+                >
+                  <span className="modelPicker__itemLabel">
+                    {m.label}
+                    <em className="modelPicker__itemMeta">
+                      {m.family} · ~{m.approx_vram_gb} GB VRAM ·{" "}
+                      {isCurrent && plannerLoaded
+                        ? "загружен"
+                        : isCurrent
+                          ? "загружается…"
+                          : "не активен"}
+                    </em>
+                  </span>
+                  {isCurrent && plannerLoaded ? <Check size={14} /> : null}
+                </div>
+              </li>
+            );
+          })}
+          {planners.length > 0 ? (
+            <li className="modelPicker__group">Emitter</li>
+          ) : null}
+          {emitters.map((m) => {
             const isCurrent = m.id === catalog.current;
             return (
               <li key={m.id}>

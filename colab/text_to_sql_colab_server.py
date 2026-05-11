@@ -309,34 +309,38 @@ def extract(body: DataExtractionRequest) -> DataExtractionResponse:
         )
 
 
-# --- Curated catalog of HF models known to fit Colab L4 (22 GB VRAM, 4-bit) ---
+# --- Curated catalog of HF models known to fit Blackwell RTX PRO 6000 (95 GB VRAM, BF16) ---
 SUPPORTED_MODELS: list[dict[str, object]] = [
     {
         "id": "Qwen/Qwen2.5-Coder-7B-Instruct",
-        "label": "Qwen2.5-Coder 7B (Instruct, 4-bit)",
-        "approx_vram_gb": 6,
+        "label": "Qwen2.5-Coder 7B (BF16) — Anchor",
+        "approx_vram_gb": 15,
         "family": "Qwen",
+        "role": "emitter",
         "default": True,
     },
     {
         "id": "Qwen/Qwen2.5-Coder-14B-Instruct",
-        "label": "Qwen2.5-Coder 14B (Instruct, 4-bit)",
-        "approx_vram_gb": 10,
+        "label": "Qwen2.5-Coder 14B (BF16)",
+        "approx_vram_gb": 28,
         "family": "Qwen",
+        "role": "emitter",
         "default": False,
     },
     {
         "id": "deepseek-ai/deepseek-coder-6.7b-instruct",
-        "label": "DeepSeek-Coder 6.7B (Instruct, 4-bit)",
-        "approx_vram_gb": 6,
+        "label": "DeepSeek-Coder 6.7B (BF16)",
+        "approx_vram_gb": 14,
         "family": "DeepSeek",
+        "role": "emitter",
         "default": False,
     },
     {
-        "id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
-        "label": "Llama 3.1 8B (Instruct, 4-bit) — gated, may fail",
-        "approx_vram_gb": 7,
-        "family": "Llama",
+        "id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        "label": "Qwen3-Coder 30B (BF16) — Planner",
+        "approx_vram_gb": 60,
+        "family": "Qwen",
+        "role": "planner",
         "default": False,
     },
 ]
@@ -344,17 +348,36 @@ SUPPORTED_MODELS: list[dict[str, object]] = [
 
 @app.get("/models")
 def list_models() -> dict[str, object]:
-    """Curated catalog of HF model ids the operator can switch to.
+    """Curated catalog of HF model ids the operator can switch to + current
+    architecture state (planner+emitter or single anchor).
 
     No auth so the frontend can populate the picker even when the user isn't
     authenticated to the gateway — the actual load operation is auth-gated.
     """
     current = _model.state.model_id or _config.model_id
+    planner_id = (_planner.state.model_id if _planner is not None else None)
+    planner_loaded = (_planner.is_ready() if _planner is not None else False)
+    if planner_loaded:
+        architecture = "planner_emitter"
+        architecture_label = "Planner+Emitter (30B → 7B)"
+    elif _planner is not None:
+        architecture = "planner_loading"
+        architecture_label = "Planner+Emitter (loading…)"
+    else:
+        architecture = "anchor"
+        architecture_label = "Anchor (single-shot)"
     return {
         "current": current,
         "loaded": _model.is_ready(),
         "load_error": _model.state.load_error,
         "models": SUPPORTED_MODELS,
+        # v0.14: surface the planner slot so the UI can show the real
+        # architecture instead of pretending we're on a single model.
+        "architecture": architecture,
+        "architecture_label": architecture_label,
+        "planner_id": planner_id,
+        "planner_loaded": planner_loaded,
+        "planner_enabled": _planner is not None,
     }
 
 
