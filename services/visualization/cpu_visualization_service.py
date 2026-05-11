@@ -143,14 +143,17 @@ class CpuVisualizationService:
 
         title = self._title_for(chart_type, request.user_query)
         if chart_type == "line" and time_fields and measure_fields:
+            # A line on 1-2 points reads worse than two bars; downgrade so the
+            # reader actually sees the values.
+            mark = "bar" if table.row_count < 3 else "line"
             spec = chart_spec(
-                chart_type="line",
+                chart_type=mark,
                 title=title,
                 x_field=time_fields[0],
                 y_field=measure_fields[0],
                 table=table,
             )
-            selected = SelectedView(type="chart", chart_type="line", title=title, spec=spec, normalized_spec=spec)
+            selected = SelectedView(type="chart", chart_type=mark, title=title, spec=spec, normalized_spec=spec)
             used_fields = [time_fields[0].name, measure_fields[0].name]
         elif chart_type == "bar" and dimension_fields and measure_fields:
             spec = chart_spec(
