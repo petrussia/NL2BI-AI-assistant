@@ -107,12 +107,24 @@ def _parse_aggregation_aliases(sql: str) -> dict[str, dict[str, str]]:
 
 
 def _parse_aggregation_no_alias(sql: str) -> dict[str, dict[str, str]]:
-    """When the column name itself is the aggregate (no alias)."""
+    """When the column name itself IS the aggregate call (no alias).
+
+    Keys are the normalized aggregate-call text (e.g. ``count(task_data.id)``,
+    ``count(*)``, ``count_star()``) — i.e. what the SQL engine surfaces as the
+    column name for an un-aliased ``SELECT COUNT(...)``. Indexing by the inner
+    argument is unsafe: ``SELECT u.id, COUNT(t.id) AS n`` would otherwise wire
+    the COUNT's provenance onto the unrelated ``id`` column.
+    """
     found: dict[str, dict[str, str]] = {}
     for match in _AGG_NAKED_RE.finditer(sql):
         func, expr = match.group(1).lower(), match.group(2).strip()
-        col = expr.split(".")[-1].strip().strip('"')
-        found.setdefault(col, {"func": func, "expression": match.group(0)})
+        entry = {"func": func, "expression": match.group(0)}
+        key = re.sub(r"\s+", "", match.group(0).lower())
+        found.setdefault(key, entry)
+        if expr == "*":
+            # DuckDB surfaces COUNT(*) as count_star(); SQLite as COUNT(*).
+            found.setdefault("count(*)", entry)
+            found.setdefault("count_star()", entry)
     return found
 
 
@@ -142,7 +154,11 @@ def infer_field_metadata(
         derived = False
         source_table: str | None = None
         source_column: str | None = None
-        agg_hit = alias_map.get(col) or naked_map.get(col.lower())
+        agg_hit = alias_map.get(col)
+        if agg_hit is None:
+            naked_key = re.sub(r"\s+", "", col.lower())
+            if _AGG_NAKED_RE.match(col) or naked_key in {"count(*)", "count_star()"}:
+                agg_hit = naked_map.get(naked_key)
         if agg_hit:
             provenance_expr = agg_hit["expression"]
             provenance_agg = agg_hit["func"]
