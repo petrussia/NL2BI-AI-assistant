@@ -192,6 +192,25 @@ class AuthService:
             ).fetchall()
         return [self._message_dict(row) for row in rows]
 
+    # Titles produced by the UI or older builds that we treat as auto-replaceable
+    # on the first user message. Anything else is left alone (assumes the user
+    # renamed it themselves).
+    _GENERIC_CHAT_TITLES = frozenset(
+        {
+            "Новый чат",
+            "Новый анализ",
+            "Demo NL2BI",
+            "Демо: певцы и концерты",
+            "Demo NL2BI ",  # tolerate trailing-space variants
+        }
+    )
+
+    @classmethod
+    def _is_generic_title(cls, title: str | None) -> bool:
+        if not title:
+            return True
+        return title.strip() in cls._GENERIC_CHAT_TITLES
+
     def add_message(
         self,
         *,
@@ -222,12 +241,68 @@ class AuthService:
                     now,
                 ),
             )
-            conn.execute(
-                "UPDATE chat_sessions SET updated_at = ?, title = CASE WHEN title = 'Новый чат' AND ? = 'user' THEN ? ELSE title END WHERE session_id = ?",
-                (now, role, content[:80], session_id),
-            )
+            # Auto-rename: on the first user message in a chat whose title is
+            # still one of the generic defaults, swap it for a shortened version
+            # of the question so the sidebar makes sense after a reload.
+            if role == "user":
+                row = conn.execute(
+                    "SELECT title FROM chat_sessions WHERE session_id = ?",
+                    (session_id,),
+                ).fetchone()
+                if row is not None and self._is_generic_title(row["title"]):
+                    new_title = (content or "").strip()
+                    if len(new_title) > 80:
+                        new_title = new_title[:79].rstrip() + "…"
+                    if new_title:
+                        conn.execute(
+                            "UPDATE chat_sessions SET updated_at = ?, title = ? WHERE session_id = ?",
+                            (now, new_title, session_id),
+                        )
+                else:
+                    conn.execute(
+                        "UPDATE chat_sessions SET updated_at = ? WHERE session_id = ?",
+                        (now, session_id),
+                    )
+            else:
+                conn.execute(
+                    "UPDATE chat_sessions SET updated_at = ? WHERE session_id = ?",
+                    (now, session_id),
+                )
             row = conn.execute("SELECT * FROM chat_messages WHERE message_id = ?", (message_id,)).fetchone()
         return self._message_dict(row)
+
+    def update_chat_title(self, username: str, session_id: str, title: str) -> dict[str, Any]:
+        """Persist a user-edited chat title. Used by PATCH /api/chats/{id}."""
+        self.ensure_session(username, session_id)
+        now = self._now()
+        clean = (title or "").strip()
+        if not clean:
+            raise ValueError("Title must not be empty.")
+        if len(clean) > 120:
+            clean = clean[:119].rstrip() + "…"
+        with self._connect() as conn:
+            conn.execute(
+                "UPDATE chat_sessions SET updated_at = ?, title = ? WHERE username = ? AND session_id = ?",
+                (now, clean, username, session_id),
+            )
+            row = conn.execute(
+                "SELECT * FROM chat_sessions WHERE username = ? AND session_id = ?",
+                (username, session_id),
+            ).fetchone()
+        return self._session_dict(row)
+
+    def delete_chat(self, username: str, session_id: str) -> None:
+        """Hard-delete a chat session and all its messages."""
+        self.ensure_session(username, session_id)
+        with self._connect() as conn:
+            conn.execute(
+                "DELETE FROM chat_messages WHERE username = ? AND session_id = ?",
+                (username, session_id),
+            )
+            conn.execute(
+                "DELETE FROM chat_sessions WHERE username = ? AND session_id = ?",
+                (username, session_id),
+            )
 
     @staticmethod
     def _session_dict(row: sqlite3.Row) -> dict[str, Any]:

@@ -38,6 +38,7 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
@@ -254,17 +255,65 @@ def extract(body: DataExtractionRequest) -> DataExtractionResponse:
         )
 
 
+# --- Curated catalog of HF models known to fit Colab L4 (22 GB VRAM, 4-bit) ---
+SUPPORTED_MODELS: list[dict[str, object]] = [
+    {
+        "id": "Qwen/Qwen2.5-Coder-7B-Instruct",
+        "label": "Qwen2.5-Coder 7B (Instruct, 4-bit)",
+        "approx_vram_gb": 6,
+        "family": "Qwen",
+        "default": True,
+    },
+    {
+        "id": "Qwen/Qwen2.5-Coder-14B-Instruct",
+        "label": "Qwen2.5-Coder 14B (Instruct, 4-bit)",
+        "approx_vram_gb": 10,
+        "family": "Qwen",
+        "default": False,
+    },
+    {
+        "id": "deepseek-ai/deepseek-coder-6.7b-instruct",
+        "label": "DeepSeek-Coder 6.7B (Instruct, 4-bit)",
+        "approx_vram_gb": 6,
+        "family": "DeepSeek",
+        "default": False,
+    },
+    {
+        "id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        "label": "Llama 3.1 8B (Instruct, 4-bit) — gated, may fail",
+        "approx_vram_gb": 7,
+        "family": "Llama",
+        "default": False,
+    },
+]
+
+
+@app.get("/models")
+def list_models() -> dict[str, object]:
+    """Curated catalog of HF model ids the operator can switch to.
+
+    No auth so the frontend can populate the picker even when the user isn't
+    authenticated to the gateway — the actual load operation is auth-gated.
+    """
+    current = _model.state.model_id or _config.model_id
+    return {
+        "current": current,
+        "loaded": _model.is_ready(),
+        "load_error": _model.state.load_error,
+        "models": SUPPORTED_MODELS,
+    }
+
+
+class ReloadModelRequest(BaseModel):
+    model_id: str | None = None
+
+
 @app.post("/reload_model", dependencies=[Depends(require_api_auth)])
-def reload_model() -> JSONResponse:
-    _model._tokenizer = None  # type: ignore[attr-defined]
-    _model._model = None  # type: ignore[attr-defined]
-    _model.state = type(_model.state)(
-        loaded=False,
-        model_id=_config.model_id,
-        mock=_config.mock_model,
-        quantization=None,
-    )
-    new_state = _model.load()
+def reload_model(body: ReloadModelRequest | None = None) -> JSONResponse:
+    requested = (body.model_id if body else None) or _config.model_id
+    # Drop the current model first to free VRAM, then load the requested one.
+    _model.unload()
+    new_state = _model.load(model_id_override=requested)
     return JSONResponse(
         {
             "status": "ok" if new_state.loaded else "failed",

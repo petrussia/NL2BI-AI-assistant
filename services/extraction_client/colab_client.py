@@ -140,6 +140,58 @@ class ColabExtractionClient(ExtractionClient):
             parsed = parsed.model_copy(update={"request_id": request.request_id})
         return parsed
 
+    def list_models(self) -> tuple[bool, dict[str, Any]]:
+        """GET /models on the Colab service. Returns (ok, payload)."""
+        if not self.service_url:
+            return False, {"colab_error_code": "colab_unavailable"}
+        timeout = httpx.Timeout(min(5.0, self.timeout_seconds), connect=min(3.0, self.timeout_seconds))
+        try:
+            with httpx.Client(timeout=timeout) as client:
+                response = client.get(f"{self.service_url}/models", headers=self._headers())
+            if response.status_code >= 400:
+                return False, {"colab_error_code": "colab_service_error", "status_code": response.status_code}
+            payload = response.json()
+            if not isinstance(payload, dict):
+                return False, {"colab_error_code": "invalid_extraction_response"}
+            return True, payload
+        except httpx.TimeoutException:
+            return False, {"colab_error_code": "extraction_timeout"}
+        except httpx.RequestError:
+            return False, {"colab_error_code": "colab_unavailable"}
+        except json.JSONDecodeError:
+            return False, {"colab_error_code": "invalid_extraction_response"}
+
+    def load_model(self, model_id: str | None) -> tuple[bool, dict[str, Any]]:
+        """POST /reload_model with an optional model_id override. Slow (~minutes)."""
+        if not self.service_url:
+            return False, {"colab_error_code": "colab_unavailable"}
+        # Long timeout — switching a 7B/14B model from cold HF cache can take
+        # 1-3 minutes on L4. We don't bake in retries; the caller's UI shows a
+        # spinner and surfaces failure verbatim.
+        timeout = httpx.Timeout(self.timeout_seconds * 6, connect=min(10.0, self.timeout_seconds))
+        body = {"model_id": model_id} if model_id else {}
+        try:
+            with httpx.Client(timeout=timeout) as client:
+                response = client.post(
+                    f"{self.service_url}/reload_model",
+                    json=body,
+                    headers={**self._headers(), "Content-Type": "application/json"},
+                )
+            if response.status_code >= 500:
+                return False, {"colab_error_code": "colab_service_error", "status_code": response.status_code}
+            if response.status_code >= 400:
+                return False, {"colab_error_code": "colab_request_error", "status_code": response.status_code}
+            payload = response.json()
+            if not isinstance(payload, dict):
+                return False, {"colab_error_code": "invalid_extraction_response"}
+            return True, payload
+        except httpx.TimeoutException:
+            return False, {"colab_error_code": "extraction_timeout"}
+        except httpx.RequestError:
+            return False, {"colab_error_code": "colab_unavailable"}
+        except json.JSONDecodeError:
+            return False, {"colab_error_code": "invalid_extraction_response"}
+
     def health(self) -> tuple[bool, dict[str, Any]]:
         if not self.service_url:
             return False, {"colab_error_code": "colab_unavailable"}

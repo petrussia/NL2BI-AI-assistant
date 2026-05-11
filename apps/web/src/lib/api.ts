@@ -25,6 +25,37 @@ export type ChatSession = {
   settings: Record<string, unknown>;
 };
 
+export type RuntimeStatus = {
+  server_runtime: boolean;
+  extraction_mode: "mock" | "colab" | "disabled" | string;
+  visualization_mode: string;
+  colab_service_url_configured: boolean;
+  colab_auth_token_configured: boolean;
+  colab_available: boolean;
+  colab_health: {
+    model_loaded: boolean | null;
+    gpu_name: string | null;
+    mock_model: boolean | null;
+    demo_db_ready: boolean | null;
+  };
+  debug_sql_visible: boolean;
+};
+
+export type ModelDescriptor = {
+  id: string;
+  label: string;
+  approx_vram_gb: number;
+  family: string;
+  default?: boolean;
+};
+
+export type ModelCatalog = {
+  current: string;
+  loaded: boolean;
+  load_error: string | null;
+  models: ModelDescriptor[];
+};
+
 async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/server${path}`, {
     ...init,
@@ -35,14 +66,24 @@ async function api<T>(path: string, init?: RequestInit): Promise<T> {
     credentials: "include",
   });
   if (!response.ok) {
-    let detail = `HTTP ${response.status}`;
+    let detail: unknown = `HTTP ${response.status}`;
     try {
-      const payload = (await response.json()) as { detail?: string };
-      detail = payload.detail ?? detail;
+      const payload = (await response.json()) as { detail?: unknown };
+      if (payload.detail !== undefined) detail = payload.detail;
     } catch {
-      // Keep safe generic message.
+      // keep safe generic
     }
-    throw new Error(detail);
+    const message =
+      typeof detail === "string"
+        ? detail
+        : (() => {
+            try {
+              return JSON.stringify(detail);
+            } catch {
+              return `HTTP ${response.status}`;
+            }
+          })();
+    throw new Error(message);
   }
   return response.json() as Promise<T>;
 }
@@ -65,6 +106,32 @@ export function me() {
   return api<{ authenticated: boolean; username?: string; role?: string }>("/auth/me");
 }
 
+export function logout() {
+  return api<{ message: string }>("/auth/logout", { method: "POST" });
+}
+
+export function getRuntime() {
+  return api<RuntimeStatus>("/runtime");
+}
+
+export function listModels() {
+  return api<ModelCatalog>("/admin/models");
+}
+
+export function loadModel(modelId: string) {
+  return api<{
+    status: string;
+    model_loaded: boolean;
+    model_id: string | null;
+    mock_model: boolean;
+    load_error: string | null;
+    load_latency_ms: number | null;
+  }>("/admin/load_model", {
+    method: "POST",
+    body: JSON.stringify({ model_id: modelId }),
+  });
+}
+
 export function listChats() {
   return api<{ sessions: ChatSession[] }>("/chats");
 }
@@ -76,6 +143,17 @@ export function createChat(title?: string) {
   });
 }
 
+export function updateChat(sessionId: string, patch: { title?: string }) {
+  return api<ChatSession>(`/chats/${sessionId}`, {
+    method: "PATCH",
+    body: JSON.stringify(patch),
+  });
+}
+
+export function deleteChat(sessionId: string) {
+  return api<{ message: string }>(`/chats/${sessionId}`, { method: "DELETE" });
+}
+
 export function listMessages(sessionId: string) {
   return api<{ messages: ChatMessage[] }>(`/chats/${sessionId}/messages`);
 }
@@ -83,13 +161,17 @@ export function listMessages(sessionId: string) {
 export function sendMessage(
   sessionId: string,
   content: string,
-  options: { preferred_output: "auto" | "chart" | "table"; response_style: "business" | "technical" },
+  options: {
+    preferred_output: "auto" | "chart" | "table";
+    response_style: "business" | "technical";
+    data_source_id: string;
+  },
 ) {
   return api<{ user_message: ChatMessage; assistant_message: ChatMessage }>(`/chats/${sessionId}/messages`, {
     method: "POST",
     body: JSON.stringify({
       content,
-      data_source_id: "demo_concert_singer",
+      data_source_id: options.data_source_id,
       preferred_output: options.preferred_output,
       response_style: options.response_style,
     }),

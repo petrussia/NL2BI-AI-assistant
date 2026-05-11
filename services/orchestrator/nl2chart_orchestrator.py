@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 import uuid
 
 from contracts.common import ErrorItem, WarningItem
@@ -55,7 +56,10 @@ class Nl2ChartOrchestrator:
             ),
         )
 
+        pipeline_started = time.monotonic()
+        extraction_started = time.monotonic()
         extraction_response = self._extraction_client().extract(extraction_request)
+        extraction_ms = int((time.monotonic() - extraction_started) * 1000)
         if extraction_response.status == "failed":
             response = Nl2ChartResponse(
                 request_id=request_id,
@@ -72,7 +76,12 @@ class Nl2ChartOrchestrator:
                         retryable=True,
                     )
                 ],
-                debug=self._debug_payload(extraction_response.sql.query, request.presentation_preferences.technical_mode),
+                debug=self._debug_payload(
+                    extraction_response.sql.query,
+                    request.presentation_preferences.technical_mode,
+                    extraction_ms=extraction_ms,
+                    total_ms=int((time.monotonic() - pipeline_started) * 1000),
+                ),
             )
             self._save_response(response)
             return response
@@ -91,12 +100,19 @@ class Nl2ChartOrchestrator:
                 artifacts=[],
                 warnings=exc.warnings,
                 errors=exc.errors,
-                debug=self._debug_payload(extraction_response.sql.query, request.presentation_preferences.technical_mode),
+                debug=self._debug_payload(
+                    extraction_response.sql.query,
+                    request.presentation_preferences.technical_mode,
+                    extraction_ms=extraction_ms,
+                    total_ms=int((time.monotonic() - pipeline_started) * 1000),
+                ),
             )
             self._save_response(response)
             return response
 
+        visualization_started = time.monotonic()
         visualization_response = self.visualization_service.visualize(adapter_result.request)
+        visualization_ms = int((time.monotonic() - visualization_started) * 1000)
         warnings = [
             *adapter_result.warnings,
             *visualization_response.warnings,
@@ -156,15 +172,44 @@ class Nl2ChartOrchestrator:
             artifacts=artifacts,
             warnings=warnings,
             errors=errors,
-            debug=self._debug_payload(extraction_response.sql.query, request.presentation_preferences.technical_mode),
+            debug=self._debug_payload(
+                extraction_response.sql.query,
+                request.presentation_preferences.technical_mode,
+                extraction_ms=extraction_ms,
+                visualization_ms=visualization_ms,
+                total_ms=int((time.monotonic() - pipeline_started) * 1000),
+            ),
         )
         self._save_response(response)
         return response
 
-    def _debug_payload(self, sql: str | None, technical_mode: bool) -> dict[str, object]:
+    def _debug_payload(
+        self,
+        sql: str | None,
+        technical_mode: bool,
+        *,
+        extraction_ms: int | None = None,
+        visualization_ms: int | None = None,
+        total_ms: int | None = None,
+    ) -> dict[str, object]:
+        payload: dict[str, object] = {}
         if self.settings.debug_sql_visible and technical_mode and sql:
-            return {"sql": sql}
-        return {"sql_visible": False}
+            payload["sql"] = sql
+        else:
+            payload["sql_visible"] = False
+        # Timing is shown unconditionally — not a secret, useful for the user
+        # to understand where seconds go. Only populate fields we actually
+        # measured (extraction-failed path has no visualization_ms).
+        timing: dict[str, int] = {}
+        if extraction_ms is not None:
+            timing["extraction_ms"] = extraction_ms
+        if visualization_ms is not None:
+            timing["visualization_ms"] = visualization_ms
+        if total_ms is not None:
+            timing["total_ms"] = total_ms
+        if timing:
+            payload["timing"] = timing
+        return payload
 
     @staticmethod
     def _message_for(status: str, view_type: str, errors: list[ErrorItem]) -> str:

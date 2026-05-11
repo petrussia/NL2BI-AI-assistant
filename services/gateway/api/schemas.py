@@ -28,6 +28,10 @@ class CreateChatRequest(BaseModel):
     title: str | None = None
 
 
+class UpdateChatRequest(BaseModel):
+    title: str | None = None
+
+
 class ChatSessionResponse(BaseModel):
     session_id: str
     title: str
