@@ -2594,8 +2594,8 @@ html, body { overflow-x: hidden; }
 /* 2) Reduce overall chat message size by ~10% and narrow the bubble
  *    so paragraphs aren't 1080px wide. Charts/tables still get their
  *    artifact-card width (kept at ~880px). */
-.message { width: min(880px, 100%); }
-.message.user { width: min(560px, 100%); }
+.message { width: min(720px, 100%); }
+.message.user { width: min(420px, 100%); }
 .message p,
 .message li {
   font-size: 13px;   /* down from default ~14.5px */

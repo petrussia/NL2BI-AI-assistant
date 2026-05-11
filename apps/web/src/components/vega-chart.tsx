@@ -67,6 +67,25 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
           labelFontSize: 12,
           titleFontSize: 13,
           titlePadding: 8,
+          // Horizontal labels by default — Vega auto-rotates short
+          // category names to vertical which is annoying to read.
+          labelAngle: 0,
+        },
+        axisY: {
+          // Y-axis title runs vertical by default. Force horizontal so
+          // "Средний возраст" doesn't read like a chimney.
+          titleAngle: 0,
+          titleAlign: "left",
+          titleAnchor: "start",
+          titleX: -8,
+          titleY: -10,
+          titleBaseline: "bottom",
+        },
+        axisX: {
+          // Keep x-axis label rotation only when names would overlap.
+          // labelAngle inherited from axis: 0 (above) — Vega will still
+          // ellipsize long names via labelLimit.
+          labelLimit: 120,
         },
         legend: {
           labelColor: "#475569",
