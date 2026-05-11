@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertCircle, BarChart3, ChevronDown, ChevronRight, Database, Info, Table2 } from "lucide-react";
+import { AlertCircle, BarChart3, ChevronDown, ChevronRight, ChevronUp, Database, Info, Table2 } from "lucide-react";
 import type { Artifact } from "@/lib/api";
 import { VegaChart } from "@/components/vega-chart";
 import { labelFor } from "@/lib/demo-schema";
@@ -69,18 +69,30 @@ function TableArtifact({ artifact }: { artifact: Artifact }) {
   );
   const numericCols = useMemo(() => inferNumericColumns(columns, rows), [columns, rows]);
   const [expanded, setExpanded] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   const totalRows = rows.length;
   const shown = expanded ? rows : rows.slice(0, TABLE_PREVIEW_ROWS);
   const hidden = Math.max(0, totalRows - shown.length);
 
   return (
-    <div className="artifact tableArtifact">
+    <div className={`artifact tableArtifact ${collapsed ? "artifact--collapsed" : ""}`}>
       <div className="artifactHeader">
         <Table2 size={16} />
         <span>{artifact.title}</span>
         <span className="artifactBadge">{totalRows.toLocaleString("ru-RU")} строк</span>
+        <button
+          type="button"
+          className="artifactCollapse"
+          aria-expanded={!collapsed}
+          aria-label={collapsed ? "Развернуть таблицу" : "Свернуть таблицу"}
+          title={collapsed ? "Развернуть" : "Свернуть"}
+          onClick={() => setCollapsed((v) => !v)}
+        >
+          {collapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
+        </button>
       </div>
+      {collapsed ? null : (
       <div className="tableWrap">
         <table>
           <thead>
@@ -123,7 +135,8 @@ function TableArtifact({ artifact }: { artifact: Artifact }) {
           </tbody>
         </table>
       </div>
-      {hidden > 0 ? (
+      )}
+      {!collapsed && hidden > 0 ? (
         <button
           type="button"
           className="tableMoreToggle"
@@ -142,14 +155,25 @@ function ChartArtifact({ artifact }: { artifact: Artifact }) {
     const raw = artifact.payload.spec;
     return isRecord(raw) ? (raw as Record<string, unknown>) : null;
   }, [artifact]);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="artifact chartArtifact">
+    <div className={`artifact chartArtifact ${collapsed ? "artifact--collapsed" : ""}`}>
       <div className="artifactHeader">
         <BarChart3 size={16} />
         <span>{artifact.title}</span>
+        <button
+          type="button"
+          className="artifactCollapse"
+          aria-expanded={!collapsed}
+          aria-label={collapsed ? "Развернуть график" : "Свернуть график"}
+          title={collapsed ? "Развернуть" : "Свернуть"}
+          onClick={() => setCollapsed((v) => !v)}
+        >
+          {collapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
+        </button>
       </div>
-      <VegaChart spec={spec} title={artifact.title} />
+      {collapsed ? null : <VegaChart spec={spec} title={artifact.title} />}
     </div>
   );
 }

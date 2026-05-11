@@ -2586,3 +2586,56 @@ html, body { overflow-x: hidden; }
   color: var(--muted);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
+
+/* ============================================================
+ * v0.10j — message density, artifact collapse, extra export
+ * ============================================================ */
+
+/* 2) Reduce overall chat message size by ~10% and narrow the bubble
+ *    so paragraphs aren't 1080px wide. Charts/tables still get their
+ *    artifact-card width (kept at ~880px). */
+.message { width: min(880px, 100%); }
+.message.user { width: min(560px, 100%); }
+.message p,
+.message li {
+  font-size: 13px;   /* down from default ~14.5px */
+  line-height: 1.5;
+}
+.message .artifactHeader {
+  font-size: 13px;
+}
+.message table { font-size: 13px; }
+
+/* 3) Artifact collapse button on the right edge of .artifactHeader. */
+.artifact .artifactHeader { position: relative; }
+.artifactCollapse {
+  margin-left: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0 0 26px;
+}
+.artifactCollapse:hover {
+  background: var(--panel-strong);
+  color: var(--text);
+  border-color: var(--border);
+}
+/* Collapsed card looks like a single header strip — no border-bottom
+ * weirdness when content is gone. */
+.artifact--collapsed .artifactHeader { border-bottom: none; }
+
+/* Extra messageActions: keep the row compact when many buttons crowd it. */
+.messageActions { flex-wrap: wrap; }
+.messageActionsError {
+  color: var(--danger);
+  font-size: 12px;
+  align-self: center;
+  padding-left: 4px;
+}
