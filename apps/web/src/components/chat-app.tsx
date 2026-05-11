@@ -6,6 +6,7 @@ import {
   ChevronDown,
   ChevronRight,
   Database,
+  HelpCircle,
   Info,
   Loader2,
   LogIn,
@@ -13,7 +14,10 @@ import {
   Menu,
   MessageSquarePlus,
   MoreVertical,
+  PanelLeftClose,
+  PanelLeftOpen,
   Pencil,
+  Plus,
   Send,
   Sparkles,
   Table2,
@@ -135,7 +139,17 @@ export function ChatApp() {
   const [error, setError] = useState("");
   const [schemaOpen, setSchemaOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // Desktop-only "hide sidebar" toggle (separate from the mobile drawer
+  // state above). Persisted in localStorage so it survives reload.
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("nl2bi.sidebarCollapsed") === "1";
+  });
   const [aboutOpen, setAboutOpen] = useState(false);
+  // Composer popover with response-format / response-style / suggestions toggle
+  const [composerMenuOpen, setComposerMenuOpen] = useState(false);
+  // User can hide the suggestion-chip row beneath the composer
+  const [suggestionsEnabled, setSuggestionsEnabled] = useState(true);
   // Local-only chat title overrides — backend has no PATCH /chats yet,
   // so when the user sends the first message we rename the chat in-memory
   // for the sidebar without round-tripping.
@@ -143,6 +157,26 @@ export function ChatApp() {
   // Sidebar per-session menu: which session has its kebab menu open
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  // Close composer popover on outside click + Escape
+  useEffect(() => {
+    if (!composerMenuOpen) return;
+    function onPointer(e: MouseEvent) {
+      const target = e.target as HTMLElement;
+      if (!target.closest?.(".composerMenu") && !target.closest?.(".composerMenuToggle")) {
+        setComposerMenuOpen(false);
+      }
+    }
+    function onKey(e: globalThis.KeyboardEvent) {
+      if (e.key === "Escape") setComposerMenuOpen(false);
+    }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [composerMenuOpen]);
 
   // Close kebab menu on outside click + Escape
   useEffect(() => {
@@ -405,7 +439,20 @@ export function ChatApp() {
   }
 
   function fillSuggestion(query: string) {
-    setInput(query);
+    // Auto-send on chip click: the chip text is a complete, well-formed
+    // suggestion, so making the user click Send again is busywork.
+    setInput("");
+    void handleSend(query);
+  }
+
+  function toggleSidebarCollapsed() {
+    setSidebarCollapsed((prev) => {
+      const next = !prev;
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("nl2bi.sidebarCollapsed", next ? "1" : "0");
+      }
+      return next;
+    });
   }
 
   function handleComposerKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -425,8 +472,9 @@ export function ChatApp() {
   }, [activeSession, sessions, localTitles]);
 
   const showSuggestions = useMemo(() => {
+    if (!suggestionsEnabled) return false;
     return messages.length === 0 || lastAssistantHasSqlExecutionError(messages);
-  }, [messages]);
+  }, [messages, suggestionsEnabled]);
 
   if (!user) {
     return (
@@ -494,7 +542,7 @@ export function ChatApp() {
   }
 
   return (
-    <main className={`appShell ${sidebarOpen ? "appShell--sidebarOpen" : ""}`}>
+    <main className={`appShell ${sidebarOpen ? "appShell--sidebarOpen" : ""} ${sidebarCollapsed ? "appShell--sidebarCollapsed" : ""}`}>
       {sidebarOpen ? (
         <div className="sidebarBackdrop" onClick={() => setSidebarOpen(false)} aria-hidden="true" />
       ) : null}
@@ -587,6 +635,15 @@ export function ChatApp() {
           >
             {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
+          <button
+            type="button"
+            className="sidebarCollapseToggle"
+            onClick={toggleSidebarCollapsed}
+            aria-label={sidebarCollapsed ? "Показать список чатов" : "Скрыть список чатов"}
+            title={sidebarCollapsed ? "Показать боковую панель" : "Скрыть боковую панель"}
+          >
+            {sidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+          </button>
           <div className="chatHeaderTitle">
             <h1>{activeTitle}</h1>
             <button
@@ -617,25 +674,9 @@ export function ChatApp() {
                 </option>
               ))}
             </select>
-            <select
-              value={preferredOutput}
-              onChange={(event) => setPreferredOutput(event.target.value as "auto" | "chart" | "table")}
-              className="toggleSelect"
-              title="Что показывать: график, таблицу или авто"
-            >
-              <option value="auto">Авто</option>
-              <option value="chart">График</option>
-              <option value="table">Таблица</option>
-            </select>
-            <select
-              value={responseStyle}
-              onChange={(event) => setResponseStyle(event.target.value as "business" | "technical")}
-              className="toggleSelect"
-              title="Технический режим показывает SQL и подробные ошибки"
-            >
-              <option value="business">Бизнес</option>
-              <option value="technical">Технический</option>
-            </select>
+            {/* Авто/Бизнес moved into the composer's "+" popover so the
+             *  header isn't a wall of selects. Source select stays here —
+             *  it changes per-message context, not a session preference. */}
           </div>
         </header>
         {schemaOpen ? (
@@ -784,6 +825,94 @@ export function ChatApp() {
           </section>
         ) : null}
         <form className="composer" onSubmit={(e) => { e.preventDefault(); void handleSend(); }}>
+          <button
+            type="button"
+            className="composerMenuToggle"
+            onClick={() => setComposerMenuOpen((v) => !v)}
+            aria-expanded={composerMenuOpen}
+            aria-haspopup="menu"
+            title="Настройки ответа"
+          >
+            <Plus size={16} />
+          </button>
+          {composerMenuOpen ? (
+            <div className="composerMenu" role="menu">
+              <div className="composerMenuRow">
+                <label className="composerMenuLabel">
+                  Подсказки под композером
+                  <span
+                    className="hintMark"
+                    title="Когда включено, под полем ввода показываются готовые запросы для текущего источника. Клик по чипу сразу отправляет вопрос."
+                    aria-label="Подсказка"
+                  >
+                    <HelpCircle size={12} />
+                  </span>
+                </label>
+                <label className="composerSwitch">
+                  <input
+                    type="checkbox"
+                    checked={suggestionsEnabled}
+                    onChange={(e) => setSuggestionsEnabled(e.target.checked)}
+                  />
+                  <span>{suggestionsEnabled ? "Вкл" : "Выкл"}</span>
+                </label>
+              </div>
+
+              <div className="composerMenuRow">
+                <label className="composerMenuLabel">
+                  Формат ответа
+                  <span
+                    className="hintMark"
+                    title="Авто — модель сама выбирает таблицу или график. График — всегда строить визуализацию. Таблица — только табличный результат."
+                    aria-label="Подсказка"
+                  >
+                    <HelpCircle size={12} />
+                  </span>
+                </label>
+                <div className="segmented" role="radiogroup" aria-label="Формат ответа">
+                  {(["auto", "chart", "table"] as const).map((v) => (
+                    <button
+                      key={v}
+                      type="button"
+                      role="radio"
+                      aria-checked={preferredOutput === v}
+                      className={`segmented__btn ${preferredOutput === v ? "segmented__btn--active" : ""}`}
+                      onClick={() => setPreferredOutput(v)}
+                    >
+                      {v === "auto" ? "Авто" : v === "chart" ? "График" : "Таблица"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="composerMenuRow">
+                <label className="composerMenuLabel">
+                  Стиль ответа
+                  <span
+                    className="hintMark"
+                    title="Бизнес — короткая формулировка для пользователя. Технический — показывается SQL, коды ошибок, метаданные колонок."
+                    aria-label="Подсказка"
+                  >
+                    <HelpCircle size={12} />
+                  </span>
+                </label>
+                <div className="segmented" role="radiogroup" aria-label="Стиль ответа">
+                  {(["business", "technical"] as const).map((v) => (
+                    <button
+                      key={v}
+                      type="button"
+                      role="radio"
+                      aria-checked={responseStyle === v}
+                      className={`segmented__btn ${responseStyle === v ? "segmented__btn--active" : ""}`}
+                      onClick={() => setResponseStyle(v)}
+                    >
+                      {v === "business" ? "Бизнес" : "Технический"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
           <input
             value={input}
             onChange={(event) => setInput(event.target.value)}
