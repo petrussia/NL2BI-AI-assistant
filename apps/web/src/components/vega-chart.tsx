@@ -72,14 +72,14 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
           labelAngle: 0,
         },
         axisY: {
-          // Y-axis title runs vertical by default. Force horizontal so
-          // "Средний возраст" doesn't read like a chimney.
+          // Y-axis title runs vertical by default. Force horizontal AND
+          // anchor it to the LEFT of the axis (mid-height), so it reads
+          // like a normal label not a chimney and not a top-corner badge.
           titleAngle: 0,
-          titleAlign: "left",
-          titleAnchor: "start",
-          titleX: -8,
-          titleY: -10,
-          titleBaseline: "bottom",
+          titleAlign: "right",      // right-edge of text aligns at titleX
+          titleAnchor: "middle",    // vertically centered on the axis
+          titleBaseline: "middle",
+          titlePadding: 10,         // gap between text and axis line
         },
         axisX: {
           // Keep x-axis label rotation only when names would overlap.

@@ -2327,7 +2327,7 @@ select { padding: 0 28px 0 12px; }
 .chatPane { background: #f7f9fc; }
 .message { width: min(1080px, 100%); }
 .message.user { width: min(720px, 100%); }
-.composerPill { width: min(940px, 100%); }
+.composerPill { width: min(1040px, 100%); }
 
 /* ============================================================
  * v0.10f — three more UX bugs from the latest review:
@@ -2594,8 +2594,11 @@ html, body { overflow-x: hidden; }
 /* 2) Reduce overall chat message size by ~10% and narrow the bubble
  *    so paragraphs aren't 1080px wide. Charts/tables still get their
  *    artifact-card width (kept at ~880px). */
-.message { width: min(720px, 100%); }
-.message.user { width: min(420px, 100%); }
+/* Shared width for chat content: message bubbles, composer pill,
+ * and suggestion-chip row all sit on the same 1040px-wide rail so
+ * they line up visually. */
+.message { width: min(1040px, 100%); }
+.message.user { width: min(720px, 100%); }
 .message p,
 .message li {
   font-size: 13px;   /* down from default ~14.5px */
