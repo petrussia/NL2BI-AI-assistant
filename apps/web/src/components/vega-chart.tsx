@@ -10,6 +10,10 @@ type Spec = Record<string, unknown>;
 // human-readable Russian labels from demo-schema.COLUMN_LABELS_RU. Mutates
 // the supplied spec subtree in place but only assigns absent / SQL-id-shaped
 // titles — won't trample a real user-provided title.
+// Match year-like column names so Vega axis doesn't render "2 014.00" with
+// thousand-separator + decimals. Same regex used in the table renderer.
+const YEAR_FIELD_RE = /(^|_)year$|^year_|^год$|_год$/i;
+
 function humanizeEncoding(spec: Spec): void {
   const encoding = (spec.encoding as Record<string, unknown> | undefined) ?? undefined;
   if (!encoding) return;
@@ -23,6 +27,11 @@ function humanizeEncoding(spec: Spec): void {
     // Replace when title is empty, equals the field, or is the bare snake/camel id.
     if (!currentTitle || currentTitle === field) {
       obj.title = labelFor(field);
+    }
+    // Years: cast quantitative integers to ordinal so the axis prints
+    // 2014, 2015, ... instead of 2,014.00, 2,014.50, ...
+    if (YEAR_FIELD_RE.test(field) && obj.type === "quantitative") {
+      obj.type = "ordinal";
     }
   }
 }

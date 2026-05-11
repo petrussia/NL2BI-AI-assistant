@@ -10,11 +10,22 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function formatValue(value: unknown): { text: string; numeric: boolean } {
+// Year columns (Year, Song_release_year, ...) come back as plain INTEGER
+// after the demo-schema migration. We don't want the thousand-space
+// separator turning 2014 into "2 014".
+const YEAR_COLUMN_RE = /(^|_)year$|^year_|^год$|_год$/i;
+function isYearColumn(name: string | undefined): boolean {
+  return !!name && YEAR_COLUMN_RE.test(name);
+}
+
+function formatValue(value: unknown, column?: string): { text: string; numeric: boolean } {
   if (value === null || value === undefined) {
     return { text: "—", numeric: false };
   }
   if (typeof value === "number") {
+    if (isYearColumn(column) && Number.isInteger(value)) {
+      return { text: String(value), numeric: true };
+    }
     return { text: new Intl.NumberFormat("ru-RU").format(value), numeric: true };
   }
   if (typeof value === "boolean") {
@@ -89,7 +100,7 @@ function TableArtifact({ artifact }: { artifact: Artifact }) {
             {shown.map((row, index) => (
               <tr key={index}>
                 {columns.map((column) => {
-                  const { text, numeric } = formatValue(row[column]);
+                  const { text, numeric } = formatValue(row[column], column);
                   return (
                     <td
                       key={column}
