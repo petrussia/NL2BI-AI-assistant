@@ -1574,3 +1574,66 @@ select:focus-visible {
   color: #92400e;
   border-color: #fde68a;
 }
+
+/* ===== v0.8 — uniform control sizing
+ *
+ * Header родственники (pill / picker / select / schema toggle) теперь все
+ * 32px высотой. Чипы тоже 32px. Гамбургер — квадратный 36×36 (icon-only).
+ * Primary CTA (Send / Новый чат / Войти) остаётся 44px — он намеренно
+ * выше, чтобы тянуть глаз. ===== */
+
+.statusPill,
+.modelPicker__trigger,
+.modelPicker--loading,
+.toggleSelect,
+.schemaToggle,
+select {
+  min-height: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* Padding должен соответствовать единой высоте — без больших вертикальных
+ * paddings, чтобы итог не получился 34/36. */
+.statusPill { padding: 0 12px; gap: 6px; }
+.modelPicker__trigger,
+.modelPicker--loading { padding: 0 12px; gap: 6px; }
+.schemaToggle { padding: 0 10px; margin-left: -10px; }
+select { padding: 0 28px 0 12px; }
+
+/* Гамбургер — icon-only квадрат. Чуть крупнее, но это иконка, не
+ * текстовая кнопка, так что не конкурирует с pills визуально. */
+.hamburger { width: 36px; height: 36px; }
+
+/* Чипы — тоже 32px, single-line per chip, общая длина растёт горизонтально
+ * с переносом строк chipRow. Это устраняет высокие «карточные» чипы со
+ * скриншота. */
+.chip {
+  height: 32px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* На широких экранах список чипов может уехать в 2 строки — это
+ * допустимо. На очень узких ужмём текст. */
+@media (max-width: 700px) {
+  .chip { font-size: 12.5px; padding: 0 12px; max-width: 100%; white-space: normal; height: auto; min-height: 32px; padding-top: 6px; padding-bottom: 6px; }
+}
+
+/* Composer input — 40px чтобы не казался тоньше Отправить, но не сливался
+ * с pills. */
+.composer input { height: 40px; min-height: 40px; }
+
+/* В header'е дать pills и pickers одинаковый baseline через grid-align */
+.toggles { row-gap: 8px; }
+.toggles > * { vertical-align: middle; }
+
+/* Source badge под сообщением — выровняем с timingStrip */
+.sourceBadge { height: 22px; line-height: 1; }
