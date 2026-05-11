@@ -7,7 +7,12 @@ from dataclasses import dataclass
 from typing import Any
 
 from colab.config import ColabServerConfig
-from colab.prompt import build_chat_messages, build_planner_messages, build_emitter_with_plan_messages
+from colab.prompt import (
+    build_chat_messages,
+    build_emitter_with_plan_messages,
+    build_planner_messages,
+    build_repair_messages,
+)
 from colab.schema_loader import DatabaseSchema
 
 
@@ -259,6 +264,28 @@ class TextToSqlModel:
         if self.state.mock or self._model is None or self._tokenizer is None:
             return _mock_sql(user_query, schema)
         return self._run_chat(build_emitter_with_plan_messages(user_query, schema, plan, locale))
+
+    def repair_sql(
+        self,
+        user_query: str,
+        schema: DatabaseSchema,
+        original_sql: str,
+        execution_problem: str,
+        locale: str | None = None,
+    ) -> str:
+        """One-shot dialect-aware SQL repair pass after execution/dry-run fails."""
+        if self.state.mock or self._model is None or self._tokenizer is None:
+            return ""
+        return self._run_chat(
+            build_repair_messages(
+                user_query,
+                schema,
+                original_sql,
+                execution_problem,
+                locale,
+            ),
+            max_new_tokens=max(512, self.config.max_new_tokens),
+        )
 
 
 def _mock_sql(user_query: str, schema: DatabaseSchema) -> str:

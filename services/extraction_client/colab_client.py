@@ -161,7 +161,7 @@ class ColabExtractionClient(ExtractionClient):
         except json.JSONDecodeError:
             return False, {"colab_error_code": "invalid_extraction_response"}
 
-    def load_model(self, model_id: str | None) -> tuple[bool, dict[str, Any]]:
+    def load_model(self, model_id: str | None, *, target: str = "emitter") -> tuple[bool, dict[str, Any]]:
         """POST /reload_model with an optional model_id override. Slow (~minutes)."""
         if not self.service_url:
             return False, {"colab_error_code": "colab_unavailable"}
@@ -169,10 +169,19 @@ class ColabExtractionClient(ExtractionClient):
         # 1-3 minutes on L4. We don't bake in retries; the caller's UI shows a
         # spinner and surfaces failure verbatim.
         timeout = httpx.Timeout(self.timeout_seconds * 6, connect=min(10.0, self.timeout_seconds))
-        body = {"model_id": model_id} if model_id else {}
+        body = {"target": target}
+        if model_id:
+            body["model_id"] = model_id
         try:
-            with httpx.Client(timeout=timeout) as client:
-                response = client.post(
+            if self.http_client is None:
+                with httpx.Client(timeout=timeout) as client:
+                    response = client.post(
+                        f"{self.service_url}/reload_model",
+                        json=body,
+                        headers={**self._headers(), "Content-Type": "application/json"},
+                    )
+            else:
+                response = self.http_client.post(
                     f"{self.service_url}/reload_model",
                     json=body,
                     headers={**self._headers(), "Content-Type": "application/json"},

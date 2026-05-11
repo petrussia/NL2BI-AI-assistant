@@ -59,6 +59,8 @@ export type ModelCatalog = {
   architecture_label?: string;
   planner_id?: string | null;
   planner_loaded?: boolean;
+  planner_loading?: boolean;
+  planner_load_error?: string | null;
   planner_enabled?: boolean;
 };
 
@@ -124,17 +126,20 @@ export function listModels() {
   return api<ModelCatalog>("/admin/models");
 }
 
-export function loadModel(modelId: string) {
+export function loadModel(modelId: string, target: "emitter" | "planner" = "emitter") {
   return api<{
     status: string;
-    model_loaded: boolean;
-    model_id: string | null;
-    mock_model: boolean;
+    target?: "emitter" | "planner";
+    model_loaded?: boolean;
+    model_id?: string | null;
+    mock_model?: boolean;
     load_error: string | null;
     load_latency_ms: number | null;
+    planner_loaded?: boolean;
+    planner_id?: string | null;
   }>("/admin/load_model", {
     method: "POST",
-    body: JSON.stringify({ model_id: modelId }),
+    body: JSON.stringify({ model_id: modelId, target }),
   });
 }
 

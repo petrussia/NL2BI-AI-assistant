@@ -25,7 +25,13 @@ from colab.metadata import infer_field_metadata
 from colab.model import TextToSqlModel
 from colab.plan import build_plan
 from colab.schema_loader import DatabaseSchema, load_schema
-from colab.sql_guard import apply_row_limit, extract_sql, validate_select_only
+from colab.sql_guard import (
+    apply_row_limit,
+    extract_sql,
+    repair_sql_for_empty_result,
+    repair_sql_for_execution,
+    validate_select_only,
+)
 from colab.sql_runner import execute_select
 
 
@@ -171,6 +177,105 @@ def run_extraction(
         row_limit=request.constraints.row_limit,
         read_only=True,
     )
+
+    def _execute_repair_candidate(repair_output: str | None):
+        if not repair_output:
+            return None
+        repaired_sql = extract_sql(repair_output)
+        repaired_guard = validate_select_only(repaired_sql)
+        if not repaired_guard.ok:
+            return None
+        repaired_bounded_sql, _ = apply_row_limit(repaired_guard.sql, request.constraints.row_limit)
+        repaired_sql_info = SqlInfo(
+            query=repaired_bounded_sql,
+            dialect=_engine_to_dialect(spec.engine),
+            validated=True,
+            read_only=True,
+        )
+        repaired_exec_result = execute_select(
+            spec,
+            repaired_bounded_sql,
+            timeout_ms=request.constraints.timeout_ms,
+            row_limit=request.constraints.row_limit,
+            read_only=True,
+        )
+        return repaired_bounded_sql, repaired_sql_info, repaired_exec_result
+
+    if request.constraints.allow_llm_repair and exec_result.error is not None:
+        base_sql = bounded_sql
+        base_error = exec_result.error
+        repaired_sql = repair_sql_for_execution(
+            base_sql,
+            engine=spec.engine,
+            data_source_id=spec.id,
+            user_query=request.user_query,
+            error=base_error,
+            schema=schema,
+        )
+        deterministic_attempt = _execute_repair_candidate(repaired_sql)
+        if deterministic_attempt is not None:
+            cand_sql, cand_sql_info, cand_exec = deterministic_attempt
+            if cand_exec.error is None and not cand_exec.timed_out:
+                bounded_sql, sql_info, exec_result = cand_sql, cand_sql_info, cand_exec
+            else:
+                base_sql = cand_sql
+                base_error = cand_exec.error or base_error
+
+        if exec_result.error is not None:
+            llm_repair_output = model.repair_sql(
+                request.user_query,
+                schema,
+                base_sql,
+                f"Database execution error:\n{base_error}",
+                locale=request.locale,
+            )
+            llm_attempt = _execute_repair_candidate(llm_repair_output)
+            if llm_attempt is not None:
+                cand_sql, cand_sql_info, cand_exec = llm_attempt
+                if cand_exec.error is None and not cand_exec.timed_out:
+                    bounded_sql, sql_info, exec_result = cand_sql, cand_sql_info, cand_exec
+
+    if (
+        request.constraints.allow_llm_repair
+        and exec_result.error is None
+        and not exec_result.timed_out
+        and exec_result.row_count == 0
+    ):
+        empty_repair_sql = repair_sql_for_empty_result(
+            bounded_sql,
+            engine=spec.engine,
+            data_source_id=spec.id,
+            user_query=request.user_query,
+            schema=schema,
+        )
+        empty_attempt = _execute_repair_candidate(empty_repair_sql)
+        if empty_attempt is not None:
+            cand_sql, cand_sql_info, cand_exec = empty_attempt
+            if cand_exec.error is None and not cand_exec.timed_out and cand_exec.row_count > 0:
+                bounded_sql, sql_info, exec_result = cand_sql, cand_sql_info, cand_exec
+
+    if (
+        request.constraints.allow_llm_repair
+        and exec_result.error is None
+        and not exec_result.timed_out
+        and exec_result.row_count == 0
+    ):
+        llm_repair_output = model.repair_sql(
+            request.user_query,
+            schema,
+            bounded_sql,
+            (
+                "The SQL executed successfully but returned zero rows. "
+                "If this is caused by an impossible filter or wrong join path, repair it. "
+                "Preserve the original analytical intent."
+            ),
+            locale=request.locale,
+        )
+        llm_attempt = _execute_repair_candidate(llm_repair_output)
+        if llm_attempt is not None:
+            cand_sql, cand_sql_info, cand_exec = llm_attempt
+            if cand_exec.error is None and not cand_exec.timed_out and cand_exec.row_count > 0:
+                bounded_sql, sql_info, exec_result = cand_sql, cand_sql_info, cand_exec
 
     if exec_result.timed_out:
         return _failed_response(

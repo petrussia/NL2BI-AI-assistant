@@ -34,7 +34,9 @@ from __future__ import annotations
 import logging
 import os
 import sys
+import threading
 from pathlib import Path
+from typing import Literal
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.responses import JSONResponse
@@ -80,6 +82,9 @@ class _PlannerConfig:
 
 _planner_model_id = os.environ.get("COLAB_PLANNER_MODEL_ID", "").strip()
 _planner: TextToSqlModel | None = None
+_planner_loading = False
+_planner_load_error: str | None = None
+_planner_lock = threading.Lock()
 if _planner_model_id:
     _planner_cfg = _PlannerConfig(
         _config,
@@ -128,6 +133,71 @@ def require_debug_enabled(authorization: str | None = Header(None)) -> None:
     _validate_bearer(authorization)
 
 
+def _ensure_planner(model_id: str) -> TextToSqlModel:
+    global _planner, _planner_model_id
+    if _planner is None or _planner_model_id != model_id:
+        _planner_model_id = model_id
+        _planner_cfg = _PlannerConfig(
+            _config,
+            model_id,
+            quantization=os.environ.get("COLAB_PLANNER_QUANTIZATION", "bf16"),
+        )
+        _planner = TextToSqlModel(_planner_cfg)
+    return _planner
+
+
+def _start_planner_load(model_id: str) -> dict[str, object]:
+    """Start planner loading in the background without unloading the emitter."""
+    global _planner_loading, _planner_load_error
+    planner = _ensure_planner(model_id)
+    if planner.is_ready() and planner.state.model_id == model_id:
+        return {
+            "status": "ok",
+            "target": "planner",
+            "planner_loaded": True,
+            "planner_id": planner.state.model_id,
+            "load_error": planner.state.load_error,
+        }
+    with _planner_lock:
+        if _planner_loading:
+            return {
+                "status": "loading",
+                "target": "planner",
+                "planner_loaded": False,
+                "planner_id": model_id,
+                "load_error": _planner_load_error,
+            }
+        _planner_loading = True
+        _planner_load_error = None
+
+    def _bg_planner_load() -> None:
+        global _planner_loading, _planner_load_error
+        try:
+            logger.info("planner load starting: %s", model_id)
+            ps = planner.load(model_id_override=model_id)
+            _planner_load_error = ps.load_error
+            logger.info(
+                "planner load: loaded=%s id=%s err=%s",
+                ps.loaded,
+                ps.model_id,
+                ps.load_error,
+            )
+        except Exception as exc:  # noqa: BLE001
+            _planner_load_error = f"{type(exc).__name__}: {str(exc)[:200]}"
+            logger.exception("planner load failed: %s", exc)
+        finally:
+            _planner_loading = False
+
+    threading.Thread(target=_bg_planner_load, daemon=True, name="planner-loader").start()
+    return {
+        "status": "loading",
+        "target": "planner",
+        "planner_loaded": False,
+        "planner_id": model_id,
+        "load_error": None,
+    }
+
+
 def require_bridge_enabled(authorization: str | None = Header(None)) -> None:
     """Gate /admin/* — same shape as require_debug_enabled."""
     if not _config.bridge_enabled:
@@ -154,18 +224,7 @@ def _on_startup() -> None:
     # background thread so the emitter is usable while the planner spools
     # up — first load of a 30B model can take 5-10 min on a fresh kernel.
     if _planner is not None:
-        def _bg_planner_load():
-            try:
-                logger.info("planner load starting: %s", _planner_model_id)
-                ps = _planner.load(model_id_override=_planner_model_id)
-                logger.info(
-                    "planner load: loaded=%s id=%s err=%s",
-                    ps.loaded, ps.model_id, ps.load_error,
-                )
-            except Exception as exc:  # noqa: BLE001
-                logger.exception("planner load failed: %s", exc)
-        import threading
-        threading.Thread(target=_bg_planner_load, daemon=True, name="planner-loader").start()
+        _start_planner_load(_planner_model_id)
     # Never log token values; only whether each is configured.
     logger.info(
         "auth flags: require_auth=%s api_token_set=%s debug_endpoints=%s bridge_enabled=%s",
@@ -186,6 +245,8 @@ def _health_payload() -> dict[str, object]:
         "planner_enabled": _planner is not None,
         "planner_loaded": (_planner.is_ready() if _planner is not None else False),
         "planner_id": (_planner.state.model_id if _planner is not None else None),
+        "planner_loading": _planner_loading,
+        "planner_load_error": _planner_load_error,
         "device": info["device"],
         "gpu_name": info["gpu_name"],
         "vram_total_gb": info["vram_total_gb"],
@@ -357,10 +418,11 @@ def list_models() -> dict[str, object]:
     current = _model.state.model_id or _config.model_id
     planner_id = (_planner.state.model_id if _planner is not None else None)
     planner_loaded = (_planner.is_ready() if _planner is not None else False)
+    planner_loading = _planner_loading
     if planner_loaded:
         architecture = "planner_emitter"
         architecture_label = "Planner+Emitter (30B → 7B)"
-    elif _planner is not None:
+    elif _planner is not None or planner_loading:
         architecture = "planner_loading"
         architecture_label = "Planner+Emitter (loading…)"
     else:
@@ -378,22 +440,29 @@ def list_models() -> dict[str, object]:
         "planner_id": planner_id,
         "planner_loaded": planner_loaded,
         "planner_enabled": _planner is not None,
+        "planner_loading": planner_loading,
+        "planner_load_error": _planner_load_error,
     }
 
 
 class ReloadModelRequest(BaseModel):
     model_id: str | None = None
+    target: Literal["emitter", "planner"] = "emitter"
 
 
 @app.post("/reload_model", dependencies=[Depends(require_api_auth)])
 def reload_model(body: ReloadModelRequest | None = None) -> JSONResponse:
     requested = (body.model_id if body else None) or _config.model_id
+    target = (body.target if body else "emitter")
+    if target == "planner":
+        return JSONResponse(_start_planner_load(requested))
     # Drop the current model first to free VRAM, then load the requested one.
     _model.unload()
     new_state = _model.load(model_id_override=requested)
     return JSONResponse(
         {
             "status": "ok" if new_state.loaded else "failed",
+            "target": "emitter",
             "model_loaded": new_state.loaded,
             "model_id": new_state.model_id,
             "mock_model": new_state.mock,

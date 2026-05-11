@@ -97,6 +97,35 @@ def test_colab_without_auth_token_sends_no_authorization_header():
     ]
 
 
+def test_colab_load_model_can_target_planner():
+    seen: dict[str, object] = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen["path"] = request.url.path
+        seen["body"] = request.content.decode("utf-8")
+        seen["authorization"] = request.headers.get("authorization")
+        return httpx.Response(
+            200,
+            json={
+                "status": "loading",
+                "target": "planner",
+                "planner_loaded": False,
+                "planner_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+            },
+        )
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    colab = ColabExtractionClient("https://colab.test", auth_token="secret-token", http_client=client)
+    ok, payload = colab.load_model("Qwen/Qwen3-Coder-30B-A3B-Instruct", target="planner")
+
+    assert ok is True
+    assert payload["status"] == "loading"
+    assert seen["path"] == "/reload_model"
+    assert seen["authorization"] == "Bearer secret-token"
+    assert '"target":"planner"' in seen["body"]
+    assert '"model_id":"Qwen/Qwen3-Coder-30B-A3B-Instruct"' in seen["body"]
+
+
 def test_colab_invalid_json_maps_safe_error():
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(200, content=b"not json")

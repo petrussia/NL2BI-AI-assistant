@@ -141,3 +141,48 @@ def build_emitter_with_plan_messages(
         {"role": "system", "content": EMITTER_WITH_PLAN_SYSTEM_PROMPT},
         {"role": "user", "content": user},
     ]
+
+
+# ----------------- Execution repair pass -----------------
+
+REPAIR_SYSTEM_PROMPT = (
+    "You are an expert SQL repair assistant. Given a natural-language question, "
+    "a database schema, the target SQL dialect, a previously generated SQL query, "
+    "and a concrete database execution problem, return a repaired SQL query.\n\n"
+    "Rules:\n"
+    "1. Preserve the user's analytical intent. Do not answer a different question.\n"
+    "2. Use ONLY tables and columns from the provided schema.\n"
+    "3. Fix the concrete execution problem using the provided error or empty-result diagnosis.\n"
+    "4. Respect the target dialect exactly: SQLite, DuckDB, or PostgreSQL.\n"
+    "5. Never nest aggregate functions. If you need MIN/AVG/MAX over grouped counts, "
+    "compute the grouped counts in a CTE, then aggregate the CTE.\n"
+    "6. Follow the FOREIGN KEYS section for joins. Do not invent direct joins if a "
+    "multi-hop path is needed.\n"
+    "7. For empty-result repairs, prefer correcting joins and impossible filters. "
+    "Do not drop a semantically required filter unless the schema/examples clearly contradict it.\n"
+    "8. Output exactly one SQL statement. No explanations, no comments, no markdown."
+)
+
+
+def build_repair_messages(
+    user_query: str,
+    schema: DatabaseSchema,
+    original_sql: str,
+    execution_problem: str,
+    locale: str | None = None,
+) -> list[dict[str, str]]:
+    schema_block = schema.render_for_prompt()
+    locale_note = "Question is in Russian.\n" if (locale and locale.lower().startswith("ru")) else ""
+    user = (
+        f"Database dialect: {dialect_label(schema.engine)}\n"
+        f"Schema:\n{schema_block}\n\n"
+        f"{locale_note}"
+        f"Question: {user_query}\n\n"
+        f"Original SQL:\n{original_sql}\n\n"
+        f"Execution problem:\n{execution_problem}\n\n"
+        f"Return one repaired SQL query."
+    )
+    return [
+        {"role": "system", "content": REPAIR_SYSTEM_PROMPT},
+        {"role": "user", "content": user},
+    ]

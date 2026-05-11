@@ -45,22 +45,43 @@ export function ModelPicker() {
     void refresh();
   }, []);
 
-  async function pick(modelId: string) {
+  useEffect(() => {
+    if (!catalog?.planner_loading) return;
+    const id = window.setInterval(() => {
+      void refresh();
+    }, 5000);
+    return () => window.clearInterval(id);
+  }, [catalog?.planner_loading]);
+
+  async function pick(modelId: string, target: "emitter" | "planner" = "emitter") {
     if (loading || !catalog) return;
-    if (modelId === catalog.current && catalog.loaded) {
+    if (target === "emitter" && modelId === catalog.current && catalog.loaded) {
       setOpen(false);
       return;
     }
+    if (
+      target === "planner" &&
+      modelId === catalog.planner_id &&
+      (catalog.planner_loaded || catalog.planner_loading)
+    ) {
+      setOpen(false);
+      return;
+    }
+    const targetLabel = target === "planner" ? "planner" : "emitter";
     const ok = window.confirm(
-      `Загрузить ${modelId}?\nЗагрузка ~1-3 мин, во время неё запросы /extract будут падать с model_not_loaded.`,
+      target === "planner"
+        ? `Запустить загрузку planner ${modelId}?\nEmitter останется активным, planner загрузится в фоне.`
+        : `Загрузить emitter ${modelId}?\nЗагрузка ~1-3 мин, во время неё запросы /extract будут падать с model_not_loaded.`,
     );
     if (!ok) return;
     setLoading(true);
     setError(null);
     try {
-      const res = await loadModel(modelId);
-      if (!res.model_loaded) {
-        setError(res.load_error ?? "Загрузка не удалась");
+      const res = await loadModel(modelId, target);
+      if (res.status === "failed") {
+        setError(res.load_error ?? `Загрузка ${targetLabel} не удалась`);
+      } else if (target === "emitter" && !res.model_loaded) {
+        setError(res.load_error ?? "Загрузка emitter не удалась");
       }
       await refresh();
     } catch (err) {
@@ -102,6 +123,7 @@ export function ModelPicker() {
   const archLabel = catalog.architecture_label ?? null;
   const plannerId = catalog.planner_id ?? null;
   const plannerLoaded = catalog.planner_loaded ?? false;
+  const plannerLoading = catalog.planner_loading ?? catalog.architecture === "planner_loading";
   const emitters = catalog.models.filter((m) => m.role !== "planner");
   const planners = catalog.models.filter((m) => m.role === "planner");
 
@@ -129,11 +151,14 @@ export function ModelPicker() {
           ) : null}
           {planners.map((m) => {
             const isCurrent = m.id === plannerId;
+            const isLoading = isCurrent && plannerLoading && !plannerLoaded;
             return (
               <li key={m.id}>
-                <div
+                <button
+                  type="button"
                   className={`modelPicker__item ${isCurrent ? "modelPicker__item--active" : ""}`}
-                  aria-disabled
+                  onClick={() => pick(m.id, "planner")}
+                  disabled={loading || isLoading}
                 >
                   <span className="modelPicker__itemLabel">
                     {m.label}
@@ -141,13 +166,14 @@ export function ModelPicker() {
                       {m.family} · ~{m.approx_vram_gb} GB VRAM ·{" "}
                       {isCurrent && plannerLoaded
                         ? "загружен"
-                        : isCurrent
+                        : isLoading
                           ? "загружается…"
                           : "не активен"}
                     </em>
                   </span>
+                  {isLoading ? <Loader2 size={14} className="spin" /> : null}
                   {isCurrent && plannerLoaded ? <Check size={14} /> : null}
-                </div>
+                </button>
               </li>
             );
           })}
@@ -161,7 +187,7 @@ export function ModelPicker() {
                 <button
                   type="button"
                   className={`modelPicker__item ${isCurrent ? "modelPicker__item--active" : ""}`}
-                  onClick={() => pick(m.id)}
+                  onClick={() => pick(m.id, "emitter")}
                   disabled={loading}
                 >
                   <span className="modelPicker__itemLabel">
@@ -176,6 +202,9 @@ export function ModelPicker() {
             );
           })}
           {error ? <li className="modelPicker__error">{error}</li> : null}
+          {catalog.planner_load_error ? (
+            <li className="modelPicker__error">{catalog.planner_load_error}</li>
+          ) : null}
         </ul>
       ) : null}
       {/* No more inline JSON-shaped error here — see the catalog-null branch

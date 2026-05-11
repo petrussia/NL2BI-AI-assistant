@@ -43,6 +43,7 @@ def list_models(
 
 class LoadModelRequest(BaseModel):
     model_id: str | None = None
+    target: str = "emitter"
 
 
 @router.post("/load_model")
@@ -58,7 +59,9 @@ def load_model(
     load_error when the requested model failed to load (then the next /extract
     will return model_not_loaded until the operator picks something else).
     """
-    ok, payload = _client(settings).load_model(body.model_id)
+    if body.target not in {"emitter", "planner"}:
+        raise HTTPException(status_code=400, detail="target must be 'emitter' or 'planner'.")
+    ok, payload = _client(settings).load_model(body.model_id, target=body.target)
     if not ok:
         raise HTTPException(status_code=502, detail=payload)
     return payload
