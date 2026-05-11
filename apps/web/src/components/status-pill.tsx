@@ -4,9 +4,18 @@ import { useEffect, useState } from "react";
 import { CircleDot } from "lucide-react";
 import { getRuntime, type RuntimeStatus } from "@/lib/api";
 
-type Tone = "green" | "yellow" | "red";
+type Tone = "green" | "yellow" | "red" | "gray";
 
-function classify(r: RuntimeStatus | null, err: string | null): { tone: Tone; label: string; hint: string } {
+function classify(
+  r: RuntimeStatus | null,
+  err: string | null,
+  checking: boolean,
+): { tone: Tone; label: string; hint: string } {
+  if (checking && !r && !err) {
+    // First /runtime request hasn't returned yet — show a neutral 'checking'
+    // pill so we don't flash red before we know anything.
+    return { tone: "gray", label: "Проверяю сервер…", hint: "Жду первый ответ от /api/server/runtime" };
+  }
   if (err || !r) {
     return { tone: "red", label: "Сервер недоступен", hint: err ?? "GET /runtime упал" };
   }
@@ -37,6 +46,7 @@ function classify(r: RuntimeStatus | null, err: string | null): { tone: Tone; la
 export function StatusPill({ pollMs = 30000 }: { pollMs?: number }) {
   const [runtime, setRuntime] = useState<RuntimeStatus | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [checking, setChecking] = useState<boolean>(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -52,7 +62,10 @@ export function StatusPill({ pollMs = 30000 }: { pollMs?: number }) {
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : "fetch failed");
       } finally {
-        if (!cancelled) timer = setTimeout(tick, pollMs);
+        if (!cancelled) {
+          setChecking(false);
+          timer = setTimeout(tick, pollMs);
+        }
       }
     };
     void tick();
@@ -62,7 +75,7 @@ export function StatusPill({ pollMs = 30000 }: { pollMs?: number }) {
     };
   }, [pollMs]);
 
-  const { tone, label, hint } = classify(runtime, error);
+  const { tone, label, hint } = classify(runtime, error, checking);
   return (
     <span className={`statusPill statusPill--${tone}`} title={hint}>
       <CircleDot size={12} />

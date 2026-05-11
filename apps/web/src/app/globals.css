@@ -1637,3 +1637,118 @@ select { padding: 0 28px 0 12px; }
 
 /* Source badge под сообщением — выровняем с timingStrip */
 .sourceBadge { height: 22px; line-height: 1; }
+
+/* =====  v0.9 — recheck fixes
+ *
+ * 1. Hamburger was hidden on mobile because the v0.7 polish block came
+ *    AFTER the @media rule. Put the visibility back in a media block that
+ *    sits at the very end of the cascade so it wins regardless of source
+ *    order.
+ * 2. Empty-state chips were ballooning the bottom area on desktop. Make
+ *    chipRow content-aligned + chips intrinsically sized.
+ * 3. Header text was truncating ('Spider concert_…'). Allow toggles row
+ *    to wrap onto a 2nd line on wide screens too, so the picker no longer
+ *    fights the selects for inches. Also widen .toggleSelect--source.
+ * 4. Status pill: new neutral 'gray' tone for the 'checking…' state.
+ * 5. Sidebar session row: kebab button + dropdown menu styles.
+ * ===== */
+
+/* 1. Hamburger — keep base hidden, show only at <=900px via this very
+ * last rule. */
+.hamburger { display: none; }
+@media (max-width: 900px) {
+  .hamburger { display: inline-flex !important; }
+}
+
+/* 2. Empty-state chips — chipRow stays compact, chips don't stretch */
+.chipRow {
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.chip { flex: 0 0 auto; height: 32px; min-height: 32px; }
+.suggestions { align-content: flex-start; }
+
+/* 3. Wide-source select — give the source dropdown enough room so it
+ * doesn't print 'Spider concert_…'. Truncating on the OPTION text is fine,
+ * but the visible select width needs to fit at least 'Spider concert_singer'
+ * label (≈21 chars at 13px ≈ 165px + chevron padding ≈ 195px). */
+.toggles select.toggleSelect--source { min-width: 240px; max-width: 280px; width: auto; }
+
+/* On really wide screens (>=1280px) the model picker label can be longer
+ * so the trigger doesn't read as just icons. */
+@media (min-width: 1280px) {
+  .modelPicker__label { max-width: 240px; }
+}
+
+/* 4. Status pill — new 'checking' (gray) tone */
+.statusPill--gray {
+  color: #475569;
+  background: #f1f5f9;
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(100, 116, 139, 0.15);
+}
+
+/* 5. Sidebar session — wrap each chat row in a container with kebab */
+.sessionRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: stretch;
+  border-radius: 8px;
+}
+.sessionRow .session {
+  border-radius: 8px 0 0 8px;
+  min-height: 36px;
+  font-size: 13.5px;
+}
+.sessionKebab {
+  border: 0;
+  background: transparent;
+  border-radius: 0 8px 8px 0;
+  color: var(--muted);
+  width: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+.sessionRow:hover .sessionKebab,
+.sessionRow--active .sessionKebab,
+.sessionRow:focus-within .sessionKebab {
+  opacity: 1;
+}
+.sessionKebab:hover {
+  color: var(--text);
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.sessionMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 4px;
+  z-index: 25;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+  display: grid;
+  gap: 2px;
+  padding: 4px;
+  min-width: 180px;
+}
+.sessionMenu button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  padding: 7px 10px;
+  text-align: left;
+  font-size: 13px;
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+}
+.sessionMenu button:hover { background: var(--panel-strong); }
+.sessionMenu__danger:hover { background: #fee2e2; color: var(--danger); }

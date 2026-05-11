@@ -80,8 +80,25 @@ export function ModelPicker() {
     );
   }
 
-  const current = catalog?.models.find((m) => m.id === catalog?.current);
-  const currentLabel = current?.label ?? catalog?.current ?? "—";
+  // If we have no catalog because the call failed (502, Colab offline, etc.)
+  // hide the JSON noise behind a short pill — clicking expands to a single
+  // 'недоступно' list entry. The full reason is in title=… for inspection.
+  if (!catalog) {
+    return (
+      <button
+        type="button"
+        className="modelPicker modelPicker--loading"
+        disabled
+        title={error ?? "Модель сейчас недоступна"}
+      >
+        <AlertTriangle size={14} color="#b45309" />
+        <span>Модель недоступна</span>
+      </button>
+    );
+  }
+
+  const current = catalog.models.find((m) => m.id === catalog.current);
+  const currentLabel = current?.label ?? catalog.current ?? "—";
 
   return (
     <div className={`modelPicker ${open ? "modelPicker--open" : ""}`} ref={rootRef}>
@@ -122,7 +139,10 @@ export function ModelPicker() {
           {error ? <li className="modelPicker__error">{error}</li> : null}
         </ul>
       ) : null}
-      {error && !open ? <span className="modelPicker__inlineErr">{error}</span> : null}
+      {/* No more inline JSON-shaped error here — see the catalog-null branch
+       * above; if we *do* have a catalog and a transient error (e.g. load
+       * failed), it surfaces inside the menu instead of leaking into the
+       * page-wide header. */}
     </div>
   );
 }

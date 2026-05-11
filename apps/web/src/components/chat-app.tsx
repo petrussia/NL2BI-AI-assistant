@@ -12,15 +12,19 @@ import {
   LogOut,
   Menu,
   MessageSquarePlus,
+  MoreVertical,
+  Pencil,
   Send,
   Sparkles,
   Table2,
+  Trash2,
   X,
 } from "lucide-react";
 import {
   ChatMessage,
   ChatSession,
   createChat,
+  deleteChat as apiDeleteChat,
   listChats,
   listMessages,
   login,
@@ -28,6 +32,7 @@ import {
   me,
   register,
   sendMessage,
+  updateChat as apiUpdateChat,
 } from "@/lib/api";
 import { ArtifactRenderer } from "@/components/artifact-renderer";
 import { StatusPill } from "@/components/status-pill";
@@ -135,7 +140,79 @@ export function ChatApp() {
   // so when the user sends the first message we rename the chat in-memory
   // for the sidebar without round-tripping.
   const [localTitles, setLocalTitles] = useState<Record<string, string>>({});
+  // Sidebar per-session menu: which session has its kebab menu open
+  const [menuFor, setMenuFor] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  // Close kebab menu on outside click + Escape
+  useEffect(() => {
+    if (!menuFor) return;
+    function onPointer(e: MouseEvent) {
+      const target = e.target as HTMLElement;
+      if (!target.closest?.(".sessionMenu") && !target.closest?.(".sessionKebab")) {
+        setMenuFor(null);
+      }
+    }
+    function onKey(e: globalThis.KeyboardEvent) { if (e.key === "Escape") setMenuFor(null); }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [menuFor]);
+
+  async function handleRename(session: ChatSession) {
+    const current = (localTitles[session.session_id] ?? session.title) || "";
+    const next = window.prompt("Переименовать чат", current);
+    if (next === null) return;
+    const clean = next.trim();
+    if (!clean || clean === current) return;
+    try {
+      const updated = await apiUpdateChat(session.session_id, { title: clean });
+      setSessions((prev) => prev.map((s) => (s.session_id === session.session_id ? { ...s, title: updated.title } : s)));
+      setLocalTitles((prev) => {
+        const copy = { ...prev };
+        delete copy[session.session_id];
+        return copy;
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не удалось переименовать чат");
+    } finally {
+      setMenuFor(null);
+    }
+  }
+
+  async function handleDelete(session: ChatSession) {
+    const title = localTitles[session.session_id] ?? session.title ?? "чат";
+    const ok = window.confirm(`Удалить «${title}»? Сообщения тоже пропадут.`);
+    if (!ok) return;
+    try {
+      await apiDeleteChat(session.session_id);
+      setMenuFor(null);
+      setLocalTitles((prev) => {
+        const copy = { ...prev };
+        delete copy[session.session_id];
+        return copy;
+      });
+      const remaining = sessions.filter((s) => s.session_id !== session.session_id);
+      setSessions(remaining);
+      if (activeSession === session.session_id) {
+        if (remaining.length > 0) {
+          setActiveSession(remaining[0].session_id);
+        } else {
+          // No chats left — make a fresh empty one so the user lands in a
+          // usable state rather than an empty pane.
+          const created = await createChat(FIRST_DEFAULT_CHAT_TITLE);
+          setSessions([created]);
+          setActiveSession(created.session_id);
+          setMessages([]);
+        }
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не удалось удалить чат");
+    }
+  }
 
   const dataSource = useMemo(() => findDataSource(dataSourceId), [dataSourceId]);
   const technical = responseStyle === "technical";
@@ -263,6 +340,9 @@ export function ChatApp() {
       const usedStyle = overrides?.response_style ?? responseStyle;
       setError("");
       setLoading(true);
+      // Auto-collapse the schema panel — the user is asking now, no need
+      // to keep eating vertical space with a reference card.
+      setSchemaOpen(false);
       const optimistic: ChatMessage = {
         message_id: `local-${Date.now()}`,
         session_id: activeSession,
@@ -440,19 +520,51 @@ export function ChatApp() {
           Новый чат
         </button>
         <nav>
-          {sessions.map((session) => (
-            <button
-              key={session.session_id}
-              className={session.session_id === activeSession ? "session active" : "session"}
-              onClick={() => {
-                setActiveSession(session.session_id);
-                setSidebarOpen(false);
-              }}
-              title={titleFor(session)}
-            >
-              {titleFor(session)}
-            </button>
-          ))}
+          {sessions.map((session) => {
+            const t = titleFor(session);
+            const isActive = session.session_id === activeSession;
+            const isMenuOpen = menuFor === session.session_id;
+            return (
+              <div key={session.session_id} className={`sessionRow ${isActive ? "sessionRow--active" : ""}`}>
+                <button
+                  className={isActive ? "session active" : "session"}
+                  onClick={() => {
+                    setActiveSession(session.session_id);
+                    setSidebarOpen(false);
+                  }}
+                  title={t}
+                >
+                  {t}
+                </button>
+                <button
+                  type="button"
+                  className="sessionKebab"
+                  aria-label="Действия с чатом"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMenuFor((cur) => (cur === session.session_id ? null : session.session_id));
+                  }}
+                >
+                  <MoreVertical size={14} />
+                </button>
+                {isMenuOpen ? (
+                  <div className="sessionMenu" role="menu">
+                    <button type="button" role="menuitem" onClick={() => handleRename(session)}>
+                      <Pencil size={13} /> Переименовать
+                    </button>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className="sessionMenu__danger"
+                      onClick={() => handleDelete(session)}
+                    >
+                      <Trash2 size={13} /> Удалить
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
         </nav>
         <div className="sidebarFooterRow">
           <button type="button" className="sidebarFooter" onClick={() => setAboutOpen(true)}>
