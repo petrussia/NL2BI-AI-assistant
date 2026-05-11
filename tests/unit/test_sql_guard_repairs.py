@@ -1,5 +1,10 @@
 from colab.db_engine import ColumnSchema, DatabaseSchema, TableSchema
-from colab.sql_guard import repair_sql_for_empty_result, repair_sql_for_execution, validate_select_only
+from colab.sql_guard import (
+    repair_sql_for_empty_result,
+    repair_sql_for_execution,
+    repair_sql_for_semantic_mismatch,
+    validate_select_only,
+)
 
 
 def _repair(query: str, sql: str, error: str) -> str:
@@ -176,6 +181,32 @@ def test_repairs_moscow_empty_central_okrug_value() -> None:
 
     assert repaired is not None
     assert "o.name = 'Центральный'" in repaired
+
+
+def test_repairs_moscow_area_okrugs_total_to_entity_grain() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        "SELECT SUM(area_km2) AS total_area FROM okrugs LIMIT 1000",
+        engine="sqlite",
+        data_source_id="moscow_open",
+        user_query="Площадь округов Москвы",
+    )
+
+    assert repaired is not None
+    assert validate_select_only(repaired).ok
+    assert "name AS okrug" in repaired
+    assert "area_km2" in repaired
+    assert "SUM(" not in repaired.upper()
+
+
+def test_keeps_moscow_total_area_when_user_asks_total() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        "SELECT SUM(area_km2) AS total_area FROM okrugs LIMIT 1000",
+        engine="sqlite",
+        data_source_id="moscow_open",
+        user_query="Общая площадь округов Москвы",
+    )
+
+    assert repaired is None
 
 
 def test_repairs_northwind_empty_manager_filter() -> None:

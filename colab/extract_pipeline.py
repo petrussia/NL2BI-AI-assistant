@@ -30,6 +30,7 @@ from colab.sql_guard import (
     extract_sql,
     repair_sql_for_empty_result,
     repair_sql_for_execution,
+    repair_sql_for_semantic_mismatch,
     validate_select_only,
 )
 from colab.sql_runner import execute_select
@@ -168,6 +169,16 @@ def run_extraction(
         )
 
     bounded_sql, limit_added = apply_row_limit(guard.sql, request.constraints.row_limit)
+    semantic_repair_sql = repair_sql_for_semantic_mismatch(
+        bounded_sql,
+        engine=spec.engine,
+        data_source_id=spec.id,
+        user_query=request.user_query,
+    )
+    if semantic_repair_sql:
+        semantic_guard = validate_select_only(extract_sql(semantic_repair_sql))
+        if semantic_guard.ok:
+            bounded_sql, limit_added = apply_row_limit(semantic_guard.sql, request.constraints.row_limit)
     sql_info = SqlInfo(query=bounded_sql, dialect=_engine_to_dialect(spec.engine), validated=True, read_only=True)
 
     exec_result = execute_select(

@@ -474,6 +474,7 @@ export const COLUMN_LABELS_RU: Record<string, string> = {
   total: "Всего",
   completed: "Выполнено",
   // Moscow
+  okrug: "Округ",
   okrug_id: "Округ",
   district_id: "Район",
   population: "Население",

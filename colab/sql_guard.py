@@ -403,6 +403,54 @@ ORDER BY общая_стоимость DESC
     return repaired if repaired != sql else None
 
 
+def repair_sql_for_semantic_mismatch(
+    sql: str,
+    *,
+    engine: str,
+    data_source_id: str,
+    user_query: str,
+) -> str | None:
+    """Repair valid SQL that answers a narrower/wrong aggregation grain.
+
+    Execution repair only sees syntax/runtime failures. Some model outputs are
+    valid and non-empty but collapse a plural-entity question into one total
+    row. Keep these rewrites source-specific and conservative.
+    """
+    lowered_query = user_query.lower()
+    lowered_sql = sql.lower()
+
+    asks_total = any(
+        token in lowered_query
+        for token in (
+            "общ",
+            "суммар",
+            "сумм",
+            "всего",
+            "total",
+            "overall",
+        )
+    )
+    if (
+        engine == "sqlite"
+        and data_source_id == "moscow_open"
+        and "площад" in lowered_query
+        and "округ" in lowered_query
+        and not asks_total
+        and "sum(" in lowered_sql
+        and "from okrugs" in lowered_sql
+        and "group by" not in lowered_sql
+    ):
+        return """
+SELECT
+    name AS okrug,
+    area_km2
+FROM okrugs
+ORDER BY okrug_id
+""".strip()
+
+    return None
+
+
 def repair_sql_for_empty_result(
     sql: str,
     *,

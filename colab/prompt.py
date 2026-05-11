@@ -28,7 +28,11 @@ SYSTEM_PROMPT = (
     "actual FK path (e.g. orders → customers → regions for a 2-hop link).\n"
     "12. If a column you need doesn't exist in the natural table, check the FK targets first "
     "before writing nonsense — invented columns produce 'column does not exist' errors.\n"
-    "13. If the question is ambiguous, choose the most natural interpretation and proceed."
+    "13. If the user asks for a metric of plural entities without words like total/overall/sum "
+    "(for example 'area of districts', 'sales by managers'), return the metric per entity: "
+    "include the entity name/id and GROUP BY or select the entity-level metric. "
+    "Only collapse to one total row when the user explicitly asks for total/overall/sum.\n"
+    "14. If the question is ambiguous, choose the most natural interpretation and proceed."
 )
 
 
