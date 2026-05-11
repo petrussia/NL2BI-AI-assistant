@@ -112,12 +112,14 @@ export function ModelPicker() {
         className="modelPicker__trigger"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        title={`HF id: ${catalog?.current ?? ""}${plannerId ? `\nPlanner: ${plannerId}` : ""}`}
+        title={
+          `HF id: ${catalog?.current ?? ""}` +
+          (archLabel ? `\nАрхитектура: ${archLabel}` : "") +
+          (plannerId ? `\nPlanner: ${plannerId}` : "")
+        }
       >
         {loading ? <Loader2 size={14} className="spin" /> : <Cpu size={14} />}
-        <span className="modelPicker__label">
-          {archLabel ? `${archLabel} · ${currentLabel}` : currentLabel}
-        </span>
+        <span className="modelPicker__label">{currentLabel}</span>
         {catalog?.loaded ? null : <AlertTriangle size={12} color="#b45309" />}
       </button>
       {open ? (
