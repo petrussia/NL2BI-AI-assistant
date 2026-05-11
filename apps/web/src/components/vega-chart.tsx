@@ -1,9 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { labelFor } from "@/lib/demo-schema";
 
 type Spec = Record<string, unknown>;
+
+// Walk a vega-lite encoding object and replace `title: field` defaults with
+// human-readable Russian labels from demo-schema.COLUMN_LABELS_RU. Mutates
+// the supplied spec subtree in place but only assigns absent / SQL-id-shaped
+// titles — won't trample a real user-provided title.
+function humanizeEncoding(spec: Spec): void {
+  const encoding = (spec.encoding as Record<string, unknown> | undefined) ?? undefined;
+  if (!encoding) return;
+  for (const channel of ["x", "y", "color", "size", "shape"]) {
+    const ch = encoding[channel];
+    if (!ch || typeof ch !== "object") continue;
+    const obj = ch as Record<string, unknown>;
+    const field = typeof obj.field === "string" ? obj.field : "";
+    if (!field) continue;
+    const currentTitle = typeof obj.title === "string" ? obj.title : "";
+    // Replace when title is empty, equals the field, or is the bare snake/camel id.
+    if (!currentTitle || currentTitle === field) {
+      obj.title = labelFor(field);
+    }
+  }
+}
 
 // Dynamic import keeps vega-embed (~600 KB) out of the SSR bundle and away
 // from `window`-touching code in Next's server runtime.
@@ -12,17 +34,14 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let cancelled = false;
-    let view: { finalize?: () => void } | null = null;
-
-    if (!ref.current || !spec) {
-      setLoading(false);
-      return;
-    }
-
-    const enriched: Spec = {
-      ...spec,
+  // Memoize the enriched spec so the effect doesn't re-mount the chart on
+  // every parent render.
+  const enriched = useMemo<Spec | null>(() => {
+    if (!spec) return null;
+    const clone = JSON.parse(JSON.stringify(spec)) as Spec;
+    humanizeEncoding(clone);
+    return {
+      ...clone,
       // Auto-size to the container, with sensible padding and a readable theme.
       width: "container",
       autosize: { type: "fit-x", contains: "padding" },
@@ -59,13 +78,28 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
         view: { stroke: "transparent" },
       },
     };
+  }, [spec]);
+
+  useEffect(() => {
+    let cancelled = false;
+    let view: { finalize?: () => void } | null = null;
+
+    if (!ref.current || !enriched) {
+      setLoading(false);
+      return;
+    }
 
     (async () => {
       try {
         const mod = await import("vega-embed");
         if (cancelled || !ref.current) return;
         const result = await mod.default(ref.current, enriched, {
-          actions: { export: true, source: false, compiled: false, editor: false },
+          // Hide vega's three-dot actions menu — it confused users on the
+          // demo (looked like a broken column of black circles when sized
+          // by stretched CSS, and exposed Save SVG/PNG/View Source which
+          // we don't surface as features). Real export lives in the
+          // MessageActions toolbar (CSV).
+          actions: false,
           renderer: "svg",
           theme: undefined,
         });
@@ -86,7 +120,7 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
         // ignore teardown errors
       }
     };
-  }, [spec]);
+  }, [enriched]);
 
   if (!spec) {
     return <p className="chartFallback">{title}: нет данных для графика.</p>;

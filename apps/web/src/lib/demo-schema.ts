@@ -168,6 +168,53 @@ const world1: DemoDataSource = {
 
 export const DEMO_DATA_SOURCES: DemoDataSource[] = [concertSinger, wrestler, world1];
 
+// Human-readable labels for SQL aliases / column names that the model
+// generates. Used by the chart renderer to replace title=field on axes,
+// legends, tooltips. Add new entries as new demo queries surface them.
+export const COLUMN_LABELS_RU: Record<string, string> = {
+  // singer / concert_singer
+  NumberOfSingers: "Количество певцов",
+  number_of_singers: "Количество певцов",
+  concerts_count: "Количество концертов",
+  Concerts: "Количество концертов",
+  average_age: "Средний возраст",
+  avg_age: "Средний возраст",
+  Age: "Возраст",
+  Country: "Страна",
+  Year: "Год",
+  Name: "Название",
+  Song_Name: "Песня",
+  Song_release_year: "Год выпуска песни",
+  Is_male: "Мужской",
+  // stadium
+  Capacity: "Вместимость",
+  Highest: "Максимум посещаемости",
+  Lowest: "Минимум посещаемости",
+  Average: "Средняя посещаемость",
+  Location: "Город",
+  // world_1
+  Population: "Население",
+  Continent: "Континент",
+  Region: "Регион",
+  SurfaceArea: "Площадь, км²",
+  GNP: "ВВП",
+  Language: "Язык",
+  IsOfficial: "Официальный",
+  Percentage: "Доля, %",
+  // wrestler
+  Days_held: "Дней удержания титула",
+  Reign: "Сроки удержания",
+  Event: "Событие",
+  Eliminated_By: "Кем выбит",
+  Elimination_Move: "Приём",
+  Time: "Время",
+};
+
+export function labelFor(field: string | undefined | null): string {
+  if (!field) return "";
+  return COLUMN_LABELS_RU[field] ?? field;
+}
+
 export const DEFAULT_DATA_SOURCE_ID = concertSinger.id;
 
 export function findDataSource(id: string): DemoDataSource {

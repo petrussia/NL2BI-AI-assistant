@@ -105,6 +105,10 @@ export function me() {
   return api<{ authenticated: boolean; username?: string; role?: string }>("/auth/me");
 }
 
+export function logout() {
+  return api<{ message: string }>("/auth/logout", { method: "POST" });
+}
+
 export function getRuntime() {
   return api<RuntimeStatus>("/runtime");
 }

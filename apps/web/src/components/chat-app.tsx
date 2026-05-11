@@ -9,6 +9,7 @@ import {
   Info,
   Loader2,
   LogIn,
+  LogOut,
   Menu,
   MessageSquarePlus,
   Send,
@@ -23,6 +24,7 @@ import {
   listChats,
   listMessages,
   login,
+  logout as apiLogout,
   me,
   register,
   sendMessage,
@@ -40,12 +42,31 @@ type User = {
   role: string;
 };
 
+const DEFAULT_CHAT_TITLE = "Новый чат";
+const FIRST_DEFAULT_CHAT_TITLE = "Демо: певцы и концерты";
+
+function isGenericChatTitle(t: string | undefined | null): boolean {
+  if (!t) return true;
+  const trimmed = t.trim();
+  return (
+    trimmed === DEFAULT_CHAT_TITLE ||
+    trimmed === FIRST_DEFAULT_CHAT_TITLE ||
+    trimmed === "Demo NL2BI" ||
+    trimmed === "Новый анализ" ||
+    trimmed === ""
+  );
+}
+
+function shortenForTitle(text: string, n = 42): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= n) return clean;
+  return clean.slice(0, n - 1) + "…";
+}
+
 function lastAssistantHasSqlExecutionError(messages: ChatMessage[]): boolean {
   for (let i = messages.length - 1; i >= 0; i -= 1) {
     const m = messages[i];
-    if (m.role !== "assistant") {
-      continue;
-    }
+    if (m.role !== "assistant") continue;
     return (m.artifacts ?? []).some(
       (a) =>
         a.artifact_type === "error" &&
@@ -67,8 +88,30 @@ function timingFor(message: ChatMessage): { extraction?: number; visualization?:
 }
 
 function fmtMs(ms: number): string {
-  if (ms < 1000) return `${ms} ms`;
-  return `${(ms / 1000).toFixed(1)} s`;
+  if (ms < 1000) return `${ms} мс`;
+  return `${(ms / 1000).toFixed(1)} с`;
+}
+
+// Reorders/filters artifacts based on preferred_output and response_style.
+// preferred=chart promotes the chart_spec above the table. preferred=table
+// hides chart_spec entirely. business hides debug_sql + warning details
+// (gating happens inside ArtifactRenderer for warning/error/debug_sql).
+function filteredArtifacts(
+  artifacts: ChatMessage["artifacts"],
+  preferred: "auto" | "chart" | "table",
+): ChatMessage["artifacts"] {
+  const list = artifacts ?? [];
+  if (preferred === "table") {
+    return list.filter((a) => a.artifact_type !== "chart_spec");
+  }
+  if (preferred === "chart") {
+    const chart = list.find((a) => a.artifact_type === "chart_spec");
+    if (chart) {
+      return [chart, ...list.filter((a) => a.artifact_type !== "chart_spec")];
+    }
+    return list;
+  }
+  return list;
 }
 
 export function ChatApp() {
@@ -88,9 +131,14 @@ export function ChatApp() {
   const [schemaOpen, setSchemaOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  // Local-only chat title overrides — backend has no PATCH /chats yet,
+  // so when the user sends the first message we rename the chat in-memory
+  // for the sidebar without round-tripping.
+  const [localTitles, setLocalTitles] = useState<Record<string, string>>({});
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const dataSource = useMemo(() => findDataSource(dataSourceId), [dataSourceId]);
+  const technical = responseStyle === "technical";
 
   useEffect(() => {
     me()
@@ -103,29 +151,29 @@ export function ChatApp() {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      return;
-    }
+    if (!user) return;
     void refreshChats();
   }, [user]);
 
   useEffect(() => {
-    if (!activeSession) {
-      return;
-    }
+    if (!activeSession) return;
     listMessages(activeSession)
       .then((payload) => setMessages(payload.messages))
       .catch((err: Error) => setError(err.message));
   }, [activeSession]);
 
+  // Autoscroll to the bottom whenever the message list changes OR the
+  // skeleton lights up, including after switching chats.
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages.length, loading]);
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [messages.length, loading, activeSession]);
 
   async function refreshChats() {
     const payload = await listChats();
     if (payload.sessions.length === 0) {
-      const created = await createChat("Demo NL2BI");
+      const created = await createChat(FIRST_DEFAULT_CHAT_TITLE);
       setSessions([created]);
       setActiveSession(created.session_id);
       return;
@@ -142,14 +190,31 @@ export function ChatApp() {
       const result = authMode === "login" ? await login(username, password) : await register(username, password);
       setUser(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Auth failed");
+      setError(err instanceof Error ? err.message : "Не удалось войти");
     } finally {
       setLoading(false);
     }
   }
 
+  async function handleLogout() {
+    try {
+      await apiLogout();
+    } catch {
+      // ignore — clear local state anyway
+    }
+    setUser(null);
+    setSessions([]);
+    setActiveSession(null);
+    setMessages([]);
+    setLocalTitles({});
+    setSidebarOpen(false);
+    setSchemaOpen(false);
+    setAboutOpen(false);
+    setError("");
+  }
+
   const handleSend = useCallback(
-    async (rawContent?: string, opts?: { dropOptimistic?: boolean }) => {
+    async (rawContent?: string) => {
       const content = (rawContent ?? input).trim();
       if (!activeSession || !content) return;
       setError("");
@@ -163,8 +228,12 @@ export function ChatApp() {
         artifacts: [],
         created_at: Math.floor(Date.now() / 1000),
       };
-      if (!opts?.dropOptimistic) {
-        setMessages((current) => [...current, optimistic]);
+      setMessages((current) => [...current, optimistic]);
+      // If the active chat still has a generic title, rename it locally
+      // from the user's first non-trivial query so the sidebar makes sense.
+      const sessionTitleNow = sessions.find((s) => s.session_id === activeSession)?.title;
+      if (isGenericChatTitle(localTitles[activeSession] ?? sessionTitleNow)) {
+        setLocalTitles((prev) => ({ ...prev, [activeSession]: shortenForTitle(content) }));
       }
       try {
         const result = await sendMessage(activeSession, content, {
@@ -180,7 +249,7 @@ export function ChatApp() {
         setInput("");
         await refreshChats();
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Request failed";
+        const message = err instanceof Error ? err.message : "Ошибка запроса";
         setError(
           message.includes("colab")
             ? "Модель извлечения данных временно недоступна."
@@ -190,7 +259,7 @@ export function ChatApp() {
         setLoading(false);
       }
     },
-    [activeSession, input, preferredOutput, responseStyle, dataSourceId],
+    [activeSession, input, preferredOutput, responseStyle, dataSourceId, sessions, localTitles],
   );
 
   function regenerate(messageId: string) {
@@ -212,9 +281,14 @@ export function ChatApp() {
     }
   }
 
+  function titleFor(session: ChatSession): string {
+    return localTitles[session.session_id] ?? session.title ?? DEFAULT_CHAT_TITLE;
+  }
+
   const activeTitle = useMemo(() => {
-    return sessions.find((session) => session.session_id === activeSession)?.title ?? "Чат";
-  }, [activeSession, sessions]);
+    const s = sessions.find((session) => session.session_id === activeSession);
+    return s ? titleFor(s) : DEFAULT_CHAT_TITLE;
+  }, [activeSession, sessions, localTitles]);
 
   const showSuggestions = useMemo(() => {
     return messages.length === 0 || lastAssistantHasSqlExecutionError(messages);
@@ -273,7 +347,7 @@ export function ChatApp() {
                 autoComplete={authMode === "login" ? "current-password" : "new-password"}
               />
             </label>
-            <p className="authHint">Demo-доступ: <code>analyst</code> / <code>demo123</code>.</p>
+            <p className="authHint">Демо-доступ: <code>analyst</code> / <code>demo123</code>.</p>
             {error ? <p className="formError">{error}</p> : null}
             <button type="submit" disabled={loading}>
               {loading ? <Loader2 className="spin" size={16} /> : <LogIn size={16} />}
@@ -301,7 +375,7 @@ export function ChatApp() {
         <button
           className="newChat"
           onClick={async () => {
-            const created = await createChat("Новый анализ");
+            const created = await createChat(DEFAULT_CHAT_TITLE);
             setSessions((current) => [created, ...current]);
             setActiveSession(created.session_id);
             setMessages([]);
@@ -309,7 +383,7 @@ export function ChatApp() {
           }}
         >
           <MessageSquarePlus size={16} />
-          New chat
+          Новый чат
         </button>
         <nav>
           {sessions.map((session) => (
@@ -320,15 +394,22 @@ export function ChatApp() {
                 setActiveSession(session.session_id);
                 setSidebarOpen(false);
               }}
+              title={titleFor(session)}
             >
-              {session.title}
+              {titleFor(session)}
             </button>
           ))}
         </nav>
-        <button type="button" className="sidebarFooter" onClick={() => setAboutOpen(true)}>
-          <Info size={14} />
-          О проекте
-        </button>
+        <div className="sidebarFooterRow">
+          <button type="button" className="sidebarFooter" onClick={() => setAboutOpen(true)}>
+            <Info size={14} />
+            О проекте
+          </button>
+          <button type="button" className="sidebarFooter" onClick={handleLogout} title="Выйти из аккаунта">
+            <LogOut size={14} />
+            Выйти
+          </button>
+        </div>
       </aside>
       <section className="chatPane">
         <header className="chatHeader">
@@ -362,6 +443,7 @@ export function ChatApp() {
               value={dataSourceId}
               onChange={(event) => setDataSourceId(event.target.value)}
               title="Выбрать демо-источник данных"
+              className="toggleSelect toggleSelect--source"
             >
               {DEMO_DATA_SOURCES.map((d) => (
                 <option key={d.id} value={d.id}>
@@ -372,18 +454,21 @@ export function ChatApp() {
             <select
               value={preferredOutput}
               onChange={(event) => setPreferredOutput(event.target.value as "auto" | "chart" | "table")}
+              className="toggleSelect"
+              title="Что показывать: график, таблицу или авто"
             >
-              <option value="auto">Auto</option>
-              <option value="chart">Chart</option>
-              <option value="table">Table</option>
+              <option value="auto">Авто</option>
+              <option value="chart">График</option>
+              <option value="table">Таблица</option>
             </select>
             <select
               value={responseStyle}
               onChange={(event) => setResponseStyle(event.target.value as "business" | "technical")}
-              title="Technical: показывать SQL и тех. детали"
+              className="toggleSelect"
+              title="Технический режим показывает SQL и подробные ошибки"
             >
-              <option value="business">Business</option>
-              <option value="technical">Technical</option>
+              <option value="business">Бизнес</option>
+              <option value="technical">Технический</option>
             </select>
           </div>
         </header>
@@ -438,24 +523,32 @@ export function ChatApp() {
           ) : (
             messages.map((message) => {
               const t = timingFor(message);
-              const technicalArtifacts = message.artifacts ?? [];
+              const arts = filteredArtifacts(message.artifacts, preferredOutput);
               return (
                 <article key={message.message_id} className={`message ${message.role}`}>
                   <p>{message.content}</p>
-                  {technicalArtifacts.map((artifact) => (
-                    <ArtifactRenderer key={artifact.artifact_id} artifact={artifact} />
+                  {arts.map((artifact) => (
+                    <ArtifactRenderer
+                      key={artifact.artifact_id}
+                      artifact={artifact}
+                      technical={technical}
+                    />
                   ))}
                   {message.role === "assistant" ? (
                     <div className="messageFooter">
-                      {t ? (
+                      {t && technical ? (
                         <div className="timingStrip" title="Время компонентов пайплайна">
                           {t.extraction !== undefined ? <span>~SQL {fmtMs(t.extraction)}</span> : null}
-                          {t.visualization !== undefined ? <span>· viz {fmtMs(t.visualization)}</span> : null}
-                          {t.total !== undefined ? <span>· total {fmtMs(t.total)}</span> : null}
+                          {t.visualization !== undefined ? <span>· визуализация {fmtMs(t.visualization)}</span> : null}
+                          {t.total !== undefined ? <span>· итого {fmtMs(t.total)}</span> : null}
+                        </div>
+                      ) : t && !technical ? (
+                        <div className="timingStrip" title="Время полного запроса">
+                          <span>{t.total !== undefined ? `Готово за ${fmtMs(t.total)}` : ""}</span>
                         </div>
                       ) : null}
                       <MessageActions
-                        artifacts={technicalArtifacts}
+                        artifacts={arts}
                         onRegenerate={() => regenerate(message.message_id)}
                         regenerateDisabled={loading}
                       />
@@ -500,9 +593,9 @@ export function ChatApp() {
             onKeyDown={handleComposerKeyDown}
             placeholder={`Например: ${dataSource.suggestions[0]} (Ctrl+Enter — отправить)`}
           />
-          <button type="submit" disabled={loading || !input.trim()} title="Send (Ctrl+Enter)">
+          <button type="submit" disabled={loading || !input.trim()} title="Отправить (Ctrl+Enter)">
             <Send size={16} />
-            Send
+            Отправить
           </button>
         </form>
       </section>

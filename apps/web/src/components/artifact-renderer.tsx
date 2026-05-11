@@ -138,17 +138,42 @@ function ChartArtifact({ artifact }: { artifact: Artifact }) {
   );
 }
 
-function NoticeArtifact({ artifact }: { artifact: Artifact }) {
+// Friendly Russian message for common error codes, used in Business mode
+// where raw sqlite_error / stack-shaped details would feel like a system
+// crash to a non-technical reviewer.
+const FRIENDLY_ERROR_RU: Record<string, string> = {
+  sql_execution_failed:
+    "В текущем источнике данных нет таблиц или колонок, нужных для этого запроса. Попробуйте один из готовых запросов под схемой или переформулируйте.",
+  schema_not_found:
+    "Не удалось найти схему выбранного источника данных. Переключитесь на другой источник из списка.",
+  sql_validation_failed:
+    "Сгенерированный SQL не прошёл проверку безопасности. Попробуйте переформулировать запрос.",
+  sql_generation_failed:
+    "Модель не смогла сформировать SQL по этому запросу. Попробуйте сформулировать конкретнее.",
+  timeout: "Запрос выполнялся слишком долго и был остановлен.",
+  empty_result: "Запрос корректный, но не вернул данных.",
+  row_limit_exceeded: "Результат превысил лимит строк — показана только часть данных.",
+  metadata_incomplete: "Не удалось определить полные метаданные для всех колонок результата.",
+  colab_unavailable: "Сервис генерации SQL временно недоступен. Попробуйте позже.",
+  extraction_timeout: "Сервис генерации SQL не ответил вовремя.",
+  invalid_extraction_response: "Сервис генерации SQL вернул некорректный ответ.",
+};
+
+function NoticeArtifact({ artifact, technical }: { artifact: Artifact; technical: boolean }) {
   const isError = artifact.artifact_type === "error";
   const payload = artifact.payload as { message?: string; code?: string; details?: Record<string, unknown> };
+  const code = payload.code ?? artifact.title;
+  const friendly = (typeof code === "string" ? FRIENDLY_ERROR_RU[code] : undefined) ?? payload.message ?? artifact.title;
   const detailEntries = payload.details ? Object.entries(payload.details) : [];
   return (
     <div className={isError ? "notice error" : "notice warning"}>
       {isError ? <AlertCircle size={16} /> : <Info size={16} />}
       <div>
-        <strong>{payload.code ?? artifact.title}</strong>
-        <p>{payload.message ?? artifact.title}</p>
-        {detailEntries.length > 0 ? (
+        <strong>
+          {technical ? (typeof code === "string" ? code : artifact.title) : isError ? "Не удалось получить данные" : "Внимание"}
+        </strong>
+        <p>{friendly}</p>
+        {technical && detailEntries.length > 0 ? (
           <ul className="noticeDetails">
             {detailEntries.map(([k, v]) => (
               <li key={k}>
@@ -156,6 +181,9 @@ function NoticeArtifact({ artifact }: { artifact: Artifact }) {
               </li>
             ))}
           </ul>
+        ) : null}
+        {technical && payload.message && payload.message !== friendly ? (
+          <p className="noticeRawMessage">{payload.message}</p>
         ) : null}
       </div>
     </div>
@@ -174,7 +202,13 @@ function DebugSqlArtifact({ artifact }: { artifact: Artifact }) {
   );
 }
 
-export function ArtifactRenderer({ artifact }: { artifact: Artifact }) {
+export function ArtifactRenderer({
+  artifact,
+  technical = false,
+}: {
+  artifact: Artifact;
+  technical?: boolean;
+}) {
   if (artifact.artifact_type === "table") {
     return <TableArtifact artifact={artifact} />;
   }
@@ -182,9 +216,11 @@ export function ArtifactRenderer({ artifact }: { artifact: Artifact }) {
     return <ChartArtifact artifact={artifact} />;
   }
   if (artifact.artifact_type === "warning" || artifact.artifact_type === "error") {
-    return <NoticeArtifact artifact={artifact} />;
+    return <NoticeArtifact artifact={artifact} technical={technical} />;
   }
   if (artifact.artifact_type === "debug_sql") {
+    // SQL artifact is technical-only: in Business mode hide it entirely.
+    if (!technical) return null;
     return <DebugSqlArtifact artifact={artifact} />;
   }
   return null;
