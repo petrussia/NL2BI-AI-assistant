@@ -1878,12 +1878,14 @@ select { padding: 0 28px 0 12px; }
   background: #0f172a;
   color: #f8fafc;
   font-size: 12px;
-  line-height: 1.4;
-  padding: 7px 10px;
+  line-height: 1.45;
+  padding: 8px 11px;
   border-radius: 6px;
-  white-space: normal;
+  /* pre-line preserves manual \n in the data-tooltip attribute so each
+   * option lands on its own row instead of flowing into one paragraph. */
+  white-space: pre-line;
   width: max-content;
-  max-width: 260px;
+  max-width: 280px;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
   pointer-events: none;
   opacity: 0;
@@ -2415,4 +2417,26 @@ select { padding: 0 28px 0 12px; }
 .composer .segmented__btn--active:hover {
   background: var(--accent-strong);
   color: #fff;
+}
+
+/* v0.10g — headerChip wraps each pill in .toggles with its own (?) icon. */
+.toggles { align-items: center; }
+.headerChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.headerChip .hintMark { color: var(--muted); }
+
+/* Header hints sit near the top of the screen — flip tooltip to appear
+ * BELOW the icon (otherwise it gets clipped by the viewport top). */
+.headerChip .hintMark[data-tooltip]::before {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+.headerChip .hintMark[data-tooltip]::after {
+  bottom: auto;
+  top: calc(100% + 2px);
+  border-top-color: transparent;
+  border-bottom-color: #0f172a;
 }

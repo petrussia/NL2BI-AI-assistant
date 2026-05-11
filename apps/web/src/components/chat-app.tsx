@@ -671,20 +671,63 @@ export function ChatApp() {
             </button>
           </div>
           <div className="toggles">
-            <StatusPill />
-            <ModelPicker />
-            <select
-              value={dataSourceId}
-              onChange={(event) => setDataSourceId(event.target.value)}
-              title="Выбрать демо-источник данных"
-              className="toggleSelect toggleSelect--source"
-            >
-              {DEMO_DATA_SOURCES.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.label}
-                </option>
-              ))}
-            </select>
+            <div className="headerChip">
+              <StatusPill />
+              <span
+                className="hintMark"
+                data-tooltip={
+                  "Статус Colab GPU и модели.\n" +
+                  "Зелёный — модель и демо-БД готовы.\n" +
+                  "Жёлтый — нет модели или нет демо-данных.\n" +
+                  "Красный — Colab офлайн, /extract упадёт."
+                }
+                tabIndex={0}
+                aria-label="Подсказка"
+              >
+                <HelpCircle size={12} />
+              </span>
+            </div>
+            <div className="headerChip">
+              <ModelPicker />
+              <span
+                className="hintMark"
+                data-tooltip={
+                  "Активная LLM на Colab GPU.\n" +
+                  "Клик — переключение на другую модель (1-3 мин).\n" +
+                  "Во время загрузки /extract падает с model_not_loaded."
+                }
+                tabIndex={0}
+                aria-label="Подсказка"
+              >
+                <HelpCircle size={12} />
+              </span>
+            </div>
+            <div className="headerChip">
+              <select
+                value={dataSourceId}
+                onChange={(event) => setDataSourceId(event.target.value)}
+                title="Выбрать демо-источник данных"
+                className="toggleSelect toggleSelect--source"
+              >
+                {DEMO_DATA_SOURCES.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {d.label}
+                  </option>
+                ))}
+              </select>
+              <span
+                className="hintMark"
+                data-tooltip={
+                  "Демо-источник данных (Spider SQLite).\n" +
+                  "Переключите, если вопрос про другую схему.\n" +
+                  "Источник прибивается к каждому сообщению."
+                }
+                tabIndex={0}
+                aria-label="Подсказка"
+              >
+                <HelpCircle size={12} />
+              </span>
+            </div>
             {/* Авто/Бизнес moved into the composer's "+" popover so the
              *  header isn't a wall of selects. Source select stays here —
              *  it changes per-message context, not a session preference. */}
@@ -843,7 +886,10 @@ export function ChatApp() {
                   Подсказки под композером
                   <span
                     className="hintMark"
-                    data-tooltip="Под полем ввода показываются готовые запросы для текущего источника. Клик по чипу сразу отправляет вопрос."
+                    data-tooltip={
+                      "Под полем ввода показываются готовые запросы для текущего источника.\n" +
+                      "Клик по чипу сразу отправляет вопрос."
+                    }
                     tabIndex={0}
                     aria-label="Подсказка"
                   >
@@ -866,7 +912,11 @@ export function ChatApp() {
                   Формат ответа
                   <span
                     className="hintMark"
-                    data-tooltip="Авто — модель сама выбирает таблицу или график. График — всегда строить визуализацию. Таблица — только табличный результат."
+                    data-tooltip={
+                      "Авто — модель сама выбирает таблицу или график.\n" +
+                      "График — всегда строить визуализацию.\n" +
+                      "Таблица — только табличный результат."
+                    }
                     tabIndex={0}
                     aria-label="Подсказка"
                   >
@@ -894,7 +944,10 @@ export function ChatApp() {
                   Стиль ответа
                   <span
                     className="hintMark"
-                    data-tooltip="Бизнес — короткая формулировка для пользователя. Технический — показывается SQL, коды ошибок, метаданные колонок."
+                    data-tooltip={
+                      "Бизнес — короткая формулировка для пользователя.\n" +
+                      "Технический — показывается SQL, коды ошибок, метаданные колонок."
+                    }
                     tabIndex={0}
                     aria-label="Подсказка"
                   >
