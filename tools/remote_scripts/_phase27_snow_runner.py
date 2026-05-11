@@ -247,7 +247,7 @@ def _snow_direct_prompt(question, pack, ek=''):
         f'- ALWAYS three-part identifiers: {task_db}.SCHEMA.TABLE\n'
         f'- Available database for this query: {task_db}.\n'
         f'- Do NOT reference any other database.\n'
-        '- Quote mixed-case identifiers: "ParticipantBarcode". UPPERCASE columns are unquoted.\n'
+        '- Quote mixed-case identifiers: "ParticipantBarcode".\n'
         '- Use LATERAL FLATTEN(INPUT => col), NOT UNNEST.\n'
         '- Use IFF(c,a,b) or CASE WHEN. QUALIFY for window-row filter.\n'
         '- Date arithmetic on non-DATE columns requires explicit cast:\n'
@@ -487,26 +487,21 @@ def _run_phase27_snow(run_id, jsonl_path, *, alias_filter_set=None,
                 tf.write(json.dumps(trace, default=str) + '\n'); tf.flush()
                 continue
 
-            # Phase 28 F2a + F4 dialect post-passes (before EXPLAIN).
-            # Build lookup sets once per task from the catalog subset.
+            # Phase 28 F4 only (post-revert): F2a was reverted because the
+            # PUBLICATIONS catalog stores columns lowercase, so upper-casing
+            # broke previously-working lowercase-quoted column refs. F2a
+            # function still exists in snow_dialect_fixer_v28 for record but
+            # is NOT called in the pipeline. See REPORT_PHASE28 §6.
             task_db_all_cols = {
                 (c.field_path or c.column) for c in cat_subset
                 if (c.field_path or c.column)
             }
             if fixer is not None:
-                allowed_cols_upper = {c.upper() for c in task_db_all_cols if c}
                 col_types = {}
                 for c in cat_subset:
                     nm = (c.field_path or c.column or '')
                     if not nm: continue
                     col_types[nm.upper()] = (c.data_type or '')
-                try:
-                    sql_a, info_a = fixer.fix_mixedcase_quoting(sql, allowed_cols_upper)
-                    sql = sql_a
-                    trace['f2a'] = info_a
-                    n_requoted += info_a.get('requoted_n', 0)
-                except Exception as e:
-                    trace['f2a_error'] = f'{type(e).__name__}:{str(e)[:120]}'
                 try:
                     sql_b, info_b = fixer.wrap_date_fn_on_nondate(sql, col_types)
                     sql = sql_b

@@ -194,4 +194,101 @@ The model also added a (probably correct) `entity_status = 'Granted'` filter tha
 
 **Run dirs (kept on Drive, no cleanup):**
 - `outputs/spider2_lite/runs/lite_snow_pilot10_v28/` — the regression run (0/10 exec)
+- `outputs/spider2_lite/runs/lite_snow_pilot10_v28_revertA/` — the closure run (4/10 exec, F2a-reverted)
 - `outputs/spider2_snow/runs/snow_full_v25/` — S1 baseline sealed at 509/547 (`_STOPPED_PHASE28` marker; exec=0)
+
+---
+
+## 10. Closure (post-revert)
+
+Three minimal reverts applied to the same `_phase27_snow_runner.py` and re-run on
+the same 10 instance_ids:
+
+1. **F2a call site deleted** in the runner's per-task loop (the `try/except`
+   block calling `fixer.fix_mixedcase_quoting`). Pipeline is now
+   `guard → wrap_date_fn_on_nondate → schema_valid → EXPLAIN`. The function
+   itself stays in [snow_dialect_fixer_v28.py](../repo/src/evaluation/snow_dialect_fixer_v28.py)
+   for the record but is not called.
+2. **Prompt line reverted** to the v27c form — dropped the `UPPERCASE columns
+   are unquoted.` tail from `_snow_direct_prompt`.
+3. **`col:TYPE` rendering kept** (revert-A variant) — the NUMBER/VARIANT cast
+   rules in the prompt need it to be useful; smoke check confirmed it's not
+   load-bearing in either direction for the broken cases.
+
+Smoke check before pilot10 launch: 8/8 grep assertions on the regenerated
+PATENTS prompt and the runner source. No `fix_mixedcase_quoting` call site,
+yes `wrap_date_fn_on_nondate` and `guard_and_fix_snow_sql`, prompt rules
+match Phase 27 v27c on quoting and Phase 28 F4 on date casts.
+
+### Side-by-side
+
+| run | plan_ok | schema_valid | parse_ok | **execute_ok** | requoted_n | wrapped_n |
+|---|---|---|---|---|---|---|
+| v26 FULL 207 baseline | 28.0% | 12.6% | 93.7% | 0.48% (1/207) | n/a | n/a |
+| pilot10c (Phase 27 final) | 4/10 | 8/10 | 9/10 | **1/10** | n/a | n/a |
+| pilot10 v28 (full F2a+F4+F4c) | 4/10 | 7/10 | 9/10 | **0/10** | 67 | 9 |
+| **pilot10 v28-revert-A** | **4/10** | **6/10** | **10/10** | **4/10** | **0** | **9** |
+
+### Per-task side-by-side (revert-A vs v28 vs v27c)
+
+| iid | v27c | v28 | revert-A | wrapped | comment |
+|---|---|---|---|---|---|
+| sf_bq026 | sv✓ ex✗ | sv✓ ex✗ | **sv✓ ex✓** | 1 | NEW PASS — F4 wrapped the `"date"` column |
+| sf_bq027 | sv✓ ex✗ | sv✗ ex✗ | sv✗ ex✗ | 0 | LATERAL FLATTEN value path `"c"."value"` still rejected |
+| sf_bq029 | sv✓ ex✗ | sv✓ ex✗ | **sv✓ ex✓** | 0 | NEW PASS — model emitted YYYYMMDD math `("publication_date" / 10000 - 1960)` directly |
+| sf_bq033 | sv✓ ex✗ | sv✓ ex✗ | sv✓ ex✗ | 2 | model invented mixed-case alias `"Publications"` — Phase 29 territory |
+| sf_bq091 | sv✓ ex✗ | sv✓ ex✗ | sv✓ ex✗ | 2 | F4 wrapped `"assignee"` (VARIANT containing JSON object, not date) → `GET_PATH(DATE, …)` type error |
+| sf_bq099 | sv✓ ex✗ | sv✓ ex✗ | sv✗ ex✗ | 1 | minor regression: F4 wrap altered SQL enough that `_snow_schema_valid_ast` rejected it |
+| sf_bq209 | sv✗ ex✗ | sv✗ ex✗ | sv✗ ex✗ | 1 | hallucinated `CITATIONS` table — Phase 29 F3 |
+| sf_bq210 | parse_guard | sv✗ ex✗ | sv✗ ex✗ | 0 | LATERAL FLATTEN edge — sqlglot upgrade needed |
+| **sf_bq211** | **sv✓ ex✓** | sv✓ **ex✗** | **sv✓ ex✓** | 0 | regression healed; back to baseline executable |
+| sf_bq213 | sv✓ ex✗ | sv✓ ex✗ | **sv✓ ex✓** | 2 | NEW PASS — F4 wrapped `"fterm"` (VARIANT) with `CAST AS DATE` |
+
+### What this confirms
+
+- **F2a was the regression driver, not F4 or F4c.** Pulling only F2a (with
+  the matching prompt revert) restored sf_bq211 *and* lifted three new tasks
+  to executable.
+- **F4 was load-bearing once columns resolved.** Three of the four executable
+  tasks involved a NUMBER or VARIANT column inside a date function;
+  `wrapped_n=9` total. Without F4, those would still die at runtime even
+  with column names correctly grounded.
+- **F4c was correct in design.** It did not need to trigger in revert-A
+  (`guard_regex_fallback=0`) because the model didn't emit a LATERAL
+  FLATTEN that fooled sqlglot this time. It remains as a defense.
+- **The Phase 27 §5 dialect-failure classification was 4 cases mislabelled.**
+  The mixed-case-quoting category was actually 4 cases of column-name
+  hallucination. Now grouped correctly under Phase 29 F3 targets.
+- **One small F4 side-effect surfaced:** sf_bq091 was wrapped because
+  `assignee` is declared VARIANT in the catalog, but the actual column
+  semantics is a JSON object (the patent assignee record), not a date
+  encoding. F4's blanket "VARIANT → ::DATE" rule is right for date-like
+  variants and wrong for object-like variants. The current cost is ~1/10
+  on this pilot subset. The fix is downstream Phase 29 — either inspect
+  the data sample (value-based type inference) or surface the rule to
+  the planner so it can disable the cast intent for known-non-date
+  VARIANT columns like `assignee`, `citation`, `claims_localized`.
+
+### Acceptance — final stack
+
+Per Phase 28 brief acceptance table:
+
+> exec_ok 3-4/10 → не пускать ни pilot50 ни FULL. Surface top remaining
+> failures + предложить минимальный delta.
+
+4/10 lands in the 3-4 band → **no pilot50, no FULL**. Top remaining failure is
+column/table-name hallucination (4 of the 6 misses). The minimal delta is
+**Phase 29 F3 self-refine** on `invalid_identifier` and `schema_invalid`
+signals: feed the Snow EXPLAIN message back to the planner as a one-shot
+retry hint with the pack's exact column list. F3 is the deferred-from-Phase-28
+fix that the brief had explicitly held back; the current evidence justifies
+making it Phase 29's primary lever.
+
+### Final Phase 28 stack
+- **F1** (Phase 27): catalog filter + per-task BM25 + AST guard + three-part rendering + PK/FK injection + relaxed validator. Kept.
+- **F4c**: guard fails-open on `sqlglot.errors.ParseError` with regex catalog-leak check. Kept.
+- **F4**: NUMBER/VARIANT date-function cast wrapper. Kept.
+- **F2a**: mixed-case auto-correct. Code kept in module for record; **not called in pipeline**.
+- **Prompt**: v27c-equivalent on quoting; Phase 28 NUMBER/VARIANT cast rules retained; `col:TYPE` rendering retained.
+
+Next: Phase 29 F3 self-refine. Out of scope for this report.
