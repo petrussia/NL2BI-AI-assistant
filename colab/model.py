@@ -118,8 +118,9 @@ class TextToSqlModel:
                 )
                 return self.state
 
-            quantization = self.config.quantization
+            quantization = (self.config.quantization or "").lower()
             quant_config = None
+            torch_dtype = None
             if quantization == "4bit":
                 try:
                     from transformers import BitsAndBytesConfig
@@ -132,6 +133,15 @@ class TextToSqlModel:
                 except Exception:
                     quant_config = None
                     quantization = "fp16"
+            elif quantization == "bf16":
+                torch_dtype = torch.bfloat16
+            elif quantization == "fp16":
+                torch_dtype = torch.float16
+            else:
+                # Default (none/empty) on a fat GPU → BF16 (more numerically
+                # stable than FP16, runs natively on Blackwell/H100/A100).
+                quantization = "bf16"
+                torch_dtype = torch.bfloat16
 
             try:
                 tokenizer = AutoTokenizer.from_pretrained(
@@ -145,7 +155,7 @@ class TextToSqlModel:
                 if quant_config is not None:
                     kwargs["quantization_config"] = quant_config
                 else:
-                    kwargs["torch_dtype"] = torch.float16
+                    kwargs["torch_dtype"] = torch_dtype
                 model = AutoModelForCausalLM.from_pretrained(
                     target_model_id,
                     **kwargs,
