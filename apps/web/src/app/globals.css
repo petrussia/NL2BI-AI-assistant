@@ -5,12 +5,19 @@
   --text: #0f172a;
   --muted: #64748b;
   --border: #d9e1ea;
+  --border-strong: #cbd5e1;
   --accent: #2563eb;
   --accent-strong: #1d4ed8;
+  --accent-soft: #dbeafe;
+  --accent-softer: #eef2ff;
   --danger: #b42318;
   --warning: #936100;
   --success: #087443;
   --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 10px rgba(15, 23, 42, 0.08), 0 6px 18px rgba(37, 99, 235, 0.12);
+  --ring: 0 0 0 3px rgba(37, 99, 235, 0.22);
+  --ring-danger: 0 0 0 3px rgba(180, 35, 24, 0.22);
 }
 
 * {
@@ -1248,6 +1255,296 @@ td.emptyRow {
   .messageAction { padding: 4px 8px; font-size: 11px; }
   .suggestionsLead { font-size: 12px; }
   .chip { font-size: 12px; padding: 5px 10px; }
+}
+
+/* =====  v0.7 — visual polish for every button =====
+ *
+ * One pass over every clickable element so they read as a coherent set
+ * (modern radii, soft shadows, hover-lift, focus-ring, pressed-state).
+ * Pure CSS — no JSX changes. */
+
+/* Global focus ring — keyboard only via :focus-visible, no jagged outline. */
+button { outline: 0; transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, transform 0.06s ease; }
+button:focus { outline: 0; }
+button:focus-visible { box-shadow: var(--ring); }
+
+/* Primary CTA family: New chat, Send, Auth submit, Restart-uvicorn-ish. */
+.authForm button,
+.newChat,
+.composer button {
+  border-radius: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, var(--accent) 0%, #1f57d6 100%);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.authForm button:hover:not(:disabled),
+.newChat:hover:not(:disabled),
+.composer button:hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--accent-strong) 0%, #1748be 100%);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+.authForm button:active:not(:disabled),
+.newChat:active:not(:disabled),
+.composer button:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
+  box-shadow: var(--shadow-sm);
+}
+.authForm button:disabled,
+.newChat:disabled,
+.composer button:disabled {
+  background: #cbd5e1;
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Sidebar chat sessions: active = subtle blue tint + left accent line. */
+.session {
+  border-radius: 8px;
+  padding: 9px 12px;
+  position: relative;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.session:hover {
+  background: var(--panel-strong);
+}
+.session.active {
+  background: var(--accent-softer);
+  color: var(--accent-strong);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* Suggestion chips — pill-shape, subtle hover lift, brand-tinted active. */
+.chip {
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-strong);
+  background: #fff;
+  border: 1px solid var(--accent-soft);
+  box-shadow: var(--shadow-sm);
+}
+.chip:hover:not(:disabled) {
+  background: var(--accent-softer);
+  border-color: #93b3f8;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.chip:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+}
+
+/* Message actions (Regenerate / Copy SQL / CSV) — flat, hover gives slight
+ * lift + brand tint. Keep them subtle so they don't compete with the
+ * primary CTA. */
+.messageAction {
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+.messageAction:hover:not(:disabled) {
+  color: var(--accent-strong);
+  border-color: var(--accent-soft);
+  background: var(--accent-softer);
+  transform: translateY(-1px);
+}
+.messageAction:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+.messageAction:disabled {
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+/* Header pickers / toggles (status pill, model picker trigger, schema
+ * disclosure, hamburger). These are NOT primary buttons — keep them
+ * neutral with thoughtful hover. */
+.statusPill { box-shadow: var(--shadow-sm); }
+.statusPill--green { box-shadow: var(--shadow-sm), 0 0 0 1px rgba(34, 197, 94, 0.18); }
+.statusPill--yellow { box-shadow: var(--shadow-sm), 0 0 0 1px rgba(245, 158, 11, 0.22); }
+.statusPill--red { box-shadow: var(--shadow-sm), 0 0 0 1px rgba(239, 68, 68, 0.24); }
+
+.modelPicker__trigger,
+.modelPicker--loading {
+  border-radius: 10px;
+  min-height: 30px;
+  border-color: var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+}
+.modelPicker__trigger:hover {
+  background: var(--accent-softer);
+  border-color: var(--accent-soft);
+  color: var(--accent-strong);
+}
+.modelPicker--open .modelPicker__trigger {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm), 0 0 0 2px var(--accent-soft);
+}
+.modelPicker__item {
+  border-radius: 8px;
+}
+.modelPicker__item--active {
+  background: var(--accent-softer);
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.schemaToggle {
+  border-radius: 8px;
+  padding: 5px 10px;
+  margin-left: -10px;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+.schemaToggle:hover {
+  background: var(--accent-softer);
+  border-color: var(--accent-soft);
+  color: var(--accent-strong);
+}
+.schemaToggle[aria-expanded="true"] {
+  background: var(--accent-softer);
+  color: var(--accent-strong);
+  border-color: var(--accent-soft);
+}
+
+.hamburger {
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+.hamburger:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent-soft);
+  background: var(--accent-softer);
+}
+
+/* Sidebar footer buttons (О проекте / Выйти) — flat-ghost, hover with
+ * a soft inner tint so they read as buttons not as plain text. */
+.sidebarFooterRow .sidebarFooter {
+  background: transparent;
+  border: 0;
+  padding: 12px 14px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.sidebarFooterRow .sidebarFooter:hover {
+  background: var(--panel-strong);
+  color: var(--text);
+}
+.sidebarFooterRow .sidebarFooter:nth-child(2):hover {
+  color: var(--danger);
+  background: #fee2e2;
+}
+
+/* Table 'Показать ещё' — full-width subtle bar with brand text. */
+.tableMoreToggle {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--accent-strong);
+  background: #fbfdff;
+  border-top: 1px solid var(--border);
+  transition: background 0.12s ease;
+}
+.tableMoreToggle:hover {
+  background: var(--accent-softer);
+}
+
+/* Tabs in auth screen — slightly bigger touch + smoother slide. */
+.authTab {
+  font-weight: 600;
+  padding: 7px 16px;
+  transition: background 0.14s ease, color 0.14s ease, box-shadow 0.14s ease;
+}
+.authTab--active {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Modal close button — round icon button. */
+.modalClose {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+}
+.modalClose:hover {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+/* `<select>` styling — native arrows in browsers vary; give them a
+ * consistent shell so they sit next to our pills nicely. */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--panel);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) center,
+    calc(100% - 9px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 28px 6px 10px;
+  font-weight: 500;
+  font-size: 13px;
+  min-height: 32px;
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+select:hover {
+  border-color: var(--accent-soft);
+  background-color: var(--accent-softer);
+}
+select:focus-visible {
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+
+/* Composer input — match the new button radius + give it focus glow. */
+.composer input {
+  border-radius: 10px;
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.composer input:focus {
+  border-color: var(--accent);
+  box-shadow: var(--ring);
 }
 
 
