@@ -170,13 +170,14 @@ button {
   gap: 18px;
 }
 
-/* Brand stack: icon + "NL2BI" on row 1, username on row 2.
- * Side-by-side layout broke when usernames were longer than ~10 chars —
- * "analyst_17785040071..." overflowed the 280px sidebar into chatHeader.
- * Two-row grid + ellipsis on the username keeps the block fixed regardless. */
+/* Brand block: row 1 = icon + "NL2BI" + collapse-button(right),
+ *              row 2 = username (full width with ellipsis).
+ * The collapse toggle lives INSIDE the sidebar so it hides together
+ * with the sidebar when collapsed; chatHeader gets a sibling
+ * "expand" button that only renders while collapsed. */
 .brand {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: auto auto;
   align-items: center;
   column-gap: 10px;
@@ -188,6 +189,11 @@ button {
   grid-column: 2;
   font-size: 20px;
   line-height: 1.1;
+}
+.brand .sidebarCollapseToggle--inside {
+  grid-row: 1;
+  grid-column: 3;
+  justify-self: end;
 }
 .brand .brandUser {
   grid-row: 2;

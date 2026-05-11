@@ -552,6 +552,15 @@ export function ChatApp() {
             <BarChart3 size={16} />
           </div>
           <strong>NL2BI</strong>
+          <button
+            type="button"
+            className="sidebarCollapseToggle sidebarCollapseToggle--inside"
+            onClick={toggleSidebarCollapsed}
+            aria-label="Скрыть боковую панель"
+            title="Скрыть боковую панель"
+          >
+            <PanelLeftClose size={16} />
+          </button>
           <span className="brandUser">{user.username}</span>
         </div>
         <button
@@ -635,15 +644,17 @@ export function ChatApp() {
           >
             {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
-          <button
-            type="button"
-            className="sidebarCollapseToggle"
-            onClick={toggleSidebarCollapsed}
-            aria-label={sidebarCollapsed ? "Показать список чатов" : "Скрыть список чатов"}
-            title={sidebarCollapsed ? "Показать боковую панель" : "Скрыть боковую панель"}
-          >
-            {sidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
-          </button>
+          {sidebarCollapsed ? (
+            <button
+              type="button"
+              className="sidebarCollapseToggle sidebarCollapseToggle--header"
+              onClick={toggleSidebarCollapsed}
+              aria-label="Показать список чатов"
+              title="Показать боковую панель"
+            >
+              <PanelLeftOpen size={16} />
+            </button>
+          ) : null}
           <div className="chatHeaderTitle">
             <h1>{activeTitle}</h1>
             <button
