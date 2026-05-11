@@ -285,7 +285,7 @@ def _duckdb_execute(spec: DataSourceSpec, sql: str, *, timeout_ms: int,
             cap = row_limit + 1 if row_limit > 0 else None
             fetched = cur.fetchmany(cap) if cap else cur.fetchall()
             for raw in fetched:
-                rows.append({col: raw[idx] for idx, col in enumerate(columns)})
+                rows.append({col: _pg_coerce(raw[idx]) for idx, col in enumerate(columns)})
             if cap is not None and len(rows) > row_limit:
                 rows = rows[:row_limit]
                 truncated = True
@@ -437,7 +437,7 @@ def _pg_execute(spec: DataSourceSpec, sql: str, *, timeout_ms: int,
             cap = row_limit + 1 if row_limit > 0 else None
             fetched = cur.fetchmany(cap) if cap else cur.fetchall()
             for raw in fetched:
-                rows.append({col: raw[idx] for idx, col in enumerate(columns)})
+                rows.append({col: _pg_coerce(raw[idx]) for idx, col in enumerate(columns)})
             if cap is not None and len(rows) > row_limit:
                 rows = rows[:row_limit]
                 truncated = True
@@ -462,6 +462,28 @@ def _pg_execute(spec: DataSourceSpec, sql: str, *, timeout_ms: int,
         latency_ms=int((time.monotonic() - started) * 1000),
         error=error,
     )
+
+
+def _pg_coerce(v: Any) -> Any:
+    """Postgres types that don't JSON-serialize out of the box."""
+    if v is None:
+        return None
+    # decimal.Decimal — common for NUMERIC columns
+    try:
+        import decimal
+        if isinstance(v, decimal.Decimal):
+            # Preserve precision-friendly float; UI's NumberFormat handles it.
+            return float(v)
+    except ImportError:
+        pass
+    # date / datetime → ISO string (UI's table formatter handles strings).
+    try:
+        import datetime as _dt
+        if isinstance(v, (_dt.date, _dt.datetime, _dt.time)):
+            return v.isoformat()
+    except ImportError:
+        pass
+    return v
 
 
 _PG_OID_NAMES = {

@@ -15,6 +15,11 @@ from contracts.extraction import (
 )
 from colab.config import ColabServerConfig, resolve_data_source
 from colab.db_engine import dialect_label
+
+
+def _engine_to_dialect(engine: str) -> str:
+    """Map our internal engine names to the canonical Dialect Literal."""
+    return {"postgres": "postgresql", "sqlite": "sqlite", "duckdb": "duckdb"}.get(engine, "unknown")
 from colab.errors import SAFE_USER_MESSAGES, ExtractionErrorCode
 from colab.metadata import infer_field_metadata
 from colab.model import TextToSqlModel
@@ -138,11 +143,11 @@ def run_extraction(
             ExtractionErrorCode.SQL_VALIDATION_FAILED,
             retryable=True,
             details={"reason": guard.reason},
-            sql=SqlInfo(query=candidate_sql or None, dialect=spec.engine, validated=False, read_only=True),
+            sql=SqlInfo(query=candidate_sql or None, dialect=_engine_to_dialect(spec.engine), validated=False, read_only=True),
         )
 
     bounded_sql, limit_added = apply_row_limit(guard.sql, request.constraints.row_limit)
-    sql_info = SqlInfo(query=bounded_sql, dialect=spec.engine, validated=True, read_only=True)
+    sql_info = SqlInfo(query=bounded_sql, dialect=_engine_to_dialect(spec.engine), validated=True, read_only=True)
 
     exec_result = execute_select(
         spec,
@@ -221,7 +226,7 @@ def run_extraction(
         data_source=DataSourceInfo(
             id=request.data_source.id,
             name=spec.name,
-            dialect=spec.engine,
+            dialect=_engine_to_dialect(spec.engine),
             schema_version=schema.schema_version or request.data_source.schema_version,
         ),
         plan=plan,

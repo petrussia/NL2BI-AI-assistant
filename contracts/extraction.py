@@ -7,7 +7,7 @@ from pydantic import Field
 from contracts.common import ContractModel, ErrorItem, Status, WarningItem
 
 
-Dialect = Literal["sqlite", "postgresql", "clickhouse", "trino", "unknown"]
+Dialect = Literal["sqlite", "postgresql", "duckdb", "clickhouse", "trino", "unknown"]
 DataType = Literal["number", "string", "date", "datetime", "boolean", "unknown"]
 SemanticRole = Literal["measure", "dimension", "time", "id", "text", "unknown"]
 Aggregation = Literal["sum", "avg", "count", "min", "max", "none"]
