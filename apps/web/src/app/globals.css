@@ -267,6 +267,10 @@ nav {
   margin: 0;
   font-size: 20px;
   line-height: 1.2;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chatHeader p {
@@ -2644,9 +2648,15 @@ html, body { overflow-x: hidden; }
 .message table { font-size: 13px; }
 
 /* 3) Artifact collapse button on the right edge of .artifactHeader. */
-.artifact .artifactHeader { position: relative; }
+.artifact .artifactHeader { position: relative; padding-right: 44px; }
 .artifactCollapse {
-  margin-left: 6px;
+  /* Pin to the right edge of the header row so the chevron sits in
+   * the same visual column whether the header has an .artifactBadge
+   * preceding it (table) or not (chart). */
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 26px;
   height: 26px;
   border-radius: 6px;
