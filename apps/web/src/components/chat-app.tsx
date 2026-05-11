@@ -825,16 +825,6 @@ export function ChatApp() {
           </section>
         ) : null}
         <form className="composer" onSubmit={(e) => { e.preventDefault(); void handleSend(); }}>
-          <button
-            type="button"
-            className="composerMenuToggle"
-            onClick={() => setComposerMenuOpen((v) => !v)}
-            aria-expanded={composerMenuOpen}
-            aria-haspopup="menu"
-            title="Настройки ответа"
-          >
-            <Plus size={16} />
-          </button>
           {composerMenuOpen ? (
             <div className="composerMenu" role="menu">
               <div className="composerMenuRow">
@@ -917,16 +907,34 @@ export function ChatApp() {
               </div>
             </div>
           ) : null}
-          <input
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            onKeyDown={handleComposerKeyDown}
-            placeholder={`Например: ${dataSource.suggestions[0]} (Ctrl+Enter — отправить)`}
-          />
-          <button type="submit" disabled={loading || !input.trim()} title="Отправить (Ctrl+Enter)">
-            <Send size={16} />
-            Отправить
-          </button>
+          <div className="composerPill">
+            <button
+              type="button"
+              className="composerMenuToggle"
+              onClick={() => setComposerMenuOpen((v) => !v)}
+              aria-expanded={composerMenuOpen}
+              aria-haspopup="menu"
+              title="Настройки ответа"
+            >
+              <Plus size={18} />
+            </button>
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={handleComposerKeyDown}
+              placeholder={`Например: ${dataSource.suggestions[0]} (Ctrl+Enter — отправить)`}
+              className="composerInput"
+            />
+            <button
+              type="submit"
+              className="composerSend"
+              disabled={loading || !input.trim()}
+              title="Отправить (Ctrl+Enter)"
+              aria-label="Отправить"
+            >
+              <Send size={16} />
+            </button>
+          </div>
         </form>
       </section>
       {aboutOpen ? <AboutModal onClose={() => setAboutOpen(false)} /> : null}

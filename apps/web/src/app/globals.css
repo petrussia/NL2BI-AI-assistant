@@ -327,15 +327,14 @@ nav {
 }
 
 .composer {
-  /* No top border — the v0.10 redesign drops the rectangular "input bar"
-   * frame. The composer floats as a capsule against the page background,
-   * ChatGPT-style. */
+  /* Single floating pill — ChatGPT-style. Plus + input + send all live
+   * inside .composerPill so there's no visible "rectangle bar" frame
+   * around them. The .composer wrapper is just for positioning. */
   background: transparent;
-  padding: 16px 24px 20px;
-  display: grid;
-  grid-template-columns: auto 1fr 112px;
+  padding: 12px 24px 18px;
   position: relative;
-  gap: 12px;
+  display: grid;
+  place-items: end center;
 }
 
 .artifact {
@@ -2097,3 +2096,112 @@ select { padding: 0 28px 0 12px; }
  * normalize the geometry, not the colors. The tone classes already
  * set background + color via .statusPill--green / --yellow / --red. */
 .chatHeader .statusPill { padding: 0 12px; }
+
+/* ============================================================
+ * v0.10d — single composer pill (ChatGPT-style)
+ * Plus / input / send all share one rounded white container so
+ * the visual is "one pill" not "three boxes". The chatPane bg
+ * loses its light-grey block — messages and composer sit on
+ * the same surface and text can scroll right up to the pill.
+ * ============================================================ */
+.chatPane { background: #ffffff; }
+
+.composerPill {
+  width: min(880px, 100%);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 6px 6px 6px 8px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06),
+              0 8px 24px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.composerPill:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Override the early ".composer input" / ".composer button" cascade.
+ * Those rules paint border + 42px min-height + blue background which
+ * fights the in-pill design. Keep them scoped to .composerPill so the
+ * pill is its own world. */
+.composer .composerPill input.composerInput {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  min-height: 36px;
+  padding: 0 6px;
+  font-size: 14px;
+  color: var(--text);
+  border-radius: 0;
+}
+.composer .composerPill input.composerInput:focus { box-shadow: none; }
+.composer .composerPill input.composerInput::placeholder { color: var(--muted); }
+
+.composer .composerPill .composerMenuToggle {
+  /* Override the v0.10 standalone +-button (36×36 white circle with
+   * border) — inside the pill we want a borderless ghost button so the
+   * pill itself provides the container border. */
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+.composer .composerPill .composerMenuToggle:hover,
+.composer .composerPill .composerMenuToggle[aria-expanded="true"] {
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+.composer .composerPill .composerSend {
+  /* Icon-only round send. Replaces "[Send icon] Отправить" wide blue button. */
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.05s ease;
+}
+.composer .composerPill .composerSend:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+.composer .composerPill .composerSend:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.composer .composerPill .composerSend:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Popover anchor: anchor to the +-button which is now inside .composerPill.
+ * Without an explicit reset, the v0.10 .composerMenu rule positions it
+ * relative to .composer (the outer wrapper) and stays roughly correct,
+ * but tighten the left offset to align with the pill's start edge. */
+.composer .composerMenu {
+  /* The .composer wrapper centers .composerPill (`place-items: end center`),
+   * so a fixed left offset would drift on resize. Anchor to the centered
+   * pill's left edge by computing it via the same width as .composerPill. */
+  left: max(24px, calc(50% - 440px));
+  bottom: calc(100% - 4px);
+}
