@@ -63,6 +63,19 @@ class TableSchema:
 
 
 @dataclass
+class ForeignKey:
+    """One foreign-key edge between two tables.
+
+    Stored on DatabaseSchema and surfaced to the prompt as a navigation
+    graph so the model can write multi-hop joins (e.g. orders → customers
+    → regions) without inventing a non-existent direct FK."""
+    from_table: str
+    from_column: str
+    to_table: str
+    to_column: str
+
+
+@dataclass
 class DatabaseSchema:
     data_source_id: str
     engine: str
@@ -71,12 +84,23 @@ class DatabaseSchema:
     # Kept for backward compatibility with the SQLite-only era; older
     # callers still read this field.
     sqlite_path: Path | None = None
+    foreign_keys: list[ForeignKey] = field(default_factory=list)
 
     def render_for_prompt(self) -> str:
         chunks: list[str] = []
         for table in self.tables:
-            cols = ", ".join(f"{c.name} {c.sql_type}" for c in table.columns)
-            chunks.append(f"TABLE {table.name}({cols})")
+            cols_parts = []
+            for c in table.columns:
+                marker = " PK" if c.primary_key else ""
+                cols_parts.append(f"{c.name} {c.sql_type}{marker}")
+            chunks.append(f"TABLE {table.name}({', '.join(cols_parts)})")
+        if self.foreign_keys:
+            chunks.append("")
+            chunks.append("FOREIGN KEYS:")
+            for fk in self.foreign_keys:
+                chunks.append(
+                    f"  {fk.from_table}.{fk.from_column} -> {fk.to_table}.{fk.to_column}"
+                )
         return "\n".join(chunks)
 
     def column_lookup(self) -> dict[str, tuple[str, "ColumnSchema"]]:
@@ -236,12 +260,28 @@ def _sqlite_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
                     )
                 )
             tables.append(TableSchema(name=table_name, columns=cols))
+    # Collect foreign keys via PRAGMA foreign_key_list per table.
+    fks: list[ForeignKey] = []
+    with sqlite3.connect(f"file:{spec.path}?mode=ro", uri=True) as conn:
+        for t in tables:
+            try:
+                for row in conn.execute(f'PRAGMA foreign_key_list("{t.name}")').fetchall():
+                    # PRAGMA returns: id, seq, table, from, to, on_update, on_delete, match
+                    fks.append(ForeignKey(
+                        from_table=t.name,
+                        from_column=row[3],
+                        to_table=row[2],
+                        to_column=row[4] or row[3],
+                    ))
+            except sqlite3.Error:
+                pass
     return DatabaseSchema(
         data_source_id=spec.id,
         engine="sqlite",
         tables=tables,
         schema_version=spec.schema_version,
         sqlite_path=spec.path,
+        foreign_keys=fks,
     )
 
 
@@ -576,6 +616,30 @@ def _pg_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
                 )
             # Use plain table name (no schema prefix) for prompt simplicity.
             tables.append(TableSchema(name=tbl, columns=cols))
+        # FK collection — one query for all referential constraints in scope.
+        fks: list[ForeignKey] = []
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                SELECT
+                    tc.table_name, kcu.column_name,
+                    ccu.table_name AS to_table, ccu.column_name AS to_column
+                FROM information_schema.table_constraints tc
+                JOIN information_schema.key_column_usage kcu
+                  ON tc.constraint_name = kcu.constraint_name
+                 AND tc.table_schema = kcu.table_schema
+                JOIN information_schema.constraint_column_usage ccu
+                  ON ccu.constraint_name = tc.constraint_name
+                 AND ccu.table_schema = tc.table_schema
+                WHERE tc.constraint_type = 'FOREIGN KEY'
+                  AND tc.table_schema IN ({placeholders})
+                """,
+                schemas_list,
+            )
+            for ft, fc, tt, tc in cur.fetchall():
+                fks.append(ForeignKey(
+                    from_table=ft, from_column=fc, to_table=tt, to_column=tc,
+                ))
     finally:
         conn.close()
     return DatabaseSchema(
@@ -583,6 +647,7 @@ def _pg_schema(spec: DataSourceSpec, sample_rows: int) -> DatabaseSchema:
         engine="postgres",
         tables=tables,
         schema_version=spec.schema_version,
+        foreign_keys=fks,
     )
 
 

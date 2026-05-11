@@ -20,7 +20,15 @@ SYSTEM_PROMPT = (
     "stick to standard SQL functions when in doubt.\n"
     "9. Use double quotes around identifiers that need quoting (Cyrillic names, reserved words). "
     "Avoid SQL Server's [bracketed identifiers] and MySQL's `backticks`.\n"
-    "10. If the question is ambiguous, choose the most natural interpretation and proceed."
+    "10. NEVER nest aggregate functions — SUM(x + SUM(y)) is invalid SQL. "
+    "If you need to combine two aggregations, use separate aggregations in the SELECT list "
+    "or wrap one aggregation in a subquery / CTE.\n"
+    "11. Use the FOREIGN KEYS section to navigate between tables. Do not invent direct "
+    "joins between tables that are connected only via an intermediate table — follow the "
+    "actual FK path (e.g. orders → customers → regions for a 2-hop link).\n"
+    "12. If a column you need doesn't exist in the natural table, check the FK targets first "
+    "before writing nonsense — invented columns produce 'column does not exist' errors.\n"
+    "13. If the question is ambiguous, choose the most natural interpretation and proceed."
 )
 
 
