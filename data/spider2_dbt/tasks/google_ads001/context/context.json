@@ -1,0 +1,26 @@
+{
+  "task_id": "google_ads001",
+  "instance_id": "google_ads001",
+  "instruction": "Generate reports for Google Ads campaigns and keywords, including spend, clicks, impressions, conversions, and related metrics, with data grouped by account, campaign, and ad group details.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/google_ads001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/google_ads001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/google_ads001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/google_ads__account_report.sql",
+    "models/google_ads.yml",
+    "models/google_ads__ad_group_report.sql",
+    "models/google_ads__url_report.sql",
+    "models/google_ads__ad_report.sql",
+    "macros/google_ads_persist_pass_through_columns.sql"
+  ],
+  "duckdb_files": [
+    "google_ads.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

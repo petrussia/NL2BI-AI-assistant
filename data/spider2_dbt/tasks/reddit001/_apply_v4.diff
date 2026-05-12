@@ -1,0 +1,38 @@
++++ b/models/reddit_post_comments.sql
+@@ -1,6 +1,34 @@
++WITH post_data AS (
++    SELECT 
++        post_id,
++        post_title,
++        post_text,
++        post_score,
++        num_comments,
++        created_at
++    FROM {{ source('raw', 'posts_ghosts') }}
++),
++
++comment_data AS (
++    SELECT 
++        post_id,
++        comment_id,
++        author,
++        body,
++        created_at,
++        comment_score
++    FROM {{ source('raw', 'comments_ghosts') }}
++)
++
++SELECT 
++    p.post_id,
++    p.post_title,
++    p.post_text,
++    p.post_score,
++    p.num_comments,
++    p.created_at,
++    c.comment_id,
++    c.author,
++    c.body,
++    c.created_at AS comment_created_at,
++    c.comment_score
++FROM post_data p
++JOIN comment_data c ON p.post_id = c.post_id;

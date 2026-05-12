@@ -1,0 +1,674 @@
+{
+  "jira.duckdb": [
+    {
+      "schema": "main",
+      "table": "comment",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "author_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_public",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "issue_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "update_author_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "component",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "epic",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "done",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "field",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_array",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_custom",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "field_option",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "issue",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_original_estimate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_remaining_estimate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_time_spent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "assignee",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "creator",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "due_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "environment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "issue_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_viewed",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "original_estimate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "priority",
+          "type": "INTEGER"
+        },
+        {
+          "name": "project",
+          "type": "INTEGER"
+        },
+        {
+          "name": "remaining_estimate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reporter",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "resolution",
+          "type": "INTEGER"
+        },
+        {
+          "name": "resolved",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_category_changed",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time_spent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "work_ratio",
+          "type": "FLOAT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "issue_field_history",
+      "columns": [
+        {
+          "name": "field_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "issue_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "issue_link",
+      "columns": [
+        {
+          "name": "issue_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "related_issue_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "relationship",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "issue_multiselect_history",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "field_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "issue_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "issue_type",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subtask",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "priority",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lead_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "permission_scheme_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "project_category_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "project_type_key",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "project_board",
+      "columns": [
+        {
+          "name": "board_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "project_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "project_category",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "resolution",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sprint",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "board_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "complete_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "status",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_category_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "status_category",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "email",
+          "type": "INTEGER"
+        },
+        {
+          "name": "locale",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time_zone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user_group",
+      "columns": [
+        {
+          "name": "group_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "version",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "overdue",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "project_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "release_date",
+          "type": "DATE"
+        },
+        {
+          "name": "released",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        }
+      ]
+    }
+  ]
+}

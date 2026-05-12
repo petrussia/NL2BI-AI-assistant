@@ -1,0 +1,742 @@
+{
+  "intercom.duckdb": [
+    {
+      "schema": "main",
+      "table": "admin_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "company_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "industry",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_request_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "monthly_spend",
+          "type": "INTEGER"
+        },
+        {
+          "name": "plan_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "plan_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "remote_created_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "session_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "website",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "company_tag_history_data",
+      "columns": [
+        {
+          "name": "company_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tag_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_company_history_data",
+      "columns": [
+        {
+          "name": "company_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "admin_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "android_app_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "android_app_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "android_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "android_last_seen_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "android_os_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "android_sdk_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "browser",
+          "type": "INTEGER"
+        },
+        {
+          "name": "browser_language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "browser_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "custom_onboarding_step",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_organisation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_organisation_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_hard_bounced",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "ios_app_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios_app_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios_last_seen_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios_os_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios_sdk_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "language_override",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_contacted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_email_clicked_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_email_opened_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_replied_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_seen_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_city",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marked_email_as_spam",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "os",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "signed_up_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unsubscribed_from_emails",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "workspace_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "avatar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_tag_history_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tag_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "conversation_contact_history_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conversation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversation_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "conversation_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "assignee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "assignee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conversation_rating_created_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversation_rating_remark",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversation_rating_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_contact_reply_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_contact_reply_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "priority",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "read",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "sla_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sla_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "snoozed_until",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_author_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_author_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_delivered_as",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "waiting_since",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_contact_reply_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "conversation_part_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "assigned_to_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "assigned_to_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "author_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "author_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conversation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversation_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "notified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "part_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "conversation_tag_history_data",
+      "columns": [
+        {
+          "name": "tag_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversation_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "tag_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "team_admin_data",
+      "columns": [
+        {
+          "name": "admin_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "team_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "team_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ]
+}

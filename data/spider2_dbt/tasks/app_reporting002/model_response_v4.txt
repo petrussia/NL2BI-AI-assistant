@@ -1,0 +1,18 @@
+```diff
+--- a/models/app_reporting__overview_report.sql
++++ b/models/app_reporting__overview_report.sql
+@@ -1,3 +1,6 @@
++with apple_store_overview as (
++    select * from {{ ref('int_apple_store__overview') }}
++),
+ google_play_overview as (
+     select * from {{ ref('int_google_play__overview') }}
+ ),
+@@ -7,6 +10,8 @@
+     select * from {{ ref('int_google_play__overview') }}
+ )
+ 
++select * from apple_store_overview
+ union all
+ select * from google_play_overview
+```

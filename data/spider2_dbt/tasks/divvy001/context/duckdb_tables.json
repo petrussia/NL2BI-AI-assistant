@@ -1,0 +1,254 @@
+{
+  "divvy.duckdb": [
+    {
+      "schema": "main",
+      "table": "dim_neighbourhoods",
+      "columns": [
+        {
+          "name": "station_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lat",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "lng",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_neighbourhood",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "secondary_neighborhood",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "divvy_data",
+      "columns": [
+        {
+          "name": "ride_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rideable_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ended_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "start_station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_station_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_station_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "start_lat",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "start_lng",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "end_lat",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "end_lng",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "member_casual",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "divvy_stations_lookup",
+      "columns": [
+        {
+          "name": "station_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lat",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "lng",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_neighbourhood",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "secondary_neighborhood",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "facts_divvy",
+      "columns": [
+        {
+          "name": "ride_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rideable_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "membership_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_station_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "start_station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_station_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ended_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "duration_minutes",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "start_neighbourhood",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_neighbourhood",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_location",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_divvy_data",
+      "columns": [
+        {
+          "name": "r_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ride_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rideable_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "membership_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ended_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "start_station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_station_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_station_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_station_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_lat",
+          "type": "DECIMAL(18,3)"
+        },
+        {
+          "name": "start_lng",
+          "type": "DECIMAL(18,3)"
+        },
+        {
+          "name": "end_lat",
+          "type": "DECIMAL(18,3)"
+        },
+        {
+          "name": "end_lng",
+          "type": "DECIMAL(18,3)"
+        }
+      ]
+    }
+  ]
+}

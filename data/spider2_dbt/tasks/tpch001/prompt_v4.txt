@@ -1,0 +1,263 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Calculate the lifetime value of a customer by analyzing their total purchases and returns, categorize their status based on the percentage of returns, and combine this data with lost revenue information.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `tpch.duckdb`
+    main.customer(c_custkey INTEGER, c_mktsegment VARCHAR, c_nationkey INTEGER, c_name VARCHAR, c_address VARCHAR, c_phone VARCHAR, c_acctbal DOUBLE, c_comment VARCHAR)
+    main.lineitem(l_shipdate DATE, l_orderkey INTEGER, l_discount DOUBLE, l_extendedprice DOUBLE, l_suppkey INTEGER, l_quantity INTEGER, l_returnflag VARCHAR, l_partkey INTEGER, l_linestatus VARCHAR, l_tax DOUBLE, l_commitdate DATE, l_receiptdate DATE, l_shipmode VARCHAR, l_linenumber INTEGER, l_shipinstruct VARCHAR, l_comment VARCHAR)
+    main.nation(n_nationkey INTEGER, n_name VARCHAR, n_regionkey INTEGER, n_comment VARCHAR)
+    main.orders(o_orderdate DATE, o_orderkey INTEGER, o_custkey INTEGER, o_orderpriority VARCHAR, o_shippriority INTEGER, o_clerk VARCHAR, o_orderstatus VARCHAR, o_totalprice DOUBLE, o_comment VARCHAR)
+    main.part(p_partkey INTEGER, p_type VARCHAR, p_size INTEGER, p_brand VARCHAR, p_name VARCHAR, p_container VARCHAR, p_mfgr VARCHAR, p_retailprice DOUBLE, p_comment VARCHAR)
+    main.partsupp(ps_partkey INTEGER, ps_suppkey INTEGER, ps_supplycost DOUBLE, ps_availqty INTEGER, ps_comment VARCHAR)
+    main.region(r_regionkey INTEGER, r_name VARCHAR, r_comment VARCHAR)
+    main.supplier(s_suppkey INTEGER, s_nationkey INTEGER, s_comment VARCHAR, s_name VARCHAR, s_address VARCHAR, s_phone VARCHAR, s_acctbal DOUBLE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'tpch'
+version: '1.0.0'
+config-version: 2
+
+profile: 'tpch'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+    materialized: table
+
+
+
+=== INTERMEDIATE models (1) ===
+  - models/FINANCE/intermediate/order_line_items.sql
+    cols: order_id, line_id, supplier_id, part_id, item_status, item_cost, customer_id, order_date, customer_cost
+    --- head:
+    WITH 
+
+    buyer_costs as (
+            SELECT
+                    l_orderkey as order_id,
+
+=== FINAL models (5) ===
+  - models/base/min_supply_cost.sql
+    cols: min_supply_cost, PARTKEY
+    --- body (first 900 chars):
+
+    {{
+        config(
+            materialized='table'
+        )
+    }}
+    SELECT MIN(ps_supplycost) AS min_supply_cost, PS_PARTKEY AS PARTKEY FROM 
+        {{ source('TPCH_SF1', 'partsupp') }},
+        {{ source('TPCH_SF1', 'supplier') }},
+        {{ source('TPCH_SF1', 'nation') }},
+        {{ source('TPCH_SF1', 'region') }}
+    WHERE s_suppkey = ps_suppkey
+        AND s_nationkey = n_nationkey
+        AND n_regionkey = r_regionkey
+        AND r_name = 'EUROPE'
+    GROUP BY PS_PARTKEY
+  - models/FINANCE/monthly_return_revenue.sql
+    cols: MONTH, RETURN_TOTAL, ORDERS_WITH_RETURNS, ITEMS_RETURNED
+    --- body (first 900 chars):
+
+    SELECT 
+            date_trunc('month', order_date) as MONTH,
+            ROUND(SUM(customer_cost), 2) AS RETURN_TOTAL,
+            COUNT(distinct order_id) as ORDERS_WITH_RETURNS,
+            COUNT(CONCAT(order_id,line_id)) as ITEMS_RETURNED
+    FROM 
+            {{ ref('order_line_items') }}
+    WHERE 
+            item_status = 'R' 
+    GROUP BY 
+            month
+    ORDER BY
+            month
+  - models/FINANCE/SUPPLIER_RETURNS.sql
+    cols: seq, month, parts_returned, total_revenue_lost
+    --- body (first 900 chars):
+    WITH
+
+    top10s as (
+        SELECT
+            *
+        FROM (
+            SELECT 
+                *, 
+                ROW_NUMBER() OVER(PARTITION BY month ORDER BY month DESC, parts_returned DESC, total_revenue_lost DESC) as seq
+            FROM (
+                SELECT 
+                    date_trunc('month', order_date) as month
+                    ,supplier_id
+                    ,part_id
+                    ,COUNT(order_id || line_id) as parts_returned
+                    ,SUM(customer_cost) as total_revenue_lost
+                FROM 
+                    {{ ref('order_line_items') }}
+                WHERE 
+                    item_status = 'R'
+                GROUP BY 
+                    month
+                    ,supplier_id
+                    ,part_id
+            )
+        )
+        WHERE 
+            seq <= 10
+        ORDER BY
+            month DESC
+            , seq DESC
+    )
+
+    SELECT 
+        top10s.*
+        , s.S_NAME
+        , s.S_PHONE
+        , p.P_NAME
+    FROM 
+        top10s
+    LEFT JOIN {{ source('TPCH_SF1',
+  - models/suppliers/EUR_LOWCOST_BRASS_SUPPLIERS.sql
+    --- body (first 900 chars):
+    SELECT p_name, p_size, p_retailprice, s_acctbal, s_name, n_name, p_partkey, p_mfgr, s_address, s_phone, s_comment
+    FROM {{ source('TPCH_SF1', 'part') }}, 
+    {{ source('TPCH_SF1', 'supplier') }}, 
+    {{ source('TPCH_SF1', 'partsupp') }}, 
+    {{ source('TPCH_SF1', 'nation') }}, 
+    {{ source('TPCH_SF1', 'region') }}
+    WHERE
+         p_partkey = ps_partkey AND s_suppkey = ps_suppkey
+         AND p_size = 15 AND p_type LIKE '%BRASS'
+         AND s_nationkey = n_nationkey AND n_regionkey = r_regionkey
+         AND r_name = 'EUROPE' 
+         AND ps_supplycost = (SELECT min(min_supply_cost.min_supply_cost) FROM {{ ref('min_supply_cost') }} WHERE PARTKEY=p_partkey)
+    ORDER BY s_acctbal DESC, n_name, s_name, p_partkey
+
+  - models/suppliers/UK_Lowcost_Brass_Suppliers.sql
+    cols: Part_Name, RetailPrice, Supplier_Name, Part_Manufacturer, SuppAddr, Supp_Phone, Num_Available
+    --- body (first 900 chars):
+    select 
+        e.p_name            AS Part_Name,
+        e.p_retailprice     AS RetailPrice,
+        e.s_name            AS Supplier_Name,
+        e.p_mfgr            AS Part_Manufacturer,
+        e.s_address         AS SuppAddr,
+        e.s_phone           AS Supp_Phone,
+        ps.PS_AVAILQTY      AS Num_Available 
+
+    from {{ ref('EUR_LOWCOST_BRASS_SUPPLIERS') }} e
+    LEFT JOIN {{ source('TPCH_SF1', 'supplier') }} s on e.S_NAME = s.S_NAME
+    LEFT JOIN
+        {{ source('TPCH_SF1', 'partsupp') }} ps
+    on e.P_PARTKEY = ps.PS_PARTKEY
+        and s.S_SUPPKEY = ps.PS_SUPPKEY
+
+    where n_name = 'UNITED KINGDOM'
+
+--- dbt_project.yml (head) ---
+name: 'tpch'
+version: '1.0.0'
+config-version: 2
+
+profile: 'tpch'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+    materialized: table
+
+
+
+--- models/FINANCE/schema.yml (head) ---
+version: 2
+
+models:
+
+  - name: lost_revenue
+    description: |
+      This model calculates the revenue lost due to returned items for each customer by analyzing their orders and returns. 
+      It joins customer data with orders and line items to sum the revenue lost from returned items, providing additional customer details such as account balance, phone number, and address.
+
+    sources:
+      - name: TPCH_SF1
+        tables:
+          - name: orders
+          - name: customer
+          - name
+
+
+--- models/source_configs.yml (head) ---
+version: 2
+
+sources:
+    - name: TPCH_SF1
+      schema: main
+      tables:
+        - name: partsupp
+        - name: nation
+        - name: region
+        - name: orders
+        - name: lineitem
+        - name: customer
+        - name: part
+        - name: supplier
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

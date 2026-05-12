@@ -1,0 +1,152 @@
+{
+  "inzight.duckdb": [
+    {
+      "schema": "main",
+      "table": "be_holidays",
+      "columns": [
+        {
+          "name": "Feestdag",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Datum",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_time",
+      "columns": [
+        {
+          "name": "moment",
+          "type": "TIME"
+        },
+        {
+          "name": "hour",
+          "type": "INTEGER"
+        },
+        {
+          "name": "minute",
+          "type": "INTEGER"
+        },
+        {
+          "name": "second",
+          "type": "INTEGER"
+        },
+        {
+          "name": "start_of_hour",
+          "type": "TIME"
+        },
+        {
+          "name": "start_of_minute",
+          "type": "TIME"
+        },
+        {
+          "name": "am_pm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "part_of_day",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "fct_electricity",
+      "columns": [
+        {
+          "name": "from_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "to_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tariff",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "injection",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "validated",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "mrt_validated",
+      "columns": [
+        {
+          "name": "usage",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "injection",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "validated",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_be_holidays",
+      "columns": [
+        {
+          "name": "holiday_name_nl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "holiday_date",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_fluvius",
+      "columns": [
+        {
+          "name": "from_date",
+          "type": "DATE"
+        },
+        {
+          "name": "from_time",
+          "type": "TIME"
+        },
+        {
+          "name": "to_date",
+          "type": "DATE"
+        },
+        {
+          "name": "to_time",
+          "type": "TIME"
+        },
+        {
+          "name": "register",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "volume_in_kwh",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "validation_status_txt",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+```diff
+--- a/models/mart/netflix_original_programs.sql
++++ b/models/mart/netflix_original_programs.sql
+@@ -1,6 +1,7 @@
+ select 
+     title
+   , premiere_date
++  , cleaned_title
+   , premiere_status
+   , genre 
+   , category
+@@ -13,6 +14,7 @@ select 
+   , renewal_status
+   , premiere_year
+   , premiere_month
+   , premiere_day
+   , updated_at_utc
++  , genre_category
+ from {{ ref('int_netflix_original_programs') }}
+```

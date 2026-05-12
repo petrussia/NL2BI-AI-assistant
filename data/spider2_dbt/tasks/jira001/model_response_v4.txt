@@ -1,0 +1,49 @@
+```diff
+--- a/models/final/jira__project_details.sql
++++ b/models/final/jira__project_details.sql
+@@ -1,6 +1,18 @@
+ {{ config(materialized='table') }}
+ 
+-with project_details as (
++with project_details AS (
+     select
+         p.id as project_id,
+         p.name as project_name,
+         p.key as project_key,
+         u.id as lead_id,
+         u.name as lead_name,
++        array_agg(DISTINCT e.id) as epic_ids,
++        array_agg(DISTINCT c.id) as component_ids,
++        avg(i.time_spent / 86400.0) as avg_close_time_days,
++        avg(i.time_spent) as avg_close_time_seconds,
++        percentile_cont(0.5) WITHIN GROUP (ORDER BY i.time_spent / 86400.0) as median_close_time_days,
++        percentile_cont(0.5) WITHIN GROUP (ORDER BY i.time_spent) as median_close_time_seconds,
++        sum(i.time_spent / 86400.0) as sum_close_time_days,
++        sum(i.time_spent) as sum_close_time_seconds
+     from
+         {{ source('main', 'project') }} p
+     left join
+         {{ source('main', 'user') }} u
+     on
+         p.lead_id = u.id
++    left join
++        {{ source('main', 'issue') }} i
++    on
++        p.id = i.project
++    left join
++        {{ source('main', 'epic') }} e
++    on
++        i.parent_id = e.id
++    left join
++        {{ source('main', 'component') }} c
++    on
++        i.components = c.id
+     group by
+         p.id,
+         p.name,
+         p.key,
+         u.id,
+         u.name
+ )
+ select * from project_details;
+```

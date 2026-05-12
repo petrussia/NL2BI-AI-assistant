@@ -1,0 +1,292 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Create comprehensive views summarizing NBA teams' regular season, playoff progress, and Elo ratings. Use data from season summaries, playoff simulations, and ratings, and include key playoff milestones like semifinals, finals, and championship wins. Keep it concise.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `nba.duckdb`
+    main.initialize_seeding(scenario_id BIGINT, conf VARCHAR, winning_team VARCHAR, seed VARCHAR, elo_rating DOUBLE, sim_start_game_id INTEGER)
+    main.nba_elo(date VARCHAR, season INTEGER, neutral INTEGER, playoff VARCHAR, team1 VARCHAR, team2 VARCHAR, elo1_pre INTEGER, elo2_pre INTEGER, elo_prob1 DOUBLE, elo_prob2 DOUBLE, elo1_post INTEGER, elo2_post INTEGER, score1 INTEGER, score2 INTEGER)
+    main.nba_elo_history(date DATE, season BIGINT, neutral BIGINT, playoff VARCHAR, team1 VARCHAR, team2 VARCHAR, elo1_pre DOUBLE, elo2_pre DOUBLE, elo_prob1 DOUBLE, elo_prob2 DOUBLE, elo1_post DOUBLE, elo2_post DOUBLE, score1 BIGINT, score2 BIGINT)
+    main.nba_elo_rollforward(game_id BIGINT, visiting_team VARCHAR, visiting_team_elo_rating DOUBLE, home_team VARCHAR, home_team_elo_rating DOUBLE, winning_team VARCHAR, elo_change DOUBLE)
+    main.nba_latest_elo(team_long VARCHAR, team VARCHAR, elo_rating DOUBLE, original_rating BIGINT, latest_ratings BOOLEAN)
+    main.nba_latest_results(game_id BIGINT, game_date DATE, home_team VARCHAR, home_team_score INTEGER, visiting_team VARCHAR, visiting_team_score INTEGER, winning_team VARCHAR, losing_team VARCHAR, include_actuals BOOLEAN, game_result DECIMAL(11,1), margin INTEGER, winning_team_short VARCHAR, losing_team_short VARCHAR)
+    main.nba_post_season_schedule(game_id INTEGER, date DATE, type VARCHAR, series_id BIGINT, visiting_conf INTEGER, visiting_team VARCHAR, visiting_team_elo_rating INTEGER, home_conf INTEGER, home_team VARCHAR, home_team_elo_rating INTEGER)
+    main.nba_random_num_gen(scenario_id BIGINT, game_id BIGINT, rand_result SMALLINT, sim_start_game_id INTEGER)
+    main.nba_ratings(team VARCHAR, team_long VARCHAR, conf VARCHAR, elo_rating DOUBLE, original_rating BIGINT, win_total DOUBLE)
+    main.nba_raw_results(date DATE, Start (ET) VARCHAR, VisTm VARCHAR, visiting_team_score INTEGER, HomeTm VARCHAR, home_team_score INTEGER, Attend. BIGINT, arena VARCHAR, notes VARCHAR, winner VARCHAR, loser VARCHAR, winner_pts INTEGER, loser_pts INTEGER)
+    main.nba_raw_schedule(id BIGINT, type VARCHAR, date DATE, Start (ET) VARCHAR, VisTm VARCHAR, HomeTm VARCHAR, Attend. VARCHAR, Arena VARCHAR, Notes VARCHAR, series_id BIGINT)
+    main.nba_raw_team_ratings(team VARCHAR, team_long VARCHAR, conf VARCHAR, elo_rating BIGINT, win_total DOUBLE, tournament_group VARCHAR, alt_key VARCHAR)
+    main.nba_raw_xf_series_to_seed(series_id BIGINT, seed VARCHAR)
+    main.nba_reg_season_actuals(team VARCHAR, wins BIGINT, losses BIGINT)
+    main.nba_reg_season_schedule(game_id BIGINT, date DATE, type VARCHAR, series_id INTEGER, visiting_conf VARCHAR, visiting_team VARCHAR, visiting_team_elo_rating DOUBLE, home_conf VARCHAR, home_team VARCHAR, home_team_elo_rating DOUBLE)
+    main.nba_results(Date VARCHAR, Start (ET) VARCHAR, Visitor/Neutral VARCHAR, PTS INTEGER, Home/Neutral VARCHAR, PTS_2 INTEGER, g VARCHAR, h VARCHAR, Attend. INTEGER, Arena VARCHAR, Notes VARCHAR)
+    main.nba_results_by_team(game_id BIGINT, team_type VARCHAR, team VARCHAR, team_long VARCHAR, score INTEGER, game_results VARCHAR, margin INTEGER, type VARCHAR)
+    main.nba_results_log(game_id BIGINT, visiting_team VARCHAR, visiting_team_elo_rating DOUBLE, home_team VARCHAR, home_team_elo_rating DOUBLE, winning_team VARCHAR, elo_change DOUBLE, avg DOUBLE, favored_team VARCHAR, visiting_team_above_avg INTEGER, home_team_above_avg INTEGER, losing_team VARCHAR, game_date DATE, home_team_score INTEGER, visiting_team_score INTEGER, hmtm VARCHAR, vstm VARCHAR, type VARCHAR)
+    main.nba_schedule(id INTEGER, type VARCHAR, Day VARCHAR, Date VARCHAR, Year INTEGER, Start (ET) VARCHAR, Visitor/Neutral VARCHAR, PTS INTEGER, Home/Neutral VARCHAR, PTS_2 INTEGER, Attend. INTEGER, Arena VARCHAR, Notes VARCHAR, series_id INTEGER)
+    main.nba_schedules(game_id BIGINT, date DATE, type VARCHAR, series_id BIGINT, visiting_conf VARCHAR, visiting_team VARCHAR, visiting_team_elo_rating DOUBLE, home_conf VARCHAR, home_team VARCHAR, home_team_elo_rating DOUBLE)
+    main.nba_season_teams(season BIGINT, team VARCHAR)
+    main.nba_seasons(season BIGINT)
+    main.nba_team_ratings(team VARCHAR, team_long VARCHAR, conf VARCHAR, elo_rating INTEGER, win_total DOUBLE, tournament_group VARCHAR, alt_key VARCHAR)
+    main.nba_team_stats(key VARCHAR, ct BIGINT, wins BIGINT, losses BIGINT, home_wins BIGINT, home_losses BIGINT, away_wins BIGINT, away_losses BIGINT, playoff_wins BIGINT, playoff_losses BIGINT, pf DOUBLE, pa DOUBLE, margin DOUBLE, min_elo DOUBLE, avg_elo DOUBLE, max_elo DOUBLE, team VARCHAR, season BIGINT)
+    main.nba_teams(team_long VARCHAR, team VARCHAR, tournament_group VARCHAR, conf VARCHAR, alt_key VARCHAR)
+    main.nba_vegas_wins(team VARCHAR, win_total DOUBLE)
+    main.nba_xf_series_to_seed(series_id BIGINT, seed VARCHAR)
+    main.nfl_results(Week INTEGER, Day INTEGER, Date INTEGER, Time INTEGER, Winner/tie INTEGER, f INTEGER, Loser/tie INTEGER, h INTEGER, PtsW INTEGER, PtsL INTEGER, YdsW INTEGER, TOW INTEGER, YdsL INTEGER, TOL INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: sports_sims
+version: '1.0'
+
+config-version: 2
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+model-paths:
+- models
+analysis-paths:
+- analysis
+test-paths:
+- tests
+seed-paths:
+- data
+macro-paths:
+- macros
+snapshot-paths:
+- snapshots
+log-path: logs
+packages-install-path: dbt_packages
+clean-targets:
+- logs
+
+
+profile: nba
+
+seeds:
+  sports_sims:
+    ncaaf:
+      ncaaf_team_ratings:
+        +quote_char: '"'
+        +delimiter: ','
+        +escape: '\\'
+        +header: true
+        +eol: '\n'
+
+
+
+models:
+  sports_sims:
+    nba:
+      +tags: nba
+      raw:
+        +materialized: table
+      prep:
+
+
+
+=== FINAL models (28) ===
+  - macros/calcs.sql
+    cols: visitor_key, home_key, visiting_team, visiting_team_elo_rating, home_team, home_team_elo_rating, home_team_win_probability, winning_team, series_result, elo_rating, sim_start_game_id
+    --- body (first 900 chars):
+    {%- macro elo_calc(home_team, visiting_team, home_adv) -%}
+
+       ( 1 - (1 / (10 ^ (-( {{visiting_team}} - {{home_team}} - {{home_adv}})::real/400)+1))) * 10000
+
+    {%- endmacro -%}
+
+    {%- macro elo_diff(home_team, visiting_team, result, home_adv)  -%}
+
+       25.0 * (( {{result}} ) - (1 / (10 ^ ( - ({{visiting_team}} - {{home_team}} - {{home_adv}})::real / 400) + 1)))
+
+    {%- endmacro -%}
+
+    {% macro playoff_sim(round,seed_file) %}
+    -- depends-on: {{ ref( 'nba_random_num_gen' ) }}
+
+        WITH cte_step_1 AS (
+            SELECT
+            R.scenario_id,
+            S.game_id,
+            S.series_id,
+            S.visiting_team AS visitor_key,
+            S.home_team AS home_key,
+            EV.winning_team AS visiting_team,
+            EV.elo_rating AS visiting_team_elo_rating,
+            EH.winning_team AS home_team,
+            EH.elo_rating AS home_team_elo_rating,
+            {{ elo_calc( 'EH.elo_rating', 'EV.elo_rating',var('nba_elo_offset') 
+  - macros/tests.sql
+    cols: records
+    --- body (first 900 chars):
+    {% test empty_table(model) %}
+
+        SELECT COALESCE(COUNT(*),0) AS records
+        FROM {{ model }}
+        HAVING COUNT(*) = 0
+
+    {% endtest %}
+  - models/nba/analysis/nba_team_stats.sql
+    cols: winner, loser, elo, pf, pa, key, ct, wins, losses, home_wins, home_losses, away_wins, away_losses, playoff_wins, playoff_losses, margin, min_elo, avg_elo, ...(21 total)
+    --- body (first 900 chars):
+    {{ config(materialized="table") }}
+
+    with
+        cte_games as (
+            select
+                team1,
+                team2,
+                score1,
+                score2,
+                playoff,
+                case when score1 > score2 then team1 else team2 end as winner,
+                case when score1 < score2 then team1 else team2 end as loser,
+                case when team1 = t.team then elo1_pre else elo2_pre end as elo,
+                case when team1 = t.team then score1 else score2 end as pf,
+                case when team1 = t.team then score2 else score1 end as pa,
+                t.team || ':' || t.season as key,
+                t.team,
+                t.season
+            from {{ ref("nba_elo_history") }} h
+            left join
+                {{ ref("nba_season_teams") }} t
+                on (t.team = h.team1 or t.team = h.team2)
+                and h.season = t.season
+        )
+    select
+        key,
+        count(*) as ct,
+        count(*) filter (where winn
+  - models/nba/analysis/reg_season_actuals_enriched.sql
+    cols: wins, losses, wins_as_favorite, losses_as_favorite, wins_as_underdog, losses_as_underdog, wins_vs_good_teams, losses_vs_good_teams, wins_vs_bad_teams, losses_vs_bad_teams, home_wins, home_losses, away_wins, away_losses
+    --- body (first 900 chars):
+    {{ config(materialized="table") }}
+
+    with
+        cte_wins as (
+            select winning_team, count(*) as wins
+            from {{ ref("nba_latest_results") }}
+            group by all
+        ),
+
+        cte_losses as (
+            select losing_team, count(*) as losses
+            from {{ ref("nba_latest_results") }}
+            group by all
+        ),
+
+        cte_favored_wins as (
+            select lr.winning_team, count(*) as wins
+            from {{ ref("nba_latest_results") }} lr
+            inner join
+                {{ ref("nba_results_log") }} r
+                on r.game_id = lr.game_id
+                and r.favored_team = lr.winning_team
+            group by all
+        ),
+
+        cte_favored_losses as (
+            select lr.losing_team, count(*) as losses
+            from {{ ref("nba_latest_results") }} lr
+            inner join
+                {{ ref("nba_results_log") }} r
+                on r.game_id = lr.game_id
+                and r.favored_team = lr.losing_team
+
+  - models/nba/analysis/reg_season_end.sql
+    cols: conf, elo_rating, wins, season_rank, made_playoffs, made_play_in, seed, sim_start_game_id
+    --- body (first 900 chars):
+    with
+        cte_wins as (
+            select
+                s.scenario_id,
+                s.winning_team,
+                case
+                    when s.winning_team = s.home_team then s.home_conf else s.visiting_conf
+                end as conf,
+                /*    CASE
+                WHEN S.winning_team = S.home_team THEN S.home_team_elo_rating
+                ELSE S.visiting_team_elo_rating
+            END AS elo_rating, */
+                count(*) as wins
+            from {{ ref("reg_season_simulator") }} s
+            group by all
+        ),
+
+        cte_ranked_wins as (
+            select
+                *,
+                -- no tiebreaker, so however row number handles order ties will need to be
+                -- dealt with
+                row_number() over (
+                    partition by scenario_id, conf order by wins desc, winning_team desc
+                ) as season_rank
+            from cte_wins
+
+        ),
+
+        cte_made_playoffs as (
+            select
+
+  - models/nba/analysis/reg_season_predictions.sql
+    cols: pts, occurances, american_odds, actual_margin, avg_score, implied_line, home_score, visiting_score, predicted_score
+    --- body (first 900 chars):
+    with
+        cte_team_scores as (
+            from {{ ref("nba_results_by_team") }}
+            select team, avg(score) as pts
+            group by all
+        ),
+        cte_interim_calcs as (
+            select
+                game_id,
+                date,
+                home_team,
+                home_team_elo_rating,
+                visiting_team,
+                visiting_team_elo_rating,
+                home_team_win_probability,
+                winning_team,
+                include_actuals,
+                count(*) as occurances,
+                {{ american_odds("home_team_win_probability/10000") }} as american_odds,
+                type,
+                actual_home_team_score,
+                actual_visiting_team_score,
+                case
+                    when actual_home_team_score > actual_visiting_team_score
+                    then actual_margin * -1
+                    else actual_margin
+                end as actual_margin,
+                (h.pts + v.pts) / 2.0 as avg_score
+  - models/nba/analysis/team_matchups.sql
+    cols: home_team, home_elo_rating, away_team, away_elo_rating, home_team_win_probability, elo_diff, elo_diff_hfa, home_win, american_odds, implied_l
+... (truncated)

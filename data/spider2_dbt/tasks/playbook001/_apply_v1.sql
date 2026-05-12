@@ -1,0 +1,42 @@
+WITH sessions AS (
+    SELECT * FROM {{ source('playbook', 'sessions') }}
+),
+customer_conversions AS (
+    SELECT * FROM {{ source('playbook', 'customer_conversions') }}
+),
+attribution_touches AS (
+    SELECT * FROM {{ ref('attribution_touches') }}
+),
+session_metrics AS (
+    SELECT
+        s.session_id,
+        s.customer_id,
+        s.utm_source,
+        s.utm_medium,
+        s.utm_campaign,
+        COUNT(c.converted_at) AS conversions,
+        SUM(c.revenue) AS conversion_revenue
+    FROM sessions s
+    LEFT JOIN customer_conversions c ON s.customer_id = c.customer_id AND s.started_at <= c.converted_at
+    GROUP BY s.session_id, s.customer_id, s.utm_source, s.utm_medium, s.utm_campaign
+),
+traffic_source_metrics AS (
+    SELECT
+        t.utm_source,
+        t.utm_medium,
+        t.utm_campaign,
+        SUM(sm.conversions) AS total_conversions,
+        SUM(sm.conversion_revenue) AS total_conversion_revenue
+    FROM attribution_touches t
+    JOIN session_metrics sm ON t.customer_id = sm.customer_id
+    GROUP BY t.utm_source, t.utm_medium, t.utm_campaign
+)
+SELECT
+    ts.utm_source,
+    ts.utm_medium,
+    ts.utm_campaign,
+    ts.total_conversions,
+    ts.total_conversion_revenue,
+    ts.total_conversion_revenue / ts.total_conversions AS average_revenue_per_conversion
+FROM traffic_source_metrics ts
+ORDER BY ts.total_conversions DESC;

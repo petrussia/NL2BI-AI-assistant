@@ -1,0 +1,19 @@
+```diff
+--- a/models/first_after/dataset__first_after_3.sql
++++ b/models/first_after/dataset__first_after_3.sql
+@@ -18,6 +18,14 @@
+                 "activity_occurrence",
+                 "ts"
+             ],
++            additional_join_condition=join_condition
++        )
++
++        UNION ALL
++
++        SELECT
++            {{ dbt_activity_schema.primary() }}.*,
++            {{ dbt_activity_schema.appended() }}.*
+         FROM
+             {{ dbt_activity_schema.primary() }}
+         JOIN
+```

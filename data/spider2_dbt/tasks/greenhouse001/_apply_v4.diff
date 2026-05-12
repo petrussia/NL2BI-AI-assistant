@@ -1,0 +1,24 @@
++++ b/models/greenhouse__interview_enhanced.sql
+@@ -1,7 +1,8 @@
+ with interview as (
+     select *
+     from {{ ref('int_greenhouse__interview_users') }}
++),
++application as (
+     select *
+     from {{ ref('int_greenhouse__application_info') }}
+ ),
+@@ -14,6 +15,14 @@
+         interview.*,
+         application.full_name as candidate_name,
+         job_stage.stage_name as job_stage,
++        application.current_job_stage as application_current_job_stage,
++        application.status as current_application_status,
++        application.job_title,
++        application.job_id,
++
++        application.hiring_managers like ('%' || interview.interviewer_name || '%')  as interviewer_is_hiring_manager,
++        application.hiring_managers,
++        application.recruiter_name,
+         application.job_offices,
+         application.job_departments,

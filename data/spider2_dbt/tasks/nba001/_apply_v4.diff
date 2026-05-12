@@ -1,0 +1,65 @@
++++ b/models/nba/analysis/nba_team_stats.sql
+@@ -1,6 +1,7 @@
+ {{ config(materialized="table") }}
+ 
+ with
++    cte_playoff_progress as (
+         cte_games as (
+             select
+                 team1,
+@@ -30,6 +31,15 @@ with
+                 away_losses,
+                 playoff_wins,
+                 playoff_losses,
++                case when playoff_wins > 0 then 'Made Playoffs' else 'Did Not Make Playoffs' end as playoff_status,
++                case when playoff_wins >= 4 then 'Champion' else 'Not Champion' end as champion_status
++            from {{ ref("nba_elo_history") }} h
++            left join
++                {{ ref("nba_season_teams") }} t
++                on (t.team = h.team1 or t.team = h.team2)
++                and h.season = t.season
++        )
++    cte_playoff_progress as (
+             select
+                 key,
+                 sum(wins) as total_wins,
+@@ -40,6 +50,7 @@ with
+                 sum(playoff_wins) as total_playoff_wins,
+                 sum(playoff_losses) as total_playoff_losses,
+                 avg(elo) as avg_elo,
++                avg(playoff_status) as avg_playoff_status,
+                 avg(champion_status) as avg_champion_status
+             from cte_games
+             group by key
+@@ -47,6 +58,7 @@ with
+     ),
+     cte_reg_season_actuals as (
+         select
++            team,
+             wins,
+             losses,
+             home_wins,
+@@ -55,6 +67,7 @@ with
+             away_losses,
+             playoff_wins,
+             playoff_losses
++        from {{ ref("nba_reg_season_actuals") }}
+     ),
+     cte_combined as (
+         select
+@@ -62,6 +75,7 @@ with
+             cte_reg_season_actuals.losses,
+             cte_reg_season_actuals.home_wins,
+             cte_reg_season_actuals.away_wins,
++            cte_reg_season_actuals.playoff_wins,
+             cte_reg_season_actuals.playoff_losses,
+             cte_team_stats.avg_elo,
+             cte_team_stats.avg_playoff_status,
+@@ -70,6 +84,7 @@ with
+             cte_team_stats.avg_champion_status
+         from cte_team_stats
+         left join cte_reg_season_actuals on cte_team_stats.key = cte_reg_season_actuals.team
++        left join cte_playoff_progress on cte_team_stats.key = cte_playoff_progress.key
+     )
+ select
+     *

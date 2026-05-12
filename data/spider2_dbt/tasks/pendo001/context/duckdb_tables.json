@@ -1,0 +1,1190 @@
+{
+  "pendo.duckdb": [
+    {
+      "schema": "main",
+      "table": "account_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "agent_creationdate",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_is_paying",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "agent_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_planlevel",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_visit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id_hash",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_visit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce_status_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "agent_salesforceaccountid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_customer_health_engagement_score_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_employee_range_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_platform_level_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_segment_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_account_owner_email_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_pbf_account_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_region_c",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "application_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "agent_policy_prod",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_policy_staging",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_version_prod",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_version_staging",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_flags_cname",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_disabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_guide_localization",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_guide_widget",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_onboarding",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_prevent_code_injection",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_show_guides_to_anon",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "application_flags_xhr_timings",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "disabled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "display_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "event_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "event_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_event_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "guide_css_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "icon_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "integrated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_updated_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "marked_for_deletion_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "push_application_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_until",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sampling_rate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "starting_event_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "store_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "event",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remote_ip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "server_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_minutes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "feature_event",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "feature_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remote_ip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "server_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_minutes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "param_parameter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "feature_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "color",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "dirty",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "root_version_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stable_version_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "valid_through",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_core_event",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "group_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "color",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "length",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "guide_event",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "guide_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remote_ip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "server_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "element_path",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "event_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "guide_step_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "latitude",
+          "type": "DECIMAL(18,3)"
+        },
+        {
+          "name": "load_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "longitude",
+          "type": "DECIMAL(18,3)"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "guide_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_can_change_badge_color",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_color",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_image_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_is_only_show_once",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_offset_left",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_offset_right",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_offset_top",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_show_on_event",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_use_hover",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_badge_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_device_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "attribute_priority",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_state",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_multi_step",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_training",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_updated_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "launch_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "published_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_eligibility_window",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reset_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "root_version_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stable_version_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "guide_step_history",
+      "columns": [
+        {
+          "name": "guide_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "guide_last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "step_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "page_event",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remote_ip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "server_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_minutes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "param_parameter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "page_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "color",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "dirty",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_by_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "root_version_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stable_version_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "valid_through",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "page_rule_history",
+      "columns": [
+        {
+          "name": "page_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rule",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "designer_hint",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parsed_rule",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "poll",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "attribute_display",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_follow_up",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "attribute_max_length",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_placeholder",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attribute_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reset_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "poll_event",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "guide_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remote_ip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "server_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "element_path",
+          "type": "INTEGER"
+        },
+        {
+          "name": "event_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "guide_step_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "load_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "poll_response",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "deleted_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "visitor_account_history",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "visitor_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_group_role",
+          "type": "INTEGER"
+        },
+        {
+          "name": "agent_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "agent_role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_visit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id_hash",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_browser_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_browser_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_operating_system",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_server_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_user_agent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_visit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "n_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_country_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_fivetran_industry_category_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_job_function_c",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce_job_level_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salesforce_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "agent_language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pendo_lastemail",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pendo_lastemailstatus",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

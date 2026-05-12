@@ -1,0 +1,24 @@
+with calendar as (
+    select *
+    from {{ ref('xero__calendar_spine') }}
+), ledger as (
+    select *
+    from {{ ref('xero__general_ledger') }}
+), balance_sheet as (
+    select 
+        calendar.date_month, 
+        ledger.account_id,
+        ledger.account_name,
+        ledger.account_code,
+        ledger.account_type, 
+        ledger.account_class, 
+        coalesce(sum(ledger.net_amount), 0) as balance
+    from calendar
+    left join ledger
+        on calendar.date_month = cast({{ dbt.date_trunc('month', 'ledger.journal_date') }} as date)
+    group by calendar.date_month, ledger.account_id, ledger.account_name, ledger.account_code, ledger.account_type, ledger.account_class
+)
+
+select *
+from balance_sheet
+order by date_month, account_id;

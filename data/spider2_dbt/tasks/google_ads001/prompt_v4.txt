@@ -1,0 +1,319 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate reports for Google Ads campaigns and keywords, including spend, clicks, impressions, conversions, and related metrics, with data grouped by account, campaign, and ad group details.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `google_ads.duckdb`
+    main.account_history_data(id INTEGER, updated_at TIMESTAMP, _fivetran_synced TIMESTAMP, auto_tagging_enabled BOOLEAN, currency_code VARCHAR, descriptive_name INTEGER, final_url_suffix BOOLEAN, hidden BOOLEAN, manager INTEGER, manager_customer_id DOUBLE, optimization_score VARCHAR, pay_per_conversion_eligibility_failure_reasons BOOLEAN, test_account VARCHAR, time_zone INTEGER, tracking_url_template INTEGER)
+    main.account_stats_data(_fivetran_id VARCHAR, customer_id INTEGER, date DATE, _fivetran_synced TIMESTAMP, active_view_impressions INTEGER, active_view_measurability INTEGER, active_view_measurable_cost_micros INTEGER, active_view_measurable_impressions INTEGER, active_view_viewability INTEGER, ad_network_type VARCHAR, clicks INTEGER, conversions INTEGER, conversions_value INTEGER, cost_micros INTEGER, device VARCHAR, impressions INTEGER, interaction_event_types VARCHAR, interactions INTEGER, view_through_conversions INTEGER)
+    main.ad_group_criterion_history_data(id VARCHAR, ad_group_id VARCHAR, base_campaign_id INTEGER, updated_at TIMESTAMP, _fivetran_synced TIMESTAMP, type VARCHAR, status VARCHAR, keyword_match_type VARCHAR, keyword_text VARCHAR)
+    main.ad_group_history_data(id VARCHAR, updated_at TIMESTAMP, type VARCHAR, campaign_id INTEGER, campaign_name VARCHAR, name VARCHAR, status VARCHAR)
+    main.ad_group_stats_data(_fivetran_id VARCHAR, customer_id VARCHAR, date DATE, _fivetran_synced TIMESTAMP, active_view_impressions INTEGER, active_view_measurability INTEGER, active_view_measurable_cost_micros INTEGER, active_view_measurable_impressions INTEGER, active_view_viewability INTEGER, ad_network_type VARCHAR, base_ad_group VARCHAR, campaign_base_campaign VARCHAR, campaign_id INTEGER, clicks INTEGER, conversions DOUBLE, conversions_value INTEGER, cost_micros INTEGER, device VARCHAR, id VARCHAR, impressions INTEGER, interaction_event_types VARCHAR, interactions INTEGER, view_through_conversions INTEGER)
+    main.ad_history_data(ad_group_id VARCHAR, id VARCHAR, name INTEGER, updated_at TIMESTAMP, type INTEGER, status VARCHAR, display_url INTEGER, final_urls VARCHAR)
+    main.ad_stats_data(customer_id VARCHAR, date DATE, ad_group_id INTEGER, ad_group VARCHAR, keyword_ad_group_criterion VARCHAR, ad_network_type VARCHAR, device VARCHAR, ad_id VARCHAR, campaign_id VARCHAR, clicks INTEGER, cost_micros INTEGER, impressions INTEGER)
+    main.campaign_history_data(id VARCHAR, updated_at TIMESTAMP, name VARCHAR, customer_id INTEGER, advertising_channel_type VARCHAR, advertising_channel_subtype VARCHAR, start_date DATE, end_date DATE, serving_status VARCHAR, status VARCHAR, tracking_url_template INTEGER)
+    main.campaign_stats_data(_fivetran_id VARCHAR, customer_id VARCHAR, date DATE, _fivetran_synced TIMESTAMP, active_view_impressions INTEGER, active_view_measurability INTEGER, active_view_measurable_cost_micros INTEGER, active_view_measurable_impressions INTEGER, active_view_viewability INTEGER, ad_network_type VARCHAR, base_campaign VARCHAR, clicks INTEGER, conversions INTEGER, conversions_value INTEGER, cost_micros INTEGER, device VARCHAR, id VARCHAR, impressions INTEGER, interaction_event_types VARCHAR, interactions INTEGER, view_through_conversions INTEGER)
+    main.google_ads__account_report(source_relation VARCHAR, date_day DATE, account_name INTEGER, account_id INTEGER, currency_code VARCHAR, auto_tagging_enabled BOOLEAN, time_zone INTEGER, spend DOUBLE, clicks HUGEINT, impressions HUGEINT, conversions HUGEINT, conversions_value HUGEINT, view_through_conversions HUGEINT)
+    main.google_ads__ad_group_report(source_relation VARCHAR, date_day DATE, account_name INTEGER, account_id INTEGER, currency_code VARCHAR, campaign_name VARCHAR, campaign_id VARCHAR, ad_group_name VARCHAR, ad_group_id VARCHAR, ad_group_status VARCHAR, ad_group_type VARCHAR, spend DOUBLE, clicks HUGEINT, impressions HUGEINT, conversions DOUBLE, conversions_value HUGEINT, view_through_conversions HUGEINT)
+    main.google_ads__ad_report(source_relation VARCHAR, date_day DATE, account_name INTEGER, account_id INTEGER, currency_code VARCHAR, campaign_name VARCHAR, campaign_id VARCHAR, ad_group_name VARCHAR, ad_group_id VARCHAR, ad_id VARCHAR, ad_name INTEGER, ad_status VARCHAR, ad_type INTEGER, display_url INTEGER, source_final_urls VARCHAR, spend DOUBLE, clicks HUGEINT, impressions HUGEINT, conversions HUGEINT, conversions_value HUGEINT, view_through_conversions HUGEINT)
+    main.google_ads__url_report(source_relation VARCHAR, date_day DATE, account_name INTEGER, account_id INTEGER, currency_code VARCHAR, campaign_name VARCHAR, campaign_id VARCHAR, ad_group_name VARCHAR, ad_group_id VARCHAR, ad_id VARCHAR, base_url VARCHAR, url_host VARCHAR, url_path VARCHAR, utm_source VARCHAR, utm_medium VARCHAR, utm_campaign VARCHAR, utm_content VARCHAR, utm_term VARCHAR, spend DOUBLE, clicks HUGEINT, impressions HUGEINT, conversions HUGEINT, conversions_value HUGEINT, view_through_conversions HUGEINT)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'google_ads'
+version: '0.11.0'
+
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+profile: 'google_ads'
+
+vars:
+  google_ads_schema: main
+  google_ads_source:
+    google_ads_ad_stats_identifier: "ad_stats_data"
+    google_ads_ad_history_identifier: "ad_history_data"
+    google_ads_ad_group_history_identifier: "ad_group_history_data"
+    google_ads_campaign_history_identifier: "campaign_history_data"
+    google_ads_account_history_identifier: "account_history_data"
+    google_ads_keyword_stats_identifier: "keyword_stats_data"
+    google_ads_accoun
+
+
+=== FINAL models (5) ===
+  - macros/google_ads_persist_pass_through_columns.sql
+    --- body (first 900 chars):
+    {# Adapted from fivetran_utils.persist_pass_through_columns() macro to include exclusions and coalesces #}
+
+    {% macro google_ads_persist_pass_through_columns(pass_through_variable, identifier=none, transform='', coalesce_with=none, exclude_fields=[]) %}
+
+    {% if var(pass_through_variable, none) %}
+        {% for field in var(pass_through_variable) %}
+            {% set field_name = field.alias|default(field.name)|lower if field is mapping else field %}
+            {% if field_name not in exclude_fields %}
+            , {{ transform ~ '(' ~ ('coalesce(' if coalesce_with is not none else '') ~ (identifier ~ '.' if identifier else '') ~ field_name ~ ((', ' ~ coalesce_with ~ ')') if coalesce_with is not none else '') ~ ')' }} as {{ field_name }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% endmacro %}
+  - models/google_ads__account_report.sql
+    cols: spend, clicks, impressions, conversions, conversions_value, view_through_conversions
+    --- body (first 900 chars):
+    {{ config(enabled=var('ad_reporting__google_ads_enabled', True)) }}
+
+    with stats as (
+
+        select *
+        from {{ var('account_stats') }}
+    ), 
+
+    accounts as (
+
+        select *
+        from {{ var('account_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    fields as (
+
+        select
+            stats.source_relation,
+            stats.date_day,
+            accounts.account_name,
+            stats.account_id,
+            accounts.currency_code,
+            accounts.auto_tagging_enabled,
+            accounts.time_zone,
+            sum(stats.spend) as spend,
+            sum(stats.clicks) as clicks,
+            sum(stats.impressions) as impressions,
+            sum(stats.conversions) as conversions,
+            sum(stats.conversions_value) as conversions_value,
+            sum(stats.view_through_conversions) as view_through_conversions
+
+            {{ google_ads_persist_pass_through_columns(pass_through_variable='google_ads__account_stats_passthrough_metri
+  - models/google_ads__ad_group_report.sql
+    cols: spend, clicks, impressions, conversions, conversions_value, view_through_conversions
+    --- body (first 900 chars):
+    {{ config(enabled=var('ad_reporting__google_ads_enabled', True)) }}
+
+    with stats as (
+
+        select *
+        from {{ var('ad_group_stats') }}
+    ), 
+
+    accounts as (
+
+        select *
+        from {{ var('account_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    campaigns as (
+
+        select *
+        from {{ var('campaign_history') }}
+        where is_most_recent_record = True
+    ),
+
+    ad_groups as (
+
+        select *
+        from {{ var('ad_group_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    fields as (
+
+        select
+            stats.source_relation,
+            stats.date_day,
+            accounts.account_name,
+            accounts.account_id,
+            accounts.currency_code,
+            campaigns.campaign_name,
+            campaigns.campaign_id,
+            ad_groups.ad_group_name,
+            stats.ad_group_id,
+            ad_groups.ad_group_status,
+            ad_groups.ad_group_type,
+            sum(stats.spend) as spend,
+            sum(stats.clicks) as
+  - models/google_ads__ad_report.sql
+    cols: spend, clicks, impressions, conversions, conversions_value, view_through_conversions
+    --- body (first 900 chars):
+    {{ config(enabled=var('ad_reporting__google_ads_enabled', True)) }}
+
+    with stats as (
+
+        select *
+        from {{ var('ad_stats') }}
+    ), 
+
+    accounts as (
+
+        select *
+        from {{ var('account_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    campaigns as (
+
+        select *
+        from {{ var('campaign_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    ad_groups as (
+
+        select *
+        from {{ var('ad_group_history') }}
+        where is_most_recent_record = True
+    ),
+
+    ads as (
+
+        select *
+        from {{ var('ad_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    fields as (
+
+        select
+            stats.source_relation,
+            stats.date_day,
+            accounts.account_name,
+            accounts.account_id,
+            accounts.currency_code,
+            campaigns.campaign_name,
+            campaigns.campaign_id,
+            ad_groups.ad_group_name,
+            stats.ad_group_id,
+            stats.ad_id,
+            ads.ad_n
+  - models/google_ads__url_report.sql
+    cols: utm_source, utm_medium, utm_campaign, utm_content, spend, clicks, impressions, conversions, conversions_value, view_through_conversions
+    --- body (first 900 chars):
+    {{ config(enabled=var('ad_reporting__google_ads_enabled', True)) }}
+
+    with stats as (
+
+        select *
+        from {{ var('ad_stats') }}
+    ), 
+
+    accounts as (
+
+        select *
+        from {{ var('account_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    campaigns as (
+
+        select *
+        from {{ var('campaign_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    ad_groups as (
+
+        select *
+        from {{ var('ad_group_history') }}
+        where is_most_recent_record = True
+    ),
+
+    ads as (
+
+        select *
+        from {{ var('ad_history') }}
+        where is_most_recent_record = True
+    ), 
+
+    fields as (
+
+        select
+            stats.source_relation,
+            stats.date_day,
+            accounts.account_name,
+            accounts.account_id,
+            accounts.currency_code,
+            campaigns.campaign_name,
+            campaigns.campaign_id,
+            ad_groups.ad_group_name,
+            stats.ad_group_id,
+            stats.ad_id,
+            ads.base
+
+--- dbt_project.yml (head) ---
+name: 'google_ads'
+version: '0.11.0'
+
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+profile: 'google_ads'
+
+vars:
+  google_ads_schema: main
+  google_ads_source:
+    google_ads_ad_stats_identifier: "ad_stats_data"
+    google_ads_ad_history_identifier: "ad_history_data"
+    google_ads_ad_group_history_identifier: "ad_group_history_data"
+    google_ads_campaign_history_identifier: "campaign_history_data"
+    google_ads_account_history_identifier: "accou
+
+
+--- models/google_ads.yml (head) ---
+version: 2
+
+models:
+  - name: google_ads__url_report
+    description: Each record in this table represents the daily performance of URLs at the ad level.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - ad_id
+            - ad_group_id
+            - date_day
+          con
+... (truncated)

@@ -1,0 +1,21 @@
++++ b/models/final/product_sales_summary.sql
+@@ -1,6 +1,18 @@
++with order_lines as (
++    select *
++    from {{ ref('shopify__order_lines') }}
++),
++
++order_aggregates as (
++    select *
++    from {{ ref('shopify__orders__order_line_aggregates') }}
++)
++
+ select 
+     ol.product_id,
+     sum(ol.quantity) as total_quantity_sold,
+     sum(ol.pre_tax_price * ol.quantity) as total_sales,
+     sum(ol.total_discount * ol.quantity) as total_discounts,
+     sum(ol.tax_code) as total_taxes
+-from {{ ref('shopify__order_lines') }} ol
++from order_lines ol
++join order_aggregates oa on ol.order_id = oa.order_id

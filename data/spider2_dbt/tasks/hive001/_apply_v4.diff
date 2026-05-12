@@ -1,0 +1,44 @@
++++ b/models/marts/covid_cases.sql
+@@ -1,6 +1,7 @@
+ {{ config(materialized='table') }}
+ 
+ WITH cleaned_cases AS (
+     SELECT
++        date_rep,
+         CAST(day AS INT) AS day,
+         CAST(month AS INT) AS month,
+         CAST(year AS INT) AS year,
+@@ -14,6 +15,8 @@
+         geo_id
+     FROM {{ ref('stg_covid__cases') }}
+ ),
++country_codes AS (
++    SELECT * FROM {{ ref('ref__country_codes') }}
++),
+ joined_data AS (
+     SELECT
+         cc.date_rep,
+@@ -21,6 +24,7 @@
+         cc.day,
+         cc.month,
+         cc.year,
++        cc.cases,
++        cc.deaths,
+         cc.geo_id,
+         cc.country_name,
+         cc.alpha_2code,
+@@ -30,6 +34,7 @@
+         cc.longitude_avg,
+         cc.population
+     FROM cleaned_cases cc
++    JOIN country_codes cc ON cc.geo_id = cc.alpha_2code
+ )
+ SELECT
+     date_rep,
+@@ -37,6 +42,7 @@
+     SUM(cases) AS total_cases,
+     SUM(deaths) AS total_deaths
+ FROM joined_data
+-GROUP BY date_rep, country_name, alpha_2code, alpha_3code, numeric_code, latitude_avg, longitude_avg, population
++GROUP BY date_rep, country_name, alpha_2code, alpha_3code, numeric_code, latitude_avg, longitude_avg, population
+ ORDER BY date_rep, country_name;

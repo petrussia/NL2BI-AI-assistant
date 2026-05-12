@@ -1,0 +1,132 @@
+{
+  "asset.duckdb": [
+    {
+      "schema": "main",
+      "table": "market_trades",
+      "columns": [
+        {
+          "name": "datetime",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "ticker",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "event_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "time",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "quotes",
+      "columns": [
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "ts",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bid_pr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ask_pr",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "bid_size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ask_size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ticker",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sentiment",
+      "columns": [
+        {
+          "name": "ticker",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "comment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "read_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "statement",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sentiment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "trades",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "ts",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticker",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "side_cd",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

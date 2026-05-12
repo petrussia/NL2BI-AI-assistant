@@ -1,0 +1,211 @@
+You are a senior analytics engineer. You will modify or create a
+        dbt model so that running `dbt run` and `dbt test` in the project
+        directory produces the answer to the user's question.
+
+        TASK:
+        QUESTION:
+        Calculate daily and running totals for customer transactions, including charges, discounts, taxes, refunds, and order quantities, and determine the number of active months for each customer?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - Output: emit ONE answer in either of two forms (pick the simpler that
+  solves the task):
+    A) A complete SQL block intended as a new dbt model file. Wrap with
+       a fenced code block and the path comment, e.g.:
+       ```sql path=models/output.sql
+       SELECT ...
+       ```
+    B) A unified diff against existing files in the snapshot. Wrap with:
+       ```diff
+       --- a/models/x.sql
+       +++ b/models/x.sql
+       @@ ...
+       ...
+       ```
+- DO NOT explain. DO NOT include extra prose. ONE fenced block.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `recharge.duckdb`
+    main.address_data(ID BIGINT, CUSTOMER_ID BIGINT, FIRST_NAME VARCHAR, LAST_NAME VARCHAR, ADDRESS_1 VARCHAR, ADDRESS_2 VARCHAR, CITY VARCHAR, PROVINCE INTEGER, COUNTRY_CODE VARCHAR, ZIP VARCHAR, COMPANY VARCHAR, PHONE VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP)
+    main.address_discounts_data(ID BIGINT, ADDRESS_ID BIGINT, INDEX INTEGER, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP)
+    main.address_shipping_line_data(ADDRESS_ID BIGINT, INDEX INTEGER, PRICE DOUBLE, CODE VARCHAR, TITLE VARCHAR, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_data(ID BIGINT, ADDRESS_ID BIGINT, CUSTOMER_ID BIGINT, CUSTOMER_HASH VARCHAR, NOTE VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, PROCESSED_AT TIMESTAMP, SCHEDULED_AT TIMESTAMP, ORDERS_COUNT INTEGER, EXTERNAL_ORDER_ID_ECOMMERCE INTEGER, SUBTOTAL_PRICE FLOAT, TAGS VARCHAR, TAX_LINES DOUBLE, TOTAL_DISCOUNTS INTEGER, TOTAL_LINE_ITEMS_PRICE DOUBLE, TOTAL_PRICE VARCHAR, TOTAL_TAX DOUBLE, TOTAL_WEIGHT_GRAMS INTEGER, TYPE VARCHAR, STATUS VARCHAR, TOTAL_REFUNDS INTEGER, EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR INTEGER, EMAIL VARCHAR, PAYMENT_PROCESSOR VARCHAR, HAS_UNCOMMITED_CHANGES BOOLEAN, RETRY_DATE TIMESTAMP, ERROR_TYPE INTEGER, ERROR INTEGER, CHARGE_ATTEMPTS INTEGER)
+    main.charge_discount_data(CHARGE_ID BIGINT, INDEX INTEGER, ID BIGINT, CODE VARCHAR, VALUE FLOAT, VALUE_TYPE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_line_item_data(CHARGE_ID BIGINT, INDEX INTEGER, VARIANT_TITLE VARCHAR, TITLE VARCHAR, QUANTITY INTEGER, GRAMS INTEGER, TOTAL_PRICE VARCHAR, SKU VARCHAR, EXTERNAL_PRODUCT_ID_ECOMMERCE BIGINT, VENDOR VARCHAR, _FIVETRAN_SYNCED TIMESTAMP, UNIT_PRICE DOUBLE, TAX_DUE INTEGER, TAXABLE BOOLEAN, TAXABLE_AMOUNT INTEGER, UNIT_PRICE_INCLUDES_TAX BOOLEAN, PURCHASE_ITEM_ID INTEGER, PURCHASE_ITEM_TYPE VARCHAR, EXTERNAL_VARIANT_ID_ECOMMERCE BIGINT)
+    main.charge_order_attribute_data(CHARGE_ID BIGINT, INDEX INTEGER, ORDER_ATTRIBUTE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_shipping_line_data(CHARGE_ID BIGINT, INDEX INTEGER, PRICE DOUBLE, CODE VARCHAR, TITLE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_tax_line_data(CHARGE_ID BIGINT, INDEX INTEGER, PRICE DOUBLE, RATE DOUBLE, TITLE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.checkout_data(TOKEN VARCHAR, CHARGE_ID BIGINT, BUYER_ACCEPTS_MARKETING BOOLEAN, COMPLETED_AT TIMESTAMP, CREATED_AT TIMESTAMP, CURRENCY VARCHAR, DISCOUNT_CODE INTEGER, EMAIL INTEGER, EXTERNAL_CHECKOUT_ID INTEGER, EXTERNAL_CHECKOUT_SOURCE INTEGER, EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR INTEGER, ORDER_ATTRIBUTES INTEGER, PHONE INTEGER, REQUIRES_SHIPPING INTEGER, SUBTOTAL_PRICE FLOAT, TAXES_INCLUDED INTEGER, TOTAL_PRICE VARCHAR, TOTAL_TAX INTEGER, UPDATED_AT TIMESTAMP)
+    main.customer_data(ID BIGINT, HASH VARCHAR, EXTERNAL_CUSTOMER_ID_ECOMMERCE INTEGER, EMAIL VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, FIRST_CHARGE_PROCESSED_AT TIMESTAMP, FIRST_NAME VARCHAR, LAST_NAME VARCHAR, SUBSCRIPTIONS_ACTIVE_COUNT INTEGER, SUBSCRIPTIONS_TOTAL_COUNT INTEGER, HAS_VALID_PAYMENT_METHOD BOOLEAN, HAS_PAYMENT_METHOD_IN_DUNNING BOOLEAN, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP, TAX_EXEMPT BOOLEAN)
+    main.discount_data(ID BIGINT, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, STARTS_AT TIMESTAMP, ENDS_AT TIMESTAMP, CODE VARCHAR, VALUE INTEGER, STATUS VARCHAR, USAGE_LIMITS INTEGER, APPLIES_TO VARCHAR, APPLIES_TO_RESOURCE VARCHAR, APPLIES_TO_ID BIGINT, APPLIES_TO_PRODUCT_TYPE VARCHAR, MINIMUM_ORDER_AMOUNT INTEGER, _FIVETRAN_SYNCED TIMESTAMP)
+    main.int_recharge__calendar_spine(date_day TIMESTAMP)
+    main.one_time_product_data(ID BIGINT, ADDRESS_ID BIGINT, CUSTOMER_ID BIGINT, IS_DELETED BOOLEAN, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, NEXT_CHARGE_SCHEDULED_AT TIMESTAMP, PRODUCT_TITLE VARCHAR, VARIANT_TITLE INTEGER, PRICE INTEGER, QUANTITY INTEGER, EXTERNAL_PRODUCT_ID_ECOMMERCE BIGINT, EXTERNAL_VARIANT_ID_ECOMMERCE BIGINT, SKU INTEGER, _FIVETRAN_SYNCED TIMESTAMP)
+    main.order_data(ID BIGINT, CUSTOMER_ID BIGINT, ADDRESS_ID BIGINT, CHARGE_ID BIGINT, IS_DELETED BOOLEAN, EMAIL VARCHAR, TRANSACTION_ID VARCHAR, CHARGE_STATUS VARCHAR, IS_PREPAID BOOLEAN, STATUS VARCHAR, TOTAL_PRICE VARCHAR, TYPE VARCHAR, EXTERNAL_ORDER_ID_ECOMMERCE INTEGER, EXTERNAL_ORDER_NUMBER_ECOMMERCE INTEGER, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, PROCESSED_AT TIMESTAMP, SCHEDULED_AT TIMESTAMP, SHIPPED_DATE TIMESTAMP, _FIVETRAN_SYNCED TIMESTAMP)
+    main.order_line_item_data(ORDER_ID INTEGER, INDEX INTEGER, VARIANT_TITLE VARCHAR, TITLE VARCHAR, QUANTITY INTEGER, GRAMS INTEGER, TOTAL_PRICE VARCHAR, SKU VARCHAR, EXTERNAL_PRODUCT_ID_ECOMMERCE BIGINT, EXTERNAL_VARIANT_ID_ECOMMERCE BIGINT, _FIVETRAN_SYNCED TIMESTAMP, UNIT_PRICE DOUBLE, TAX_DUE INTEGER, TAXABLE BOOLEAN, TAXABLE_AMOUNT INTEGER, UNIT_PRICE_INCLUDES_TAX BOOLEAN, PURCHASE_ITEM_ID INTEGER, PURCHASE_ITEM_TYPE VARCHAR)
+
+        PROJECT FILES (paths + first lines):
+
+--- dbt_project.yml ---
+
+name: 'recharge'
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'recharge'
+
+vars:
+  recharge_source:
+    recharge_schema: main
+    recharge_address_identifier: "address_data"
+    recharge_address_discounts_identifier: "address_discounts_data"
+    recharge_address_shipping_line_identifier: "address_shipping_line_data"
+    recharge_charge_identifier: "charge_data"
+    recharge_charge_discount_identifier: "charge_discount_data"
+    recharge_charge_line_item_identifier: "charge_line_item_data"
+    recharge_charge_order_attribute_identifier: "charge_order_attribute_data"
+    recharge_charge_shipping_line_identifier: "charge_shipping_line_data"
+    recharge_charge_tax_line_identifier: "charge_tax_line_data"
+    recharge_checkout_identifier: "checkout_data"
+    recharge_customer_identifier: "customer_data"
+    recharge_discount_identifier: "discount_data"
+    recharge_one_time_product_identifier: "one_time_product_data"
+    order: "{{ ref('order_data') }}" # Comment out for generating docs -- Uncomment this before sending to buildkite.
+    # recharge_order_identifier: "order_data" # Uncomment for generating docs -- Comment this out before sending 
+
+
+--- models/docs.md ---
+{% docs _fivetran_deleted %}
+Boolean created by Fivetran to indicate whether the record has been deleted.
+{% enddocs %}
+
+{% docs _fivetran_id %}
+Unique ID used by Fivetran to sync and dedupe data.
+{% enddocs %}
+
+{% docs _fivetran_synced %}
+Timestamp of when Fivetran synced a record.
+{% enddocs %}
+
+{% docs address_id %}
+The unique identifier of the address.
+{% enddocs %}
+
+{% docs charge_id %}
+The unique identifier of the charge.
+{% enddocs %}
+
+{% docs customer_id %}
+The unique identifier of the customer.
+{% enddocs %}
+
+{% docs order_id %}
+The unique identifier of the order.
+{% enddocs %}
+
+{% docs subscription_id %}
+The unique identifier of the subscription.
+{% enddocs %}
+
+{% docs charge_status %}
+The status of the charge. Possible values are SUCCESS, ERROR, QUEUED, SKIPPED, REFUNDED, PARTIALLY_REFUNDED.
+{% enddocs %}
+
+{% docs discount_status %}
+The status of the discount, accepted values - enabled, disabled, fully_disabled.
+{% enddocs %}
+
+{% docs order_status %}
+The status of the order. Possible values are SUCCESS, ERROR, QUEUED, CANCELLED.
+{% enddocs %}
+
+{% docs subscription_status %}
+The status of the subscription. Possible values are ACTIVE, CANCELLED, EXPIRED.
+{% enddocs %}
+
+{% 
+
+
+--- models/intermediate/int_recharge.yml ---
+version: 2
+
+models:
+  - name: int_recharge__calendar_spine
+    description: A table of calendar dates for each customer, based on the date range of the charges.
+
+  - name: int_recharge__customer_daily_rollup
+    description: Intermediate model for recharge__customer_daily_rollup
+
+  - name: int_recharge__customer_details
+    description: Intermediate model for recharge__customer_details
+
+
+
+--- models/intermediate/int_recharge__calendar_spine.sql ---
+with spine as (
+
+    {# Calculates first and last dates if at least one is not manually set #}
+    {% if execute %}
+        {% if not var('recharge_first_date', None) or not var('recharge_last_date', None) %}
+            {% set date_query %}
+                select  
+                    cast(min(created_at) as {{ dbt.type_timestamp() }}) as min_date,
+                    cast(max(created_at) as {{ dbt.type_timestamp() }}) as max_date 
+                from {{ source('recharge','charge') }}
+                {% endset %}
+            {% set calc_first_date = run_query(date_query).columns[0][0]|string %}
+            {% set calc_last_date = run_query(date_query).columns[1][0]|string %}
+        {% endif %}
+
+    {# If only compiling, creates range going back 1 year #}
+    {% else %} 
+        {% set calc_first_date = dbt.dateadd("year", "-1", "current_date") %}
+        {% set calc_last_date = dbt.current_timestamp_backcompat() %}
+
+    {% endif %}
+
+    {# Prioritizes variables over calculated dates #}
+    {% set first_date = var('recharge_first_date', calc_first_date)|string %}
+    {% set last_date = var('recharge_last_date', calc_last_date)|string %}
+
+{{ dbt_utils.date_spine(
+    datepart 
+
+
+--- models/intermediate/int_recharge__customer_daily_rollup.sql ---
+with calendar as (
+    select *
+    from {{ ref('int_recharge__calendar_spine') }}
+
+), customers as (
+    select 
+        customer_id, 
+        customer_created_at
+    from {{ ref('recharge__customer_details') }}
+
+), customers_dates as (
+    select 
+        customers.customer_id,
+        calendar.date_day,
+        cast({{ dbt.date_trunc('week', 'calendar.date_day') }} as date) as date_week,
+        cast({{ dbt.date_trunc('month', 'calendar.date_day') }} as date) as date_month,
+        cast({{ dbt.date_trunc('year', 'calendar.date_day') }} as date) as date_year
+    from calendar
+    cross join customers
+    where cast({{ dbt.date_trunc('day', 'customers.customer_created_at') }} as date) <= calendar.date_day
+)
+
+select *
+from customers_dates
+
+
+        Now emit ONE fenced block (SQL or diff) that solves the task.
+        SQL or DIFF:

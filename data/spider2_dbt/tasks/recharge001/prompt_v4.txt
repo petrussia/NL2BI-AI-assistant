@@ -1,0 +1,190 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Create a model to combine charge data, including line items, discounts, taxes, shipping, and refunds, while ensuring each item is uniquely identified and linked to its charge?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `recharge.duckdb`
+    main.address_data(ID BIGINT, CUSTOMER_ID BIGINT, FIRST_NAME VARCHAR, LAST_NAME VARCHAR, ADDRESS_1 VARCHAR, ADDRESS_2 VARCHAR, CITY VARCHAR, PROVINCE INTEGER, COUNTRY_CODE VARCHAR, ZIP VARCHAR, COMPANY VARCHAR, PHONE VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP)
+    main.address_discounts_data(ID BIGINT, ADDRESS_ID BIGINT, INDEX INTEGER, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP)
+    main.address_shipping_line_data(ADDRESS_ID BIGINT, INDEX INTEGER, PRICE DOUBLE, CODE VARCHAR, TITLE VARCHAR, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_data(ID BIGINT, ADDRESS_ID BIGINT, CUSTOMER_ID BIGINT, CUSTOMER_HASH VARCHAR, NOTE VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, PROCESSED_AT TIMESTAMP, SCHEDULED_AT TIMESTAMP, ORDERS_COUNT INTEGER, EXTERNAL_ORDER_ID_ECOMMERCE INTEGER, SUBTOTAL_PRICE FLOAT, TAGS VARCHAR, TAX_LINES DOUBLE, TOTAL_DISCOUNTS INTEGER, TOTAL_LINE_ITEMS_PRICE DOUBLE, TOTAL_PRICE VARCHAR, TOTAL_TAX DOUBLE, TOTAL_WEIGHT_GRAMS INTEGER, TYPE VARCHAR, STATUS VARCHAR, TOTAL_REFUNDS INTEGER, EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR INTEGER, EMAIL VARCHAR, PAYMENT_PROCESSOR VARCHAR, HAS_UNCOMMITED_CHANGES BOOLEAN, RETRY_DATE TIMESTAMP, ERROR_TYPE INTEGER, ERROR INTEGER, CHARGE_ATTEMPTS INTEGER)
+    main.charge_discount_data(CHARGE_ID BIGINT, INDEX INTEGER, ID BIGINT, CODE VARCHAR, VALUE FLOAT, VALUE_TYPE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_line_item_data(CHARGE_ID BIGINT, INDEX INTEGER, VARIANT_TITLE VARCHAR, TITLE VARCHAR, QUANTITY INTEGER, GRAMS INTEGER, TOTAL_PRICE VARCHAR, SKU VARCHAR, EXTERNAL_PRODUCT_ID_ECOMMERCE BIGINT, VENDOR VARCHAR, _FIVETRAN_SYNCED TIMESTAMP, UNIT_PRICE DOUBLE, TAX_DUE INTEGER, TAXABLE BOOLEAN, TAXABLE_AMOUNT INTEGER, UNIT_PRICE_INCLUDES_TAX BOOLEAN, PURCHASE_ITEM_ID INTEGER, PURCHASE_ITEM_TYPE VARCHAR, EXTERNAL_VARIANT_ID_ECOMMERCE BIGINT)
+    main.charge_order_attribute_data(CHARGE_ID BIGINT, INDEX INTEGER, ORDER_ATTRIBUTE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_shipping_line_data(CHARGE_ID BIGINT, INDEX INTEGER, PRICE DOUBLE, CODE VARCHAR, TITLE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.charge_tax_line_data(CHARGE_ID BIGINT, INDEX INTEGER, PRICE DOUBLE, RATE DOUBLE, TITLE VARCHAR, _FIVETRAN_SYNCED TIMESTAMP)
+    main.checkout_data(TOKEN VARCHAR, CHARGE_ID BIGINT, BUYER_ACCEPTS_MARKETING BOOLEAN, COMPLETED_AT TIMESTAMP, CREATED_AT TIMESTAMP, CURRENCY VARCHAR, DISCOUNT_CODE INTEGER, EMAIL INTEGER, EXTERNAL_CHECKOUT_ID INTEGER, EXTERNAL_CHECKOUT_SOURCE INTEGER, EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR INTEGER, ORDER_ATTRIBUTES INTEGER, PHONE INTEGER, REQUIRES_SHIPPING INTEGER, SUBTOTAL_PRICE FLOAT, TAXES_INCLUDED INTEGER, TOTAL_PRICE VARCHAR, TOTAL_TAX INTEGER, UPDATED_AT TIMESTAMP)
+    main.customer_data(ID BIGINT, HASH VARCHAR, EXTERNAL_CUSTOMER_ID_ECOMMERCE INTEGER, EMAIL VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, FIRST_CHARGE_PROCESSED_AT TIMESTAMP, FIRST_NAME VARCHAR, LAST_NAME VARCHAR, SUBSCRIPTIONS_ACTIVE_COUNT INTEGER, SUBSCRIPTIONS_TOTAL_COUNT INTEGER, HAS_VALID_PAYMENT_METHOD BOOLEAN, HAS_PAYMENT_METHOD_IN_DUNNING BOOLEAN, _FIVETRAN_DELETED BOOLEAN, _FIVETRAN_SYNCED TIMESTAMP, TAX_EXEMPT BOOLEAN)
+    main.discount_data(ID BIGINT, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, STARTS_AT TIMESTAMP, ENDS_AT TIMESTAMP, CODE VARCHAR, VALUE INTEGER, STATUS VARCHAR, USAGE_LIMITS INTEGER, APPLIES_TO VARCHAR, APPLIES_TO_RESOURCE VARCHAR, APPLIES_TO_ID BIGINT, APPLIES_TO_PRODUCT_TYPE VARCHAR, MINIMUM_ORDER_AMOUNT INTEGER, _FIVETRAN_SYNCED TIMESTAMP)
+    main.int_recharge__calendar_spine(date_day TIMESTAMP)
+    main.one_time_product_data(ID BIGINT, ADDRESS_ID BIGINT, CUSTOMER_ID BIGINT, IS_DELETED BOOLEAN, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, NEXT_CHARGE_SCHEDULED_AT TIMESTAMP, PRODUCT_TITLE VARCHAR, VARIANT_TITLE INTEGER, PRICE INTEGER, QUANTITY INTEGER, EXTERNAL_PRODUCT_ID_ECOMMERCE BIGINT, EXTERNAL_VARIANT_ID_ECOMMERCE BIGINT, SKU INTEGER, _FIVETRAN_SYNCED TIMESTAMP)
+    main.order_data(ID BIGINT, CUSTOMER_ID BIGINT, ADDRESS_ID BIGINT, CHARGE_ID BIGINT, IS_DELETED BOOLEAN, EMAIL VARCHAR, TRANSACTION_ID VARCHAR, CHARGE_STATUS VARCHAR, IS_PREPAID BOOLEAN, STATUS VARCHAR, TOTAL_PRICE VARCHAR, TYPE VARCHAR, EXTERNAL_ORDER_ID_ECOMMERCE INTEGER, EXTERNAL_ORDER_NUMBER_ECOMMERCE INTEGER, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP, PROCESSED_AT TIMESTAMP, SCHEDULED_AT TIMESTAMP, SHIPPED_DATE TIMESTAMP, _FIVETRAN_SYNCED TIMESTAMP)
+    main.order_line_item_data(ORDER_ID INTEGER, INDEX INTEGER, VARIANT_TITLE VARCHAR, TITLE VARCHAR, QUANTITY INTEGER, GRAMS INTEGER, TOTAL_PRICE VARCHAR, SKU VARCHAR, EXTERNAL_PRODUCT_ID_ECOMMERCE BIGINT, EXTERNAL_VARIANT_ID_ECOMMERCE BIGINT, _FIVETRAN_SYNCED TIMESTAMP, UNIT_PRICE DOUBLE, TAX_DUE INTEGER, TAXABLE BOOLEAN, TAXABLE_AMOUNT INTEGER, UNIT_PRICE_INCLUDES_TAX BOOLEAN, PURCHASE_ITEM_ID INTEGER, PURCHASE_ITEM_TYPE VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+name: 'recharge'
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'recharge'
+
+vars:
+  recharge_source:
+    recharge_schema: main
+    recharge_address_identifier: "address_data"
+    recharge_address_discounts_identifier: "address_discounts_data"
+    recharge_address_shipping_line_identifier: "address_shipping_line_data"
+    recharge_charge_identifier: "charge_data"
+    recharge_charge_discount_identifier: "charge_discount_data"
+    recharge_charge_line_item_identifier: "charge_line_item_data"
+    recharge_charge_order_attribute_identifier: "charge_order_a
+
+
+=== INTERMEDIATE models (1) ===
+  - models/intermediate/int_recharge__calendar_spine.sql
+    cols: min_date, max_date, date
+    --- head:
+    with spine as (
+
+        {# Calculates first and last dates if at least one is not manually set #}
+        {% if execute %}
+            {% if not var('recharge_first_date', None) or not var('recharge_last_date', None) %}
+
+=== FINAL models (1) ===
+  - models/standardized_models/recharge__line_item_enhanced.sql
+    cols: total_shipping, header_id, line_item_id, line_item_index, created_at, header_status, discount_amount, refund_amount, fee_amount, payment_id, payment_method, payment_at, billing_type, currency, transaction_type, product_id, product_name, product_type, ...(30 total)
+    --- body (first 900 chars):
+    {{ config(enabled=var('recharge__standardized_billing_model_enabled', False)) }}
+
+    with charge_line_items as (
+
+        select * 
+        from {{ var('charge_line_item')}}
+
+    ), charges as (
+
+        select * 
+        from {{ var('charge') }}
+
+    ), charge_shipping_lines as (
+
+        select
+            charge_id,
+            sum(price) as total_shipping
+        from {{ var('charge_shipping_line') }}
+        group by 1
+
+    {% if var('recharge__checkout_enabled', false) %}
+    ), checkouts as (
+
+        select *
+        from {{ var('checkout') }}
+
+    {% endif %}
+
+    ), addresses as (
+
+        select * 
+        from {{ var('address') }}
+
+    ), customers as (
+
+        select * 
+        from {{ var('customer') }}
+
+    ), subscriptions as (
+
+        select *
+        from {{ var('subscription_history') }} 
+        where is_most_recent_record
+
+    ), enhanced as (
+        select
+            cast(charge_line_items.charge_id as {{ dbt.type_string() }}) as header_id,
+            cast(charge_line_items.index a
+
+--- dbt_project.yml (head) ---
+
+name: 'recharge'
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'recharge'
+
+vars:
+  recharge_source:
+    recharge_schema: main
+    recharge_address_identifier: "address_data"
+    recharge_address_discounts_identifier: "address_discounts_data"
+    recharge_address_shipping_line_identifier: "address_shipping_line_data"
+    recharge_charge_identifier: "charge_data"
+    recharge_charge_discount_identifier: "charge_discount_data"
+    recharge_charge_line_item
+
+
+--- models/intermediate/int_recharge.yml (head) ---
+version: 2
+
+models:
+  - name: int_recharge__calendar_spine
+    description: A table of calendar dates for each customer, based on the date range of the charges.
+
+
+
+--- models/recharge.yml (head) ---
+version: 2
+
+models:
+  - name: recharge__charge_line_item_history
+    description: 
+      Each record represents a detailed line item that contributes to the final charges for a given `charge_id`. These line items include specific charges, refunds, discounts, shipping fees, and taxes. The data is collected from multiple sources, such as charge line items, discounts, shipping lines, tax lines, and refund records, and consolidated into a unified table. This table serves as a historical record of al
+
+
+--- models/standardized_models/recharge__common_data_models.yml (head) ---
+version: 2
+
+models:
+  - name: recharge__line_item_enhanced
+    description: This model constructs a comprehensive, denormalized analytical table that enables reporting on key revenue, subscription, customer, and product metrics from your billing platform. It’s designed to align with the schema of the `*__line_item_enhanced` model found in Recharge, Recurly, Stripe, Shopify, and Zuora, offering standardized reporting across various billing platforms. To see the kinds of insights this model can ge
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

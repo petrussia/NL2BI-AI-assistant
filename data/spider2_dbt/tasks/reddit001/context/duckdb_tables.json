@@ -1,0 +1,140 @@
+{
+  "reddit.duckdb": [
+    {
+      "schema": "main",
+      "table": "raw_comments_ghosts",
+      "columns": [
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "comment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "distinguished",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "edited",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_author_submitter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "link_comment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "comment_score",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_posts_ghosts",
+      "columns": [
+        {
+          "name": "author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "author_flair_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicked",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "distinguished",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "edited",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_original_content",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "locked",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "post_fullname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_comments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "saved",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "over_18",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "spoiler",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "stickied",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "upvote_ratio",
+          "type": "DOUBLE"
+        }
+      ]
+    }
+  ]
+}

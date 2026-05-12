@@ -1,0 +1,164 @@
+{
+  "playbook.duckdb": [
+    {
+      "schema": "main",
+      "table": "ad_spend",
+      "columns": [
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_medium",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "spend",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "attribution_touches",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ended_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_medium",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_sessions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "session_index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "first_touch_points",
+          "type": "DECIMAL(2,1)"
+        },
+        {
+          "name": "last_touch_points",
+          "type": "DECIMAL(2,1)"
+        },
+        {
+          "name": "forty_twenty_forty_points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "linear_points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "first_touch_revenue",
+          "type": "DECIMAL(12,1)"
+        },
+        {
+          "name": "last_touch_revenue",
+          "type": "DECIMAL(12,1)"
+        },
+        {
+          "name": "forty_twenty_forty_revenue",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "linear_revenue",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "customer_conversions",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "converted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sessions",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ended_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_medium",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

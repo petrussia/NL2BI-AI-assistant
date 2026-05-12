@@ -1,0 +1,178 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I combine current and archived theft report data, join it with geographical information for Berlin districts, and calculate the relevant crime metrics including damage in euros and crime location details like district IDs and names?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `biketheft.duckdb`
+    main.berlin_bezirke(bezirk_name VARCHAR, bez_id INTEGER)
+    main.mapping_berlin_lor(object_id INTEGER, bezirk_id INTEGER, pgr_id INTEGER, pgr_name VARCHAR, bzr_id INTEGER, bzr_name VARCHAR, plr_id INTEGER, plr_name VARCHAR, plr_geometry VARCHAR, stand VARCHAR)
+    main.reported_incidents_archived(ANGELEGT_AM DATE, TATZEIT_ANFANG_DATUM DATE, TATZEIT_ANFANG_STUNDE INTEGER, TATZEIT_ENDE_DATUM DATE, TATZEIT_ENDE_STUNDE INTEGER, LOR INTEGER, SCHADENSHOEHE INTEGER, VERSUCH VARCHAR, ART_DES_FAHRRADS VARCHAR, DELIKT VARCHAR, ERFASSUNGSGRUND VARCHAR, TATZEIT_ANFANG TIMESTAMP, TATZEIT_ENDE TIMESTAMP, TATZEIT_DAUER INTEGER)
+    main.reported_incidents_daily(ANGELEGT_AM VARCHAR, TATZEIT_ANFANG_DATUM VARCHAR, TATZEIT_ANFANG_STUNDE INTEGER, TATZEIT_ENDE_DATUM VARCHAR, TATZEIT_ENDE_STUNDE INTEGER, LOR INTEGER, SCHADENSHOEHE INTEGER, VERSUCH VARCHAR, ART_DES_FAHRRADS VARCHAR, DELIKT VARCHAR, ERFASSUNGSGRUND VARCHAR, TATZEIT_ANFANG TIMESTAMP, TATZEIT_ENDE TIMESTAMP, TATZEIT_DAUER INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'berlin_bike_theft'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'biketheft'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  berlin_bike_theft:
+    staging:
+      materialized: view
+    core:
+      materialized: table
+
+seeds: 
+  berlin_bik
+
+
+=== STAGING models (3) ===
+  - models/staging/stg_berlin_lor_geo.sql
+    cols: integer, object_id, bezirk_id, string, bezirk_name, pgr_id, plr_id, pgr_name, bzr_name, plr_name, stand, plr_geometry
+    --- head:
+    {{ config(materialized='table') }}
+
+    with berlin_bezirke as (
+        select *
+        from {{ source('main', 'berlin_bezirke') }}
+  - models/staging/stg_theft_reports_archived.sql
+    cols: record_id, integer, plr_id, crime_period_start_datetime, crime_period_end_datetime, record_created, crime_period_duration, crime_period_start_date, crime_period_end_date, crime_period_start_year, crime_period_start_month, crime_period_start_hour, crime_period_start_weekday, damage_euro, bike_type
+    --- head:
+    select
+        -- identifiers
+        {{ dbt_utils.generate_surrogate_key(['TATZEIT_ANFANG', 'TATZEIT_ENDE', 'LOR', 'SCHADENSHOEHE', 'ART_DES_FAHRRADS']) }} as record_id,
+        cast(LOR as integer) as plr_id,
+
+  - models/staging/stg_theft_reports_daily.sql
+    cols: record_id, integer, plr_id, crime_period_start_datetime, crime_period_end_datetime, record_created, crime_period_duration, crime_period_start_date, crime_period_end_date, crime_period_start_year, crime_period_start_month, crime_period_start_hour, crime_period_start_weekday, damage_euro, bike_type
+    --- head:
+    select
+        -- identifiers
+        {{ dbt_utils.generate_surrogate_key(['TATZEIT_ANFANG', 'TATZEIT_ENDE', 'LOR', 'SCHADENSHOEHE', 'ART_DES_FAHRRADS']) }} as record_id,
+        cast(LOR as integer) as plr_id,
+
+
+--- dbt_project.yml (head) ---
+name: 'berlin_bike_theft'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'biketheft'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  berlin_bike_th
+
+
+--- models/core/schema.yml (head) ---
+version: 2
+
+models:
+  - name: fact_theft_reports
+    description: >
+      This table aggregates both current (daily) and archived theft reports, enriched with geographical data from Berlin districts (LOR).
+      It provides metrics related to theft incidents, such as damage in euros, bike type, crime periods, and details about the crime location.
+
+    columns:
+      - name: record_id
+        description: "The unique identifier for each theft report."
+        tests:
+          - unique
+          -
+
+
+--- models/sources.yml (head) ---
+sources:
+  - name: main
+    schema: main
+    tables:
+      - name: berlin_bezirke
+      - name: reported_incidents_archived
+      - name: reported_incidents_daily
+      - name: mapping_berlin_lor 
+
+
+--- models/staging/schema.yml (head) ---
+version: 2
+
+models: 
+  - name: stg_theft_reports_daily
+    description: >
+      This data describes reported incidents of bike theft in Berlin. Each row represents a single incident.
+    columns:
+          - name: record_id
+            description: Primary key for this table, generated with a concatenation of xxx and xxx
+            tests:
+                - unique:
+                    severity: warn
+                - not_null:
+                    severity: warn
+          - name: damage_euro 
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

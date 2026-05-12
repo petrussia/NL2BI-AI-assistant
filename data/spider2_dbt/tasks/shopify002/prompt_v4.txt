@@ -1,0 +1,218 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate a table that combines Shopify discount code data with price rules, order aggregates, and abandoned checkout aggregates. Include metrics like discount amounts, order counts, shipping costs, and customer data for each discount, handling cases where discount codes apply to both shipping and line items.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `shopify.duckdb`
+    main.int_shopify__customer_email_rollup(email VARCHAR, source_relation VARCHAR, customer_ids VARCHAR, phone_numbers VARCHAR, customer_tags VARCHAR, first_account_created_at TIMESTAMP, last_account_created_at TIMESTAMP, last_updated_at TIMESTAMP, marketing_consent_updated_at TIMESTAMP, last_fivetran_synced TIMESTAMP, is_tax_exempt BOOLEAN, is_verified_email BOOLEAN, first_name VARCHAR, last_name VARCHAR, default_address_id VARCHAR, account_state VARCHAR, note VARCHAR, currency VARCHAR, marketing_consent_state VARCHAR, marketing_opt_in_level VARCHAR)
+    main.shopify__calendar(date_day TIMESTAMP)
+    main.shopify__collection_metafields(collection_id INTEGER, is_deleted BOOLEAN, rule_logic VARCHAR, handle INTEGER, published_scope INTEGER, rules INTEGER, sort_order INTEGER, title VARCHAR, published_at TIMESTAMP, updated_at TIMESTAMP, _fivetran_synced TIMESTAMP, source_relation VARCHAR)
+    main.shopify__customer_metafields(customer_id VARCHAR, email VARCHAR, first_name VARCHAR, last_name VARCHAR, orders_count INTEGER, default_address_id VARCHAR, phone INTEGER, account_state VARCHAR, is_tax_exempt BOOLEAN, total_spent DOUBLE, is_verified_email BOOLEAN, note VARCHAR, currency VARCHAR, marketing_consent_state VARCHAR, marketing_opt_in_level VARCHAR, marketing_consent_updated_at TIMESTAMP, created_timestamp TIMESTAMP, updated_timestamp TIMESTAMP, _fivetran_synced TIMESTAMP, source_relation VARCHAR)
+    main.shopify__inventory_levels(inventory_item_id INTEGER, location_id INTEGER, available_quantity INTEGER, updated_at TIMESTAMP, _fivetran_synced TIMESTAMP, source_relation VARCHAR, sku INTEGER, is_inventory_item_deleted BOOLEAN, cost INTEGER, country_code_of_origin INTEGER, province_code_of_origin INTEGER, is_shipping_required INTEGER, is_inventory_quantity_tracked INTEGER, inventory_item_created_at TIMESTAMP, inventory_item_updated_at TIMESTAMP, location_name VARCHAR, is_location_deleted BOOLEAN, is_location_active BOOLEAN, address_1 VARCHAR, address_2 INTEGER, city VARCHAR, country VARCHAR, country_code VARCHAR, is_legacy_location BOOLEAN, province VARCHAR, province_code VARCHAR, phone INTEGER, zip INTEGER, location_created_at TIMESTAMP, location_updated_at TIMESTAMP)
+    main.shopify__order_lines(order_line_id VARCHAR, index INTEGER, name VARCHAR, order_id VARCHAR, fulfillable_quantity INTEGER, fulfillment_status VARCHAR, is_gift_card BOOLEAN, grams INTEGER, pre_tax_price INTEGER, pre_tax_price_set VARCHAR, price DOUBLE, price_set VARCHAR, product_id VARCHAR, quantity INTEGER, is_shipping_required BOOLEAN, sku VARCHAR, is_taxable BOOLEAN, tax_code VARCHAR, title VARCHAR, total_discount INTEGER, total_discount_set VARCHAR, variant_id VARCHAR, variant_title VARCHAR, variant_inventory_management VARCHAR, vendor VARCHAR, properties VARCHAR, _fivetran_synced TIMESTAMP, source_relation VARCHAR, order_lines_unique_key VARCHAR, restock_types VARCHAR)
+    main.shopify__order_metafields(order_id VARCHAR, user_id VARCHAR, total_discounts DOUBLE, total_discounts_set VARCHAR, total_line_items_price DOUBLE, total_line_items_price_set VARCHAR, total_price DOUBLE, total_price_set VARCHAR, total_tax_set VARCHAR, total_tax INTEGER, source_name VARCHAR, subtotal_price DOUBLE, has_taxes_included BOOLEAN, total_weight INTEGER, total_tip_received FLOAT, landing_site_base_url VARCHAR, location_id VARCHAR, name VARCHAR, note VARCHAR, number INTEGER, order_number INTEGER, cancel_reason INTEGER, cart_token VARCHAR, checkout_token VARCHAR, created_timestamp TIMESTAMP, cancelled_timestamp TIMESTAMP, closed_timestamp TIMESTAMP, processed_timestamp TIMESTAMP, updated_timestamp TIMESTAMP, currency VARCHAR)
+    main.shopify__orders(order_id VARCHAR, user_id VARCHAR, total_discounts DOUBLE, total_discounts_set VARCHAR, total_line_items_price DOUBLE, total_line_items_price_set VARCHAR, total_price DOUBLE, total_price_set VARCHAR, total_tax_set VARCHAR, total_tax INTEGER, source_name VARCHAR, subtotal_price DOUBLE, has_taxes_included BOOLEAN, total_weight INTEGER, total_tip_received FLOAT, landing_site_base_url VARCHAR, location_id VARCHAR, name VARCHAR, note VARCHAR, number INTEGER, order_number INTEGER, cancel_reason INTEGER, cart_token VARCHAR, checkout_token VARCHAR, created_timestamp TIMESTAMP, cancelled_timestamp TIMESTAMP, closed_timestamp TIMESTAMP, processed_timestamp TIMESTAMP, updated_timestamp TIMESTAMP, currency VARCHAR)
+    main.shopify__orders__order_line_aggregates(order_id VARCHAR, source_relation VARCHAR, line_item_count BIGINT, order_total_quantity HUGEINT, order_total_tax DOUBLE, order_total_discount HUGEINT, order_total_shipping DOUBLE, order_total_shipping_with_discounts DOUBLE, order_total_shipping_tax DOUBLE)
+    main.shopify__product_image_metafields(product_image_id INTEGER, product_id INTEGER, height INTEGER, position INTEGER, src VARCHAR, variant_ids VARCHAR, width INTEGER, created_at TIMESTAMP, updated_at TIMESTAMP, _fivetran_synced TIMESTAMP, source_relation VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'shopify'
+version: '0.13.1'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  shopify:
+    +materialized: table
+    intermediate:
+      +materialized: ephemeral
+      int_shopify__customer_email_rollup:
+        +materialized: view # so we can use the dbt_utils.star macro
+
+profile: 'shopify'
+
+vars:
+  shopify_using_fulfillment_event: true # set to true when regenerating docs
+  shopify_using_all_metafields: true # set to true when regenerating docs
+  shopify_schema: main
+  shopify_source:
+    shopify_customer_identifier: "shopify_customer_data"
+    shopify_order
+
+
+=== INTERMEDIATE models (14) ===
+  - models/intermediate/int_shopify__customer_email_rollup.sql
+    cols: customer_index, email, customer_ids, phone_numbers, customer_tags, first_account_created_at, last_account_created_at, last_updated_at, marketing_consent_updated_at, last_fivetran_synced, is_tax_exempt, is_verified_email
+    --- head:
+    with customers as (
+
+        select 
+            *,
+            row_number() over(
+  - models/intermediate/int_shopify__daily_abandoned_checkouts.sql
+    cols: date, date_day, count_abandoned_checkouts, count_customers_abandoned_checkout, count_customer_emails_abandoned_checkout
+    --- head:
+    with abandoned_checkout as (
+
+        select *
+        from {{ var('shopify_abandoned_checkout') }}
+
+  - models/intermediate/int_shopify__daily_fulfillment.sql
+    cols: date, date_day, count_fulfillment_
+    --- head:
+    {{ config(enabled=var('shopify_using_fulfillment_event', false)) }}
+
+    with fulfillment_event as (
+
+        select *
+  - models/intermediate/int_shopify__daily_orders.sql
+    cols: date, date_day, count_orders, count_line_items, avg_line_item_count, count_customers, count_customer_emails, order_adjusted_total, avg_order_value, shipping_cost, order_adjustment_amount, order_adjustment_tax_amount, refund_subtotal, refund_total_tax, total_discounts, avg_discount, shipping_discount_amount, avg_shipping_discount_amount, ...(30 total)
+    --- head:
+    with orders as (
+
+        select *
+        from {{ ref('shopify__orders') }}
+
+  - models/intermediate/int_shopify__discounts__abandoned_checkouts.sql
+    cols: price, total_abandoned_checkout_discount_amount, total_abandoned_checkout_line_items_price, total_abandoned_checkout_shipping_price, count_abandoned_checkout_customers, count_abandoned_checkout_customer_emails, count_abandoned_checkouts
+    --- head:
+    with abandoned_checkout as (
+
+        select *
+        from {{ var('shopify_abandoned_checkout') }}
+
+  - models/intermediate/int_shopify__discounts__order_aggregates.sql
+    cols: avg_order_discount_amount, total_order_discount_amount, total_order_line_items_price, total_order_shipping_cost, total_order_refund_amount, count_customers, count_customer_emails, count_orders
+    --- head:
+    with order_discount_code as (
+
+        select *
+        from {{ var('shopify_order_discount_code') }}
+    ),
+  - models/intermediate/int_shopify__emails__order_aggregates.sql
+    cols: customers, kind, currency_exchange_calculated_amount, email, first_order_timestamp, most_recent_order_timestamp, avg_order_value, lifetime_total_spent, lifetime_total_refunded, lifetime_count_orders, avg_quantity_per_order, lifetime_total_tax, avg_tax_per_order, lifetime_total_discount, avg_discount_per_order, lifetime_total_shipping, avg_shipping_per_order, lifetime_total_shipping_with_discounts, ...(22 total)
+    --- head:
+    with orders as (
+
+        select *
+        from {{ var('shopify_order') }}
+
+  - models/intermediate/int_shopify__inventory_level__aggregates.sql
+    cols: quantity, subtotal, email, order_created_timestamp, fulfillment_status, subtotal_sold_refunds, quantity_sold_refunds, string, subtotal_sold, quantity_sold, count_distinct_orders, count_distinct_customers, count_distinct_customer_emails, first_order_timestamp, last_order_timestamp, count_fulfillment_
+    --- head:
+    with order_lines as (
+
+        select *
+        from {{ var('shopify_order_line') }}
+    ),
+  - models/intermediate/int_shopify__order__shipping_aggregates.sql
+    cols: shipping_price, discounted_shipping_price, shipping_tax
+    --- head:
+    with order_shipping_line as (
+
+        select
+            order_id,
+            source_relation,
+  - models/intermediate/int_shopify__product__order_line_aggregates.sql
+    cols: quantity_sold, subtotal_sold, quantity_sold_net_refunds, subtotal_sold_net_refunds, first_order_timestamp, most_recent_order_timestamp, product_total_discount, product_total_tax, avg_quantity_per_order_line, product_avg_discount_per_order_line, product_avg_tax_per_order_line
+    --- head:
+    with order_lines as (
+
+        select *
+        from {{ ref('shopify__order_lines') }}
+
+  - models/intermediate/int_shopify__products_with_aggregates.sql
+    cols: collections, tags, count_variants, count_images, has_product_image
+    --- head:
+    with products as (
+
+        select *
+        from {{ var('shopify_product') }}
+    ), 
+  - models/intermediate/shopify__customers__order_aggregates.sql
+    cols: customers, kind, currency_exchange_calculated_amount, customer_tags, first_order_timestamp, most_recent_order_timestamp, avg_order_value, lifetime_total_spent, lifetime_total_refunded, lifetime_count_orders, avg_quantity_per_order, lifetime_total_tax, avg_tax_per_order, lifetime_total_discount, avg_discount_per_order, lifetime_total_shipping, avg_shipping_per_order, lifetime_total_shipping_with_discounts, ...(22 total)
+    --- head:
+    with orders as (
+
+        select *
+        from {{ var('shopify_order') }}
+        where customer_id is not null
+  - models/intermediate/shopify__orders__order_line_aggregates.sql
+    cols: price, line_item_count, order_total_quantity, order_total_tax, order_total_discount, order_total_shipping, order_total_shipping_with_discounts, order_total_shipping_tax
+    --- head:
+    {{ config(materialized='table') }}
+
+    with order_line as (
+
+        select *
+  - models/intermediate/shopify__orders__order_refunds.sql
+    --- head:
+    with refunds as (
+
+        select *
+        from {{ var('shopify_refund') }}
+
+
+=== FINAL models (17) ===
+  - macros/get_metafields.sql
+    cols: metafield_
+    --- body (first 900 chars):
+    {% macro get_metafields(source_object, reference_value, lookup_object="stg_shopify__metafield", key_field="metafield_reference", key_value="value", reference_field="owner_resource") %}
+
+    {% set pivot_fields = dbt_utils.get_column_values(table=ref(lookup_object), column=key_field, where="lower(" ~ reference_field ~ ") = lower('" ~ reference_value ~ "')") %}
+
+    {% set source_columns = adapter.get_columns_in_relation(ref(source_object)) %}
+    {% set source_column_count = source_columns | length %}
+
+    with source_table as (
+        select *
+        from {{ ref(source_object) }}
+    )
+
+    {% if pivot_fields is not none %},
+    lookup_object as (
+        select 
+            *,
+            {{ dbt_utils.pivot(
+                    column=key_field, 
+                    values=pivot_fields, 
+                    agg='', 
+                    then_value=key_value, 
+                    else_value="null",
+                    quote_identifiers=false
+
+  - macros/shopify_is_databricks_sql_warehouse.sql
+    --- body (first 900 chars):
+    {% 
+... (truncated)

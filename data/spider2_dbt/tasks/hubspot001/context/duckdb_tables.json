@@ -1,0 +1,1800 @@
+{
+  "hubspot.duckdb": [
+    {
+      "schema": "main",
+      "table": "company_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_address_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_annualrevenue",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "company_property_history_data",
+      "columns": [
+        {
+          "name": "company_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_data",
+      "columns": [
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_firstname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_lastname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_email_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_jobtitle",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_annualrevenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hs_calculated_merged_vids",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_created_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_list_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deleteable",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "dynamic",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "metadata_error",
+          "type": "INTEGER"
+        },
+        {
+          "name": "metadata_last_processing_state_change_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "metadata_last_size_change_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "metadata_processing",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "metadata_size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "offsett",
+          "type": "INTEGER"
+        },
+        {
+          "name": "portal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_list_member_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_list_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "added_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_merge_audit_data",
+      "columns": [
+        {
+          "name": "canonical_vid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vid_to_merge",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_properties_moved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_property_history_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_company_data",
+      "columns": [
+        {
+          "name": "company_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_contact_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_data",
+      "columns": [
+        {
+          "name": "deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deal_pipeline_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deal_pipeline_stage_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "portal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_dealname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_closedate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_createdate",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_pipeline_data",
+      "columns": [
+        {
+          "name": "pipeline_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "display_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_pipeline_stage_data",
+      "columns": [
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "closed_won",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "display_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "probability",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "stage_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pipeline_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_property_history_data",
+      "columns": [
+        {
+          "name": "deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "deal_stage_data",
+      "columns": [
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "date_entered",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_campaign_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "content_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_included",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_queued",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_bounce_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_click_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "referer",
+          "type": "INTEGER"
+        },
+        {
+          "name": "browser",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "caused_by_created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "caused_by_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "email_campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "obsoleted_by_created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "obsoleted_by_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "portal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sent_by_created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sent_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "filtered_event",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "recipient",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_deferred_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "attempt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_delivered_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "smtp_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_dropped_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "drop_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bcc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "drop_message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reply_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_forward_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "browser",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_open_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "browser",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_print_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "browser",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_agent",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_sent_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bcc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reply_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_spam_report_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_agent",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_event_status_change_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bounced",
+          "type": "INTEGER"
+        },
+        {
+          "name": "portal_subscription_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "requested_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscriptions",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_call_data",
+      "columns": [
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_company_data",
+      "columns": [
+        {
+          "name": "company_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "engagement_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_contact_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "engagement_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "portal_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_deal_data",
+      "columns": [
+        {
+          "name": "deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "engagement_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_email_data",
+      "columns": [
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_all_owner_ids",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hs_all_team_ids",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hs_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_email_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_email_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_lastmodifieddate",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_modified_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hs_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hubspot_owner_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hubspot_team_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_meeting_data",
+      "columns": [
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_from_link_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pre_meeting_prospect_reminders",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "web_conference_meeting_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "meeting_outcome",
+          "type": "INTEGER"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_note_data",
+      "columns": [
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_body_preview",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_lastmodifieddate",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_note_body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hubspot_owner_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hubspot_team_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "engagement_task_data",
+      "columns": [
+        {
+          "name": "engagement_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_object_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_task_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hubspot_owner_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hubspot_team_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "task_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_engagement_source",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "merged_deal_data",
+      "columns": [
+        {
+          "name": "deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "merged_deal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "owner_data",
+      "columns": [
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "portal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "property_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "calculated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "field_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hubspot_defined",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hubspot_object",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "show_currency_symbol",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "property_option_data",
+      "columns": [
+        {
+          "name": "label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_company_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticket_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_contact_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticket_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "property_closed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_createdate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_first_agent_reply_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "property_hs_pipeline",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hs_pipeline_stage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hs_ticket_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_hs_ticket_priority",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_hubspot_owner_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_content",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_deal_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticket_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deal_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_engagement_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticket_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "engagement_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_pipeline_data",
+      "columns": [
+        {
+          "name": "pipeline_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "display_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "object_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_pipeline_stage_data",
+      "columns": [
+        {
+          "name": "stage_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "display_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pipeline_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ticket_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ticket_property_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticket_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp_instant",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ]
+}

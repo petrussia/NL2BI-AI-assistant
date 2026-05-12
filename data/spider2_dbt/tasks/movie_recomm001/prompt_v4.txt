@@ -1,0 +1,151 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        combine movie_recomm original programs from various genres, clean up their titles, and standardize premiere dates while also categorizing them by genre and renewal status
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `movie_recomm.duckdb`
+    main.all_casts(movie_id INTEGER, person_id INTEGER, job_id INTEGER, role VARCHAR, position INTEGER)
+    main.all_categories(id INTEGER, parent_id VARCHAR, root_id INTEGER)
+    main.all_characters(id INTEGER, name VARCHAR)
+    main.all_movie_aliases_iso(movie_id INTEGER, name VARCHAR, language_iso_639_1 VARCHAR, official_translation INTEGER)
+    main.all_people(id INTEGER, name VARCHAR, birthday VARCHAR, deathday VARCHAR, gender VARCHAR)
+    main.category_names(category_id INTEGER, name VARCHAR, language_iso_639_1 VARCHAR)
+    main.job_names(job_id INTEGER, name VARCHAR, language_iso_639_1 VARCHAR)
+    main.movie_categories(movie_id INTEGER, category_id INTEGER)
+    main.movie_keywords(movie_id INTEGER, category_id INTEGER)
+    main.movielens_movies(movieId INTEGER, title VARCHAR, genres VARCHAR)
+    main.movielens_ratings(userId INTEGER, movieId INTEGER, rating DOUBLE, timestamp INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'movie_recomm'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'movie_recomm'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths:
+
+
+=== FINAL models (6) ===
+  - models/movie_recommedation/acted_by.sql
+    --- body (first 900 chars):
+    -- get those cast in all_casts with job_id = 15 (actor)
+
+    SELECT movie_id AS ":SRC_VID(string)", concat('p_', all_casts."person_id") AS ":DST_VID(string)"
+    FROM all_casts
+    WHERE job_id = 15
+
+  - models/movie_recommedation/directed_by.sql
+    --- body (first 900 chars):
+    -- get those cast in all_casts with job_id = 21 (director)
+    --
+    SELECT movie_id AS ":SRC_VID(string)", concat('p_', all_casts."person_id") AS ":DST_VID(string)"
+    FROM all_casts
+    WHERE job_id = 21
+
+  - models/movie_recommedation/genres.sql
+    --- body (first 900 chars):
+    -- get genres and filter only name in english
+
+    SELECT concat('g_', category_names."category_id") AS ":VID(string)", name AS "genre.name"
+    FROM category_names
+    WHERE language_iso_639_1 = 'en'
+
+  - models/movie_recommedation/movies.sql
+    --- body (first 900 chars):
+    -- get movies and filter only title in english
+    --
+    SELECT movie_id AS ":VID(string)", name AS "movie.name"
+    FROM all_movie_aliases_iso
+    WHERE language_iso_639_1 = 'en'
+
+  - models/movie_recommedation/people.sql
+    --- body (first 900 chars):
+    -- get people and add "p_" prefix to id
+    -- "id","name","birthday","deathday","gender"
+    SELECT concat('p_', all_people."id") AS ":VID(string)", name AS "person.name", birthday AS "person.birthdate"
+    FROM all_people
+
+  - models/movie_recommedation/with_genre.sql
+    --- body (first 900 chars):
+    -- add prefix "g_" for category_id from movie_categories table
+    -- "movie_id","category_id"
+
+    SELECT movie_id AS ":SRC_VID(string)", concat('g_', movie_categories."category_id") AS ":DST_VID(string)"
+    FROM movie_categories
+
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'movie_recomm'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'movie_recomm'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this proj
+
+
+--- models/movie_recommedation/schema.yml (head) ---
+
+version: 2
+
+models:
+  - name: user_watched_movies
+    description: |
+      This model creates a relationship between users and the movies they have watched from the MovieLens dataset. 
+      It joins the MovieLens dataset with the OMDB dataset based on movie titles, considering only the English language movies.
+      The movie titles from the MovieLens dataset have the release year stripped and are then matched with the OMDB dataset 
+      using a partial title match in English (ISO 639-1 langu
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,27 @@
++++ b/models/intermediate/int_sap__0fi_gl_10_unpivot.sql
+@@ -1,6 +1,15 @@
+ with sums as ( 
+-    select * 
++    select 
++        belnr,
++        bukrs,
++        gjahr,
++        mandt,
++        shkzg,
++        sum(dmbtr) as amount,
++        sum(wrbtr) as wrbtr,
++        sum(kzbtr) as kzbtr
++    from {{ ref('int_sap__0fi_gl_10_sums') }}
++    group by belnr, bukrs, gjahr, mandt, shkzg
+ )
+ select 
+     belnr,
+@@ -14,7 +23,7 @@ select 
+     bukrs,
+     gjahr,
+     mandt,
+-    shkzg,
++    shkzg,
+     case when shkzg = 'A' then amount else 0 end as debit_amount,
+     case when shkzg = 'H' then amount else 0 end as credit_amount,
+     sum(amount) over (partition by belnr, bukrs, gjahr, mandt) as accumulated_balance,

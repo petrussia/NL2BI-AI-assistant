@@ -1,0 +1,290 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I generate a dataset that associates sales transactions with their respective regional managers, including details about products, customers, shipping, and geographical data?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `superstore.duckdb`
+    main.dim_calendar(date DATE, date_id INTEGER, year INTEGER, quarter INTEGER, month INTEGER, week INTEGER, dow INTEGER, week_day VARCHAR)
+    main.dim_customers(id BIGINT, customer_id VARCHAR, customer_name VARCHAR)
+    main.dim_geo(id BIGINT, country VARCHAR, city VARCHAR, state VARCHAR, region_id BIGINT, postal_code INTEGER)
+    main.dim_products(id BIGINT, product_id VARCHAR, product_name VARCHAR, product_category VARCHAR, product_subcategory VARCHAR, segment VARCHAR)
+    main.dim_regional_managers(id BIGINT, manager_name VARCHAR, region_id BIGINT)
+    main.dim_regions(region_id BIGINT, region_name VARCHAR)
+    main.dim_shipping(id BIGINT, ship_mode VARCHAR)
+    main.fct_returns(id BIGINT, order_id VARCHAR)
+    main.fct_sales(id BIGINT, order_id VARCHAR, order_date_id INTEGER, ship_date_id INTEGER, sales DOUBLE, profit DOUBLE, quantity INTEGER, discount DOUBLE, dim_products_id BIGINT, dim_customers_id BIGINT, dim_shipping_id BIGINT, dim_geo_id BIGINT)
+    main.orders(row_id INTEGER, order_id VARCHAR, order_date VARCHAR, ship_date VARCHAR, ship_mode VARCHAR, customer_id VARCHAR, customer_name VARCHAR, segment VARCHAR, country VARCHAR, city VARCHAR, state VARCHAR, postal_code INTEGER, region VARCHAR, product_id VARCHAR, category VARCHAR, subcategory VARCHAR, product_name VARCHAR, sales DOUBLE, quantity INTEGER, discount DOUBLE, profit DOUBLE)
+    main.returned_orders(Returned VARCHAR, order_id VARCHAR)
+    main.sales_managers(Person VARCHAR, Region VARCHAR)
+    main.stg_orders(row_id INTEGER, order_id VARCHAR, order_date VARCHAR, ship_date VARCHAR, ship_mode VARCHAR, customer_id VARCHAR, customer_name VARCHAR, segment VARCHAR, country VARCHAR, city VARCHAR, state VARCHAR, postal_code INTEGER, region VARCHAR, product_id VARCHAR, product_category VARCHAR, product_subcategory VARCHAR, product_name VARCHAR, sales DOUBLE, quantity INTEGER, discount DOUBLE, profit DOUBLE)
+    main.stg_returned_orders(order_id VARCHAR)
+    main.stg_sales_managers(manager_name VARCHAR, Region VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'superstore'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_superstore_project'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+mode
+
+
+=== STAGING models (3) ===
+  - models/staging/stg_orders.sql
+    cols: postal_code, product_category, product_subcategory
+    --- head:
+    select
+         row_id
+        ,order_id
+        ,order_date
+        ,ship_date
+  - models/staging/stg_returned_orders.sql
+    --- head:
+    select
+         distinct order_id
+
+    from {{ source('superstore', 'returned_orders') }}
+  - models/staging/stg_sales_managers.sql
+    cols: manager_name
+    --- head:
+    select
+         person as manager_name
+        ,region
+
+    from {{ source('superstore', 'sales_managers') }}
+
+=== FINAL models (7) ===
+  - models/marts/core/dim_calendar.sql
+    cols: date, date_id, year, quarter, month, week, dow, week_day
+    --- body (first 900 chars):
+    with recursive date_cte as (
+        select '2000-01-01'::date as date
+        union all
+        select date + INTERVAL 1 DAY
+        from date_cte
+        where date <= '2030-01-01'
+    )
+
+    select
+        date::date as date,
+        strftime('%Y%m%d', date)::int as date_id,
+        extract(year from date)::int as year,
+        extract(quarter from date)::int as quarter,
+        extract(month from date)::int as month,
+        extract(week from date)::int as week,
+        extract(isodow from date)::int as dow,
+        strftime('%A', date) as week_day
+    from date_cte
+
+  - models/marts/core/dim_customers.sql
+    cols: id
+    --- body (first 900 chars):
+    with customers as (
+        select
+            distinct customer_id
+            ,customer_name
+        from {{ ref('stg_orders') }}
+    )
+    select
+        100 + ROW_NUMBER() OVER(order by null) as id
+        ,*
+    from customers 
+  - models/marts/core/dim_geo.sql
+    cols: o, id
+    --- body (first 900 chars):
+    with geo as (
+        select
+             distinct country
+             ,city
+             ,state
+             ,r.region_id
+             ,postal_code
+
+        from {{ ref('stg_orders') }} as o
+        join {{ ref('dim_regions') }} r ON o.region = r.region_name
+    )
+
+    select 
+    	10 + ROW_NUMBER() over(order by null) as id
+    	,*
+    from geo
+  - models/marts/core/dim_products.sql
+    cols: id
+    --- body (first 900 chars):
+    with products as (
+        select
+             distinct product_id
+            ,product_name
+            ,product_category
+            ,product_subcategory
+            ,segment
+
+        from {{ ref('stg_orders') }}
+    )
+    select
+        100 + ROW_NUMBER() OVER(order by null) as id
+        ,*
+    from products
+  - models/marts/core/dim_regions.sql
+    cols: region_name, region_id
+    --- body (first 900 chars):
+    with regions as (
+        select
+            distinct region as region_name
+        from {{ ref('stg_sales_managers') }}
+    )
+    select
+        100 + ROW_NUMBER() OVER(order by null) as region_id
+        ,*
+    from regions
+  - models/marts/core/dim_shipping.sql
+    cols: id
+    --- body (first 900 chars):
+    with shipping as (
+        select
+            distinct ship_mode
+        from {{ ref('stg_orders') }}
+    )
+    select
+        100 + ROW_NUMBER() OVER(order by null) as id
+        ,*
+    from shipping
+  - models/marts/core/fct_returns.sql
+    cols: id
+    --- body (first 900 chars):
+    with returned_orders as (
+        select
+            distinct order_id
+
+        from {{ ref('stg_returned_orders') }}
+    )
+    select
+        100 + ROW_NUMBER() OVER(order by null) as id
+        ,*
+    from returned_orders
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'superstore'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_superstore_project'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in t
+
+
+--- models/marts/core/schema.yml (head) ---
+version: 2
+
+models:
+  - name: dim_regional_managers
+    description: >
+      This model represents a dimension table for regional managers, 
+      linking sales managers to the respective regions they manage.
+    columns:
+      - name: id
+        description: "Unique identifier for each regional manager."
+        tests:
+          - unique
+          - not_null
+        type: integer
+      - name: manager_name
+        description: "Name of the sales manager."
+        type: string
+      - name: regi
+
+
+--- models/staging/src_superstore.yml (head) ---
+version: 2
+
+sources:
+    - name: superstore
+      schema: main
+      tables:
+
+          - name: orders
+            description: Raw orders data
+            columns:
+              - name: order_id
+                description: Order identifier
+                tests:
+                  - not_null
+              - name: customer_id
+                description: Identifier of customer who made the order
+                tests:
+                  - not_null
+              - name: product_id
+
+
+
+--- models/staging/stg_superstore.yml (head) ---
+version: 2
+
+models:
+  - name: stg_sales_managers
+    description: Staged data of regional sales managers
+    columns: 
+      - name: manager_name
+        description: First name and last name of regional sales managers
+      - name: region
+        description: Region a sales manager responsible for
+
+  - name: stg_returned_orders
+    description: Staged data of returned orders. Has just 1 field with ID of return order.
+    columns:
+      - name: order_id
+        description: Identifier of retur
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

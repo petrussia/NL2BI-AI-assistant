@@ -1,0 +1,299 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Please generate a report on enhanced data of job and application.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `greenhouse.duckdb`
+    main.activity(candidate_id BIGINT, id BIGINT, _fivetran_synced VARCHAR, body VARCHAR, created_at TIMESTAMP, subject INTEGER, user_id BIGINT)
+    main.application(id BIGINT, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, applied_at TIMESTAMP, candidate_id BIGINT, credited_to_user_id BIGINT, current_stage_id BIGINT, custom_are_you_currently_authorized_to_work_in_the_us_ INTEGER, custom_how_did_you_hear_about_fivetran_ INTEGER, custom_what_is_your_preferred_pronoun_ INTEGER, is_deleted BOOLEAN, last_activity_at TIMESTAMP, location_address INTEGER, prospect BOOLEAN, prospect_owner_id BIGINT, prospect_pool_id BIGINT, prospect_stage_id BIGINT, rejected_at TIMESTAMP, rejected_reason_id BIGINT, source_id BIGINT, status VARCHAR)
+    main.application_history(application_id BIGINT, updated_at TIMESTAMP, _fivetran_synced VARCHAR, new_stage_id BIGINT, new_status VARCHAR)
+    main.attachment(candidate_id BIGINT, index BIGINT, _fivetran_synced VARCHAR, filename VARCHAR, type VARCHAR, url VARCHAR)
+    main.candidate(id BIGINT, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, company VARCHAR, coordinator_id BIGINT, created_at TIMESTAMP, first_name VARCHAR, is_private BOOLEAN, last_activity TIMESTAMP, last_name VARCHAR, new_candidate_id BIGINT, photo_url INTEGER, recruiter_id BIGINT, title INTEGER, updated_at TIMESTAMP)
+    main.candidate_tag(candidate_id BIGINT, tag_id BIGINT, _fivetran_synced VARCHAR)
+    main.department(id BIGINT, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, external_id INTEGER, name VARCHAR, parent_id BIGINT)
+    main.eeoc(application_id BIGINT, _fivetran_synced VARCHAR, disability_status_description VARCHAR, disability_status_id BIGINT, gender_description VARCHAR, gender_id BIGINT, race_description VARCHAR, race_id BIGINT, submitted_at TIMESTAMP, veteran_status_id BIGINT, veteran_status_message INTEGER, veteran_status_description VARCHAR)
+    main.email_address(candidate_id BIGINT, index BIGINT, _fivetran_synced VARCHAR, type VARCHAR, value VARCHAR)
+    main.greenhouse__interview_enhanced(_fivetran_synced VARCHAR, application_id BIGINT, created_at TIMESTAMP, end_at TIMESTAMP, scheduled_interview_id BIGINT, interview_id BIGINT, location INTEGER, organizer_user_id BIGINT, start_at TIMESTAMP, status VARCHAR, last_updated_at TIMESTAMP, job_stage_id BIGINT, interview_name VARCHAR, duration_interview_minutes BIGINT, scorecard_id BIGINT, candidate_id BIGINT, overall_recommendation VARCHAR, scorecard_submitted_at TIMESTAMP, scorecard_submitted_by_user_id BIGINT, scorecard_last_updated_at TIMESTAMP, interviewer_user_id BIGINT, interview_scorecard_key VARCHAR, interviewer_name VARCHAR, scorecard_submitter_name VARCHAR, organizer_name VARCHAR, interviewer_email VARCHAR, candidate_name VARCHAR, job_stage VARCHAR, application_current_job_stage VARCHAR, current_application_status VARCHAR)
+    main.greenhouse__interview_scorecard_detail(_fivetran_synced VARCHAR, index BIGINT, attribute_name VARCHAR, note INTEGER, rating VARCHAR, scorecard_id BIGINT, attribute_category VARCHAR, overall_recommendation VARCHAR, candidate_name VARCHAR, interviewer_name VARCHAR, interview_name VARCHAR, interview_start_at TIMESTAMP, scorecard_submitted_at TIMESTAMP, application_id BIGINT, job_title VARCHAR, job_id BIGINT, hiring_managers VARCHAR, interview_scorecard_key VARCHAR, scorecard_attribute_key VARCHAR)
+    main.hiring_team(job_id BIGINT, role VARCHAR, user_id BIGINT, _fivetran_synced VARCHAR)
+    main.int_greenhouse__candidate_users(_fivetran_synced VARCHAR, current_company VARCHAR, coordinator_user_id BIGINT, created_at TIMESTAMP, full_name VARCHAR, candidate_id BIGINT, is_private BOOLEAN, last_activity_at TIMESTAMP, new_candidate_id BIGINT, recruiter_user_id BIGINT, current_title INTEGER, last_updated_at TIMESTAMP, phone VARCHAR, email VARCHAR, resume_url VARCHAR, linkedin_url VARCHAR, github_url VARCHAR, coordinator_name VARCHAR, recruiter_name VARCHAR, coordinator_email VARCHAR, recruiter_email VARCHAR)
+    main.interview(id BIGINT, job_stage_id BIGINT, _fivetran_synced VARCHAR, interview_kit_content INTEGER, name VARCHAR)
+    main.job(id BIGINT, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, closed_at TIMESTAMP, confidential BOOLEAN, created_at TIMESTAMP, custom_employee_level_designation VARCHAR, custom_employment_type VARCHAR, custom_recruiting_start_date INTEGER, custom_salary_expectations VARCHAR, custom_stock_options INTEGER, name VARCHAR, notes VARCHAR, requisition_id INTEGER, status VARCHAR, updated_at TIMESTAMP, custom_cost_center INTEGER)
+    main.job_application(application_id BIGINT, job_id BIGINT, _fivetran_synced VARCHAR)
+    main.job_department(department_id BIGINT, job_id BIGINT, _fivetran_synced VARCHAR)
+    main.job_office(job_id BIGINT, office_id BIGINT, _fivetran_synced VARCHAR)
+    main.job_opening(id BIGINT, job_id BIGINT, _fivetran_synced VARCHAR, application_id BIGINT, close_reason_id BIGINT, closed_at TIMESTAMP, opened_at TIMESTAMP, opening_id INTEGER, status VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'greenhouse'
+version: 0.6.0
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: "greenhouse"
+
+vars:
+  greenhouse_schema: main
+  greenhouse_source:
+    greenhouse_activity_identifier: "activity"
+    greenhouse_pplication_identifier: "application"
+    greenhouse_application_history_identifier: "application_history"
+    greenhouse_attachment_identifier: "attachment"
+    greenhouse_candidate_identifier: "candidate"
+    greenhouse_candidate_tag_identifier: "candidate_tag"
+    greenhouse_department_identifier: "department"
+    greenhouse_eeoc_identifier: "eeoc"
+    greenhou
+
+
+=== INTERMEDIATE models (12) ===
+  - models/intermediate/application/int_greenhouse__application_info.sql
+    cols: count_activities, candidate_created_at, candidate_tags, current_job_stage, sourced_from, sourced_from_type, job_status, job_requisition_id, job_sourcers, job_offices, job_departments, job_parent_departments, prospect_pool, prospect_stage, candidate_gender, candidate_disability_status, candidate_race, candidate_veteran_status, ...(19 total)
+    --- head:
+    with application as (
+
+        select *
+        from {{ ref('int_greenhouse__application_users') }}
+    ),
+  - models/intermediate/application/int_greenhouse__application_users.sql
+    cols: referrer_name, prospect_owner_name, referrer, prospect_owner
+    --- head:
+    with greenhouse_user as (
+
+        select *
+        from {{ ref('int_greenhouse__user_emails') }}
+    ),
+  - models/intermediate/candidate/int_greenhouse__candidate_contacts.sql
+    cols: phone, email, resume_row_num, url, linkedin_row_num, github_row_num, linkedin_url, github_url, resume_url
+    --- head:
+    with candidate as (
+
+        select *
+        from {{ ref('stg_greenhouse__candidate') }}
+    ),
+  - models/intermediate/candidate/int_greenhouse__candidate_tags.sql
+    cols: tags
+    --- head:
+    with greeenhouse_tag as (
+
+        select *
+        from {{ ref('stg_greenhouse__tag') }}
+    ),
+  - models/intermediate/candidate/int_greenhouse__candidate_users.sql
+    cols: coordinator_name, recruiter_name, coordinator_email, recruiter_email, coordinator, recruiter
+    --- head:
+    {{
+      config(
+        materialized = 'table'
+        )
+    }}
+  - models/intermediate/int_greenhouse__user_emails.sql
+    cols: email
+    --- head:
+    with user_email as (
+        select *
+        from {{ ref('stg_greenhouse__user_email') }}
+    ),
+
+  - models/intermediate/interview/int_greenhouse__interview_scorecard.sql
+    cols: interview_name, duration_interview_minutes, scorecard_submitted_at, scorecard_submitted_by_user_id, scorecard_last_updated_at, interview_scorecard_key
+    --- head:
+    with scorecard as (
+
+        select *
+        from {{ ref('stg_greenhouse__scorecard') }}
+    ),
+  - models/intermediate/interview/int_greenhouse__interview_users.sql
+    cols: interviewer_name, scorecard_submitter_name, organizer_name, interviewer_email, interviewer, scorecard_submitter, organizer
+    --- head:
+    with interview as (
+
+        select *
+        from {{ ref('int_greenhouse__interview_scorecard') }}
+    ),
+  - models/intermediate/job/int_greenhouse__hiring_team.sql
+    cols: recruiter_name, hiring_manager_name, coordinator_name, sourcer_name, hiring_managers, sourcers, recruiters, coordinators
+    --- head:
+    with hiring_team as (
+
+        select *
+        from {{ ref('stg_greenhouse__hiring_team') }}
+    ),
+  - models/intermediate/job/int_greenhouse__job_departments.sql
+    cols: parent_department_name, sub, parent, departments, parent_departments
+    --- head:
+    with job_department as (
+
+        select *
+        from {{ ref('stg_greenhouse__job_department') }}
+    ),
+  - models/intermediate/job/int_greenhouse__job_info.sql
+    cols: office_locations
+    --- head:
+    with hiring_team as (
+
+        select *
+        from {{ ref('int_greenhouse__hiring_team') }}
+    ),
+  - models/intermediate/job/int_greenhouse__job_offices.sql
+    cols: offices, locations
+    --- head:
+    with job_office as (
+
+        select *
+        from {{ ref('stg_greenhouse__job_office') }}
+    ),
+
+=== FINAL models (2) ===
+  - models/greenhouse__interview_enhanced.sql
+    cols: candidate_name, job_stage, application_current_job_stage, current_application_status, interviewer_is_hiring_manager
+    --- body (first 900 chars):
+    with interview as (
+
+        select *
+        from {{ ref('int_greenhouse__interview_users') }}
+    ),
+
+    job_stage as (
+
+        select *
+        from {{ ref('stg_greenhouse__job_stage') }}
+    ),
+
+    -- this has job info!
+    application as (
+
+        select *
+        from {{ ref('int_greenhouse__application_info') }}
+    ),
+
+    final as (
+
+        select
+            interview.*,
+            application.full_name as candidate_name,
+            job_stage.stage_name as job_stage,
+            application.current_job_stage as application_current_job_stage,
+            application.status as current_application_status,
+            application.job_title,
+            application.job_id,
+
+            application.hiring_managers like ('%' || interview.interviewer_name || '%')  as interviewer_is_hiring_manager,
+            application.hiring_managers,
+            application.recruiter_name
+            ,
+            application.job_offices
+
+            ,
+            application.job_departments,
+
+  - models/greenhouse__interview_scorecard_detail.sql
+    cols: interview_start_at, scorecard_attribute_key
+    --- body (first 900 chars):
+    with interview as (
+
+        select *
+        from {{ ref('greenhouse__interview_enhanced') }}
+    ),
+
+    scorecard_attribute as (
+
+        select *
+        from {{ ref('stg_greenhouse__scorecard_attribute') }}
+    ),
+
+    join_w_attributes as (
+
+        select
+            scorecard_attribute.*,
+            interview.overall_recommendation,
+
+            interview.candidate_name,
+            interview.interviewer_name,
+            interview.interview_name,
+
+            interview.start_at as interview_start_at,
+            interview.scorecard_submitted_at,
+
+            interview.application_id,
+            interview.job_title,
+            interview.job_id,
+            interview.hiring_managers,
+            interview.interview_scorecard_key
+
+        from interview left join scorecard_attribute using(scorecard_id)
+    ),
+
+    final as (
+
+        select 
+            *,
+            {{ dbt_utils.generate_surrogate_key(['interview_scorecard_key', 'index']) }} as scorecard_attribut
+
+--- dbt_project.yml (head) ---
+name: 'greenhouse'
+version: 0.6.0
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: "greenhouse"
+
+vars:
+  greenhouse_schema: main
+  greenhouse_source:
+    greenhouse_activity_identifier: "activity"
+    greenhouse_pplication_identifier: "application"
+    greenhouse_application_history_identifier: "application_history"
+    greenhouse_attachment_identifier: "attachment"
+    greenhouse_candidate_identifier: "candidate"
+    greenhouse_candidate_tag_identifier: "candidate_tag"
+
+
+
+--- models/greenhouse.yml (head) ---
+version: 2
+
+models:
+  - name: greenhouse__application_enhanced
+    description: >
+      Table capturing all candidate and prospect applications. Note that prospect applications can be
+      associated with 0-many jobs. Also, a prospect that converts to a candidate application will have 2 
+      records (the difference is `is_prospect`).
+    columns:
+      - name: applied_at
+        description: Timestamp of when the application was submitte
+... (truncated)

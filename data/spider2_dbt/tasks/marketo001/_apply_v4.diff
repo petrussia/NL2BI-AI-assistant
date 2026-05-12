@@ -1,0 +1,42 @@
++++ b/models/marketo__email_sends.sql
+@@ -1,6 +1,7 @@
+ with sends as (
+     select *
+     from {{ var('activity_send_email') }}
++    qualify row_number() over (partition by email_template_id, lead_id order by activity_timestamp desc) = 1
+ ),
+ opens as (
+     select *
+@@ -14,6 +15,7 @@
+     select *
+     from {{ var('activity_unsubscribe_email') }}
+ ),
++email_stats as (
++    select *
++    from {{ ref('marketo__email_stats__by_sent_email') }}
++),
+ final as (
+     select
+         s.email_template_id,
+@@ -22,6 +26,12 @@
+         o.count_opens,
+         b.count_bounces,
+         c.count_clicks,
++        d.count_deliveries,
++        u.count_unsubscribes,
++        es.count_sends,
++        es.count_opens,
++        es.count_bounces,
++        es.count_clicks,
++        es.count_deliveries,
++        es.count_unsubscribes,
+         s.activity_timestamp
+     from sends s
+     left join opens o on s.lead_id = o.lead_id and s.email_template_id = o.email_template_id
+@@ -30,6 +40,7 @@
+     left join bounces b on s.lead_id = b.lead_id and s.email_template_id = b.email_template_id
+     left join clicks c on s.lead_id = c.lead_id and s.email_template_id = c.email_template_id
+     left join unsubscribes u on s.lead_id = u.lead_id and s.email_template_id = u.email_template_id
++    left join email_stats es on s.email_template_id = es.email_template_id
+ )
+ select * from final

@@ -1,0 +1,32 @@
+{
+  "task_id": "inzight001",
+  "instance_id": "inzight001",
+  "instruction": "Calculate the monthly peak electricity usage, along with its 12-month rolling average and percentage change compared to the previous month, using timestamps and date-time dimensions.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/inzight001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/inzight001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/inzight001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/staging/fluvius/stg_fluvius.yml",
+    "models/staging/fluvius/stg_fluvius.sql",
+    "models/staging/fluvius/src_fluvius.yml",
+    "models/staging/other/stg_be_holidays.yml",
+    "models/staging/other/stg_be_holidays.sql",
+    "models/intermediate/intermediate.yml",
+    "models/intermediate/fct_electricity.sql",
+    "models/intermediate/docs.md",
+    "models/intermediate/dim_time.sql",
+    "models/marts/mrt_validated.sql",
+    "models/marts/marts.yml",
+    "models/overview.md"
+  ],
+  "duckdb_files": [
+    "inzight.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

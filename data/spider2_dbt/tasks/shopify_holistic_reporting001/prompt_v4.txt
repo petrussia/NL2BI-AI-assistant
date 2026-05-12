@@ -1,0 +1,203 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Combine daily customer order data from Shopify and user engagement metrics from Klaviyo, ensuring that records are merged based on email, date, and attribution-related details (such as campaign, flow, and variation IDs) to create a unified view of customer activity across both platforms, including last touch information and source-specific data.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `shopify_holistic_reporting.duckdb`
+    main.abandoned_checkout(id INTEGER, _fivetran_synced VARCHAR, abandoned_checkout_url VARCHAR, applied_discount_amount INTEGER, applied_discount_applicable INTEGER, applied_discount_description INTEGER, applied_discount_non_applicable_reason INTEGER, applied_discount_title INTEGER, applied_discount_value INTEGER, applied_discount_value_type INTEGER, billing_address_address_1 VARCHAR, billing_address_address_0 VARCHAR, billing_address_city VARCHAR, billing_address_company INTEGER, billing_address_country VARCHAR, billing_address_country_code VARCHAR, billing_address_first_name VARCHAR, billing_address_last_name VARCHAR, billing_address_latitude DOUBLE, billing_address_longitude DOUBLE, billing_address_name VARCHAR, billing_address_phone VARCHAR, billing_address_province VARCHAR, billing_address_province_code VARCHAR, billing_address_zip INTEGER, buyer_accepts_marketing BOOLEAN, cart_token VARCHAR, closed_at INTEGER, completed_at INTEGER, created_at VARCHAR)
+    main.abandoned_checkout_discount_code(checkout_id INTEGER, index INTEGER, _fivetran_synced VARCHAR, amount INTEGER, discount_id INTEGER, code VARCHAR, created_at INTEGER, type VARCHAR, updated_at INTEGER, usage_count INTEGER)
+    main.abandoned_checkout_shipping_line(checkout_id INTEGER, index INTEGER, _fivetran_synced VARCHAR, api_client_id INTEGER, carrier_identifier INTEGER, carrier_service_id INTEGER, code VARCHAR, delivery_category INTEGER, discounted_price INTEGER, id VARCHAR, markup INTEGER, phone INTEGER, price INTEGER, requested_fulfillment_service_id INTEGER, source VARCHAR, title VARCHAR, validation_context INTEGER, delivery_expectation_range INTEGER, delivery_expectation_type INTEGER, original_shop_markup INTEGER, original_shop_price INTEGER, presentment_title VARCHAR, delivery_expectation_range_min INTEGER, delivery_expectation_range_max INTEGER)
+    main.collection(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, handle INTEGER, published_at INTEGER, published_scope INTEGER, title INTEGER, updated_at VARCHAR, disjunctive INTEGER, rules INTEGER, sort_order INTEGER, template_suffix INTEGER, body_html INTEGER)
+    main.collection_product(collection_id INTEGER, product_id INTEGER, _fivetran_synced VARCHAR)
+    main.customer(id INTEGER, first_name VARCHAR, last_name VARCHAR, email VARCHAR, phone INTEGER, state VARCHAR, orders_count INTEGER, total_spent DOUBLE, created_at VARCHAR, updated_at VARCHAR, accepts_marketing BOOLEAN, tax_exempt BOOLEAN, verified_email BOOLEAN, default_address_id INTEGER, _fivetran_synced VARCHAR)
+    main.customer_tag(customer_id INTEGER, index INTEGER, _fivetran_synced VARCHAR, value VARCHAR)
+    main.discount_code(id INTEGER, _fivetran_synced VARCHAR, code VARCHAR, created_at VARCHAR, price_rule_id INTEGER, updated_at VARCHAR, usage_count INTEGER)
+    main.fulfillment(id INTEGER, _fivetran_synced VARCHAR, created_at VARCHAR, location_id INTEGER, order_id INTEGER, status VARCHAR, tracking_company INTEGER, tracking_number INTEGER, updated_at VARCHAR, tracking_numbers VARCHAR, tracking_urls VARCHAR, shipment_status INTEGER, service VARCHAR, name VARCHAR, receipt_authorization INTEGER)
+    main.fulfillment_event(id INTEGER, _fivetran_synced VARCHAR, address_1 INTEGER, city VARCHAR, country VARCHAR, created_at VARCHAR, estimated_delivery_at VARCHAR, fulfillment_id INTEGER, happened_at VARCHAR, latitude DOUBLE, longitude DOUBLE, message VARCHAR, order_id INTEGER, province VARCHAR, shop_id INTEGER, status VARCHAR, updated_at VARCHAR, zip VARCHAR, _fivetran_deleted BOOLEAN)
+    main.inventory_item(id INTEGER, _fivetran_synced VARCHAR, cost INTEGER, created_at INTEGER, requires_shipping INTEGER, sku INTEGER, tracked INTEGER, updated_at INTEGER, country_code_of_origin INTEGER, province_code_of_origin INTEGER, _fivetran_deleted BOOLEAN)
+    main.inventory_level(inventory_item_id INTEGER, location_id INTEGER, _fivetran_synced VARCHAR, available INTEGER, updated_at INTEGER)
+    main.klaviyo_campaign(id VARCHAR, from_name VARCHAR, status_id INTEGER, campaign_type VARCHAR, status_label VARCHAR, from_email VARCHAR, subject VARCHAR, name VARCHAR, status VARCHAR, created VARCHAR, updated VARCHAR, send_time VARCHAR, sent_at VARCHAR, _fivetran_deleted BOOLEAN, email_template_id VARCHAR, _fivetran_synced VARCHAR, archived BOOLEAN, scheduled VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'shopify_holistic_reporting'
+version: '0.6.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  shopify_holistic_reporting:
+    +materialized: table
+    intermediate:
+      +materialized: view
+
+
+profile: 'shopify_holistic_reporting'
+
+vars:
+  shopify_source:
+    shopify_using_fulfillment_event: true
+    shopify_schema: 'main'
+    shopify_order_identifier:             'order_table' # reserved keyword in snowflake
+
+  klaviyo_source:
+    klaviyo_schema: 'main'
+    klaviyo__event_pass_through_columns: []
+    klaviyo__person_pass_through_columns: []
+    klaviyo_campaign_id
+
+
+=== INTERMEDIATE models (3) ===
+  - models/intermediate/int__daily_klaviyo_user_metrics.sql
+    cols: date, date_day, email, first_event_at, last_event_at
+    --- head:
+    with events as (
+
+        select *
+        from {{ ref('klaviyo__events') }}
+
+  - models/intermediate/int__daily_shopify_customer_orders.sql
+    cols: count_products, count_product_variants, sum_quantity, date, date_day, source_relation, total_orders, total_price, count_line_items, total_line_items_price, total_discounts, total_tax, total_shipping_cost, total_refund_subtotal, total_refund_tax, count_cancelled_orders, total_order_adjustment_amount, total_order_adjustment_tax_amount
+    --- head:
+    with orders as (
+
+        select *
+        from {{ ref('shopify_holistic_reporting__orders_attribution') }}
+
+  - models/intermediate/int__klaviyo_person_rollup.sql
+    cols: person_index, email, person_ids, phone_numbers, full_name, first_klaviyo_account_made_at, last_klaviyo_account_made_at, last_updated_at, first_event_at, last_event_at, first_campaign_touch_at, last_campaign_touch_at, first_flow_touch_at, last_flow_touch_at, count_total_campaigns, count_total_flows
+    --- head:
+    with persons as (
+
+        select
+            *,
+            row_number() over (partition by email order by created_at desc) as person_index
+
+=== FINAL models (1) ===
+  - models/shopify_holistic_reporting__orders_attribution.sql
+    cols: last_touch_variation_id, last_touch_campaign_name, last_touch_campaign_subject_line, last_touch_flow_name, last_touch_campaign_type, last_touch_event_id, last_touch_event_occurred_at, last_touch_event_type, last_touch_integration_id, last_touch_integration_name, last_touch_integration_category, klaviyo_source_relation, event_index, count_interactions_with_campaign, count_interactions_with_flow, is_attributed, shopify_source_relation, unique_order_key
+    --- body (first 900 chars):
+    {{
+        config(
+            materialized='table',
+            unique_key='unique_order_key',
+            partition_by={
+                "field": "created_timestamp",
+                "data_type": "timestamp"
+            } if target.type == 'bigquery' else none,
+            incremental_strategy = 'delete+insert',
+            file_format = 'delta'
+        )
+    }}
+
+    with orders as (
+
+        select *
+        from {{ ref('shopify__orders') }}
+
+        -- just grab new + newly updated orders
+        {% if is_incremental() %}
+            where updated_timestamp >= (select max(updated_timestamp) from {{ this }})
+        {% endif %}
+
+    ), events as (
+
+        select 
+            *
+        from {{ ref('klaviyo__events') }}
+
+        where 
+            coalesce(last_touch_campaign_id, last_touch_flow_id) is not null
+        {% if var('klaviyo__eligible_attribution_events') != [] %}
+            and lower(type) in {{ "('" ~ (var('klaviyo__eligible_attribution_events') | join("', '")) ~ "')" }}
+
+
+--- dbt_project.yml (head) ---
+name: 'shopify_holistic_reporting'
+version: '0.6.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  shopify_holistic_reporting:
+    +materialized: table
+    intermediate:
+      +materialized: view
+
+
+profile: 'shopify_holistic_reporting'
+
+vars:
+  shopify_source:
+    shopify_using_fulfillment_event: true
+    shopify_schema: 'main'
+    shopify_order_identifier:             'order_table' # reserved keyword in snowflake
+
+  klaviyo_source:
+    klaviyo_schema: 'main'
+    klaviyo_
+
+
+--- models/intermediate/int_shopify_holistic_reporting.yml (head) ---
+version: 2
+
+models:
+  - name: int__daily_klaviyo_user_metrics
+    columns:
+      - name: date_day
+        description: Day on which the customer performed these activities. 
+      - name: email 
+        description: Email address of the customer. 
+      - name: last_touch_campaign_id
+        description: Foreign key referencing the CAMPAIGN attributed with these metrics (by the package's attribution model).
+      - name: last_touch_flow_id
+        description: Foreign key referencing the FLOW at
+
+
+--- models/shopify_holistic_reporting.yml (head) ---
+version: 2
+
+models:
+  - name: shopify_holistic_reporting__customer_enhanced
+    description: >
+      Table consolidating customers and their information and activity metrics from across all platforms. A full outer join is performed in order to union 
+      together users who may not exist in both sources, and personal information is coalesced to consolidate as much information as possible. Includes any custom 
+      columns specified in passthrough variables for both Shopify and Klaviyo.
+
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

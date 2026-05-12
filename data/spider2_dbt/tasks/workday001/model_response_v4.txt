@@ -1,0 +1,23 @@
+```diff
+--- a/models/combined_tables.sql
++++ b/models/combined_tables.sql
+@@ -0,0 +1,18 @@
++WITH combined AS (
++    SELECT
++        p.worker_id,
++        p.first_name,
++        p.last_name,
++        p.email_address,
++        w.position_id,
++        w.business_title,
++        j.job_profile_id,
++        j.job_title
++    FROM
++        {{ ref('int_workday__personal_details') }} p
++    JOIN
++        {{ ref('int_workday__worker_position_enriched') }} w ON p.worker_id = w.worker_id
++    JOIN
++        {{ ref('int_workday__job_profile') }} j ON w.position_id = j.job_profile_id
++)
++SELECT * FROM combined;
+```

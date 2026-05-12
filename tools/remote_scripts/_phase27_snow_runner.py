@@ -398,10 +398,50 @@ def _run_phase27_snow(run_id, jsonl_path, *, alias_filter_set=None,
     if limit: tasks = tasks[:limit]
     print(f'[{run_id}] tasks selected: {len(tasks)}', flush=True)
 
-    pf = open(out_dir / 'predictions.jsonl', 'w', encoding='utf-8')
-    tf = open(out_dir / 'traces.jsonl', 'w', encoding='utf-8')
+    # Resume from kernel death — scan existing files in run dir for
+    # already-completed iids. Operational scaffolding only; pipeline modules
+    # are frozen at v28-revert-A.
+    done_iids = set()
+    n_res_sv = n_res_parse = n_res_exec = n_res_plan = 0
+    pf_path = out_dir / 'predictions.jsonl'
+    tf_path = out_dir / 'traces.jsonl'
+    if pf_path.exists():
+        with open(pf_path, encoding='utf-8') as f:
+            for ln in f:
+                if not ln.strip(): continue
+                try:
+                    p = json.loads(ln)
+                    iid = p.get('instance_id')
+                    if iid:
+                        done_iids.add(iid)
+                        if p.get('explain_ok'): n_res_exec += 1
+                        if p.get('schema_valid'): n_res_sv += 1
+                        if p.get('parse_ok'): n_res_parse += 1
+                except Exception:
+                    pass
+    if tf_path.exists():
+        with open(tf_path, encoding='utf-8') as f:
+            for ln in f:
+                if not ln.strip(): continue
+                try:
+                    if json.loads(ln).get('plan_ok'): n_res_plan += 1
+                except Exception:
+                    pass
+    before_resume = len(tasks)
+    tasks = [t for t in tasks if t.get('instance_id') not in done_iids]
+    if done_iids:
+        print(f'[{run_id}] RESUMED: {len(done_iids)} prior done '
+              f'(sv={n_res_sv} parse={n_res_parse} exec={n_res_exec} plan={n_res_plan}), '
+              f'{before_resume - len(tasks)} skipped, {len(tasks)} remaining',
+              flush=True)
+
+    # Append, not overwrite — preserves prior task records on resume
+    pf = open(out_dir / 'predictions.jsonl', 'a', encoding='utf-8')
+    tf = open(out_dir / 'traces.jsonl', 'a', encoding='utf-8')
     err = Counter()
-    n=0; n_plan_ok=0; n_sv=0; n_parse=0; n_exec=0
+    n = len(done_iids)
+    n_plan_ok = n_res_plan
+    n_sv = n_res_sv; n_parse = n_res_parse; n_exec = n_res_exec
     n_guard_leak=0; n_guard_rewrite=0
     # Phase 28 counters
     n_guard_regex_fallback=0; n_requoted=0; n_wrapped=0
@@ -554,6 +594,18 @@ def _run_phase27_snow(run_id, jsonl_path, *, alias_filter_set=None,
             try:
                 import torch; gc.collect(); torch.cuda.empty_cache()
             except Exception: pass
+
+        # Phase 28 FULL hardening: periodic close+reopen of preds/traces every
+        # 10 tasks forces Drive FUSE to sync to cloud. Without this, the file
+        # stays open for hours and Drive accumulates writes locally; if the
+        # kernel dies the cloud-side .jsonl ends up far behind n_total.
+        if n % 10 == 0:
+            try:
+                pf.close(); tf.close()
+                pf = open(out_dir / 'predictions.jsonl', 'a', encoding='utf-8')
+                tf = open(out_dir / 'traces.jsonl', 'a', encoding='utf-8')
+            except Exception as _e:
+                print(f'[{run_id}] file sync reopen failed at n={n}: {_e}', flush=True)
 
         with open(out_dir / 'progress.json', 'w') as f:
             f.write(json.dumps({

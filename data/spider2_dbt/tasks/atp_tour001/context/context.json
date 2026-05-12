@@ -1,0 +1,28 @@
+{
+  "task_id": "atp_tour001",
+  "instance_id": "atp_tour001",
+  "instruction": "How can you generate a summary report of ATP tennis matches that includes details about the tournaments, players, match statistics (such as the winner, loser, aces, and scores), and their associated dates, utilizing dimensional tables for tournaments and players to enrich the report?",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/atp_tour001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/atp_tour001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/atp_tour001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/staging/_src_atp_tour.yml",
+    "models/staging/stg_atp_tour__countries.sql",
+    "models/staging/stg_atp_tour__matches.sql",
+    "models/staging/stg_atp_tour__players.sql",
+    "models/mart/dim_date.sql",
+    "models/mart/_mrt_models.yml",
+    "models/mart/fct_match.sql",
+    "models/mart/dim_time.sql"
+  ],
+  "duckdb_files": [
+    "atp_tour.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

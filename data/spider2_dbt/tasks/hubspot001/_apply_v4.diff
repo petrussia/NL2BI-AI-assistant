@@ -1,0 +1,62 @@
++++ b/models/marketing/final/hubspot_email_summary.sql
+@@ -1,6 +1,7 @@
+ {{ config(materialized='table') }}
+ 
+-with email_events as (
++with email_events as (
+     select *
+     from {{ ref('int_hubspot__email_event_aggregates') }}
+ ),
+@@ -14,6 +15,7 @@
+     select *
+     from {{ ref('int_hubspot__email_metrics__by_contact_list') }}
+ ),
++contact_data as (
++    select *
++    from {{ ref('hubspot.duckdb.main.contact_data') }}
++),
+ engagement_metrics as (
+     select *
+     from {{ ref('int_hubspot__engagement_metrics__by_contact') }}
+@@ -22,6 +26,7 @@
+     select *
+     from {{ ref('int_hubspot__deals_enhanced') }}
+ ),
++email_campaign_data as (
++    select *
++    from {{ ref('hubspot.duckdb.main.email_campaign_data') }}
++),
+ final as (
+     select
+         e.id as email_event_id,
+@@ -30,6 +36,7 @@
+         e.deliveries,
+         e.drops,
+         e.clicks,
++        e.spam_reports,
+         e.forwards,
+         e.deferrals,
+         e.bounces,
+@@ -37,6 +44,7 @@
+         e.opens,
+         e.prints,
+         e.unsubscribes,
++        c.property_email,
+         em.total_,
+         em.total_unique_,
+         eng.count_engagement_notes,
+@@ -44,6 +52,7 @@
+         d.owner_full_name,
+         dc.property_dealname,
+         dc.property_amount,
++        ec.name as email_campaign_name
+     from email_events e
+     left join email_metrics em on e.email_send_id = em.email_send_id
+     left join engagement_metrics eng on e.recipient = eng.contact_id
+@@ -51,6 +60,7 @@
+     left join deals d on e.recipient = d.owner_id
+     left join deal_contacts dc on e.recipient = dc.contact_id
+     left join email_campaign_data ec on e.email_campaign_id = ec.id
++    left join contact_data c on e.recipient = c.id
+ )
+ select * from final

@@ -1,0 +1,87 @@
++++ b/models/recharge__billing_history.sql
+@@ -1,6 +1,7 @@
+ with orders as (
+     select *
+     from {{ var('order') }}
++),
++transactions as (
+     select *
+     from {{ var('charge') }}
+ ),
+ order_line_items as (
+     select 
+         order_id,
+@@ -14,6 +15,18 @@
+         sum(quantity) as order_item_quantity,
+         round(cast(sum(total_price) as {{ dbt.type_numeric() }}), 2) as order_line_item_total
+     from {{ var('order_line_item') }}
++    group by 1
++),
++transaction_line_items as (
++    select 
++        charge_id,
++        index,
++        cast(total_price as {{ dbt.type_float() }}) as amount,
++        title,
++        'charge line' as line_item_type
++    from {{ var('charge_line_item') }}
+ )
+ , charges as ( --each charge can have multiple orders associated with it
+     select *
+@@ -22,6 +35,18 @@
+     from {{ var('charge_shipping_line') }}
+     group by 1
+ ),
++charges_enriched as (
++    select
++        charges.*,
++        charge_shipping_lines.total_shipping
++    from charges
++    left join charge_shipping_lines
++        on charge_shipping_lines.charge_id = charges.charge_id
++),
++joined as (
++    select 
++        orders.*,
++        transaction_line_items.amount as transaction_amount,
++        transaction_line_items.line_item_type,
++        transaction_line_items.title,
++        transaction_line_items.index as transaction_index,
++        charges_enriched.total_shipping
+     from orders
+     left join order_line_items
+         on order_line_items.order_id = orders.id
+@@ -30,6 +55,18 @@
+     left join charges
+         on charges.charge_id = orders.charge_id
+     left join charge_shipping_lines
++        on charge_shipping_lines.charge_id = charges.charge_id
++    left join transaction_line_items
++        on transaction_line_items.charge_id = charges.charge_id
++),
++daily_totals as (
++    select
++        date,
++        sum(order_line_item_total) as daily_order_total,
++        sum(transaction_amount) as daily_transaction_total
++    from joined
++    group by 1
++),
++running_totals as (
++    select
++        date,
++        sum(daily_order_total) over (order by date) as running_order_total,
++        sum(daily_transaction_total) over (order by date) as running_transaction_total
++    from daily_totals
+ )
+ select 
+     date,
+     date_week,
+     date_month,
+     date_year,
+     sum(order_line_item_total) as total_order_total,
+     sum(transaction_amount) as total_transaction_amount,
+     sum(total_shipping) as total_shipping,
+     count(*) as total_transactions
+ from joined
+ group by 1, 2, 3, 4

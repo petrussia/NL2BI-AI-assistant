@@ -460,6 +460,8 @@ def main() -> int:
     grp.add_argument('--pilot50', action='store_true')
     grp.add_argument('--full', action='store_true')
     ap.add_argument('--run-id', default=None)
+    ap.add_argument('--force-no-gate', action='store_true',
+                     help='Phase 25 override: skip pilot50 gate check (diagnostic FULL).')
     args = ap.parse_args()
 
     if args.benchmark != 'lite_bq':
@@ -476,8 +478,8 @@ def main() -> int:
 
     print(f'Phase 24 sequential launcher → run_id={run_id} mode={mode} limit={limit}')
 
-    # FULL gate check before kicking off
-    if args.full:
+    # FULL gate check before kicking off (skip when --force-no-gate)
+    if args.full and not args.force_no_gate:
         gate_check_code = (
             RUNNER_TEMPLATE +
             "\n_p = RUNS_BASE / 'lite_bq_v24_pilot50' / 'metrics.csv'\n"
@@ -495,6 +497,8 @@ def main() -> int:
             print(f'  REFUSE FULL launch — gate not cleared '
                   f'(sv={gate.get("sv_rate")}, exec={gate.get("exec_rate")}).')
             return 3
+    elif args.full and args.force_no_gate:
+        print('  --force-no-gate set: skipping pilot50 gate check (DIAGNOSTIC FULL only)')
 
     # Launch
     invocation = (

@@ -1,0 +1,351 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I retrieve detailed information about doctors, including their specialties, and patients, including their medical details, such as diabetes status, from the respective dimension tables?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `maturity.duckdb`
+    main.claim_diagnosis(id INTEGER, icd10 VARCHAR, icd10desc VARCHAR, created TIMESTAMP, _fivetran_synced_at TIMESTAMP, claim_id INTEGER, pos INTEGER, h INTEGER)
+    main.claim_line(id INTEGER, chrgamnt DOUBLE, paid_amnt DOUBLE, err_amnt DOUBLE, created TIMESTAMP, _fivetran_synced_at TIMESTAMP, cpt VARCHAR, cptdesc VARCHAR, claim_id INTEGER, status VARCHAR)
+    main.claims(id INTEGER, pat_id BIGINT, doc_id BIGINT, prac_id BIGINT, car_id BIGINT, npi BIGINT, bill_attmps INTEGER, test BOOLEAN, ClaimNumber VARCHAR, created TIMESTAMP, firstbill TIMESTAMP, _fivetran_synced_at TIMESTAMP)
+    main.doc_specialties(category VARCHAR, specialty VARCHAR, doc_id BIGINT, id INTEGER, created TIMESTAMP, _fivetran_synced_at TIMESTAMP)
+    main.doctors(npi BIGINT, name_f VARCHAR, name_l VARCHAR, name VARCHAR, bill_to VARCHAR, zip VARCHAR, state VARCHAR, country VARCHAR, created TIMESTAMP, last_login TIMESTAMP, _fivetran_synced_at TIMESTAMP, id BIGINT, prac_id BIGINT)
+    main.patients(id BIGINT, prac_id BIGINT, name_f VARCHAR, name_l VARCHAR, bill_to VARCHAR, zip VARCHAR, state VARCHAR, country VARCHAR, created TIMESTAMP, last_login TIMESTAMP, _fivetran_synced_at TIMESTAMP, dob TIMESTAMP, diabetes BOOLEAN, email VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+name: 'claim_to_fame'
+version: '1.0.0'
+config-version: 2
+
+
+profile: 'maturity'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  
+clean-targets:         
+    - "target"
+    - "dbt_modules"
+
+on-run-end: 
+  - "{{ report_metrics() }}"
+
+seeds:
+  claim_to_fame:
+    billing_data:
+      claims:
+        +column_types:
+          pat_id: bigint
+          doc_id: bigint
+          car_id: bigint
+          npi: bigint
+          prac_id: bigint
+    ehr_data:
+      doc_specialties:
+
+
+
+=== STAGING models (6) ===
+  - models/staging/billing_data/stg_claim_diagnosis.sql
+    cols: claim_diagnosis_id, claim_id, diagnosis_number, icd_10_code, parent_icd10, icd_10_code_descrip, created_at, _fivetran_synced_at
+    --- head:
+    with 
+
+    source as (
+        select * from {{ source('billing_data', 'claim_diagnosis') }} 
+    ),
+  - models/staging/billing_data/stg_claim_lines.sql
+    cols: claim_line_id, claim_id, charge_amount, paid_amount, error_amount, procedure_code, procedure_code_descrip, status, created_at, _fivetran_synced_at
+    --- head:
+    with 
+
+    source as (
+        select * from {{ source('billing_data', 'claim_line') }} 
+    ),
+  - models/staging/billing_data/stg_claims.sql
+    cols: claim_id, patient_id, doctor_id, practice_id, carrier_id, npi, total_bill_attempts, carrier_claim_number, has_ever_been_billed, is_test, created_at, first_billed_at, _fivetran_synced_at
+    --- head:
+    with 
+
+    source as (
+        select * from {{ source('billing_data', 'claims') }} 
+    ),
+  - models/staging/ehr_data/stg_doc_specialties.sql
+    cols: specialty_id, doctor_id, specialty_category, specialty_name, created_at, _fivetran_synced_at
+    --- head:
+    with 
+
+    source as (
+        select * from {{ source('ehr_data', 'doc_specialties') }}
+    ),
+  - models/staging/ehr_data/stg_doctors.sql
+    cols: doctor_id, npi, practice_id, first_name, last_name, doctor_name, billing_address, zip_code, state, country, created_at, last_logged_in_at, _fivetran_synced_at
+    --- head:
+    with 
+
+    source as (
+        select * from {{ source('ehr_data', 'doctors') }}
+    ),
+  - models/staging/ehr_data/stg_patients.sql
+    cols: patient_id, practice_id, first_name, last_name, patient_name, billing_address, zip_code, state, country, email, is_diabetic, is_test, date_of_birth, created_at, last_logged_in_at, _fivetran_synced_at
+    --- head:
+    with 
+
+    source as (
+        select * from {{ source('ehr_data', 'patients') }}
+    ),
+
+=== INTERMEDIATE models (2) ===
+  - models/marts/int/int_billed_claim_amounts.sql
+    cols: total_charge_amount, total_paid_amount, total_error_amount
+    --- head:
+    with 
+
+    claim_lines as (
+        select * from {{ ref('stg_claim_lines')}}
+    ),
+  - models/marts/int/int_claim_diagnosis_pivoted.sql
+    --- head:
+    with 
+
+    claim_diagnoses as (
+        select * from {{ ref('stg_claim_diagnosis') }}
+    ),
+
+=== FINAL models (10) ===
+  - macros/dbt_config/generate_schema_name.sql
+    --- body (first 900 chars):
+    {# 
+        This macro enforces the use of custom schemas for all models in the project. 
+        In production, dbt will write the models to the custom schema configuration. 
+        In dev, dbt will only use the target schema in your profiles.yml, regardless of the custom schema provided
+
+        Example:
+
+        1. dbt run -m fct_billed_patient_claims --target dev
+        --> analytics.dbt_dconnors.fct_billed_patient_claims
+
+        1. dbt run -m fct_billed_patient_claims --target prod
+        --> analytics.billing_analytics.fct_billed_patient_claims
+
+    #}
+
+
+    {% macro generate_schema_name(custom_schema_name, node) -%}
+
+        {% if not custom_schema_name %}
+          {% if node.resource_type == 'model' %}
+            {{ exceptions.raise_compiler_error('Custom schema name must be provided. ' ~ node.fqn) }}
+          {% else %} {# if it's a test, analysis, or otherwise non-model let it pass #}
+            {{ return(target.schema) }}
+
+  - macros/sql/pivot_claim_diagnoses.sql
+    cols: diagnosis_, diagnosis_description_
+    --- body (first 900 chars):
+    {# 
+        this macro accepts an integer argument to pivot the claim diagnoses and descriptions to that depth
+        i.e. pivot_claim_diagnoses(3) returns the claims top 3 diagnoses and descriptions in columns
+
+     #}
+
+    {%- macro pivot_claim_diagnoses(diagnosis_depth) -%}
+
+        {%- for n in range(diagnosis_depth) -%}
+            {%- set claim_line = n+1 %}
+
+            max(case when diagnosis_number = {{ claim_line }} then icd_10_code else null end) as diagnosis_{{ claim_line }},
+            max(case when diagnosis_number = {{ claim_line }} then icd_10_code_descrip else null end) as diagnosis_description_{{ claim_line }}{%- if not loop.last -%},{%- endif -%}       
+
+        {%- endfor %}
+
+    {%- endmacro -%}
+  - macros/test_coverage/get_enabled_models.sql
+    --- body (first 900 chars):
+    {% macro get_enabled_models() %}
+
+        {% set enabled_models = [] %}
+
+        {% for node in graph.nodes.values() | selectattr("resource_type", "equalto", "model") %}
+
+            {% if node.config.enabled == True %}
+
+                {% do enabled_models.append(node) %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        {% do return(enabled_models) %}
+
+    {% endmacro %}
+  - macros/test_coverage/get_enabled_tests.sql
+    --- body (first 900 chars):
+    {% macro get_enabled_tests() %}
+
+        {% set enabled_tests = [] %}
+
+        {% for node in graph.nodes.values() | selectattr("resource_type", "equalto", "test") %}
+
+            {% if node.config.enabled == True %}
+
+                {% do enabled_tests.append(node) %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        {% do return(enabled_tests) %}
+
+    {% endmacro %}
+  - macros/test_coverage/get_test_coverage.sql
+    --- body (first 900 chars):
+    {%- macro get_test_coverage() -%}
+
+        {%- set enabled_models = get_enabled_models() -%}    
+        {%- set enabled_models_count = enabled_models | length -%}    
+        {%- set enabled_models_names = [] -%}
+
+        {%- for model in enabled_models -%}
+
+            {%- do enabled_models_names.append(model.name) -%}
+
+        {%- endfor -%}
+
+        {%- set enabled_tests = get_enabled_tests() -%}
+
+        {%- set all_tested_nodes = [] -%}
+
+        {%- for test in enabled_tests -%}
+
+            {%- for node in test.depends_on.nodes -%}
+
+                {%- set node_name = node.split('.')[2] -%}
+
+                {%- if node_name in enabled_models_names -%}
+
+                    {%- do all_tested_nodes.append(node_name) -%}
+
+                {%- endif -%}
+
+            {%- endfor -%}
+
+        {%- endfor -%}
+
+        {%- set unique_tested_nodes_count = all_tested_nodes | unique | list | length -%}
+        {%- set pct = (unique_tested
+  - macros/test_coverage/get_test_to_model_ratio.sql
+    --- body (first 900 chars):
+    {%- macro get_test_to_model_ratio() -%}
+
+        {%- set model_count = get_enabled_models() | length -%}
+        {%- set test_count = get_enabled_tests() | length -%}
+
+        {%- do log("Project Test to Model Ratio: " ~ ((test_count/model_count) | round(3)), info=True) -%}
+
+    {%- endmacro -%}
+  - macros/test_coverage/report_metrics.sql
+    --- body (first 900 chars):
+    {# 
+        This macro is not super useful in its current form -- would love to see this actually materialized in a table rather than just logged to stdout!
+        This is mostly to show how to start thinking more introspectively about your project
+        The Metadata API is the most robust way to operationalize these kinds of metrics!
+     #}
+
+    {% macro report_metrics() %}
+
+        {% if execute %}
+            {{ log('', info=true)}} {# whitespace to print nicely #}
+            {{ get_test_coverage() }}
+            {{ get_test_to_model_ratio() }}  
+            {{ log('', info=true)}} {# whitespace to print nicely #}
+        {% endif %}
+
+    {% endmacro %}
+  - macros/tests/test_not_negative.sql
+    --- body (first 900 chars):
+    {% test not_negative(model, column_name) %}
+
+        select 
+            *
+        from {{ model }}
+
+        where {{ column_name }} < 0 
+
+    {% endtest %}
+
+--- dbt_project.yml (head) ---
+
+name: 'claim_to_fame'
+version: '1.0.0'
+config-version: 2
+
+
+profile: 'maturity'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  
+clean-targets:         
+    - "target"
+    - "dbt_modules"
+
+on-run-end: 
+  - "{{ report_metrics() }}"
+
+seeds:
+  claim_to_fame:
+    billing_data:
+      claims:
+        +column_types:
+          pat_id: bigint
+          doc_id: bigint
+          c
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

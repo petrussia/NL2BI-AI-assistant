@@ -1,0 +1,318 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Transform and clean the raw application, project, and application answer data by renaming fields, extracting metadata, and linking answers to their respective questions and projects.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        (no DuckDB schema available)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: "gitcoin"
+version: "1.0.0"
+config-version: 2
+
+profile: "gitcoin"
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+models:
+  +materialized: table
+
+
+
+=== FINAL models (9) ===
+  - models/allo_deployments.sql
+    cols: address, contract
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_allo_deployments') }}
+    ),
+
+    renamed as (
+        select
+            lower(address) as address,
+            chain_name,
+            lower(contract) as contract
+        from source
+    )
+
+    select * from renamed
+
+  - models/allo_donations.sql
+    cols: amount_in_usd, amount_in_round_match_token, application_id, block_number, chain_id, id, donor_address, node_id, project_id, recipient_address, round_id, token_address, transaction_hash
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_allo_donations') }}
+    ),
+
+    renamed as (
+        select
+            amountInUsd as amount_in_usd,
+            amount,
+            amountInRoundMatchToken as amount_in_round_match_token,
+            applicationId as application_id,
+            blockNumber as block_number,
+            chainId as chain_id,
+            lower(id) as id,
+            lower(donorAddress) as donor_address,
+            nodeId as node_id,
+            lower(projectId) as project_id,
+            lower(recipientAddress) as recipient_address,
+            lower(roundId) as round_id,
+            lower(tokenAddress) as token_address,
+            lower(transactionHash) as transaction_hash,
+        from source
+    )
+
+    select * from renamed
+
+  - models/allo_prices.sql
+    cols: block_number, chain_id, node_id, price_in_usd, token_address
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_allo_prices') }}
+    ),
+
+    renamed as (
+        select
+            blockNumber as block_number,
+            chainId as chain_id,
+            id,
+            nodeId as node_id,
+            priceInUsd as price_in_usd,
+            timestamp,
+            lower(tokenAddress) as token_address,
+        from source
+    )
+
+    select * from renamed
+
+  - models/allo_rounds.sql
+    cols: admin_role, application_metadata, application_metadata_cid, applications_end_time, applications_start_time, chain_id, created_at_block, created_by_address, donations_end_time, donations_start_time, id, manager_role, match_amount, match_amount_in_usd, match_token_address, node_id, project_id, round_metadata, ...(30 total)
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_allo_rounds') }}
+    ),
+
+    renamed as (
+        select
+            adminRole as admin_role,
+            applicationMetadata as application_metadata,
+            applicationMetadataCid as application_metadata_cid,
+            applicationsEndTime as applications_end_time,
+            applicationsStartTime as applications_start_time,
+            chainId as chain_id,
+            createdAtBlock as created_at_block,
+            createdByAddress as created_by_address,
+            donationsEndTime as donations_end_time,
+            donationsStartTime as donations_start_time,
+            lower(id) as id,
+            managerRole as manager_role,
+            matchAmount as match_amount,
+            matchAmountInUsd as match_amount_in_usd,
+            matchTokenAddress as match_token_address,
+            nodeId as node_id,
+            lower(projectId) as project_id,
+            roundMetadata as round_metadata,
+            roun
+  - models/allo_subscriptions.sql
+    cols: chain_id, contract_address, contract_name, created_at, from_block, indexed_to_block, indexed_to_log_index, node_id, to_block, updated_at
+    --- body (first 900 chars):
+    with source as (
+          select * from {{ source('main', 'raw_allo_subscriptions') }}
+    ),
+
+    renamed as (
+        select
+            chainId as chain_id,
+            lower(contractAddress) as contract_address,
+            contractName as contract_name,
+            createdAt as created_at,
+            fromBlock as from_block,
+            id,
+            indexedToBlock as indexed_to_block,
+            indexedToLogIndex as indexed_to_log_index,
+            nodeId as node_id,
+            toBlock as to_block,
+            updatedAt as updated_at
+        from source
+    )
+
+    select * from renamed
+
+  - models/chain_metadata.sql
+    cols: short_name, info_url, chain_id, network_id, native_currency
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_chain_metadata') }}
+    ),
+
+    renamed as (
+        select
+            name,
+            shortName as short_name,
+            infoURL as info_url,
+            chainId as chain_id,
+            networkId as network_id,
+            nativeCurrency as native_currency,
+            ens,
+            explorers,
+            rpc,
+            parent
+        from source
+    )
+
+    select * from renamed
+
+  - models/gitcoin_passport_scores.sql
+    cols: address, community, evidence_type, evidence_success, evidence_raw_score, evidence_threshold
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_gitcoin_passport_scores') }}
+    ),
+
+    renamed as (
+        select
+            id,
+            passport ->> 'address' as address,
+            passport ->> 'community' as community,
+            score,
+            last_score_timestamp,
+            status,
+            error,
+            evidence ->> 'type' as evidence_type,
+            evidence ->> 'success' as evidence_success,
+            evidence ->> 'rawScore' as evidence_raw_score,
+            evidence ->> 'threshold' as evidence_threshold,
+            stamp_scores
+        from source
+    )
+
+    select * from renamed order by last_score_timestamp desc
+
+  - models/giveth_projects.sql
+    cols: total_donations, total_trace_donations
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_giveth_projects') }}
+    ),
+
+    renamed as (
+        select
+            title,
+            totalDonations as total_donations,
+            totalTraceDonations as total_trace_donations
+        from source
+    )
+
+    select * from renamed
+
+  - models/karmahq_details.sql
+    cols: attester, recipient, is_offchain, decoded_data_json
+    --- body (first 900 chars):
+    with source as (
+        select * from {{ source('main', 'raw_karmahq_attestations') }}
+    ),
+
+    renamed as (
+        select
+            lower(attester) as attester,
+            lower(recipient) as recipient,
+            isOffchain as is_offchain,
+            decodedDataJson as decoded_data_json
+        from source
+    )
+
+    select * from renamed
+
+
+--- dbt_project.yml (head) ---
+name: "gitcoin"
+version: "1.0.0"
+config-version: 2
+
+profile: "gitcoin"
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+models:
+  +materialized: table
+
+
+
+--- models/schema.yml (head) ---
+version: 2
+
+models:
+  - name: allo_applications
+    description: |
+      This model processes raw data from the `raw_allo_applications` table, renaming and transforming key fields such as application ID, project ID, round ID, and metadata details.
+      The SQL first selects all fields from the reference table, then renames fields like `anchorAddress` to `anchor_address`, converts some fields to lowercase, and extracts values from the `metadata` JSON structure (e.g., application recipient and si
+
+
+--- models/sources.yml (head) ---
+version: 2
+
+sources:
+  - name: main
+    tables:
+      - name: raw_gitcoin_passport_scores
+        meta:
+          dagster:
+            asset_key: ["raw_gitcoin_passport_scores"]
+      - name: raw_allo_projects
+        meta:
+          dagster:
+            asset_key: ["raw_allo_projects"]
+      - name: raw_allo_prices
+        meta:
+          dagster:
+            asset_key: ["raw_allo_prices"]
+      - name: raw_allo_rounds
+        meta:
+          dagster:
+            asset_key: ["raw_allo_rounds"]
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

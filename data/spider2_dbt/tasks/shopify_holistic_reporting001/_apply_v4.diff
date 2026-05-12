@@ -1,0 +1,21 @@
++++ b/models/shopify_holistic_reporting__customer_enhanced.sql
+@@ -1,7 +1,8 @@
+ {{
+     config(
+         materialized='table',
++        unique_key='email',
+         partition_by={
+             "field": "created_timestamp",
+             "data_type": "timestamp"
+@@ -24,6 +25,10 @@
+                 left JOIN {{ ref('int__daily_klaviyo_user_metrics') }} AS klaviyo ON customer.email = klaviyo.email
+                 LEFT JOIN {{ ref('int__daily_shopify_customer_orders') }} AS orders ON customer.email = orders.source_relation
+                 LEFT JOIN {{ ref('int__klaviyo_person_rollup') }} AS person ON customer.email = person.email
++                LEFT JOIN (
++                    SELECT checkout_id, email, MAX(created_at) AS last_touch_created_at
++                    FROM {{ ref('shopify_holistic_reporting__orders_attribution') }}
++                    GROUP BY checkout_id, email
++                ) AS last_touch ON customer.email = last_touch.email
+             )
+         )
+     }

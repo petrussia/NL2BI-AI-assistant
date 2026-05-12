@@ -1,0 +1,53 @@
+```diff
+--- a/models/final/product_sales_summary.sql
++++ b/models/final/product_sales_summary.sql
+@@ -1,6 +1,18 @@
++with order_lines as (
++    select *
++    from {{ ref('shopify__order_lines') }}
++),
++
++order_aggregates as (
++    select *
++    from {{ ref('shopify__orders__order_line_aggregates') }}
++)
++
+ select 
+     ol.product_id,
+     sum(ol.quantity) as total_quantity_sold,
+     sum(ol.pre_tax_price * ol.quantity) as total_sales,
+     sum(ol.total_discount * ol.quantity) as total_discounts,
+     sum(ol.tax_code) as total_taxes
+-from {{ ref('shopify__order_lines') }} ol
++from order_lines ol
++join order_aggregates oa on ol.order_id = oa.order_id
+```
+
+```diff
+--- a/models/final/shop_performance_daily.sql
++++ b/models/final/shop_performance_daily.sql
+@@ -1,6 +1,18 @@
++with orders as (
++    select *
++    from {{ ref('shopify__orders') }}
++),
++
++abandoned_checkouts as (
++    select *
++    from {{ ref('shopify__calendar') }}
++    join {{ ref('shopify__orders') }} o on o.created_timestamp < ab.date_day
++    where o.cancelled_timestamp is null and o.processed_timestamp is null
++)
++
+ select 
+     c.date_day,
+     count(o.order_id) as count_orders,
+     count(ao.order_id) as count_abandoned_checkouts,
+     count(distinct o.user_id) as count_customers,
+     count(distinct o.email) as count_customer_emails
+-from {{ ref('shopify__calendar') }} c
+-left join {{ ref('shopify__orders') }} o on o.created_timestamp < c.date_day
+-left join {{ ref('shopify__orders') }} ao on ao.created_timestamp < c.date_day and ao.cancelled_timestamp is null and ao.processed_timestamp is null
++from orders o
++left join abandoned_checkouts ac on ac.date_day = o.created_timestamp
+```

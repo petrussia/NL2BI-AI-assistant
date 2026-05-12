@@ -1,0 +1,188 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        combine Netflix original programs from various genres, clean up their titles, and standardize premiere dates while also categorizing them by genre and renewal status
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `netflix.duckdb`
+    main.GOOGLE_SHEETS__ORIGINAL_CATEGORIES(Category VARCHAR, Updated_at DATE)
+    main.GOOGLE_SHEETS__ORIGINAL_COMEDIES(Title VARCHAR, Genre VARCHAR, Premiere VARCHAR, Seasons VARCHAR, Runtime VARCHAR, Status VARCHAR, Updated_at DATE)
+    main.GOOGLE_SHEETS__ORIGINAL_DOCUSERIES(Title VARCHAR, Subject VARCHAR, Premiere VARCHAR, Seasons VARCHAR, Runtime VARCHAR, Language VARCHAR, Status VARCHAR, Updated_at DATE)
+    main.GOOGLE_SHEETS__ORIGINAL_DRAMAS(Title VARCHAR, Genre VARCHAR, Premiere VARCHAR, Seasons VARCHAR, Runtime VARCHAR, Status VARCHAR, Updated_at DATE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'netflix_programming'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'netflix'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-path
+
+
+=== STAGING models (4) ===
+  - models/staging/base/base_google_sheets__original_comedies.sql
+    cols: category_id, updated_at
+    --- head:
+    WITH source AS (
+        SELECT * 
+        FROM {{ source('google_sheets', 'GOOGLE_SHEETS__ORIGINAL_COMEDIES') }}
+    ),
+
+  - models/staging/base/base_google_sheets__original_docuseries.sql
+    cols: category_id, genre, updated_at
+    --- head:
+    WITH source AS (
+        SELECT * 
+        FROM {{ source('google_sheets', 'GOOGLE_SHEETS__ORIGINAL_DOCUSERIES') }}
+    ),
+
+  - models/staging/base/base_google_sheets__original_dramas.sql
+    cols: category_id
+    --- head:
+
+    with source as (
+
+        select * from {{ source('google_sheets', 'GOOGLE_SHEETS__ORIGINAL_DRAMAS') }}
+
+  - models/staging/stg_google_sheets__original_categories.sql
+    cols: category_id, category, updated_at_utc
+    --- head:
+
+    with source as (
+
+        select * from {{ source('google_sheets', 'GOOGLE_SHEETS__ORIGINAL_CATEGORIES') }}
+
+
+=== FINAL models (1) ===
+  - models/mart/netflix_original_programs.sql
+    --- body (first 900 chars):
+
+    select 
+        title
+      , premiere_date
+      , premiere_status
+      , genre 
+      , category
+      , seasons
+      , runtime
+      , renewal_status
+      , premiere_year
+      , premiere_month
+      , premiere_day
+      , updated_at_utc
+    from {{ ref('int_netflix_original_programs') }}
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'netflix_programming'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'netflix'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this pr
+
+
+--- models/mart/_mart_models.yml (head) ---
+version: 2
+
+
+models:
+  - name: netflix_original_programs
+    description: >
+      This final table provides detailed information about Netflix original programs including titles, premiere status, genre, category, seasons, runtime, and renewal status. It acts as the main table for reporting and analysis.
+
+    columns:
+      - name: title
+        description: >
+          The title of the Netflix original program.
+        tests:
+          - not_null
+
+      - name: premiere_date
+        description:
+
+
+--- models/staging/_google_sheets__models.yml (head) ---
+version: 2
+
+
+models:
+  - name: base_google_sheets__original_comedies
+    description: Current and upcoming COMEDIES for original streaming television programming on Netflix.
+
+  - name: base_google_sheets__original_dramas
+    description: Current and upcoming DRAMAS for original streaming television programming on Netflix.
+
+  - name: base_google_sheets__original_docuseries
+    description: Current and upcoming DOCUSERIES for original streaming television programming on Netflix.
+
+  - name: stg_goo
+
+
+--- models/staging/_google_sheets__sources.yml (head) ---
+version: 2
+
+# config file for source data living in google sheets
+# the data lands in google sheets after being scraped from wikipedia each day
+
+sources:
+  - name: google_sheets # name of the source - imp. for calling in sql files when using source('source-name', 'table-name') function
+    description: replica of source data that originated from netflix originals wikipedia page
+    schema: main      
+
+    tables:
+      - name: GOOGLE_SHEETS__ORIGINAL_CATEGORIES
+      - name: GOOGLE_SHEETS__ORIGI
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

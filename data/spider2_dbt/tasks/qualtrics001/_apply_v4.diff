@@ -1,0 +1,50 @@
++++ b/models/qualtrics__contact.sql
+@@ -1,6 +1,7 @@
+ with contacts as (
+     select *
+     from {{ ref('int_qualtrics__contacts') }}
++),
++directory_contact as (
+     select *
+     from {{ var('directory_contact') }}
+ ),
+@@ -14,6 +15,7 @@
+     select *
+     from {{ var('distribution_contact') }}
+ ),
++distribution as (
+     select *
+     from {{ var('distribution') }}
+ ),
+@@ -22,6 +24,7 @@
+     select *
+     from {{ var('survey_response') }}
+ ),
++distribution_response as (
+     select
+         distribution_contact.*,
+         distribution.survey_id,
+@@ -31,6 +34,7 @@
+         survey_response.response_started_at,
+         survey_response.response_completed_at
+     from distribution_contact 
++    left join distribution on distribution_contact.distribution_id = distribution.distribution_id
+     left join survey_response
+         on distribution_contact.response_id = survey_response.response_id
+ ),
+@@ -40,6 +44,7 @@
+     select
+         directory.id as directory_id,
+         directory.name as directory_name,
++        directory_contact.contact_id,
+         count(distinct directory_contact.contact_id) as count_contacts,
+         count(distinct case when directory_contact.unsubscribed then directory_contact.contact_id end) as count_unsubscribed_contacts,
+         count(distinct case when directory_contact.creation_date >= dateadd(day, -30, current_date()) then directory_contact.contact_id end) as count_new_contacts_30d,
+@@ -47,6 +52,7 @@
+         count(distinct case when distribution_contact.status = 'Completed' then distribution_contact.contact_id end) as count_survey_completed,
+         count(distinct case when distribution_contact.status = 'Started' then distribution_contact.contact_id end) as count_survey_started,
+         count(distinct case when distribution_contact.status = 'Opened' then distribution_contact.contact_id end) as count_survey_opened,
++        count(distinct distribution.mailing_list_id) as count_mailing_lists
+     from directory
+     left join directory_contact on directory.id = directory_contact.directory_id
+     left join distribution_contact on directory_contact.contact_id = distribution_contact.contact_id

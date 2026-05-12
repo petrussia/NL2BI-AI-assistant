@@ -1,0 +1,25 @@
++++ b/models/bar_quotes.sql
+@@ -1,6 +1,37 @@
++WITH daily_prices AS (
++    SELECT
++        date,
++        ticker,
++        AVG(bid_pr) AS avg_bid,
++        AVG(ask_pr) AS avg_ask,
++        AVG((bid_pr + ask_pr) / 2) AS avg_mid
++    FROM {{ ref('stg_quotes') }}
++    GROUP BY date, ticker
++),
++total_book_value AS (
++    SELECT
++        dp.date,
++        dp.ticker,
++        dp.avg_bid * dp.avg_mid * SUM(q.size) AS total_book_value
++    FROM daily_prices dp
++    JOIN {{ ref('stg_market_trades') }} q ON dp.ticker = q.ticker AND dp.date = CAST(q.event_ts AS DATE)
++    GROUP BY dp.date, dp.ticker, dp.avg_bid, dp.avg_mid
++)
++
+ SELECT *
+-FROM {{ ref('stg_quotes') }}
++FROM total_book_value

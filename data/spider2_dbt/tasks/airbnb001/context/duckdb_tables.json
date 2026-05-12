@@ -1,0 +1,98 @@
+{
+  "airbnb.duckdb": [
+    {
+      "schema": "main",
+      "table": "RAW_HOSTS",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "IS_SUPERHOST",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "RAW_LISTINGS",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "LISTING_URL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ROOM_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "MINIMUM_NIGHTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "HOST_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "RAW_REVIEWS",
+      "columns": [
+        {
+          "name": "LISTING_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "DATE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "REVIEWER_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "COMMENTS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SENTIMENT",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

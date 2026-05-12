@@ -1,0 +1,20 @@
+```diff
+--- a/models/analytics_obt/obt_sales_overview.sql
++++ b/models/analytics_obt/obt_sales_overview.sql
+@@ -46,6 +46,7 @@
+            o.shipping_fee,
+            o.taxes,
+            o.payment_type,
++           o.paid_date,
+            os.status_name,
+            ots.tax_status_name,
+            od.status_id,
+@@ -62,6 +63,7 @@
+    FROM {{ ref('stg_orders') }} o
+    LEFT JOIN {{ ref('stg_orders_status') }} os ON o.status_id = os.id
+    LEFT JOIN {{ ref('stg_orders_tax_status') }} ots ON o.tax_status_id = ots.id
++   LEFT JOIN {{ ref('stg_order_details') }} od ON o.id = od.order_id
+    LEFT JOIN {{ ref('stg_customers') }} c ON o.customer_id = c.id
+    LEFT JOIN {{ ref('stg_employees') }} e ON o.employee_id = e.id
+    LEFT JOIN {{ ref('stg_products') }} p ON od.product_id = p.id
+```

@@ -1,0 +1,2610 @@
+{
+  "apple_store.duckdb": [
+    {
+      "schema": "main",
+      "table": "app",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "asset_token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pre_order_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "icon_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_opt_in_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tvos",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_bundle",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "app_store_platform_version_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "app_store_source_type_device",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "app_store_territory_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "apple_store__app_version_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "apple_store__device_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "apple_store__overview_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "page_views",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "active_devices",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "deletions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "installations",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "sessions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "apple_store__platform_version_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "apple_store_country_codes",
+      "columns": [
+        {
+          "name": "country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alternative_country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code_numeric",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_code_alpha_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code_alpha_3",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_region_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "crashes_app_version",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "crashes_platform_version",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "downloads_platform_version_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "redownloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_downloads",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "downloads_source_type_device",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "redownloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_downloads",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "downloads_territory_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "redownloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_downloads",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__app_store_overview",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "page_views",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__app_store_source_type",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "page_views",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__crashes_app_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__crashes_device",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__crashes_overview",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__downloads_overview",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__downloads_source_type",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__platform_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "crashes",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__usage_overview",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "deletions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "installations",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "sessions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_apple_store__usage_source_type",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_devices",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "deletions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "installations",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "sessions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sales_account",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sales_subscription_events",
+      "columns": [
+        {
+          "name": "_filename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vendor_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "days_canceled",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "consecutive_paid_periods",
+          "type": "INTEGER"
+        },
+        {
+          "name": "previous_subscription_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cancellation_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "proceeds_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_apple_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "standard_subscription_duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "original_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "days_before_canceling",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marketing_opt_in_duration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "promotional_offer_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "previous_subscription_apple_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "event",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "promotional_offer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_apple_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_offer_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_offer_duration",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sales_subscription_summary",
+      "columns": [
+        {
+          "name": "_filename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vendor_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "developer_proceeds",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "free_trial_promotional_offer_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "proceeds_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_as_you_go_promotional_offer_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "marketing_opt_ins",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_up_front_promotional_offer_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_retry",
+          "type": "INTEGER"
+        },
+        {
+          "name": "proceeds_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_apple_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_standard_price_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "standard_subscription_duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "grace_period",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_pay_up_front_introductory_offer_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "promotional_offer_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_pay_as_you_go_introductory_offer_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_free_trial_introductory_offer_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "promotional_offer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_apple_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "usage_app_version_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "usage_platform_version_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "usage_source_type_device",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "usage_territory_source_type",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "app_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_enabled",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_store_device",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_store_device_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_store_platform_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_store_platform_version_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_store_territory",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views",
+          "type": "BIGINT"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_store_territory_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions_unique_device",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_unique_device",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__app_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "asset_token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pre_order_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "icon_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_opt_in_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ios",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tvos",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_bundle",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__crashes_app_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "crashes",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__crashes_app_version_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__crashes_platform_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "crashes",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__crashes_platform_version_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__downloads_device",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__downloads_device_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "redownloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_downloads",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__downloads_platform_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__downloads_platform_version_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "redownloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_downloads",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__downloads_territory",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "redownloads",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_downloads",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__downloads_territory_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_time_downloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "redownloads",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_downloads",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__sales_account",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__sales_account_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_app_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_app_version_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_device",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_device_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_platform_version",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_platform_version_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_territory",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "app_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_devices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "BIGINT"
+        },
+        {
+          "name": "deletions",
+          "type": "BIGINT"
+        },
+        {
+          "name": "installations",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sessions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_apple_store_source",
+      "table": "stg_apple_store__usage_territory_tmp",
+      "columns": [
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meets_threshold",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "installations",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sessions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_devices_last_30_days",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deletions",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

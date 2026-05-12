@@ -1,0 +1,274 @@
+You are a senior analytics engineer. You will modify or create a
+        dbt model so that running `dbt run` and `dbt test` in the project
+        directory produces the answer to the user's question.
+
+        TASK:
+        QUESTION:
+        Create a balance sheet report that represents the balance sheet state for each account on a monthly basis.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - Output: emit ONE answer in either of two forms (pick the simpler that
+  solves the task):
+    A) A complete SQL block intended as a new dbt model file. Wrap with
+       a fenced code block and the path comment, e.g.:
+       ```sql path=models/output.sql
+       SELECT ...
+       ```
+    B) A unified diff against existing files in the snapshot. Wrap with:
+       ```diff
+       --- a/models/x.sql
+       +++ b/models/x.sql
+       @@ ...
+       ...
+       ```
+- DO NOT explain. DO NOT include extra prose. ONE fenced block.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `xero.duckdb`
+    main.xero__calendar_spine(date_month DATE)
+    main.xero__general_ledger(journal_id VARCHAR, created_date_utc VARCHAR, journal_date DATE, journal_number INTEGER, reference VARCHAR, source_id VARCHAR, source_type VARCHAR, source_relation VARCHAR, journal_line_id VARCHAR, account_code INTEGER, account_id VARCHAR, account_name VARCHAR, account_type VARCHAR, description INTEGER, gross_amount DOUBLE, net_amount DOUBLE, tax_amount DOUBLE, tax_name VARCHAR, tax_type VARCHAR, account_class VARCHAR, invoice_id VARCHAR, bank_transaction_id VARCHAR, bank_transfer_id VARCHAR, manual_journal_id VARCHAR, payment_id VARCHAR, credit_note_id VARCHAR, contact_id VARCHAR, contact_name VARCHAR)
+    main.xero__invoice_line_items(_fivetran_synced VARCHAR, account_code INTEGER, line_item_description VARCHAR, discount_entered_as_percent INTEGER, discount_rate INTEGER, invoice_id VARCHAR, item_code INTEGER, line_amount DOUBLE, line_item_id VARCHAR, quantity DOUBLE, tax_amount DOUBLE, tax_type VARCHAR, unit_amount DOUBLE, source_relation VARCHAR, invoice_date DATE, updated_date VARCHAR, planned_payment_date INTEGER, due_date DATE, expected_payment_date INTEGER, fully_paid_on_date DATE, currency_code VARCHAR, currency_rate DOUBLE, invoice_number VARCHAR, is_sent_to_contact BOOLEAN, invoice_status VARCHAR, type VARCHAR, url INTEGER, invoice_reference VARCHAR, account_id VARCHAR, account_name VARCHAR)
+    main.xero__profit_and_loss_report(profit_and_loss_id VARCHAR, date_month DATE, account_id VARCHAR, account_name VARCHAR, account_code INTEGER, account_type VARCHAR, account_class VARCHAR, source_relation VARCHAR, net_amount DOUBLE)
+    main.xero_account_data(account_id VARCHAR, name VARCHAR, code INTEGER, type VARCHAR, class VARCHAR, _fivetran_synced VARCHAR)
+    main.xero_bank_transaction_data(bank_transaction_id VARCHAR, contact_id VARCHAR)
+    main.xero_contact_data(contact_id VARCHAR, name VARCHAR, _fivetran_deleted BOOLEAN)
+    main.xero_credit_note_data(credit_note_id VARCHAR, contact_id VARCHAR)
+    main.xero_invoice_data(invoice_id VARCHAR, contact_id VARCHAR, date DATE, updated_date_utc VARCHAR, planned_payment_date INTEGER, due_date DATE, expected_payment_date INTEGER, fully_paid_on_date DATE, _fivetran_synced VARCHAR, amount_credited INTEGER, amount_due DOUBLE, amount_paid DOUBLE, sub_total DOUBLE, total DOUBLE, total_tax DOUBLE, currency_code VARCHAR, currency_rate DOUBLE, has_attachments BOOLEAN, has_errors BOOLEAN, invoice_number VARCHAR, is_discounted BOOLEAN, line_amount_types VARCHAR, reference VARCHAR, sent_to_contact BOOLEAN, status VARCHAR, type VARCHAR, url INTEGER)
+    main.xero_invoice_line_item_data(_fivetran_synced VARCHAR, account_code INTEGER, description VARCHAR, discount_entered_as_percent INTEGER, discount_rate INTEGER, invoice_id VARCHAR, item_code INTEGER, line_amount DOUBLE, line_item_id VARCHAR, quantity DOUBLE, tax_amount DOUBLE, tax_type VARCHAR, unit_amount DOUBLE, validation_errors INTEGER)
+    main.xero_journal_data(journal_id VARCHAR, created_date_utc VARCHAR, journal_date DATE, journal_number INTEGER, reference VARCHAR, source_id VARCHAR, source_type VARCHAR)
+    main.xero_journal_line_data(journal_line_id VARCHAR, account_code INTEGER, account_id VARCHAR, account_name VARCHAR, account_type VARCHAR, description INTEGER, gross_amount DOUBLE, journal_id VARCHAR, net_amount DOUBLE, tax_amount DOUBLE, tax_name VARCHAR, tax_type VARCHAR)
+    main.xero_organization_data(organisation_id VARCHAR, financial_year_end_month INTEGER, financial_year_end_day INTEGER)
+    main_stg_xero.stg_xero__account(account_id VARCHAR, account_name VARCHAR, account_code INTEGER, account_type VARCHAR, account_class VARCHAR, _fivetran_synced VARCHAR, source_relation VARCHAR)
+    main_stg_xero.stg_xero__account_tmp(account_id VARCHAR, name VARCHAR, code INTEGER, type VARCHAR, class VARCHAR, _fivetran_synced VARCHAR)
+    main_stg_xero.stg_xero__bank_transaction(bank_transaction_id VARCHAR, contact_id VARCHAR, source_relation VARCHAR)
+    main_stg_xero.stg_xero__bank_transaction_tmp(bank_transaction_id VARCHAR, contact_id VARCHAR)
+    main_stg_xero.stg_xero__contact(contact_id VARCHAR, contact_name VARCHAR, source_relation VARCHAR)
+    main_stg_xero.stg_xero__contact_tmp(contact_id VARCHAR, name VARCHAR, _fivetran_deleted BOOLEAN)
+    main_stg_xero.stg_xero__credit_note(credit_note_id VARCHAR, contact_id VARCHAR, source_relation VARCHAR)
+    main_stg_xero.stg_xero__credit_note_tmp(credit_note_id VARCHAR, contact_id VARCHAR)
+    main_stg_xero.stg_xero__invoice(invoice_id VARCHAR, contact_id VARCHAR, invoice_date DATE, updated_date VARCHAR, planned_payment_date INTEGER, due_date DATE, expected_payment_date INTEGER, fully_paid_on_date DATE, _fivetran_synced VARCHAR, currency_code VARCHAR, currency_rate DOUBLE, invoice_number VARCHAR, reference VARCHAR, is_sent_to_contact BOOLEAN, invoice_status VARCHAR, type VARCHAR, url INTEGER, source_relation VARCHAR)
+
+        PROJECT FILES (paths + first lines):
+
+--- dbt_project.yml ---
+name: 'xero'
+version: '0.6.2'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: xero
+
+vars:
+  xero_schema: main
+  xero_source:
+    xero_account_identifier: "xero_account_data"
+    xero_contact_identifier: "xero_contact_data"
+    xero_invoice_line_item_identifier: "xero_invoice_line_item_data"
+    xero_invoice_identifier: "xero_invoice_data"
+    xero_journal_line_identifier: "xero_journal_line_data"
+    xero_journal_identifier: "xero_journal_data"
+    xero_organization_identifier: "xero_organization_data"
+    xero_bank_transaction_identifier: "xero_bank_transaction_data"
+    xero_credit_note_identifier: "xero_credit_note_data"
+
+  account: "{{ ref('stg_xero__account') }}"
+  contact: "{{ ref('stg_xero__contact') }}"
+  invoice_line_item: "{{ ref('stg_xero__invoice_line_item') }}"
+  invoice: "{{ ref('stg_xero__invoice') }}"
+  journal_line: "{{ ref('stg_xero__journal_line') }}"
+  journal: "{{ ref('stg_xero__journal') }}"
+  organization: "{{ ref('stg_xero__organization') }}"
+  credit_note: "{{ ref('stg_xero__credit_note') }}"
+  bank_transaction: "{{ ref('stg_xero__bank_transaction') }}"
+  xero__using_bank_transaction: true
+  xero__using_credit_note: true
+models:
+  xer
+
+
+--- models/utilities/xero__calendar_spine.sql ---
+with spine as (
+
+    {{ 
+        dbt_utils.date_spine(
+            datepart="month",
+            start_date="cast('2019-01-01' as date)",
+            end_date=dbt.dateadd(datepart='month', interval=1, from_date_or_timestamp="current_date")
+        )
+    }}
+
+), cleaned as (
+
+    select cast(date_month as date) as date_month
+    from spine
+
+)
+
+select *
+from cleaned
+
+
+--- models/xero.yml ---
+version: 2
+
+models:
+  - name: xero__profit_and_loss_report
+    description: Each record represents a P&L line item at the month and account level.
+    columns:
+      - name: profit_and_loss_id
+        description: Unique identifier for each record in the profit and loss report model.
+        tests:
+          - unique  
+          - not_null
+      - name: date_month
+        description: The month of activity.
+      - name: account_id
+        description: The ID of the related account in Xero.
+      - name: account_name
+        description: The name of the related account in Xero.
+      - name: account_code
+        description: The code of the related account in Xero.
+      - name: account_type
+        description: The type of the related account in Xero.
+      - name: account_class
+        description: The class of account, e.g. ASSET, EQUITY, EXPENSE, LIABILITY, REVENUE
+      - name: net_amount
+        description: The net movement amount.
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databas
+
+
+--- models/xero__general_ledger.sql ---
+with journals as (
+
+    select *
+    from {{ var('journal') }}
+
+), journal_lines as (
+
+    select *
+    from {{ var('journal_line') }}
+
+), accounts as (
+
+    select *
+    from {{ var('account') }}
+
+), invoices as (
+
+    select *
+    from {{ var('invoice') }}
+
+{% if var('xero__using_bank_transaction', True) %}
+), bank_transactions as (
+
+    select *
+    from {{ var('bank_transaction') }}
+
+{% endif %}
+
+{% if var('xero__using_credit_note', True) %}
+), credit_notes as (
+
+    select *
+    from {{ var('credit_note') }}
+{% endif %}
+
+), contacts as (
+
+    select *
+    from {{ var('contact') }}
+
+), joined as (
+
+    select 
+        journals.journal_id,
+        journals.created_date_utc,
+        journals.journal_date,
+        journals.journal_number,
+        journals.reference,
+        journals.source_id,
+        journals.source_type,
+        journals.source_relation,
+        journal_lines.journal_line_id,
+        accounts.account_code,
+        accounts.account_id,
+        accounts.account_name,
+        accounts.account_type,
+        journal_lines.description,
+        journal_lines.gross_amount,
+        journal_lines.net_amount,
+        journal_lines.tax_amount,
+        journal_lines.tax_name
+
+
+--- models/xero__invoice_line_items.sql ---
+with line_items as (
+
+    select *
+    from {{ var('invoice_line_item') }}
+
+), invoices as (
+
+    select *
+    from {{ var('invoice') }}
+
+), accounts as (
+
+    select *
+    from {{ var('account') }}
+
+), contacts as (
+
+    select *
+    from {{ var('contact') }}
+
+), joined as (
+
+    select
+        line_items.*,
+
+        invoices.invoice_date,
+        invoices.updated_date,
+        invoices.planned_payment_date,
+        invoices.due_date,
+        invoices.expected_payment_date,
+        invoices.fully_paid_on_date,
+        invoices.currency_code,
+        invoices.currency_rate,
+        invoices.invoice_number,
+        invoices.is_sent_to_contact,
+        invoices.invoice_status,
+        invoices.type,
+        invoices.url,
+        invoices.reference as invoice_reference,
+
+        accounts.account_id,
+        accounts.account_name,
+        accounts.account_type,
+        accounts.account_class,
+
+        contacts.contact_name
+
+    from line_items
+    left join invoices
+        on (line_items.invoice_id = invoices.invoice_id
+        and line_items.source_relation = invoices.source_relation)
+    left join accounts
+        on (line_items.account_code = accounts.account_code
+        and line_
+
+
+        Now emit ONE fenced block (SQL or diff) that solves the task.
+        SQL or DIFF:

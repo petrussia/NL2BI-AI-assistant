@@ -1,0 +1,321 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate a report that aggregates corporate account metrics, including the number of gaggles, users, events, and orders associated with corporate emails, while also identifying the first user, most active user, and the user with the most orders for each corporate email
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `scd.duckdb`
+    main.merged_company_domain(old_domain VARCHAR, new_domain VARCHAR)
+    main.merged_user(old_email VARCHAR, new_email VARCHAR)
+    main.raw_event(event_id VARCHAR, user_id INTEGER, event_name VARCHAR, timestamp TIMESTAMP)
+    main.raw_gaggle(id INTEGER, name VARCHAR, created_at TIMESTAMP)
+    main.raw_user(id INTEGER, name VARCHAR, email VARCHAR, gaggle_id INTEGER, created_at TIMESTAMP, updated_at TIMESTAMP, effective_from_ts TIMESTAMP, effective_to_ts TIMESTAMP)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_scd'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'scd'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+an
+
+
+=== STAGING models (4) ===
+  - models/staging/stg_events.sql
+    --- head:
+    with source as (
+
+        {#-
+        Normally we would select from the table here, but we are using seeds to load
+        our data in this project
+  - models/staging/stg_gaggles.sql
+    cols: gaggle_id, gaggle_name
+    --- head:
+    with source as (
+
+        {#-
+        Normally we would select from the table here, but we are using seeds to load
+        our data in this project
+  - models/staging/stg_users.sql
+    cols: user_id, user_name, email_domain
+    --- head:
+    with source as (
+
+        select * 
+        from {{ source('main', 'raw_user') }}
+        where effective_to_ts = '{{ var('high_timestamp') }}'
+  - models/staging/stg_users_type2.sql
+    cols: user_id, user_name, email_domain
+    --- head:
+    with source as (
+
+        select * from {{ source('main','raw_user') }}
+
+    ),
+
+=== FINAL models (8) ===
+  - macros/build_key_from_columns.sql
+    --- body (first 900 chars):
+    {% macro build_key_from_columns(table_name, exclude=[], include=[]) %}
+
+    {% set output_col_list = [] %}
+
+    {% if exclude == [] and  include == [] %}
+         {{ log("Running build_key_from_columns you need to provide either a list of columns to exclude or include, currently both are empty! ") }}
+    {% elif exclude != [] and  include != [] %}
+        {{ log("Running build_key_from_columns you need to provide either a list of columns to exclude or include: , you cant supply both! ") }}
+    {% elif exclude != [] and  include != [] %}
+
+        {% set cols = dbt_utils.star(from=table_name, except = exclude) %}
+
+    {% else %}
+
+        {% set cols = dbt_utils.star(from=table_name, except = include) %}
+
+    {% endif %}
+
+
+    {% set input_col_list = cols.split(',') %}
+
+    {%- for col in input_col_list -%}
+
+        {%- do output_col_list.append("coalesce(cast(" ~ col ~ " as " ~ dbt_utils.type_string() ~ "), '')")  -%}
+
+    {%- endfor -%}
+
+    {
+  - macros/build_key_from_row_natural_id.sql
+    --- body (first 900 chars):
+    {% macro build_key_from_row_natural_id(input_col_list=[]) %}
+
+    {# {{% set row_natural_id = build_row_natural_id_from_columns(input_col_list) %}}} #}
+
+    {{ log("Running build_key_from_row_natural_id") }}
+
+    {{ return(dbt_utils.surrogate_key(build_row_natural_id_from_columns(input_col_list))) }}
+
+    {% endmacro %}
+  - macros/build_row_natural_id_from_columns.sql
+    --- body (first 900 chars):
+    {% macro build_row_natural_id_from_columns(input_col_list=[]) %}
+
+    {% set output_col_list = [] %}
+
+    {{ log("Running build_row_natural_id_from_columns with output_col_list input_col_list: " ~ input_col_list) }}
+
+    {%- for col in input_col_list -%}
+
+        {%- do output_col_list.append("coalesce(cast(" ~ col ~ " as " ~ dbt_utils.type_string() ~ "), '')")  -%}
+
+    {%- endfor -%}
+
+
+
+    {{ log("Running build_row_natural_id_from_columns with output_col_list: " ~ output_col_list) }}
+
+    {# {{% set output_str = output_col_list|join(', ') %}} #}
+
+    {{ return('concat(' ~ output_col_list|join(', \'|\' , ') ~ ')') }}
+
+    {% endmacro %}
+  - macros/extract_email_domain.sql
+    --- body (first 900 chars):
+    {% macro extract_email_domain(email) %}
+    regexp_extract(lower({{ email }}), '@(.*)', 1)
+    {% endmacro %}
+
+  - macros/get_personal_emails.sql
+    --- body (first 900 chars):
+    {% macro get_personal_emails() %}
+    ('gmail.com', 'outlook.com', 'yahoo.com', 'icloud.com', 'hotmail.com')
+    {% endmacro %}
+
+  - macros/join_snapshots.sql
+    cols: add_
+    --- body (first 900 chars):
+    -- requires any extra columns from table_join_on to be listed prior to using this macro.
+    -- assumes we have replaced instances of valid_to = null with a future_proof_date = '9999-12-31'.
+    -- source: https://docs.getdbt.com/blog/joining-snapshot-complexity?utm_content=210039579&utm_medium=social&utm_source=linkedin&hss_channel=lcp-10893210
+
+    {% macro join_snapshots(cte_join, cte_join_on, cte_join_valid_to,
+       cte_join_valid_from, cte_join_on_valid_to, cte_join_on_valid_from,
+       cte_join_id, cte_join_on_id) %}
+
+
+           {{cte_join}}.*,
+           greatest({{cte_join}}.{{cte_join_valid_from}},
+                   coalesce( {{cte_join_on}}.{{cte_join_on_valid_from}}, {{cte_join}}.{{cte_join_valid_from}}))
+               as add_{{cte_join_on}}_valid_from,
+           least({{cte_join}}.{{cte_join_valid_to}},
+               coalesce({{cte_join_on}}.{{cte_join_on_valid_to}}, {{cte_join}}.{{cte_join_valid_to}})) as a
+  - models/dim_contacts.sql
+    cols: first_event, most_recent_event, number_of_events, first_order, most_recent_order, number_of_orders, corporate_email, user_id, email, user_name, gaggle_id, created_at
+    --- body (first 900 chars):
+    {% set personal_emails = get_personal_emails() %}
+
+    with users as (
+
+        select * from {{ ref('stg_users') }} 
+
+    ),
+
+    events as (
+
+        select * from {{ ref('stg_events') }}
+
+    ),
+
+    user_events as (
+
+        select
+            user_id,
+            min(timestamp) as first_event,
+            max(timestamp) as most_recent_event,
+            count(event_id) as number_of_events
+        from events
+        group by 1
+
+    ),
+
+    order_events as (
+
+        select
+            user_id,
+            min(timestamp) as first_order,
+            max(timestamp) as most_recent_order,
+            count(event_id) as number_of_orders
+        from events
+        where event_name = 'order_placed'
+        group by 1
+
+    ),
+
+    final_all_users as (
+
+        select
+            users.user_id,
+            users.user_name,
+            users.gaggle_id,
+            users.email,
+            users.created_at,
+            user_events.first_event,
+            user_events.most_recent_event,
+            user_events.number_of_events,
+
+  - models/dim_contacts_type2.sql
+    cols: first_event, most_recent_event, number_of_events, first_order, most_recent_order, number_of_orders, corporate_email, user_id, email, user_name, gaggle_id, created_at, effective_from_ts, effective_to_ts, row_natural_id, contacts_sk
+    --- body (first 900 chars):
+    {% set personal_emails = get_personal_emails() %}
+
+    with users as (
+
+        select * from {{ ref('stg_users_type2') }} 
+
+    ),
+
+    events as (
+
+        select * from {{ ref('stg_events') }}
+
+    ),
+
+    user_events as (
+
+        select
+            user_id,
+            min(timestamp) as first_event,
+            max(timestamp) as most_recent_event,
+            count(event_id) as number_of_events
+        from events
+        group by 1
+
+    ),
+
+    order_events as (
+
+        select
+            user_id,
+            min(timestamp) as first_order,
+            max(timestamp) as most_recent_order,
+            count(event_id) as number_of_orders
+        from events
+        where event_name = 'order_placed'
+        group by 1
+
+    ),
+
+    final_all_users as (
+
+        select
+            users.user_id,
+            users.user_name,
+            users.gaggle_id,
+            users.email,
+            users.created_at,
+            user_events.first_event,
+            user_events.most_recent_event,
+            user_events.number_of_event
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_scd'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'scd'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# f
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

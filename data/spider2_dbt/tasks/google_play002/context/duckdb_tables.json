@@ -1,0 +1,2084 @@
+{
+  "google_play.duckdb": [
+    {
+      "schema": "main",
+      "table": "earnings",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "refund_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sku_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hardware",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buyer_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "buyer_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "buyer_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buyer_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_buyer_currency_",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "currency_conversion_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "merchant_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_merchant_currency_",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_plan_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "offer_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "financial_stats_subscriptions_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cancelled_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "google_play__country_codes",
+      "columns": [
+        {
+          "name": "country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alternative_country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code_numeric",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_code_alpha_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code_alpha_3",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_region_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_crashes_app_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_anrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_crashes_os_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "android_os_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_anrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_crashes_overview",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_anrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_installs_app_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_installs_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_installs_device",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_installs_os_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "android_os_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_installs_overview",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "BIGINT"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_ratings_app_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version_code",
+          "type": "BIGINT"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_ratings_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_ratings_device",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_ratings_os_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "android_os_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_ratings_overview",
+      "columns": [
+        {
+          "name": "a",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_store_performance_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "store_listing_acquisitions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_visitors",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_conversion_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stats_store_performance_traffic_source",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "traffic_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "search_term",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "store_listing_acquisitions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_visitors",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_conversion_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "earnings",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "refund_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sku_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hardware",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buyer_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "buyer_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "buyer_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buyer_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_buyer_currency_",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "currency_conversion_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "merchant_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_merchant_currency_",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_plan_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "offer_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "financial_stats_subscriptions_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cancelled_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_subscriptions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "google_play__country_codes",
+      "columns": [
+        {
+          "name": "country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alternative_country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code_numeric",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_code_alpha_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code_alpha_3",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_region_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_crashes_app_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_anrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_crashes_os_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "android_os_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_anrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_crashes_overview",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_crashes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_anrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_installs_app_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_installs_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_installs_device",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_installs_os_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "android_os_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_installs_overview",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_device_upgrades",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_installs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "daily_user_uninstalls",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active_device_installs",
+          "type": "BIGINT"
+        },
+        {
+          "name": "install_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "update_events",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uninstall_events",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_ratings_app_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_version_code",
+          "type": "BIGINT"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_ratings_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_ratings_device",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_ratings_os_version",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "android_os_version",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_ratings_overview",
+      "columns": [
+        {
+          "name": "a",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "daily_average_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_average_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_store_performance_country",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "store_listing_acquisitions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_visitors",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_conversion_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_play_source",
+      "table": "stats_store_performance_traffic_source",
+      "columns": [
+        {
+          "name": "_file",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "package_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "traffic_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "search_term",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "store_listing_acquisitions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_visitors",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_listing_conversion_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

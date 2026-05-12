@@ -1,0 +1,249 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        calculate key metrics for each directory, including distinct contacts, emails, phones, unsubscribed contacts, and new contacts from the last 30 days, along with survey engagement stats (sent, opened, started, completed) and the number of mailing lists?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `qualtrics.duckdb`
+    main.block(id VARCHAR, survey_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, block_locking INTEGER, block_visibility INTEGER, description VARCHAR, randomize_questions INTEGER, type VARCHAR)
+    main.block_question(block_id VARCHAR, question_id VARCHAR, survey_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR)
+    main.contact_mailing_list_membership(contact_lookup_id VARCHAR, _fivetran_synced VARCHAR, contact_id VARCHAR, directory_id VARCHAR, mailing_list_id VARCHAR, name VARCHAR, owner_id VARCHAR, unsubscribe_date INTEGER, unsubscribed BOOLEAN)
+    main.core_contact(_fivetran_synced VARCHAR, id VARCHAR, mailing_list_id VARCHAR, first_name VARCHAR, last_name VARCHAR, email VARCHAR, external_data_reference VARCHAR, language VARCHAR, unsubscribed BOOLEAN, _fivetran_deleted BOOLEAN)
+    main.core_mailing_list(_fivetran_synced VARCHAR, id VARCHAR, library_id VARCHAR, name VARCHAR, category VARCHAR, folder VARCHAR, _fivetran_deleted BOOLEAN)
+    main.directory(id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, deduplication_criteria_email BOOLEAN, deduplication_criteria_external_data_reference BOOLEAN, deduplication_criteria_first_name BOOLEAN, deduplication_criteria_last_name BOOLEAN, deduplication_criteria_phone BOOLEAN, is_default BOOLEAN, name VARCHAR)
+    main.directory_contact(directory_id VARCHAR, id VARCHAR, _fivetran_synced VARCHAR, creation_date VARCHAR, directory_unsubscribe_date INTEGER, directory_unsubscribed BOOLEAN, email VARCHAR, email_domain VARCHAR, embedded_data_last_active_time INTEGER, embedded_data_last_response_date INTEGER, embedded_data_login_date INTEGER, ext_ref INTEGER, first_name VARCHAR, language INTEGER, last_modified VARCHAR, last_name VARCHAR, phone INTEGER, write_blanks INTEGER)
+    main.directory_mailing_list(directory_id VARCHAR, id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, creation_date VARCHAR, last_modified_date VARCHAR, name VARCHAR, owner_id VARCHAR)
+    main.distribution(id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, created_date VARCHAR, header_from_email VARCHAR, header_from_name VARCHAR, header_reply_to_email VARCHAR, header_subject VARCHAR, message_library_id INTEGER, message_message_id INTEGER, message_message_text INTEGER, modified_date VARCHAR, organization_id VARCHAR, owner_id VARCHAR, parent_distribution_id INTEGER, recipient_contact_id VARCHAR, recipient_library_id VARCHAR, recipient_mailing_list_id VARCHAR, recipient_sample_id VARCHAR, request_status VARCHAR, request_type VARCHAR, send_date VARCHAR, survey_link_expiration_date VARCHAR, survey_link_link_type VARCHAR, survey_link_survey_id VARCHAR)
+    main.distribution_contact(contact_id VARCHAR, distribution_id VARCHAR, _fivetran_synced VARCHAR, contact_frequency_rule_id INTEGER, contact_lookup_id VARCHAR, opened_at VARCHAR, response_completed_at INTEGER, response_id INTEGER, response_started_at INTEGER, sent_at VARCHAR, status VARCHAR, survey_link VARCHAR, survey_session_id INTEGER)
+    main.qualtrics__response(question_response_id VARCHAR, survey_response_id VARCHAR, survey_id VARCHAR, question_id VARCHAR, question_text VARCHAR, sub_question_key INTEGER, sub_question_text INTEGER, question_option_key INTEGER, value INTEGER, loop_id INTEGER, distribution_channel VARCHAR, survey_response_status INTEGER, survey_progress INTEGER, duration_in_seconds INTEGER, is_finished_with_survey BOOLEAN, survey_finished_at TIMESTAMP, survey_response_last_modified_at TIMESTAMP, survey_response_recorded_at TIMESTAMP, survey_response_started_at TIMESTAMP, recipient_email VARCHAR, recipient_first_name VARCHAR, recipient_last_name VARCHAR, user_language VARCHAR, ip_address VARCHAR, location_latitude INTEGER, location_longitude INTEGER, source_relation VARCHAR, recode_value INTEGER, question_option_text VARCHAR, first_name VARCHAR)
+    main.question(id VARCHAR, survey_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, data_export_tag VARCHAR, data_visibility_hidden BOOLEAN, data_visibility_private BOOLEAN, next_answer_id INTEGER, next_choice_id INTEGER, question_description VARCHAR, question_description_option VARCHAR, question_text VARCHAR, question_text_unsafe VARCHAR, question_type VARCHAR, selector VARCHAR, sub_selector VARCHAR, validation_setting_force_response INTEGER, validation_setting_force_response_type INTEGER, validation_setting_type VARCHAR)
+    main.question_option(key INTEGER, question_id VARCHAR, survey_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, recode_value INTEGER, text VARCHAR)
+    main.question_response(_fivetran_id VARCHAR, _fivetran_synced VARCHAR, loop_id INTEGER, question VARCHAR, question_id VARCHAR, question_option_key INTEGER, response_id VARCHAR, sub_question_key INTEGER, sub_question_text INTEGER, value INTEGER)
+    main.sub_question(key INTEGER, question_id VARCHAR, survey_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, choice_data_export_tag INTEGER, text VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'qualtrics'
+version: '0.2.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"] 
+
+profile: 'qualtrics'
+
+
+
+vars:
+  qualtrics_schema: main
+  qualtrics_source:
+    qualtrics_user_identifier: "user"
+    qualtrics_survey_identifier: "survey"
+    qualtrics_question_identifier: "question"
+    qualtrics_question_response_identifier: "question_response"
+    qualtrics_question_option_identifier: "question_option"
+    qualtrics_survey_response_identifier: "survey_response"
+    qualtrics_sub_question_identifier: "sub_question"
+    qualtrics_survey_version_identifier: "survey_version"
+    q
+
+
+=== INTERMEDIATE models (5) ===
+  - models/intermediate/int_qualtrics__contacts.sql
+    cols: count_mailing_lists_subscribed_to, count_mailing_lists_unsubscribed_from, mailing_list_ids, is_xm_directory_contact, is_research_core_contact, directory_id, is_unsubscribed_from_directory, unsubscribed_from_directory_at, last_modified_at, created_at, external_data_reference
+    --- head:
+    {# 
+    This model unions together contacts from the XM Directory and Research Core Contact endpoints.
+    Research Core contacts will be deprecated in 2023 by Qualtrics
+    #}
+    with directory_contact as (
+  - models/intermediate/int_qualtrics__question.sql
+    cols: parent_question_id, sub_question_key, sub_question_text, is_question_deleted, block_description, block_question_randomization, block_type, is_block_locked, is_block_deleted
+    --- head:
+    with question as (
+
+        select *
+        from {{ var('question') }}
+    ),
+  - models/intermediate/int_qualtrics__responses.sql
+    cols: question_response_id, survey_response_id, question_text, survey_response_status, survey_progress, is_finished_with_survey, survey_finished_at, survey_response_last_modified_at, survey_response_recorded_at, survey_response_started_at
+    --- head:
+    with question_response as (
+
+        select *
+        from {{ var('question_response') }}
+    ),
+  - models/intermediate/int_qualtrics__survey.sql
+    cols: count_published_versions, survey_version_created_at, publisher_email, creator_email, owner_email, version_publisher, owner, creator
+    --- head:
+    with survey as (
+
+        select *
+        from {{ var('survey') }}
+    ),
+  - models/intermediate/int_qualtrics__survey_embedded_data.sql
+    cols: embedded_data
+    --- head:
+    with survey_embedded_data as (
+
+        select *
+        from {{ var('survey_embedded_data') }}
+    ),
+
+=== FINAL models (5) ===
+  - models/qualtrics__contact.sql
+    cols: count_surveys_sent_email, count_surveys_sent_sms, count_surveys_opened_email, count_surveys_opened_sms, count_surveys_started_email, count_surveys_started_sms, count_surveys_completed_email, count_surveys_completed_sms, total_count_surveys, total_count_completed_surveys, avg_survey_progress_pct, avg_survey_duration_in_seconds, last_survey_response_recorded_at, first_survey_response_recorded_at, median_survey_duration_in_seconds, median_survey_progress_pct, rollup_medians, directory_name, ...(20 total)
+    --- body (first 900 chars):
+    with contacts as (
+
+        select *
+        from {{ ref('int_qualtrics__contacts') }}
+    ),
+
+    directory as (
+
+        select *
+        from {{ var('directory') }}
+    ),
+
+    distribution_contact as (
+
+        select *
+        from {{ var('distribution_contact') }}
+    ),
+
+    distribution as (
+    -- just to grab survey id 
+        select *
+        from {{ var('distribution') }}
+    ),
+
+    survey_response as (
+
+        select *
+        from {{ var('survey_response') }}
+    ),
+
+    distribution_response as (
+
+        select
+            distribution_contact.*,
+            distribution.survey_id,
+            survey_response.distribution_channel,
+            survey_response.progress,
+            survey_response.duration_in_seconds,
+            survey_response.is_finished,
+            survey_response.recorded_date
+
+        from distribution_contact 
+        left join distribution
+            on distribution_contact.distribution_id = distribution.distribution_id
+            and distribution_contact.source_relation =
+  - models/qualtrics__daily_breakdown.sql
+    cols: min_date, date, date_day, count_distinct_surveys_responded_to, total_count_survey_responses, total_count_completed_survey_responses, count_, count_uncategorized_survey_responses, count_uncategorized_completed_survey_responses, count_contacts_sent_surveys, count_contacts_opened_sent_surveys, count_contacts_started_sent_surveys, count_contacts_completed_sent_surveys, count_contacts_created, count_contacts_unsubscribed_from_directory, count_contacts_unsubscribed_from_mailing_list, source_relation, count_anonymous_survey_responses, ...(29 total)
+    --- body (first 900 chars):
+    with response as (
+
+        select *
+        from {{ ref('qualtrics__response') }}
+    ),
+
+    contact as (
+
+        select *
+        from {{ ref('qualtrics__contact') }}
+    ),
+
+    contact_mailing_list_membership as (
+
+        select *
+        from {{ var('contact_mailing_list_membership') }}
+    ),
+
+    distribution_contact as (
+
+        select *
+        from {{ var('distribution_contact') }}
+    ),
+
+    spine as (
+
+        {% if execute %}
+        {% set first_date_query %}
+            select  coalesce( min( sent_at ), '2016-01-01') as min_date from {{ var('distribution_contact') }}
+        {% endset %}
+        {% set first_date = run_query(first_date_query).columns[0][0]|string %}
+
+        {% else %} {% set first_date = "2016-01-01" %}
+        {% endif %}
+
+        {{ dbt_utils.date_spine(
+            datepart = "day", 
+            start_date =  "cast('" ~ first_date[0:10] ~ "' as date)", 
+            end_date = dbt.dateadd("week", 1, dbt.date_trunc('day', dbt.current_timestamp_backcom
+  - models/qualtrics__distribution.sql
+    cols: time_to_open_in_seconds, time_to_start_in_seconds, time_to_complete_in_seconds, current_count_surveys_, total_count_contacts, count_contacts_sent_surveys, count_contacts_opened_surveys, count_contacts_started_surveys, count_contacts_completed_surveys, first_survey_sent_at, last_survey_sent_at, first_survey_opened_at, last_survey_opened_at, first_response_completed_at, last_response_completed_at, avg_time_to_open_in_seconds, avg_time_to_start_in_seconds, avg_time_to_complete_in_seconds, ...(28 total)
+    --- body (first 900 chars):
+    with distribution as (
+
+        select *
+        from {{ var('distribution') }}
+    ),
+
+    qualtrics_user as (
+
+        select *
+        from {{ var('user') }}
+    ),
+
+    directory_mailing_list as (
+
+        select *
+        from {{ var('directory_mailing_list') }}
+    ),
+
+    {% if var('qualtrics__using_core_mailing_lists', false) %}
+    core_mailing_list as (
+
+        select *
+        from {{ var('core_mailing_list') }}
+    ),
+    {% endif %}
+
+    distribution_contact as (
+
+        select 
+            *,
+            -- all relative to sent_at (should response be relative to opened_at?)
+            {{ fivetran_utils.timestamp_diff(first_date="sent_at", second_date="opened_at", datepart="second") }} as time_to_open_in_seconds,
+            {{ fivetran_utils.timestamp_diff(first_date="sent_at", second_date="response_started_at", datepart="second") }} as time_to_start_in_seconds,
+            {{ fivetran_utils.timestamp_diff(first_date
+... (truncated)

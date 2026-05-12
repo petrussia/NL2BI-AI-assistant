@@ -1,0 +1,176 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Calculate the average bid, ask, and mid prices for stock tickers on a daily basis and then determine the total book value of shares based on these prices
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `asset.duckdb`
+    main.market_trades(datetime DOUBLE, ticker VARCHAR, price DOUBLE, size INTEGER, date TIMESTAMP, event_ts TIMESTAMP, time DOUBLE)
+    main.quotes(date DATE, ts VARCHAR, bid_pr INTEGER, ask_pr DOUBLE, bid_size INTEGER, ask_size INTEGER, ticker VARCHAR)
+    main.sentiment(ticker VARCHAR, comment VARCHAR, read_ts TIMESTAMP, statement VARCHAR, sentiment VARCHAR)
+    main.trades(id INTEGER, date DATE, ts VARCHAR, ticker VARCHAR, quantity INTEGER, price DOUBLE, side_cd VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_asset'
+version: '1.0.0'
+config-version: 2
+profile: 'asset'
+
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["
+
+
+=== STAGING models (4) ===
+  - models/stg_executions.sql
+    --- head:
+    select x.*  from {{ source('asset_mgmt', 'trades') }} x
+  - models/stg_market_trades.sql
+    --- head:
+    select * from {{ source('asset_mgmt', 'market_trades') }}
+  - models/stg_quotes.sql
+    --- head:
+    select * from {{ source('asset_mgmt', 'quotes') }}
+  - models/stg_sentiment.sql
+    --- head:
+    select *  from {{ source('asset_mgmt', 'sentiment') }} 
+
+=== FINAL models (4) ===
+  - models/bar_executions.sql
+    cols: tt_key, date, ts, aggregate_qty, foo
+    --- body (first 900 chars):
+    select 
+        date, 
+        concat(ticker, ts) as tt_key, 
+        ts, 
+        ticker, 
+        aggregate_qty
+    from (
+        select 
+            cast(ts as date) as date, 
+            ts::timestamp as ts,
+            ticker,
+            sum(case when side_cd = 'B' then quantity else -1 * quantity end) as aggregate_qty
+        from {{ ref('stg_executions') }}
+
+        group by 
+            cast(ts as date), 
+            ts::timestamp,
+            ticker
+    ) as foo
+
+  - models/benchmarks.sql
+    cols: vwap, agg_quantity, dollar_value, sma
+    --- body (first 900 chars):
+    select x.*, dollar_value / agg_quantity as vwap
+    from (
+        select 
+            ticker, 
+            event_ts, 
+            sum(size) over (partition by ticker order by event_ts) as agg_quantity, 
+            sum(size * price) over (partition by ticker order by event_ts) as dollar_value,
+            avg(price) over (partition by ticker order by extract(epoch from event_ts) range between 20 preceding and current row) as sma
+        from {{ ref('stg_market_trades') }} 
+    ) x
+
+  - models/explore.sql
+    --- body (first 900 chars):
+    select * from {{ref('stg_sentiment')}}
+  - models/positions_shares.sql
+    --- body (first 900 chars):
+    select date, tt_key, ts, ticker, sum(aggregate_qty) over (partition by ticker order by ts) shares
+    from 
+    {{ ref('bar_executions')}}
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_asset'
+version: '1.0.0'
+config-version: 2
+profile: 'asset'
+
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to chan
+
+
+--- models/schema.yml (head) ---
+version: 2
+
+sources:
+  - name: asset_mgmt
+    schema: main
+    tables:
+      - name: trades
+      - name: quotes
+      - name: positions
+      - name: sentiment
+      - name: market_trades
+
+models:
+
+
+  - name: trades
+
+  - name: quotes
+
+  - name: stg_executions
+
+  - name: stg_quotes
+
+  - name: bar_quotes
+    description: "Aggregates and computes average bid, ask, and mid prices for each ticker on a daily basis."
+    columns:
+      - name: date
+        description: "The date associated with the qu
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,28 @@
++++ b/models/xero__general_ledger.sql
+@@ -47,6 +47,18 @@ with joined as (
+     accounts.account_class
+ )
+ 
++with categorized_accounts as (
++    select
++        account_id,
++        account_name,
++        case
++            when account_type = 'Equity' then 'Equity'
++            when account_type = 'Asset' then 'Assets'
++            when account_type = 'Liability' then 'Liabilities'
++            else 'Other'
++        end as category
++    from accounts
++),
++
+ select
+     date_month,
+     category,
+@@ -54,6 +66,7 @@ select
+     sum(net_amount) as net_amount
+ from joined
+ join categorized_accounts ca on joined.account_id = ca.account_id
++join main.xero_organization_data org on current_date >= dateadd(month, -org.financial_year_end_month, dateadd(day, -org.financial_year_end_day, date_month))
+ group by date_month, category
+ order by date_month, category;

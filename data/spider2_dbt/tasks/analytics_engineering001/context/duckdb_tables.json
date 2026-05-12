@@ -1,0 +1,832 @@
+{
+  "analytics_engineering.duckdb": [
+    {
+      "schema": "main",
+      "table": "customer",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fax_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "web_page",
+          "type": "INTEGER"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attachments",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "employee_privileges",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privilege_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "employees",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fax_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "web_page",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "attachments",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "inventory_transaction_types",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "inventory_transactions",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "purchase_order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comments",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "invoices",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "due_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_due",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_details",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unit_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "discount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_allocated",
+          "type": "INTEGER"
+        },
+        {
+          "name": "purchase_order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inventory_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_details_status",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "orders",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "employee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipped_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipper_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ship_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_state_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_zip_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ship_country_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_fee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taxes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "paid_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "orders_status",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "orders_tax_status",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_status_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "privileges",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privilege_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "products",
+      "columns": [
+        {
+          "name": "supplier_ids",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "standard_cost",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "list_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "reorder_level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "target_level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity_per_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discontinued",
+          "type": "INTEGER"
+        },
+        {
+          "name": "minimum_reorder_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "attachments",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "purchase_order_details",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "purchase_order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unit_cost",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "date_received",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "posted_to_inventory",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inventory_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "purchase_order_status",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "purchase_orders",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supplier_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "submitted_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expected_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_fee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taxes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "approved_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "approved_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "submitted_by",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sales_reports",
+      "columns": [
+        {
+          "name": "group_by",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "filter_row_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "shippers",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fax_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "web_page",
+          "type": "INTEGER"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attachments",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "strings",
+      "columns": [
+        {
+          "name": "string_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "string_data",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "suppliers",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fax_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "city",
+          "type": "INTEGER"
+        },
+        {
+          "name": "state_province",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zip_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "web_page",
+          "type": "INTEGER"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attachments",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

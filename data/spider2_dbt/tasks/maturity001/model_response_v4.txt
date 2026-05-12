@@ -1,0 +1,44 @@
+```diff
+--- a/models/marts/final/final_doctor_details.sql
++++ b/models/marts/final/final_doctor_details.sql
+@@ -1,4 +1,17 @@
+-with doctor_details as (
++with doctor_details as (
++    select 
++        d.id as doctor_id,
++        d.name_f || ' ' || d.name_l as doctor_name,
++        ds.category,
++        ds.specialty
++    from 
++        {{ ref('stg_doctors') }} d
++    left join 
++        {{ ref('stg_doc_specialties') }} ds
++    on 
++        d.id = ds.doctor_id
++),
++patient_details as (
+     select 
+         p.id as patient_id,
+         p.name_f || ' ' || p.name_l as patient_name,
+@@ -10,6 +23,8 @@
+         p.diabetes
+     from 
+         {{ ref('stg_patients') }} p
++),
++final_output as (
++    select 
++        dd.doctor_id,
++        dd.doctor_name,
++        dd.category,
++        dd.specialty,
++        pd.patient_id,
++        pd.patient_name,
++        pd.diabetes
++    from 
++        doctor_details dd
++    cross join 
++        patient_details pd
+ )
+-select * from doctor_details
++select * from final_output
+```

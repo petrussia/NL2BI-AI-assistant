@@ -1,0 +1,41 @@
++++ b/models/FINANCE/EUR_LOWCOST_BRASS_SUPPLIERS.sql
+@@ -34,6 +34,18 @@ SELECT DISTINCT
+     s.s_phone,
+     p.p_name,
+     ps.ps_supplycost,
++    ps.ps_availqty,
++    ps.ps_partkey,
++    ps.ps_suppkey,
++    c.c_name AS customer_name,
++    c.c_address AS customer_address,
++    c.c_phone AS customer_phone,
++    c.c_acctbal AS customer_acctbal,
++    r.r_name AS region_name,
++    n.n_name AS nation_name
+ FROM
+     {{ source('TPCH_SF1', 'partsupp') }} ps
+ JOIN
+@@ -42,6 +54,10 @@ JOIN
+     {{ source('TPCH_SF1', 'supplier') }} s ON ps.ps_suppkey = s.s_suppkey
+ JOIN
+     {{ source('TPCH_SF1', 'nation') }} n ON s.s_nationkey = n.n_nationkey
++JOIN
++    {{ source('TPCH_SF1', 'region') }} r ON n.n_regionkey = r.r_regionkey
++LEFT JOIN
++    {{ source('TPCH_SF1', 'customer') }} c ON ps.ps_suppkey = c.c_custkey
+ WHERE
+     p.p_type LIKE '%BRASS%'
+     AND p.p_size = 15
+     AND ps.ps_supplycost IN (
+         SELECT MIN(ps_supplycost)
+         FROM {{ source('TPCH_SF1', 'partsupp') }}, {{ source('TPCH_SF1', 'supplier') }}, {{ source('TPCH_SF1', 'nation') }}, {{ source('TPCH_SF1', 'region') }}
+         WHERE s_suppkey = ps_suppkey
+           AND s_nationkey = n_nationkey
+           AND n_regionkey = r_regionkey
+           AND r_name = 'EUROPE'
+         GROUP BY ps_partkey
+     )
+ ORDER BY
+     s.s_acctbal DESC,
+     r.r_name,
+     s.s_name;

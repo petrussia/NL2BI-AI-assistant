@@ -1,0 +1,25 @@
+```diff
+--- a/models/asana__project.sql
++++ b/models/asana__project.sql
+@@ -75,6 +75,21 @@ with project_task_metrics as (
+     sum(case when not task.is_completed and task.assignee_user_id is not null then 1 else 0 end) as number_of_assigned_open_tasks,
+     sum(case when task.is_completed then 1 else 0 end) as number_of_tasks_completed,
+     round(avg(case when task.is_completed then task.days_open else null end), 0) as avg_close_time_days,
++    round(avg(case when task.is_completed then task.days_since_last_assignment else null end), 0) as avg_close_time_assigned_days,
++
++    -- Open tasks
++    sum(case when not task.is_completed then 1 else 0 end) as number_of_open_tasks,
++
++    -- Completed tasks
++    sum(case when task.is_completed then 1 else 0 end) as number_of_tasks_completed,
++
++    -- Average close time
++    round(avg(case when task.is_completed then task.days_open else null end), 0) as avg_close_time_days,
++
++    -- Average close time assigned
++    round(avg(case when task.is_completed then task.days_since_last_assignment else null end), 0) as avg_close_time_assigned_days,
++
+     project_link,
+     last_modified_at,
+     users_involved
+```

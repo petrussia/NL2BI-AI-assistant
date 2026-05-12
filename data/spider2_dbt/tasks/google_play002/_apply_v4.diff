@@ -1,0 +1,32 @@
++++ b/models/google_play__app_version_report.sql
+@@ -1,6 +1,7 @@
+ with installs as (
+     select *
+     from {{ var('stats_installs_app_version') }}
++),
++
+ ratings as (
+     select *
+     from {{ var('stats_ratings_app_version') }}
+@@ -18,6 +19,7 @@
+     from {{ var('stats_crashes_app_version') }}
+ ),
+ 
++store_performance as (
++    select *
++    from {{ var('stats_financial_stats_subscriptions_country') }}
++),
++
+ install_metrics as (
+     select
+         *,
+@@ -27,6 +31,7 @@
+             sum(device_installs) over (partition by source_relation, app_version_code, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_installs,
+             sum(device_uninstalls) over (partition by source_relation, app_version_code, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_uninstalls
+         from installs 
++),
++
+ app_version_join as (
+     select 
+         -- these 4 columns are the grain of this model
+         coalesce(install_metrics.source_relation, ratings.source_relation, crashes.source_relation) as s

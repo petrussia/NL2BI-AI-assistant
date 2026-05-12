@@ -1,0 +1,38 @@
+```diff
+--- a/models/lever__interview_enhanced.sql
++++ b/models/lever__interview_enhanced.sql
+@@ -1,7 +1,8 @@
+ -- note: each record is a unique interview-interviewer feedback form combo
+ -- an interview can have multiple interviewers, and interviewers can have multiple feedback forms
+ with interview as (
+ 
+     select 
+         *,
++        {{ dbt.dateadd(datepart='minute', interval='duration_minutes', from_date_or_timestamp='occurred_at') }} as ended_at
+     from {{ ref('int_lever__interview_users') }}
+ ),
+ 
+@@ -14,6 +15,10 @@
+     select *
+     from {{ ref('int_lever__opportunity_users') }}
+ ),
++
++-- Add additional fields here to include job applications, requisitions, tags, and hiring manager details
++job_application as (
++    select * from {{ ref('lever__opportunity_enhanced') }}
++),
+ 
+ join_w_opportunity as (
+     select
+         interview.*,
+@@ -21,6 +26,10 @@
+         opportunity.opportunity_owner_name,
+         opportunity.referrer_name,
+         opportunity.hiring_manager_name,
++        job_application.tags,
++        job_application.requisition_id,
++        job_application.hiring_manager_name,
++        job_application.owner_id,
+         coalesce(lower(interview.inteviewer_name) = lower(opportunity.hiring_manager_name), false) as interviewer_is_hiring_manager,
+         opportunity.contact_name as 
+```

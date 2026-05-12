@@ -1,0 +1,1886 @@
+{
+  "nba.duckdb": [
+    {
+      "schema": "main",
+      "table": "initialize_seeding",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_elo",
+      "columns": [
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "neutral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "playoff",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo1_pre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "elo2_pre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "elo_prob1",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo_prob2",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo1_post",
+          "type": "INTEGER"
+        },
+        {
+          "name": "elo2_post",
+          "type": "INTEGER"
+        },
+        {
+          "name": "score1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "score2",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_elo_history",
+      "columns": [
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "season",
+          "type": "BIGINT"
+        },
+        {
+          "name": "neutral",
+          "type": "BIGINT"
+        },
+        {
+          "name": "playoff",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo1_pre",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo2_pre",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo_prob1",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo_prob2",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo1_post",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo2_post",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "score1",
+          "type": "BIGINT"
+        },
+        {
+          "name": "score2",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_elo_rollforward",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_change",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_latest_elo",
+      "columns": [
+        {
+          "name": "team_long",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "original_rating",
+          "type": "BIGINT"
+        },
+        {
+          "name": "latest_ratings",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_latest_results",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_date",
+          "type": "DATE"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "losing_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "include_actuals",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "game_result",
+          "type": "DECIMAL(11,1)"
+        },
+        {
+          "name": "margin",
+          "type": "INTEGER"
+        },
+        {
+          "name": "winning_team_short",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "losing_team_short",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_post_season_schedule",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "visiting_conf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_conf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_random_num_gen",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "rand_result",
+          "type": "SMALLINT"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_ratings",
+      "columns": [
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team_long",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "original_rating",
+          "type": "BIGINT"
+        },
+        {
+          "name": "win_total",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_raw_results",
+      "columns": [
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "Start (ET)",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VisTm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "HomeTm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Attend.",
+          "type": "BIGINT"
+        },
+        {
+          "name": "arena",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "winner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "loser",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "winner_pts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "loser_pts",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_raw_schedule",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "Start (ET)",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VisTm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "HomeTm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Attend.",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Arena",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_raw_team_ratings",
+      "columns": [
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team_long",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "BIGINT"
+        },
+        {
+          "name": "win_total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tournament_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alt_key",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_raw_xf_series_to_seed",
+      "columns": [
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_reg_season_actuals",
+      "columns": [
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_reg_season_schedule",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "series_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "visiting_conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_results",
+      "columns": [
+        {
+          "name": "Date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Start (ET)",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Visitor/Neutral",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Home/Neutral",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PTS_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "g",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "h",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Attend.",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Arena",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Notes",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_results_by_team",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "team_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team_long",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "game_results",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "margin",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_results_log",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_change",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "avg",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "favored_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_above_avg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_team_above_avg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "losing_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "game_date",
+          "type": "DATE"
+        },
+        {
+          "name": "home_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "visiting_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hmtm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vstm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_schedule",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Day",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Start (ET)",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Visitor/Neutral",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Home/Neutral",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PTS_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Attend.",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Arena",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "series_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_schedules",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "visiting_conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_season_teams",
+      "columns": [
+        {
+          "name": "season",
+          "type": "BIGINT"
+        },
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_seasons",
+      "columns": [
+        {
+          "name": "season",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_team_ratings",
+      "columns": [
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team_long",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "win_total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tournament_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alt_key",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_team_stats",
+      "columns": [
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ct",
+          "type": "BIGINT"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "home_wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "home_losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "away_wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "away_losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "playoff_wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "playoff_losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "pf",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pa",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "margin",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "min_elo",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "avg_elo",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "max_elo",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_teams",
+      "columns": [
+        {
+          "name": "team_long",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tournament_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alt_key",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_vegas_wins",
+      "columns": [
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "win_total",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nba_xf_series_to_seed",
+      "columns": [
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nfl_results",
+      "columns": [
+        {
+          "name": "Week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Winner/tie",
+          "type": "INTEGER"
+        },
+        {
+          "name": "f",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Loser/tie",
+          "type": "INTEGER"
+        },
+        {
+          "name": "h",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PtsW",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PtsL",
+          "type": "INTEGER"
+        },
+        {
+          "name": "YdsW",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOW",
+          "type": "INTEGER"
+        },
+        {
+          "name": "YdsL",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOL",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nfl_schedule",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Day",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Date",
+          "type": "DATE"
+        },
+        {
+          "name": "VisTm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "HomeTm",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nfl_team_ratings",
+      "columns": [
+        {
+          "name": "Team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Team_short",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Win Total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "ELO rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Division",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playin_sim_r1",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team_win_probability",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "rand_result",
+          "type": "SMALLINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playin_sim_r1_end",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "winning_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "losing_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "losing_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "result",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remaining_team",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playin_sim_r2",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "home_team_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team_win_probability",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "rand_result",
+          "type": "SMALLINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playin_sim_r2_end",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "winning_team_elo_rating",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playoff_sim_r1",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playoff_sim_r2",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playoff_sim_r3",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playoff_sim_r4",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "reg_season_actuals_enriched",
+      "columns": [
+        {
+          "name": "team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "wins_as_favorite",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses_as_favorite",
+          "type": "BIGINT"
+        },
+        {
+          "name": "wins_as_underdog",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses_as_underdog",
+          "type": "BIGINT"
+        },
+        {
+          "name": "wins_vs_good_teams",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses_vs_good_teams",
+          "type": "BIGINT"
+        },
+        {
+          "name": "wins_vs_bad_teams",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses_vs_bad_teams",
+          "type": "BIGINT"
+        },
+        {
+          "name": "home_wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "home_losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "away_wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "away_losses",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "reg_season_end",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "season_rank",
+          "type": "BIGINT"
+        },
+        {
+          "name": "made_playoffs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "made_play_in",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "reg_season_predictions",
+      "columns": [
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team_win_probability",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "include_actuals",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "occurances",
+          "type": "BIGINT"
+        },
+        {
+          "name": "american_odds",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "actual_home_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actual_visiting_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actual_margin",
+          "type": "INTEGER"
+        },
+        {
+          "name": "avg_score",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "implied_line",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_score",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "visiting_score",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "predicted_score",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "reg_season_simulator",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "game_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "series_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "visiting_conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visiting_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_team_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team_win_probability",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "rand_result",
+          "type": "SMALLINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "include_actuals",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "actual_home_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actual_visiting_team_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actual_margin",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "team_matchups",
+      "columns": [
+        {
+          "name": "home_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "away_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "away_elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_team_win_probability",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo_diff",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "elo_diff_hfa",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "home_win",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "american_odds",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "implied_line",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "tournament_end",
+      "columns": [
+        {
+          "name": "scenario_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "winning_team",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "conf",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "losses",
+          "type": "BIGINT"
+        },
+        {
+          "name": "tournament_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "actual_wins",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "actual_losses",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "h2h_wins",
+          "type": "BIGINT"
+        },
+        {
+          "name": "pt_diff",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "group_rank",
+          "type": "BIGINT"
+        },
+        {
+          "name": "made_tournament",
+          "type": "INTEGER"
+        },
+        {
+          "name": "made_wildcard",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "elo_rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "sim_start_game_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xf_series_to_seed",
+      "columns": [
+        {
+          "name": "series_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seed",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

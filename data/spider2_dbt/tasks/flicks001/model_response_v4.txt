@@ -1,0 +1,45 @@
+```diff
+--- a/models/report/actor_rating_by_total_movie.sql
++++ b/models/report/actor_rating_by_total_movie.sql
+@@ -1,4 +1,18 @@
+ {{ config(materialized='table') }}
+ 
+-with actor_movies as (
++with actor_movies AS (
+     SELECT
+         c.person_id AS actor_id,
+         t.title,
+         t.imdb_score,
+         t.tmdb_score,
+         t.release_year
+     FROM
+         {{ source('netflix', 'CREDITS') }} c
+     JOIN
+         {{ source('netflix', 'TITLES') }} t ON c.id = t.id
+ ),
+ actor_stats AS (
+     SELECT
+         actor_id,
+         AVG(imdb_score) AS avg_imdb_score,
+         AVG(tmdb_score) AS avg_tmdb_score,
+         COUNT(DISTINCT title) AS total_movies,
+         EXTRACT(YEAR FROM MIN(release_year)) AS first_movie_year,
+         EXTRACT(YEAR FROM MAX(release_year)) AS last_movie_year
+     FROM
+         actor_movies
+     GROUP BY
+         actor_id
+ )
+ SELECT
+     a.actor_id,
+     a.first_name || ' ' || a.last_name AS actor_name,
+     a.avg_imdb_score,
+     a.avg_tmdb_score,
+     a.total_movies,
+     a.first_movie_year,
+     a.last_movie_year
+ FROM
+     actor_stats a
+ JOIN
+     {{ source('netflix', 'company_user') }} u ON a.actor_id = u.identifier;
+```

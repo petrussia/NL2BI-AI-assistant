@@ -1,0 +1,119 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        clean and join Reddit post and comment data from paranormal subreddits to analyze metadata like post scores, comment counts, and timestamps, while ensuring relationships between posts and comments?.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `reddit.duckdb`
+    main.raw_comments_ghosts(post_url VARCHAR, author VARCHAR, comment_id VARCHAR, body VARCHAR, created_at TIMESTAMP, distinguished BOOLEAN, edited BOOLEAN, is_author_submitter BOOLEAN, post_id VARCHAR, link_comment VARCHAR, comment_score INTEGER)
+    main.raw_posts_ghosts(author VARCHAR, author_flair_text VARCHAR, clicked BOOLEAN, distinguished BOOLEAN, edited BOOLEAN, post_id VARCHAR, is_original_content BOOLEAN, locked BOOLEAN, post_fullname VARCHAR, post_title VARCHAR, post_text VARCHAR, num_comments INTEGER, post_score INTEGER, post_url VARCHAR, saved BOOLEAN, created_at TIMESTAMP, over_18 BOOLEAN, spoiler BOOLEAN, stickied BOOLEAN, upvote_ratio DOUBLE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_reddit'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'reddit'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["model
+
+
+=== FINAL models (2) ===
+  - macros/extract_hour.sql
+    --- body (first 900 chars):
+    {#
+        This macro extracts the hour of the timestamp
+    #}
+    {% macro extract_hour(column_name) -%}
+
+    strftime('%H', {{ column_name }})
+
+    {%- endmacro %}
+
+  - macros/normalize_timestamp.sql
+    --- body (first 900 chars):
+    {#
+        This macro converts minutes and seconds to 0
+    #}
+    {% macro normalize_timestamp(column_value) -%}
+
+    strftime('%Y-%m-%d %H:00:00', date_trunc('hour', {{ column_value }}))
+
+    {%- endmacro %}
+
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_reddit'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'reddit'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can 
+
+
+--- models/sources.yml (head) ---
+
+version: 2
+
+sources:
+    - name: raw
+      schema: main
+
+      tables:
+        - name: posts_ghosts
+          identifier : raw_posts_ghosts
+        - name: comments_ghosts
+          identifier : raw_comments_ghosts  
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

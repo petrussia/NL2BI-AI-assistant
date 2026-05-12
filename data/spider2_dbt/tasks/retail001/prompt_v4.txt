@@ -1,0 +1,199 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Which countries have the highest total revenue based on the number of invoices, and what are the top 10 countries by total revenue?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `retail.duckdb`
+    main.dim_customer(customer_id VARCHAR, country VARCHAR)
+    main.dim_datetime(datetime_id VARCHAR, datetime TIMESTAMP, year BIGINT, month BIGINT, day BIGINT, hour BIGINT, minute BIGINT, weekday BIGINT)
+    main.dim_product(product_id VARCHAR, stock_code VARCHAR, description VARCHAR, price DOUBLE)
+    main.fct_invoices(invoice_id VARCHAR, datetime_id VARCHAR, product_id VARCHAR, customer_id VARCHAR, quantity INTEGER, total DOUBLE)
+    main.raw_invoices(InvoiceNo VARCHAR, StockCode VARCHAR, Description VARCHAR, Quantity INTEGER, InvoiceDate VARCHAR, UnitPrice DOUBLE, CustomerID INTEGER, Country VARCHAR)
+    main.report_customer_invoices(country VARCHAR, total_invoices BIGINT, total_revenue DOUBLE)
+    main.report_product_invoices(product_id VARCHAR, stock_code VARCHAR, description VARCHAR, total_quantity_sold HUGEINT)
+    main.report_year_invoices(year BIGINT, month BIGINT, num_invoices BIGINT, total_revenue DOUBLE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'retail'
+
+profile: 'retail'
+
+models:
+  +materialized: table
+
+
+=== FINAL models (5) ===
+  - models/report/report_product_invoices.sql
+    cols: total_quantity_sold
+    --- body (first 900 chars):
+    SELECT
+      p.product_id,
+      p.stock_code,
+      p.description,
+      SUM(fi.quantity) AS total_quantity_sold
+    FROM {{ ref('fct_invoices') }} fi
+    JOIN {{ ref('dim_product') }} p ON fi.product_id = p.product_id
+    GROUP BY p.product_id, p.stock_code, p.description
+    ORDER BY total_quantity_sold DESC
+    LIMIT 10
+  - models/report/report_year_invoices.sql
+    cols: num_invoices, total_revenue
+    --- body (first 900 chars):
+    SELECT
+      dt.year,
+      dt.month,
+      COUNT(DISTINCT fi.invoice_id) AS num_invoices,
+      SUM(fi.total) AS total_revenue
+    FROM {{ ref('fct_invoices') }} fi
+    JOIN {{ ref('dim_datetime') }} dt ON fi.datetime_id = dt.datetime_id
+    GROUP BY dt.year, dt.month
+    ORDER BY dt.year, dt.month
+  - models/transform/dim_customer.sql
+    cols: customer_id, country
+    --- body (first 900 chars):
+    WITH customer_cte AS (
+    	SELECT DISTINCT
+    	    {{ dbt_utils.generate_surrogate_key(['CustomerID', 'Country']) }} as customer_id,
+    	    Country AS country
+    	FROM {{ source('retail', 'raw_invoices') }}
+    	WHERE CustomerID IS NOT NULL
+    )
+    SELECT
+        t.*
+    FROM customer_cte t
+  - models/transform/dim_datetime.sql
+    cols: datetime_id, date_part, datetime, year, month, day, hour, minute, weekday
+    --- body (first 900 chars):
+    WITH datetime_cte AS (  
+      SELECT DISTINCT
+        InvoiceDate AS datetime_id,
+        CASE
+          WHEN LENGTH(InvoiceDate) = 16 THEN
+            -- Date format: "DD/MM/YYYY HH:MM"
+            STRPTIME(InvoiceDate, '%d/%m/%Y %H:%M')
+          WHEN LENGTH(InvoiceDate) <= 14 THEN
+            -- Date format: "MM/DD/YY HH:MM"
+            STRPTIME(InvoiceDate, '%m/%d/%y %H:%M')
+          ELSE
+            NULL
+        END AS date_part
+      FROM {{ source('retail', 'raw_invoices') }}
+      WHERE InvoiceDate IS NOT NULL
+    )
+    SELECT
+      datetime_id,
+      date_part AS datetime,
+      EXTRACT(YEAR FROM date_part) AS year,
+      EXTRACT(MONTH FROM date_part) AS month,
+      EXTRACT(DAY FROM date_part) AS day,
+      EXTRACT(HOUR FROM date_part) AS hour,
+      EXTRACT(MINUTE FROM date_part) AS minute,
+      EXTRACT(DAYOFWEEK FROM date_part) AS weekday
+    FROM datetime_cte
+
+  - models/transform/dim_product.sql
+    cols: product_id, stock_code, description, price
+    --- body (first 900 chars):
+    SELECT DISTINCT
+        {{ dbt_utils.generate_surrogate_key(['StockCode', 'Description', 'UnitPrice']) }} as product_id,
+    		StockCode AS stock_code,
+        Description AS description,
+        UnitPrice AS price
+    FROM {{ source('retail', 'raw_invoices') }}
+    WHERE StockCode IS NOT NULL
+    AND UnitPrice > 0
+
+--- dbt_project.yml (head) ---
+name: 'retail'
+
+profile: 'retail'
+
+models:
+  +materialized: table
+
+
+--- models/report/report.yml (head) ---
+version: 2
+
+models:
+  - name: report_customer_invoices
+    description: "Generates a report of the top 10 countries by total revenue, including total invoices and revenue for each country."
+    columns:
+      - name: country
+        description: "The country of the customer."
+        tests:
+          - not_null
+      - name: total_invoices
+        description: "The total number of invoices generated by customers from the respective country."
+        tests:
+          - not_null
+      - name: tota
+
+
+--- models/sources.yml (head) ---
+version: 2
+
+sources:
+  - name: retail
+    schema: main
+
+    tables:
+      - name: raw_invoices
+      - name: country
+
+
+--- models/transform/transform.yml (head) ---
+version: 2
+
+models:
+  - name: fct_invoices
+    description: "A fact table containing invoice data for retail transactions, enriched with dimension tables for datetime, products, and customers."
+    columns:
+      - name: invoice_id
+        description: "The unique identifier for the invoice."
+        tests:
+          - not_null
+          - unique
+
+      - name: datetime_id
+        description: "The identifier linking to the dim_datetime table, representing the date and time of the invoice."
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

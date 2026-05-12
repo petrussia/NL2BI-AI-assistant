@@ -1,0 +1,214 @@
+{
+  "movie_recomm.duckdb": [
+    {
+      "schema": "main",
+      "table": "all_casts",
+      "columns": [
+        {
+          "name": "movie_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "person_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "all_categories",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "root_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "all_characters",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "all_movie_aliases_iso",
+      "columns": [
+        {
+          "name": "movie_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language_iso_639_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "official_translation",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "all_people",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "birthday",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deathday",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "category_names",
+      "columns": [
+        {
+          "name": "category_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language_iso_639_1",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_names",
+      "columns": [
+        {
+          "name": "job_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language_iso_639_1",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "movie_categories",
+      "columns": [
+        {
+          "name": "movie_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "category_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "movie_keywords",
+      "columns": [
+        {
+          "name": "movie_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "category_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "movielens_movies",
+      "columns": [
+        {
+          "name": "movieId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "genres",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "movielens_ratings",
+      "columns": [
+        {
+          "name": "userId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "movieId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "timestamp",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

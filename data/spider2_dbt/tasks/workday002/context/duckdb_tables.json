@@ -1,0 +1,6376 @@
+{
+  "workday.duckdb": [
+    {
+      "schema": "main",
+      "table": "int_workday__personal_details",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_hispanic_or_latino",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ethnicity_codes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "military_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_workday__worker_details",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "universal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_user_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "departure_date",
+          "type": "DATE"
+        },
+        {
+          "name": "days_as_worker",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_terminated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "primary_termination_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_termination_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_regrettable_termination",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "compensation_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "employee_compensation_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compensation_grade_profile_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_workday__worker_employee_enhanced",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "universal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_user_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "departure_date",
+          "type": "DATE"
+        },
+        {
+          "name": "days_as_worker",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_terminated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "primary_termination_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_termination_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_regrettable_termination",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "compensation_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "employee_compensation_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compensation_grade_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_hispanic_or_latino",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ethnicity_codes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "military_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fte_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "position_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "position_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "days_employed",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_employed_one_year",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_five_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_ten_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_twenty_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_thirty_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_one_year",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_five_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_ten_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_twenty_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_thirty_years",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_workday__worker_position_enriched",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fte_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "days_employed",
+          "type": "BIGINT"
+        },
+        {
+          "name": "position_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "position_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "position_effective_date",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_family_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_family_summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_family_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_group",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_family_group_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_family_group_summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_group_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_family_group_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_job_family_group",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_job_family_group_base",
+      "columns": [
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_job_profile",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_family_job_profile_base",
+      "columns": [
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_profile",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "additional_job_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "difficulty_to_fill",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_include_job_code_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_category_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_profile_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "management_level",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "private_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_public_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "referral_payment_plan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "union_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "union_membership_requirement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "work_study_award_source_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_study_requirement_option_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__job_profile_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "additional_job_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "difficulty_to_fill",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "include_job_code_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_category_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_profile_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "management_level",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "private_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "public_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "referral_payment_plan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "union_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "union_membership_requirement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "work_study_award_source_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_study_requirement_option_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__military_service",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "discharge_date",
+          "type": "DATE"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rank",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "service_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "military_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_begin_date",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__military_service_base",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "discharge_date",
+          "type": "DATE"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rank",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "service_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_begin_date",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "availability_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_available_for_hire",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "inactive_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_include_manager_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_include_organization_code_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_updated_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "staffing_model",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_sub_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "superior_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "supervisory_position_availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "supervisory_position_earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "supervisory_position_time_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supervisory_position_worker_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "top_level_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "availability_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "available_for_hire",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "inactive_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "include_manager_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "include_organization_code_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_updated_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "staffing_model",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "superior_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "supervisory_position_availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "supervisory_position_earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "supervisory_position_time_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supervisory_position_worker_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "top_level_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_job_family",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_job_family_base",
+      "columns": [
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_role",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_role_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_role_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_role_base",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_role_code",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_role_worker",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_worker_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__organization_role_worker_base",
+      "columns": [
+        {
+          "name": "associated_worker_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__person_contact_email_address",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_comment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "person_contact_email_address_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__person_contact_email_address_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_comment",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__person_name",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "additional_name_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_name_singapore_malaysia",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hereditary_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "honorary_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "local_first_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_first_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_last_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_middle_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_middle_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_secondary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_secondary_last_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "middle_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_salutation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_title_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "professional_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "religious_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "royal_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "secondary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_suffix_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tertiary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "person_name_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__person_name_base",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "additional_name_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_name_singapore_malaysia",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hereditary_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "honorary_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "local_first_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_first_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_last_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_middle_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_middle_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_secondary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_secondary_last_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "middle_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_salutation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_title_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "professional_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "religious_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "royal_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "secondary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_suffix_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tertiary_last_name",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__personal_information",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "additional_nationality",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blood_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "citizenship_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city_of_birth",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city_of_birth_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_of_birth",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "date_of_death",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_hispanic_or_latino",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_locality",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_subregion",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_medical_exam_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_medical_exam_valid_to",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_local_hukou",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marital_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "marital_status_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "medical_exam_notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "native_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "native_region_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personnel_file_agency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "political_affiliation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_of_birth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region_of_birth_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "religion",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "social_benefit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_tobacco_use",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__personal_information_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "additional_nationality",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blood_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "citizenship_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city_of_birth",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city_of_birth_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_of_birth",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "date_of_death",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hispanic_or_latino",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_locality",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_subregion",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_medical_exam_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_medical_exam_valid_to",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_hukou",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marital_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "marital_status_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "medical_exam_notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "native_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "native_region_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personnel_file_agency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "political_affiliation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_of_birth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region_of_birth_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "religion",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "social_benefit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tobacco_use",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "ll",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__personal_information_ethnicity",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ethnicity_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ethnicity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__personal_information_ethnicity_base",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ethnicity_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ethnicity_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__position",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_academic_tenure_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_available_for_hire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_available_for_overlap",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_available_for_recruiting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "compensation_grade_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_profile_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_package_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_step_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "difficulty_to_fill_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "earliest_overlap_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_description_summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_posting_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_time_type_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "primary_compensation_basis_amount_change",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_compensation_basis_percent_change",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supervisory_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "worker_for_filled_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_type_code",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__position_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_tenure_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "available_for_hire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "available_for_overlap",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "available_for_recruiting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "compensation_grade_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_profile_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_package_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_step_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "difficulty_to_fill_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "earliest_overlap_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_description_summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_posting_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_time_type_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "primary_compensation_basis_amount_change",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_compensation_basis_percent_change",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supervisory_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "worker_for_filled_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_type_code",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__position_job_profile",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "difficulty_to_fill_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_category_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_job_profile_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_work_shift_required",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__position_job_profile_base",
+      "columns": [
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "difficulty_to_fill_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_category_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__position_organization",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__position_organization_base",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker",
+      "columns": [
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_tenure_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "active_status_date",
+          "type": "DATE"
+        },
+        {
+          "name": "annual_currency_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "benefits_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compensation_grade_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "continuous_service_date",
+          "type": "DATE"
+        },
+        {
+          "name": "contract_assignment_details",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_currency_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_frequency_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_pay_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_vendor_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_entered_workforce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "days_unemployed",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "eligible_for_hire",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "eligible_for_rehire_on_latest_termination",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "employee_compensation_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "employee_compensation_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "end_employment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_date_of_return",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expected_retirement_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "is_has_international_assignment",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "hire_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_hire_rescinded",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "home_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hourly_frequency_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hourly_frequency_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hourly_frequency_primary_compensation_basis",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hourly_frequency_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "hourly_frequency_total_salary_and_allowances",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_datefor_which_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_termination_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "months_continuous_prior_employment",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "is_not_returning",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "original_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "pay_group_frequency_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_group_frequency_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_group_frequency_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group_frequency_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group_frequency_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "primary_termination_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_termination_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probation_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "probation_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reason_reference_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_regrettable_termination",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_rehire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "resignation_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_retired",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "retirement_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retirement_eligibility_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_return_unknown",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "seniority_date",
+          "type": "DATE"
+        },
+        {
+          "name": "severance_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_terminated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "termination_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_termination_involuntary",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "termination_last_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "time_off_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "universal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vesting_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_base",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_tenure_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "active_status_date",
+          "type": "DATE"
+        },
+        {
+          "name": "annual_currency_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "benefits_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compensation_grade_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "continuous_service_date",
+          "type": "DATE"
+        },
+        {
+          "name": "contract_assignment_details",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_currency_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_frequency_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_pay_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_vendor_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_entered_workforce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "days_unemployed",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "eligible_for_hire",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "eligible_for_rehire_on_latest_termination",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "employee_compensation_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "employee_compensation_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "end_employment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_date_of_return",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expected_retirement_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "has_international_assignment",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "hire_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hire_rescinded",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "home_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hourly_frequency_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hourly_frequency_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hourly_frequency_primary_compensation_basis",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hourly_frequency_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "hourly_frequency_total_salary_and_allowances",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_datefor_which_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_termination_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "months_continuous_prior_employment",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "not_returning",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "original_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "pay_group_frequency_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_group_frequency_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_group_frequency_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group_frequency_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group_frequency_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "primary_termination_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_termination_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probation_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "probation_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reason_reference_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "regrettable_termination",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "rehire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "resignation_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retired",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "retirement_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retirement_eligibility_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "return_unknown",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "seniority_date",
+          "type": "DATE"
+        },
+        {
+          "name": "severance_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "terminated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "termination_date",
+          "type": "DATE"
+        },
+        {
+          "name": "termination_involuntary",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "termination_last_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "time_off_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "universal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vesting_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_leave_status",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "adoption_notification_date",
+          "type": "DATE"
+        },
+        {
+          "name": "adoption_placement_date",
+          "type": "DATE"
+        },
+        {
+          "name": "age_of_dependent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_benefits_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "child_birth_date",
+          "type": "DATE"
+        },
+        {
+          "name": "child_sdate_of_death",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_continuous_service_accrual_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "date_baby_arrived_home_from_hospital",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_child_entered_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_of_recall",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "estimated_leave_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "first_day_of_work",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_date_for_which_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_entitlement_override",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_last_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "leave_of_absence_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_request_event_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_return_event",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "leave_status_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_type_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_during_leave",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_multiple_child_indicator",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_babies_adopted_children",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_child_dependents",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_previous_births",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_previous_maternity_leaves",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_on_leave",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_paid_time_off_accrual_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_payroll_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_single_parent_indicator",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_caesarean_section_birth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_security_disability_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_stock_vesting_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "stop_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "week_of_confinement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_work_related",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_leave_status_base",
+      "columns": [
+        {
+          "name": "leave_request_event_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "adoption_notification_date",
+          "type": "DATE"
+        },
+        {
+          "name": "adoption_placement_date",
+          "type": "DATE"
+        },
+        {
+          "name": "age_of_dependent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "benefits_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "caesarean_section_birth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "child_birth_date",
+          "type": "DATE"
+        },
+        {
+          "name": "child_sdate_of_death",
+          "type": "INTEGER"
+        },
+        {
+          "name": "continuous_service_accrual_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "date_baby_arrived_home_from_hospital",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_child_entered_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_of_recall",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "estimated_leave_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "first_day_of_work",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_date_for_which_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_entitlement_override",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_last_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "leave_of_absence_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_return_event",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "leave_status_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_type_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_during_leave",
+          "type": "INTEGER"
+        },
+        {
+          "name": "multiple_child_indicator",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_babies_adopted_children",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_child_dependents",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_previous_births",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_previous_maternity_leaves",
+          "type": "INTEGER"
+        },
+        {
+          "name": "on_leave",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "paid_time_off_accrual_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "payroll_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "single_parent_indicator",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_security_disability_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stillbirth_baby_deceased",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "stock_vesting_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "stop_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "week_of_confinement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_related",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_position",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_work_percent_of_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_disbursement_plan_period_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_disbursement_plan_period_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_site_summary_display_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_local",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_location_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_scheduled_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "business_site_summary_time_profile",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "default_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "difficulty_to_fill",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "employee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_employment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_exclude_from_head_count",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "expected_assignment_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_employee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "federal_withholding_fein",
+          "type": "INTEGER"
+        },
+        {
+          "name": "frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fte_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "headcount_restriction_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "host_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "international_assignment_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_primary_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_job_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "paid_fte",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_rate_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "payroll_entity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payroll_file_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "regular_paid_equivalent_hours",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scheduled_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "is_specify_paid_fte",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_specify_working_fte",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "position_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "start_international_assignment_reason",
+          "type": "DATE"
+        },
+        {
+          "name": "work_hours_profile",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "work_space",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_hours_profile_classification",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "working_fte",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "working_time_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_time_unit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_time_value",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_position_base",
+      "columns": [
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_work_percent_of_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_disbursement_plan_period_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_disbursement_plan_period_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_site_summary_display_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_local",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_location_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_scheduled_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "business_site_summary_time_profile",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "default_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "difficulty_to_fill",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "employee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_employment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "exclude_from_head_count",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "expected_assignment_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_employee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "federal_withholding_fein",
+          "type": "INTEGER"
+        },
+        {
+          "name": "frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_time_equivalent_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "headcount_restriction_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "host_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "international_assignment_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_primary_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "paid_fte",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_rate_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "payroll_entity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payroll_file_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "regular_paid_equivalent_hours",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scheduled_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "specify_paid_fte",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "specify_working_fte",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "start_international_assignment_reason",
+          "type": "DATE"
+        },
+        {
+          "name": "work_hours_profile",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "work_space",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_hours_profile_classification",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_fte",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "working_time_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_time_unit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_time_value",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_position_organization",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_of_pay_group_assignment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_business_site",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_used_in_change_organization_assignments",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_workday__worker_position_organization_base",
+      "columns": [
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "date_of_pay_group_assignment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_business_site",
+          "type": "INTEGER"
+        },
+        {
+          "name": "used_in_change_organization_assignments",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday__employee_overview",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "worker_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "universal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_user_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "departure_date",
+          "type": "DATE"
+        },
+        {
+          "name": "days_as_worker",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_terminated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "primary_termination_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_termination_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_regrettable_termination",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "compensation_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "employee_compensation_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_hispanic_or_latino",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ethnicity_codes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "military_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fte_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "position_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "days_employed",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_employed_one_year",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_five_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_ten_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_twenty_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_employed_thirty_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_one_year",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_five_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_ten_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_twenty_years",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_current_employee_thirty_years",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday__organization_overview",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_sub_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "superior_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "top_level_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_role_code",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday__position_overview",
+      "columns": [
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_posting_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_available_for_hire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_available_for_recruiting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_available_for_overlap",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "earliest_overlap_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_for_filled_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_type_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_time_type_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "supervisory_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compensation_package_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_profile_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_job_family_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_family_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_job_family_group_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_family_group_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_job_family_job_family_group_data",
+      "columns": [
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_job_family_job_profile_data",
+      "columns": [
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_job_profile_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "additional_job_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "difficulty_to_fill",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "include_job_code_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_category_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_profile_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "management_level",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "private_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "public_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "referral_payment_plan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "union_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "union_membership_requirement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "work_study_award_source_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_study_requirement_option_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_military_service_data",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "discharge_date",
+          "type": "DATE"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rank",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "service_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_begin_date",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_organization_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "availability_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "available_for_hire",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "inactive",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "inactive_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "include_manager_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "include_organization_code_in_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_updated_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "staffing_model",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "superior_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "supervisory_position_availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "supervisory_position_earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "supervisory_position_time_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supervisory_position_worker_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "top_level_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_organization_job_family_data",
+      "columns": [
+        {
+          "name": "job_family_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_family_group_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_organization_role_data",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_role_code",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_organization_role_worker_data",
+      "columns": [
+        {
+          "name": "associated_worker_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_person_contact_email_address_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_comment",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_person_name_data",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "additional_name_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_name_singapore_malaysia",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hereditary_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "honorary_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "local_first_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_first_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_last_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_middle_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_middle_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_secondary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_secondary_last_name_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "middle_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_salutation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prefix_title_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "professional_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "religious_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "royal_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "secondary_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_suffix_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tertiary_last_name",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_personal_information_ethnicity_data",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info_system_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ethnicity_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ethnicity_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_personal_information_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "additional_nationality",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blood_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "citizenship_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city_of_birth",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city_of_birth_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_of_birth",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "date_of_death",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hispanic_or_latino",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_locality",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_subregion",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hukou_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_medical_exam_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_medical_exam_valid_to",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_hukou",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marital_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "marital_status_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "medical_exam_notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "native_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "native_region_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personnel_file_agency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "political_affiliation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_of_birth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region_of_birth_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "religion",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "social_benefit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tobacco_use",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "ll",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_position_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_tenure_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "availability_date",
+          "type": "DATE"
+        },
+        {
+          "name": "available_for_hire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "available_for_overlap",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "available_for_recruiting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "compensation_grade_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_grade_profile_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_package_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_step_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "difficulty_to_fill_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "earliest_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "earliest_overlap_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "hiring_freeze",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_description_summary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_posting_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_time_type_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "primary_compensation_basis_amount_change",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_compensation_basis_percent_change",
+          "type": "INTEGER"
+        },
+        {
+          "name": "supervisory_organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "worker_for_filled_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_type_code",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_position_job_profile_data",
+      "columns": [
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "difficulty_to_fill_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_category_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_position_organization_data",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_worker_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_tenure_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "active_status_date",
+          "type": "DATE"
+        },
+        {
+          "name": "annual_currency_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_currency_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_currency_summary_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_summary_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "annual_summary_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "benefits_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compensation_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "compensation_grade_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compensation_grade_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "continuous_service_date",
+          "type": "DATE"
+        },
+        {
+          "name": "contract_assignment_details",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_currency_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_frequency_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_pay_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_vendor_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_entered_workforce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "days_unemployed",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "eligible_for_hire",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "eligible_for_rehire_on_latest_termination",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "employee_compensation_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "employee_compensation_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "employee_compensation_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "end_employment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_date_of_return",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expected_retirement_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "has_international_assignment",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "hire_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hire_rescinded",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "home_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hourly_frequency_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hourly_frequency_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hourly_frequency_primary_compensation_basis",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hourly_frequency_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "hourly_frequency_total_salary_and_allowances",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_datefor_which_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "local_termination_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "months_continuous_prior_employment",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "not_returning",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "original_hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "pay_group_frequency_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_group_frequency_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_group_frequency_primary_compensation_basis",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group_frequency_total_base_pay",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group_frequency_total_salary_and_allowances",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "primary_termination_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_termination_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probation_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "probation_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reason_reference_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "regrettable_termination",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "rehire",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "resignation_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retired",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "retirement_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retirement_eligibility_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "return_unknown",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "seniority_date",
+          "type": "DATE"
+        },
+        {
+          "name": "severance_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "terminated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "termination_date",
+          "type": "DATE"
+        },
+        {
+          "name": "termination_involuntary",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "termination_last_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "time_off_service_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "universal_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vesting_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_worker_leave_status_data",
+      "columns": [
+        {
+          "name": "leave_request_event_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "adoption_notification_date",
+          "type": "DATE"
+        },
+        {
+          "name": "adoption_placement_date",
+          "type": "DATE"
+        },
+        {
+          "name": "age_of_dependent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "benefits_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "caesarean_section_birth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "child_birth_date",
+          "type": "DATE"
+        },
+        {
+          "name": "child_sdate_of_death",
+          "type": "INTEGER"
+        },
+        {
+          "name": "continuous_service_accrual_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "date_baby_arrived_home_from_hospital",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_child_entered_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_of_recall",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "estimated_leave_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "first_day_of_work",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_date_for_which_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_entitlement_override",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_last_day_of_work",
+          "type": "DATE"
+        },
+        {
+          "name": "leave_of_absence_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_return_event",
+          "type": "INTEGER"
+        },
+        {
+          "name": "leave_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "leave_status_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "leave_type_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_during_leave",
+          "type": "INTEGER"
+        },
+        {
+          "name": "multiple_child_indicator",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_babies_adopted_children",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_child_dependents",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_previous_births",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_previous_maternity_leaves",
+          "type": "INTEGER"
+        },
+        {
+          "name": "on_leave",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "paid_time_off_accrual_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "payroll_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "single_parent_indicator",
+          "type": "INTEGER"
+        },
+        {
+          "name": "social_security_disability_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stillbirth_baby_deceased",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "stock_vesting_effect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "stop_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "week_of_confinement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_related",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_worker_position_history_data",
+      "columns": [
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_annual_work_period_work_percent_of_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_disbursement_plan_period_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "academic_pay_setup_data_disbursement_plan_period_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_site_summary_display_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_local",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_location_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_site_summary_scheduled_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "business_site_summary_time_profile",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "critical_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "default_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "difficulty_to_fill",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "employee_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_employment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "exclude_from_head_count",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "expected_assignment_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_employee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "federal_withholding_fein",
+          "type": "INTEGER"
+        },
+        {
+          "name": "frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_time_equivalent_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "headcount_restriction_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "host_country",
+          "type": "INTEGER"
+        },
+        {
+          "name": "international_assignment_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_primary_job",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "management_level_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "paid_fte",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pay_group",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pay_rate_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "payroll_entity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payroll_file_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "regular_paid_equivalent_hours",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scheduled_weekly_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "specify_paid_fte",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "specify_working_fte",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "start_international_assignment_reason",
+          "type": "DATE"
+        },
+        {
+          "name": "work_hours_profile",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift",
+          "type": "INTEGER"
+        },
+        {
+          "name": "work_shift_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "work_space",
+          "type": "INTEGER"
+        },
+        {
+          "name": "worker_hours_profile_classification",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_fte",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "working_time_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_time_unit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "working_time_value",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "workday_worker_position_organization_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "worker_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "date_of_pay_group_assignment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_business_site",
+          "type": "INTEGER"
+        },
+        {
+          "name": "used_in_change_organization_assignments",
+          "type": "BOOLEAN"
+        }
+      ]
+    }
+  ]
+}

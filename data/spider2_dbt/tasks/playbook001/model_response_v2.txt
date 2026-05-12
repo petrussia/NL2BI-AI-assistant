@@ -1,0 +1,32 @@
+```sql path=models/traffic_source_metrics.sql
+with attribution_data as (
+    select
+        utm_source,
+        sum(first_touch_revenue) as first_touch_revenue,
+        sum(last_touch_revenue) as last_touch_revenue,
+        sum(forty_twenty_forty_revenue) as forty_twenty_forty_revenue,
+        sum(linear_revenue) as linear_revenue
+    from {{ ref('attribution_touches') }}
+    group by utm_source
+),
+spend_data as (
+    select
+        utm_source,
+        sum(spend) as total_spend
+    from {{ ref('ad_spend') }}
+    group by utm_source
+)
+select
+    a.utm_source,
+    a.first_touch_revenue,
+    a.last_touch_revenue,
+    a.forty_twenty_forty_revenue,
+    a.linear_revenue,
+    s.total_spend,
+    (a.first_touch_revenue / s.total_spend) as first_touch_cpa,
+    (a.last_touch_revenue / s.total_spend) as last_touch_cpa,
+    (a.forty_twenty_forty_revenue / s.total_spend) as forty_twenty_forty_cpa,
+    (a.linear_revenue / s.total_spend) as linear_cpa
+from attribution_data a
+join spend_data s on a.utm_source = s.utm_source;
+```

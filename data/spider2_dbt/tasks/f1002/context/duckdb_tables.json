@@ -1,0 +1,1534 @@
+{
+  "f1.duckdb": [
+    {
+      "schema": "main",
+      "table": "circuits",
+      "columns": [
+        {
+          "name": "circuitId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "circuitRef",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lat",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "lng",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "alt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_fastest_laps_by_season",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastest_laps",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_podiums_by_season",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "podiums",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_points",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_points",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_pole_positions_by_season",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pole_positions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_results",
+      "columns": [
+        {
+          "name": "constructorResultsId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_retirements_by_season",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retirements",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_standings",
+      "columns": [
+        {
+          "name": "constructorStandingsId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "positionText",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructor_wins_by_season",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "constructors",
+      "columns": [
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorRef",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "construtor_drivers_championships",
+      "columns": [
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_driver_championships",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_fastest_laps_by_season",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastest_laps",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_podiums_by_season",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "podiums",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_points",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_points",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_pole_positions_by_season",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pole_positions",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_retirements_by_season",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retirements",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_standings",
+      "columns": [
+        {
+          "name": "driverStandingsId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "positionText",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "driver_wins_by_season",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wins",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "drivers",
+      "columns": [
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverRef",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "surname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "dob",
+          "type": "DATE"
+        },
+        {
+          "name": "nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "finishes_by_driver",
+      "columns": [
+        {
+          "name": "driver_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "races",
+          "type": "BIGINT"
+        },
+        {
+          "name": "podiums",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "pole_positions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "fastest_laps",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p1",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p2",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p3",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p4",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p5",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p6",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p7",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p8",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p9",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p10",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p11",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p12",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p13",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p14",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p15",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p16",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p17",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p18",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p19",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p20",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p21plus",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "disqualified",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "excluded",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "failed_to_qualify",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "not_classified",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "retired",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "withdrew",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "lap_times",
+      "columns": [
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "most_laps",
+      "columns": [
+        {
+          "name": "rank",
+          "type": "BIGINT"
+        },
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "laps",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "most_races",
+      "columns": [
+        {
+          "name": "rank",
+          "type": "BIGINT"
+        },
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "finishes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "excluded",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "withdrew",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "failed_to_qualify",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "disqualified",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "not_classified",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "retired",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "oldest_race_winners_in_modern_era",
+      "columns": [
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_date",
+          "type": "DATE"
+        },
+        {
+          "name": "age",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "pit_stops",
+      "columns": [
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stop",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "position_descriptions",
+      "columns": [
+        {
+          "name": "position_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_desc",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "qualifying",
+      "columns": [
+        {
+          "name": "qualifyId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "q1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "q2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "q3",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "races",
+      "columns": [
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "round",
+          "type": "INTEGER"
+        },
+        {
+          "name": "circuitId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fp1_date",
+          "type": "DATE"
+        },
+        {
+          "name": "fp1_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fp2_date",
+          "type": "DATE"
+        },
+        {
+          "name": "fp2_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fp3_date",
+          "type": "DATE"
+        },
+        {
+          "name": "fp3_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quali_date",
+          "type": "DATE"
+        },
+        {
+          "name": "quali_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sprint_date",
+          "type": "DATE"
+        },
+        {
+          "name": "sprint_time",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "results",
+      "columns": [
+        {
+          "name": "resultId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "positionText",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "positionOrder",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "laps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastestLap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rank",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastestLapTime",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fastestLapSpeed",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "statusId",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "seasons",
+      "columns": [
+        {
+          "name": "year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sprint_results",
+      "columns": [
+        {
+          "name": "resultId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "positionText",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "positionOrder",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "INTEGER"
+        },
+        {
+          "name": "laps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastestLap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastestLapTime",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "statusId",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "status",
+      "columns": [
+        {
+          "name": "statusId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__circuits",
+      "columns": [
+        {
+          "name": "circuit_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "alitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "circuit_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_ref",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_location",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__constructor_results",
+      "columns": [
+        {
+          "name": "constructorResultsId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__constructor_standings",
+      "columns": [
+        {
+          "name": "constructorStandingsId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "positionText",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__constructors",
+      "columns": [
+        {
+          "name": "constructor_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructor_ref",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "constructor_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "constructor_nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "constructor_url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__driver_standings",
+      "columns": [
+        {
+          "name": "driverStandingsId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "positionText",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "wins",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__drivers",
+      "columns": [
+        {
+          "name": "driver_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_ref",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "driver_nationality",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "driver_current_age",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__lap_times",
+      "columns": [
+        {
+          "name": "race_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__pit_stops",
+      "columns": [
+        {
+          "name": "race_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stop",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "seconds",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__qualifying",
+      "columns": [
+        {
+          "name": "qualify_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "race_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructor_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "q1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "q2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "q3",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__races",
+      "columns": [
+        {
+          "name": "race_date",
+          "type": "DATE"
+        },
+        {
+          "name": "round_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "race_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "race_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "race_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "circuit_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "alitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_ref",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "circuit_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_modern_era",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__results",
+      "columns": [
+        {
+          "name": "status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "race_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "driver_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "constructor_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "result_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "points",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "laps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastest_lap_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fastest_lap_speed",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "lap_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lap_milliseconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lap_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastest_lap",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rank",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_desc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "position_desc",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__seasons",
+      "columns": [
+        {
+          "name": "year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_f1_dataset__status",
+      "columns": [
+        {
+          "name": "statusId",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

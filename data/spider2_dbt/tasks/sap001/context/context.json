@@ -1,0 +1,35 @@
+{
+  "task_id": "sap001",
+  "instance_id": "sap001",
+  "instruction": "Can you explain the process used to handle and aggregate SAP general ledger data for `0fi_gl_10` and `0fi_gl_14`?",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/sap001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/sap001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/sap001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/sap__0customer_attr.sql",
+    "models/sap__0material_attr.sql",
+    "models/sap__0company_text.sql",
+    "models/intermediate/int_sap__0employee_date_changes.sql",
+    "models/intermediate/int_sap__0fi_gl_10_unpivot.sql",
+    "models/intermediate/int_sap__0fi_gl_10_sums.sql",
+    "models/sap__0vendor_text.sql",
+    "models/sap__0vendor_attr.sql",
+    "models/sap.yml",
+    "models/sap__0comp_code_text.sql",
+    "models/sap__0employee_attr.sql",
+    "models/sap__0comp_code_attr.sql",
+    "models/sap__0gl_account_attr.sql",
+    "macros/subtract_day_to_char_date.sql",
+    "macros/add_day_to_char_date.sql"
+  ],
+  "duckdb_files": [
+    "sap.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

@@ -1,0 +1,326 @@
+{
+  "chinook.duckdb": [
+    {
+      "schema": "main",
+      "table": "album",
+      "columns": [
+        {
+          "name": "album_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "artist_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "artist",
+      "columns": [
+        {
+          "name": "artist_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fax",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "support_rep_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "employee",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reports_to",
+          "type": "INTEGER"
+        },
+        {
+          "name": "birth_date",
+          "type": "DATE"
+        },
+        {
+          "name": "hire_date",
+          "type": "DATE"
+        },
+        {
+          "name": "address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fax",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "genre",
+      "columns": [
+        {
+          "name": "genre_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "invoice",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_date",
+          "type": "DATE"
+        },
+        {
+          "name": "billing_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "invoice_line",
+      "columns": [
+        {
+          "name": "invoice_line_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "track_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unit_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "media_type",
+      "columns": [
+        {
+          "name": "media_type_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playlist",
+      "columns": [
+        {
+          "name": "playlist_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "playlist_track",
+      "columns": [
+        {
+          "name": "playlist_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "track_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "track",
+      "columns": [
+        {
+          "name": "track_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "album_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_type_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "genre_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "composer",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bytes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unit_price",
+          "type": "DOUBLE"
+        }
+      ]
+    }
+  ]
+}

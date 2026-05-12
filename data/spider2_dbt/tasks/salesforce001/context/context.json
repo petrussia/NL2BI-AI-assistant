@@ -1,0 +1,30 @@
+{
+  "task_id": "salesforce001",
+  "instance_id": "salesforce001",
+  "instruction": "I need a daily report on key sales activities—covering tasks completed, events held, leads generated, and the status of opportunities.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/salesforce001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/salesforce001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/salesforce001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "models/salesforce/salesforce__opportunity_line_item_enhanced.sql",
+    "models/salesforce/salesforce__contact_enhanced.sql",
+    "models/salesforce/salesforce__manager_performance.sql",
+    "models/salesforce/salesforce__owner_performance.sql",
+    "models/salesforce/intermediate/int_salesforce__opportunity_aggregation_by_owner.sql",
+    "models/salesforce/intermediate/int_salesforce__date_spine.sql",
+    "models/salesforce/salesforce__sales_snapshot.sql",
+    "models/salesforce/salesforce__opportunity_enhanced.sql",
+    "models/salesforce/salesforce.yml",
+    "models/salesforce.md",
+    "macros/custom_persist_pass_through_columns.sql"
+  ],
+  "duckdb_files": [
+    "salesforce.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

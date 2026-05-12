@@ -1,0 +1,296 @@
+{
+  "tpch.duckdb": [
+    {
+      "schema": "main",
+      "table": "customer",
+      "columns": [
+        {
+          "name": "c_custkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "c_mktsegment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_nationkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "c_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_acctbal",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "c_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "lineitem",
+      "columns": [
+        {
+          "name": "l_shipdate",
+          "type": "DATE"
+        },
+        {
+          "name": "l_orderkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "l_discount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "l_extendedprice",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "l_suppkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "l_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "l_returnflag",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l_partkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "l_linestatus",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l_tax",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "l_commitdate",
+          "type": "DATE"
+        },
+        {
+          "name": "l_receiptdate",
+          "type": "DATE"
+        },
+        {
+          "name": "l_shipmode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l_linenumber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "l_shipinstruct",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "nation",
+      "columns": [
+        {
+          "name": "n_nationkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "n_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "n_regionkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "n_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "orders",
+      "columns": [
+        {
+          "name": "o_orderdate",
+          "type": "DATE"
+        },
+        {
+          "name": "o_orderkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "o_custkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "o_orderpriority",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "o_shippriority",
+          "type": "INTEGER"
+        },
+        {
+          "name": "o_clerk",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "o_orderstatus",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "o_totalprice",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "o_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "part",
+      "columns": [
+        {
+          "name": "p_partkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "p_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "p_brand",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_container",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_mfgr",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_retailprice",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "p_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "partsupp",
+      "columns": [
+        {
+          "name": "ps_partkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ps_suppkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ps_supplycost",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "ps_availqty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ps_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "region",
+      "columns": [
+        {
+          "name": "r_regionkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "r_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "r_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "supplier",
+      "columns": [
+        {
+          "name": "s_suppkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "s_nationkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "s_comment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "s_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "s_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "s_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "s_acctbal",
+          "type": "DOUBLE"
+        }
+      ]
+    }
+  ]
+}

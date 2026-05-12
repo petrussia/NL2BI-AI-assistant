@@ -1,0 +1,17 @@
+```diff
+--- a/models/core/facts_divvy.sql
++++ b/models/core/facts_divvy.sql
+@@ -17,6 +17,15 @@ select
+     end_station_name,
+     end_station_id,
+     started_at,
++    ended_at,
++    duration_minutes,
++    start_neighbourhood,
++    start_location,
++    end_neighbourhood,
++    end_location,
+     member_casual
+ from {{ source('main','divvy_data') }}
+ where duration_minutes >= 1 and duration_minutes <= 1440
+```

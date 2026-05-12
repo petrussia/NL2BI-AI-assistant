@@ -1,0 +1,67 @@
++++ b/models/final/shopify_discount_code_summary.sql
+@@ -0,0 +1,100 @@
++with order_discount_code as (
++    select *
++    from {{ var('shopify_order_discount_code') }}
++),
++
++order_line as (
++    select *
++    from {{ ref('shopify__order_lines') }}
++),
++
++order_metafields as (
++    select *
++    from {{ ref('shopify__order_metafields') }}
++),
++
++customer_email_rollup as (
++    select *
++    from {{ ref('int_shopify__customer_email_rollup') }}
++),
++
++abandoned_checkout as (
++    select *
++    from {{ var('shopify_abandoned_checkout') }}
++),
++
++discounts_order_aggregates as (
++    select *
++    from {{ ref('int_shopify__discounts__order_aggregates') }}
++),
++
++discounts_abandoned_checkouts as (
++    select *
++    from {{ ref('int_shopify__discounts__abandoned_checkouts') }}
++),
++
++final as (
++    select
++        d.code as discount_code,
++        coalesce(odca.total_order_discount_amount, dac.total_abandoned_checkout_discount_amount) as total_discount_amount,
++        coalesce(odca.count_orders, dac.count_abandoned_checkouts) as order_count,
++        coalesce(odca.order_total_shipping, dac.total_abandoned_checkout_shipping_price) as shipping_cost,
++        c.email as customer_email,
++        c.first_name,
++        c.last_name
++    from
++        order_discount_code d
++    left join
++        discounts_order_aggregates odca
++    on
++        d.id = odca.discount_code
++    left join
++        discounts_abandoned_checkouts dac
++    on
++        d.id = dac.discount_code
++    left join
++        customer_email_rollup c
++    on
++        d.customer_id = c.customer_ids
++    left join
++        abandoned_checkout ac
++    on
++        d.id = ac.discount_code
++)
++
++select * from final;

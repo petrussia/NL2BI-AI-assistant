@@ -1,0 +1,140 @@
+{
+  "airport.duckdb": [
+    {
+      "schema": "main",
+      "table": "raw_airports",
+      "columns": [
+        {
+          "name": "Airport_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "City",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "IATA",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ICAO",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "Longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "Altitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "DST",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "database_time_zone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Source",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_arrivals",
+      "columns": [
+        {
+          "name": "sortTime",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "operatedBy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "iata",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "icao",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "airport_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "departureTime_timeAMPM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "departureTime_time24",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "arrivalTime_timeAMPM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "arrivalTime_time24",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "carrier_fs",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "carrier_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "carrier_flightNumber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "airport_fs",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "airport_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "isCodeshare",
+          "type": "BOOLEAN"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
++++ b/models/salesforce/salesforce__daily_activity.sql
+@@ -1,4 +1,4 @@
+ with daily_activity as (
+     select *
+-    from {{ ref('salesforce__daily_activity') }}
++    from {{ source('salesforce', 'daily_activity') }}
+ )
+ 
+ select 
+@@ -10,6 +10,12 @@
+     opportunities_lost_amount,
+     pipeline_amount
+ from daily_activity
++union all
++select 
++    date_day,
++    sum(leads_created) as leads_generated,
++    sum(events_completed) as events_held,
++    sum(tasks_completed) as tasks_completed,
++    null as opportunities_created_amount,
++    null as opportunities_won_amount,
++    null as opportunities_lost_amount,
++    null as pipeline_amount
++from daily_activity
+ group by date_day

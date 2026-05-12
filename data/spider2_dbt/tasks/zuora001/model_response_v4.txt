@@ -1,0 +1,26 @@
+```diff
+--- a/models/standardized_models/zuora__account_daily_overview.sql
++++ b/models/standardized_models/zuora__account_daily_overview.sql
+@@ -46,6 +46,18 @@
+             account_overview
+         )
+     )
+
++    -- Daily Account Overview
++    daily_account_overview AS (
++        SELECT 
++            date_day,
++            SUM(invoice_amount) AS total_invoice_amount,
++            SUM(invoice_amount_paid) AS total_invoice_amount_paid,
++            SUM(invoice_amount_unpaid) AS total_invoice_amount_unpaid,
++            SUM(discount_charges) AS total_discount_charges
++        FROM 
++            account_daily_overview
++        GROUP BY 
++            date_day
++    ),
++
+     -- Final Selection
+     SELECT 
+         daily_,
+```

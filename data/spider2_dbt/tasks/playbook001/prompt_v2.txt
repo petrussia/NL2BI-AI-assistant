@@ -1,0 +1,193 @@
+You are a senior analytics engineer. You will modify or create one
+        or more dbt models so that running `dbt run` produces the answer.
+
+        QUESTION:
+        Complete the project of this database to show the metrics of each traffic source, I believe every touchpoint in the conversion path is equally important, please choose the most suitable attribution method.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The project already has models. Your goal is to MATCH THE PROJECT'S
+  NAMING AND COLUMN CONVENTIONS — examine the existing model files in
+  the SCHEMA to infer the right output identifier.
+- Output: emit ONE answer in EITHER form, picking whichever fits:
+    A) A SQL block for a NEW dbt model that matches the project's
+       naming convention:
+       ```sql path=models/<choose_a_name_consistent_with_existing_models>.sql
+       SELECT ...
+       ```
+    B) A unified diff if your answer is best expressed as a small change
+       to an existing model file shown in PROJECT FILES below:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+- Use ONLY columns that appear in the PROJECT FILES. Do not invent
+  column names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `playbook.duckdb`
+    main.ad_spend(date_day DATE, utm_source VARCHAR, utm_medium VARCHAR, utm_campaign VARCHAR, spend INTEGER)
+    main.attribution_touches(session_id INTEGER, customer_id INTEGER, started_at TIMESTAMP, ended_at TIMESTAMP, utm_source VARCHAR, utm_medium VARCHAR, utm_campaign VARCHAR, converted_at TIMESTAMP, revenue INTEGER, total_sessions BIGINT, session_index BIGINT, first_touch_points DECIMAL(2,1), last_touch_points DECIMAL(2,1), forty_twenty_forty_points DOUBLE, linear_points DOUBLE, first_touch_revenue DECIMAL(12,1), last_touch_revenue DECIMAL(12,1), forty_twenty_forty_revenue DOUBLE, linear_revenue DOUBLE)
+    main.customer_conversions(customer_id INTEGER, converted_at TIMESTAMP, revenue INTEGER)
+    main.sessions(session_id INTEGER, customer_id INTEGER, started_at TIMESTAMP, ended_at TIMESTAMP, utm_source VARCHAR, utm_medium VARCHAR, utm_campaign VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: acme
+
+profile: playbook
+
+version: '1.0'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+
+quoting:
+  database: false
+  identifier: false
+  schema: false
+
+seeds:
+  quote_columns: false
+  acme:
+    sessions:
+      csv_options:
+        delimiter: ','
+        header: True
+
+models:
+  transient: true
+
+
+
+=== FINAL models (1) ===
+  - models/attribution_touches.sql
+    cols: total_sessions, session_index, first_touch_points, last_touch_points, forty_twenty_forty_points, linear_points, first_touch_revenue, last_touch_revenue, forty_twenty_forty_revenue, linear_revenue
+    --- body (first 900 chars):
+    with sessions as (
+        select * from {{ source('playbook','sessions') }}
+    ),
+
+    customer_conversions as (
+        select * from {{ source('playbook','customer_conversions') }}
+    ),
+
+    sessions_before_conversion as (
+        select
+            sessions.*,
+            customer_conversions.converted_at,
+            customer_conversions.revenue,
+            count(*) over (partition by sessions.customer_id) as total_sessions,
+            row_number() over (partition by sessions.customer_id order by sessions.started_at) as session_index
+        from sessions
+        left join customer_conversions on sessions.customer_id = customer_conversions.customer_id
+        where sessions.started_at <= customer_conversions.converted_at
+            and sessions.started_at >= customer_conversions.converted_at - INTERVAL '30 days'
+    ),
+
+    with_points as (
+        select
+            *,
+            case
+                when session_index = 1 then 1.0
+                else 0.0
+
+
+--- dbt_project.yml (head) ---
+name: acme
+
+profile: playbook
+
+version: '1.0'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+
+quoting:
+  database: false
+  identifier: false
+  schema: false
+
+seeds:
+  quote_columns: false
+  acme:
+    sessions:
+      csv_options:
+        delimiter: ','
+        header: True
+
+models:
+  transient: true
+
+
+
+--- models/cpa_and_roas.yml (head) ---
+version: 2
+
+models:
+  - name: cpa_and_roas
+    description: >
+      Aggregated ad spend and attribution data, with calculated metrics for cost per acquisition (CPA) and return on advertising spend (ROAS).
+
+    columns:
+      - name: date_month
+        description: The month of the data.
+        tests:
+          - not_null
+
+      - name: utm_source
+        description: The source of the traffic (e.g., Google, Facebook).
+        tests:
+          - not_null
+
+      - name: attribution_points
+
+
+
+--- models/schema.yml (head) ---
+version: 2
+
+sources:
+  - name: playbook
+    database: playbook
+    schema: main
+    tables:
+      - name: sessions
+      - name: customer_conversions
+      - name: ad_spend
+
+
+
+        Examine the PROJECT FILES carefully — the existing models reveal
+        the project's naming convention (e.g. `<source>__<entity>` final
+        models, `stg_<source>__<table>` staging models). Use a name that
+        fits this pattern and reuse the staging models with `{{ ref(...) }}`.
+
+        SQL or DIFF (one fenced block, nothing else):

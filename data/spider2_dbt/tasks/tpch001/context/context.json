@@ -1,0 +1,28 @@
+{
+  "task_id": "tpch001",
+  "instance_id": "tpch001",
+  "instruction": "Calculate the lifetime value of a customer by analyzing their total purchases and returns, categorize their status based on the percentage of returns, and combine this data with lost revenue information.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/tpch001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/tpch001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/tpch001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/suppliers/UK_Lowcost_Brass_Suppliers.sql",
+    "models/suppliers/EUR_LOWCOST_BRASS_SUPPLIERS.sql",
+    "models/source_configs.yml",
+    "models/FINANCE/schema.yml",
+    "models/FINANCE/intermediate/order_line_items.sql",
+    "models/FINANCE/SUPPLIER_RETURNS.sql",
+    "models/FINANCE/monthly_return_revenue.sql",
+    "models/base/min_supply_cost.sql"
+  ],
+  "duckdb_files": [
+    "tpch.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

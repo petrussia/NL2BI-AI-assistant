@@ -1,0 +1,42 @@
+{
+  "task_id": "tickit001",
+  "instance_id": "tickit001",
+  "instruction": "Generating a complete sales summary that includes buyer and seller details, event categories, and sales metrics.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/tickit001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/tickit001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/tickit001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/staging/tickit/stg_tickit__sales.sql",
+    "models/staging/tickit/stg_tickit__venues.sql",
+    "models/staging/tickit/stg_tickit__listings.sql",
+    "models/staging/tickit/_tickit__models.yml",
+    "models/staging/tickit/stg_tickit__users.sql",
+    "models/staging/tickit/stg_tickit__categories.sql",
+    "models/staging/tickit/_tickit__sources.yml",
+    "models/staging/tickit/stg_tickit__events.sql",
+    "models/staging/tickit/stg_tickit__dates.sql",
+    "models/analyses/sales_by_category.sql",
+    "models/analyses/top_grossing_events.sql",
+    "models/analyses/buyer_likes.sql",
+    "models/analyses/non_buyer_likes.sql",
+    "models/analyses/top_sellers.sql",
+    "models/analyses/monthly_sales.sql",
+    "models/intermediate/users/int_buyers_extracted_from_users.sql",
+    "models/intermediate/users/_int_users__models.yml",
+    "models/marts/sales/_sales__models.yml",
+    "models/marts/sales/fct_listings.sql",
+    "models/marts/marketing/dim_non_buyers.sql",
+    "models/marts/marketing/_marketing__models.yml",
+    "models/marts/marketing/dim_events.sql"
+  ],
+  "duckdb_files": [
+    "tickit.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

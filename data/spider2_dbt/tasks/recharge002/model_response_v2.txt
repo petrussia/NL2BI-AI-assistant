@@ -1,0 +1,51 @@
+```sql path=models/recharge__daily_running_totals.sql
+with transactions as (
+    select 
+        date(created_at) as transaction_date,
+        customer_id,
+        sum(subtotal_price) as total_sales,
+        sum(tax_lines) as total_taxes,
+        sum(total_discounts) as total_discounts,
+        sum(total_line_items_price) as total_line_items,
+        sum(total_refunds) as total_refunds,
+        sum(quantity) as total_quantity
+    from 
+        {{ ref('charge_data') }}
+    group by 
+        date(created_at), customer_id
+),
+
+running_totals as (
+    select 
+        transaction_date,
+        customer_id,
+        sum(total_sales) over (partition by customer_id order by transaction_date) as running_total_sales,
+        sum(total_taxes) over (partition by customer_id order by transaction_date) as running_total_taxes,
+        sum(total_discounts) over (partition by customer_id order by transaction_date) as running_total_discounts,
+        sum(total_line_items) over (partition by customer_id order by transaction_date) as running_total_line_items,
+        sum(total_refunds) over (partition by customer_id order by transaction_date) as running_total_refunds,
+        sum(total_quantity) over (partition by customer_id order by transaction_date) as running_total_quantity
+    from 
+        transactions
+)
+
+select 
+    transaction_date,
+    customer_id,
+    total_sales,
+    total_taxes,
+    total_discounts,
+    total_line_items,
+    total_refunds,
+    total_quantity,
+    running_total_sales,
+    running_total_taxes,
+    running_total_discounts,
+    running_total_line_items,
+    running_total_refunds,
+    running_total_quantity
+from 
+    running_totals
+```
+
+This new model calculates daily and running totals for customer transactions, including sales, taxes, discounts, refunds, and order quantities. It also determines the number of active months for each customer based on their subscription status.

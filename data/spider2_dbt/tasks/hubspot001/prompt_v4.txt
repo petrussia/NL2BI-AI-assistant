@@ -1,0 +1,252 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I merge HubSpot contact data with email metrics, engagement activities, and email campaign performance to provide a comprehensive view of each contact’s interactions and the overall effectiveness of email campaigns?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `hubspot.duckdb`
+    main.company_data(id VARCHAR, is_deleted BOOLEAN, _fivetran_synced TIMESTAMP, property_name VARCHAR, property_description VARCHAR, property_createdate TIMESTAMP, property_industry VARCHAR, property_address VARCHAR, property_address_2 VARCHAR, property_city VARCHAR, property_state VARCHAR, property_country VARCHAR, property_annualrevenue INTEGER)
+    main.company_property_history_data(company_id VARCHAR, timestamp VARCHAR, _fivetran_synced VARCHAR, source VARCHAR, source_id INTEGER, name VARCHAR, value VARCHAR)
+    main.contact_data(_fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, property_email VARCHAR, id INTEGER, property_company VARCHAR, property_firstname VARCHAR, property_lastname VARCHAR, property_email_1 VARCHAR, property_createdate TIMESTAMP, property_jobtitle INTEGER, property_annualrevenue INTEGER, property_hs_calculated_merged_vids VARCHAR, property_created_at TIMESTAMP)
+    main.contact_list_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, created_at VARCHAR, deleteable BOOLEAN, dynamic BOOLEAN, metadata_error INTEGER, metadata_last_processing_state_change_at VARCHAR, metadata_last_size_change_at VARCHAR, metadata_processing VARCHAR, metadata_size INTEGER, offsett INTEGER, portal_id INTEGER, updated_at VARCHAR, name VARCHAR)
+    main.contact_list_member_data(contact_id INTEGER, contact_list_id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, added_at VARCHAR)
+    main.contact_merge_audit_data(canonical_vid INTEGER, contact_id INTEGER, vid_to_merge VARCHAR, _fivetran_synced TIMESTAMP, entity_id VARCHAR, first_name INTEGER, last_name INTEGER, num_properties_moved INTEGER, timestamp TIMESTAMP, user_id INTEGER)
+    main.contact_property_history_data(contact_id INTEGER, timestamp VARCHAR, _fivetran_synced VARCHAR, source VARCHAR, name VARCHAR, value VARCHAR, source_id VARCHAR)
+    main.deal_company_data(company_id INTEGER, deal_id INTEGER, type_id INTEGER)
+    main.deal_contact_data(contact_id VARCHAR, deal_id VARCHAR, _fivetran_synced TIMESTAMP, type_id INTEGER)
+    main.deal_data(deal_id VARCHAR, is_deleted BOOLEAN, deal_pipeline_id INTEGER, deal_pipeline_stage_id INTEGER, owner_id VARCHAR, portal_id INTEGER, property_dealname VARCHAR, property_description INTEGER, property_amount INTEGER, property_closedate INTEGER, property_createdate TIMESTAMP)
+    main.deal_pipeline_data(pipeline_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, active BOOLEAN, display_order INTEGER, label VARCHAR, created_at VARCHAR, updated_at VARCHAR)
+    main.deal_pipeline_stage_data(_fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, active BOOLEAN, closed_won BOOLEAN, display_order INTEGER, probability DOUBLE, stage_id VARCHAR, label VARCHAR, pipeline_id VARCHAR, created_at VARCHAR, updated_at VARCHAR)
+    main.deal_property_history_data(deal_id VARCHAR, timestamp VARCHAR, _fivetran_synced VARCHAR, source VARCHAR, name VARCHAR, source_id VARCHAR, value VARCHAR)
+    main.deal_stage_data(_fivetran_start TIMESTAMP, deal_id VARCHAR, _fivetran_active BOOLEAN, _fivetran_end TIMESTAMP, _fivetran_synced TIMESTAMP, date_entered TIMESTAMP, source VARCHAR, source_id VARCHAR, value VARCHAR)
+    main.email_campaign_data(id VARCHAR, _fivetran_synced VARCHAR, app_id INTEGER, content_id VARCHAR, num_included INTEGER, num_queued INTEGER, sub_type INTEGER, type VARCHAR, app_name VARCHAR, name VARCHAR, subject VARCHAR)
+    main.email_event_bounce_data(id VARCHAR, _fivetran_synced VARCHAR, category VARCHAR, status INTEGER, response VARCHAR)
+    main.email_event_click_data(id VARCHAR, _fivetran_synced VARCHAR, referer INTEGER, browser VARCHAR, location VARCHAR, ip_address INTEGER, url VARCHAR, user_agent VARCHAR)
+    main.email_event_data(id VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, caused_by_created TIMESTAMP, caused_by_id INTEGER, created TIMESTAMP, email_campaign_id INTEGER, obsoleted_by_created TIMESTAMP, obsoleted_by_id INTEGER, portal_id INTEGER, sent_by_created TIMESTAMP, sent_by_id VARCHAR, type VARCHAR, filtered_event BOOLEAN, recipient VARCHAR)
+    main.email_event_deferred_data(id VARCHAR, _fivetran_synced VARCHAR, attempt INTEGER, response INTEGER)
+    main.email_event_delivered_data(id VARCHAR, _fivetran_synced VARCHAR, response VARCHAR, smtp_id VARCHAR)
+    main.email_event_dropped_data(id VARCHAR, _fivetran_synced VARCHAR, drop_reason VARCHAR, bcc VARCHAR, cc VARCHAR, drop_message VARCHAR, from VARCHAR, reply_to VARCHAR, subject VARCHAR)
+    main.email_event_forward_data(id VARCHAR, _fivetran_synced VARCHAR, browser VARCHAR, ip_address INTEGER, location VARCHAR, user_agent VARCHAR)
+    main.email_event_open_data(id VARCHAR, _fivetran_synced VARCHAR, duration INTEGER, browser VARCHAR, ip_address INTEGER, location VARCHAR, user_agent VARCHAR)
+    main.email_event_print_data(id VARCHAR, _fivetran_synced VARCHAR, browser VARCHAR, ip_address INTEGER, location VARCHAR, user_agent VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'hubspot'
+version: '0.18.0'
+
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'hubspot'
+
+vars:
+  hubspot_schema: main
+  hubspot_service_enabled: true
+  # hubspot_sales_enabled: true # enable when generating docs
+  # hubspot_marketing_enabled: true # enable when generating docs
+  # hubspot_contact_merge_audit_enabled: true # enable when generating docs
+  # hubspot_using_all_email_events: true # enable when generating docs
+  # hubspot_merged_deal_enabled: true # enable when generating docs 
+  hubspot_company_property_history_identifier: "company_property_history_data"
+
+
+=== INTERMEDIATE models (10) ===
+  - models/marketing/intermediate/int_hubspot__contact_merge_adjust.sql
+    cols: vid_to_merge, varchar, merges
+    --- head:
+    {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled'])) }}
+
+    with contacts as (
+
+        select *
+  - models/marketing/intermediate/int_hubspot__email_aggregate_status_change.sql
+    cols: unsubscribes
+    --- head:
+
+    {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_email_event_status_change_enabled'])) }}
+
+    with base as (
+
+  - models/marketing/intermediate/int_hubspot__email_event_aggregates.sql
+    cols: email_send_id, opens, sends, deliveries, drops, clicks, forwards, deferrals, bounces, spam_reports, prints
+    --- head:
+    {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])) }}
+
+    with events as (
+
+        select *
+  - models/marketing/intermediate/int_hubspot__email_metrics__by_contact_list.sql
+    cols: total_, total_unique_
+    --- head:
+    {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_contact_list_member_enabled','hubspot_contact_enabled','hubspot_email_event_sent_enabled']), materialized='table') }}
+
+    with email_sends as (
+
+        select *
+  - models/marketing/intermediate/int_hubspot__engagement_metrics__by_contact.sql
+    --- head:
+    {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled','hubspot_engagement_contact_enabled'])) }}
+
+    with engagements as (
+
+        select *
+  - models/sales/intermediate/int_hubspot__deals_enhanced.sql
+    cols: merged_deal_ids, is_deal_pipeline_deleted, is_pipeline_active, is_deal_pipeline_stage_deleted, owner_email_address, owner_full_name
+    --- head:
+    {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+
+    with deals as (
+
+        select *
+  - models/service/intermediate/int_hubspot__daily_ticket_history.sql
+    cols: our, date, date_day, valid_from, valid_to, row_num, new_value, id
+    --- head:
+    {{
+        config(
+            enabled=var('hubspot_service_enabled', False),
+            materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
+            partition_by = {'field': 'date_day', 'data_type': 'date'}
+  - models/service/intermediate/int_hubspot__pivot_daily_ticket_history.sql
+    cols: id
+    --- head:
+    {{
+        config(
+            enabled=var('hubspot_service_enabled', False),
+            materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
+            partition_by = {'field': 'date_day', 'data_type': 'date'}
+  - models/service/intermediate/int_hubspot__scd_daily_ticket_history.sql
+    --- head:
+    {{ config(materialized='table', enabled=var('hubspot_service_enabled', False)) }}
+
+    {%- set ticket_columns = adapter.get_columns_in_relation(ref('int_hubspot__pivot_daily_ticket_history')) -%}
+
+    with change_data as (
+  - models/service/intermediate/int_hubspot__ticket_calendar_spine.sql
+    cols: min_date, date, date_spine, open_until, date_day, id
+    --- head:
+    {{
+        config(
+            enabled=var('hubspot_service_enabled', False),
+            materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
+            partition_by = {'field': 'date_day', 'data_type': 'date'}
+
+=== FINAL models (32) ===
+  - macros/adjust_email_metrics.sql
+    --- body (first 900 chars):
+    {% macro adjust_email_metrics(base_ref, var_name) %}
+
+    {% set base_cols = dbt_utils.get_filtered_columns_in_relation(ref(base_ref))|map('lower') %}
+
+    {% set default_metrics = ['bounces', 'clicks', 'deferrals', 'deliveries', 'drops', 'forwards', 'opens', 'prints', 'spam_reports', 'unsubscribes'] %}
+    {% set email_metrics = var(var_name, default_metrics)|map('lower') %}
+
+    {# Only keep metrics found in the base ref #}
+    {% set adjusted_cols = email_metrics|select('in', base_cols)|list %}
+
+    {{ return(adjusted_cols) }}
+
+    {% endmacro %}
+  - macros/email_events_joined.sql
+    cols: email_send_timestamp, email_send_id, is_contact_deleted
+    --- body (first 900 chars):
+    {% macro email_events_joined(base_model) %}
+
+    with base as (
+
+        select *
+        from {{ base_model }}
+
+    ), events as (
+
+        select *
+        from {{ var('email_event') }}
+
+    {% if var('hubspot_contact_enabled', true) %}
+    ), contacts as (
+
+        select *
+        from {{ ref('int_hubspot__contact_merge_adjust') }} 
+    {% endif %}
+
+    ), events_joined as (
+
+        select 
+            base.*,
+            events.created_timestamp,
+            events.email_campaign_id,
+            events.recipient_email_address,
+            events.sent_timestamp as email_send_timestamp,
+            events.sent_by_event_id as email_send_id
+        from base
+        left join events
+            using (event_id)
+
+    {% if var('hubspot_contact_enabled', true) %}
+    ), contacts_joined as (
+
+        select 
+            events_joined.*,
+            contacts.contact_id,
+            coalesce(contacts.is_contact_deleted, false) as is_contact_deleted
+        from events_joined
+        left join contacts
+
+  - macros/engagements_aggregated.sql
+    cols: count_engagement_notes, count_engagement_tasks, count_engagement_calls, count_engagement_meetings, count_engagement_emails, count_engagement_incoming_emails, count_engagement_forwarded_emails
+    --- body (first 900 chars):
+    {% macro engagements_aggregated(from_ref, primary_key) %}
+
+        select
+            {{ primary_key }},
+            count(case when engagement_type = 'NOTE' then {{ primary_key }} end) as count_engagement_notes,
+            count(case when engagement_type = 'TASK' then {{ primary_key }} end) as count_engagement_tasks,
+            count(case when engagement_type = 'CALL' then {{ primary_key }} end) as count_engagement_calls,
+            count(case when engagement_type = 'MEETING' then {{ primary_key }} end) as count_engagement_meetings,
+            count(case when engagement_type = 'EMAIL' then {{ primary_key }} end) as count_engagement_emails,
+            count(case when engagement_type = 'INCOMING_EMAIL' then {{ primary_key }} end) as count_engagement_incoming_emails,
+            count(case when engagement_type = 'FORWARDED_EMAIL' then {{ primary_key }} end) as count_engagement_forwarded_emails
+        from {{ from_ref }}
+
+  - macros/engagements_joined.sql
+    cols: is_active, created_timestamp, occurred_timestamp, owner_id
+    --- body (first 900 chars):
+    {% macro engagements_joined(base_model) %}
+
+    with base as (
+
+        select *
+        from {{ base_model }}
+
+    )
+... (truncated)

@@ -1,0 +1,128 @@
+{
+  "hive.duckdb": [
+    {
+      "schema": "main",
+      "table": "raw_covid__cases",
+      "columns": [
+        {
+          "name": "date_rep",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cases",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deaths",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_covid__vaccines",
+      "columns": [
+        {
+          "name": "year_week_iso",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reporting_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_doses_recv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_doses_exported",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_dose",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_dose_refused",
+          "type": "INTEGER"
+        },
+        {
+          "name": "second_dose",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unknown_dose",
+          "type": "INTEGER"
+        },
+        {
+          "name": "target_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vaccine",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ref__country_codes",
+      "columns": [
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alpha_2code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alpha_3code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "numeric_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "latitude_avg",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "longitude_avg",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ref__populations",
+      "columns": [
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "population",
+          "type": "BIGINT"
+        }
+      ]
+    }
+  ]
+}

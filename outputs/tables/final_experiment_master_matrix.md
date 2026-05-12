@@ -1,106 +1,133 @@
-# Final Experiment Master Matrix (v7 — full closure)
-Generated: 2026-04-30T19:42:43.772654+00:00
-Total rows: 98
-  - internal_core: 62
-  - external_validation: 36
+# Final Experiment Master Matrix (v9 — post v7-closure)
+Generated: 2026-04-30T22:33:40.604353+00:00
+Total rows: 127 (internal_core: 81, external_validation: 46, v3 family: 17)
 
-|Run|Baseline|Ver|Model|Subset|Bench|n|EX|Exec|Mode|
-|---|---|---|---|---|---|---|---|---|---|
-|b0_llama_3p1_8b_bird_minidev_30|b0|—|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|20|full_ex|
-|b0_llama_3p1_8b_instruct_multidb30|b0|—|Llama-3.1-8B|multidb_30|core|30|0.8333|28|full_ex|
-|b0_llama_3p1_8b_instruct_smoke10|b0|—|Llama-3.1-8B|smoke_10|core|10|0.8000|10|full_ex|
-|b0_llama_3p1_8b_instruct_smoke25|b0|—|Llama-3.1-8B|smoke_25|core|25|0.6000|23|full_ex|
-|b0_llama_3p1_8b_spider2lite_30|b0|—|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b0_multidb30_v2|b0|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.9333|30|full_ex|
-|b0_qwen2p5_coder_14b_bird_minidev_30|b0|—|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2333|27|full_ex|
-|b0_qwen2p5_coder_14b_instruct_multidb30|b0|—|Qwen2.5-Coder-14B|multidb_30|core|30|0.8667|30|full_ex|
-|b0_qwen2p5_coder_14b_instruct_smoke10|b0|—|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|10|full_ex|
-|b0_qwen2p5_coder_14b_instruct_smoke25|b0|—|Qwen2.5-Coder-14B|smoke_25|core|25|0.9600|25|full_ex|
-|b0_qwen2p5_coder_14b_spider2lite_30|b0|—|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b0_qwen2p5_coder_7b_bird_minidev_30|b0|—|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2667|26|full_ex|
-|b0_qwen2p5_coder_7b_spider2lite_30|b0|—|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b0_qwen_qwen2.5_7b_instruct_bird_minidev_30|b0|—|Qwen2.5-7B|bird_minidev_30|EXT|30|0.2000|23|full_ex|
-|b0_qwen_qwen2.5_7b_instruct_multidb30|b0|—|Qwen2.5-7B|multidb_30|core|30|0.8000|30|full_ex|
-|b0_qwen_qwen2.5_7b_instruct_smoke10|b0|—|Qwen2.5-7B|smoke_10|core|10|0.6000|9|full_ex|
-|b0_qwen_qwen2.5_7b_instruct_smoke25|b0|—|Qwen2.5-7B|smoke_25|core|25|0.7200|23|full_ex|
-|b0_qwen_qwen2.5_7b_instruct_spider2lite_30|b0|—|Qwen2.5-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b0_spider_smoke10|b0|—|Qwen2.5-Coder-7B|smoke_10|core|10|1.0000|10|full_ex|
-|b0_spider_smoke25|b0|—|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|25|full_ex|
-|b1_llama_3p1_8b_bird_minidev_30|b1|—|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|21|full_ex|
-|b1_llama_3p1_8b_instruct_multidb30|b1|—|Llama-3.1-8B|multidb_30|core|30|0.7000|29|full_ex|
-|b1_llama_3p1_8b_instruct_smoke10|b1|—|Llama-3.1-8B|smoke_10|core|10|0.9000|10|full_ex|
-|b1_llama_3p1_8b_instruct_smoke25|b1|—|Llama-3.1-8B|smoke_25|core|25|0.7200|23|full_ex|
-|b1_llama_3p1_8b_spider2lite_30|b1|—|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b1_multidb30_v2|b1|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.7667|29|full_ex|
-|b1_qwen2p5_coder_14b_bird_minidev_30|b1|—|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|24|full_ex|
-|b1_qwen2p5_coder_14b_instruct_multidb30|b1|—|Qwen2.5-Coder-14B|multidb_30|core|30|0.7667|28|full_ex|
-|b1_qwen2p5_coder_14b_instruct_smoke10|b1|—|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|10|full_ex|
-|b1_qwen2p5_coder_14b_instruct_smoke25|b1|—|Qwen2.5-Coder-14B|smoke_25|core|25|0.9200|25|full_ex|
-|b1_qwen2p5_coder_14b_spider2lite_30|b1|—|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b1_qwen2p5_coder_7b_bird_minidev_30|b1|—|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|22|full_ex|
-|b1_qwen2p5_coder_7b_spider2lite_30|b1|—|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b1_qwen_qwen2.5_7b_instruct_bird_minidev_30|b1|—|Qwen2.5-7B|bird_minidev_30|EXT|30|0.1667|21|full_ex|
-|b1_qwen_qwen2.5_7b_instruct_multidb30|b1|—|Qwen2.5-7B|multidb_30|core|30|0.7000|29|full_ex|
-|b1_qwen_qwen2.5_7b_instruct_smoke10|b1|—|Qwen2.5-7B|smoke_10|core|10|1.0000|10|full_ex|
-|b1_qwen_qwen2.5_7b_instruct_smoke25|b1|—|Qwen2.5-7B|smoke_25|core|25|0.8400|24|full_ex|
-|b1_qwen_qwen2.5_7b_instruct_spider2lite_30|b1|—|Qwen2.5-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b1_spider_smoke10|b1|—|Qwen2.5-Coder-7B|smoke_10|core|10|1.0000|10|full_ex|
-|b1_spider_smoke25|b1|—|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|25|full_ex|
-|b2_spider_smoke10|b2|—|Qwen2.5-Coder-7B|smoke_10|core|10|0.7000|9|full_ex|
-|b2v1_multidb30|b2v1|v1|Qwen2.5-Coder-7B|multidb_30|core|30|0.6333|26|full_ex|
-|b2v1_spider_smoke10|b2v1|v1|Qwen2.5-Coder-7B|smoke_10|core|10|0.6000|8|full_ex|
-|b2v2_llama_3p1_8b_bird_minidev_30|b2v2|v2|Llama-3.1-8B|bird_minidev_30|EXT|30|0.0667|16|full_ex|
-|b2v2_llama_3p1_8b_multidb30|b2v2|v2|Llama-3.1-8B|multidb_30|core|30|0.7333|29|full_ex|
-|b2v2_llama_3p1_8b_smoke10|b2v2|v2|Llama-3.1-8B|smoke_10|core|10|0.8000|10|full_ex|
-|b2v2_llama_3p1_8b_smoke25|b2v2|v2|Llama-3.1-8B|smoke_25|core|25|0.8000|25|full_ex|
-|b2v2_llama_3p1_8b_spider2lite_30|b2v2|v2|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b2v2_multidb30|b2v2|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.8000|29|full_ex|
-|b2v2_qwen2p5_coder_14b_bird_minidev_30|b2v2|v2|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|22|full_ex|
-|b2v2_qwen2p5_coder_14b_multidb30|b2v2|v2|Qwen2.5-Coder-14B|multidb_30|core|30|0.9000|30|full_ex|
-|b2v2_qwen2p5_coder_14b_smoke10|b2v2|v2|Qwen2.5-Coder-14B|smoke_10|core|10|0.8000|10|full_ex|
-|b2v2_qwen2p5_coder_14b_smoke25|b2v2|v2|Qwen2.5-Coder-14B|smoke_25|core|25|0.8800|25|full_ex|
-|b2v2_qwen2p5_coder_14b_spider2lite_30|b2v2|v2|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b2v2_qwen2p5_coder_7b_bird_minidev_30|b2v2|v2|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|22|full_ex|
-|b2v2_qwen2p5_coder_7b_spider2lite_30|b2v2|v2|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b2v2_qwen_qwen2.5_7b_instruct_bird_minidev_30|b2v2|v2|Qwen2.5-7B|bird_minidev_30|EXT|30|0.1667|21|full_ex|
-|b2v2_qwen_qwen2.5_7b_instruct_multidb30|b2v2|v2|Qwen2.5-7B|multidb_30|core|30|0.7333|29|full_ex|
-|b2v2_qwen_qwen2.5_7b_instruct_smoke25|b2v2|v2|Qwen2.5-7B|smoke_25|core|25|0.8800|24|full_ex|
-|b2v2_qwen_qwen2.5_7b_instruct_spider2lite_30|b2v2|v2|Qwen2.5-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b2v2_spider_smoke10|b2v2|v2|Qwen2.5-Coder-7B|smoke_10|core|10|0.8000|10|full_ex|
-|b2v2_spider_smoke25|b2v2|v2|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|25|full_ex|
-|b3_spider_smoke10|b3|—|Qwen2.5-Coder-7B|smoke_10|core|10|0.2000|2|full_ex|
-|b3v1_multidb30|b3v1|v1|Qwen2.5-Coder-7B|multidb_30|core|30|0.4667|18|full_ex|
-|b3v1_spider_smoke10|b3v1|v1|Qwen2.5-Coder-7B|smoke_10|core|10|0.3000|5|full_ex|
-|b3v2_llama_3p1_8b_bird_minidev_30|b3v2|v2|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|21|full_ex|
-|b3v2_llama_3p1_8b_multidb30|b3v2|v2|Llama-3.1-8B|multidb_30|core|30|0.6667|29|full_ex|
-|b3v2_llama_3p1_8b_smoke10|b3v2|v2|Llama-3.1-8B|smoke_10|core|10|0.8000|9|full_ex|
-|b3v2_llama_3p1_8b_smoke25|b3v2|v2|Llama-3.1-8B|smoke_25|core|25|0.7600|23|full_ex|
-|b3v2_llama_3p1_8b_spider2lite_30|b3v2|v2|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b3v2_multidb30|b3v2|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.7333|29|full_ex|
-|b3v2_qwen2p5_coder_14b_bird_minidev_30|b3v2|v2|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|24|full_ex|
-|b3v2_qwen2p5_coder_14b_multidb30|b3v2|v2|Qwen2.5-Coder-14B|multidb_30|core|30|0.8333|30|full_ex|
-|b3v2_qwen2p5_coder_14b_smoke10|b3v2|v2|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|10|full_ex|
-|b3v2_qwen2p5_coder_14b_smoke25|b3v2|v2|Qwen2.5-Coder-14B|smoke_25|core|25|0.9200|25|full_ex|
-|b3v2_qwen2p5_coder_14b_spider2lite_30|b3v2|v2|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b3v2_qwen2p5_coder_7b_bird_minidev_30|b3v2|v2|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|22|full_ex|
-|b3v2_qwen2p5_coder_7b_spider2lite_30|b3v2|v2|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b3v2_spider_smoke10|b3v2|v2|Qwen2.5-Coder-7B|smoke_10|core|10|0.8000|10|full_ex|
-|b3v2_spider_smoke25|b3v2|v2|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|25|full_ex|
-|b4_final_multidb30|b4|final|Qwen2.5-Coder-7B|multidb_30|core|30|0.4667|18|full_ex|
-|b4_final_spider_smoke10|b4|final|Qwen2.5-Coder-7B|smoke_10|core|10|0.3000|5|full_ex|
-|b4_spider_smoke10|b4|—|Qwen2.5-Coder-7B|smoke_10|core|10|0.2000|2|full_ex|
-|b4v2_llama_3p1_8b_bird_minidev_30|b4v2|v2|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|21|full_ex|
-|b4v2_llama_3p1_8b_multidb30|b4v2|v2|Llama-3.1-8B|multidb_30|core|30|0.6333|29|full_ex|
-|b4v2_llama_3p1_8b_smoke10|b4v2|v2|Llama-3.1-8B|smoke_10|core|10|0.8000|9|full_ex|
-|b4v2_llama_3p1_8b_smoke25|b4v2|v2|Llama-3.1-8B|smoke_25|core|25|0.7600|23|full_ex|
-|b4v2_llama_3p1_8b_spider2lite_30|b4v2|v2|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b4v2_multidb30|b4v2|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.7333|29|full_ex|
-|b4v2_qwen2p5_coder_14b_bird_minidev_30|b4v2|v2|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|24|full_ex|
-|b4v2_qwen2p5_coder_14b_multidb30|b4v2|v2|Qwen2.5-Coder-14B|multidb_30|core|30|0.8667|30|full_ex|
-|b4v2_qwen2p5_coder_14b_smoke10|b4v2|v2|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|10|full_ex|
-|b4v2_qwen2p5_coder_14b_smoke25|b4v2|v2|Qwen2.5-Coder-14B|smoke_25|core|25|0.8800|25|full_ex|
-|b4v2_qwen2p5_coder_14b_spider2lite_30|b4v2|v2|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b4v2_qwen2p5_coder_7b_bird_minidev_30|b4v2|v2|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|22|full_ex|
-|b4v2_qwen2p5_coder_7b_spider2lite_30|b4v2|v2|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|0|prediction_only_structural_metrics|
-|b4v2_spider_smoke10|b4v2|v2|Qwen2.5-Coder-7B|smoke_10|core|10|0.8000|10|full_ex|
-|b4v2_spider_smoke25|b4v2|v2|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|25|full_ex|
+|Run|Baseline|Ver|Model|Subset|Bench|n|EX|CI95|
+|---|---|---|---|---|---|---|---|---|
+|b0_gemma_3_12b_it_bird_minidev_30|b0|—|gemma-3-12b-it|bird_minidev_30|EXT|30|0.2333|[0.1179, 0.4093]|
+|b0_gemma_3_12b_it_multidb30|b0|—|gemma-3-12b-it|multidb_30|core|30|0.8667|[0.7032, 0.9469]|
+|b0_gemma_3_12b_it_smoke10|b0|—|gemma-3-12b-it|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b0_gemma_3_12b_it_smoke25|b0|—|gemma-3-12b-it|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b0_llama_3p1_8b_bird_minidev_30|b0|—|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|[0.0531, 0.2968]|
+|b0_llama_3p1_8b_instruct_multidb30|b0|—|Llama-3.1-8B|multidb_30|core|30|0.8333|[0.6644, 0.9266]|
+|b0_llama_3p1_8b_instruct_smoke10|b0|—|Llama-3.1-8B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b0_llama_3p1_8b_instruct_smoke25|b0|—|Llama-3.1-8B|smoke_25|core|25|0.6000|[0.4074, 0.7660]|
+|b0_llama_3p1_8b_spider2lite_30|b0|—|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b0_multidb30_v2|b0|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.9333|[0.7868, 0.9815]|
+|b0_qwen2p5_coder_14b_bird_minidev_30|b0|—|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2333|[0.1179, 0.4093]|
+|b0_qwen2p5_coder_14b_instruct_multidb30|b0|—|Qwen2.5-Coder-14B|multidb_30|core|30|0.8667|[0.7032, 0.9469]|
+|b0_qwen2p5_coder_14b_instruct_smoke10|b0|—|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b0_qwen2p5_coder_14b_instruct_smoke25|b0|—|Qwen2.5-Coder-14B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b0_qwen2p5_coder_14b_spider2lite_30|b0|—|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b0_qwen2p5_coder_32b_bird_minidev_30|b0|—|Qwen2.5-Coder-32B|bird_minidev_30|EXT|30|0.2667|[0.1418, 0.4445]|
+|b0_qwen2p5_coder_32b_multidb30|b0|—|Qwen2.5-Coder-32B|multidb_30|core|30|0.8333|[0.6644, 0.9266]|
+|b0_qwen2p5_coder_32b_smoke25|b0|—|Qwen2.5-Coder-32B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b0_qwen2p5_coder_7b_bird_minidev_30|b0|—|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2667|[0.1418, 0.4445]|
+|b0_qwen2p5_coder_7b_spider2lite_30|b0|—|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b0_qwen3_8b_bird_minidev_30|b0|—|Qwen3-8B|bird_minidev_30|EXT|30|0.1333|[0.0531, 0.2968]|
+|b0_qwen3_8b_multidb30|b0|—|Qwen3-8B|multidb_30|core|30|0.9000|[0.7438, 0.9654]|
+|b0_qwen3_8b_smoke25|b0|—|Qwen3-8B|smoke_25|core|25|0.7600|[0.5657, 0.8850]|
+|b0_qwen_qwen2.5_7b_instruct_bird_minidev_30|b0|—|Qwen2.5-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b0_qwen_qwen2.5_7b_instruct_multidb30|b0|—|Qwen2.5-7B|multidb_30|core|30|0.8000|[0.6269, 0.9050]|
+|b0_qwen_qwen2.5_7b_instruct_smoke10|b0|—|Qwen2.5-7B|smoke_10|core|10|0.6000|[0.3127, 0.8318]|
+|b0_qwen_qwen2.5_7b_instruct_smoke25|b0|—|Qwen2.5-7B|smoke_25|core|25|0.7200|[0.5242, 0.8572]|
+|b0_qwen_qwen2.5_7b_instruct_spider2lite_30|b0|—|Qwen2.5-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b0_spider_smoke10|b0|—|Qwen2.5-Coder-7B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b0_spider_smoke25|b0|—|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b0_sqlcoder_7b_2_bird_minidev_30|b0|—|sqlcoder-7b-2|bird_minidev_30|EXT|30|0.0333|[0.0059, 0.1667]|
+|b0_sqlcoder_7b_2_multidb30|b0|—|sqlcoder-7b-2|multidb_30|core|30|0.7000|[0.5212, 0.8334]|
+|b1_llama_3p1_8b_bird_minidev_30|b1|—|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|[0.0531, 0.2968]|
+|b1_llama_3p1_8b_instruct_multidb30|b1|—|Llama-3.1-8B|multidb_30|core|30|0.7000|[0.5212, 0.8334]|
+|b1_llama_3p1_8b_instruct_smoke10|b1|—|Llama-3.1-8B|smoke_10|core|10|0.9000|[0.5958, 0.9821]|
+|b1_llama_3p1_8b_instruct_smoke25|b1|—|Llama-3.1-8B|smoke_25|core|25|0.7200|[0.5242, 0.8572]|
+|b1_llama_3p1_8b_spider2lite_30|b1|—|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b1_multidb30_v2|b1|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.7667|[0.5907, 0.8821]|
+|b1_qwen2p5_coder_14b_bird_minidev_30|b1|—|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b1_qwen2p5_coder_14b_instruct_multidb30|b1|—|Qwen2.5-Coder-14B|multidb_30|core|30|0.7667|[0.5907, 0.8821]|
+|b1_qwen2p5_coder_14b_instruct_smoke10|b1|—|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b1_qwen2p5_coder_14b_instruct_smoke25|b1|—|Qwen2.5-Coder-14B|smoke_25|core|25|0.9200|[0.7503, 0.9778]|
+|b1_qwen2p5_coder_14b_spider2lite_30|b1|—|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b1_qwen2p5_coder_7b_bird_minidev_30|b1|—|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b1_qwen2p5_coder_7b_spider2lite_30|b1|—|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b1_qwen_qwen2.5_7b_instruct_bird_minidev_30|b1|—|Qwen2.5-7B|bird_minidev_30|EXT|30|0.1667|[0.0734, 0.3356]|
+|b1_qwen_qwen2.5_7b_instruct_multidb30|b1|—|Qwen2.5-7B|multidb_30|core|30|0.7000|[0.5212, 0.8334]|
+|b1_qwen_qwen2.5_7b_instruct_smoke10|b1|—|Qwen2.5-7B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b1_qwen_qwen2.5_7b_instruct_smoke25|b1|—|Qwen2.5-7B|smoke_25|core|25|0.8400|[0.6535, 0.9360]|
+|b1_qwen_qwen2.5_7b_instruct_spider2lite_30|b1|—|Qwen2.5-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b1_spider_smoke10|b1|—|Qwen2.5-Coder-7B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b1_spider_smoke25|b1|—|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b1v3_gemma_3_12b_it_bird_minidev_30|b1v3|v3|gemma-3-12b-it|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b1v3_gemma_3_12b_it_multidb30|b1v3|v3|gemma-3-12b-it|multidb_30|core|30|0.8000|[0.6269, 0.9050]|
+|b1v3_qwen2p5_coder_7b_bird_minidev_30|b1v3|v3|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b1v3_qwen2p5_coder_7b_multidb30|b1v3|v3|Qwen2.5-Coder-7B|multidb_30|core|30|0.8000|[0.6269, 0.9050]|
+|b1v3_qwen2p5_coder_7b_smoke25|b1v3|v3|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b1v3_qwen3_8b_bird_minidev_30|b1v3|v3|Qwen3-8B|bird_minidev_30|EXT|30|0.0667|[0.0185, 0.2132]|
+|b1v3_qwen3_8b_multidb30|b1v3|v3|Qwen3-8B|multidb_30|core|30|0.8667|[0.7032, 0.9469]|
+|b1v3_qwen3_8b_smoke25|b1v3|v3|Qwen3-8B|smoke_25|core|25|0.7600|[0.5657, 0.8850]|
+|b2_spider_smoke10|b2|—|Qwen2.5-Coder-7B|smoke_10|core|10|0.7000|[0.3968, 0.8922]|
+|b2v1_multidb30|b2v1|v1|Qwen2.5-Coder-7B|multidb_30|core|30|0.6333|[0.4551, 0.7813]|
+|b2v1_spider_smoke10|b2v1|v1|Qwen2.5-Coder-7B|smoke_10|core|10|0.6000|[0.3127, 0.8318]|
+|b2v2_llama_3p1_8b_bird_minidev_30|b2v2|v2|Llama-3.1-8B|bird_minidev_30|EXT|30|0.0667|[0.0185, 0.2132]|
+|b2v2_llama_3p1_8b_multidb30|b2v2|v2|Llama-3.1-8B|multidb_30|core|30|0.7333|[0.5555, 0.8582]|
+|b2v2_llama_3p1_8b_smoke10|b2v2|v2|Llama-3.1-8B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b2v2_llama_3p1_8b_smoke25|b2v2|v2|Llama-3.1-8B|smoke_25|core|25|0.8000|[0.6087, 0.9114]|
+|b2v2_llama_3p1_8b_spider2lite_30|b2v2|v2|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b2v2_multidb30|b2v2|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.8000|[0.6269, 0.9050]|
+|b2v2_qwen2p5_coder_14b_bird_minidev_30|b2v2|v2|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b2v2_qwen2p5_coder_14b_multidb30|b2v2|v2|Qwen2.5-Coder-14B|multidb_30|core|30|0.9000|[0.7438, 0.9654]|
+|b2v2_qwen2p5_coder_14b_smoke10|b2v2|v2|Qwen2.5-Coder-14B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b2v2_qwen2p5_coder_14b_smoke25|b2v2|v2|Qwen2.5-Coder-14B|smoke_25|core|25|0.8800|[0.7004, 0.9583]|
+|b2v2_qwen2p5_coder_14b_spider2lite_30|b2v2|v2|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b2v2_qwen2p5_coder_7b_bird_minidev_30|b2v2|v2|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b2v2_qwen2p5_coder_7b_spider2lite_30|b2v2|v2|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b2v2_qwen_qwen2.5_7b_instruct_bird_minidev_30|b2v2|v2|Qwen2.5-7B|bird_minidev_30|EXT|30|0.1667|[0.0734, 0.3356]|
+|b2v2_qwen_qwen2.5_7b_instruct_multidb30|b2v2|v2|Qwen2.5-7B|multidb_30|core|30|0.7333|[0.5555, 0.8582]|
+|b2v2_qwen_qwen2.5_7b_instruct_smoke25|b2v2|v2|Qwen2.5-7B|smoke_25|core|25|0.8800|[0.7004, 0.9583]|
+|b2v2_qwen_qwen2.5_7b_instruct_spider2lite_30|b2v2|v2|Qwen2.5-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b2v2_spider_smoke10|b2v2|v2|Qwen2.5-Coder-7B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b2v2_spider_smoke25|b2v2|v2|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b2v3_qwen2p5_coder_7b_bird_minidev_30|b2v3|v3|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b2v3_qwen2p5_coder_7b_multidb30|b2v3|v3|Qwen2.5-Coder-7B|multidb_30|core|30|0.7667|[0.5907, 0.8821]|
+|b2v3_qwen2p5_coder_7b_smoke25|b2v3|v3|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b3_spider_smoke10|b3|—|Qwen2.5-Coder-7B|smoke_10|core|10|0.2000|[0.0567, 0.5098]|
+|b3v1_multidb30|b3v1|v1|Qwen2.5-Coder-7B|multidb_30|core|30|0.4667|[0.3023, 0.6386]|
+|b3v1_spider_smoke10|b3v1|v1|Qwen2.5-Coder-7B|smoke_10|core|10|0.3000|[0.1078, 0.6032]|
+|b3v2_llama_3p1_8b_bird_minidev_30|b3v2|v2|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|[0.0531, 0.2968]|
+|b3v2_llama_3p1_8b_multidb30|b3v2|v2|Llama-3.1-8B|multidb_30|core|30|0.6667|[0.4878, 0.8077]|
+|b3v2_llama_3p1_8b_smoke10|b3v2|v2|Llama-3.1-8B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b3v2_llama_3p1_8b_smoke25|b3v2|v2|Llama-3.1-8B|smoke_25|core|25|0.7600|[0.5657, 0.8850]|
+|b3v2_llama_3p1_8b_spider2lite_30|b3v2|v2|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b3v2_multidb30|b3v2|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.7333|[0.5555, 0.8582]|
+|b3v2_qwen2p5_coder_14b_bird_minidev_30|b3v2|v2|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b3v2_qwen2p5_coder_14b_multidb30|b3v2|v2|Qwen2.5-Coder-14B|multidb_30|core|30|0.8333|[0.6644, 0.9266]|
+|b3v2_qwen2p5_coder_14b_smoke10|b3v2|v2|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b3v2_qwen2p5_coder_14b_smoke25|b3v2|v2|Qwen2.5-Coder-14B|smoke_25|core|25|0.9200|[0.7503, 0.9778]|
+|b3v2_qwen2p5_coder_14b_spider2lite_30|b3v2|v2|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b3v2_qwen2p5_coder_7b_bird_minidev_30|b3v2|v2|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b3v2_qwen2p5_coder_7b_spider2lite_30|b3v2|v2|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b3v2_spider_smoke10|b3v2|v2|Qwen2.5-Coder-7B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b3v2_spider_smoke25|b3v2|v2|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b3v3_qwen2p5_coder_7b_bird_minidev_30|b3v3|v3|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2333|[0.1179, 0.4093]|
+|b3v3_qwen2p5_coder_7b_multidb30|b3v3|v3|Qwen2.5-Coder-7B|multidb_30|core|30|0.8000|[0.6269, 0.9050]|
+|b3v3_qwen2p5_coder_7b_smoke25|b3v3|v3|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b4_final_multidb30|b4|final|Qwen2.5-Coder-7B|multidb_30|core|30|0.4667|[0.3023, 0.6386]|
+|b4_final_spider_smoke10|b4|final|Qwen2.5-Coder-7B|smoke_10|core|10|0.3000|[0.1078, 0.6032]|
+|b4_spider_smoke10|b4|—|Qwen2.5-Coder-7B|smoke_10|core|10|0.2000|[0.0567, 0.5098]|
+|b4v2_llama_3p1_8b_bird_minidev_30|b4v2|v2|Llama-3.1-8B|bird_minidev_30|EXT|30|0.1333|[0.0531, 0.2968]|
+|b4v2_llama_3p1_8b_multidb30|b4v2|v2|Llama-3.1-8B|multidb_30|core|30|0.6333|[0.4551, 0.7813]|
+|b4v2_llama_3p1_8b_smoke10|b4v2|v2|Llama-3.1-8B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b4v2_llama_3p1_8b_smoke25|b4v2|v2|Llama-3.1-8B|smoke_25|core|25|0.7600|[0.5657, 0.8850]|
+|b4v2_llama_3p1_8b_spider2lite_30|b4v2|v2|Llama-3.1-8B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b4v2_multidb30|b4v2|v2|Qwen2.5-Coder-7B|multidb_30|core|30|0.7333|[0.5555, 0.8582]|
+|b4v2_qwen2p5_coder_14b_bird_minidev_30|b4v2|v2|Qwen2.5-Coder-14B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b4v2_qwen2p5_coder_14b_multidb30|b4v2|v2|Qwen2.5-Coder-14B|multidb_30|core|30|0.8667|[0.7032, 0.9469]|
+|b4v2_qwen2p5_coder_14b_smoke10|b4v2|v2|Qwen2.5-Coder-14B|smoke_10|core|10|1.0000|[0.7225, 1.0000]|
+|b4v2_qwen2p5_coder_14b_smoke25|b4v2|v2|Qwen2.5-Coder-14B|smoke_25|core|25|0.8800|[0.7004, 0.9583]|
+|b4v2_qwen2p5_coder_14b_spider2lite_30|b4v2|v2|Qwen2.5-Coder-14B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b4v2_qwen2p5_coder_7b_bird_minidev_30|b4v2|v2|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b4v2_qwen2p5_coder_7b_spider2lite_30|b4v2|v2|Qwen2.5-Coder-7B|spider2lite_30|EXT|30|0.0000|[0.0000, 0.1135]|
+|b4v2_spider_smoke10|b4v2|v2|Qwen2.5-Coder-7B|smoke_10|core|10|0.8000|[0.4902, 0.9433]|
+|b4v2_spider_smoke25|b4v2|v2|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|
+|b4v3_qwen2p5_coder_7b_bird_minidev_30|b4v3|v3|Qwen2.5-Coder-7B|bird_minidev_30|EXT|30|0.2000|[0.0950, 0.3731]|
+|b4v3_qwen2p5_coder_7b_multidb30|b4v3|v3|Qwen2.5-Coder-7B|multidb_30|core|30|0.7667|[0.5907, 0.8821]|
+|b4v3_qwen2p5_coder_7b_smoke25|b4v3|v3|Qwen2.5-Coder-7B|smoke_25|core|25|0.9600|[0.8046, 0.9929]|

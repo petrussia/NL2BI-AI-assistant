@@ -1,0 +1,306 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate views that rank Formula 1 drivers based on the number of fastest laps, podium finishes, and pole positions, while summarizing their race finishes and positions across all events?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `f1.duckdb`
+    main.circuits(circuitId INTEGER, circuitRef VARCHAR, name VARCHAR, location VARCHAR, country VARCHAR, lat DOUBLE, lng DOUBLE, alt INTEGER, url VARCHAR)
+    main.constructor_fastest_laps_by_season(constructor_name VARCHAR, season INTEGER, fastest_laps BIGINT)
+    main.constructor_podiums_by_season(constructor_name VARCHAR, season INTEGER, podiums BIGINT)
+    main.constructor_points(constructor_name VARCHAR, season INTEGER, total_points DOUBLE)
+    main.constructor_pole_positions_by_season(constructor_name VARCHAR, season INTEGER, pole_positions BIGINT)
+    main.constructor_results(constructorResultsId INTEGER, raceId INTEGER, constructorId INTEGER, points DOUBLE, status VARCHAR)
+    main.constructor_retirements_by_season(constructor_name VARCHAR, season INTEGER, retirements BIGINT)
+    main.constructor_standings(constructorStandingsId INTEGER, raceId INTEGER, constructorId INTEGER, points DOUBLE, position INTEGER, positionText VARCHAR, wins INTEGER)
+    main.constructor_wins_by_season(constructor_name VARCHAR, season INTEGER, wins BIGINT)
+    main.constructors(constructorId INTEGER, constructorRef VARCHAR, name VARCHAR, nationality VARCHAR, url VARCHAR)
+    main.construtor_drivers_championships(constructor_name VARCHAR, total_driver_championships BIGINT)
+    main.driver_fastest_laps_by_season(driver_full_name VARCHAR, season INTEGER, fastest_laps BIGINT)
+    main.driver_podiums_by_season(driver_full_name VARCHAR, season INTEGER, podiums BIGINT)
+    main.driver_points(driver_full_name VARCHAR, season INTEGER, total_points DOUBLE)
+    main.driver_pole_positions_by_season(driver_full_name VARCHAR, season INTEGER, pole_positions BIGINT)
+    main.driver_retirements_by_season(driver_full_name VARCHAR, season INTEGER, retirements BIGINT)
+    main.driver_standings(driverStandingsId INTEGER, raceId INTEGER, driverId INTEGER, points DOUBLE, position INTEGER, positionText VARCHAR, wins INTEGER)
+    main.driver_wins_by_season(driver_full_name VARCHAR, season INTEGER, wins BIGINT)
+    main.drivers(driverId INTEGER, driverRef VARCHAR, number INTEGER, code VARCHAR, forename VARCHAR, surname VARCHAR, dob DATE, nationality VARCHAR, url VARCHAR)
+    main.finishes_by_driver(driver_id INTEGER, driver_full_name VARCHAR, races BIGINT, podiums HUGEINT, pole_positions HUGEINT, fastest_laps HUGEINT, p1 HUGEINT, p2 HUGEINT, p3 HUGEINT, p4 HUGEINT, p5 HUGEINT, p6 HUGEINT, p7 HUGEINT, p8 HUGEINT, p9 HUGEINT, p10 HUGEINT, p11 HUGEINT, p12 HUGEINT, p13 HUGEINT, p14 HUGEINT, p15 HUGEINT, p16 HUGEINT, p17 HUGEINT, p18 HUGEINT, p19 HUGEINT, p20 HUGEINT, p21plus HUGEINT, disqualified HUGEINT, excluded HUGEINT, failed_to_qualify HUGEINT)
+    main.lap_times(raceId INTEGER, driverId INTEGER, lap INTEGER, position INTEGER, time VARCHAR, milliseconds INTEGER)
+    main.most_laps(rank BIGINT, driver_full_name VARCHAR, laps BIGINT)
+    main.most_races(rank BIGINT, driver_full_name VARCHAR, finishes HUGEINT, excluded HUGEINT, withdrew HUGEINT, failed_to_qualify HUGEINT, disqualified HUGEINT, not_classified HUGEINT, retired HUGEINT)
+    main.oldest_race_winners_in_modern_era(driver_full_name VARCHAR, race_name VARCHAR, race_date DATE, age BIGINT)
+    main.pit_stops(raceId INTEGER, driverId INTEGER, stop INTEGER, lap INTEGER, time VARCHAR, duration VARCHAR, milliseconds INTEGER)
+    main.position_descriptions(position_text VARCHAR, position_desc VARCHAR)
+    main.qualifying(qualifyId INTEGER, raceId INTEGER, driverId INTEGER, constructorId INTEGER, number INTEGER, position INTEGER, q1 VARCHAR, q2 VARCHAR, q3 VARCHAR)
+    main.races(raceId INTEGER, year INTEGER, round INTEGER, circuitId INTEGER, name VARCHAR, date DATE, time VARCHAR, url VARCHAR, fp1_date DATE, fp1_time VARCHAR, fp2_date DATE, fp2_time VARCHAR, fp3_date DATE, fp3_time VARCHAR, quali_date DATE, quali_time VARCHAR, sprint_date DATE, sprint_time VARCHAR)
+    main.results(resultId INTEGER, raceId INTEGER, driverId INTEGER, constructorId INTEGER, number INTEGER, grid INTEGER, position INTEGER, positionText VARCHAR, positionOrder INTEGER, points DOUBLE, laps INTEGER, time VARCHAR, milliseconds INTEGER, fastestLap INTEGER, rank INTEGER, fastestLapTime VARCHAR, fastestLapSpeed DOUBLE, statusId INTEGER)
+    main.seasons(year INTEGER, url VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'f1'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'f1'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis
+
+
+=== STAGING models (13) ===
+  - models/staging/f1_dataset/stg_f1_dataset__circuits.sql
+    cols: circuit_name, latitude, longitude, alitude, circuit_id, circuit_url, circuit_ref, circuit_location
+    --- head:
+    with circuits as (
+      select name as circuit_name,
+             lat as latitude,
+             lng as longitude,
+             alt as alitude,
+  - models/staging/f1_dataset/stg_f1_dataset__constructor_results.sql
+    --- head:
+    with 
+
+    source as (
+
+        select * from {{ ref('constructor_results') }}
+  - models/staging/f1_dataset/stg_f1_dataset__constructor_standings.sql
+    --- head:
+    with 
+
+    source as (
+
+        select * from {{ ref('constructor_standings') }}
+  - models/staging/f1_dataset/stg_f1_dataset__constructors.sql
+    cols: constructor_id, constructor_ref, constructor_name, constructor_nationality, constructor_url
+    --- head:
+    with constructors as (
+      select constructorId as constructor_id,
+             constructorRef as constructor_ref,
+             name as constructor_name,
+             nationality as constructor_nationality,
+  - models/staging/f1_dataset/stg_f1_dataset__driver_standings.sql
+    --- head:
+    with 
+
+    source as (
+
+        select * from {{ ref('driver_standings') }}
+  - models/staging/f1_dataset/stg_f1_dataset__drivers.sql
+    cols: driver_id, driver_ref, driver_number, driver_code, driver_first_name, driver_last_name, driver_date_of_birth, driver_nationality, driver_url, driver_full_name, driver_current_age
+    --- head:
+    with drivers as (
+      select driverId as driver_id,
+             driverRef as driver_ref,
+             number as driver_number,
+             code as driver_code,
+  - models/staging/f1_dataset/stg_f1_dataset__lap_times.sql
+    cols: race_id, driver_id
+    --- head:
+    with lap_times as (
+      select raceId as race_id,
+             driverId as driver_id,
+             lap,
+             position,
+  - models/staging/f1_dataset/stg_f1_dataset__pit_stops.sql
+    cols: race_id, driver_id, seconds
+    --- head:
+    with pit_stops as (
+      select raceId as race_id,
+             driverId as driver_id,
+             stop,
+             lap,
+  - models/staging/f1_dataset/stg_f1_dataset__qualifying.sql
+    cols: qualify_id, race_id, driver_id, constructor_id
+    --- head:
+    with 
+
+    source as (
+
+        select * from {{ ref('qualifying') }}
+  - models/staging/f1_dataset/stg_f1_dataset__races.sql
+    cols: race_date, round_number, race_id, circuit_id, race_year, race_time, race_url, race_name, is_modern_era, r, c
+    --- head:
+    with races as (
+      select date as race_date,
+             round as round_number,
+             raceId as race_id,
+             circuitId as circuit_id,
+  - models/staging/f1_dataset/stg_f1_dataset__results.sql
+    cols: status_id, race_id, driver_id, constructor_id, result_id, position_order, fastest_lap_time, fastest_lap_speed, lap_time, lap_milliseconds, lap_number, fastest_lap, position_text, status_desc, r, p, s
+    --- head:
+    with results as (
+      select statusId as status_id,
+              raceId as race_id,
+              driverId as driver_id,
+              constructorId as constructor_id,
+  - models/staging/f1_dataset/stg_f1_dataset__seasons.sql
+    --- head:
+    with 
+
+    source as (
+
+        select * from {{ ref('seasons') }}
+  - models/staging/f1_dataset/stg_f1_dataset__status.sql
+    --- head:
+    with 
+
+    source as (
+
+        select * from {{ ref('status') }}
+
+=== FINAL models (21) ===
+  - models/stats/constructor_championships.sql
+    cols: max_points, race_year, r_rank, total_championships
+    --- body (first 900 chars):
+    with
+        constructor_points as (
+            select
+                constructors.constructor_name,
+                max(constructor_standings.points) as max_points,
+                races.race_year as race_year
+            from {{ ref("stg_f1_dataset__constructors") }} constructors
+            join
+                {{ ref("stg_f1_dataset__results") }} results
+                on constructors.constructor_id = results.constructor_id
+            join {{ ref("stg_f1_dataset__races") }} races on results.race_id = races.race_id
+            join
+                {{ ref("stg_f1_dataset__constructor_standings") }} constructor_standings
+                on constructor_standings.raceid = races.race_id
+                and constructor_standings.constructorid = results.constructor_id
+            group by constructors.constructor_name, races.race_year
+        ),
+        constructor_championships as (
+            select
+                *, rank() over (partition by race_year order
+  - models/stats/constructor_fastest_laps_by_season.sql
+    cols: season, fastest_laps
+    --- body (first 900 chars):
+    WITH constructor_fastest_laps_by_season AS (
+      SELECT
+        c.constructor_name,
+        r.race_year as season,
+        count(rs.rank) AS fastest_laps
+      FROM {{ ref('stg_f1_dataset__results') }} rs
+      JOIN {{ ref('stg_f1_dataset__races') }} r ON rs.race_id = r.race_id
+      JOIN {{ ref('stg_f1_dataset__constructors') }} c on rs.constructor_id = c.constructor_id
+      WHERE rs.rank = 1
+      GROUP BY c.constructor_name, r.race_year
+    )
+
+    SELECT
+      constructor_name,
+      season,
+      fastest_laps
+    FROM constructor_fastest_laps_by_season
+    ORDER BY season ASC
+
+
+  - models/stats/constructor_podiums_by_season.sql
+    cols: season, podiums, INTEGER
+    --- body (first 900 chars):
+    WITH constructor_podiums_by_season AS (
+      SELECT
+        c.constructor_name,
+        r.race_year as season,
+        count(rs.position) as podiums
+      FROM {{ ref('stg_f1_dataset__results') }} rs
+      JOIN {{ ref('stg_f1_dataset__races') }} r ON rs.race_id = r.race_id
+      JOIN {{ ref('stg_f1_dataset__constructors') }} c on rs.constructor_id = c.constructor_id
+      WHERE CAST(rs.position AS INTEGER) BETWEEN 1 AND 3
+      GROUP BY c.constructor_name, r.race_year
+    )
+
+    SELECT
+      constructor_name,
+      season,
+      podiums
+    FROM constructor_podiums_by_season
+    ORDER BY season ASC
+
+  - models/stats/constructor_points.sql
+    cols: season, total_points
+    --- body (first 900 chars):
+    WITH constructor_points AS (
+      SELECT
+        c.constructor_name,
+        r.race_year as season,
+        max(cs.points) AS total_points
+      FROM {{ ref('stg_f1_dataset__constructor_standings') }} cs
+      JOIN {{ ref('stg_f1_dataset__races') }} r ON cs.raceId = r.race_id
+      JOIN {{ ref('stg_f1_dataset__constructors') }} c on cs.constructorId = c.constructor_id
+      GROUP BY c.constructor_name, r.race_year
+    )
+
+    SELECT
+      constructor_name,
+      season,
+      total_points
+    FROM constructor_points
+    ORDER BY season ASC
+
+  - models/stats/constructor_pole_positions_by_season.sql
+    cols: season, pole_positions
+    --- body (first 900 chars):
+    WITH constructor_pole_positions_by_season AS (
+      SELECT
+        c.constructor_name,
+        r.race_year as season,
+        count(rs.grid) as pole_positions
+      FROM {{ ref('stg_f1_dataset__results') }} rs
+      JOIN {{ ref('stg_f1_dataset__races') }} r ON rs.race_id = r.race_id
+      JOIN {{ ref('stg_f1_dataset__constructors') }} c on rs.constructor_id = c.constructor_id
+      WHERE rs.grid = 1
+      GROUP BY c.constructor_name, r.race_year
+    )
+
+    SELECT
+      constructor_name,
+      season,
+      pole_positions
+    FROM constructor_pole_positions_by_season
+    ORDER BY season ASC
+
+
+
+  - models/stats/constructor_retirements_by_season.sql
+    cols: s
+... (truncated)

@@ -1,0 +1,3426 @@
+{
+  "shopify_holistic_reporting.duckdb": [
+    {
+      "schema": "main",
+      "table": "abandoned_checkout",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "abandoned_checkout_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applied_discount_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_discount_applicable",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_discount_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_discount_non_applicable_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_discount_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_discount_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_discount_value_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_address_address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_address_0",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_company",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_address_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "billing_address_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "billing_address_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_province_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_zip",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buyer_accepts_marketing",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "cart_token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "closed_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "completed_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "credit_card_first_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "credit_card_last_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "credit_card_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "credit_card_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "credit_card_verification_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "credit_card_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_locale",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gateway",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "landing_site_base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "referring_site",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_address_0",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_company",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_address_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "shipping_address_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "shipping_address_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_province_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_line",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_rate_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_rate_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_rate_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_identifier",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subtotal_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "taxes_included",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_discounts",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_line_items_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_tax",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_weight",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "note_attribute_littledata_updated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "note_attribute_segment_client_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_address_is_default",
+          "type": "INTEGER"
+        },
+        {
+          "name": "presentment_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_address_is_default",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_duties",
+          "type": "INTEGER"
+        },
+        {
+          "name": "note_attribute_email_client_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "note_attributes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note_attribute_google_client_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "abandoned_checkout_discount_code",
+      "columns": [
+        {
+          "name": "checkout_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "usage_count",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "abandoned_checkout_shipping_line",
+      "columns": [
+        {
+          "name": "checkout_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "api_client_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carrier_identifier",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carrier_service_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "delivery_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discounted_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "markup",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "requested_fulfillment_service_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validation_context",
+          "type": "INTEGER"
+        },
+        {
+          "name": "delivery_expectation_range",
+          "type": "INTEGER"
+        },
+        {
+          "name": "delivery_expectation_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "original_shop_markup",
+          "type": "INTEGER"
+        },
+        {
+          "name": "original_shop_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "presentment_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "delivery_expectation_range_min",
+          "type": "INTEGER"
+        },
+        {
+          "name": "delivery_expectation_range_max",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "collection",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "handle",
+          "type": "INTEGER"
+        },
+        {
+          "name": "published_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "published_scope",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disjunctive",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rules",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sort_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "template_suffix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "body_html",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "collection_product",
+      "columns": [
+        {
+          "name": "collection_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "customer",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "orders_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_spent",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accepts_marketing",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tax_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verified_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "default_address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "customer_tag",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "discount_code",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_rule_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage_count",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "fulfillment",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tracking_company",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tracking_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tracking_numbers",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tracking_urls",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipment_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "receipt_authorization",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "fulfillment_event",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "estimated_delivery_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fulfillment_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "happened_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shop_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "inventory_item",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cost",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "requires_shipping",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sku",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tracked",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_code_of_origin",
+          "type": "INTEGER"
+        },
+        {
+          "name": "province_code_of_origin",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "inventory_level",
+      "columns": [
+        {
+          "name": "inventory_item_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "available",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "klaviyo_campaign",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_label",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "send_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sent_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email_template_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scheduled",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "klaviyo_event",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "person_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "flow_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flow_message_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uuid",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "datetime",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "metric_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_variation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_source_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_extra",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_shipping_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_items",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_tags",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_item_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_collections",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_currency_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_variant_option_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_sku",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_variant_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_vendor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_event_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_total_discounts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribution",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_discount_codes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_fulfillment_hours",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_fulfillment_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_message_interaction",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_shipment_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_courier_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_current_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_tracking_ship_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_tracking_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_shipment_package_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_cohort_message_send_cohort",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_email_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_bounce_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_client_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_client_os",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_client_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_client_os_family",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_client_canonical",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_page",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_is_session_activity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_os",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_session_end",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_browser",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_list",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_compare_at_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_image_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_brand",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_categories",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_variant_option_size",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_workout",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_age",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_fitness_goal",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_breakfast",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_variant_option_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_cohort_variation_send_cohort",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_method",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_to_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_message_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_from_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_message_format",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_message_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_carrier_delivery_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_failure_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_failure_source",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_message_body",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_email",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_kit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_vendor_error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_ordr_details",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_date_to_send_gift",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_recipient_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_facebook_order_retailer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_sender_s_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_attribute_kitid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_conversation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_conversation_link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_conversation_channel",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_score",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_from_phone_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_shipment_carrier",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_shipment_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "property_to_phone_region",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "klaviyo_flow",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_filter",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "trigger_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "klaviyo_metric",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "integration_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "integration_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "integration_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "klaviyo_person",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "phone_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "INTEGER"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_object",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_accepts_marketing",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "custom_shopify_tags",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_consent_form_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_consent_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_consent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_giver_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_state",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_flow",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_recipient_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_last_sign_in",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_consent_form_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_consent_timestamp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_mail_chimp_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_recipient_email",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_options",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_subscription_expiration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_city",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_address_line_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_zipcode",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_expected_date_of_next_order",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_sms_attentive_signup",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_afterpay_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_phone_number_region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_referrer_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_referrer_email",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_birthday",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_first_purchase_date_",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_unengaged",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_landing_page_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_fitness_goal",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_age",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_workout",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_quiz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_breakfast",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_quiz_data",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_raf_subscribe",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_suppress",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_sms_consent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_option_dreambelt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_option_starter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_gift_option_machine",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_landingpage_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_event_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "location",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "legacy",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "INTEGER"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_province_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "province_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "metafield",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "namespace",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_resource",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "note",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "taxes_included",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subtotal_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_tax",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_address_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_province_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_address_zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_latitude",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_address_longitude",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_address_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_province_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_address_zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_latitude",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_address_longitude",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "financial_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fulfillment_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "processed_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "processing_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "referring_site",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancel_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cancelled_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "closed_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_discounts",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_line_items_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_weight",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "browser_ip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "buyer_accepts_marketing",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cart_token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "checkout_token",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "test",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "landing_site_base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_adjustment",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "kind",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_set",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_amount_set",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_discount_code",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_line",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "variant_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vendor",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fulfillable_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fulfillment_service",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gift_card",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "requires_shipping",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "taxable",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_discount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pre_tax_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fulfillment_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_line_refund",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "restock_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_line_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subtotal",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_tax_set",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subtotal_set",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_tax",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_note_attribute",
+      "columns": [
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_shipping_line",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "carrier_identifier",
+          "type": "INTEGER"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "delivery_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discounted_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "requested_fulfillment_service_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discounted_price_set",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_set",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_shipping_tax_line",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_shipping_line_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_set",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_tag",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_url_tag",
+      "columns": [
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "price_rule",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "allocation_limit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "allocation_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_selection",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ends_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "once_per_customer",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "prerequisite_quantity_range",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prerequisite_shipping_price_range",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prerequisite_subtotal_range",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity_ratio_entitled_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity_ratio_prerequisite_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "starts_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "target_selection",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "target_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage_limit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "value_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "prerequisite_to_entitlement_purchase_prerequisite_amount",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "product",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "handle",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vendor",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "published_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "published_scope",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "product_image",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "src",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_default",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "variant_ids",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "product_tag",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "product_variant",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inventory_item_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sku",
+          "type": "INTEGER"
+        },
+        {
+          "name": "position",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inventory_policy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "compare_at_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fulfillment_service",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inventory_management",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "taxable",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "barcode",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "image_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inventory_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "weight",
+          "type": "INTEGER"
+        },
+        {
+          "name": "weight_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "old_inventory_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "requires_shipping",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_1",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "refund",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "processed_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "restock",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_duties_set",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "shop",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_configure_tax_inclusivity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "checkout_api_supported",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cookie_consent_level",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "county_taxes",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "eligible_for_card_reader_giveaway",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "eligible_for_payments",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "enabled_presentment_currencies",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "force_ssl",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "google_apps_domain",
+          "type": "INTEGER"
+        },
+        {
+          "name": "google_apps_login_enabled",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_discounts",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_gift_cards",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_storefront",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "iana_timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "money_format",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "money_in_emails_format",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "money_with_currency_format",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "money_with_currency_in_emails_format",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "multi_location_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "myshopify_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "password_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "plan_display_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "plan_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pre_launch_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "primary_locale",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "primary_location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "province",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "province_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "requires_extra_payments_agreement",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "setup_required",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "shop_owner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_shipping",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taxes_included",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visitor_tracking_consent_preference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "weight_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "tax_line",
+      "columns": [
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_line_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_set",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "tender_transaction",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_details_credit_card_company",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_details_credit_card_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "processed_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "remote_reference",
+          "type": "INTEGER"
+        },
+        {
+          "name": "test",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "transaction",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "authorization",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "processed_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_avs_result_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "kind",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency_exchange_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_exchange_adjustment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_exchange_original_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_exchange_final_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_exchange_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "test",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_credit_card_bin",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_cvv_result_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_credit_card_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_credit_card_company",
+          "type": "INTEGER"
+        },
+        {
+          "name": "receipt",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

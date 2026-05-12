@@ -1,0 +1,30 @@
+```diff
+--- a/models/allo_applications.sql
++++ b/models/allo_applications.sql
+@@ -1,6 +1,7 @@
+ with source as (
+     select * from {{ source('main', 'raw_allo_applications') }}
+ ),
++answers as (select * from {{ ref('allo_answers') }}),
+ renamed as (
+     select
+         lower(anchorAddress) as anchor_address,
+@@ -14,6 +15,18 @@
+         lower(applicationId) as application_id,
+         lower(projectId) as project_id,
+         lower(roundId) as round_id,
++        application_metadata ->> 'recipient' as application_recipient,
++        application_metadata ->> 'si' as application_si,
++        application_metadata ->> 'status' as application_status,
++        application_metadata ->> 'timestamp' as application_timestamp,
++        application_metadata ->> 'url' as application_url,
++        application_metadata ->> 'verification' as application_verification,
++        application_metadata ->> 'withdrawal' as application_withdrawal,
++        application_metadata ->> 'withdrawalStatus' as application_withdrawal_status,
++        application_metadata ->> 'withdrawalTimestamp' as application_withdrawal_timestamp,
++        application_metadata ->> 'withdrawalUrl' as application_withdrawal_url,
++        application_metadata ->> 'withdrawalVerification' as application_withdrawal_verification,
+     from source
+ )
+ select * from renamed
+```

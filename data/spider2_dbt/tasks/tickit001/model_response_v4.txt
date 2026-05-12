@@ -1,0 +1,52 @@
+```diff
+--- a/models/analyses/sales_summary.sql
++++ b/models/analyses/sales_summary.sql
+@@ -1,3 +1,4 @@
++with sales as (
+     select * from {{ ref('stg_tickit__sales') }}
+ ),
+ events as (
+@@ -8,6 +9,7 @@ events as (
+     select * from {{ ref('stg_tickit__events') }}
+ ),
+ categories as (
++    select * from {{ ref('stg_tickit__categories') }}
+ ),
+ users as (
+     select * from {{ ref('stg_tickit__users') }}
+@@ -20,6 +22,7 @@ users as (
+     select * from {{ ref('stg_tickit__venues') }}
+ ),
+ final as (
++    select
+         s.salesid,
+         s.listid,
+         s.sellerid,
+@@ -30,6 +33,7 @@ final as (
+         s.commission,
+         s.saletime,
+         e.eventid,
++        e.eventname,
+         e.starttime,
+         v.venueid,
+         v.venuename,
+@@ -37,6 +41,7 @@ final as (
+         u.userid,
+         u.username,
+         u.firstname,
++        u.lastname,
+         c.catid,
+         c.catgroup,
+         c.catname,
+@@ -44,6 +49,7 @@ final as (
+         c.catdesc
+     from
+         sales s
++        join events e on s.eventid = e.eventid
+         join venues v on s.venueid = v.venueid
+         join users u on s.buyerid = u.userid
+         join categories c on e.catid = c.catid
+@@ -51,6 +57,7 @@ final as (
+ )
+ select * from final
+```

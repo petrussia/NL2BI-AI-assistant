@@ -1,0 +1,17 @@
+```diff
+--- a/models/staging/synthea/stg_synthea__claims_transactions.sql
++++ b/models/staging/synthea/stg_synthea__claims_transactions.sql
+@@ -1,6 +1,10 @@
+ {{ config(materialized='table') }}
+ 
+ SELECT
++    claim_id,
++    SUM(transaction_amount) AS total_charge,
++    SUM(PAYMENTS) AS total_payment,
++    SUM(transaction_amount - PAYMENTS) AS net_cost,
+     *
+ FROM
+     {{ source('synthea', 'claims_transactions') }}
+ GROUP BY
+     claim_id;
+```

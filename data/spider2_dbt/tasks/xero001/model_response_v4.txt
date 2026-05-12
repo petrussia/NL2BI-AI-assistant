@@ -1,0 +1,22 @@
+```diff
+--- a/models/xero__profit_and_loss_report.sql
++++ b/models/xero__profit_and_loss_report.sql
+@@ -27,6 +27,11 @@
+             ledger.account_class, 
+             ledger.source_relation, 
+             coalesce(sum(ledger.net_amount * -1),0) as net_amount
+         from calendar
+         left join ledger
+             on calendar.date_month = cast({{ dbt.date_trunc('month', 'ledger.journal_date') }} as date)
++        left join {{ ref('xero__general_ledger') }} as gl
++            on calendar.date_month = cast({{ dbt.date_trunc('month', 'gl.journal_date') }} as date)
++            and ledger.account_id = gl.account_id
++            and ledger.source_relation = gl.source_relation
+         where ledger.account_class in ('REVENUE','EXPENSE')
+         {{ dbt_utils.group_by(8) }}
+
+     )
+
+     select *
+     from joined
+```

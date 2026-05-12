@@ -1,0 +1,20 @@
+```diff
+--- a/models/core/fct_arrivals__malaysia_summary.sql
++++ b/models/core/fct_arrivals__malaysia_summary.sql
+@@ -17,6 +17,13 @@
+     , count(*) as flight_count
+     from {{ ref('base_arrivals__malaysia') }}
+     where is_codeshare = false
++    group by airport_id, airport_name, city, country, latitude, longitude
++
++union all
++
++select
++    null as airport_id,
++    'Malaysian Airports' as airport_name,
++    null as city,
++    'Malaysia' as country,
++    sum(flight_count) as flight_count
+     group by date
+ )
+```

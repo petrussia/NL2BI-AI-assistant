@@ -1,0 +1,33 @@
+```diff
+--- a/models/workday_job_profile_data.sql
++++ b/models/workday_job_profile_data.sql
+@@ -1,6 +1,7 @@
+ with job_profile_data as (
+     select * 
+     from {{ ref('stg_workday__job_profile_base') }}
++    join {{ ref('main.int_workday__worker_position_enriched') }} using (job_profile_id)
+ ),
+ job_family_data as (
+     select * 
+     from {{ ref('stg_workday__job_family_base') }}
+@@ -14,6 +15,7 @@
+     select * 
+     from {{ ref('stg_workday__job_family_group_base') }}
+ ),
++joint_tables as (
++    select jpd.*, jfd.job_family_id, jfgd.job_family_group_id
++    from job_profile_data jpd
++    join job_family_data jfd using (job_family_id)
++    join job_family_group_data jfgd using (job_family_group_id)
++),
+ final_table as (
+-    select jpd.*, jfd.job_family_id, jfgd.job_family_group_id
+-    from job_profile_data jpd
+-    join job_family_data jfd using (job_family_id)
+-    join job_family_group_data jfgd using (job_family_group_id)
++    select jt.*, wpe.business_title, wpe.position_location, wpe.management_level_code, wpe.fte_percent
++    from joint_tables jt
++    join {{ ref('main.int_workday__worker_position_enriched') }} wpe using (job_profile_id)
+ )
+ select * from final_table
+```

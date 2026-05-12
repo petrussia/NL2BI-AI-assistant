@@ -1,0 +1,145 @@
+```diff
+--- a/models/provider.sql
++++ b/models/provider.sql
+@@ -34,6 +34,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -82,6 +83,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -130,6 +132,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -178,6 +181,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -226,6 +230,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -274,6 +279,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -322,6 +328,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -370,6 +377,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -418,6 +426,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -466,6 +475,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -514,6 +524,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -562,6 +573,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -610,6 +622,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -658,6 +671,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -706,6 +720,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -754,6 +769,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -802,6 +818,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+@@ -850,6 +867,7 @@
+            , provider_first_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
++           , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name

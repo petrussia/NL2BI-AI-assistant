@@ -1,0 +1,5402 @@
+{
+  "salesforce.duckdb": [
+    {
+      "schema": "main",
+      "table": "int_salesforce__date_spine",
+      "columns": [
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_salesforce__opportunity_aggregation_by_owner",
+      "columns": [
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "b_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "b_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bookings_amount_closed_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_amount_closed_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_bookings",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_bookings_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_count_closed_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "bookings_count_closed_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "avg_bookings_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_booking",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "avg_days_to_close",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "l_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lost_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_lost",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_lost_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_count_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "lost_count_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pipeline_created_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_count_created_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "pipeline_count_created_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_number_pipeline",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_pipeline_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_pipeline_forecast_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "avg_pipeline_opp_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_deal_in_pipeline",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "avg_days_open",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__contact_enhanced",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "master_record_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reports_to_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_owner_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_annual_revenue",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "account_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "account_number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_parent_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_field_x",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "renamed_field",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce__user_field",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__daily_activity",
+      "columns": [
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "leads_created",
+          "type": "BIGINT"
+        },
+        {
+          "name": "leads_converted",
+          "type": "BIGINT"
+        },
+        {
+          "name": "tasks_completed",
+          "type": "BIGINT"
+        },
+        {
+          "name": "events_completed",
+          "type": "BIGINT"
+        },
+        {
+          "name": "opportunities_created",
+          "type": "BIGINT"
+        },
+        {
+          "name": "opportunities_created_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "opportunities_won",
+          "type": "BIGINT"
+        },
+        {
+          "name": "opportunities_won_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "opportunities_lost",
+          "type": "BIGINT"
+        },
+        {
+          "name": "opportunities_lost_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_amount",
+          "type": "DECIMAL(38,0)"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__manager_performance",
+      "columns": [
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_position",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_direct_reports",
+          "type": "BIGINT"
+        },
+        {
+          "name": "bookings_amount_closed_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_amount_closed_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_bookings",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_bookings_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_count_closed_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "bookings_count_closed_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "largest_booking",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "lost_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_lost",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_lost_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_count_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "lost_count_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "pipeline_created_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_count_created_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "pipeline_count_created_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_number_pipeline",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_pipeline_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_pipeline_forecast_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_deal_in_pipeline",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "win_percent_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "win_percent_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_win_percent",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__opportunity_enhanced",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "close_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opportunity_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "expected_revenue",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "fiscal",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fiscal_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "forecast_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_category_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_open_activity",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_opportunity_line_item",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_overdue_task",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_won",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "next_step",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probability",
+          "type": "FLOAT"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "synced_quote_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_field_x",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_created_this_month",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_created_this_quarter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "days_since_created",
+          "type": "BIGINT"
+        },
+        {
+          "name": "days_to_close",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_closed_this_month",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed_this_quarter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "account_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_manager_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_manager_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_manager_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_position",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_developer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_parent_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_owner_rollup_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_amount_this_month",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "created_amount_this_quarter",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "created_count_this_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_count_this_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "closed_amount_this_month",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "closed_amount_this_quarter",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "closed_count_this_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "closed_count_this_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "renamed_field",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce__user_field_owner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce__user_field_manager",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_role_field_x",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__opportunity_line_item_enhanced",
+      "columns": [
+        {
+          "name": "opportunity_line_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_line_item_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_line_item_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "line_item_index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_line_items",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "service_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "pricebook_entry_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "list_price",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "quantity",
+          "type": "FLOAT"
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "total_price",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "has_quantity_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_revenue_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "product_2_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_2_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_external_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_family",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "product_is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "product_is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "product_number_of_quantity_installments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_quantity_installment_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_quantity_schedule_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_quantity_unit_of_measure",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_number_of_revenue_installments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_revenue_installment_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_revenue_schedule_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_line_item_field_x",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "field_name_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_2_field_x",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__owner_performance",
+      "columns": [
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "b_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "b_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bookings_amount_closed_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_amount_closed_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_bookings",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_bookings_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_count_closed_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "bookings_count_closed_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "avg_bookings_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_booking",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "avg_days_to_close",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "l_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lost_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_lost",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_lost_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_count_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "lost_count_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "p_manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "p_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pipeline_created_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_count_created_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "pipeline_count_created_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_number_pipeline",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_pipeline_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_pipeline_forecast_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "avg_pipeline_opp_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_deal_in_pipeline",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "avg_days_open",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "owner_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "win_percent_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "win_percent_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_win_percent",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "salesforce__sales_snapshot",
+      "columns": [
+        {
+          "name": "bookings_amount_closed_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_amount_closed_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_bookings",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_bookings_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "bookings_count_closed_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "bookings_count_closed_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "avg_bookings_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_booking",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "avg_days_to_close",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_created_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_created_forecast_amount_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pipeline_count_created_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "pipeline_count_created_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "total_number_pipeline",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_pipeline_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_pipeline_forecast_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "avg_pipeline_opp_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "largest_deal_in_pipeline",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "avg_days_open",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "lost_amount_this_month",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_amount_this_quarter",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "total_number_lost",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_lost_amount",
+          "type": "DECIMAL(38,0)"
+        },
+        {
+          "name": "lost_count_this_month",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "lost_count_this_quarter",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "win_percent_this_month",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "win_percent_this_quarter",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_win_percent",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_account_data",
+      "columns": [
+        {
+          "name": "account_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "billing_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fax",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "jigsaw_company_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "DATE"
+        },
+        {
+          "name": "master_record_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ownership",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "shipping_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "shipping_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sic_desc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "site",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ticker_symbol",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_account_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "master_record_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ownership",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_city",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_state",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_street",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_contact_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "assistant_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "assistant_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "birthdate",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "do_not_call",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_bounced_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_bounced_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fax",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_opted_out_of_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_opted_out_of_fax",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "home_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_email_bounced",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "jigsaw",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "jigsaw_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_curequest_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_cuupdate_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "mailing_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "mailing_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mailing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "master_record_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "other_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "other_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "other_geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "other_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "other_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "other_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "other_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "other_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "other_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reports_to_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salutation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "system_modstamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_contact_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "mailing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mailing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "master_record_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reports_to_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_phone",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_event_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activity_date",
+          "type": "DATE"
+        },
+        {
+          "name": "activity_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration_in_minutes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "event_subtype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_event_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_child",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_group_event",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_recurrence",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_recurrence_2",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_recurrence_2_exception",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_recurrence_2_exclusion",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_reminder_set",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "DATE"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recurrence_2_pattern_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_2_pattern_time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_2_pattern_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_day_of_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_day_of_week_mask",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_end_date_only",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_instance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_interval",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_month_of_year",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recurrence_start_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recurrence_time_zone_sid_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reminder_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recurrence_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_lead_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_date",
+          "type": "DATE"
+        },
+        {
+          "name": "converted_opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_bounced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "email_bounced_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fax",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_opted_out_of_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_converted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_unread_by_owner",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "jigsaw_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "DATE"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "master_record_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "salutation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "system_modstamp",
+          "type": "DATE"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_opportunity_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "close_date",
+          "type": "DATE"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "expected_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fiscal_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "forecast_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_category_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_open_activity",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_opportunity_line_item",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_overdue_task",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_excluded_from_territory_2_filter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_won",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "DATE"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "next_step",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Pricebook2Id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "synced_quote_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "territory_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_opportunity_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "close_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expected_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fiscal_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "forecast_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_category_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_open_activity",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_opportunity_line_item",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_overdue_task",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_won",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "next_step",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "synced_quote_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_opportunity_line_item_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_quantity_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_revenue_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "DATE"
+        },
+        {
+          "name": "list_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pricebook_entry_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service_date",
+          "type": "DATE"
+        },
+        {
+          "name": "sort_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "system_modstamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "total_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "unit_price",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_order_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activated_date",
+          "type": "DATE"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "billing_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company_authorized_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contract_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "customer_authorized_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_reduction_order",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "DATE"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "original_order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pricebook_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "shipping_longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "shipping_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "system_modstamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "total_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_product_2_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_data_source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "family",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "DATE"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "DATE"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_quantity_installments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_revenue_installments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity_installment_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity_schedule_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity_unit_of_measure",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_installment_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_schedule_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stock_keeping_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "system_modstamp",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_task_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activity_date",
+          "type": "DATE"
+        },
+        {
+          "name": "call_disposition",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_duration_in_seconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "call_object",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "completed_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_high_priority",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_recurrence",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_reminder_set",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "priority",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recurrence_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_day_of_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_day_of_week_mask",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_end_date_only",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_instance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_interval",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_month_of_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_regenerated_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_start_date_only",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_time_zone_sid_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recurrence_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reminder_date_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "system_modstamp",
+          "type": "DATE"
+        },
+        {
+          "name": "task_subtype",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_user_data",
+      "columns": [
+        {
+          "name": "about_me",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alias",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "badge_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "banner_photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_center_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "community_nickname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_group_notification_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "delegated_approver_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "digest_frequency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "division",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_encoding_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_preferences_auto_bcc",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "employee_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "extension",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fax",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "federation_identifier",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "full_photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "geocode_accuracy",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_profile_photo_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "language_locale_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_login_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "latitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "locale_sid_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "longitude",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "medium_banner_photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "offline_trial_expiration_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "receives_admin_info_emails",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "receives_info_emails",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "sender_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sender_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "signature",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "small_banner_photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "small_photo_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time_zone_sid_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sf_user_role_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "case_access_for_account_owner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_access_for_account_owner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "developer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "may_forecast_manager_share",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_access_for_account_owner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "portal_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rollup_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "l",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__account",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_revenue",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "master_record_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ownership",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "renamed_field",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__account_history",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_date",
+          "type": "DATE"
+        },
+        {
+          "name": "history_unique_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "master_record_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ownership",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_city",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_state",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shipping_street",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__contact",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "master_record_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reports_to_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_field_x",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__contact_history",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_date",
+          "type": "DATE"
+        },
+        {
+          "name": "history_unique_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "mailing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mailing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "master_record_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reports_to_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_phone",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__event",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "event_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "event_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "event_subtype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_event_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_child",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_group_event",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_recurrence",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "what_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "what_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "who_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "who_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce__event_field",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__lead",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annual_revenue",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "converted_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "converted_opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_bounced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "email_bounced_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_opted_out_of_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_converted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_unread_by_owner",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "master_record_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lead_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_employees",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce__lead_field",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__opportunity",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "close_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opportunity_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "expected_revenue",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "fiscal",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fiscal_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "forecast_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_category_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_open_activity",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_opportunity_line_item",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_overdue_task",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_won",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "next_step",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probability",
+          "type": "FLOAT"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "synced_quote_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_field_x",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_created_this_month",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_created_this_quarter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "days_since_created",
+          "type": "BIGINT"
+        },
+        {
+          "name": "days_to_close",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_closed_this_month",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed_this_quarter",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__opportunity_history",
+      "columns": [
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_start",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_end",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_date",
+          "type": "DATE"
+        },
+        {
+          "name": "history_unique_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "close_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expected_revenue",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fiscal_quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiscal_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "forecast_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forecast_category_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_open_activity",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_opportunity_line_item",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_overdue_task",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_won",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lead_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "next_step",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "probability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "synced_quote_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__opportunity_line_item",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opportunity_line_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opportunity_line_item_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount",
+          "type": "FLOAT"
+        },
+        {
+          "name": "has_quantity_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_revenue_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_schedule",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "list_price",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "opportunity_line_item_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pricebook_entry_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "FLOAT"
+        },
+        {
+          "name": "service_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sort_order",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_price",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "opportunity_line_item_field_x",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "field_name_2",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__order",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activated_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contract_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opportunity_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "original_order_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pricebook_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shipping_street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL(28,6)"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_field_x",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "field_abc",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__product_2",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "product_2_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "product_2_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "family",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "product_2_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_quantity_installments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "number_of_revenue_installments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity_installment_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity_schedule_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity_unit_of_measure",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_installment_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_schedule_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_2_field_x",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__task",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "task_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "activity_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "call_disposition",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_duration_in_seconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "call_object",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "completed_date_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "task_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_archived",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_high_priority",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_modified_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "priority",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "record_type_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "task_subtype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "what_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "what_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "who_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "who_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "task_field_x",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__user",
+      "columns": [
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "alias",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "individual_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_login_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_referenced_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_viewed_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "manager_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salesforce__user_field",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_salesforce__user_role",
+      "columns": [
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "developer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_role_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opportunity_access_for_account_owner",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_role_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rollup_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_role_field_x",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

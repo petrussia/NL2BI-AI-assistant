@@ -1,0 +1,24 @@
++++ b/models/intercom__admin_metrics.sql
+@@ -1,7 +1,7 @@
+ with conversation_part_aggregates as (
+   select *
+   from {{ ref('int_intercom__conversation_part_aggregates') }}
+-),
++),
+ conversation_enhanced as(
+   select *
+   from {{ ref('intercom__conversation_enhanced') }}
+@@ -18,6 +18,14 @@ final as (
+     conversation_enhanced.*,
+     conversation_part_aggregates.count_reopens,
+     conversation_part_aggregates.count_total_parts,
++    conversation_part_aggregates.count_assignments,
++    conversation_part_aggregates.first_contact_reply_at,
++    conversation_part_aggregates.first_assignment_at,
++    round(cast(({{ dbt.datediff("conversation_enhanced.conversation_created_at", "conversation_part_aggregates.first_assignment_at", 'second') }}/60) as numeric), 2) as time_to_first_assignment_minutes,
++    round(cast(({{ dbt.datediff("conversation_enhanced.conversation_created_at", "conversation_part_aggregates.first_contact_reply_at", 'second') }}/60) as numeric), 2) as time_to_first_response_minutes,
++    round(cast(({{ dbt.datediff("conversation_enhanced.conversation_created_at", "conversation_part_aggregates.last_assignment_at", 'second') }}/60) as numeric), 2) as time_to_last_assignment_minutes,
++    round(cast(({{ dbt.datediff("conversation_enhanced.conversation_created_at", "conversation_part_aggregates.last_contact_reply_at", 'second') }}/60) as numeric), 2) as time_to_last_response_minutes,
+     conversation_part_aggregates.count_assignments,
+     conversation_part_aggregates.first_contact_reply_at,
+     conversation_part_aggregates.first_assignment_at,

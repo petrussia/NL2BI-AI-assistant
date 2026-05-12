@@ -1,0 +1,270 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I combine the most recent version of each email template with aggregated metrics for sends, opens, bounces, clicks, deliveries, and unsubscribes?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `marketo.duckdb`
+    main.int_marketo__lead(_fivetran_synced TIMESTAMP, created_timestamp VARCHAR, email VARCHAR, first_name VARCHAR, lead_id INTEGER, last_name VARCHAR, updated_timestamp VARCHAR, phone VARCHAR, main_phone VARCHAR, mobile_phone VARCHAR, company VARCHAR, inferred_company VARCHAR, address_lead VARCHAR, address VARCHAR, city VARCHAR, state VARCHAR, state_code VARCHAR, country VARCHAR, country_code VARCHAR, postal_code VARCHAR, billing_street VARCHAR, billing_city VARCHAR, billing_state VARCHAR, billing_state_code VARCHAR, billing_country VARCHAR, billing_country_code VARCHAR, billing_postal_code VARCHAR, inferred_city VARCHAR, inferred_state_region VARCHAR, inferred_country VARCHAR)
+    main.marketo__calendar_spine(date_day DATE)
+    main.marketo__change_data_details(lead_id INTEGER, date_day DATE, urgency BOOLEAN, priority BOOLEAN, lead_day_id VARCHAR)
+    main.marketo__change_data_pivot(lead_id INTEGER, date_day DATE, urgency VARCHAR, priority VARCHAR, lead_day_id VARCHAR)
+    main.marketo__change_data_scd(valid_to DATE, lead_id INTEGER, lead_day_id VARCHAR)
+    main.marketo__email_sends(activity_timestamp TIMESTAMP, activity_type_id INTEGER, campaign_id INTEGER, campaign_run_id INTEGER, choice_number INTEGER, email_template_id INTEGER, activity_id INTEGER, lead_id INTEGER, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER, step_id INTEGER, email_send_id VARCHAR, activity_rank BIGINT, count_opens BIGINT, count_bounces BIGINT, count_clicks BIGINT, count_deliveries BIGINT, count_unsubscribes BIGINT, was_opened BOOLEAN, was_bounced BOOLEAN, was_clicked BOOLEAN, was_delivered BOOLEAN, was_unsubscribed BOOLEAN, is_operational BOOLEAN)
+    main.marketo__lead_calendar_spine(date_day DATE, lead_id INTEGER, lead_day_id VARCHAR)
+    main.marketo__lead_history(date_day DATE, lead_id INTEGER, lead_history_id VARCHAR)
+    main.marketo__leads(_fivetran_synced TIMESTAMP, created_timestamp VARCHAR, email VARCHAR, first_name VARCHAR, lead_id INTEGER, last_name VARCHAR, updated_timestamp VARCHAR, phone VARCHAR, main_phone VARCHAR, mobile_phone VARCHAR, company VARCHAR, inferred_company VARCHAR, address_lead VARCHAR, address VARCHAR, city VARCHAR, state VARCHAR, state_code VARCHAR, country VARCHAR, country_code VARCHAR, postal_code VARCHAR, billing_street VARCHAR, billing_city VARCHAR, billing_state VARCHAR, billing_state_code VARCHAR, billing_country VARCHAR, billing_country_code VARCHAR, billing_postal_code VARCHAR, inferred_city VARCHAR, inferred_state_region VARCHAR, inferred_country VARCHAR)
+    main.marketo_activity_change_data_value_data(activity_date VARCHAR, activity_type_id INTEGER, api_method_name INTEGER, campaign_id INTEGER, id INTEGER, lead_id INTEGER, modifying_user INTEGER, new_value VARCHAR, old_value VARCHAR, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER, reason VARCHAR, request_id INTEGER, source VARCHAR)
+    main.marketo_activity_click_email_data(activity_date VARCHAR, activity_type_id INTEGER, campaign_id INTEGER, campaign_run_id INTEGER, choice_number INTEGER, device VARCHAR, email_template_id INTEGER, id INTEGER, is_mobile_device BOOLEAN, lead_id INTEGER, link VARCHAR, platform VARCHAR, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER, step_id INTEGER, user_agent VARCHAR)
+    main.marketo_activity_delete_lead_data(id INTEGER, _fivetran_synced VARCHAR, activity_date VARCHAR, activity_type_id INTEGER, campaign VARCHAR, campaign_id INTEGER, lead_id INTEGER, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER)
+    main.marketo_activity_email_bounced_data(activity_date VARCHAR, activity_type_id INTEGER, campaign_id INTEGER, campaign_run_id INTEGER, category INTEGER, choice_number INTEGER, details VARCHAR, email VARCHAR, email_template_id INTEGER, id INTEGER, lead_id INTEGER, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER, step_id INTEGER, subcategory INTEGER)
+    main.marketo_activity_email_delivered_data(activity_date VARCHAR, activity_type_id INTEGER, campaign_id INTEGER, campaign_run_id INTEGER, choice_number INTEGER, email_template_id INTEGER, id INTEGER, lead_id INTEGER, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER, step_id INTEGER)
+    main.marketo_activity_merge_leads_data(id INTEGER, _fivetran_synced VARCHAR, activity_date VARCHAR, activity_type_id INTEGER, campaign_id INTEGER, lead_id INTEGER, master_updated BOOLEAN, merge_ids VARCHAR, merge_source VARCHAR, merged_in_sales BOOLEAN, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER)
+    main.marketo_activity_open_email_data(activity_date VARCHAR, activity_type_id INTEGER, campaign_id INTEGER, campaign_run_id INTEGER, choice_number INTEGER, device VARCHAR, email_template_id INTEGER, id INTEGER, is_mobile_device BOOLEAN, lead_id INTEGER, platform VARCHAR, primary_attribute_value VARCHAR, primary_attribute_value_id INTEGER, step_id INTEGER, user_agent VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'marketo'
+version: '0.11.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+on-run-start: "{{ lead_history_columns_warning() }}"
+profile: 'marketo'
+vars:
+  marketo_schema: main
+  marketo_source:
+      marketo_lead_identifier: "marketo_lead_data"
+      marketo_lead_describe_identifier: "marketo_lead_describe_data"
+      marketo_activity_change_data_value_identifier: "marketo_activity_change_data_value_data"
+      marketo_campaign_identifier: "marketo_campaign_data"
+      marketo_program_identifier: "marketo_program_data"
+      marketo_email_template_history_identifier: "marke
+
+
+=== INTERMEDIATE models (14) ===
+  - models/intermediate/int_marketo__lead.sql
+    cols: lead_id, merged_into_lead_id, is_deleted, is_merged
+    --- head:
+    {{ config(materialized='view') }}
+
+    with leads as(
+        select * 
+        from {{ var('lead') }}
+  - models/intermediate/marketo__bounces__by_sent_email.sql
+    cols: count_bounces
+    --- head:
+    with activity as (
+
+        select *
+        from {{ var('activity_email_bounced') }}
+
+  - models/intermediate/marketo__change_data_details.sql
+    cols: date, primary_attribute_column, date_day, boolean, lead_day_id
+    --- head:
+    {{
+        config(
+            materialized='incremental',
+            partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark','databricks'] else ['date_day'],
+            unique_key='lead_day_id',
+  - models/intermediate/marketo__change_data_pivot.sql
+    cols: date, primary_attribute_column, row_num, date_day, lead_day_id
+    --- head:
+    {{
+        config(
+            materialized='incremental',
+            partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark','databricks'] else ['date_day'],
+            unique_key='lead_day_id',
+  - models/intermediate/marketo__change_data_scd.sql
+    cols: valid_to, lead_day_id
+    --- head:
+    {{
+        config(
+            materialized='incremental',
+            partition_by = {'field': 'valid_to', 'data_type': 'date'} if target.type not in ['spark','databricks'] else ['valid_to'],
+            unique_key='lead_day_id',
+  - models/intermediate/marketo__clicks__by_sent_email.sql
+    cols: count_clicks
+    --- head:
+    with activity as (
+
+        select *
+        from {{ var('activity_click_email') }}
+
+  - models/intermediate/marketo__deliveries__by_sent_email.sql
+    cols: count_deliveries
+    --- head:
+    with activity as (
+
+        select *
+        from {{ var('activity_email_delivered') }}
+
+  - models/intermediate/marketo__email_sends_deduped.sql
+    cols: activity_rank
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('activity_send_email') }}
+
+  - models/intermediate/marketo__email_stats__by_campaign.sql
+    cols: count_sends, count_opens, count_bounces, count_clicks, count_deliveries, count_unsubscribes, count_unique_opens, count_unique_clicks
+    --- head:
+    {{ config(enabled=var('marketo__enable_campaigns', False)) }}
+
+    with email_sends as (
+
+        select *
+  - models/intermediate/marketo__email_stats__by_lead.sql
+    cols: count_sends, count_opens, count_bounces, count_clicks, count_deliveries, count_unsubscribes, count_unique_opens, count_unique_clicks
+    --- head:
+    with email_sends as (
+
+        select *
+        from {{ ref('marketo__email_sends') }}
+
+  - models/intermediate/marketo__email_stats__by_program.sql
+    cols: count_sends, count_opens, count_bounces, count_clicks, count_deliveries, count_unsubscribes, count_unique_opens, count_unique_clicks
+    --- head:
+    {{ config(enabled=var('marketo__enable_campaigns', False) and var('marketo__enable_programs', False)) }}
+
+    with email_sends as (
+
+        select *
+  - models/intermediate/marketo__lead_calendar_spine.sql
+    cols: date, lead_day_id
+    --- head:
+    {{
+        config(
+            materialized='incremental',
+            partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark','databricks'] else ['date_day'],
+            unique_key='lead_day_id',
+  - models/intermediate/marketo__opens__by_sent_email.sql
+    cols: count_opens
+    --- head:
+    with activity as (
+
+        select *
+        from {{ var('activity_open_email') }}
+
+  - models/intermediate/marketo__unsubscribes__by_sent_email.sql
+    cols: count_unsubscribes
+    --- head:
+    with activity as (
+
+        select *
+        from {{ var('activity_unsubscribe_email') }}
+
+
+=== FINAL models (8) ===
+  - macros/lead_history_columns_warning.sql
+    cols: a
+    --- body (first 900 chars):
+    {% macro lead_history_columns_warning() %}
+
+    {% if not var('lead_history_columns') %}
+    {{ log(
+        """
+        Warning: You have passed an empty list to the 'lead_history_columns'.
+        As a result, you won't see the history of any columns in the 'marketo__lead_history' model.
+        """,
+        info=True
+    ) }}
+    {% endif %}
+
+    {% endmacro %}
+  - macros/union_relations.sql
+    --- body (first 900 chars):
+    {%- macro union_relations(relations, aliases=none, column_override=none, include=[], exclude=[], source_column_name=none) -%}
+
+        {%- if exclude and include -%}
+            {{ exceptions.raise_compiler_error("Both an exclude and include list were provided to the `union` macro. Only one is allowed") }}
+        {%- endif -%}
+
+        {#-- Prevent querying of db in parsing mode. This works because this macro does not create any new refs. -#}
+        {%- if not execute %}
+            {{ return('') }}
+        {% endif -%}
+
+        {%- set column_override = column_override if column_override is not none else {} -%}
+        {%- set source_column_name = source_column_name if source_column_name is not none else '_dbt_source_relation' -%}
+
+        {%- set relation_columns = {} -%}
+        {%- set column_superset = {} -%}
+
+        {%- for relation in relations -%}
+
+            {%- do relation_columns.update({relation: []}) -%}
+
+            {%- do d
+  - models/marketo__campaigns.sql
+    cols: count_sends, count_opens, count_bounces, count_clicks, count_deliveries, count_unsubscribes, count_unique_opens, count_unique_clicks
+    --- body (first 900 chars):
+    {{ config(enabled=var('marketo__enable_campaigns', False)) }}
+
+    with campaigns as (
+
+        select *
+        from {{ var('campaigns') }}
+
+    ), email_stats as (
+
+        select *
+        from {{ ref('marketo__email_stats__by_campaign') }}
+
+    ), joined as (
+
+        select
+            campaigns.*,
+            coalesce(email_stats.count_sends, 0) as count_sends,
+            coalesce(email_stats.count_opens, 0) as count_opens,
+            coalesce(email_stats.count_bounces, 0) as count_bounces,
+            coalesce(email_stats.count_clicks, 0) as count_clicks,
+            coalesce(email_stats.count_deliveries, 0) as count_deliveries,
+            coalesce(email_stats.count_unsubscribes, 0) as count_unsubscribes,
+            coalesce(email_stats.count_unique_opens, 0) as count_unique_opens,
+            coalesce(email_stats.count_unique_clicks, 0) as count_unique_clicks
+        from campaigns
+        left join email_stats
+            using (campaign_id)
+
+    )
+
+    select 
+  - models/marketo__email_sends.sql
+    cols: count_opens, count_bounces, count_clicks, count_deliveries, count_unsubscribes, was_opened, was_bounced, was_clicked, was_delivered, was_unsubscribed, timestamp
+    --- body (first 900 chars):
+    with sends as (
+
+        select *
+  
+... (truncated)

@@ -1,0 +1,39 @@
+```diff
+--- a/models/double_entry_transactions/int_quickbooks__general_ledger.sql
++++ b/models/double_entry_transactions/int_quickbooks__general_ledger.sql
+@@ -0,0 +1,18 @@
++with all_debits as (
++    select * from {{ ref('int_quickbooks__bill_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__bill_payment_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__credit_card_pymt_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__credit_memo_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__deposit_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__invoice_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__journal_entry_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__payment_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__purchase_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__refund_receipt_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__sales_receipt_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__transfer_double_entry') }}
++    union all
++    select * from {{ ref('int_quickbooks__vendor_credit_double_entry') }}
++),
++all_credits as (
++    select * from all_debits
++    where transaction_type = 'credit'
++)
++select * from all_debits
++union all
++select * from all_credits;
+```

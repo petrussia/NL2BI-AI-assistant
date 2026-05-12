@@ -1,0 +1,190 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I map Medicare specialties to NUCC taxonomy codes, prioritize the most specific one, and assign a primary taxonomy code to each provider in the NPI dataset? Additionally, how can I combine this with provider details, including their entity type, practice location, and specialty, while checking if their NPI is active or deactivated?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `provider.duckdb`
+    main.medicare_specialty_crosswalk(medicare_specialty_code VARCHAR, medicare_provider_supplier_type_description VARCHAR, provider_taxonomy_code VARCHAR, provider_taxonomy_description VARCHAR)
+    main.npi(npi INTEGER, entity_type_code INTEGER, replacement_npi INTEGER, employer_identification_number_(ein) VARCHAR, provider_organization_name_(legal_business_name) VARCHAR, provider_last_name_(legal_name) VARCHAR, provider_first_name VARCHAR, provider_middle_name VARCHAR, provider_name_prefix_text VARCHAR, provider_name_suffix_text VARCHAR, provider_credential_text VARCHAR, provider_other_organization_name VARCHAR, provider_other_organization_name_type_code INTEGER, provider_other_last_name VARCHAR, provider_other_first_name VARCHAR, provider_other_middle_name VARCHAR, provider_other_name_prefix_text VARCHAR, provider_other_name_suffix_text VARCHAR, provider_other_credential_text VARCHAR, provider_other_last_name_type_code INTEGER, provider_first_line_business_mailing_address VARCHAR, provider_second_line_business_mailing_address VARCHAR, provider_business_mailing_address_city_name VARCHAR, provider_business_mailing_address_state_name VARCHAR, provider_business_mailing_address_postal_code VARCHAR, provider_business_mailing_address_country_code_(if_outside_u.s.) VARCHAR, provider_business_mailing_address_telephone_number BIGINT, provider_business_mailing_address_fax_number BIGINT, provider_first_line_business_practice_location_address VARCHAR, provider_second_line_business_practice_location_address VARCHAR)
+    main.nucc_taxonomy(Code VARCHAR, Grouping VARCHAR, Classification VARCHAR, Specialization VARCHAR, Definition VARCHAR, Notes VARCHAR, Display Name VARCHAR, Section VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'nppes'
+version: '0.1.1'
+config-version: 2
+
+profile: 'provider'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  nppes:
+    npi:
+      +column_types:
+        provider_business_mailing_address_telephone_number: bigint
+        provider_business_mailing_address_fax_number: bigint
+        provider_business_practice_location_address_telephone_number: bigint
+        provider_business_practice_location_address_fax_
+
+
+=== INTERMEDIATE models (1) ===
+  - models/intermediate/taxonomy_unpivot.sql
+    cols: taxonomy_code, taxonomy_switch, taxonomy_col
+    --- head:
+    with npi_source as (
+
+        select
+              npi
+            , healthcare_provider_taxonomy_code_1
+
+=== FINAL models (2) ===
+  - macros/generate_schema_name.sql
+    --- body (first 900 chars):
+    {#
+        This macro has been modified to work with the variables set in the dbt_project.yml file.
+        See https://docs.getdbt.com/docs/building-a-dbt-project/building-models/using-custom-schemas for the original macro.
+    #}
+
+    {% macro default__generate_schema_name(custom_schema_name, node) -%}
+        {%- set default_schema = target.schema -%}
+        {%- if custom_schema_name is not none -%}
+            {{ custom_schema_name | trim }}
+        {%- else -%}
+            {{ default_schema }}
+        {%- endif -%}
+    {%- endmacro %}
+  - models/provider.sql
+    cols: provider_last_name, provider_organization_name, last_update_date, npi_deactivation_date, entity_type_description, primary_taxonomy_code, primary_specialty_description, provider_first_name, parent_organization_name, practice_address_line_1, practice_address_line_2, practice_city, practice_state, practice_zip_code, date, last_updated, deactivation_date, deactivation_flag
+    --- body (first 900 chars):
+    with npi_source as (
+
+        select
+              npi
+            , entity_type_code
+            , "provider_last_name_(legal_name)" AS provider_last_name
+            , provider_first_name
+            , "provider_organization_name_(legal_business_name)" AS provider_organization_name
+            , parent_organization_lbn
+            , provider_first_line_business_practice_location_address
+            , provider_second_line_business_practice_location_address
+            , provider_business_practice_location_address_city_name
+            , provider_business_practice_location_address_state_name
+            , provider_business_practice_location_address_postal_code
+            , strptime(last_update_date, '%m/%d/%Y') as last_update_date
+            , strptime(npi_deactivation_date, '%m/%d/%Y') as npi_deactivation_date
+        from {{ source('nppes', 'npi') }}
+
+    ),
+
+    primary_taxonomy as (
+
+        select
+              npi
+            , taxonomy_code
+            , descri
+
+--- dbt_project.yml (head) ---
+name: 'nppes'
+version: '0.1.1'
+config-version: 2
+
+profile: 'provider'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  nppes:
+    npi:
+      +column_types:
+        provider_business_mailing_address_telephone_number: bigint
+        provider_business_mailing_address_fax_number: bigint
+        provider_business_practic
+
+
+--- models/_models.yml (head) ---
+version: 2
+
+models:
+# Intermediate
+  - name: specialty_mapping
+    description: >
+      Maps Medicare specialties to the NUCC taxonomy, deduplicating Medicare specialties by prioritizing the most specific specialty. 
+      It joins the Medicare specialty crosswalk data with the NUCC taxonomy, ensuring that Medicare specialties are appropriately matched 
+      or otherwise defaulting to NUCC specialization or classification where necessary.
+
+    columns:
+      - name: taxonomy_code
+        descri
+
+
+--- models/_sources.yml (head) ---
+version: 2
+
+sources:
+  - name: nppes
+    description: Raw provider data from NPPES, NUCC, and CMS
+    schema: main
+    tables:
+      - name: npi
+      - name: nucc_taxonomy
+      - name: medicare_specialty_crosswalk
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

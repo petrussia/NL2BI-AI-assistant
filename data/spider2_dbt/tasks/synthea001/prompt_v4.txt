@@ -1,0 +1,255 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can we aggregate financial data related to healthcare events, such as conditions, drug exposures, and procedures, to calculate total costs, charges, and payments for each event?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `synthea.duckdb`
+    main_map_seeds.states(state_name VARCHAR, state_abbreviation VARCHAR)
+    main_omop_seeds.dose_era(dose_era_id INTEGER, person_id INTEGER, drug_concept_id INTEGER, unit_concept_id INTEGER, dose_value INTEGER, dose_era_start_date INTEGER, dose_era_end_date INTEGER)
+    main_omop_seeds.episode(episode_id INTEGER, person_id INTEGER, episode_concept_id INTEGER, episode_start_date INTEGER, episode_start_datetime INTEGER, episode_end_date INTEGER, episode_end_datetime INTEGER, episode_parent_id INTEGER, episode_number INTEGER, episode_object_concept_id INTEGER, episode_type_concept_id INTEGER, episode_source_value INTEGER, episode_source_concept_id INTEGER)
+    main_omop_seeds.episode_event(episode_id INTEGER, event_id INTEGER, episode_event_field_concept_id INTEGER)
+    main_omop_seeds.fact_relationship(domain_concept_id_1 INTEGER, fact_id_1 INTEGER, domain_concept_id_2 INTEGER, fact_id_2 INTEGER, relationship_concept_id INTEGER)
+    main_omop_seeds.metadata(metadata_id INTEGER, metadata_concept_id INTEGER, metadata_type_concept_id INTEGER, name INTEGER, value_as_string INTEGER, value_as_concept_id INTEGER, value_as_number INTEGER, metadata_date INTEGER, metadata_datetime	 INTEGER)
+    main_omop_seeds.note(note_id INTEGER, person_id INTEGER, note_date INTEGER, note_datetime INTEGER, note_type_concept_id INTEGER, note_class_concept_id INTEGER, note_title INTEGER, note_text INTEGER, encoding_concept_id INTEGER, language_concept_id INTEGER, provider_id INTEGER, visit_occurrence_id INTEGER, visit_detail_id INTEGER, note_source_value INTEGER, note_event_id INTEGER, note_event_field_concept_id INTEGER)
+    main_omop_seeds.note_nlp(note_nlp_id INTEGER, note_id INTEGER, section_concept_id INTEGER, snippet INTEGER, offset INTEGER, lexical_variant INTEGER, note_nlp_concept_id INTEGER, note_nlp_source_concept_id INTEGER, nlp_system INTEGER, nlp_date INTEGER, nlp_datetime INTEGER, term_exists INTEGER, term_temporal INTEGER, term_modifiers INTEGER)
+    main_omop_seeds.specimen(specimen_id INTEGER, person_id INTEGER, specimen_concept_id INTEGER, specimen_type_concept_id INTEGER, specimen_date INTEGER, specimen_datetime INTEGER, quantity INTEGER, unit_concept_id INTEGER, anatomic_site_concept_id INTEGER, disease_status_concept_id INTEGER, specimen_source_id INTEGER, specimen_source_value INTEGER, unit_source_value INTEGER, anatomic_site_source_value INTEGER, disease_status_source_value INTEGER)
+    main_synthea_seeds.allergies(START DATE, STOP INTEGER, PATIENT VARCHAR, ENCOUNTER VARCHAR, CODE VARCHAR, SYSTEM VARCHAR, DESCRIPTION VARCHAR, TYPE VARCHAR, CATEGORY VARCHAR, REACTION1 VARCHAR, DESCRIPTION1 VARCHAR, SEVERITY1 VARCHAR, REACTION2 INTEGER, DESCRIPTION2 VARCHAR, SEVERITY2 VARCHAR)
+    main_synthea_seeds.careplans(Id VARCHAR, START DATE, STOP DATE, PATIENT VARCHAR, ENCOUNTER VARCHAR, CODE VARCHAR, DESCRIPTION VARCHAR, REASONCODE VARCHAR, REASONDESCRIPTION VARCHAR)
+    main_synthea_seeds.claims(Id VARCHAR, PATIENTID VARCHAR, PROVIDERID VARCHAR, PRIMARYPATIENTINSURANCEID VARCHAR, SECONDARYPATIENTINSURANCEID VARCHAR, DEPARTMENTID INTEGER, PATIENTDEPARTMENTID INTEGER, DIAGNOSIS1 VARCHAR, DIAGNOSIS2 VARCHAR, DIAGNOSIS3 VARCHAR, DIAGNOSIS4 VARCHAR, DIAGNOSIS5 VARCHAR, DIAGNOSIS6 VARCHAR, DIAGNOSIS7 VARCHAR, DIAGNOSIS8 VARCHAR, REFERRINGPROVIDERID VARCHAR, APPOINTMENTID VARCHAR, CURRENTILLNESSDATE TIMESTAMP, SERVICEDATE TIMESTAMP, SUPERVISINGPROVIDERID VARCHAR, STATUS1 VARCHAR, STATUS2 VARCHAR, STATUSP VARCHAR, OUTSTANDING1 INTEGER, OUTSTANDING2 INTEGER, OUTSTANDINGP INTEGER, LASTBILLEDDATE1 TIMESTAMP, LASTBILLEDDATE2 TIMESTAMP, LASTBILLEDDATEP TIMESTAMP, HEALTHCARECLAIMTYPEID1 INTEGER)
+    main_synthea_seeds.claims_transactions(ID VARCHAR, CLAIMID VARCHAR, CHARGEID INTEGER, PATIENTID VARCHAR, TYPE VARCHAR, AMOUNT DECIMAL(18,3), METHOD VARCHAR, FROMDATE TIMESTAMP, TODATE TIMESTAMP, PLACEOFSERVICE VARCHAR, PROCEDURECODE VARCHAR, MODIFIER1 INTEGER, MODIFIER2 INTEGER, DIAGNOSISREF1 INTEGER, DIAGNOSISREF2 INTEGER, DIAGNOSISREF3 INTEGER, DIAGNOSISREF4 INTEGER, UNITS INTEGER, DEPARTMENTID INTEGER, NOTES VARCHAR, UNITAMOUNT DECIMAL(18,3), TRANSFEROUTID INTEGER, TRANSFERTYPE VARCHAR, PAYMENTS DECIMAL(18,3), ADJUSTMENTS DECIMAL(18,3), TRANSFERS DECIMAL(18,3), OUTSTANDING DECIMAL(18,3), APPOINTMENTID VARCHAR, LINENOTE INTEGER, PATIENTINSURANCEID VARCHAR)
+    main_synthea_seeds.conditions(START DATE, STOP DATE, PATIENT VARCHAR, ENCOUNTER VARCHAR, CODE VARCHAR, DESCRIPTION VARCHAR)
+    main_synthea_seeds.devices(START TIMESTAMP, STOP TIMESTAMP, PATIENT VARCHAR, ENCOUNTER VARCHAR, CODE VARCHAR, DESCRIPTION VARCHAR, UDI VARCHAR)
+    main_synthea_seeds.encounters(Id VARCHAR, START TIMESTAMP, STOP TIMESTAMP, PATIENT VARCHAR, ORGANIZATION VARCHAR, PROVIDER VARCHAR, PAYER VARCHAR, ENCOUNTERCLASS VARCHAR, CODE VARCHAR, DESCRIPTION VARCHAR, BASE_ENCOUNTER_COST DECIMAL(18,3), TOTAL_CLAIM_COST DECIMAL(18,3), PAYER_COVERAGE DECIMAL(18,3), REASONCODE VARCHAR, REASONDESCRIPTION VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'synthea_omop_etl'
+version: '0.1.0'
+config-version: 2
+
+profile: 'synthea_omop_etl'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+
+vars:
+  seed_source: true
+
+models:
+  synthea_omop_etl:
+    +materialized: table
+
+seeds:
+  synthea_omop_etl:
+    map:
+      +enabled: true
+      +schema: map_seeds
+    omop:
+      +enabled: true
+      +schema: omop_seeds
+    vocabulary:
+      +enabled: true
+      +schema: vocab_
+
+
+=== STAGING models (37) ===
+  - models/staging/map/stg_map__states.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('map', 'states') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__dose_era.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'dose_era') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__episode.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'episode') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__episode_event.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'episode_event') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__fact_relationship.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'fact_relationship') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__metadata.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'metadata') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__note.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'note') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__note_nlp.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'note_nlp') ) 
+    %}
+
+
+  - models/staging/omop/stg_omop__specimen.sql
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('omop', 'specimen') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__allergies.sql
+    cols: allergy_start_date, allergy_stop_date, patient_id, encounter_id, allergy_code, allergy_code_system, allergy_description, allergy_type, allergy_category, reaction_1_code, reaction_1_description, reaction_1_severity, reaction_2_code, reaction_2_description, reaction_2_severity
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'allergies') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__careplans.sql
+    cols: careplan_id, careplan_start_date, careplan_stop_date, patient_id, encounter_id, careplan_code, careplan_description, careplan_reason_code, careplan_reason_description
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'careplans') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__claims.sql
+    cols: claim_id, patient_id, provider_id, primary_patient_insurance_id, secondary_patient_insurance_id, department_id, patient_department_id, diagnosis_1, diagnosis_2, diagnosis_3, diagnosis_4, diagnosis_5, diagnosis_6, diagnosis_7, diagnosis_8, referring_provider_id, encounter_id, current_illness_date, ...(30 total)
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'claims') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__claims_transactions.sql
+    cols: claim_transaction_id, claim_id, charge_id, patient_id, transaction_type, transaction_amount, transaction_method, transaction_from_date, transaction_to_date, place_of_service, procedure_code, procedure_code_modifier_1, procedure_code_modifier_2, claim_diagnosis_ref_1, claim_diagnosis_ref_2, claim_diagnosis_ref_3, claim_diagnosis_ref_4, service_units, ...(29 total)
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'claims_transactions') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__conditions.sql
+    cols: condition_start_date, condition_stop_date, patient_id, encounter_id, condition_code, condition_description
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'conditions') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__devices.sql
+    cols: device_start_datetime, device_stop_datetime, patient_id, encounter_id, device_code, device_description
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'devices') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__encounters.sql
+    cols: encounter_id, encounter_start_datetime, encounter_stop_datetime, patient_id, organization_id, provider_id, payer_id, encounter_class, encounter_code, encounter_description, total_encounter_cost, encounter_payer_coverage, encounter_reason_code, encounter_reason_description
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'encounters') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__imaging_studies.sql
+    cols: imaging_id, imaging_datetime, patient_id, encounter_id, imaging_procedure_code
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'imaging_studies') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__immunizations.sql
+    cols: immunization_date, patient_id, encounter_id, immunization_code, immunization_description, immunization_base_cost
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'immunizations') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__medications.sql
+    cols: medication_start_datetime, medication_stop_datetime, patient_id, payer_id, encounter_id, medication_code, medication_description, medication_base_cost, medication_payer_coverage, medication_total_cost, medication_reason_code, medication_reason_description
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'medications') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__observations.sql
+    cols: observation_datetime, patient_id, encounter_id, observation_category, observation_code, observation_description, observation_value, observation_units, observation_value_type
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'observations') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__organizations.sql
+    cols: organization_id, organization_name, organization_address, organization_city, organization_state, organization_zip, organization_latitude, organization_longitude, organization_phone, organization_revenue, organization_utilization
+    --- head:
+    {% set column_names = 
+        dbt_utils.get_filtered_columns_in_relation( source('synthea', 'organizations') ) 
+    %}
+
+
+  - models/staging/synthea/stg_synthea__patients.sql
+    cols: patient_id, birth_date, death_date, drivers_license_number, passport_number, patient_prefix, patient_first_name, patient_last_name, patient_suffix, maiden_name, marital_status
+... (truncated)

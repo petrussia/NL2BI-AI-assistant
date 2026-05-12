@@ -1,0 +1,2200 @@
+{
+  "google_ads.duckdb": [
+    {
+      "schema": "main",
+      "table": "account_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "auto_tagging_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "descriptive_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "final_url_suffix",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "manager",
+          "type": "INTEGER"
+        },
+        {
+          "name": "manager_customer_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "optimization_score",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_per_conversion_eligibility_failure_reasons",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "test_account",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tracking_url_template",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "account_stats_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ad_group_criterion_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_match_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_text",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ad_group_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ad_group_stats_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_ad_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_base_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ad_history_data",
+      "columns": [
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "final_urls",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "ad_stats_data",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_ad_group_criterion",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "campaign_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "advertising_channel_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "advertising_channel_subtype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "serving_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tracking_url_template",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "campaign_stats_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "google_ads__account_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "account_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_tagging_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions_value",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "google_ads__ad_group_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "account_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "conversions_value",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "google_ads__ad_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "account_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "display_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_final_urls",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions_value",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "google_ads__url_report",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "account_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url_host",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url_path",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_medium",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_term",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "conversions_value",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "keyword_stats_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_group_base_ad_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_criterion_criterion_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_base_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__account_history",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_tagging_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__account_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "auto_tagging_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "descriptive_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "final_url_suffix",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "manager",
+          "type": "INTEGER"
+        },
+        {
+          "name": "manager_customer_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "optimization_score",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pay_per_conversion_eligibility_failure_reasons",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "test_account",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tracking_url_template",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__account_stats",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__account_stats_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_group_criterion_history",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "criterion_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_match_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_group_criterion_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_match_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_text",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_group_history",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ad_group_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_group_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_group_stats",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_group_stats_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_ad_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_base_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_history",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ad_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_final_urls",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "final_urls",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "final_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url_host",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url_path",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_medium",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utm_term",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_history_tmp",
+      "columns": [
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "final_urls",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_stats",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_ad_group_criterion",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__ad_stats_tmp",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_ad_group_criterion",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__campaign_history",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "advertising_channel_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "advertising_channel_subtype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "serving_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tracking_url_template",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__campaign_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "advertising_channel_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "advertising_channel_subtype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "serving_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tracking_url_template",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__campaign_stats",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions_aliased",
+          "type": "FLOAT"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__campaign_stats_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__keyword_stats",
+      "columns": [
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "keyword_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "criterion_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spend",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_google_ads_source",
+      "table": "stg_google_ads__keyword_stats_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "active_view_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_measurable_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "active_view_viewability",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ad_group_base_ad_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_criterion_criterion_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_group_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ad_network_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_base_campaign",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "campaign_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "conversions_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cost_micros",
+          "type": "INTEGER"
+        },
+        {
+          "name": "device",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "interaction_event_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "view_through_conversions",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

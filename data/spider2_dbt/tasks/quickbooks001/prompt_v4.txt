@@ -1,0 +1,192 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Please create a table that unions all records from each model within the double_entry_transactions directory. The table should result in a comprehensive general ledger, ensuring each transaction has an offsetting debit and credit entry.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `quickbooks.duckdb`
+    main.account_data(id INTEGER, _fivetran_synced TIMESTAMP, account_number INTEGER, account_sub_type VARCHAR, account_type VARCHAR, active BOOLEAN, balance INTEGER, balance_with_sub_accounts INTEGER, classification VARCHAR, created_at TIMESTAMP, currency_id VARCHAR, description INTEGER, fully_qualified_name VARCHAR, name VARCHAR, parent_account_id INTEGER, sub_account BOOLEAN, sync_token INTEGER, tax_code_id INTEGER, updated_at TIMESTAMP)
+    main.address_data(id INTEGER, _fivetran_synced TIMESTAMP, city VARCHAR, country VARCHAR, country_sub_division_code VARCHAR, latitude INTEGER, line_1 VARCHAR, line_2 VARCHAR, line_3 INTEGER, line_4 INTEGER, line_5 INTEGER, longitude INTEGER, postal_code INTEGER)
+    main.bill_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, balance INTEGER, created_at TIMESTAMP, currency_id VARCHAR, department_id INTEGER, doc_number DATE, due_date DATE, exchange_rate INTEGER, global_tax_calculation INTEGER, home_balance INTEGER, payable_account_id INTEGER, private_note VARCHAR, sales_term_id INTEGER, sync_token INTEGER, total_amount INTEGER, transaction_date DATE, updated_at TIMESTAMP, vendor_id INTEGER)
+    main.bill_line_data(bill_id INTEGER, index INTEGER, _fivetran_synced TIMESTAMP, account_expense_account_id INTEGER, account_expense_billable_status VARCHAR, account_expense_class_id INTEGER, account_expense_customer_id INTEGER, account_expense_tax_amount INTEGER, account_expense_tax_code_id VARCHAR, amount DOUBLE, description VARCHAR, item_expense_billable_status INTEGER, item_expense_class_id INTEGER, item_expense_customer_id INTEGER, item_expense_item_id INTEGER, item_expense_quantity INTEGER, item_expense_tax_code_id INTEGER, item_expense_unit_price INTEGER)
+    main.bill_linked_txn_data(bill_id INTEGER, index INTEGER, _fivetran_synced TIMESTAMP, bill_payment_id INTEGER)
+    main.bill_payment_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, check_bank_account_id INTEGER, check_print_status VARCHAR, created_at TIMESTAMP, credit_card_account_id INTEGER, currency_id VARCHAR, department_id INTEGER, doc_number INTEGER, exchange_rate INTEGER, pay_type VARCHAR, payable_account_id INTEGER, private_note INTEGER, process_bill_payment INTEGER, sync_token INTEGER, total_amount INTEGER, transaction_date DATE, updated_at TIMESTAMP, vendor_id INTEGER)
+    main.bill_payment_line_data(bill_payment_id INTEGER, index INTEGER, _fivetran_synced TIMESTAMP, amount INTEGER, bill_id INTEGER, check_id INTEGER, credit_card_charge_id INTEGER, credit_card_credit_id INTEGER, deposit_id INTEGER, expense_id INTEGER, journal_entry_id INTEGER, linked_bill_payment_id INTEGER, vendor_credit_id INTEGER, bill_payment_credit_card_id INTEGER)
+    main.bundle_data(id INTEGER, _fivetran_synced TIMESTAMP, active BOOLEAN, created_at TIMESTAMP, description VARCHAR, fully_qualified_name VARCHAR, name VARCHAR, print_grouped_items BOOLEAN, purchase_cost INTEGER, sync_token INTEGER, taxable BOOLEAN, unit_price INTEGER, updated_at TIMESTAMP)
+    main.bundle_item_data(bundle_id INTEGER, item_id INTEGER, _fivetran_synced TIMESTAMP, item_quantity INTEGER)
+    main.credit_card_payment_txn_data(id INTEGER, amount DOUBLE, bank_account_id INTEGER, credit_card_account_id INTEGER, created_at TIMESTAMP, updated_at TIMESTAMP, currency_id VARCHAR, transaction_date DATE, _fivetran_deleted BOOLEAN)
+    main.credit_memo_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, apply_tax_after_discount BOOLEAN, balance INTEGER, bill_email VARCHAR, billing_address_id INTEGER, class_id INTEGER, created_at TIMESTAMP, currency_id VARCHAR, custom_p_o_number INTEGER, customer_id INTEGER, customer_memo VARCHAR, department_id INTEGER, doc_number INTEGER, email_status VARCHAR, exchange_rate INTEGER, global_tax_calculation INTEGER, home_balance INTEGER, home_total_amount INTEGER, payment_method_id INTEGER, print_status VARCHAR, private_note INTEGER, remaining_credit INTEGER, sales_term_id INTEGER, shipping_address_id INTEGER, sync_token INTEGER, total_amount INTEGER, total_tax INTEGER, transaction_date DATE)
+    main.credit_memo_line_data(credit_memo_id INTEGER, index INTEGER, _fivetran_synced TIMESTAMP, amount INTEGER, bundle_id INTEGER, bundle_quantity INTEGER, description VARCHAR, description_service_date INTEGER, description_tax_code_id INTEGER, discount_account_id INTEGER, discount_class_id INTEGER, discount_discount_percent INTEGER, discount_percent_based INTEGER, discount_tax_code_id INTEGER, sales_item_account_id INTEGER, sales_item_class_id INTEGER, sales_item_discount_amount INTEGER, sales_item_discount_rate INTEGER, sales_item_item_id INTEGER, sales_item_quantity DOUBLE, sales_item_service_date INTEGER, sales_item_tax_code_id VARCHAR, sales_item_unit_price DOUBLE, sub_total_item_id INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+config-version: 2
+name: 'quickbooks'
+
+version: '0.14.1'
+
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: 'quickbooks'
+
+models:
+  +materialized: table
+vars:
+  quickbooks_schema: main
+  quickbooks_source:
+    quickbooks_account_identifier: "account_data"
+    quickbooks_address_identifier: "address_data"
+    quickbooks_bill_line_identifier: "bill_line_data"
+    quickbooks_bill_linked_txn_identifier: "bill_linked_txn_data"
+    quickbooks_bill_payment_line_identifier: "bill_payment_line_data"
+    quickbooks_bill_payment_identifier: "bill_payment_data"
+    quickbooks_bill_identifier: "bill_dat
+
+
+=== INTERMEDIATE models (27) ===
+  - models/double_entry_transactions/int_quickbooks__bill_double_entry.sql
+    cols: parent_expense_account_id, parent_income_account_id, transaction_id, converted_amount, payed_to_account_id, customer_id, class_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to the specified expense account and credit record to accounts payable for each bill transaction.
+    */
+
+    --To disable this model, set the using_bill variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__bill_payment_double_entry.sql
+    cols: transaction_id, index, amount, converted_amount, payment_account_id, customer_id, account_id, class_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to accounts payable and a credit record to the specified cash account.
+    */
+
+    --To disable this model, set the using_bill_payment variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__credit_card_pymt_double_entry.sql
+    cols: transaction_id, index, converted_amount, customer_id, vendor_id, class_id, department_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to the associated bank account and a credit record to the specified credit card account.
+    */
+
+    --To enable this model, set the using_credit_card_payment_txn variable within your dbt_project.yml file to True.
+  - models/double_entry_transactions/int_quickbooks__credit_memo_double_entry.sql
+    cols: account_id, transaction_id, converted_amount, class_id, vendor_id, amount, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to Discounts Refunds Given and a credit record to the specified income account.
+    */
+
+    --To disable this model, set the using_credit_memo variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__deposit_double_entry.sql
+    cols: transaction_id, converted_amount, deposit_to_acct_id, deposit_from_acct_id, customer_id, class_id, vendor_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to the specified cash account and a credit record to either undeposited funds or a
+    specific other account indicated in the deposit line.
+    */
+
+  - models/double_entry_transactions/int_quickbooks__invoice_double_entry.sql
+    cols: parent_income_account_id, account_id, source_relation, parent, transaction_id, transaction_date, amount, converted_amount, invoice_line_transaction_type, class_id, vendor_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to accounts receivable and a credit record to a specified revenue account indicated on the invoice line.
+    */
+
+    --To disable this model, set the using_invoice variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__journal_entry_double_entry.sql
+    cols: transaction_id, converted_amount, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that provides the debit and credit records of a journal entry transaction.
+    */
+
+    --To disable this model, set the using_journal_entry variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__payment_double_entry.sql
+    cols: transaction_id, index, amount, converted_amount, vendor_id, account_id, class_id, department_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to either undeposited funds or a specified cash account and a credit record to accounts receivable.
+    */
+
+    --To disable this model, set the using_payment variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__purchase_double_entry.sql
+    cols: parent_expense_account_id, transaction_id, converted_amount, payed_to_account_id, payed_from_account_id, payed_from_transaction_type, payed_to_transaction_type, class_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to a specified expense account and a credit record to the payment account.
+    */
+    with purchases as (
+
+  - models/double_entry_transactions/int_quickbooks__refund_receipt_double_entry.sql
+    cols: parent_income_account_id, transaction_id, converted_amount, credit_to_account_id, debit_account_id, class_id, vendor_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to the specified asset account and a credit record the specified cash account.
+    */
+
+    --To disable this model, set the using_refund_receipt variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__sales_receipt_double_entry.sql
+    cols: parent_income_account_id, transaction_id, amount, converted_amount, debit_to_account_id, credit_to_account_id, class_id, vendor_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to the specified cash account and a credit record to the specified asset account.
+    */
+
+    --To disable this model, set the using_sales_receipt variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__transfer_double_entry.sql
+    cols: transaction_id, index, converted_amount, credit_to_account_id, debit_to_account_id, customer_id, vendor_id, account_id, class_id, department_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to the receiveing account and a credit record to the sending account.
+    */
+
+    --To disable this model, set the using_transfer variable within your dbt_project.yml file to False.
+  - models/double_entry_transactions/int_quickbooks__vendor_credit_double_entry.sql
+    cols: parent_income_account_id, transaction_id, converted_amount, debit_to_account_id, credit_account_id, customer_id, class_id, account_id, transaction_type, transaction_source
+    --- head:
+    /*
+    Table that creates a debit record to payable account and a credit record to the expense account.
+    */
+
+    --To disable this model, set the using_vendor_credit variable within your dbt_project.yml file to False.
+  - models/intermediate/int_quickbooks__account_classifications.sql
+    cols: classification, multiplier, financial_statement_helper, transaction_type, adjusted_balance, parent_account_number, parent_account_name, parent_accounts
+    --- head:
+    with accounts as (
+
+        select *
+        from {{ ref('stg_quickbooks__account') }}
+    ),
+  - models/intermediate/int_quickbooks__bill_join.sql
+    col
+... (truncated)

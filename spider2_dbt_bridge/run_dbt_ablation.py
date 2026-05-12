@@ -53,7 +53,7 @@ def _ensure_context(iid: str, cfg) -> bool:
     if ctx.exists(): return True
     rc, _, err = _run_local([sys.executable,
                                 str(REPO / 'spider2_dbt_bridge' / 'export_task_context.py'),
-                                '--task-id', iid], timeout=180)
+                                '--task-id', iid], timeout=600)
     return rc == 0
 
 
@@ -70,6 +70,32 @@ def _inference(iid: str, variant: str, max_new: int = 1500) -> bool:
                                 str(REPO / 'tools' / 'remote_scripts' / '_run_dbt_inference.py'),
                                 iid, str(max_new), variant], timeout=600)
     return rc == 0
+
+
+def _prepare_floor_workspace(cfg, iid: str) -> tuple[str, dict]:
+    """v0_floor: just `cp -R` the upstream example into a per-task workspace.
+    No prompt, no inference, no apply. Returns (workspace_path, manifest).
+    """
+    iid_var = f'{iid}__v0_floor'
+    var_remote = f'{cfg.remote_workspace_root.rstrip("/")}/{iid_var}'
+    var_workspace = f'{var_remote}/workspace'
+    ensure_remote_dir(cfg, var_workspace)
+
+    src_dir = f'{cfg.remote_spider2_dbt}/examples/{iid}'
+    init_cmd = (
+        f'rm -rf {shlex.quote(var_workspace)} && '
+        f'mkdir -p {shlex.quote(var_workspace)} && '
+        f'cp -RTu {shlex.quote(src_dir)} {shlex.quote(var_workspace)} && '
+        f'rm -rf {shlex.quote(var_workspace)}/dbt_packages '
+        f'        {shlex.quote(var_workspace)}/target '
+        f'        {shlex.quote(var_workspace)}/logs'
+    )
+    r = ssh_run(cfg, init_cmd, timeout=120)
+    if r.returncode != 0:
+        return (var_workspace,
+                {'error': f'workspace_init_failed: {r.stderr[:200]}'})
+    return (var_workspace, {'kind': 'none', 'pushed': [],
+                              'fenced_blocks': 0, 'response_chars': 0})
 
 
 def _per_variant_apply(cfg, iid: str, variant: str) -> tuple[str, dict]:
@@ -201,7 +227,7 @@ def _per_variant_eval(cfg, iid: str, variant: str, var_workspace: str) -> dict:
         f'{activate} && /home/denis/dbt/.venv/bin/python '
         f'/home/denis/dbt/colab_bridge/server_official_eval.py '
         f'--task-id {shlex.quote(iid)} '
-        f'--workspace {shlex.quote(var_workspace)}', timeout=180)
+        f'--workspace {shlex.quote(var_workspace)}', timeout=600)
     score = None
     out_text = official.stdout or ''
     # Find LAST top-level JSON object — server prints `{ ... }` block
@@ -235,7 +261,7 @@ def main() -> int:
     ap.add_argument('--tasks', nargs='+', required=True,
                      help='task ids to run, e.g. asana001 playbook001 retail001')
     ap.add_argument('--variants', nargs='+', default=['v1', 'v2', 'v4'],
-                     choices=['v1', 'v2', 'v4'])
+                     choices=['v0_floor', 'v1', 'v2', 'v4'])
     ap.add_argument('--max-new', type=int, default=1500)
     ap.add_argument('--run-id', default=None)
     ap.add_argument('--config', default=None)
@@ -250,17 +276,54 @@ def main() -> int:
     per_task = []
     for iid in args.tasks:
         print(f'\n========== TASK {iid} ==========')
-        if not _ensure_context(iid, cfg):
+        # v0_floor doesn't need context/prompt/inference; skip ensure_context
+        # for variants that are pure floor.
+        non_floor_variants = [v for v in args.variants if v != 'v0_floor']
+        if non_floor_variants and not _ensure_context(iid, cfg):
             print(f'  SKIP {iid}: context failed'); continue
+
         for variant in args.variants:
             print(f'  --- {iid} | {variant} ---')
             t0 = time.time()
+
+            if variant == 'v0_floor':
+                # Pure floor: no inference, no prompt, no apply (just cp -R).
+                ws, manifest = _prepare_floor_workspace(cfg, iid)
+                if not ws or 'error' in manifest:
+                    per_task.append({
+                        'instance_id': iid, 'variant': variant,
+                        'status': 'workspace_prep_failed',
+                        'apply_kind': 'none', 'pushed_files': [],
+                        'inference_used': False, 'prompt_used': False,
+                        'fenced_blocks': 0, 'response_chars': 0,
+                        'mode': 'submission_like_floor_no_gold_prompt',
+                        **manifest,
+                        'wall_time_s': round(time.time()-t0, 1)})
+                    continue
+                ev = _per_variant_eval(cfg, iid, variant, ws)
+                row = {'instance_id': iid, 'variant': variant,
+                        'status': 'done',
+                        'apply_kind': 'none', 'pushed_files': [],
+                        'inference_used': False, 'prompt_used': False,
+                        'fenced_blocks': 0, 'response_chars': 0,
+                        'mode': 'submission_like_floor_no_gold_prompt',
+                        **ev,
+                        'wall_time_s': round(time.time()-t0, 1)}
+                per_task.append(row)
+                print(f'    floor eval: dbt_run={ev.get("dbt_run_rc")} '
+                      f'pass={ev.get("pass_n")}/err={ev.get("err_n")} '
+                      f'score={ev.get("official_score")}')
+                continue
+
+            # Normal LLM-driven variant path
             ok_p = _build_prompt(iid, variant); print(f'    prompt: {ok_p}')
             ok_i = _inference(iid, variant, args.max_new) if ok_p else False
             print(f'    inference: {ok_i}')
             if not (ok_p and ok_i):
                 per_task.append({'instance_id': iid, 'variant': variant,
                                   'status': 'inference_failed',
+                                  'inference_used': bool(ok_i),
+                                  'prompt_used': bool(ok_p),
                                   'wall_time_s': round(time.time()-t0,1)})
                 continue
             ws, manifest = _per_variant_apply(cfg, iid, variant)
@@ -268,6 +331,7 @@ def main() -> int:
             if not ws or 'error' in manifest:
                 per_task.append({'instance_id': iid, 'variant': variant,
                                   'status': 'apply_failed', **manifest,
+                                  'inference_used': True, 'prompt_used': True,
                                   'wall_time_s': round(time.time()-t0,1)})
                 continue
             ev = _per_variant_eval(cfg, iid, variant, ws)
@@ -275,6 +339,9 @@ def main() -> int:
                     'status': 'done',
                     'apply_kind': manifest.get('kind'),
                     'pushed_files': manifest.get('pushed'),
+                    'inference_used': True, 'prompt_used': True,
+                    'fenced_blocks': manifest.get('fenced_blocks', 0),
+                    'response_chars': manifest.get('response_chars', 0),
                     **ev,
                     'wall_time_s': round(time.time()-t0,1)}
             per_task.append(row)

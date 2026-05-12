@@ -1,45 +1,40 @@
-# Final negative-result analysis (v5)
+# Final negative-result analysis (v8)
 
-**Generated:** 2026-04-30T15:44:15.321995+00:00
+**Generated:** 2026-04-30T21:01:29.052795+00:00
 
-## Updated picture after smoke_25 + Llama + Qwen-14B closure
+## v7 added two clean negative results AND one re-attribution
 
-### Negative #1: Layered planning never beats direct B0+Coder-7B on the multi-DB slice
-| Subset | B0 (Coder-7B) | best layered v2 | gap |
-|---|---|---|---|
-| smoke_10 | 1.0000 | 0.8000 | -0.20 |
-| smoke_25 | 0.9600 | 0.9600 | **0.00 (tie!)** |
-| multidb_30 | 0.9333 | 0.8000 | -0.13 |
+### Negative #1 (PERSISTING): Layered planning never beats direct B0 on Spider with code-aware base model
+- B0 multi-DB = 0.9333 (Qwen-Coder-7B)
+- Best layered v3 multi-DB = 0.8000 (B1_v3 / B3_v3)
+- Gap = 0.13 in favour of direct B0.
+- **Generalises to BIRD:** B0 = 0.2667, B3_v3 = 0.2333.
 
-The v2 safety net brings layered to **parity** with direct on smoke_25, but B0 still wins on multi-DB.
+### Negative #2 (NEW v7): Bigger / newer architecture is not enough without Code fine-tune
+- Qwen3-8B B0 multi-DB = 0.9000 vs Qwen-Coder-7B B0 = 0.9333
+- Qwen3-8B B0 smoke_25 = 0.7600 vs Qwen-Coder-7B B0 = 0.96
+- Qwen3-8B B0 BIRD = 0.1333 vs Qwen-Coder-7B B0 = 0.2667
+- **Conclusion:** The Qwen3 architecture (newer, more general) does NOT beat Qwen2.5-Coder fine-tune. Coder fine-tune is the real lever.
 
-### Negative #2: Bigger model is not better
-| Subset | Coder-7B B0 | Coder-14B B0 | delta |
-|---|---|---|---|
-| smoke_10 | 1.0000 | 1.0000 | tie |
-| smoke_25 | 0.9600 | 0.9600 | tie |
-| multidb_30 | **0.9333** | 0.8667 | **−0.067 (7B wins)** |
+### POSITIVE re-attribution (NEW v7): The B2_v2 multi-DB win was MISattributed to the planner
 
-### Positive #1: v2 safety net recovered earlier regression (now confirmed across smoke_25)
+Until v7 the project reported B2_v2 + Qwen-Coder-7B = 0.80 multi-DB as "only layered configuration that beats B1". The implicit attribution was: "the planner stack with v2 safety net helps".
 
-| Branch | smoke_10 v1→v2 | smoke_25 v1→v2 | multidb v1→v2 |
-|---|---|---|---|
-| B3 | 0.3000→**0.8000** (+0.50) | (no v1 smoke25)→**0.9600** | 0.4667→**0.7333** (+0.27) |
-| B4 | 0.3000→**0.8000** (+0.50) | (no v1 smoke25)→**0.9600** | 0.4667→**0.7333** (+0.27) |
+The v7 retrieval/linker baselines (B1_v3, B3_v3) achieve the **same** EX = 0.80 on multi-DB **without any planner**:
+- No JSON plan generation.
+- No jsonschema validation.
+- No B1-fallback hierarchy.
+- No multi-LLM-call orchestration.
+- Just a bidirectional schema linker (table-first AND column-first BM25+ngram, merged with link_confidence).
 
-### Positive #2: B2_v2 multi-DB beats B1 (only layered positive)
-B2_v2 multi-DB = 0.8000 > B1 multi-DB = 0.7667 (delta +0.0333). On smoke_25 layered = direct (parity).
+**The +0.0333 win came from better schema selection.** B2_v2's planner contributed nothing to accuracy; it contributed only audit-trail value at the cost of additional LLM calls.
 
-### Positive #3 (NEW): Llama-3.1-8B competes with Coder-7B/14B on multi-DB
-- Llama B0 multi-DB = **0.8333**
-- Coder-7B B0 multi-DB = 0.9333
-- Coder-14B B0 multi-DB = 0.8667
+This is the strongest scientific re-attribution in the project: **complexity ≠ value.** A simpler architecture (B1_v3) achieves the same accuracy as the multi-component planner stack (B2_v2).
 
-A general-purpose 8B model is competitive with code-specialised 14B on schema-diverse data — supports the "bigger / specialised model is not always better" story.
+## Defense narrative update
 
-## Bottom line
-The v5 closure does not overturn any earlier conclusion; it **strengthens** them:
-- Production: B0 + Qwen-Coder-7B remains optimal.
-- B2_v2 audit-trail variant remains the only layered configuration with a positive signal vs B1 on the master scientific slice (multi-DB).
-- The 14B comparator is now confirmed negative across smoke_25 too — bigger model adds zero accuracy.
-- Llama-3.1-8B competitive on multi-DB B0 — adds a clean "general-purpose model competes with code-specialised one on diverse schemas" data-point.
+Old narrative (v6): "B2_v2 multi-DB = 0.80 beats B1, the only positive layered signal."
+
+New narrative (v8): "B1_v3 = B3_v3 = 0.80 multi-DB. The +0.0333 win is from a deterministic bidirectional schema linker, not from the planner stack. The previously-reported B2_v2 win was actually a schema-linking win in disguise."
+
+This is a stronger, more honest, and more defensible scientific position.

@@ -1,0 +1,344 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Create a comprehensive invoice table that combines invoice details, customer information, and date attributes, linking each invoice with its customer and date dimensions
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `chinook.duckdb`
+    main.album(album_id INTEGER, title VARCHAR, artist_id INTEGER)
+    main.artist(artist_id INTEGER, name VARCHAR)
+    main.customer(customer_id INTEGER, first_name VARCHAR, last_name VARCHAR, company VARCHAR, address VARCHAR, city VARCHAR, state VARCHAR, country VARCHAR, postal_code VARCHAR, phone VARCHAR, fax VARCHAR, email VARCHAR, support_rep_id INTEGER)
+    main.employee(employee_id INTEGER, last_name VARCHAR, first_name VARCHAR, title VARCHAR, reports_to INTEGER, birth_date DATE, hire_date DATE, address VARCHAR, city VARCHAR, state VARCHAR, country VARCHAR, postal_code VARCHAR, phone VARCHAR, fax VARCHAR, email VARCHAR)
+    main.genre(genre_id INTEGER, name VARCHAR)
+    main.invoice(invoice_id INTEGER, customer_id INTEGER, invoice_date DATE, billing_address VARCHAR, billing_city VARCHAR, billing_state VARCHAR, billing_country VARCHAR, billing_postal_code VARCHAR, total DOUBLE)
+    main.invoice_line(invoice_line_id INTEGER, invoice_id INTEGER, track_id INTEGER, unit_price DOUBLE, quantity INTEGER)
+    main.media_type(media_type_id INTEGER, name VARCHAR)
+    main.playlist(playlist_id INTEGER, name VARCHAR)
+    main.playlist_track(playlist_id INTEGER, track_id INTEGER)
+    main.track(track_id INTEGER, name VARCHAR, album_id INTEGER, media_type_id INTEGER, genre_id INTEGER, composer VARCHAR, milliseconds INTEGER, bytes INTEGER, unit_price DOUBLE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'chinook'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'chinook'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"
+
+
+=== STAGING models (10) ===
+  - models/staging/stg_album.sql
+    cols: album_title
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT album_id,
+           title AS album_title,
+           artist_id
+  - models/staging/stg_artist.sql
+    cols: artist_name
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT artist_id,
+           name AS artist_name
+      FROM {{ source('main', 'artist') }}
+  - models/staging/stg_customer.sql
+    cols: customer_first_name, customer_last_name, customer_company, customer_address, customer_city, customer_state, customer_country, customer_postal_code, customer_phone, customer_fax, customer_email, employee_id
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT customer_id,
+           first_name AS customer_first_name,
+           last_name AS customer_last_name,
+  - models/staging/stg_employee.sql
+    cols: employee_last_name, employee_first_name, employee_title, employee_reports_to, employee_birth_date, employee_hire_date, employee_address, employee_city, employee_state, employee_country, employee_postal_code, employee_phone, employee_fax, employee_email
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT employee_id,
+           last_name AS employee_last_name,
+           first_name AS employee_first_name,
+  - models/staging/stg_genre.sql
+    cols: genre_name
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT genre_id,
+           name AS genre_name
+      FROM {{ source('main', 'genre') }}
+  - models/staging/stg_invoice.sql
+    cols: invoice_billing_address, invoice_billing_city, invoice_billing_state, invoice_billing_country, invoice_billing_postal_code, invoice_total
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT invoice_id,
+           customer_id,
+           invoice_date,
+  - models/staging/stg_invoice_line.sql
+    cols: track_id, track_unit_price, track_quantity
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT invoice_line_id,
+           invoice_id,
+           track_id AS track_id,
+  - models/staging/stg_media_type.sql
+    cols: media_type_name
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT media_type_id,
+           name AS media_type_name
+      FROM {{ source('main', 'media_type') }}
+  - models/staging/stg_playlist_track.sql
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT * FROM {{ source('main', 'playlist_track') }}
+  - models/staging/stg_track.sql
+    cols: track_name, track_composer_name, track_milliseconds, track_bytes, track_unit_price
+    --- head:
+    {{ config(materialized="view", tags="staging") }}
+
+    SELECT track_id,
+           name AS track_name,
+           album_id,
+
+=== INTERMEDIATE models (3) ===
+  - models/intermediate/dim_date.sql
+    cols: DATE, date_key, day_of_year, week_key, week_of_year, day_of_week, iso_day_of_week, day_name, first_day_of_week, last_day_of_week, month_key, month_of_year, day_of_month, month_name_short, month_name, first_day_of_month, last_day_of_month, INT, ...(29 total)
+    --- head:
+    {{ config(materialized="table", tags="dim") }}
+
+         WITH generate_date AS (
+            SELECT CAST(RANGE AS DATE) AS date_key 
+              FROM RANGE(DATE '2009-01-01', DATE '2013-12-31', INTERVAL 1 DAY)
+  - models/intermediate/dim_track.sql
+    --- head:
+    {{ config(materialized="table", tags="dim") }}
+
+         WITH track AS (
+              SELECT track_id, 
+                     track.track_name,
+  - models/intermediate/fct_invoice_line.sql
+    --- head:
+    {{ config(materialized="table", tags="fact") }}
+
+    SELECT * FROM {{ ref('stg_invoice_line') }}
+
+=== FINAL models (1) ===
+  - macros/create_external_table.sql
+    --- body (first 900 chars):
+    {% macro duckdb__create_external_table(source_node) %}
+
+        {%- set external = source_node.external -%}
+
+        INSTALL 'httpfs';
+        LOAD 'httpfs';
+        CREATE SCHEMA IF NOT EXISTS {{source_node.source_name}};
+        CREATE OR REPLACE VIEW {{source(source_node.source_name, source_node.name).include(database=False)}} AS
+        (
+            SELECT * FROM '{{external.location}}'
+        )
+    {% endmacro %}
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'chinook'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'chinook'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+
+
+--- models/intermediate/dim_customer.yml (head) ---
+version: 2
+
+models:
+  - name: dim_customer
+    description: |
+      This model creates a dimension table for customer data by joining customer information with employee data to add the support representative's name.
+      The SQL selects customer details from the staging customer table (`stg_customer`) and joins it with the employee table (`stg_employee`) on `employee_id` to include the support representative’s first and last name.
+
+    refs:
+      - name: stg_customer
+      - name: stg_employee
+
+
+--- models/intermediate/fct_invoice.yml (head) ---
+version: 2
+
+models:
+  - name: fact_invoice
+    description: |
+      This model creates a fact table for invoice data by selecting all fields from the staging invoice table (`stg_invoice`).
+      It includes detailed information about the invoice, such as the invoice ID, customer ID, billing address, and total amount.
+
+    refs:
+      - name: stg_invoice
+
+    columns:
+      - name: invoice_id
+        description: "The unique identifier for each invoice."
+        tests:
+          - not_null
+
+
+
+--- models/obt/obt_invoice.yml (head) ---
+version: 2
+
+models:
+  - name: obt_invoice
+    description: |
+      This model combines invoice data with customer and date dimensions to create an enhanced invoice table with detailed customer information and date attributes. 
+      The SQL selects data from the `fct_invoice` table and joins it with `dim_customer` and `dim_date` to include customer details and various date-related attributes.
+
+    refs:
+      - name: fct_invoice
+      - name: dim_customer
+      - name: dim_date
+
+    columns:
+
+
+
+--- models/sources.yml (head) ---
+version: 2
+
+sources:
+  - name: main
+    tables:
+      - name: album
+      - name: artist
+      - name: customer
+      - name: employee
+      - name: genre
+      - name: invoice_line
+      - name: invoice
+      - name: media_type
+      - name: playlist_track
+      - name: playlist
+      - name: track
+
+
+--- models/staging/_stg_album.yml (head) ---
+
+version: 2
+
+models:
+  - name: stg_album
+    description: "Contains list of album"
+    columns:
+      - name: album_id
+        description: "Album identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: album_title
+        description: "Title of the album"
+        tests:
+          - not_null
+      - name: artist_id
+        description: "Artist identifier key"
+        tests:
+          - not_null
+
+
+--- models/staging/_stg_artist.yml (head) ---
+
+version: 2
+
+models:
+  - name: stg_artist
+    description: "Contains list of album"
+    columns:
+      - name: artist_id
+        description: "Artist identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: artist_name
+        description: "Name of the artist"
+        tests:
+          - not_null
+
+
+--- models/staging/_stg_customer.yml (head) ---
+
+version: 2
+
+models:
+  - name: stg_customer
+    description: "Contains list of customers"
+    columns:
+      - name: customer_id
+        description: "Customer identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: customer_first_name
+        description: "First name of the customer"
+        tests:
+          - not_null
+      - name: customer_last_name
+        description: "Last name of the customer"
+        tests:
+          - not_null
+      - name: customer_company
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

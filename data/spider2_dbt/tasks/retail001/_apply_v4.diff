@@ -1,0 +1,11 @@
++++ b/models/report/report_customer_invoices.sql
+@@ -1,3 +1,17 @@
+ SELECT
+   c.country,
+   COUNT(DISTINCT i.invoice_id) AS total_invoices,
++  SUM(i.total) AS total_revenue
+ FROM {{ ref('fct_invoices') }} i
+ JOIN {{ ref('dim_customer') }} c ON i.customer_id = c.customer_id
+ GROUP BY c.country
+ ORDER BY total_revenue DESC
+ LIMIT 10

@@ -1,0 +1,30 @@
+{
+  "task_id": "airport001",
+  "instance_id": "airport001",
+  "instruction": "aggregate and summarize Malaysian airport arrival data, including flight counts and calculate the distances between Malaysian airports in kilometers.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/airport001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/airport001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/airport001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/staging/stg_airports__malaysia_distances.sql",
+    "models/core/core.yml",
+    "models/sources.yml",
+    "models/base/base_airports.sql",
+    "models/base/base_arrivals__malaysia.sql",
+    "models/base/base.yml",
+    "models/overview.md",
+    "macros/staging/postgres.sql",
+    "macros/core/distance.sql",
+    "macros/base/cleaning_logic.sql"
+  ],
+  "duckdb_files": [
+    "airport.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

@@ -1,0 +1,466 @@
+{
+  "superstore.duckdb": [
+    {
+      "schema": "main",
+      "table": "dim_calendar",
+      "columns": [
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "date_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quarter",
+          "type": "INTEGER"
+        },
+        {
+          "name": "month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dow",
+          "type": "INTEGER"
+        },
+        {
+          "name": "week_day",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_customers",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_geo",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_products",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_subcategory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "segment",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_regional_managers",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "manager_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "region_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_regions",
+      "columns": [
+        {
+          "name": "region_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "region_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_shipping",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ship_mode",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "fct_returns",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "fct_sales",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_date_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ship_date_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sales",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "profit",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "dim_products_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "dim_customers_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "dim_shipping_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "dim_geo_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "orders",
+      "columns": [
+        {
+          "name": "row_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_mode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "segment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subcategory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sales",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "profit",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "returned_orders",
+      "columns": [
+        {
+          "name": "Returned",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sales_managers",
+      "columns": [
+        {
+          "name": "Person",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Region",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_orders",
+      "columns": [
+        {
+          "name": "row_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ship_mode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "segment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_subcategory",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sales",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "profit",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_returned_orders",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "stg_sales_managers",
+      "columns": [
+        {
+          "name": "manager_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Region",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+```diff
+--- a/models/intermediate/daily_metrics/int_pendo__guide_daily_metrics.sql
++++ b/models/intermediate/daily_metrics/int_pendo__guide_daily_metrics.sql
+@@ -14,6 +14,17 @@
+     select 
+         *,
+         cast( {{ dbt.date_trunc('day', 'occurred_at') }} as date) as occurred_on
++    from {{ ref('pendo__guide_event') }}
++),
++
++daily_guide_metrics AS (
++    SELECT 
++        occurred_on,
++        COUNT(DISTINCT visitor_id) AS count_visitors,
++        COUNT(DISTINCT account_id) AS count_accounts,
++        COUNT(*) AS count_guide_events
++    FROM guide_event
+ )
+ 
+ SELECT 
+@@ -22,6 +33,7 @@
+     SUM(sum_minutes) AS sum_minutes,
+     SUM(count_events) AS count_events,
+     COUNT(event_id) AS count_event_records,
++    dgm.count_visitors,
++    dgm.count_accounts,
++    dgm.count_guide_events
+ FROM events
+ JOIN daily_guide_metrics dgm ON e.occurred_on = dgm.occurred_on
+ GROUP BY e.occurred_on, e.visitor_first_event_on, e.account_first_event_on
+```

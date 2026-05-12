@@ -1,0 +1,38 @@
+```diff
+--- a/models/dim_contacts.sql
++++ b/models/dim_contacts.sql
+@@ -60,6 +60,21 @@
+             users.email,
+             users.created_at,
+             user_events.first_event,
++            user_events.most_recent_event,
++            user_events.number_of_events,
++            order_events.first_order,
++            order_events.most_recent_order,
++            order_events.number_of_orders,
++            (
++                select user_id
++                from events
++                where user_id = users.user_id
++                order by timestamp asc
++                limit 1
++            ) as first_user,
++            (
++                select user_id
++                from events
++                where user_id = users.user_id
++                order by timestamp desc
++                limit 1
++            ) as most_active_user,
+             (
+                 select user_id
+                 from events
+@@ -70,6 +85,7 @@
+                 where user_id = users.user_id
+                 and event_name = 'order_placed'
+                 order by timestamp desc
++                limit 1
+             ) as user_with_most_orders
+     from users
+     left join user_events on users.user_id = user_events.user_id
+```

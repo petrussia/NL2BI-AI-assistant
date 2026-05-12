@@ -1,0 +1,35 @@
++++ b/models/stats/constructor_performance_summary.sql
+@@ -1,3 +1,10 @@
++WITH constructor_performance AS (
++  SELECT
++    c.constructor_name,
++    r.race_year,
++    COUNT(rs.rank) AS total_races,
++    SUM(CASE WHEN rs.rank = 1 THEN 1 ELSE 0 END) AS wins,
++    SUM(CASE WHEN rs.rank <= 3 THEN 1 ELSE 0 END) AS podiums
++  FROM {{ ref('stg_f1_dataset__results') }} rs
++  JOIN {{ ref('stg_f1_dataset__races') }} r ON rs.race_id = r.race_id
++  JOIN {{ ref('stg_f1_dataset__constructors') }} c ON rs.constructor_id = c.constructor_id
++  GROUP BY c.constructor_name, r.race_year
++),
++constructor_ranking AS (
++  SELECT
++    constructor_name,
++    RANK() OVER (ORDER BY SUM(wins) DESC) AS rank,
++    SUM(wins) AS total_wins,
++    SUM(podiums) AS total_podiums
++  FROM constructor_performance
++  GROUP BY constructor_name
++)
+SELECT
+  cp.constructor_name,
+  cp.race_year,
+  cp.total_races,
+  cp.wins,
+  cp.podiums,
+  cr.rank,
+  cr.total_wins,
+  cr.total_podiums
+FROM constructor_performance cp
+JOIN constructor_ranking cr ON cp.constructor_name = cr.constructor_name
+ORDER BY cr.rank;

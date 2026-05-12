@@ -1,0 +1,34 @@
++++ b/models/marts/core/fct_sales.sql
+@@ -1,6 +1,14 @@
+ with sales_data as (
+     select
++        s.id,
++        s.order_id,
++        c.customer_id,
++        p.product_id,
++        sh.ship_mode,
++        g.country,
++        g.city,
++        g.state,
++        rm.manager_name,
+         d.date,
+         s.sales,
+         s.profit,
+@@ -18,6 +26,14 @@
+         s.discount,
+         s.quantity,
+         d.year,
+         d.quarter,
+         d.month,
+         d.week,
+         d.dow,
+         d.week_day
++    from {{ ref('main.fct_sales') }} s
++    left join {{ ref('main.dim_customers') }} c on s.dim_customers_id = c.id
++    left join {{ ref('main.dim_products') }} p on s.dim_products_id = p.id
++    left join {{ ref('main.dim_shipping') }} sh on s.dim_shipping_id = sh.id
++    left join {{ ref('main.dim_geo') }} g on s.dim_geo_id = g.id
++    left join {{ ref('main.dim_regional_managers') }} rm on g.region_id = rm.region_id
++    cross join {{ ref('main.dim_calendar') }} d on s.order_date_id = d.date_id
+ )
+ select * from sales_data

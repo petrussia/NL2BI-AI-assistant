@@ -1,0 +1,254 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate daily metrics reports for Pendo guides and pages
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `pendo.duckdb`
+    main.account_history(id VARCHAR, last_updated_at VARCHAR, _fivetran_synced TIMESTAMP, agent_creationdate VARCHAR, agent_group_id VARCHAR, agent_is_paying BOOLEAN, agent_name VARCHAR, agent_planlevel VARCHAR, first_visit VARCHAR, id_hash VARCHAR, last_visit VARCHAR, salesforce_status_c INTEGER, agent_salesforceaccountid INTEGER, salesforce_customer_health_engagement_score_c INTEGER, salesforce_employee_range_c INTEGER, salesforce_platform_level_c INTEGER, salesforce_segment_c INTEGER, salesforce_name INTEGER, salesforce_account_owner_email_c INTEGER, salesforce_pbf_account_c INTEGER, salesforce_region_c INTEGER)
+    main.application_history(id INTEGER, last_updated_at VARCHAR, _fivetran_synced TIMESTAMP, agent_policy_prod VARCHAR, agent_policy_staging VARCHAR, agent_version_prod VARCHAR, agent_version_staging VARCHAR, application_flags_cname BOOLEAN, application_flags_disabled BOOLEAN, application_flags_guide_localization BOOLEAN, application_flags_guide_widget BOOLEAN, application_flags_onboarding BOOLEAN, application_flags_prevent_code_injection BOOLEAN, application_flags_show_guides_to_anon BOOLEAN, application_flags_xhr_timings BOOLEAN, created_at VARCHAR, created_by_user_id VARCHAR, description INTEGER, disabled_at TIMESTAMP, display_name VARCHAR, event_count INTEGER, event_rate INTEGER, first_event_time VARCHAR, guide_css_url INTEGER, icon_url INTEGER, integrated BOOLEAN, is_deleted BOOLEAN, last_updated_by_user_id VARCHAR, marked_for_deletion_at TIMESTAMP, name VARCHAR)
+    main.event(account_id VARCHAR, remote_ip VARCHAR, server_name VARCHAR, timestamp TIMESTAMP, user_agent VARCHAR, visitor_id VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, num_events INTEGER, num_minutes INTEGER, page_id VARCHAR, _fivetran_id INTEGER)
+    main.feature_event(account_id VARCHAR, feature_id VARCHAR, remote_ip VARCHAR, server_name VARCHAR, timestamp TIMESTAMP, user_agent VARCHAR, visitor_id VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, num_events INTEGER, num_minutes INTEGER, param_parameter INTEGER, _fivetran_id INTEGER)
+    main.feature_history(id VARCHAR, last_updated_at VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, color INTEGER, created_at TIMESTAMP, created_by_user_id VARCHAR, dirty BOOLEAN, group_id VARCHAR, last_updated_by_user_id VARCHAR, name VARCHAR, page_id VARCHAR, root_version_id VARCHAR, stable_version_id VARCHAR, valid_through TIMESTAMP, is_core_event BOOLEAN)
+    main.group_data(id VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, color VARCHAR, created_at VARCHAR, created_by_user_id INTEGER, description INTEGER, last_updated_at VARCHAR, last_updated_by_user_id VARCHAR, length INTEGER, name VARCHAR)
+    main.guide_event(account_id VARCHAR, guide_id VARCHAR, remote_ip VARCHAR, server_name VARCHAR, timestamp TIMESTAMP, user_agent VARCHAR, visitor_id VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, country VARCHAR, element_path VARCHAR, event_id INTEGER, guide_step_id VARCHAR, latitude DECIMAL(18,3), load_time INTEGER, longitude DECIMAL(18,3), region VARCHAR, type VARCHAR, url VARCHAR, _fivetran_id INTEGER)
+    main.guide_history(id VARCHAR, last_updated_at VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, attribute_badge_can_change_badge_color INTEGER, attribute_badge_color INTEGER, attribute_badge_height INTEGER, attribute_badge_image_url INTEGER, attribute_badge_is_only_show_once INTEGER, attribute_badge_name INTEGER, attribute_badge_offset_left INTEGER, attribute_badge_offset_right INTEGER, attribute_badge_offset_top INTEGER, attribute_badge_position INTEGER, attribute_badge_show_on_event INTEGER, attribute_badge_use_hover INTEGER, attribute_badge_width INTEGER, attribute_device_type VARCHAR, attribute_priority INTEGER, attribute_type VARCHAR, created_at TIMESTAMP, created_by_user_id VARCHAR, email_state INTEGER, is_multi_step BOOLEAN, is_training BOOLEAN, last_updated_by_user_id VARCHAR, launch_method VARCHAR, name VARCHAR, published_at VARCHAR, recurrence INTEGER)
+    main.guide_step_history(guide_id VARCHAR, guide_last_updated_at VARCHAR, step_id VARCHAR, _fivetran_synced TIMESTAMP)
+    main.page_event(account_id VARCHAR, page_id VARCHAR, remote_ip VARCHAR, server_name VARCHAR, timestamp TIMESTAMP, user_agent VARCHAR, visitor_id VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, num_events INTEGER, num_minutes INTEGER, param_parameter INTEGER, _fivetran_id INTEGER)
+    main.page_history(id VARCHAR, last_updated_at VARCHAR, _fivetran_synced TIMESTAMP, app_id INTEGER, color INTEGER, created_at TIMESTAMP, created_by_user_id VARCHAR, dirty BOOLEAN, group_id VARCHAR, last_updated_by_user_id VARCHAR, name VARCHAR, root_version_id VARCHAR, stable_version_id VARCHAR, valid_through TIMESTAMP)
+    main.page_rule_history(page_id VARCHAR, page_last_updated_at VARCHAR, rule VARCHAR, _fivetran_synced TIMESTAMP, designer_hint INTEGER, parsed_rule VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+config-version: 2
+name: 'pendo'
+version: '0.5.0'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+profile: 'pendo'
+
+vars:
+  pendo_schema: main
+  pendo_source:
+    pendo_account_history_identifier: "account_history"
+    pendo_application_history_identifier: "application_history"
+    pendo_event_identifier: "event"
+    pendo_feature_event_identifier: "feature_event"
+    pendo_feature_history_identifier: "feature_history"
+    pendo_group_identifier: "group_data" # Uncomment when generating docs; remember to comment out before committing
+    pendo_guide_event_identifier: 
+
+
+=== INTERMEDIATE models (20) ===
+  - models/intermediate/daily_metrics/int_pendo__account_daily_metrics.sql
+    cols: date, occurred_on, count_active_visitors, sum_minutes, sum_events, count_event_records, count_visitors, count_features_clicked, count_pages_viewed, count_page_viewing_visitors, count_feature_clicking_visitors
+    --- head:
+    with events as (
+
+        select 
+            *,
+            cast( {{ dbt.date_trunc('day', 'occurred_at') }} as date) as occurred_on
+  - models/intermediate/daily_metrics/int_pendo__calendar_spine.sql
+    cols: min_date, date, date_spine, date_day
+    --- head:
+    -- depends_on: {{ ref('stg_pendo__application_history') }}
+
+    with spine as (
+
+        {% if execute %}
+  - models/intermediate/daily_metrics/int_pendo__feature_daily_metrics.sql
+    cols: date, occurred_on, visitor_first_event_on, account_first_event_on, sum_clicks, count_click_events, count_visitors, count_accounts, count_first_time_visitors, count_first_time_accounts, sum_minutes, total_feature_clicks, total_feature_visitors, total_feature_accounts, count_return_visitors, count_return_accounts, avg_daily_minutes_per_visitor, avg_daily_clicks_per_visitor, ...(21 total)
+    --- head:
+    with feature_event as (
+
+        select 
+            *,
+            cast( {{ dbt.date_trunc('day', 'occurred_at') }} as date) as occurred_on
+  - models/intermediate/daily_metrics/int_pendo__guide_daily_metrics.sql
+    cols: date, occurred_on, visitor_first_event_on, account_first_event_on, count_visitors, count_accounts, count_guide_events, count_first_time_visitors, count_first_time_accounts
+    --- head:
+    with guide_event as (
+
+        select 
+            *,
+            cast( {{ dbt.date_trunc('day', 'occurred_at') }} as date) as occurred_on
+  - models/intermediate/daily_metrics/int_pendo__page_daily_metrics.sql
+    cols: date, occurred_on, visitor_first_event_on, account_first_event_on, sum_pageviews, count_pageview_events, count_visitors, count_accounts, count_first_time_visitors, count_first_time_accounts, sum_minutes, total_pageviews, total_page_visitors, total_page_accounts, count_return_visitors, count_return_accounts, avg_daily_minutes_per_visitor, avg_daily_pageviews_per_visitor, ...(21 total)
+    --- head:
+    with page_event as (
+
+        select 
+            *,
+            cast( {{ dbt.date_trunc('day', 'occurred_at') }} as date) as occurred_on
+  - models/intermediate/daily_metrics/int_pendo__visitor_daily_metrics.sql
+    cols: date, occurred_on, sum_minutes, sum_events, count_event_records, count_features_clicked, count_pages_viewed
+    --- head:
+    with events as (
+
+        select 
+            *,
+            cast( {{ dbt.date_trunc('day', 'occurred_at') }} as date) as occurred_on
+  - models/intermediate/int_pendo__feature_info.sql
+    cols: product_area_name, page_created_at, page_valid_through, app_display_name, app_platform, created_by_user_full_name, created_by_user_username, last_updated_by_user_full_name, last_updated_by_user_username, creator, updater
+    --- head:
+    with feature as (
+
+        select 
+            {{ dbt_utils.star(from=ref('int_pendo__latest_feature'), except=['latest_feature_index']) }}
+
+  - models/intermediate/int_pendo__guide_alltime_metrics.sql
+    cols: count_visitors, count_accounts, count_events, first_event_at, last_event_at
+    --- head:
+    -- making this its own model so i can use dbt_utils.star for the pivoted out columns
+    with guide_event as (
+
+        select *
+        from {{ ref('pendo__guide_event') }}
+  - models/intermediate/int_pendo__guide_info.sql
+    cols: count_steps, app_display_name, app_platform, created_by_user_full_name, created_by_user_username, last_updated_by_user_full_name, last_updated_by_user_username, creator, updater
+    --- head:
+    with guide as (
+
+        select *
+        from {{ ref('int_pendo__latest_guide') }}
+    ),
+  - models/intermediate/int_pendo__page_info.sql
+    cols: rules, count_active_features, product_area_name, app_display_name, app_platform, created_by_user_full_name, created_by_user_username, last_updated_by_user_full_name, last_updated_by_user_username, creator, updater
+    --- head:
+    with page as (
+
+        select *
+        from {{ ref('int_pendo__latest_page') }}
+    ),
+  - models/intermediate/latest_history/int_pendo__latest_account.sql
+    cols: latest_account_index
+    --- head:
+    with account_history as (
+
+        select *
+        from {{ var('account_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_application.sql
+    cols: latest_application_index
+    --- head:
+    with application_history as (
+
+        select *
+        from {{ var('application_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_feature.sql
+    cols: latest_feature_index
+    --- head:
+    with feature_history as (
+
+        select *
+        from {{ var('feature_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_guide.sql
+    cols: latest_guide_index
+    --- head:
+    with guide_history as (
+
+        select *
+        from {{ var('guide_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_guide_step.sql
+    cols: latest_guide_step_index
+    --- head:
+    with guide_step_history as (
+
+        select *
+        from {{ var('guide_step_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_nps_rating.sql
+    cols: latest_response_index, nps_rating
+    --- head:
+    with poll as (
+
+        select *
+        from {{ var('poll') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_page.sql
+    cols: latest_page_index
+    --- head:
+    with page_history as (
+
+        select *
+        from {{ var('page_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_page_rule.sql
+    cols: latest_page_rule_index
+    --- head:
+    with page_rule_history as (
+
+        select *
+        from {{ var('page_rule_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_visitor.sql
+    cols: latest_visitor_index
+    --- head:
+    with visitor_history as (
+
+        select *
+        from {{ var('visitor_history') }}
+
+  - models/intermediate/latest_history/int_pendo__latest_visitor_account.sql
+    cols: latest_visitor_account_index
+    --- head:
+    with visitor_account_history as (
+
+        select *
+        from {{ var('visitor_account_history') }}
+
+
+=== FINAL models (11) ===
+  - models/pendo__account.sql
+    cols: count_visitors, min_nps_rating, max_nps_rating, avg_nps_rating, count_active_visitors, count_page_viewing_visitors, count_feature_clicking_visitors, count_active_days, count_active_months, sum_minutes, sum_events, count_event_records, average_daily_minutes, average_daily_events, first_event_on, last_event_on, count_associated_visitors
+    --- body (first 900 chars):
+    with account as (
+
+        select *
+        from {{ ref('int_pendo__latest_account') }}
+
+    ),
+
+    visitor_account as (
+
+        select *
+        from {{ ref('int_pendo__latest_visitor_account') }}
+    ),
+
+   
+... (truncated)

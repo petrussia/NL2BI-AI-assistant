@@ -1,0 +1,47 @@
+```sql path=models/reports/job_report.sql
+WITH application AS (
+    SELECT * FROM {{ ref('lever__application_enhanced') }}
+),
+interview AS (
+    SELECT * FROM {{ ref('lever__interview_enhanced') }}
+),
+requisition AS (
+    SELECT * FROM {{ ref('lever__requisition_enhanced') }}
+),
+tag AS (
+    SELECT * FROM {{ ref('lever__opportunity_tag_enhanced') }}
+),
+hiring_manager AS (
+    SELECT * FROM {{ ref('lever__user_enhanced') }}
+)
+
+SELECT 
+    application.id AS application_id,
+    application.created_at AS application_created_at,
+    application.candidate_id AS candidate_id,
+    application.type AS application_type,
+    application.opportunity_id AS opportunity_id,
+    interview.id AS interview_id,
+    interview.date AS interview_date,
+    interview.location AS interview_location,
+    interview.duration AS interview_duration,
+    interview.note AS interview_note,
+    requisition.id AS requisition_id,
+    requisition.job_title AS requisition_job_title,
+    requisition.job_location AS requisition_job_location,
+    requisition.status AS requisition_status,
+    tag.tag AS tag,
+    hiring_manager.id AS hiring_manager_id,
+    hiring_manager.full_name AS hiring_manager_full_name,
+    hiring_manager.email AS hiring_manager_email
+FROM 
+    application
+LEFT JOIN 
+    interview ON application.id = interview.opportunity_id
+LEFT JOIN 
+    requisition ON application.requisition_for_hire_id = requisition.id
+LEFT JOIN 
+    tag ON application.id = tag.opportunity_id
+LEFT JOIN 
+    hiring_manager ON application.posting_hiring_manager_id = hiring_manager.id;
+```

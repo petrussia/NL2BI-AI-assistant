@@ -1,0 +1,23 @@
+```diff
+--- a/models/cpa_and_roas.yml
++++ b/models/cpa_and_roas.yml
+@@ -14,6 +14,18 @@
+     - name: roas
+       description: The return on advertising spend (ROAS).
+       expression: "{{ calc_roas('ad_spend.spend', 'customer_conversions.revenue') }}"
++  - name: total_revenue
++    description: Total revenue generated from conversions.
++    expression: "SUM(customer_conversions.revenue)"
++  - name: total_spend
++    description: Total ad spend.
++    expression: "SUM(ad_spend.spend)"
++  - name: roi
++    description: Return on investment (ROI).
++    expression: "CASE WHEN total_spend = 0 THEN NULL ELSE (total_revenue / total_spend) END"
++
++columns:
++  - name: utm_source
++    description: The source of the traffic.
++    tests:
++      - not_null
+```

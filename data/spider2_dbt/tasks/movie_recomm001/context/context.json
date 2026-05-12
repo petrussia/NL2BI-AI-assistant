@@ -1,0 +1,26 @@
+{
+  "task_id": "movie_recomm001",
+  "instance_id": "movie_recomm001",
+  "instruction": "combine movie_recomm original programs from various genres, clean up their titles, and standardize premiere dates while also categorizing them by genre and renewal status",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/movie_recomm001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/movie_recomm001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/movie_recomm001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "models/movie_recommedation/people.sql",
+    "models/movie_recommedation/directed_by.sql",
+    "models/movie_recommedation/schema.yml",
+    "models/movie_recommedation/genres.sql",
+    "models/movie_recommedation/movies.sql",
+    "models/movie_recommedation/acted_by.sql",
+    "models/movie_recommedation/with_genre.sql"
+  ],
+  "duckdb_files": [
+    "movie_recomm.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

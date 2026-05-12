@@ -1,0 +1,42 @@
+{
+  "tpch.duckdb": [
+    {
+      "schema": "main",
+      "table": "customer",
+      "columns": [
+        {
+          "name": "c_custkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "c_mktsegment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_nationkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "c_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "c_acctbal",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "c_comment",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

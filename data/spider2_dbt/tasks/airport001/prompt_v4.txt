@@ -1,0 +1,244 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        aggregate and summarize Malaysian airport arrival data, including flight counts and calculate the distances between Malaysian airports in kilometers.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `airport.duckdb`
+    main.raw_airports(Airport_ID INTEGER, Name VARCHAR, City VARCHAR, Country VARCHAR, IATA VARCHAR, ICAO VARCHAR, Latitude DOUBLE, Longitude DOUBLE, Altitude INTEGER, Timezone VARCHAR, DST VARCHAR, database_time_zone VARCHAR, Type VARCHAR, Source VARCHAR)
+    main.raw_arrivals(sortTime TIMESTAMP, operatedBy VARCHAR, url VARCHAR, date VARCHAR, iata VARCHAR, icao VARCHAR, airport_name VARCHAR, departureTime_timeAMPM VARCHAR, departureTime_time24 VARCHAR, arrivalTime_timeAMPM VARCHAR, arrivalTime_time24 VARCHAR, carrier_fs VARCHAR, carrier_name VARCHAR, carrier_flightNumber INTEGER, airport_fs VARCHAR, airport_city VARCHAR, isCodeshare BOOLEAN)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'malaysia_airports_analysis'
+version: '1.0.1'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'airport'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+source-paths: ["mode
+
+
+=== STAGING models (2) ===
+  - macros/staging/postgres.sql
+    --- head:
+    {% macro index(this, column) %}
+
+        create index if not exists "{{ this.name }}__index_on_{{ column }}" on {{ this }} ("{{ column }}")
+
+    {% endmacro %}
+  - models/staging/stg_airports__malaysia_distances.sql
+    cols: a_name, b_name, a_lat, a_lon, b_lat, b_lon, lat_dist, lon_dist, area, distance_km
+    --- head:
+    with base_airports as (
+
+        select * from {{ ref('base_airports') }}
+
+    ),
+
+=== FINAL models (4) ===
+  - macros/base/cleaning_logic.sql
+    --- body (first 900 chars):
+    {% macro rm_quotes(column_name) -%}
+
+        {#-- Extra indentation so it appears inline when script is compiled. -#}
+            replace({{ column_name }}, '"', '') as "{{ column_name }}"
+
+    {%- endmacro %}
+
+  - macros/core/distance.sql
+    --- body (first 900 chars):
+    {%- macro get_b_name_columns() -%}
+        {%- set columns = dbt_utils.get_column_values(ref('stg_airports__malaysia_distances'), 'b_name') | list | sort -%}
+        {%- for column in columns %}
+            coalesce("{{ column }}", 0) as "{{ column }}"
+            {%- if not loop.last -%}
+            ,
+            {%- endif -%}
+        {%- endfor %}
+    {%- endmacro %}
+
+
+    {% macro get_b_name_value() %}
+        {%- set columns = dbt_utils.get_column_values(ref('stg_airports__malaysia_distances'), 'b_name') | list | sort -%}
+        {%- for column in columns %}
+            ('{{ column }}')
+            {%- if not loop.last -%}
+            ,
+            {%- endif -%}
+        {%- endfor %}
+    {% endmacro %}
+
+
+    {% macro get_b_name_type(col_type='DOUBLE') %}
+        {%- set columns = dbt_utils.get_column_values(ref('stg_airports__malaysia_distances'), 'b_name') | list | sort -%}
+        {%- for column in columns %}
+            "{{ column }}" {{ col_type }}
+            {%- i
+  - models/base/base_airports.sql
+    --- body (first 900 chars):
+    with raw_airports as (
+
+        select * from {{ source('raw', 'raw_airports') }}
+
+    ),
+
+    cleaned as (
+
+        select
+            airport_id,
+            {{ rm_quotes('name')}},
+            {{ rm_quotes('city')}},
+            {{ rm_quotes('country')}},
+            {{ rm_quotes('iata')}},
+            {{ rm_quotes('icao')}},
+            latitude,
+            longitude,
+            altitude,
+            {{ rm_quotes('timezone')}},
+            {{ rm_quotes('dst')}},
+            {{ rm_quotes('database_time_zone')}},
+            {{ rm_quotes('type')}},
+            {{ rm_quotes('source')}}
+
+        from
+            raw_airports
+
+    )
+
+    select * from cleaned
+  - models/base/base_arrivals__malaysia.sql
+    cols: sort_time_utc, arrival_timestamp, operated_by, full_url, arrival_date, arrival_iata, arrival_icao, arrival_airport_name, departure_time_time_am_pm, departure_time_time_24, arrival_time_time_am_pm, arrival_time_time_24, carrier_fs, carrier_name, carrier_flight_number, departure_airport_fs, departure_airport_city, is_code_share
+    --- body (first 900 chars):
+    with raw_arrivals as (
+
+        select * from {{ source('raw', 'raw_arrivals') }}
+
+    ),
+
+    renamed_n_cast_n_add_col as (
+
+        select
+            sorttime                                        as sort_time_utc,
+            sorttime + interval '8 hour'                    as arrival_timestamp,
+            operatedby                                      as operated_by,
+            concat('https://www.flightstats.com/v2', url)   as full_url,
+            strptime("date", '%d-%b-%Y')                    as arrival_date,
+            iata                                            as arrival_iata,
+            icao                                            as arrival_icao,
+            airport_name                                    as arrival_airport_name,
+            departuretime_timeampm                          as departure_time_time_am_pm,
+            departuretime_time24                            as departure_time_time_24,
+            arriv
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'malaysia_airports_analysis'
+version: '1.0.1'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'airport'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can 
+
+
+--- models/base/base.yml (head) ---
+version: 2
+
+
+models:
+  - name: base_airports
+    description: |
+      The cleaned version of `raw_airports`.
+
+      _Note: The default materialisation of this table is `ephemeral`,
+      but it is overridden in the SQL to be materialised as a `table` instead.
+      This is so that indexes can be assigned._
+
+    columns:
+      - name: airport_id
+        description: "Unique OpenFlights identifier for this airport."
+        tests:
+          - not_null
+
+      - name: name
+        description: "Name
+
+
+--- models/core/core.yml (head) ---
+version: 2
+
+models:
+  - name: fct_arrivals__malaysia_summary
+    description: >
+      This model provides a summary of flight arrivals to Malaysian airports, including information on the airport's name, location, and the number of arriving flights for the most recent available date. 
+      The data is filtered to include only non-code-shared flights.
+
+    refs:
+      - name: base_airports
+      - name: base_arrivals__malaysia
+
+    columns:
+      - name: airport_id
+        description: "Unique Op
+
+
+--- models/sources.yml (head) ---
+version: 2
+
+
+sources:
+  - name: raw
+    schema: main
+    tables:
+      - name: raw_airports
+      - name: raw_arrivals
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

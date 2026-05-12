@@ -1,0 +1,167 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate a comprehensive social media report that includes Facebook, Instagram, LinkedIn, and Twitter reports.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `social_media.duckdb`
+    main.account_history(id VARCHAR, updated_at TIMESTAMP, _fivetran_synced TIMESTAMP, approval_status VARCHAR, business_id INTEGER, business_name INTEGER, created_at TIMESTAMP, deleted BOOLEAN, industry_type INTEGER, name VARCHAR, salt INTEGER, timezone VARCHAR, timezone_switch_at TIMESTAMP)
+    main.facebook_pages_daily_page_metrics_total_data(date TIMESTAMP, page_id INTEGER, _fivetran_synced VARCHAR, page_actions_post_reactions_anger_total INTEGER, page_actions_post_reactions_haha_total INTEGER, page_actions_post_reactions_like_total INTEGER, page_actions_post_reactions_love_total INTEGER, page_actions_post_reactions_sorry_total INTEGER, page_actions_post_reactions_total INTEGER, page_actions_post_reactions_wow_total INTEGER, page_fan_adds INTEGER, page_fan_removes INTEGER, page_fans INTEGER, page_impressions INTEGER, page_impressions_nonviral INTEGER, page_impressions_organic INTEGER, page_impressions_paid INTEGER, page_impressions_viral INTEGER, page_negative_feedback INTEGER, page_places_checkin_total INTEGER, page_post_engagements INTEGER, page_posts_impressions INTEGER, page_posts_impressions_nonviral INTEGER, page_posts_impressions_organic INTEGER, page_posts_impressions_paid INTEGER, page_posts_impressions_viral INTEGER, page_total_actions INTEGER, page_video_complete_views_30_s INTEGER, page_video_complete_views_30_s_autoplayed INTEGER, page_video_complete_views_30_s_click_to_play INTEGER)
+    main.facebook_pages_lifetime_post_metrics_total_data(date TIMESTAMP, post_id DOUBLE, _fivetran_synced VARCHAR, post_clicks INTEGER, post_engaged_fan INTEGER, post_engaged_users INTEGER, post_impressions INTEGER, post_impressions_fan INTEGER, post_impressions_nonviral INTEGER, post_impressions_organic INTEGER, post_impressions_paid INTEGER, post_impressions_viral INTEGER, post_negative_feedback INTEGER, post_reactions_anger_total INTEGER, post_reactions_haha_total INTEGER, post_reactions_like_total INTEGER, post_reactions_love_total INTEGER, post_reactions_sorry_total INTEGER, post_reactions_wow_total INTEGER, post_video_avg_time_watched INTEGER, post_video_complete_views_30_s_autoplayed INTEGER, post_video_complete_views_30_s_clicked_to_play INTEGER, post_video_complete_views_30_s_organic INTEGER, post_video_complete_views_30_s_paid INTEGER, post_video_complete_views_organic INTEGER, post_video_complete_views_paid INTEGER, post_video_view_time INTEGER, post_video_view_time_organic INTEGER, post_video_views INTEGER, post_video_views_10_s INTEGER)
+    main.facebook_pages_page_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, affiliation INTEGER, app_id INTEGER, artists_we_like INTEGER, attire INTEGER, awards INTEGER, band_interests INTEGER, band_members INTEGER, bio INTEGER, birthday INTEGER, booking_agent INTEGER, built INTEGER, can_checkin BOOLEAN, can_post BOOLEAN, category VARCHAR, category_list VARCHAR, checkins INTEGER, company_overview INTEGER, culinary_team INTEGER, current_location INTEGER, description VARCHAR, directed_by INTEGER, display_subtext VARCHAR, emails VARCHAR, fan_count INTEGER, features INTEGER, food_styles INTEGER, founded INTEGER)
+    main.facebook_pages_post_history_data(id DOUBLE, updated_time TIMESTAMP, _fivetran_synced VARCHAR, allowed_advertising_objects INTEGER, created_time TIMESTAMP, is_eligible_for_promotion BOOLEAN, is_hidden BOOLEAN, is_instagram_eligible BOOLEAN, is_published BOOLEAN, page_id INTEGER, parent_id INTEGER, privacy_allow INTEGER, privacy_deny INTEGER, privacy_description VARCHAR, privacy_friends INTEGER, privacy_value VARCHAR, promotable_id DOUBLE, share_count INTEGER, status_type VARCHAR, message VARCHAR)
+    main.instagram_business_media_history_data(_fivetran_id VARCHAR, _fivetran_synced TIMESTAMP, caption INTEGER, carousel_album_id INTEGER, created_time TIMESTAMP, id INTEGER, ig_id INTEGER, is_comment_enabled BOOLEAN, is_story BOOLEAN, media_type VARCHAR, media_url VARCHAR, permalink VARCHAR, shortcode VARCHAR, thumbnail_url INTEGER, user_id INTEGER, username VARCHAR)
+    main.instagram_business_media_insights_data(_fivetran_id VARCHAR, _fivetran_synced TIMESTAMP, carousel_album_engagement INTEGER, carousel_album_impressions INTEGER, carousel_album_reach INTEGER, carousel_album_saved INTEGER, carousel_album_video_views INTEGER, comment_count INTEGER, id INTEGER, like_count INTEGER, story_exits INTEGER, story_impressions INTEGER, story_reach INTEGER, story_replies INTEGER, story_taps_back INTEGER, story_taps_forward INTEGER, video_photo_engagement INTEGER, video_photo_impressions INTEGER, video_photo_reach INTEGER, video_photo_saved INTEGER, video_views INTEGER)
+    main.instagram_business_user_history_data(_fivetran_id VARCHAR, _fivetran_synced TIMESTAMP, followers_count INTEGER, follows_count INTEGER, id INTEGER, ig_id INTEGER, media_count INTEGER, name VARCHAR, username VARCHAR, website INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'social_media_reporting'
+version: '0.5.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'social_media'
+
+vars:
+  twitter_organic_source:
+    twitter_organic_schema: main
+    twitter_account_history_identifier: "account_history"
+    twitter_organic_tweet_report_identifier: "organic_tweet_report"
+    twitter_tweet_identifier: "tweet"
+    twitter_twitter_user_history_identifier: "twitter_user_history"
+  linkedin_pages_source:
+    linkedin_pages_schema: main
+    linkedin_pages_organization_identifier: "linkedin_pages_organization_data"
+    linkedin_pages_organization_
+
+
+=== INTERMEDIATE models (1) ===
+  - models/intermediate/social_media_reporting__facebook_posts_reporting.sql
+    cols: post_id, platform, clicks, impressions, likes
+    --- head:
+    {{ config(enabled=var('social_media_rollup__facebook_enabled')) }}
+
+    with report as (
+
+        select *
+
+=== FINAL models (1) ===
+  - macros/get_staging_files.sql
+    --- body (first 900 chars):
+    {% macro get_staging_files() %}
+
+        {% set staging_file = [] %}
+
+        {% if var('social_media_rollup__twitter_enabled') %} 
+        {% set _ = staging_file.append(ref('social_media_reporting__twitter_posts_reporting')) %}
+        {% endif %}
+
+        {% if var('social_media_rollup__facebook_enabled') %} 
+        {% set _ = staging_file.append(ref('social_media_reporting__facebook_posts_reporting')) %}
+        {% endif %}
+
+        {% if var('social_media_rollup__linkedin_enabled') %} 
+        {% set _ = staging_file.append(ref('social_media_reporting__linkedin_posts_reporting')) %}
+        {% endif %}
+
+        {% if var('social_media_rollup__instagram_enabled') %} 
+        {% set _ = staging_file.append(ref('social_media_reporting__instagram_posts_reporting')) %}
+        {% endif %}
+
+
+        {{ return(staging_file) }}
+
+    {% endmacro %}
+
+--- dbt_project.yml (head) ---
+name: 'social_media_reporting'
+version: '0.5.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'social_media'
+
+vars:
+  twitter_organic_source:
+    twitter_organic_schema: main
+    twitter_account_history_identifier: "account_history"
+    twitter_organic_tweet_report_identifier: "organic_tweet_report"
+    twitter_tweet_identifier: "tweet"
+    twitter_twitter_user_history_identifier: "twitter_user_history"
+  linkedin_pages_source:
+    linkedin_pages_schema: main
+    linkedi
+
+
+--- models/intermediate/intermediate.yml (head) ---
+version: 2
+
+models:
+  - name: social_media_reporting__facebook_posts_reporting
+    description: "Reporting model for Facebook posts data, aggregating metrics like clicks, impressions, and likes."
+    columns:
+      - name: created_timestamp
+        description: "Timestamp when the post was created."
+      - name: post_id
+        description: "Unique identifier for each Facebook post."
+      - name: post_message
+        description: "Content of the Facebook post."
+      - name: post_url
+        d
+
+
+--- models/social_media_reporting.yml (head) ---
+version: 2
+
+models:
+  - name: social_media_reporting__rollup_report
+    description: Each record represents a post from a social media account
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - post_id
+            - platform
+            - source_relation
+    columns:
+      - name: created_timestamp
+        description: The timestamp the post was created
+      - name: post_id
+        description: The ID of the post, from the source platform
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,257 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Calculate the monthly peak electricity usage, along with its 12-month rolling average and percentage change compared to the previous month, using timestamps and date-time dimensions.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `inzight.duckdb`
+    main.be_holidays(Feestdag VARCHAR, Datum VARCHAR)
+    main.dim_time(moment TIME, hour INTEGER, minute INTEGER, second INTEGER, start_of_hour TIME, start_of_minute TIME, am_pm VARCHAR, part_of_day VARCHAR)
+    main.fct_electricity(from_timestamp TIMESTAMP, to_timestamp TIMESTAMP, tariff VARCHAR, usage DOUBLE, injection DOUBLE, validated BOOLEAN)
+    main.mrt_validated(usage DOUBLE, injection DOUBLE, validated BOOLEAN)
+    main.stg_be_holidays(holiday_name_nl VARCHAR, holiday_date DATE)
+    main.stg_fluvius(from_date DATE, from_time TIME, to_date DATE, to_time TIME, register VARCHAR, volume_in_kwh DOUBLE, validation_status_txt VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'inzight'
+version: '1.0.0'
+config-version: 2
+
+profile: 'inzight'
+
+vars:
+  "dbt_date:time_zone": "Europe/Brussels"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: [dbt_duckdb_utils, dbt_utils]
+  - macro_namespace: dbt_expectations
+    search_order: [dbt_duckdb_utils, dbt_expectations]
+  - macro_namespace: dbt_date
+    search_order: [dbt_duckdb_utils, dbt_date]
+
+models:
+  inzight:
+    +materialized: table
+
+
+
+=== STAGING models (2) ===
+  - models/staging/fluvius/stg_fluvius.sql
+    cols: from_date, from_time, to_date, to_time, register, volume_in_kwh, validation_status_txt
+    --- head:
+    with
+
+    src as (
+        select *
+        from {{ source('fluvius', 'verbruik') }}
+  - models/staging/other/stg_be_holidays.sql
+    cols: holiday_name_nl, holiday_date
+    --- head:
+    with src as (
+        select * from {{ ref('be_holidays') }}
+    ),
+
+    casts as (
+
+=== INTERMEDIATE models (2) ===
+  - models/intermediate/dim_time.sql
+    cols: hour, minute, second, moment, start_of_hour, start_of_minute, am_pm, part_of_day
+    --- head:
+    with hour_spine as (
+        {% for hour in range(24) -%}
+            select {{ hour }} as hour
+            {% if not loop.last %} union all {% endif %}
+        {%- endfor -%}
+  - models/intermediate/fct_electricity.sql
+    cols: from_timestamp, to_timestamp, validated, tariff, usage, injection
+    --- head:
+    with
+
+    fluvius as (
+        select *
+        from {{ ref('stg_fluvius') }}
+
+=== FINAL models (1) ===
+  - models/marts/mrt_validated.sql
+    cols: usage, injection
+    --- body (first 900 chars):
+    with usage_data as (
+        select
+            usage,
+            injection,
+            validated
+        from {{ ref('fct_electricity') }}
+    ),
+
+    final as (
+        select
+            sum(usage) as usage,
+            sum(injection) as injection,
+            validated
+        from usage_data
+        group by validated
+    )
+
+    select *
+    from final
+
+--- dbt_project.yml (head) ---
+name: 'inzight'
+version: '1.0.0'
+config-version: 2
+
+profile: 'inzight'
+
+vars:
+  "dbt_date:time_zone": "Europe/Brussels"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: [dbt_duckdb_utils, dbt_utils]
+  - macro_namespace: dbt_expectations
+    search_order: [dbt_duckdb_utils, dbt_expectations]
+  - macro_namespace: dbt_date
+    search_order: [dbt_duckdb_utils, dbt_date]
+
+models:
+  inzight:
+    +materialized: table
+
+
+
+--- models/intermediate/intermediate.yml (head) ---
+version: 2
+
+models:
+  - name: dim_dates
+    description: A dimension table of dates
+    columns:
+      - name: day_type
+        description: The type of day
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - weekend
+                - weekday
+      - name: month_name_short
+        description: The short name of the month
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Jan
+
+
+
+--- models/marts/marts.yml (head) ---
+version: 2
+
+models:
+  - name: mrt_capacity_tariff
+    description: |
+      This model analyzes peak energy usage to determine the capacity tariff for each month. 
+      It calculates the peak energy usage for each month, tracks the timestamp and date of the peak, and provides additional information such as the day of the week, whether it was a holiday, and the 12-month rolling average of peak values. 
+      The model also calculates the percentage change in peak energy usage compared to the prev
+
+
+--- models/staging/fluvius/src_fluvius.yml (head) ---
+version: 2
+
+sources:
+  - name: fluvius
+    meta:
+      external_location: "assets/fluvius.csv"
+    tables:
+      - name: verbruik
+        description: Energy usage data coming from Fluvius, by quarter
+        columns:
+          - name: van datum
+            description: Start date of the quarter
+            quote: true
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_be_increasing:
+                  strictly: false
+          - name: van tijdsti
+
+
+--- models/staging/fluvius/stg_fluvius.yml (head) ---
+version: 2
+
+models:
+  - name: stg_fluvius
+    description: Staging model for Fluvius energy usage data
+    columns:
+      - name: from_date
+        description: Start date of the quarter
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_increasing:
+              strictly: false
+      - name: from_time
+        description: Start time of the quarter
+        tests:
+          - not_null
+      - name: to_date
+        description: End date of the quarter
+
+
+
+--- models/staging/other/stg_be_holidays.yml (head) ---
+version: 2
+
+models:
+  - name: stg_be_holidays
+    description: Staging model for official holidays in Belgium
+    columns:
+      - name: holiday_name_nl
+        description: Name of the holiday (Dutch)
+        tests:
+          - not_null
+      - name: holiday_date
+        description: Date of the holiday
+        tests:
+          - not_null
+          - unique
+          - dbt_expectations.expect_column_values_to_be_increasing
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,103 @@
++++ b/models/xero__profit_and_loss_report.sql
+@@ -1,4 +1,10 @@
+ version: 2
+ 
+ models:
+   - name: xero__profit_and_loss_report
++    description: |
++      This model represents individual line items in the profit and loss (P&L) report at the month and account level. It is derived from `xero__general_ledger` and aggregates net amounts for revenue and expenses. Each record reflects the monthly movement of funds for a given account, which helps assess an organization's financial performance over time.
+     columns:
+       - name: profit_and_loss_id
+         description: Unique identifier for each profit and loss entry.
+       - name: date_month
+         description: The month for which the profit and loss entry is calculated.
+       - name: account_id
+         description: Identifier for the account involved in the transaction.
+       - name: account_name
+         description: Name of the account involved in the transaction.
+       - name: account_type
+         description: Type of the account (e.g., Revenue, Expense).
+       - name: net_amount
+         description: Net amount associated with the transaction.
+       - name: balance
+         description: Running balance of the account up to the specified month.
+ 
+   - name: xero__balance_sheet_report
+     description: 
+       This model represents the balance sheet report at the month and account level. It is derived from `xero__general_ledger` and provides a snapshot of assets, liabilities, and equity at a specific point in time.
+     columns:
+       - name: balance_sheet_id
+         description: Unique identifier for each balance sheet entry.
+       - name: date_month
+         description: The month for which the balance sheet entry is calculated.
+       - name: account_id
+         description: Identifier for the account involved in the transaction.
+       - name: account_name
+         description: Name of the account involved in the transaction.
+       - name: account_type
+         description: Type of the account (e.g., Asset, Liability, Equity).
+       - name: balance
+         description: Balance of the account at the specified month.
+ 
+   - name: xero__invoice_line_items_report
+     description: 
+       This model represents individual line items in the invoice line items report. It is derived from `xero__invoice_line_items` and provides detailed information about each invoice line item.
+     columns:
+       - name: invoice_line_item_id
+         description: Unique identifier for each invoice line item.
+       - name: invoice_id
+         description: Identifier for the invoice associated with the line item.
+       - name: account_code
+         description: Code for the account associated with the line item.
+       - name: line_item_description
+         description: Description of the line item.
+       - name: discount_entered_as_percent
+         description: Discount entered as a percentage.
+       - name: discount_rate
+         description: Discount rate.
+       - name: item_code
+         description: Code for the item associated with the line item.
+       - name: line_amount
+         description: Amount of the line item.
+       - name: quantity
+         description: Quantity of the item.
+       - name: tax_amount
+         description: Tax amount associated with the line item.
+       - name: tax_type
+         description: Type of tax applied to the line item.
+       - name: unit_amount
+         description: Unit amount of the item.
+       - name: source_relation
+         description: Source relation of the line item.
+       - name: invoice_date
+         description: Date when the invoice was issued.
+       - name: updated_date
+         description: Date when the invoice was last updated.
+       - name: planned_payment_date
+         description: Planned payment date for the invoice.
+       - name: due_date
+         description: Due date for the invoice.
+       - name: expected_payment_date
+         description: Expected payment date for the invoice.
+       - name: fully_paid_on_date
+         description: Date when the invoice was fully paid.
+       - name: currency_code
+         description: Currency code for the invoice.
+       - name: currency_rate
+         description: Exchange rate for the invoice.
+       - name: invoice_number
+         description: Number of the invoice.
+       - name: is_sent_to_contact
+         description: Whether the invoice was sent to the contact.
+       - name: invoice_status
+         description: Status of the invoice.
+       - name: type
+         description: Type of the invoice.
+       - name: url
+         description: URL of the invoice.
+       - name: invoice_reference
+         description: Reference number for the invoice.
+       - name: account_id
+         description: Identifier for the account associated with the invoice.
+       - name: account_name
+         description: Name of the account associated with the invoice.

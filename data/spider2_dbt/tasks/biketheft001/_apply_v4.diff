@@ -1,0 +1,29 @@
++++ b/models/core/fact_theft_reports.sql
+@@ -1,6 +1,7 @@
+ {{ config(
+     materialized='table',
++    tags=['theft_reports']
+ ) }}
+ 
+ with archived_reports as (
+@@ -14,6 +15,7 @@
+     select * from {{ ref('stg_theft_reports_daily') }}
+ ),
+ combined_reports as (
++    select * from archived_reports union all select * from daily_reports
+ ),
+ geo_data as (
+     select
+@@ -28,6 +30,7 @@
+     from {{ ref('stg_berlin_lor_geo') }}
+ )
+ select
++    c.record_id,
+     c.damage_euro,
+     c.bike_type,
+     c.crime_period_start_datetime,
+@@ -39,6 +42,7 @@
+     g.bezirk_id,
+     g.bezirk_name
+ from combined_reports c
++left join geo_data g on c.plr_id = g.pgr_id

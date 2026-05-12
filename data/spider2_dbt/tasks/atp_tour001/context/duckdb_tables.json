@@ -1,0 +1,48 @@
+{
+  "atp_tour.duckdb": [
+    {
+      "schema": "main_lookup",
+      "table": "ref_conversion_units",
+      "columns": [
+        {
+          "name": "centimeters_to_inches",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main_lookup",
+      "table": "ref_unknown_values",
+      "columns": [
+        {
+          "name": "unknown_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unknown_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unknown_integer",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unknown_float",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unknown_boolean",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "unknown_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unknown_null",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

@@ -1,41 +1,826 @@
 {
   "connection_ok": true,
   "account_info": {
-    "current_user": "SPIDER2_BENCH",
-    "current_role": "SPIDER2_RW",
-    "current_account": "DI69621",
-    "current_organization": "QOBJWEZ",
-    "current_region": "AWS_AP_SOUTH_1",
+    "current_user": "QOBJWEZ_CX89548",
+    "current_role": "PARTICIPANT",
+    "current_account": "SDB71929",
+    "current_organization": "RSRSBDK",
+    "current_region": "AWS_US_WEST_2",
     "current_version": "10.16.101"
   },
   "cloud": "AWS",
-  "region": "ap-south-1",
-  "self_host_eligible": false,
+  "region": "us-west-2",
+  "self_host_eligible": true,
   "visible_databases": [
+    {
+      "name": "ADMIN_DB",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ADVENTUREWORKS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "AIRLINES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET",
+      "origin": "REASONAUTOMATION.AMAZON.VENDOR + DSP + SPONSORED ADS + BRAND STORE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "AUSTIN",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "BANK_SALES_TRADING",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "BASEBALL",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "BBC",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "BLS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "BOWLINGLEAGUE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "BRAZE_USER_EVENT_DEMO_DATASET",
+      "origin": "BRAZE.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.BRAZE_SAMPLE_DATASET_MARKETPLACE_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "BRAZILIAN_E_COMMERCE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CALIFORNIA_TRAFFIC_COLLISION",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CENSUS_BUREAU_ACS_1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CENSUS_BUREAU_ACS_2",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CENSUS_BUREAU_INTERNATIONAL",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CENSUS_BUREAU_USA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CENSUS_GALAXY__AIML_MODEL_DATA_ENRICHMENT_SAMPLE",
+      "origin": "NNTCJGB.AUTO_FULFILLMENT_AREA$PUBLIC_AWS_US_WEST_2.CENSUS_GALAXY_SAMPLE_NY_AI_ML",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE",
+      "origin": "NNTCJGB.AUTO_FULFILLMENT_AREA$PUBLIC_AWS_US_WEST_2.CENSUS_GALAXY_SAMPLE_NY_ZIP_CODE_TO_BLOCK_GROUP",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "CHICAGO",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CHINOOK",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CITY_LEGISLATION",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CMS_DATA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COMPLEX_ORACLE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COVID19_JHU_WORLD_BANK",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COVID19_NYT",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COVID19_OPEN_DATA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COVID19_OPEN_WORLD_BANK",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COVID19_SYMPTOM_SEARCH",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "COVID19_USA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CPTAC_PDC",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CRYPTO",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "CYMBAL_INVESTMENTS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "DB_IMDB",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "DEATH",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "DELIVERY_CENTER",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "DEPS_DEV_V1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "DIMENSIONS_AI_COVID19",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "EBI_CHEMBL",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ECLIPSE_MEGAMOVIE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ECOMMERCE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "EDUCATION_BUSINESS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ELECTRONIC_SALES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ENTERTAINMENTAGENCY",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "EPA_HISTORICAL_AIR_QUALITY",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ETHEREUM_BLOCKCHAIN",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "EU_SOCCER",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "E_COMMERCE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "F1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "FDA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "FEC",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "FHIR_SYNTHEA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "FINANCE__ECONOMICS",
+      "origin": "HFB60520.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.CYBERSYN_FINANCIAL_DATA_PACKAGE_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "FIREBASE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GA360",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GA4",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GBIF",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GENOMICS_CANNABIS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GEO_OPENSTREETMAP",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GEO_OPENSTREETMAP_BOUNDARIES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GEO_OPENSTREETMAP_CENSUS_PLACES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GEO_OPENSTREETMAP_WORLDPOP",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GHCN_D",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GITHUB_REPOS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GITHUB_REPOS_DATE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GLOBAL_GOVERNMENT",
+      "origin": "HFB60520.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.CYBERSYN_PUBLIC_DATA_STARTER_KIT_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "GLOBAL_WEATHER__CLIMATE_DATA_FOR_BI",
+      "origin": "WEATHERSOURCE.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.WEATHERSOURCE_TILE_SAMPLE_SNOWFLAKE_SECURE_SHARE_1641488329256",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "GNOMAD",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GOOGLE_ADS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GOOGLE_DEI",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GOOGLE_TRENDS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "GOOG_BLOCKCHAIN",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "HACKER_NEWS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "HTAN_1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "HTAN_2",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "HUMAN_GENOME_VARIANTS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "IDC",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "IMDB_MOVIES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "IOWA_LIQUOR_SALES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "IOWA_LIQUOR_SALES_PLUS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "IPL",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "IRS_990",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "LIBRARIES_IO",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "LOG",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "LONDON",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "META_KAGGLE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "MITELMAN",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "MLB",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "MODERN_DATA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "MUSIC",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NCAA_BASKETBALL",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NCAA_INSIGHTS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NETHERLANDS_OPEN_MAP_DATA",
+      "origin": "<revoked>",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "NEW_YORK",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NEW_YORK_CITIBIKE_1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NEW_YORK_CITIBIKE_2",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NEW_YORK_GEO",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NEW_YORK_GHCN",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NEW_YORK_NOAA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NEW_YORK_PLUS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NHTSA_TRAFFIC_FATALITIES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NHTSA_TRAFFIC_FATALITIES_PLUS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NOAA_DATA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NOAA_DATA_PLUS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NOAA_GLOBAL_FORECAST_SYSTEM",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NOAA_GSOD",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NOAA_PORTS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NORTHWIND",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "NPPES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "OPENAQ",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "OPEN_IMAGES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "OPEN_TARGETS_GENETICS_1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "OPEN_TARGETS_GENETICS_2",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "OPEN_TARGETS_PLATFORM_1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "OPEN_TARGETS_PLATFORM_2",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "ORACLE_SQL",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PAGILA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PANCANCER_ATLAS_1",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PANCANCER_ATLAS_2",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PATENTS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PATENTSVIEW",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PATENTS_GOOGLE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PATENTS_USPTO",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "PYPI",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "SAN_FRANCISCO",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "SAN_FRANCISCO_PLUS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "SCHOOL_SCHEDULING",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "SDOH",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "SEC_FILINGS",
+      "origin": "HFB60520.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.CYBERSYN_SEC_COMPANY_FILINGS_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "SEC_QUARTERLY_FINANCIALS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
     {
       "name": "SNOWFLAKE",
       "origin": "SNOWFLAKE.ACCOUNT_USAGE",
       "kind": "APPLICATION"
     },
     {
+      "name": "SNOWFLAKE_LEARNING_DB",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
       "name": "SNOWFLAKE_SAMPLE_DATA",
-      "origin": "SFSALESSHARED.SFC_SAMPLES_AWSAPSOUTH1.SAMPLE_DATA",
+      "origin": "SFSALESSHARED.SFC_SAMPLES_PROD3.SAMPLE_DATA",
       "kind": "IMPORTED DATABASE"
     },
     {
-      "name": "SPIDER2_WORK",
+      "name": "SQLITE_SAKILA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "STACKING",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "STACKOVERFLOW",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "STACKOVERFLOW_PLUS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "SUNROOF_SOLAR",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "TARGETOME_REACTOME",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "TCGA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "TCGA_BIOCLIN_V0",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "TCGA_HG19_DATA_V0",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "TCGA_HG38_DATA_V0",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "TCGA_MITELMAN",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "THELOOK_ECOMMERCE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "THE_MET",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "USA_NAMES",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "USDA_NASS_AGRICULTURE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "USER$QOBJWEZ_CX89548",
+      "origin": "",
+      "kind": "PERSONAL DATABASE"
+    },
+    {
+      "name": "USFS_FIA",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "US_ADDRESSES__POI",
+      "origin": "HFB60520.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.CYBERSYN_ADDRESSES_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "US_REAL_ESTATE",
+      "origin": "HFB60520.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.CYBERSYN_REAL_ESTATE_FUNDAMENTALS_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "WEATHER__ENVIRONMENT",
+      "origin": "HFB60520.SNOWFLAKE_MANAGED$PUBLIC_AWS_US_WEST_2.CYBERSYN_ENVIRONMENTAL_SHARE",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "WIDE_WORLD_IMPORTERS",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "WORD_VECTORS_US",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "WORLD_BANK",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "WWE",
+      "origin": "",
+      "kind": "STANDARD"
+    },
+    {
+      "name": "YES_ENERGY__SAMPLE_DATA",
+      "origin": "ZTRSQZY.AUTO_FULFILLMENT_AREA$PUBLIC_AWS_US_WEST_2.SAMPLE_BY_YES_ENERGY",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "_1000_GENOMES",
       "origin": "",
       "kind": "STANDARD"
     }
   ],
-  "visible_database_count": 3,
+  "visible_database_count": 159,
   "required_database_count": 58,
-  "missing_database_count": 58,
-  "visible_match_count": 0,
-  "has_patents": false,
+  "missing_database_count": 0,
+  "visible_match_count": 58,
+  "has_patents": true,
   "warehouses": [
     {
-      "name": "SPIDER2_WH",
+      "name": "COMPUTE_WH_PARTICIPANT",
+      "state": "STARTED",
+      "size": "Small"
+    },
+    {
+      "name": "SNOWFLAKE_LEARNING_WH",
       "state": "SUSPENDED",
       "size": "X-Small"
     },
@@ -46,8 +831,8 @@
     }
   ],
   "can_run_real_sf_benchmark": false,
-  "role": "SPIDER2_RW",
-  "warehouse": "SPIDER2_WH",
-  "database_default": "SPIDER2_WORK",
+  "role": "PARTICIPANT",
+  "warehouse": "COMPUTE_WH_PARTICIPANT",
+  "database_default": "PATENTS",
   "schema_default": "PUBLIC"
 }

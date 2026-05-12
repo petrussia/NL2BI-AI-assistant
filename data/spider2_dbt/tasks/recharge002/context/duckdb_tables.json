@@ -1,0 +1,4000 @@
+{
+  "recharge.duckdb": [
+    {
+      "schema": "main",
+      "table": "address_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "FIRST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "LAST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ADDRESS_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ADDRESS_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CITY",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PROVINCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "COUNTRY_CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ZIP",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "COMPANY",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PHONE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "address_discounts_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "address_shipping_line_data",
+      "columns": [
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "charge_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_HASH",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "NOTE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ORDERS_COUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_ORDER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SUBTOTAL_PRICE",
+          "type": "FLOAT"
+        },
+        {
+          "name": "TAGS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TAX_LINES",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TOTAL_DISCOUNTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_LINE_ITEMS_PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_TAX",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TOTAL_WEIGHT_GRAMS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_REFUNDS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PAYMENT_PROCESSOR",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "HAS_UNCOMMITED_CHANGES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "RETRY_DATE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ERROR_TYPE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ERROR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CHARGE_ATTEMPTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_NOT_FOUND",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CLIENT_DETAILS_BROWSER_IP",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CLIENT_DETAILS_USER_AGENT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "LAST_CHARGE_ATTEMPT_DATE",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "charge_discount_data",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VALUE",
+          "type": "FLOAT"
+        },
+        {
+          "name": "VALUE_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "charge_line_item_data",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "GRAMS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "VENDOR",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UNIT_PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TAX_DUE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TAXABLE",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "TAXABLE_AMOUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UNIT_PRICE_INCLUDES_TAX",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "PURCHASE_ITEM_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PURCHASE_ITEM_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "charge_order_attribute_data",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_ATTRIBUTE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "charge_shipping_line_data",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "charge_tax_line_data",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "RATE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "checkout_data",
+      "columns": [
+        {
+          "name": "TOKEN",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "BUYER_ACCEPTS_MARKETING",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "COMPLETED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CURRENCY",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "DISCOUNT_CODE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EMAIL",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_CHECKOUT_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_CHECKOUT_SOURCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_ATTRIBUTES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PHONE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "REQUIRES_SHIPPING",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SUBTOTAL_PRICE",
+          "type": "FLOAT"
+        },
+        {
+          "name": "TAXES_INCLUDED",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_TAX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "customer_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "HASH",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_CUSTOMER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "FIRST_CHARGE_PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "FIRST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "LAST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SUBSCRIPTIONS_ACTIVE_COUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SUBSCRIPTIONS_TOTAL_COUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "HAS_VALID_PAYMENT_METHOD",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "HAS_PAYMENT_METHOD_IN_DUNNING",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "TAX_EXEMPT",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "discount_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "STARTS_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ENDS_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VALUE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "USAGE_LIMITS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "APPLIES_TO",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "APPLIES_TO_RESOURCE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "APPLIES_TO_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "APPLIES_TO_PRODUCT_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "MINIMUM_ORDER_AMOUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_recharge__calendar_spine",
+      "columns": [
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "one_time_product_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "IS_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "NEXT_CHARGE_SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRODUCT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "SKU",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "IS_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TRANSACTION_ID",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CHARGE_STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "IS_PREPAID",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_ORDER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_ORDER_NUMBER_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SHIPPED_DATE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "order_line_item_data",
+      "columns": [
+        {
+          "name": "ORDER_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "GRAMS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UNIT_PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TAX_DUE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TAXABLE",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "TAXABLE_AMOUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UNIT_PRICE_INCLUDES_TAX",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "PURCHASE_ITEM_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PURCHASE_ITEM_TYPE",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "orders_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "IS_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TRANSACTION_ID",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CHARGE_STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "IS_PREPAID",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_ORDER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_ORDER_NUMBER_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SHIPPED_DATE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "recharge__billing_history",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_order_id_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_order_number_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "transaction_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_prepaid",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "order_total_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "order_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_processed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_shipped_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "charge_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "payment_processor",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tags",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "orders_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_total_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "calculated_order_total_price",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_subtotal_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "calculated_order_subtotal_price",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_tax_lines",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "calculated_order_tax_lines",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_total_discounts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "calculated_order_total_discounts",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_total_refunds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "calculated_order_total_refunds",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_total_tax",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "calculated_order_total_tax",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_total_weight_grams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "calculated_order_total_weight_grams",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charge_total_shipping",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "calculated_order_total_shipping",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "order_item_quantity",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "order_line_item_total",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_net_charge_value",
+          "type": "FLOAT"
+        },
+        {
+          "name": "total_calculated_net_order_value",
+          "type": "DECIMAL(29,2)"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "recharge__charge_line_item_history",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "charge_row_num",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "amount",
+          "type": "FLOAT"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "line_item_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "recharge__churn_analysis",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_hash",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_customer_id_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "customer_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_charge_processed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscriptions_active_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscriptions_total_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_valid_payment_method",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_payment_method_in_dunning",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tax_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "billing_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_orders",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_amount_ordered",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_order_amount",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_order_line_item_total",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_order_line_item_total",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_item_quantity_per_order",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_amount_charged",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_amount_charged",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charges_count",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_amount_taxed",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_amount_discounted",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_refunds",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_one_time_purchases",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_net_spend",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "calculated_subscriptions_active_count",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_currently_subscribed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_new_customer",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "active_months",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "orders_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_ordered_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "one_time_purchases_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_charged_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_discounted_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_taxed_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "net_spend_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "is_churned",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "churn_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "recharge__customer_details",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_hash",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_customer_id_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "customer_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_charge_processed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscriptions_active_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscriptions_total_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_valid_payment_method",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_payment_method_in_dunning",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tax_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "billing_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_orders",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_amount_ordered",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_order_amount",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_order_line_item_total",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_order_line_item_total",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_item_quantity_per_order",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_amount_charged",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "avg_amount_charged",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "charges_count",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_amount_taxed",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_amount_discounted",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_refunds",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "total_one_time_purchases",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_net_spend",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "calculated_subscriptions_active_count",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_currently_subscribed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_new_customer",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "active_months",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "orders_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_ordered_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "one_time_purchases_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_charged_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_discounted_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "amount_taxed_monthly_average",
+          "type": "DECIMAL(28,2)"
+        },
+        {
+          "name": "net_spend_monthly_average",
+          "type": "DECIMAL(28,2)"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "recharge__subscription_overview",
+      "columns": [
+        {
+          "name": "subscription_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "subscription_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "external_product_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_variant_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "product_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "variant_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_interval_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_interval_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_interval_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_day_of_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_day_of_week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expire_after_specific_number_of_charges",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscription_next_charge_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscription_cancelled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "cancellation_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancellation_reason_comments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "count_successful_charges",
+          "type": "BIGINT"
+        },
+        {
+          "name": "count_queued_charges",
+          "type": "BIGINT"
+        },
+        {
+          "name": "charges_until_expiration",
+          "type": "BIGINT"
+        },
+        {
+          "name": "charge_interval_frequency_days",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "subscription_data",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CANCELLED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "NEXT_CHARGE_SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CANCELLATION_REASON",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CANCELLATION_REASON_COMMENTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRODUCT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_UNIT",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CHARGE_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_WEEK",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_MONTH",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXPIRE_AFTER_SPECIFIC_NUMBER_OF_CHARGES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "subscription_history_data",
+      "columns": [
+        {
+          "name": "SUBSCRIPTION_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CANCELLED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "NEXT_CHARGE_SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CANCELLATION_REASON",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CANCELLATION_REASON_COMMENTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_UNIT",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CHARGE_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_WEEK",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_MONTH",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXPIRE_AFTER_SPECIFIC_NUMBER_OF_CHARGES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRODUCT_TITLE",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__address",
+      "columns": [
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "address_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "address_line_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_line_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "province",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_method_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__address_discounts",
+      "columns": [
+        {
+          "name": "discount_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__address_discounts_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__address_shipping_line",
+      "columns": [
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__address_shipping_line_tmp",
+      "columns": [
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__address_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "FIRST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "LAST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ADDRESS_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ADDRESS_2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CITY",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PROVINCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "COUNTRY_CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ZIP",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "COMPANY",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PHONE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_hash",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "charge_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "note",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subtotal_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "tax_lines",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_discounts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_line_items_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_tax",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "total_refunds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_weight_grams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "charge_processed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "payment_processor",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_transaction_id_payment_processor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_order_id_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "orders_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_uncommitted_changes",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "retry_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "error_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "times_retried",
+          "type": "INTEGER"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "client_details_browser_ip",
+          "type": "INTEGER"
+        },
+        {
+          "name": "client_details_user_agent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tags",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_variant_id_not_found",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_discount",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount_value",
+          "type": "FLOAT"
+        },
+        {
+          "name": "value_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_discount_tmp",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VALUE",
+          "type": "FLOAT"
+        },
+        {
+          "name": "VALUE_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_line_item",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vendor",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "variant_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "grams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "unit_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_due",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taxable",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "taxable_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unit_price_includes_tax",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "external_product_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_variant_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "purchase_item_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "purchase_item_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_line_item_tmp",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "GRAMS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "VENDOR",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UNIT_PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TAX_DUE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TAXABLE",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "TAXABLE_AMOUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UNIT_PRICE_INCLUDES_TAX",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "PURCHASE_ITEM_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PURCHASE_ITEM_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_order_attribute",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_attribute",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_order_attribute_tmp",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_ATTRIBUTE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_shipping_line",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_shipping_line_tmp",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_tax_line",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_tax_line_tmp",
+      "columns": [
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "RATE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__charge_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_HASH",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "NOTE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ORDERS_COUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_ORDER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SUBTOTAL_PRICE",
+          "type": "FLOAT"
+        },
+        {
+          "name": "TAGS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TAX_LINES",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TOTAL_DISCOUNTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_LINE_ITEMS_PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_TAX",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TOTAL_WEIGHT_GRAMS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_REFUNDS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_TRANSACTION_ID_PAYMENT_PROCESSOR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PAYMENT_PROCESSOR",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "HAS_UNCOMMITED_CHANGES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "RETRY_DATE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ERROR_TYPE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ERROR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CHARGE_ATTEMPTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_NOT_FOUND",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CLIENT_DETAILS_BROWSER_IP",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CLIENT_DETAILS_USER_AGENT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "LAST_CHARGE_ATTEMPT_DATE",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_hash",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_customer_id_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "customer_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_charge_processed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscriptions_active_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscriptions_total_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_valid_payment_method",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_payment_method_in_dunning",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tax_exempt",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "billing_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_country",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__customer_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "HASH",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_CUSTOMER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "FIRST_CHARGE_PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "FIRST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "LAST_NAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SUBSCRIPTIONS_ACTIVE_COUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SUBSCRIPTIONS_TOTAL_COUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "HAS_VALID_PAYMENT_METHOD",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "HAS_PAYMENT_METHOD_IN_DUNNING",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "TAX_EXEMPT",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__discount",
+      "columns": [
+        {
+          "name": "discount_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "discount_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "discount_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "discount_starts_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "discount_ends_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage_limits",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applies_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applies_to_resource",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applies_to_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "applies_to_product_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "minimum_order_amount",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__discount_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "STARTS_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ENDS_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CODE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VALUE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "USAGE_LIMITS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "APPLIES_TO",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "APPLIES_TO_RESOURCE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "APPLIES_TO_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "APPLIES_TO_PRODUCT_TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "MINIMUM_ORDER_AMOUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__one_time_product",
+      "columns": [
+        {
+          "name": "one_time_product_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "one_time_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "one_time_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "one_time_next_charge_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "product_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "variant_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_product_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_variant_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sku",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__one_time_product_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "IS_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "NEXT_CHARGE_SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRODUCT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRICE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "SKU",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_order_id_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_order_number_ecommerce",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "charge_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "transaction_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_prepaid",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "order_total_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "order_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_processed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "order_shipped_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__order_line_item",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "index",
+          "type": "INTEGER"
+        },
+        {
+          "name": "external_product_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_variant_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "order_line_item_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_variant_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "unit_price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_due",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taxable",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "taxable_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unit_price_includes_tax",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "purchase_item_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "purchase_item_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__order_line_item_tmp",
+      "columns": [
+        {
+          "name": "ORDER_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "INDEX",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "GRAMS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UNIT_PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TAX_DUE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TAXABLE",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "TAXABLE_AMOUNT",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UNIT_PRICE_INCLUDES_TAX",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "PURCHASE_ITEM_ID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PURCHASE_ITEM_TYPE",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__order_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CHARGE_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "IS_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "EMAIL",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TRANSACTION_ID",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CHARGE_STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "IS_PREPAID",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TOTAL_PRICE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_ORDER_ID_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXTERNAL_ORDER_NUMBER_ECOMMERCE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PROCESSED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "SHIPPED_DATE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__subscription",
+      "columns": [
+        {
+          "name": "subscription_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "subscription_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "product_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "variant_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_next_charge_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "charge_interval_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expire_after_specific_number_of_charges",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_interval_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_interval_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_day_of_week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_day_of_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "external_product_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_variant_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "subscription_cancelled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "cancellation_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancellation_reason_comments",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__subscription_history",
+      "columns": [
+        {
+          "name": "subscription_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "address_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "subscription_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "external_product_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "external_variant_id_ecommerce",
+          "type": "BIGINT"
+        },
+        {
+          "name": "product_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "variant_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_interval_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_interval_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_interval_frequency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_day_of_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "order_day_of_week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "expire_after_specific_number_of_charges",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscription_next_charge_scheduled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subscription_cancelled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "cancellation_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancellation_reason_comments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__subscription_history_tmp",
+      "columns": [
+        {
+          "name": "SUBSCRIPTION_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CANCELLED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "NEXT_CHARGE_SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CANCELLATION_REASON",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CANCELLATION_REASON_COMMENTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_UNIT",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CHARGE_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_WEEK",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_MONTH",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXPIRE_AFTER_SPECIFIC_NUMBER_OF_CHARGES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRODUCT_TITLE",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_recharge_source",
+      "table": "stg_recharge__subscription_tmp",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "ADDRESS_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CUSTOMER_ID",
+          "type": "BIGINT"
+        },
+        {
+          "name": "CREATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "CANCELLED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "NEXT_CHARGE_SCHEDULED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "PRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CANCELLATION_REASON",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "STATUS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "CANCELLATION_REASON_COMMENTS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "PRODUCT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "VARIANT_TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EXTERNAL_PRODUCT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "EXTERNAL_VARIANT_ID_ECOMMERCE",
+          "type": "BIGINT"
+        },
+        {
+          "name": "SKU",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_UNIT",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ORDER_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "CHARGE_INTERVAL_FREQUENCY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_WEEK",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDER_DAY_OF_MONTH",
+          "type": "INTEGER"
+        },
+        {
+          "name": "EXPIRE_AFTER_SPECIFIC_NUMBER_OF_CHARGES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UPDATED_AT",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_FIVETRAN_DELETED",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_FIVETRAN_SYNCED",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ]
+}

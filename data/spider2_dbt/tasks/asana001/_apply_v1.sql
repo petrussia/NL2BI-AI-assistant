@@ -1,0 +1,108 @@
+with task as (
+    select *
+    from {{ ref('asana__task') }}
+),
+
+project_task as (
+    select *
+    from {{ ref('asana__project_task') }}
+),
+
+project as (
+    select *
+    from {{ ref('asana__project') }}
+),
+
+user as (
+    select *
+    from {{ ref('asana__user') }}
+),
+
+team as (
+    select *
+    from {{ ref('asana__team') }}
+),
+
+open_tasks as (
+    select
+        p.id as project_id,
+        p.name as project_name,
+        u.id as user_id,
+        u.name as user_name,
+        count(t.id) as open_tasks_count
+    from
+        project p
+    join
+        project_task pt on p.id = pt.project_id
+    join
+        task t on pt.task_id = t.id
+    join
+        task_follower tf on t.id = tf.task_id
+    join
+        user u on tf.user_id = u.id
+    where
+        t.completed = false
+    group by
+        p.id, p.name, u.id, u.name
+),
+
+completed_tasks as (
+    select
+        p.id as project_id,
+        p.name as project_name,
+        u.id as user_id,
+        u.name as user_name,
+        count(t.id) as completed_tasks_count
+    from
+        project p
+    join
+        project_task pt on p.id = pt.project_id
+    join
+        task t on pt.task_id = t.id
+    join
+        task_follower tf on t.id = tf.task_id
+    join
+        user u on tf.user_id = u.id
+    where
+        t.completed = true
+    group by
+        p.id, p.name, u.id, u.name
+),
+
+avg_close_times as (
+    select
+        p.id as project_id,
+        p.name as project_name,
+        u.id as user_id,
+        u.name as user_name,
+        avg(datediff(day, t.completed_at, t.created_at)) as avg_close_time
+    from
+        project p
+    join
+        project_task pt on p.id = pt.project_id
+    join
+        task t on pt.task_id = t.id
+    join
+        task_follower tf on t.id = tf.task_id
+    join
+        user u on tf.user_id = u.id
+    where
+        t.completed = true
+    group by
+        p.id, p.name, u.id, u.name
+)
+
+select
+    ot.project_id,
+    ot.project_name,
+    ot.user_id,
+    ot.user_name,
+    ot.open_tasks_count,
+    ct.completed_tasks_count,
+    act.avg_close_time
+from
+    open_tasks ot
+join
+    completed_tasks ct on ot.project_id = ct.project_id and ot.user_id = ct.user_id
+join
+    avg_close_times act on ot.project_id = act.project_id and ot.user_id = act.user_id;

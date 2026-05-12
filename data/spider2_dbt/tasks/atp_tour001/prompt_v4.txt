@@ -1,0 +1,241 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can you generate a summary report of ATP tennis matches that includes details about the tournaments, players, match statistics (such as the winner, loser, aces, and scores), and their associated dates, utilizing dimensional tables for tournaments and players to enrich the report?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `atp_tour.duckdb`
+    main_lookup.ref_conversion_units(centimeters_to_inches DOUBLE)
+    main_lookup.ref_unknown_values(unknown_key INTEGER, unknown_text VARCHAR, unknown_integer INTEGER, unknown_float INTEGER, unknown_boolean BOOLEAN, unknown_date INTEGER, unknown_null INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_atp_tour'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_atp_tour'
+
+vars:
+  dbt_date_format: '%Y-%m-%d'
+  dbt_time_format: '%H:%M:%S%z'
+  dbt_datetime_format: '{{ var("dbt_date_format") }} {{ var("dbt_time_format") }}'
+  dbt_timezone: 'Pacific/Auckland'
+  dbt_current_date: '{{ run_started_at.astimezone(modules.pytz.timezo
+
+
+=== STAGING models (3) ===
+  - models/staging/stg_atp_tour__countries.sql
+    cols: country_iso_code, country_name, nationality, continent, region, flag, population, num_of_borders, country_sk
+    --- head:
+    {{ config(
+        tags=["staging"]
+      )
+    }}
+
+  - models/staging/stg_atp_tour__matches.sql
+    cols: tournament_id, tournament_name, tournament_level, tournament_date, surface, draw_size, match_id, score, best_of, best_of_labeled, round, minutes, winner_id, winner_seed, winner_entry, winner_name, winner_dominant_hand, winner_height_cm, ...(30 total)
+    --- head:
+    {{ config(
+        tags=["staging"]
+      )
+    }}
+
+  - models/staging/stg_atp_tour__players.sql
+    cols: num_of_duplicate_players, player_id, player_name, first_name, last_name, dominant_hand, date_of_birth, age, country_iso_code, height_in_centimeters, height_in_inches, wikidata_id, num_of_players, age_incl_date_of_birth, VARCHAR, height, player_sk, date_of_birth_key, ...(19 total)
+    --- head:
+    {{ config(
+        tags=["staging"]
+      )
+    }}
+
+
+=== FINAL models (3) ===
+  - models/mart/dim_date.sql
+    cols: date, dim_date_key, date_iso, date_gb, date_us, day_of_week, day_of_week_number, day_of_week_abbr, day_of_month, day_of_month_number, day_of_year, week_of_year, month_of_year, month_name, month_name_abbr, first_day_of_month, last_day_of_month, quarter_of_year, ...(30 total)
+    --- body (first 900 chars):
+    {{ config(
+        tags=["mart", "dimension"]
+      )
+    }}
+
+    with date_spine as (
+      {{ dbt_utils.date_spine(
+          datepart="day",
+          start_date="cast('1800-01-01' as date)",
+          end_date="cast('2025-07-01' as date)"
+        )
+      }}
+    )
+    , ref_unknown_record as (
+    	select *
+    	  from {{ ref('ref_unknown_values') }}
+    )
+    , calendar as (
+      select {{ to_date_key('date_day') }} as dim_date_key
+            ,date_day
+            ,{{ to_iso_date('date_day') }} as date_iso
+            ,{{ to_date_gb('date_day') }} as date_gb
+            ,{{ to_date_us('date_day') }} as date_us
+            ,strftime(date_day, '%A') as day_of_week
+            ,isodow(date_day) as day_of_week_number
+            ,strftime(date_day, '%a') as day_of_week_abbr
+            ,strftime(date_day, '%d') as day_of_month
+            ,strftime(date_day, '%-d') as day_of_month_number
+            ,strftime(date_day, '%j') as day_of_year
+            ,strftime(date_day, '%W') as week_of_year
+
+  - models/mart/dim_time.sql
+    cols: minute_num, this_minute, dim_time_key, the_time, num_of_minutes, the_hour, the_minute, military_hour, military_minute, am_pm, time_of_day, notation_12, notation_24, standard_time
+    --- body (first 900 chars):
+    {{ config(
+        tags=["mart", "dimension"]
+      )
+    }}
+
+    with recursive num_of_minutes as (
+      select 0 as minute_num
+
+        union all
+
+      select minute_num + 1
+        from num_of_minutes
+       where minute_num < (60 * 24) - 1
+    )
+    , ref_unknown_record as (
+    	select *
+    	  from {{ ref('ref_unknown_values') }}
+    )
+    , time_series as (
+      select minute_num
+    		    ,to_minutes(minute_num) as this_minute
+        from num_of_minutes
+    )
+    , renamed as (
+      select strftime(('1900-01-01 ' || this_minute)::timestamp, '%H%M')::int as dim_time_key
+            ,this_minute as the_time
+            ,minute_num as num_of_minutes
+            ,extract('hour' from this_minute) + 1 as the_hour
+            ,extract('minute' from this_minute) + 1 as the_minute
+            ,extract('hour' from this_minute) as military_hour
+            ,extract('minute' from this_minute) as military_minute
+            ,case
+                when this_minute < '12:00:00' then 'AM'
+                else
+  - models/mart/fct_match.sql
+    cols: varchar, dim_tournament_key, dim_tournament_date_key, dim_player_winner_key, dim_player_loser_key, dim_date_winner_date_of_birth_key, dim_date_loser_date_of_birth_key, score, best_of, best_of_labeled, round, minutes, num_of_matches, winner_seed, winner_entry, winner_height_cm, winner_age, winner_num_of_aces, ...(30 total)
+    --- body (first 900 chars):
+    with matches as (
+    	select *
+    	  from {{ ref('stg_atp_tour__matches') }}
+    )
+    , players as (
+    	select *
+    	  from {{ ref('stg_atp_tour__players') }}
+    )
+    , ref_unknown_record as (
+    	select *
+    	  from {{ ref('ref_unknown_values') }}
+    )
+    , match as (
+    	select coalesce(cast(tournament_sk as varchar), cast(u.unknown_key as varchar)) as dim_tournament_key
+    		  ,coalesce(cast(tournament_date_key as varchar), cast(u.unknown_key as varchar)) as dim_tournament_date_key
+    		  ,coalesce(cast(player_winner_key as varchar), cast(u.unknown_key as varchar)) as dim_player_winner_key
+    		  ,coalesce(cast(player_loser_key as varchar), cast(u.unknown_key as varchar)) as dim_player_loser_key
+    		  ,coalesce(cast(w.date_of_birth_key as varchar), cast(u.unknown_key as varchar)) as dim_date_winner_date_of_birth_key
+    		  ,coalesce(cast(l.date_of_birth_key as varchar), cast(u.unknown_key as varchar)) as dim_date_loser_date_of_birth_key
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_atp_tour'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_atp_tour'
+
+vars:
+  dbt_date_format: '%Y-%m-%d'
+  dbt_time_format: '%H:%M:%S%z'
+  dbt_datetime_format: '{{ var("dbt_date_format") }} {{ var("dbt_time_format") }}'
+  db
+
+
+--- models/mart/_mrt_models.yml (head) ---
+version: 2
+
+models:
+
+  - name: dim_date
+    description: This is a dimension model which contains the date calendar. One row per date.
+    columns:
+      - name: dim_date_key
+        description: This is the unique surrogate key of each date
+        tests:
+            - unique
+            - not_null
+
+  - name: dim_tournament
+    description: >
+      Dimension table for ATP tournaments. This table includes tournament-level details
+      such as tournament name, level, surface type, draw size, and
+
+
+--- models/staging/_src_atp_tour.yml (head) ---
+version: 2
+
+sources:
+  - name: atp_tour
+    schema: main
+    tables:
+      - name: countries
+        description: This tables contains raw countries data from the the Rest Countries API, found here - 'https://restcountries.com/v3.1/all'. One row per country. The data is a json blob.
+      - name: matches
+        description: This tables contains raw matches data. One row per match.
+      - name: players
+        description: This tables contains raw players data. One row per player.
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,25 @@
++++ b/models/FINANCE/lost_revenue.sql
+@@ -34,6 +34,27 @@ SELECT 
+             c.c_acctbal,
+             c.c_phone,
+             c.c_address
++        , SUM(CASE WHEN l.l_returnflag = 'R' THEN l.l_extendedprice * (1 - l.l_discount) ELSE 0 END) AS total_lifetime_value
++        , SUM(CASE WHEN l.l_returnflag = 'R' THEN l.l_extendedprice * (1 - l.l_discount) ELSE 0 END) / SUM(l.l_extendedprice * (1 - l.l_discount)) AS return_percentage
++        , CASE 
++              WHEN SUM(CASE WHEN l.l_returnflag = 'R' THEN l.l_extendedprice * (1 - l.l_discount) ELSE 0 END) / SUM(l.l_extendedprice * (1 - l.l_discount)) > 0.2 THEN 'High Returner'
++              WHEN SUM(CASE WHEN l.l_returnflag = 'R' THEN l.l_extendedprice * (1 - l.l_discount) ELSE 0 END) / SUM(l.l_extendedprice * (1 - l.l_discount)) BETWEEN 0.1 AND 0.2 THEN 'Medium Returner'
++              ELSE 'Low Returner'
++          END AS return_status
++        , SUM(CASE WHEN l.l_returnflag = 'R' THEN l.l_extendedprice * (1 - l.l_discount) ELSE 0 END) - SUM(l.l_extendedprice * (1 - l.l_discount)) AS lost_revenue
+ FROM 
+         {{ ref('orders') }} o
+ JOIN 
+         {{ ref('lineitem') }} l ON o.o_orderkey = l.l_orderkey
+ JOIN 
+         {{ ref('customer') }} c ON o.o_custkey = c.c_custkey
+ GROUP BY 
+         c.c_custkey,
+         c.c_name,
+         c.c_acctbal,
+         c.c_phone,
+         c.c_address

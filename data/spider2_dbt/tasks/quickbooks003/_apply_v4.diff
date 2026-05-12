@@ -1,0 +1,29 @@
++++ b/models/stg_quickbooks__account.sql
+@@ -1,6 +1,7 @@
+ {{
+   config(
+     materialized='table',
++    tags=['balance_sheet']
+   )
+ }}
+
+ select
+@@ -18,6 +19,12 @@
+     account_type,
+     active,
+     balance,
++    balance_with_sub_accounts,
++    classification,
++    created_at,
++    currency_id,
++    description,
+     fully_qualified_name,
+     name,
+     parent_account_id,
+@@ -25,6 +32,7 @@
+     sub_account,
+     sync_token,
+     tax_code_id,
++    updated_at,
+     _fivetran_synced
+ from {{ source('main', 'account_data') }}

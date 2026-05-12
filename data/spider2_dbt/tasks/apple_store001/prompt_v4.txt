@@ -1,0 +1,315 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Please finish the data transformation project to generate source type and territory report for me.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `apple_store.duckdb`
+    main.app(id INTEGER, is_enabled BOOLEAN, name VARCHAR, asset_token VARCHAR, pre_order_info INTEGER, icon_url VARCHAR, app_opt_in_rate INTEGER, ios BOOLEAN, tvos BOOLEAN, is_bundle BOOLEAN, _fivetran_synced VARCHAR)
+    main.app_store_platform_version_source_type(app_id INTEGER, date VARCHAR, platform_version VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, impressions INTEGER, _fivetran_synced VARCHAR, impressions_unique_device INTEGER, page_views INTEGER, page_views_unique_device INTEGER)
+    main.app_store_source_type_device(app_id INTEGER, date VARCHAR, device VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, impressions INTEGER, _fivetran_synced VARCHAR, impressions_unique_device INTEGER, page_views INTEGER, page_views_unique_device INTEGER)
+    main.app_store_territory_source_type(app_id INTEGER, date VARCHAR, source_type VARCHAR, territory VARCHAR, meets_threshold BOOLEAN, impressions INTEGER, _fivetran_synced VARCHAR, impressions_unique_device INTEGER, page_views INTEGER, page_views_unique_device INTEGER)
+    main.apple_store__app_version_report(source_relation VARCHAR, date_day DATE, app_id BIGINT, app_name VARCHAR, source_type VARCHAR, app_version VARCHAR, crashes HUGEINT, active_devices BIGINT, active_devices_last_30_days BIGINT, deletions BIGINT, installations BIGINT, sessions BIGINT)
+    main.apple_store__device_report(source_relation VARCHAR, date_day DATE, app_id BIGINT, app_name VARCHAR, source_type VARCHAR, device VARCHAR, impressions BIGINT, impressions_unique_device BIGINT, page_views BIGINT, page_views_unique_device BIGINT, crashes HUGEINT, first_time_downloads BIGINT, redownloads BIGINT, total_downloads BIGINT, active_devices BIGINT, active_devices_last_30_days BIGINT, deletions BIGINT, installations BIGINT, sessions BIGINT)
+    main.apple_store__overview_report(source_relation VARCHAR, date_day DATE, app_id BIGINT, app_name VARCHAR, impressions HUGEINT, page_views HUGEINT, crashes HUGEINT, first_time_downloads HUGEINT, redownloads HUGEINT, total_downloads HUGEINT, active_devices HUGEINT, deletions HUGEINT, installations HUGEINT, sessions HUGEINT)
+    main.apple_store__platform_version_report(source_relation VARCHAR, date_day DATE, app_id BIGINT, app_name VARCHAR, source_type VARCHAR, platform_version VARCHAR, impressions BIGINT, impressions_unique_device BIGINT, page_views BIGINT, page_views_unique_device BIGINT, crashes HUGEINT, first_time_downloads BIGINT, redownloads BIGINT, total_downloads BIGINT, active_devices BIGINT, active_devices_last_30_days BIGINT, deletions BIGINT, installations BIGINT, sessions BIGINT)
+    main.apple_store_country_codes(country_name VARCHAR, alternative_country_name VARCHAR, country_code_numeric INTEGER, country_code_alpha_2 VARCHAR, country_code_alpha_3 VARCHAR, region VARCHAR, region_code INTEGER, sub_region VARCHAR, sub_region_code INTEGER)
+    main.crashes_app_version(app_id INTEGER, app_version VARCHAR, date VARCHAR, device VARCHAR, meets_threshold BOOLEAN, crashes INTEGER, _fivetran_synced VARCHAR)
+    main.crashes_platform_version(app_id INTEGER, date VARCHAR, device VARCHAR, platform_version VARCHAR, meets_threshold BOOLEAN, crashes INTEGER, _fivetran_synced VARCHAR)
+    main.downloads_platform_version_source_type(app_id INTEGER, date VARCHAR, platform_version VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, first_time_downloads INTEGER, _fivetran_synced VARCHAR, redownloads INTEGER, total_downloads INTEGER)
+    main.downloads_source_type_device(app_id INTEGER, date VARCHAR, device VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, first_time_downloads INTEGER, _fivetran_synced VARCHAR, redownloads INTEGER, total_downloads INTEGER)
+    main.downloads_territory_source_type(app_id INTEGER, date VARCHAR, source_type VARCHAR, territory VARCHAR, meets_threshold BOOLEAN, first_time_downloads INTEGER, _fivetran_synced VARCHAR, redownloads INTEGER, total_downloads INTEGER)
+    main.int_apple_store__app_store_overview(source_relation VARCHAR, date_day DATE, app_id BIGINT, impressions HUGEINT, page_views HUGEINT)
+    main.int_apple_store__app_store_source_type(source_relation VARCHAR, date_day DATE, app_id BIGINT, source_type VARCHAR, impressions HUGEINT, page_views HUGEINT)
+    main.int_apple_store__crashes_app_version(source_relation VARCHAR, date_day DATE, app_id BIGINT, app_version VARCHAR, source_type VARCHAR, crashes HUGEINT)
+    main.int_apple_store__crashes_device(source_relation VARCHAR, date_day DATE, app_id BIGINT, device VARCHAR, source_type VARCHAR, crashes HUGEINT)
+    main.int_apple_store__crashes_overview(source_relation VARCHAR, date_day DATE, app_id BIGINT, crashes HUGEINT)
+    main.int_apple_store__downloads_overview(source_relation VARCHAR, date_day DATE, app_id BIGINT, first_time_downloads HUGEINT, redownloads HUGEINT, total_downloads HUGEINT)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'apple_store'
+version: '0.4.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: 'apple_store'
+
+vars:
+  apple_store_schema: main
+  apple_store_source:
+    apple_store_app_identifier: "app"
+    apple_store_app_store_platform_version_source_type_report_identifier: "app_store_platform_version_source_type"
+    apple_store_app_store_source_type_device_report_identifier: "app_store_source_type_device"
+    apple_store_app_store_territory_source_type_report_identifier: "app_store_territory_source_type"
+    apple_store_crashes_app_version_device_report_identifier: "crashes_a
+
+
+=== INTERMEDIATE models (14) ===
+  - models/intermediate/app_version_report/int_apple_store__crashes_app_version.sql
+    cols: source_type, crashes
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('crashes_app_version') }}
+    ),
+  - models/intermediate/device_report/int_apple_store__crashes_device.sql
+    cols: source_type, crashes
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('crashes_app_version') }}
+    ),
+  - models/intermediate/device_report/int_apple_store__subscription_device.sql
+    cols: active_free_trial_introductory_offer_subscriptions, active_pay_as_you_go_introductory_offer_subscriptions, active_pay_up_front_introductory_offer_subscriptions, active_standard_price_subscriptions, source_type
+    --- head:
+    {{ config(enabled=var('apple_store__using_subscriptions', False)) }}
+
+    with app as (
+
+        select *
+  - models/intermediate/overview_report/int_apple_store__app_store_overview.sql
+    cols: impressions, page_views
+    --- head:
+    with base as (
+
+        select * 
+        from {{ var('app_store_device') }}
+    ),
+  - models/intermediate/overview_report/int_apple_store__crashes_overview.sql
+    cols: crashes
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('crashes_app_version') }}
+    ),
+  - models/intermediate/overview_report/int_apple_store__downloads_overview.sql
+    cols: first_time_downloads, redownloads, total_downloads
+    --- head:
+    with base as (
+
+        select * 
+        from {{ var('downloads_device') }}
+    ),
+  - models/intermediate/overview_report/int_apple_store__sales_subscription_overview.sql
+    cols: active_free_trial_introductory_offer_subscriptions, active_pay_as_you_go_introductory_offer_subscriptions, active_pay_up_front_introductory_offer_subscriptions, active_standard_price_subscriptions
+    --- head:
+    {{ config(enabled=var('apple_store__using_subscriptions', False)) }}
+
+    with subscription_summary as (
+
+        select
+  - models/intermediate/overview_report/int_apple_store__usage_overview.sql
+    cols: active_devices, deletions, installations, sessions
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('usage_device') }}
+    ),
+  - models/intermediate/platform_version_report/int_apple_store__platform_version.sql
+    cols: source_type, crashes
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('crashes_platform_version') }}
+    ),
+  - models/intermediate/source_type_report/int_apple_store__app_store_source_type.sql
+    cols: impressions, page_views
+    --- head:
+    with base as (
+
+        select * 
+        from {{ var('app_store_device') }}
+    ),
+  - models/intermediate/source_type_report/int_apple_store__downloads_source_type.sql
+    cols: first_time_downloads, redownloads, total_downloads
+    --- head:
+    with base as (
+
+        select * 
+        from {{ var('downloads_device') }}
+    ),
+  - models/intermediate/source_type_report/int_apple_store__usage_source_type.sql
+    cols: active_devices, deletions, installations, sessions
+    --- head:
+    with base as (
+
+        select *
+        from {{ var('usage_device') }}
+    ),
+  - models/intermediate/subscription_report/int_apple_store__sales_subscription_events.sql
+    --- head:
+    {{ config(enabled=var('apple_store__using_subscriptions', False)) }}
+
+    with base as (
+
+        select *
+  - models/intermediate/subscription_report/int_apple_store__sales_subscription_summary.sql
+    cols: active_free_trial_introductory_offer_subscriptions, active_pay_as_you_go_introductory_offer_subscriptions, active_pay_up_front_introductory_offer_subscriptions, active_standard_price_subscriptions
+    --- head:
+    {{ config(enabled=var('apple_store__using_subscriptions', False)) }}
+
+    with base as (
+
+        select *
+
+=== FINAL models (5) ===
+  - models/apple_store__app_version_report.sql
+    cols: crashes, active_devices, active_devices_last_30_days, deletions, installations, sessions
+    --- body (first 900 chars):
+    with app as (
+
+        select * 
+        from {{ var('app') }}
+    ),
+
+    crashes_app_version_report as (
+
+        select *
+        from {{ ref('int_apple_store__crashes_app_version') }}
+    ),
+
+    usage_app_version_report as (
+
+        select *
+        from {{ var('usage_app_version') }}
+    ),
+
+    reporting_grain_combined as (
+
+        select
+            source_relation,
+            date_day,
+            app_id,
+            source_type,
+            app_version
+        from usage_app_version_report
+        union all 
+        select 
+            source_relation,
+            date_day,
+            app_id,
+            source_type,
+            app_version
+        from crashes_app_version_report
+    ),
+
+    reporting_grain as (
+
+        select 
+            distinct *
+        from reporting_grain_combined
+    ),
+
+    joined as (
+
+        select 
+            reporting_grain.source_relation,
+            reporting_grain.date_day,
+            reporting_grain.app_id, 
+            app.app_name,
+            reporting_grain.source_type,
+            re
+  - models/apple_store__device_report.sql
+    cols: impressions, impressions_unique_device, page_views, page_views_unique_device, crashes, first_time_downloads, redownloads, total_downloads, active_devices, active_devices_last_30_days, deletions, installations, sessions, active_free_trial_introductory_offer_subscriptions, active_pay_a_you_go_introductory_offer_subscriptions, active_pay_up_front_introductory_offer_subscriptions, active_standard_price_subscriptions
+    --- body (first 900 chars):
+    with app as (
+
+        select * 
+        from {{ var('app') }}
+    ),
+
+    app_store_device as (
+
+        select *
+        from {{ var('app_store_device') }}
+    ),
+
+    downloads_device as (
+
+        select *
+        from {{ var('downloads_device') }}
+    ),
+
+    usage_device as (
+
+        select *
+        from {{ var('usage_device') }}
+    ),
+
+    crashes_device as (
+
+        select *
+        from {{ ref('int_apple_store__crashes_device') }}
+    ),
+
+    {% if var('apple_store__using_subscriptions', False) %}
+    subscription_device as (
+
+        select *
+        from {{ ref('int_apple_store__subscription_device') }}
+    ),
+    {% endif %}
+
+    reporting_grain_combined as (
+
+        select
+            source_relation,
+            date_day,
+            app_id,
+            source_type,
+            device 
+        from app_store_device
+        union all
+        select
+            source_relation,
+            date_day,
+            app_id,
+            source_type,
+            device
+        from crashes_device
+    ),
+
+    reporting_grain as (
+
+        select
+
+  - models/apple_store__overview_report.sql
+    cols: impressions, page_views, crashes, first_time_downloads, redownloads, total_downloads, active_devices, deletions, installations, sessions, active_free_trial_introductory_offer_subscriptions, active_pay_as_you_go_introductory_offer_subscriptions, active_pay_up_front_introductory_offer_subscriptions, a
+... (truncated)

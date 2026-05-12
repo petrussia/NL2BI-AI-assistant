@@ -1,0 +1,3532 @@
+{
+  "greenhouse.duckdb": [
+    {
+      "schema": "main",
+      "table": "activity",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subject",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "application",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applied_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "credited_to_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "current_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "custom_are_you_currently_authorized_to_work_in_the_us_",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_how_did_you_hear_about_fivetran_",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_what_is_your_preferred_pronoun_",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prospect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "prospect_owner_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "rejected_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "rejected_reason_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "application_history",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "new_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "attachment",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "filename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "candidate",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinator_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "photo_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recruiter_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "candidate_tag",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "tag_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "department",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "eeoc",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disability_status_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disability_status_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "gender_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gender_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "race_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "veteran_status_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "veteran_status_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "veteran_status_description",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "email_address",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "greenhouse__interview_enhanced",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "scheduled_interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organizer_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "start_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interview_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration_interview_minutes",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "overall_recommendation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "scorecard_submitted_by_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scorecard_last_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "interviewer_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interview_scorecard_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_submitter_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organizer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewer_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_stage",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_current_job_stage",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_application_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interviewer_is_hiring_manager",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "hiring_managers",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recruiter_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_offices",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_departments",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_parent_departments",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_gender",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_disability_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_race",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_veteran_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "greenhouse__interview_scorecard_detail",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "attribute_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "attribute_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "overall_recommendation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewer_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interview_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interview_start_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "scorecard_submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "hiring_managers",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interview_scorecard_key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_attribute_key",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "hiring_team",
+      "columns": [
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "int_greenhouse__candidate_users",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinator_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "new_candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "recruiter_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "current_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "resume_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "linkedin_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "github_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinator_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recruiter_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinator_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recruiter_email",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "interview",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interview_kit_content",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "closed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "confidential",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "custom_employee_level_designation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_employment_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_recruiting_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_salary_expectations",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_stock_options",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "requisition_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "custom_cost_center",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_application",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_department",
+      "columns": [
+        {
+          "name": "department_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_office",
+      "columns": [
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "office_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_opening",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "close_reason_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "closed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opened_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opening_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_post",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "external",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "internal",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "internal_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "live",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "location_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "job_stage",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "office",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "primary_contact_user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "phone_number",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "prospect_pool",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "prospect_stage",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "scheduled_interview",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organizer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "start_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "scheduled_interviewer",
+      "columns": [
+        {
+          "name": "interviewer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scheduled_interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "scorecard",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "interview",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "overall_recommendation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "submitted_by_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "scorecard_attribute",
+      "columns": [
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "social_media_address",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "source",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "tag",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "disabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "employee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "site_admin",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user_email",
+      "columns": [
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__activity",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "occurred_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "subject",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__activity_tmp",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "subject",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__application",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applied_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "credited_to_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "current_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "last_activity_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_prospect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "prospect_owner_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "rejected_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "rejected_reason_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__application_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "new_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "new_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__application_history_tmp",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "new_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__application_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applied_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "credited_to_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "current_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "custom_are_you_currently_authorized_to_work_in_the_us_",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_how_did_you_hear_about_fivetran_",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_what_is_your_preferred_pronoun_",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location_address",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prospect",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "prospect_owner_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "rejected_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "rejected_reason_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__attachment",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "filename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__attachment_tmp",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "filename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__candidate",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinator_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "new_candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "recruiter_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "current_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__candidate_tag",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "tag_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__candidate_tag_tmp",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "tag_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__candidate_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "company",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinator_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_activity",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "photo_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recruiter_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__department",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_department_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "department_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_department_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__department_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__eeoc",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "disability_status_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disability_status_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "gender_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gender_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "race_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "veteran_status_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "veteran_status_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__eeoc_tmp",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disability_status_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disability_status_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "gender_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gender_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "race_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "race_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "veteran_status_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "veteran_status_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "veteran_status_description",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__email_address",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__email_address_tmp",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__hiring_team",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__hiring_team_tmp",
+      "columns": [
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__interview",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interview_kit_content",
+          "type": "INTEGER"
+        },
+        {
+          "name": "job_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__interview_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interview_kit_content",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_opening_closed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_confidential",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "requisition_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_application",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_application_tmp",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_department",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "department_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_department_tmp",
+      "columns": [
+        {
+          "name": "department_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_office",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "office_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_office_tmp",
+      "columns": [
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "office_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_opening",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "close_reason_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "closed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_openining_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "opened_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opening_text_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_opening_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "close_reason_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "closed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opened_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opening_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_post",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_external",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "job_post_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_internal",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "internal_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_live",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "location_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_post_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "external",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "internal",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "internal_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "live",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "location_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_stage",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_stage_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "job_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__job_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "closed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "confidential",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "custom_employee_level_designation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_employment_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_recruiting_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_salary_expectations",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "custom_stock_options",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "requisition_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "custom_cost_center",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__office",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_office_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "office_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "location_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "office_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_office_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "primary_contact_user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__office_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "primary_contact_user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__phone_number",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "phone_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__phone_number_tmp",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__prospect_pool",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_pool_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__prospect_pool_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__prospect_stage",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "prospect_stage_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_stage_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__prospect_stage_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prospect_pool_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scheduled_interview",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "scheduled_interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organizer_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "start_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scheduled_interview_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organizer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "start_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scheduled_interviewer",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewer_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scheduled_interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scheduled_interviewer_tmp",
+      "columns": [
+        {
+          "name": "interviewer_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scheduled_interview_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scorecard",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interview_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "overall_recommendation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "submitted_by_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scorecard_attribute",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "attribute_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "attribute_category",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scorecard_attribute_tmp",
+      "columns": [
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "scorecard_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__scorecard_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "application_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "interview",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "interviewed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "overall_recommendation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "submitted_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "submitted_by_user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__social_media_address",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__social_media_address_tmp",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "index",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__source",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__source_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_type_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__tag",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tag_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "tag_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__tag_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__user",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_disabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "employee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "full_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "is_site_admin",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "last_updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__user_email",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__user_email_tmp",
+      "columns": [
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_greenhouse",
+      "table": "stg_greenhouse__user_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "disabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "employee_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "site_admin",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ]
+}

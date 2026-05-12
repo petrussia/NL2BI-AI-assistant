@@ -1,0 +1,39 @@
++++ b/models/movie_recommedation/movies.sql
+@@ -1,7 +1,48 @@
+-- get movies and filter only title in english
+--
++WITH cleaned_movies AS (
++    SELECT
++        movie_id,
++        TRIM(SPLIT_PART(title, '(', 1)) AS cleaned_title,
++        TO_DATE(CAST(SPLIT_PART(SUBSTRING_INDEX(title, ' ', -1), ')', 1) AS INT), '%Y') AS premiere_date
++    FROM all_movie_aliases_iso
++    WHERE language_iso_639_1 = 'en'
++),
++genre_mapping AS (
++    SELECT
++        movie_id,
++        category_names.name AS genre_name
++    FROM movie_categories
++    JOIN category_names ON movie_categories.category_id = category_names.category_id
++),
++renewal_status AS (
++    SELECT
++        movie_id,
++        CASE
++            WHEN movielens_ratings.rating >= 4 THEN 'Renewed'
++            ELSE 'Not Renewed'
++        END AS renewal_status
++    FROM movielens_ratings
++    GROUP BY movie_id
++)
++
+SELECT
++    cm.movie_id,
++    cm.cleaned_title,
++    cm.premiere_date,
++    gm.genre_name,
++    rs.renewal_status
+FROM cleaned_movies cm
+LEFT JOIN genre_mapping gm ON cm.movie_id = gm.movie_id
+LEFT JOIN renewal_status rs ON cm.movie_id = rs.movie_id;

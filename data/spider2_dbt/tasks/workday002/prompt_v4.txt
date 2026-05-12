@@ -1,0 +1,273 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Create a table that aggregates job profile information along with job family and job family group details
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `workday.duckdb`
+    main.int_workday__personal_details(worker_id VARCHAR, source_relation VARCHAR, date_of_birth DATE, gender VARCHAR, is_hispanic_or_latino INTEGER, first_name VARCHAR, last_name VARCHAR, email_address VARCHAR, ethnicity_codes VARCHAR, military_status VARCHAR)
+    main.int_workday__worker_details(worker_id VARCHAR, source_relation VARCHAR, worker_code INTEGER, user_id VARCHAR, universal_id INTEGER, is_user_active BOOLEAN, is_employed BOOLEAN, hire_date DATE, departure_date DATE, days_as_worker BIGINT, is_terminated BOOLEAN, primary_termination_category VARCHAR, primary_termination_reason VARCHAR, is_regrettable_termination BOOLEAN, compensation_effective_date DATE, employee_compensation_frequency VARCHAR, annual_currency_summary_currency VARCHAR, annual_currency_summary_total_base_pay DOUBLE, annual_currency_summary_primary_compensation_basis DOUBLE, annual_summary_currency VARCHAR, annual_summary_total_base_pay DOUBLE, annual_summary_primary_compensation_basis DOUBLE, compensation_grade_id VARCHAR, compensation_grade_profile_id VARCHAR)
+    main.int_workday__worker_employee_enhanced(worker_id VARCHAR, source_relation VARCHAR, worker_code INTEGER, user_id VARCHAR, universal_id INTEGER, is_user_active BOOLEAN, is_employed BOOLEAN, hire_date DATE, departure_date DATE, days_as_worker BIGINT, is_terminated BOOLEAN, primary_termination_category VARCHAR, primary_termination_reason VARCHAR, is_regrettable_termination BOOLEAN, compensation_effective_date DATE, employee_compensation_frequency VARCHAR, annual_currency_summary_currency VARCHAR, annual_currency_summary_total_base_pay DOUBLE, annual_currency_summary_primary_compensation_basis DOUBLE, annual_summary_currency VARCHAR, annual_summary_total_base_pay DOUBLE, annual_summary_primary_compensation_basis DOUBLE, compensation_grade_id VARCHAR, compensation_grade_profile_id VARCHAR, first_name VARCHAR, last_name VARCHAR, date_of_birth DATE, gender VARCHAR, is_hispanic_or_latino INTEGER, email_address VARCHAR)
+    main.int_workday__worker_position_enriched(worker_id VARCHAR, source_relation VARCHAR, position_id VARCHAR, business_title VARCHAR, job_profile_id VARCHAR, employee_type VARCHAR, position_location VARCHAR, management_level_code VARCHAR, fte_percent INTEGER, days_employed BIGINT, position_start_date DATE, position_end_date DATE, position_effective_date DATE)
+    main.stg_workday__job_family(source_relation VARCHAR, _fivetran_synced TIMESTAMP, effective_date DATE, job_family_id VARCHAR, is_inactive BOOLEAN, job_family_code VARCHAR, job_family_summary VARCHAR)
+    main.stg_workday__job_family_base(id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, effective_date DATE, inactive BOOLEAN, job_family_code VARCHAR, summary VARCHAR)
+    main.stg_workday__job_family_group(source_relation VARCHAR, _fivetran_synced TIMESTAMP, effective_date DATE, job_family_group_id VARCHAR, is_inactive BOOLEAN, job_family_group_code VARCHAR, job_family_group_summary VARCHAR)
+    main.stg_workday__job_family_group_base(id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, effective_date DATE, inactive BOOLEAN, job_family_group_code VARCHAR, summary VARCHAR)
+    main.stg_workday__job_family_job_family_group(source_relation VARCHAR, _fivetran_synced TIMESTAMP, job_family_id VARCHAR, job_family_group_id VARCHAR)
+    main.stg_workday__job_family_job_family_group_base(job_family_group_id VARCHAR, job_family_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP)
+    main.stg_workday__job_family_job_profile(source_relation VARCHAR, _fivetran_synced TIMESTAMP, job_family_id VARCHAR, job_profile_id VARCHAR)
+    main.stg_workday__job_family_job_profile_base(job_family_id VARCHAR, job_profile_id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP)
+    main.stg_workday__job_profile(source_relation VARCHAR, _fivetran_synced TIMESTAMP, additional_job_description INTEGER, compensation_grade_id INTEGER, is_critical_job BOOLEAN, job_description VARCHAR, difficulty_to_fill INTEGER, effective_date DATE, job_profile_id VARCHAR, is_inactive BOOLEAN, is_include_job_code_in_name BOOLEAN, job_category_id INTEGER, job_profile_code VARCHAR, level INTEGER, management_level VARCHAR, private_title INTEGER, is_public_job BOOLEAN, referral_payment_plan INTEGER, job_summary VARCHAR, job_title VARCHAR, union_code INTEGER, union_membership_requirement INTEGER, is_work_shift_required BOOLEAN, work_study_award_source_code INTEGER, work_study_requirement_option_code INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+config-version: 2
+name: 'workday'
+version: '0.2.0'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'workday'
+
+
+
+models:
+  +materialized: table  # workday_history 模型也存为 'table'
+
+vars:
+  workday_schema: main
+  workday:
+    workday_job_profile_identifier: "workday_job_profile_data"
+    workday_job_family_job_profile_identifier: "workday_job_family_job_profile_data"
+    workday_job_family_job_family_group_identifier: "workday_job_family_job_family_group_data"
+    workday_job_family_identifier: "workday_job_family_data"
+    workday_job_family_group_identifier: "workday_job_family_group_data"
+
+
+
+=== STAGING models (46) ===
+  - models/staging/base/stg_workday__job_family_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='job_family', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__job_family_group_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='job_family_group', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__job_family_job_family_group_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='job_family_job_family_group', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__job_family_job_profile_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='job_family_job_profile', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__job_profile_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='job_profile', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__military_service_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='military_service', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__organization_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='organization', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__organization_job_family_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='organization_job_family', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__organization_role_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='organization_role', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__organization_role_worker_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='organization_role_worker', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__person_contact_email_address_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='person_contact_email_address', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__person_name_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='person_name', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__personal_information_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='personal_information_history', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__personal_information_ethnicity_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='personal_information_ethnicity', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__position_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='position', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__position_job_profile_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='position_job_profile', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__position_organization_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='position_organization', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__worker_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='worker_history', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__worker_leave_status_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='worker_leave_status', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__worker_position_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='worker_position_history', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/base/stg_workday__worker_position_organization_base.sql
+    --- head:
+    {{
+        fivetran_utils.union_data(
+            table_identifier='worker_position_organization_history', 
+            database_variable='workday_database', 
+            schema_variable='workday_schema', 
+  - models/staging/stg_workday__job_family.sql
+    cols: job_family_id, is_inactive, job_family_summary
+    --- head:
+
+    with base as (
+
+        select * 
+        from {{ ref('stg_workday__job_family_base') }}
+  - models/staging/stg_workday__job_family_group.sql
+    cols: job_family_group_id, is_inactive, job_family_group_summary
+    --- head:
+
+    with base as (
+
+        select * 
+        from {{ ref('stg_workday__job_family_group_base') }}
+  - models/staging/stg_workday__job_family_job_family_group.sql
+    --- head:
+
+    with base as (
+
+        select * 
+        from {{ ref('stg_workday__job_family_job_family_group_base') }}
+  - models/staging/stg_workday__job_family_job_profile.sql
+    --- head:
+
+    with base as (
+
+        select * 
+        from {{ ref('stg_workday__job_family_job_profile_base') }}
+  - models/staging/stg_workday__job_profile.sql
+    cols: is_critical_job, job_description, job_profile_id, is_inactive, is_include_job_code_in_name, is_public_job, job_summary, job_title, is_work_shift_required
+    --- head:
+
+    with base as (
+
+        select * 
+        from {{ ref('stg_workday__job_profile_base') }}
+  - models/staging/stg_workday__military_service.sql
+    cols: worker_id, military_status
+    --- head:
+
+    with base as (
+
+        select * 
+        from {{ ref('stg_workday__military_service_base') }}
+  - models/staging/stg_workday__organization.sql
+    cols: is_available_for_hire, organization_description, is_hiring_freeze, organization_id, is_inactive, is_include_manager_in_name, is_include_organization_
+... (truncated)

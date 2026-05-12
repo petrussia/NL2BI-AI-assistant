@@ -15,9 +15,13 @@ def main() -> int:
     iid = sys.argv[1]
     max_new = int(sys.argv[2]) if len(sys.argv) > 2 else 1500
 
-    prompt_path = REPO / 'data' / 'spider2_dbt' / 'tasks' / iid / 'prompt.txt'
+    variant = sys.argv[3] if len(sys.argv) > 3 else ''
+    if variant:
+        prompt_path = REPO / 'data' / 'spider2_dbt' / 'tasks' / iid / f'prompt_{variant}.txt'
+    else:
+        prompt_path = REPO / 'data' / 'spider2_dbt' / 'tasks' / iid / 'prompt.txt'
     if not prompt_path.exists():
-        print(f'FAIL: {prompt_path} not found. Run build_model_prompt.py first.'); return 3
+        print(f'FAIL: {prompt_path} not found.'); return 3
     prompt = prompt_path.read_text(encoding='utf-8')
     print(f'PROMPT chars={len(prompt)}')
 
@@ -46,7 +50,8 @@ def main() -> int:
         print('NO_MARKERS in remote stdout:'); print(remote[-2000:]); return 5
     b64 = remote[s+len('---RESPONSE_B64_BEGIN---'):e].strip()
     response = base64.b64decode(b64).decode('utf-8')
-    out = REPO / 'data' / 'spider2_dbt' / 'tasks' / iid / 'model_response.txt'
+    suffix = f'_{variant}' if variant else ''
+    out = REPO / 'data' / 'spider2_dbt' / 'tasks' / iid / f'model_response{suffix}.txt'
     out.write_text(response, encoding='utf-8')
     # Print envelope's diagnostic lines (stripped of base64)
     for ln in remote.splitlines():

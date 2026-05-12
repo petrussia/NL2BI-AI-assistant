@@ -1,0 +1,32 @@
+{
+  "task_id": "qualtrics001",
+  "instance_id": "qualtrics001",
+  "instruction": "calculate key metrics for each directory, including distinct contacts, emails, phones, unsubscribed contacts, and new contacts from the last 30 days, along with survey engagement stats (sent, opened, started, completed) and the number of mailing lists?",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/qualtrics001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/qualtrics001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/qualtrics001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "models/qualtrics__survey.sql",
+    "models/qualtrics.yml",
+    "models/qualtrics__distribution.sql",
+    "models/intermediate/int_qualtrics__responses.sql",
+    "models/intermediate/int_qualtrics__survey_embedded_data.sql",
+    "models/intermediate/int_qualtrics__survey.sql",
+    "models/intermediate/int_qualtrics__contacts.sql",
+    "models/intermediate/int_qualtrics__question.sql",
+    "models/qualtrics__daily_breakdown.sql",
+    "models/docs.md",
+    "models/qualtrics__contact.sql",
+    "models/qualtrics__response.sql",
+    "README.md"
+  ],
+  "duckdb_files": [
+    "qualtrics.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

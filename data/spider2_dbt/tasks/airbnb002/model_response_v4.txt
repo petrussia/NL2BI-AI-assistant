@@ -1,0 +1,53 @@
+```diff
+--- a/models/agg/daily_agg_reviews.sql
++++ b/models/agg/daily_agg_reviews.sql
+@@ -1,6 +1,8 @@
+ {{
+   config(
+     materialized="incremental" ,
+     alias="daily_agg_reviews" ,
+     schema="main",
+     unique_key="DATE_SENTIMENT_ID"
++    ,on_schema_change="append_new_columns"
+   )
+ }}
+ 
+@@ -21,6 +23,24 @@ WITH review_cte AS (
+     GROUP BY
+     	REVIEW_DATE,
+     	REVIEW_SENTIMENT,
+     	DATE_SENTIMENT_ID
+     ORDER BY
+     	REVIEW_DATE DESC,
+     	REVIEW_SENTIMENT
+ 
++WITH weekly_review_totals AS (
++  SELECT
++    DATE_TRUNC('week', REVIEW_DATE) AS WEEK_START,
++    REVIEW_SENTIMENT,
++    COUNT(*) AS REVIEW_TOTALS
++  FROM review_cte
++  GROUP BY
++    WEEK_START,
++    REVIEW_SENTIMENT
++),
++
++weekly_percentage_changes AS (
++  SELECT
++    WEEK_START,
++    REVIEW_SENTIMENT,
++    REVIEW_TOTALS,
++    LAG(REVIEW_TOTALS) OVER (PARTITION BY REVIEW_SENTIMENT ORDER BY WEEK_START) AS PREVIOUS_WEEK_REVIEW_TOTALS,
++    ((REVIEW_TOTALS - LAG(REVIEW_TOTALS) OVER (PARTITION BY REVIEW_SENTIMENT ORDER BY WEEK_START)) / LAG(REVIEW_TOTALS) OVER (PARTITION BY REVIEW_SENTIMENT ORDER BY WEEK_START)) * 100 AS WEEK_OVER_WEEK_CHANGE
++  FROM weekly_review_totals
++)
++
+ SELECT
+   REVIEW_TOTALS,
+   REVIEW_DATE::DATE AS REVIEW_DATE,
+   DATE_SENTIMENT_ID,
++  WEEK_START,
++  WEEK_OVER_WEEK_CHANGE
+ FROM daily_agg_reviews
++LEFT JOIN weekly_percentage_changes ON daily_agg_reviews.DATE_SENTIMENT_ID = weekly_percentage_changes.DATE_SENTIMENT_ID AND daily_agg_reviews.REVIEW_DATE::DATE = weekly_percentage_changes.WEEK_START;
+```

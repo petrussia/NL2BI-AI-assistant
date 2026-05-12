@@ -1,0 +1,58 @@
+with task as (
+    select *
+    from {{ ref('asana__task') }}
+),
+project_task as (
+    select *
+    from {{ ref('asana__project_task') }}
+),
+project_user as (
+    select *
+    from {{ ref('int_asana__project_user') }}
+),
+user as (
+    select *
+    from {{ ref('user_data') }}
+),
+project as (
+    select *
+    from {{ ref('project_data') }}
+),
+agg_task_open_length as (
+    select
+        task.id as task_id,
+        min(task.created_at) as first_assigned_at,
+        max(task.modified_at) as last_assigned_at,
+        datediff(day, min(task.created_at), max(task.modified_at)) as days_open
+    from task
+    group by task.id
+),
+agg_task_completion as (
+    select
+        task.id as task_id,
+        min(case when task.completed_at is not null then task.completed_at else task.modified_at end) as completed_at,
+        datediff(day, min(task.created_at), min(case when task.completed_at is not null then task.completed_at else task.modified_at end)) as days_to_complete
+    from task
+    group by task.id
+)
+select
+    p.id as project_id,
+    p.name as project_name,
+    pu.user_id,
+    u.email,
+    u.name as user_name,
+    coalesce(sum(atol.days_open), 0) as total_days_open,
+    coalesce(count(t.id), 0) as number_of_tasks_open,
+    coalesce(sum(ac.days_to_complete), 0) as total_days_to_complete,
+    coalesce(count(t.id), 0) as number_of_tasks_completed,
+    coalesce(round(avg(ac.days_to_complete), 2), 0) as avg_close_time_days
+from project p
+join project_task pt on p.id = pt.project_id
+join project_user pu on p.id = pu.project_id
+left join task t on pt.task_id = t.id
+left join agg_task_open_length atol on t.id = atol.task_id
+left join agg_task_completion ac on t.id = ac.task_id
+left join user u on pu.user_id = u.id
+where p.archived = false
+group by p.id, p.name, pu.user_id, u.email, u.name
+order by p.id, pu.user_id;

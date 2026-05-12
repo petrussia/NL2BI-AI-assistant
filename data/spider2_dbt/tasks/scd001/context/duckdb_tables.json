@@ -1,0 +1,110 @@
+{
+  "scd.duckdb": [
+    {
+      "schema": "main",
+      "table": "merged_company_domain",
+      "columns": [
+        {
+          "name": "old_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_domain",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "merged_user",
+      "columns": [
+        {
+          "name": "old_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_email",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "event_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_gaggle",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_user",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gaggle_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_from_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "effective_to_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ]
+}

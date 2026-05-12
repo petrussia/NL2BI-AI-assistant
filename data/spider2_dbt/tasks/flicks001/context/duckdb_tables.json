@@ -1,0 +1,160 @@
+{
+  "flicks.duckdb": [
+    {
+      "schema": "main",
+      "table": "company_user",
+      "columns": [
+        {
+          "name": "Login_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Identifier",
+          "type": "INTEGER"
+        },
+        {
+          "name": "First_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Last_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "credits",
+      "columns": [
+        {
+          "name": "person_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "character",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sales",
+      "columns": [
+        {
+          "name": "SALESORDERNUMBER",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SALESORDERLINENUMBER",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ORDERDATE",
+          "type": "DATE"
+        },
+        {
+          "name": "CUSTOMERNAME",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "EMAILADDRESS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ITEM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "QUANTITY",
+          "type": "INTEGER"
+        },
+        {
+          "name": "UNITPRICE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TAXAMOUNT",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "titles",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TITLE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TYPE",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "DESCRIPTION",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "RELEASE_YEAR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "AGE_CERTIFICATION",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "RUNTIME",
+          "type": "INTEGER"
+        },
+        {
+          "name": "GENRES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "PRODUCTION_COUNTRIES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "SEASONS",
+          "type": "INTEGER"
+        },
+        {
+          "name": "IMDB_ID",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "IMDB_SCORE",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "IMDB_VOTES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TMDB_POPULARITY",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "TMDB_SCORE",
+          "type": "DOUBLE"
+        }
+      ]
+    }
+  ]
+}

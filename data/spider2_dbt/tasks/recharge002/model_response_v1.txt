@@ -1,0 +1,31 @@
+```sql path=models/recharge__daily_running_totals.sql
+WITH customer_transactions AS (
+    SELECT
+        o.customer_id,
+        c.date_day,
+        SUM(CAST(REPLACE(o.total_price, ',', '') AS FLOAT)) AS total_amount,
+        COUNT(DISTINCT o.id) AS order_count,
+        SUM(CASE WHEN o.status = 'refunded' THEN CAST(REPLACE(o.total_price, ',', '') AS FLOAT) ELSE 0 END) AS total_refunds,
+        SUM(CASE WHEN o.status != 'refunded' THEN 1 ELSE 0 END) AS active_months
+    FROM
+        {{ ref('order_data') }} o
+    CROSS JOIN
+        {{ ref('int_recharge__calendar_spine') }} c
+    WHERE
+        o.created_at <= c.date_day
+    GROUP BY
+        o.customer_id, c.date_day
+),
+daily_running_totals AS (
+    SELECT
+        customer_id,
+        date_day,
+        SUM(total_amount) OVER (PARTITION BY customer_id ORDER BY date_day) AS running_total_amount,
+        SUM(order_count) OVER (PARTITION BY customer_id ORDER BY date_day) AS running_order_count,
+        SUM(total_refunds) OVER (PARTITION BY customer_id ORDER BY date_day) AS running_total_refunds,
+        MAX(active_months) OVER (PARTITION BY customer_id ORDER BY date_day) AS running_active_months
+    FROM
+        customer_transactions
+)
+SELECT * FROM daily_running_totals;
+```

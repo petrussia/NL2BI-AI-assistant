@@ -1,0 +1,5224 @@
+{
+  "sap.duckdb": [
+    {
+      "schema": "main",
+      "table": "sap_bseg_data",
+      "columns": [
+        {
+          "name": "belnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bukrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buzei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gjahr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buzid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "augdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "augcp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "augbl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bschl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "koart",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "umskz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "umsks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zumsk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shkzg",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gsber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pargb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwskz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qsskz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmbtr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wrbtr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzbtr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pswbt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pswsl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "txbhw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txbfw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwsts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wmwst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hwbas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fwbas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hwzuz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fwzuz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "shzuz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stekz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwart",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txgrp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ktosl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qsshb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kursr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gbetr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bdiff",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bdif2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "valut",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zuonr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sgtxt",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zinkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vbund",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bewar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "altkt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vorgn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fdlev",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fdgrp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fdwbt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fdtag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fkont",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kokrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kostl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "projn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aufnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vbeln",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vbel2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posn2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "eten2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anln1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anln2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anbwa",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bzdat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pernr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xumsw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xhres",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xkres",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xopvw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xcpdd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xskst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xsauf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xspro",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xserg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfakt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xuman",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xanet",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xskrl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xinve",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xpanz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xauto",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xncop",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xzahl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "saknr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hkont",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kunnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lifnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "filkd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbilk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gvtyp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hzuon",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zfbdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zterm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zbd1t",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zbd2t",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zbd3t",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zbd1p",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zbd2p",
+          "type": "INTEGER"
+        },
+        {
+          "name": "skfbt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sknto",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wskto",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zlsch",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zlspr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zbfix",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hbkid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bvtyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nebtr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwsk1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmbt1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wrbt1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwsk2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmbt2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wrbt2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwsk3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmbt3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wrbt3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rebzg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rebzj",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rebzz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rebzt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zollt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zolld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lzbkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "landl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "diekz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "samnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "abper",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vrskz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vrsdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "disbn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "disbj",
+          "type": "INTEGER"
+        },
+        {
+          "name": "disbz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wverw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anfbn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anfbj",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anfbu",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anfae",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blnbt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blnkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blnpz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mschl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mansp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "madat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "manst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "maber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "esrnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "esrre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "esrpz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "klibt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qsznr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qbshb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qsfbt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "navhw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "navfw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "matnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "werks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "menge",
+          "type": "INTEGER"
+        },
+        {
+          "name": "meins",
+          "type": "INTEGER"
+        },
+        {
+          "name": "erfmg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "erfme",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bpmng",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bprme",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ebeln",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ebelp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zekkn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "elikz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vprsv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "peinh",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bwkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bwtar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bustw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rewrt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rewwr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bonfb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bualt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psalt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nprei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tbtkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrq",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stceg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "egbld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "eglld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rstgr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ryacq",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rpacq",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rdiff",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rdif2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prctr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xhkom",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vname",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "egrup",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vptnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vertt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vertn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vbewa",
+          "type": "INTEGER"
+        },
+        {
+          "name": "depot",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txjcd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "imkey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dabrz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "popts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fipos",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kstrg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nplnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aufpl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aplzl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "projk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "paobjnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pasubnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spgrc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "btype",
+          "type": "INTEGER"
+        },
+        {
+          "name": "etype",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xegdr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lnran",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hrkft",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmbe2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmbe3",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "dmb21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmb22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmb23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmb31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmb32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmb33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwst2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwst3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "navh2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "navh3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sknt2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sknt3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bdif3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rdif3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hwmet",
+          "type": "INTEGER"
+        },
+        {
+          "name": "glupm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xragl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uzawe",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lokkt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fistl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stbuk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txbh2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txbh3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pprct",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xref1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xref2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kblnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kblpos",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sttax",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fkber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "obzei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xnegp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfzei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ccbtc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kkber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "empfb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xref3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtws1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtws2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtws3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtws4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gricd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grirg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gityp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xpypr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kidno",
+          "type": "INTEGER"
+        },
+        {
+          "name": "absbt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "idxsp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "linfv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kontt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kontl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txdat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "agzei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pycur",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pyamt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bupla",
+          "type": "INTEGER"
+        },
+        {
+          "name": "secco",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lstar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cession_kz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prznr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ppdiff",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ppdif2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ppdif3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "penlc1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "penlc2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "penlc3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "penfc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pendays",
+          "type": "INTEGER"
+        },
+        {
+          "name": "penrc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grant_nbr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sctax",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fkber_long",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gmvkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "srtype",
+          "type": "INTEGER"
+        },
+        {
+          "name": "intreno",
+          "type": "INTEGER"
+        },
+        {
+          "name": "measure",
+          "type": "INTEGER"
+        },
+        {
+          "name": "auggj",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ppa_ex_ind",
+          "type": "INTEGER"
+        },
+        {
+          "name": "docln",
+          "type": "INTEGER"
+        },
+        {
+          "name": "segment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psegment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pfkber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hktid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kstar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xlgclr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taxps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pays_prov",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pays_tran",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mndid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfrge_bseg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "squan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzspreg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzbuspartn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzchan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzproduct",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzloca",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzlob",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzuserfld1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzuserfld2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzuserfld3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzstate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zzregion",
+          "type": "INTEGER"
+        },
+        {
+          "name": "re_bukrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "re_account",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pgeber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pgrant_nbr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "budget_pd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pbudget_pd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "j_1tpbupl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "perop_beg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "perop_end",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fastpay",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ignr_ivref",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fmfgus_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fmxdocnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fmxyear",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fmxdocln",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fmxzekkn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prodper",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recrf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_kna1_data",
+      "columns": [
+        {
+          "name": "kunnr",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "land1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ort01",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pstlz",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "regio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sortl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stras",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "telf1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "telfx",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xcpdk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "adrnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mcod1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mcod2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mcod3",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anred",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aufsd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bahne",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bahns",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bbbnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bbsnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "begru",
+          "type": "INTEGER"
+        },
+        {
+          "name": "brsch",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bubkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "datlt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "erdat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ernam",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exabl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "faksd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fiskn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "knazk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "knrza",
+          "type": "INTEGER"
+        },
+        {
+          "name": "konzs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ktokd",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "kukla",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lifnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lifsd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "locco",
+          "type": "INTEGER"
+        },
+        {
+          "name": "loevm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "niels",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ort02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pfach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pstl2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "counc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cityc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rpmkr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sperr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spras",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stcd1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stcd2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stkza",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stkzu",
+          "type": "INTEGER"
+        },
+        {
+          "name": "telbx",
+          "type": "INTEGER"
+        },
+        {
+          "name": "telf2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "teltx",
+          "type": "INTEGER"
+        },
+        {
+          "name": "telx1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lzone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xzemp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vbund",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stceg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dear1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dear2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dear3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dear4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dear5",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gform",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bran1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bran2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bran3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bran4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bran5",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ekont",
+          "type": "INTEGER"
+        },
+        {
+          "name": "umsat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "umjah",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uwaer",
+          "type": "INTEGER"
+        },
+        {
+          "name": "jmzah",
+          "type": "INTEGER"
+        },
+        {
+          "name": "jmjah",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr5",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr6",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr7",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr8",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr9",
+          "type": "INTEGER"
+        },
+        {
+          "name": "katr10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stkzn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "umsa1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txjcd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "periv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "abrvw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inspbydebi",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inspatdebi",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ktocd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pfort",
+          "type": "INTEGER"
+        },
+        {
+          "name": "werks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtams",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtaws",
+          "type": "INTEGER"
+        },
+        {
+          "name": "duefl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "hzuor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sperz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "etikg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "civve",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "milve",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kdkg1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kdkg2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kdkg3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kdkg4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kdkg5",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xknza",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fityp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stcdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stcd3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stcd4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stcd5",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xicms",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xxipi",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xsubt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cfopc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txlw1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txlw2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ccc01",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ccc02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ccc03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ccc04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cassd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "knurl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "j_1kfrepre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "j_1kftbus",
+          "type": "INTEGER"
+        },
+        {
+          "name": "j_1kftind",
+          "type": "INTEGER"
+        },
+        {
+          "name": "confs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uptim",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nodel",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dear6",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cvp_xblck",
+          "type": "INTEGER"
+        },
+        {
+          "name": "suframa",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rgdate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ric",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rne",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rnedate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cnae",
+          "type": "INTEGER"
+        },
+        {
+          "name": "legalnat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "crtn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "icmstaxpay",
+          "type": "INTEGER"
+        },
+        {
+          "name": "indtyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comsize",
+          "type": "INTEGER"
+        },
+        {
+          "name": "decregpc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_palhgt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_pal_ul",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_pk_mat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_matpal",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_i_no_lyr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_one_mat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_one_sort",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_uld_side",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_load_pref",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_vso_r_dpoint",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_xlso_customer",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_xlso_sysid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_xlso_client",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_xlso_partner",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_xlso_pref_pay",
+          "type": "INTEGER"
+        },
+        {
+          "name": "alc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pmt_office",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fee_schedule",
+          "type": "INTEGER"
+        },
+        {
+          "name": "duns",
+          "type": "INTEGER"
+        },
+        {
+          "name": "duns4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psofg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psois",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pson1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pson2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pson3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psovn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psotl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psohs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psost",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psoo1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psoo2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psoo3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psoo4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "psoo5",
+          "type": "INTEGER"
+        },
+        {
+          "name": "oidrc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "oid_poreqd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "oipbl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_mara_data",
+      "columns": [
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "matnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ersda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ernam",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "laeda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aenam",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vpsta",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pstat",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lvorm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mtart",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mbrsh",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "matkl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bismt",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "meins",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bstme",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zeinr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zeiar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zeivr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zeifo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aeszn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blatt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "blanz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ferth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "formt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "groes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wrkst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "normt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "labor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ekwsl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "brgew",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ntgew",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gewei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "volum",
+          "type": "INTEGER"
+        },
+        {
+          "name": "voleh",
+          "type": "INTEGER"
+        },
+        {
+          "name": "behvo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "raube",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tempb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "disst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tragr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stoff",
+          "type": "INTEGER"
+        },
+        {
+          "name": "spart",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kunnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "eannr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wesch",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bwvor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bwscl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "saiso",
+          "type": "INTEGER"
+        },
+        {
+          "name": "etiar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "etifo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ean11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "numtp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "laeng",
+          "type": "INTEGER"
+        },
+        {
+          "name": "breit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hoehe",
+          "type": "INTEGER"
+        },
+        {
+          "name": "meabm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prdha",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aeklk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cadkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qmpur",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ergew",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ergei",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ervol",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ervoe",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gewto",
+          "type": "INTEGER"
+        },
+        {
+          "name": "volto",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vabme",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzrev",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzkfg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xchpf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vhart",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fuelg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stfak",
+          "type": "INTEGER"
+        },
+        {
+          "name": "magrv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "begru",
+          "type": "INTEGER"
+        },
+        {
+          "name": "datab",
+          "type": "INTEGER"
+        },
+        {
+          "name": "liqdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "saisj",
+          "type": "INTEGER"
+        },
+        {
+          "name": "plgtp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mlgut",
+          "type": "INTEGER"
+        },
+        {
+          "name": "extwg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "satnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzkup",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kznfm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pmata",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mstae",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mstav",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mstde",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mstdv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "taklv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rbnrm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mhdrz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mhdhb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mhdlp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inhme",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inhal",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vpreh",
+          "type": "INTEGER"
+        },
+        {
+          "name": "etiag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inhbr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cmeth",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cuobf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzumw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kosch",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sprof",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nrfhg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mfrpn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mfrnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bmatn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mprof",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzwsm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "saity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "profl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ihivi",
+          "type": "INTEGER"
+        },
+        {
+          "name": "iloos",
+          "type": "INTEGER"
+        },
+        {
+          "name": "serlv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzgvh",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xgchp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kzeff",
+          "type": "INTEGER"
+        },
+        {
+          "name": "compl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "iprkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rdmhd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "przus",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mtpos_mara",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bflme",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nsnid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_pa0000_data",
+      "columns": [
+        {
+          "name": "begda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "endda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "objps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pernr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seqnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sprps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aedtm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "histo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itxex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ordex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itbld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "preas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grpvl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "massn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "massg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stat1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stat2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stat3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_pa0001_data",
+      "columns": [
+        {
+          "name": "begda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "endda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "objps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pernr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seqnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sprps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aedtm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "histo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itxex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ordex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itbld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "preas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grpvl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bukrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "werks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "persg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "persk",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vdsk1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gsber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "btrtl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "juper",
+          "type": "INTEGER"
+        },
+        {
+          "name": "abkrs",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ansvh",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kostl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "orgeh",
+          "type": "INTEGER"
+        },
+        {
+          "name": "plans",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stell",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mstbr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sacha",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sachp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sachz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "otype",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sbmod",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kokrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fistl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fkber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grant_nbr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sgmnt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "budget_pd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_pa0007_data",
+      "columns": [
+        {
+          "name": "begda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "endda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "objps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pernr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seqnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sprps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aedtm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "histo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itxex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ordex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itbld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "preas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grpvl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schkz",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zterf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "empct",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mostd",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "wostd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "arbst",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "wkwdy",
+          "type": "INTEGER"
+        },
+        {
+          "name": "jrstd",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "teilk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "minta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "maxta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "minwo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "maxwo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "minmo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "maxmo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "minja",
+          "type": "INTEGER"
+        },
+        {
+          "name": "maxja",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dysch",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kztim",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wweek",
+          "type": "INTEGER"
+        },
+        {
+          "name": "awtyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_pa0008_data",
+      "columns": [
+        {
+          "name": "begda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "endda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "objps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pernr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seqnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sprps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aedtm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "histo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itxex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ordex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itbld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "preas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grpvl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "trfar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "trfgb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "trfgr",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trfst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stvor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "orzst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "partn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "waers",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vglta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vglgb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vglgr",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vglst",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vglsv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bsgrd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "divgv",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "ansal",
+          "type": "INTEGER"
+        },
+        {
+          "name": "falgk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "falgr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga01",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bet01",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz01",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein01",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk01",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga02",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bet02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga24",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet24",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz24",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein24",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk24",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga26",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet26",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz26",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein26",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk26",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga27",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet27",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz27",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein27",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk27",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga28",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet28",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz28",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein28",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk28",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga29",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet29",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz29",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein29",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk29",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga30",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet30",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz30",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein30",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk30",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga34",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet34",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz34",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein34",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk34",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga35",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet35",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz35",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein35",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk35",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga36",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet36",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz36",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein36",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk36",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga37",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet37",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz37",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein37",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk37",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga38",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet38",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz38",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein38",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk38",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga39",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet39",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz39",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein39",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk39",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lga40",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bet40",
+          "type": "INTEGER"
+        },
+        {
+          "name": "anz40",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ein40",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opk40",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind01",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ind02",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ind03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind21",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind22",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind23",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind24",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind26",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind27",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind28",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind29",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind30",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind31",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind32",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind33",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind34",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind35",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind36",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind37",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind38",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind39",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ind40",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ancur",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cpind",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "flaga",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_pa0031_data",
+      "columns": [
+        {
+          "name": "aedtm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "begda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "endda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "flag4",
+          "type": "INTEGER"
+        },
+        {
+          "name": "grpvl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "histo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itbld",
+          "type": "INTEGER"
+        },
+        {
+          "name": "itxex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "objps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ordex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pernr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "preas",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refex",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese1",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rese2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp01",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp02",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp03",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp04",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp05",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp06",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp07",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp08",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp09",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp10",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp11",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp12",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp13",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp14",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp15",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp16",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp17",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp18",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp19",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rfp20",
+          "type": "INTEGER"
+        },
+        {
+          "name": "seqnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sprps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_ska1_data",
+      "columns": [
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ktopl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "saknr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bilkt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gvtyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "vbund",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbilk",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sakan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "erdat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ernam",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ktoks",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xloev",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xspea",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xspeb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xspep",
+          "type": "INTEGER"
+        },
+        {
+          "name": "func_area",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mustr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_t001_data",
+      "columns": [
+        {
+          "name": "bukrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "butxt",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ort01",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "land1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "waers",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "spras",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ktopl",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "waabw",
+          "type": "INTEGER"
+        },
+        {
+          "name": "periv",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "kokfi",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rcomp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "adrnr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "stceg",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fikrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfmco",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfmcb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfmca",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txjcd",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fmhrdate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buvar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fdbuk",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfdis",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xvalv",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xskfn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "kkber",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xmwsn",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mregl",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xgsbe",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xgjrv",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xkdft",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xprod",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xeink",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xjvaa",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xvvwa",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xslta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xfdmm",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xfdsd",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xextb",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ebukr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ktop2",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "umkrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bukrs_glob",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fstva",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opvar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xcovr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "txkrs",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wfvar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbbbf",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbbbe",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbbba",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbbko",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xstdt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mwskv",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mwska",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "impda",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xnegp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xkkbi",
+          "type": "INTEGER"
+        },
+        {
+          "name": "wt_newwt",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pp_pdate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "infmt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fstvare",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "kopim",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dkweg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "offsacct",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bapovar",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xcos",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xcession",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "xsplt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "surccm",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtprov",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtamtc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dttaxc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dttdsp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtaxr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xvatdate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pst_per_var",
+          "type": "INTEGER"
+        },
+        {
+          "name": "xbbsc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fm_derive_acc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_t503_data",
+      "columns": [
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "persg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "persk",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "abart",
+          "type": "INTEGER"
+        },
+        {
+          "name": "abtyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "antyp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "trfkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zeity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aksta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ansta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "austa",
+          "type": "INTEGER"
+        },
+        {
+          "name": "konty",
+          "type": "INTEGER"
+        },
+        {
+          "name": "burkz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "molga",
+          "type": "INTEGER"
+        },
+        {
+          "name": "typsz",
+          "type": "INTEGER"
+        },
+        {
+          "name": "inwid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sap_t880_data",
+      "columns": [
+        {
+          "name": "mandt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rcomp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cntry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "langu",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stret",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "pobox",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pstlc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "curr",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "modcp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "glsip",
+          "type": "INTEGER"
+        },
+        {
+          "name": "resta",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rform",
+          "type": "INTEGER"
+        },
+        {
+          "name": "zweig",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mcomp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mclnt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lccomp",
+          "type": "INTEGER"
+        },
+        {
+          "name": "strt2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "indpo",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_rowid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ]
+}

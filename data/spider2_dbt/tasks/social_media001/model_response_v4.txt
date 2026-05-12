@@ -1,0 +1,39 @@
+```diff
+--- a/models/social_media_reporting.yml
++++ b/models/social_media_reporting.yml
+@@ -14,6 +14,27 @@
+     - name: post_id
+       description: The ID of the post, from the source platform
+ 
++  - name: facebook_report
++    description: Social Media Report for Facebook
++    tests:
++      - dbt_utils.unique_combination_of_columns:
++          combination_of_columns:
++            - post_id
++            - platform
++            - source_relation
++    columns:
++      - name: date
++        description: Date of the report
++      - name: page_id
++        description: Unique identifier for each Facebook page
++      - name: page_name
++        description: Name of the Facebook page
++      - name: total_likes
++        description: Total number of likes
++      - name: total_comments
++        description: Total number of comments
++
+   - name: rollup_report
+     description: Each record represents a post from a social media account
+     tests:
+@@ -28,6 +49,7 @@
+         - post_id
+         - platform
+         - source_relation
++        - date
+         - created_timestamp
+         - post_message
+         - post_url
+```

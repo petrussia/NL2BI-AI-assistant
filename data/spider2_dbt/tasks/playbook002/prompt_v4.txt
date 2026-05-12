@@ -1,0 +1,182 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Please assist me in completing the data transformation project of this database.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `playbook.duckdb`
+    main.ad_spend(date_day DATE, utm_source VARCHAR, utm_medium VARCHAR, utm_campaign VARCHAR, spend INTEGER)
+    main.customer_conversions(customer_id INTEGER, converted_at TIMESTAMP, revenue INTEGER)
+    main.sessions(session_id INTEGER, customer_id INTEGER, started_at TIMESTAMP, ended_at TIMESTAMP, utm_source VARCHAR, utm_medium VARCHAR, utm_campaign VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: acme
+
+profile: playbook
+
+version: '1.0'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+
+quoting:
+  database: false
+  identifier: false
+  schema: false
+
+seeds:
+  quote_columns: false
+  acme:
+    sessions:
+      csv_options:
+        delimiter: ','
+        header: True
+
+models:
+  transient: true
+
+
+
+--- dbt_project.yml (head) ---
+name: acme
+
+profile: playbook
+
+version: '1.0'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+
+quoting:
+  database: false
+  identifier: false
+  schema: false
+
+seeds:
+  quote_columns: false
+  acme:
+    sessions:
+      csv_options:
+        delimiter: ','
+        header: True
+
+models:
+  transient: true
+
+
+
+--- models/attribution_touches.yml (head) ---
+version: 2
+
+models:
+  - name: attribution_touches
+    description: >
+      One record per web session prior to conversion AND within the last 30 days.
+
+    columns:
+      - name: session_id
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: total_sessions
+        description: The total sessions prior to conversion AND within the last 30 days.
+        tests:
+          - not_null
+
+      - name: session_index
+
+
+
+--- models/cpa_and_roas.yml (head) ---
+version: 2
+
+models:
+  - name: cpa_and_roas
+    description: >
+      Aggregated ad spend and attribution data, with calculated metrics for cost per acquisition (CPA) and return on advertising spend (ROAS).
+
+    columns:
+      - name: utm_source
+        description: The source of the traffic.
+        tests:
+          - not_null
+
+      - name: attribution_points
+        description: The total attribution points, using forty-twenty-forty attribution 
+        tests:
+          - not_null
+
+      - name
+
+
+--- models/schema.yml (head) ---
+version: 2
+
+sources:
+  - name: playbook
+    database: playbook
+    schema: main
+    tables:
+      - name: sessions
+      - name: customer_conversions
+      - name: ad_spend
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

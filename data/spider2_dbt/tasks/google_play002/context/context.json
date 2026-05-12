@@ -1,0 +1,30 @@
+{
+  "task_id": "google_play002",
+  "instance_id": "google_play002",
+  "instruction": "Generate an overview report on Google Play app performance, including installs, uninstalls, crashes, ANRs, ratings, and store performance metrics over time.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/google_play002",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/google_play002",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/google_play002/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/google_play__finance_report.sql",
+    "models/google_play__os_version_report.sql",
+    "models/intermediate/intermediate.yml",
+    "models/intermediate/int_google_play__earnings.sql",
+    "models/intermediate/int_google_play__latest_product_info.sql",
+    "models/google_play__device_report.sql",
+    "models/google_play.yml",
+    "models/google_play__country_report.sql",
+    "models/docs.md",
+    "models/google_play__app_version_report.sql"
+  ],
+  "duckdb_files": [
+    "google_play.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

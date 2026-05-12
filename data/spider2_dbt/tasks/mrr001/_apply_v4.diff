@@ -1,0 +1,41 @@
++++ b/models/mrr.sql
+@@ -34,6 +34,27 @@ with lagged_values as (
+     )
+ ),
+ 
++-- Calculate MRR for each month
++mrr_calculated as (
++    select
++        date_month,
++        customer_id,
++        sum(mrr) as total_mrr
++    from lagged_values
++    group by 1, 2
++),
++
++-- Identify the first and last month of MRR for each customer
++mrr_first_last as (
++    select
++        customer_id,
++        min(date_month) as first_month,
++        max(date_month) as last_month
++    from mrr_calculated
++    group by 1
++),
++
+ /* Final query */
+ select
+     mrr_calculated.date_month,
+@@ -41,6 +62,10 @@ select
+     mrr_calculated.customer_id,
+     mrr_calculated.total_mrr,
+     mrr_first_last.first_month,
++    mrr_first_last.last_month,
++    case when mrr_calculated.date_month = mrr_first_last.first_month then true else false end as is_first_month,
++    case when mrr_calculated.date_month = mrr_first_last.last_month then true else false end as is_last_month
+ from
+     mrr_calculated
+ left join
+     mrr_first_last
+ on
+     mrr_calculated.customer_id = mrr_first_last.customer_id

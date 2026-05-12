@@ -1,0 +1,326 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Please generate an overview report of the app combine apple store and google play.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `app_reporting.duckdb`
+    main.app(id INTEGER, is_enabled BOOLEAN, name VARCHAR, asset_token VARCHAR, pre_order_info INTEGER, icon_url VARCHAR, app_opt_in_rate INTEGER, ios BOOLEAN, tvos BOOLEAN, is_bundle BOOLEAN, _fivetran_synced VARCHAR)
+    main.app_store_platform_version_source_type(app_id INTEGER, date VARCHAR, platform_version VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, impressions INTEGER, _fivetran_synced VARCHAR, impressions_unique_device INTEGER, page_views INTEGER, page_views_unique_device INTEGER)
+    main.app_store_source_type_device(app_id INTEGER, date VARCHAR, device VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, impressions INTEGER, _fivetran_synced VARCHAR, impressions_unique_device INTEGER, page_views INTEGER, page_views_unique_device INTEGER)
+    main.app_store_territory_source_type(app_id INTEGER, date VARCHAR, source_type VARCHAR, territory VARCHAR, meets_threshold BOOLEAN, impressions INTEGER, _fivetran_synced VARCHAR, impressions_unique_device INTEGER, page_views INTEGER, page_views_unique_device INTEGER)
+    main.crashes_app_version(app_id INTEGER, app_version VARCHAR, date VARCHAR, device VARCHAR, meets_threshold BOOLEAN, crashes INTEGER, _fivetran_synced VARCHAR)
+    main.crashes_platform_version(app_id INTEGER, date VARCHAR, device VARCHAR, platform_version VARCHAR, meets_threshold BOOLEAN, crashes INTEGER, _fivetran_synced VARCHAR)
+    main.downloads_platform_version_source_type(app_id INTEGER, date VARCHAR, platform_version VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, first_time_downloads INTEGER, _fivetran_synced VARCHAR, redownloads INTEGER, total_downloads INTEGER)
+    main.downloads_source_type_device(app_id INTEGER, date VARCHAR, device VARCHAR, source_type VARCHAR, meets_threshold BOOLEAN, first_time_downloads INTEGER, _fivetran_synced VARCHAR, redownloads INTEGER, total_downloads INTEGER)
+    main.downloads_territory_source_type(app_id INTEGER, date VARCHAR, source_type VARCHAR, territory VARCHAR, meets_threshold BOOLEAN, first_time_downloads INTEGER, _fivetran_synced VARCHAR, redownloads INTEGER, total_downloads INTEGER)
+    main.earnings(_file VARCHAR, _line INTEGER, _modified VARCHAR, description VARCHAR, transaction_date VARCHAR, transaction_time VARCHAR, tax_type INTEGER, transaction_type VARCHAR, refund_type INTEGER, product_title VARCHAR, product_id VARCHAR, product_type INTEGER, sku_id VARCHAR, hardware INTEGER, buyer_country VARCHAR, buyer_state VARCHAR, buyer_postal_code INTEGER, buyer_currency VARCHAR, amount_buyer_currency_ DOUBLE, currency_conversion_rate DOUBLE, merchant_currency VARCHAR, amount_merchant_currency_ DOUBLE, _fivetran_synced VARCHAR, base_plan_id INTEGER, offer_id INTEGER)
+    main.financial_stats_subscriptions_country(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, product_id VARCHAR, country VARCHAR, new_subscriptions INTEGER, cancelled_subscriptions INTEGER, active_subscriptions INTEGER, _fivetran_synced VARCHAR)
+    main.sales_account(id INTEGER, name VARCHAR, _fivetran_synced VARCHAR)
+    main.sales_subscription_events(_filename VARCHAR, account_number INTEGER, vendor_number INTEGER, _index INTEGER, event_date DATE, app_name VARCHAR, days_canceled INTEGER, subscription_name VARCHAR, consecutive_paid_periods INTEGER, previous_subscription_name INTEGER, cancellation_reason VARCHAR, proceeds_reason VARCHAR, subscription_apple_id INTEGER, standard_subscription_duration VARCHAR, original_start_date DATE, device VARCHAR, days_before_canceling INTEGER, quantity INTEGER, marketing_opt_in_duration INTEGER, promotional_offer_name INTEGER, state VARCHAR, previous_subscription_apple_id INTEGER, event VARCHAR, subscription_group_id INTEGER, country VARCHAR, promotional_offer_id INTEGER, app_apple_id INTEGER, _fivetran_synced VARCHAR, subscription_offer_type INTEGER, subscription_offer_duration INTEGER)
+    main.sales_subscription_summary(_filename VARCHAR, account_number INTEGER, vendor_number INTEGER, _index INTEGER, developer_proceeds DOUBLE, app_name VARCHAR, free_trial_promotional_offer_subscriptions INTEGER, proceeds_currency VARCHAR, subscription_name VARCHAR, pay_as_you_go_promotional_offer_subscriptions INTEGER, customer_currency VARCHAR, marketing_opt_ins INTEGER, pay_up_front_promotional_offer_subscriptions INTEGER, billing_retry INTEGER, proceeds_reason VARCHAR, subscription_apple_id INTEGER, active_standard_price_subscriptions INTEGER, standard_subscription_duration VARCHAR, grace_period INTEGER, device VARCHAR, active_pay_up_front_introductory_offer_subscriptions INTEGER, customer_price DOUBLE, promotional_offer_name INTEGER, state VARCHAR, active_pay_as_you_go_introductory_offer_subscriptions INTEGER, subscription_group_id INTEGER, country VARCHAR, active_free_trial_introductory_offer_subscriptions INTEGER, promotional_offer_id INTEGER, app_apple_id INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'app_reporting'
+version: '0.4.0'
+config-version: 2
+
+profile: 'app_reporting'
+
+vars: 
+  # apple_store__using_subscriptions: true # uncomment this line when generating docs!
+  # google_play__using_subscriptions: true # uncomment this line when regenerating docs!
+  # google_play__using_earnings: true # uncomment this line when regenerating docs!
+  google_play_schema: main
+  apple_store_schema: main
+  google_play_source:
+    google_play_stats_installs_app_version_identifier: "stats_installs_app_version"
+    google_play_stats_crashes_app_version_identifier: "stats_crashes_app_version"
+    goo
+
+
+=== INTERMEDIATE models (10) ===
+  - models/intermediate/app_version_report/int_apple_store__app_version.sql
+    cols: app_platform, app_version, deletions, crashes
+    --- head:
+    with app_version_report as (
+
+        select *
+        from {{ ref('apple_store__app_version_report') }}
+    ),
+  - models/intermediate/app_version_report/int_google_play__app_version.sql
+    cols: app_platform, app_name, app_version, deletions
+    --- head:
+    with app_version_report as (
+
+        select *
+        from {{ ref('google_play__app_version_report') }}
+    ),
+  - models/intermediate/country_report/int_apple_store__country.sql
+    cols: app_platform, country_long, country_short, downloads, deletions, page_views
+    --- head:
+    with country_report as (
+
+        select *
+        from {{ ref('apple_store__territory_report') }}
+    ),
+  - models/intermediate/country_report/int_google_play__country.sql
+    cols: app_platform, app_name, deletions, downloads, page_views
+    --- head:
+    with country_report as (
+
+        select *
+        from {{ ref('google_play__country_report') }}
+    ),
+  - models/intermediate/device_report/int_apple_store__device.sql
+    cols: app_platform, downloads, deletions
+    --- head:
+    with device_report as (
+
+        select *
+        from {{ ref('apple_store__device_report') }}
+    ),
+  - models/intermediate/device_report/int_google_play__device.sql
+    cols: app_platform, app_name, deletions, downloads
+    --- head:
+    with device_report as (
+
+        select *
+        from {{ ref('google_play__device_report') }}
+    ),
+  - models/intermediate/os_version_report/int_apple_store__os_version.sql
+    cols: app_platform, os_version, downloads, deletions, crashes
+    --- head:
+    with os_version_report as (
+
+        select *
+        from {{ ref('apple_store__platform_version_report') }}
+    ),
+  - models/intermediate/os_version_report/int_google_play__os_version.sql
+    cols: app_platform, app_name, os_version, deletions, downloads
+    --- head:
+    with os_version_report as (
+
+        select *
+        from {{ ref('google_play__os_version_report') }}
+    ),
+  - models/intermediate/traffic_source_report/int_apple_store__traffic_source.sql
+    cols: app_platform, traffic_source_type, downloads, page_views
+    --- head:
+    with traffic_source_report as (
+
+        select *
+        from {{ ref('apple_store__source_type_report') }}
+    ),
+  - models/intermediate/traffic_source_report/int_google_play__traffic_source.sql
+    cols: app_platform, app_name, traffic_source_type, downloads, page_views
+    --- head:
+    with traffic_source_report as (
+
+        select *
+        from {{ ref('stg_google_play__store_performance_source') }}
+    ),
+
+=== FINAL models (5) ===
+  - models/app_reporting__app_version_report.sql
+    --- body (first 900 chars):
+    with unioned as (
+
+        {{ dbt_utils.union_relations(relations=[ref('int_apple_store__app_version'), ref('int_google_play__app_version')]) }}
+    ), 
+
+    final as (
+
+        select 
+            source_relation,
+            date_day,
+            app_platform,
+            app_name,
+            app_version,
+            deletions,
+            crashes
+        from unioned
+    )
+
+    select * 
+    from final
+  - models/app_reporting__country_report.sql
+    --- body (first 900 chars):
+    with unioned as (
+
+        {{ dbt_utils.union_relations(relations=[ref('int_apple_store__country'), ref('int_google_play__country')]) }}
+    ),
+
+    final as (
+
+        select
+            source_relation,
+            date_day,
+            app_platform,
+            app_name, 
+            country_long,
+            country_short,
+            region,
+            sub_region,
+            downloads,
+            deletions,
+            page_views
+        from unioned
+    )
+
+    select * 
+    from final
+  - models/app_reporting__device_report.sql
+    --- body (first 900 chars):
+    with unioned as (
+
+        {{ dbt_utils.union_relations(relations=[ref('int_apple_store__device'), ref('int_google_play__device')]) }}
+    ), 
+
+    final as (
+
+        select
+            source_relation,
+            date_day,
+            app_platform,
+            app_name, 
+            device,
+            downloads,
+            deletions
+        from unioned
+    )
+
+    select * 
+    from final
+  - models/app_reporting__os_version_report.sql
+    --- body (first 900 chars):
+    with unioned as (
+
+        {{ dbt_utils.union_relations(relations=[ref('int_apple_store__os_version'), ref('int_google_play__os_version')]) }}
+    ),
+
+    final as (
+
+        select 
+            source_relation,
+            date_day,
+            app_platform,
+            app_name, 
+            os_version,
+            downloads,
+            deletions,
+            crashes
+        from unioned
+    )
+
+    select * 
+    from final
+  - models/app_reporting__traffic_source_report.sql
+    --- body (first 900 chars):
+    with unioned as (
+
+        {{ dbt_utils.union_relations(relations=[ref('int_apple_store__traffic_source'), ref('int_google_play__traffic_source')]) }}
+    ),
+
+    final as (
+
+        select
+            source_relation,
+            date_day,
+            app_platform,
+            app_name,
+            traffic_source_type,
+            downloads,
+            page_views
+        from unioned
+    )
+
+    select * 
+    from final
+
+--- dbt_project.yml (head) ---
+name: 'app_reporting'
+version: '0.4.0'
+config-version: 2
+
+profile: 'app_reporting'
+
+vars: 
+  # apple_store__using_subscriptions: true # uncomment this line when generating docs!
+  # google_play__using_subscriptions: true # uncomment this line when regenerating docs!
+  # google_play__using_earnings: true # uncomment this line when regenerating docs!
+  google_play_schema: main
+  apple_store_schema: main
+  google_play_source:
+    google_play_stats_installs_app_version_identifier: "stats_installs_ap
+
+
+--- models/app_reporting.yml (head) ---
+version: 2
+
+models:
+
+  - name: app_reporting__app_version_report
+    description: Each record in this table represents the daily count of deletions and crashes by app_platform, app_name and app_version.
+    tests: 
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_platform
+            - app_name
+            - app_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('
+
+
+--- models/intermediate/overview_report/overview_report.yml (head) ---
+version: 2
+
+models:
+  - name: int_apple_store__overview
+    description: >
+      Intermediate model for summarizing key performance metrics for apps in the Apple Store, including downloads, deletions, page views, and crashes.
+    columns:
+      - name: source_relation
+        description: "Source of the Apple Store overview data."
+      - name: date_day
+        description: "Date of the overview data."
+      - name: app_platform
+        description: "The platform of the app, in this case, 'apple
+
+
+        REMEMBER
+... (truncated)

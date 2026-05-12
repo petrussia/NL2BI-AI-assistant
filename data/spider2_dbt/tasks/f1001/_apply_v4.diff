@@ -1,0 +1,32 @@
++++ b/models/stats/driver_stats.sql
+@@ -1,6 +1,15 @@
+ with driver_stats as (
+     select
+         d.driver_id,
++        d.driver_full_name,
+         sum(r.points) as total_points,
+         sum(case when r.position <= 3 then 1 else 0 end) as podiums,
+         sum(case when r.fastestLap = 1 then 1 else 0 end) as fastest_laps,
+         sum(case when r.grid = 1 then 1 else 0 end) as pole_positions,
+         count(*) as races
+     from {{ ref('drivers') }} d
+     join {{ ref('results') }} r on d.driver_id = r.driver_id
+     group by d.driver_id, d.driver_full_name
+ )
+ 
+ select
+     ds.driver_id,
++    ds.driver_full_name,
+     ds.total_points,
+     ds.podiums,
+     ds.fastest_laps,
+     ds.pole_positions,
+     ds.races,
+     coalesce(fastest_laps_by_season.fastest_laps, 0) as fastest_laps_by_season,
+     coalesce(podiums_by_season.podiums, 0) as podiums_by_season,
+     coalesce(pole_positions_by_season.pole_positions, 0) as pole_positions_by_season
+ from driver_stats ds
+ left join {{ ref('driver_fastest_laps_by_season') }} fastest_laps_by_season on ds.driver_full_name = fastest_laps_by_season.driver_full_name
+ left join {{ ref('driver_podiums_by_season') }} podiums_by_season on ds.driver_full_name = podiums_by_season.driver_full_name
+ left join {{ ref('driver_pole_positions_by_season') }} pole_positions_by_season on ds.driver_full_name = pole_positions_by_season.driver_full_name
+ order by ds.total_points desc;

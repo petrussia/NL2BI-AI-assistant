@@ -1,0 +1,3088 @@
+{
+  "zuora.duckdb": [
+    {
+      "schema": "main",
+      "table": "zuora_account_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "additional_email_addresses",
+          "type": "INTEGER"
+        },
+        {
+          "name": "allow_invoice_edit",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "auto_pay",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "balance",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "bcd_setting_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_cycle_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "communication_profile_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "credit_balance",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "crm_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_service_rep_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_delivery_prefs_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_delivery_prefs_print",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_template_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_invoice_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mrr",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_gateway",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_term",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "purchase_order_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sales_rep_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sequence_set_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_company_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_certificate_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_certificate_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_effective_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_entity_use_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_expiration_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_issuing_jurisdiction",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_exempt_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "testcustom_1_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "testcustom_2_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_debit_memo_balance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_invoice_balance",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "unapplied_balance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unapplied_credit_memo_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vatid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "batch",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_amendment_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_renew",
+          "type": "INTEGER"
+        },
+        {
+          "name": "booking_date",
+          "type": "DATE"
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contract_effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "created_by_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_term_period_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_acceptance_date",
+          "type": "DATE"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_policy",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "new_rate_plan_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "removed_rate_plan_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "renewal_setting",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "renewal_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "renewal_term_period_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "resume_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service_activation_date",
+          "type": "DATE"
+        },
+        {
+          "name": "specific_update_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "suspend_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "term_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "term_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_contact_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_1",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_2",
+          "type": "INTEGER"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "county",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fax",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mobile_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nick_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "other_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "other_phone_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "personal_email",
+          "type": "INTEGER"
+        },
+        {
+          "name": "postal_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_region",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "work_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "work_phone",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_credit_balance_adjustment_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_receivable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_period_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "adjustment_date",
+          "type": "DATE"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_home_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancelled_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_cash_on_account_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_entry_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_run_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "reason_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reference_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_transaction_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_transaction_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_transaction_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transferred_to_accounting",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_invoice_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "adjustment_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_home_currency",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_without_tax",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_without_tax_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_without_tax_home_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "auto_pay",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "balance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "comments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "credit_balance_adjustment_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "includes_one_time",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "includes_recurring",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "includes_usage",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_date",
+          "type": "DATE"
+        },
+        {
+          "name": "invoice_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_email_sent_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "payment_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posted_by",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "posted_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "refund_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reversed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "target_date",
+          "type": "DATE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_exempt_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "template_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transferred_to_accounting",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sequence_set_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "credit_memo_amount",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_invoice_item_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_receivable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_period_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amendment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "applied_to_invoice_item_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "balance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "booking_reference",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_amount_home_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "charge_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deferred_revenue_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "exclude_item_billing_from_revenue_accounting",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_entry_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_run_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "processing_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_charge_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rate_plan_charge_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recognized_revenue_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rev_rec_start_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "service_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_item_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_exempt_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_mode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unit_price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "uom",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_invoice_payment_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_receivable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_period_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_home_currency",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cash_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_entry_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_run_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "refund_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_order_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by_migration",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "order_date",
+          "type": "DATE"
+        },
+        {
+          "name": "order_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scheduled_date_policy",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scheduled_date",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_payment_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_home_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "applied_credit_balance_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "auth_transaction_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bank_identification_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancelled_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "gateway",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_order_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_reconciliation_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_reconciliation_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_response_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_standalone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marked_for_submission_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payout_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "reference_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "referenced_payment_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "second_payment_reference_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "settled_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "soft_descriptor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "soft_descriptor_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "submitted_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transferred_to_accounting",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unapplied_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_product_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "allow_feature_changes",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sku",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_product_rate_plan_charge_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_receivable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "apply_discount_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_cycle_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_cycle_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_period_alignment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_timing",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_model",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "deferred_revenue_account",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deferred_revenue_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount_class_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_level",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date_condition",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exclude_item_billing_from_revenue_accounting",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exclude_item_booking_from_revenue_accounting",
+          "type": "INTEGER"
+        },
+        {
+          "name": "included_units",
+          "type": "INTEGER"
+        },
+        {
+          "name": "legacy_revenue_reporting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "list_price_base",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "max_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "min_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_period",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overage_calculation_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "overage_unused_units_credit_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_change_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_increase_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rating_group",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recognized_revenue_account",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recognized_revenue_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rev_rec_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rev_rec_trigger_condition",
+          "type": "INTEGER"
+        },
+        {
+          "name": "revenue_recognition_rule_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "smoothing_model",
+          "type": "INTEGER"
+        },
+        {
+          "name": "specific_billing_period",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_mode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "taxable",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "trigger_event",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "uom",
+          "type": "INTEGER"
+        },
+        {
+          "name": "up_to_periods",
+          "type": "INTEGER"
+        },
+        {
+          "name": "up_to_periods_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage_record_rating_option",
+          "type": "INTEGER"
+        },
+        {
+          "name": "use_discount_specific_accounting_code",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_tenant_default_for_price_change",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "weekly_bill_cycle_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "specific_list_price_base",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_upsell_quantity_stacked",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_stacked_discount",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_product_rate_plan_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "effective_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "external_id_source_system",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "promotion_code_c",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_rate_plan_charge_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_receivable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amended_by_order_on",
+          "type": "DATE"
+        },
+        {
+          "name": "amendment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "apply_discount_to",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_cycle_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_cycle_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to_contact_snapshot_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_period",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_period_alignment",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "billing_timing",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "booking_exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "booking_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "booking_provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "charge_model",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charge_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "charged_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deferred_revenue_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmrc",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmrccurrency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dmrchome_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "drawdown_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "drawdown_uom",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtcv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtcvcurrency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dtcvhome_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "effective_end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "end_date_condition",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "exclude_item_billing_from_revenue_accounting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "exclude_item_booking_from_revenue_accounting",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_last_segment",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_prepaid",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_processed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "list_price_base",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mrr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mrrcurrency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mrrhome_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "number_of_periods",
+          "type": "INTEGER"
+        },
+        {
+          "name": "original_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "original_order_date",
+          "type": "DATE"
+        },
+        {
+          "name": "overage_calculation_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "overage_unused_units_credit_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_term_snapshot",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "prepaid_operation_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prepaid_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prepaid_total_quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "prepaid_uom",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_change_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_increase_percentage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "processed_through_date",
+          "type": "DATE"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_charge_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "DATE"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rating_group",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recognized_revenue_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rev_rec_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rev_rec_trigger_condition",
+          "type": "INTEGER"
+        },
+        {
+          "name": "revenue_recognition_rule_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "segment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_contact_snapshot_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "specific_billing_period",
+          "type": "INTEGER"
+        },
+        {
+          "name": "specific_end_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "subscription_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tcv",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tcvcurrency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tcvhome_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trigger_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "trigger_event",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "uom",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "up_to_periods",
+          "type": "INTEGER"
+        },
+        {
+          "name": "up_to_periods_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validity_period_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "weekly_bill_cycle_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "credit_option",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rollover_apply",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rollover_periods",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_rollover",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "specific_list_price_base",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_rate_plan_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amendment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amendment_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "externally_managed_plan_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_version_amendment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "original_rate_plan_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_refund_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "cancelled_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gateway",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_reconciliation_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_reconciliation_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_response_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gateway_state",
+          "type": "INTEGER"
+        },
+        {
+          "name": "marked_for_submission_on",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "method_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payout_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reason_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reference_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "refund_transaction_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "second_refund_reference_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "soft_descriptor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "soft_descriptor_phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "submitted_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "transferred_to_accounting",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_refund_invoice_payment_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "refund_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_subscription_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_renew",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cancelled_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contract_acceptance_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contract_effective_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cpq_bundle_json_id_qt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creator_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creator_invoice_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "current_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_term_period_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "initial_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "initial_term_period_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_invoice_separate",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "notes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opportunity_close_date_qt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "opportunity_name_qt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "original_created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "original_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "previous_subscription_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quote_business_type_qt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quote_number_qt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "quote_type_qt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "renewal_setting",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "renewal_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "renewal_term_period_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "service_activation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_end_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_start_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_version_amendment_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "term_end_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "term_start_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "term_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_latest_version",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "cancel_reason",
+          "type": "INTEGER"
+        },
+        {
+          "name": "externally_managed_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "payment_term",
+          "type": "INTEGER"
+        },
+        {
+          "name": "testcustomaakash_c",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_booking_date",
+          "type": "DATE"
+        },
+        {
+          "name": "revision",
+          "type": "INTEGER"
+        },
+        {
+          "name": "custom_date_field_c",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_template_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sequence_set_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "zuora_taxation_item_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_receivable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "accounting_period_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amendment_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "balance",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bill_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "credit_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "default_payment_method_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exchange_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exchange_rate_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "exempt_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exempt_amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exempt_amount_home_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "home_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_entry_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "journal_run_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "jurisdiction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "payment_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_charge_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "provider_exchange_rate_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rate_plan_charge_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "rate_plan_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sales_tax_payable_accounting_code_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sold_to_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "subscription_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_amount_currency_rounding",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_amount_home_currency",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_code_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_mode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_rate_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_rate_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "transaction_currency",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_by_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "seller_registration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "customer_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tax_rule_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "exempt_certificate",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

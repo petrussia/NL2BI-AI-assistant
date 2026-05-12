@@ -1,0 +1,1214 @@
+{
+  "xero_new.duckdb": [
+    {
+      "schema": "main",
+      "table": "xero__calendar_spine",
+      "columns": [
+        {
+          "name": "date_month",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero__invoice_line_items",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "line_item_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount_entered_as_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "item_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "line_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "line_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unit_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_date",
+          "type": "DATE"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "planned_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fully_paid_on_date",
+          "type": "DATE"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "invoice_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_sent_to_contact",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_class",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_account_data",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "class",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_bank_transaction_data",
+      "columns": [
+        {
+          "name": "bank_transaction_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_contact_data",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_credit_note_data",
+      "columns": [
+        {
+          "name": "credit_note_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_invoice_data",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "updated_date_utc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "planned_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fully_paid_on_date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_credited",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_due",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_paid",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "sub_total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_tax",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "has_attachments",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_errors",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_discounted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "line_amount_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sent_to_contact",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_invoice_line_item_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount_entered_as_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "item_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "line_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "line_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unit_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "validation_errors",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_journal_data",
+      "columns": [
+        {
+          "name": "journal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date_utc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_date",
+          "type": "DATE"
+        },
+        {
+          "name": "journal_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_journal_line_data",
+      "columns": [
+        {
+          "name": "journal_line_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gross_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "journal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "net_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "xero_organization_data",
+      "columns": [
+        {
+          "name": "organisation_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "financial_year_end_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "financial_year_end_day",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__account",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_class",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__account_tmp",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "class",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__bank_transaction",
+      "columns": [
+        {
+          "name": "bank_transaction_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__bank_transaction_tmp",
+      "columns": [
+        {
+          "name": "bank_transaction_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__contact",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__contact_tmp",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__credit_note",
+      "columns": [
+        {
+          "name": "credit_note_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__credit_note_tmp",
+      "columns": [
+        {
+          "name": "credit_note_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__invoice",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "invoice_date",
+          "type": "DATE"
+        },
+        {
+          "name": "updated_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "planned_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fully_paid_on_date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "invoice_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_sent_to_contact",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__invoice_line_item",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "line_item_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount_entered_as_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "item_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "line_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "line_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unit_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__invoice_line_item_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "discount_entered_as_percent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "discount_rate",
+          "type": "INTEGER"
+        },
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "item_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "line_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "line_item_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unit_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "validation_errors",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__invoice_tmp",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "DATE"
+        },
+        {
+          "name": "updated_date_utc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "planned_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "due_date",
+          "type": "DATE"
+        },
+        {
+          "name": "expected_payment_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fully_paid_on_date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "amount_credited",
+          "type": "INTEGER"
+        },
+        {
+          "name": "amount_due",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "amount_paid",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "sub_total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "total_tax",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "currency_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "currency_rate",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "has_attachments",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_errors",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "invoice_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_discounted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "line_amount_types",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sent_to_contact",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "url",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__journal",
+      "columns": [
+        {
+          "name": "journal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date_utc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_date",
+          "type": "DATE"
+        },
+        {
+          "name": "journal_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__journal_line",
+      "columns": [
+        {
+          "name": "journal_line_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gross_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "journal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "net_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__journal_line_tmp",
+      "columns": [
+        {
+          "name": "journal_line_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "gross_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "journal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "net_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_amount",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tax_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tax_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__journal_tmp",
+      "columns": [
+        {
+          "name": "journal_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date_utc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "journal_date",
+          "type": "DATE"
+        },
+        {
+          "name": "journal_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__organization",
+      "columns": [
+        {
+          "name": "organisation_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "financial_year_end_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "financial_year_end_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_xero",
+      "table": "stg_xero__organization_tmp",
+      "columns": [
+        {
+          "name": "organisation_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "financial_year_end_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "financial_year_end_day",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

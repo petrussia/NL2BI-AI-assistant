@@ -1,0 +1,137 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Analyze bike trips by combining user data, trip duration, and geo-locational information for start and end stations, while filtering trips based on their duration and associating stations with specific neighborhoods
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `divvy.duckdb`
+    main.dim_neighbourhoods(station_id INTEGER, station_name VARCHAR, lat DOUBLE, lng DOUBLE, state VARCHAR, primary_neighbourhood VARCHAR, secondary_neighborhood VARCHAR)
+    main.divvy_data(ride_id VARCHAR, rideable_type VARCHAR, started_at TIMESTAMP, ended_at TIMESTAMP, start_station_name VARCHAR, start_station_id INTEGER, end_station_name VARCHAR, end_station_id INTEGER, start_lat DOUBLE, start_lng DOUBLE, end_lat DOUBLE, end_lng DOUBLE, member_casual VARCHAR)
+    main.divvy_stations_lookup(station_id INTEGER, station_name VARCHAR, lat DOUBLE, lng DOUBLE, state VARCHAR, primary_neighbourhood VARCHAR, secondary_neighborhood VARCHAR)
+    main.facts_divvy(ride_id VARCHAR, rideable_type VARCHAR, membership_status VARCHAR, start_station_id INTEGER, start_station_name VARCHAR, end_station_name VARCHAR, end_station_id INTEGER, started_at TIMESTAMP, ended_at TIMESTAMP, duration_minutes DOUBLE, start_neighbourhood VARCHAR, start_location VARCHAR, end_neighbourhood VARCHAR, end_location VARCHAR)
+    main.stg_divvy_data(r_id VARCHAR, ride_id VARCHAR, rideable_type VARCHAR, membership_status VARCHAR, started_at TIMESTAMP, ended_at TIMESTAMP, start_station_name VARCHAR, start_station_id VARCHAR, end_station_name VARCHAR, end_station_id VARCHAR, start_lat DECIMAL(18,3), start_lng DECIMAL(18,3), end_lat DECIMAL(18,3), end_lng DECIMAL(18,3))
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+
+name: 'divvy_project'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'divvy'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["mo
+
+
+=== FINAL models (1) ===
+  - models/core/dim_neighbourhoods.sql
+    --- body (first 900 chars):
+    {{ config(materialized='table') }}
+
+    select *
+    from {{ source('main','divvy_stations_lookup')}}
+
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+
+name: 'divvy_project'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'divvy'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project c
+
+
+--- models/core/schema.yml (head) ---
+version: 2
+
+models:
+  - name: dim_neighbourhoods
+    description: >
+      List of unique neighborhoods and their geo-locational information identified by station name. 
+
+  - name: facts_divvy
+    description: |
+      This model represents bike trips for both annual and casual subscribers, combining user data, trip duration, and geo-locational information for the start and end stations. 
+      The model filters trips that have a duration between 1 minute and 24 hours.
+
+    refs:
+      - name: stg
+
+
+--- models/schema.yml (head) ---
+sources:
+  - name: main 
+    tables:
+      - name: divvy_data
+      - name: divvy_stations_lookup
+
+
+--- models/staging/schema.yml (head) ---
+version: 2
+
+sources:
+  - name: main
+    database: tidal-cipher-381616
+    schema: divvy_data_raw
+    tables:
+      - name: divvy_data
+        description: "Raw data of Divvy bike trips in the Chicago Metropolitan area, covering rides from 2020 to 2023."
+
+
+models:
+  - name: stg_divvy_data
+    description: |
+      This model processes the raw Divvy bike trip data to provide clean and structured data for analysis. It includes information on bike ride details, timestamps, station information, and ge
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

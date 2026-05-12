@@ -1,0 +1,192 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        How can I calculate the average IMDb and TMDb ratings for actors based on the movies they've appeared in, and also determine the number of movies each actor participated in by release year?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `flicks.duckdb`
+    main.company_user(Login_email VARCHAR, Identifier INTEGER, First_name VARCHAR, Last_name VARCHAR)
+    main.credits(person_id INTEGER, id VARCHAR, name VARCHAR, character VARCHAR, role VARCHAR)
+    main.sales(SALESORDERNUMBER VARCHAR, SALESORDERLINENUMBER INTEGER, ORDERDATE DATE, CUSTOMERNAME VARCHAR, EMAILADDRESS VARCHAR, ITEM VARCHAR, QUANTITY INTEGER, UNITPRICE DOUBLE, TAXAMOUNT DOUBLE)
+    main.titles(ID VARCHAR, TITLE VARCHAR, TYPE VARCHAR, DESCRIPTION VARCHAR, RELEASE_YEAR INTEGER, AGE_CERTIFICATION VARCHAR, RUNTIME INTEGER, GENRES VARCHAR, PRODUCTION_COUNTRIES VARCHAR, SEASONS INTEGER, IMDB_ID VARCHAR, IMDB_SCORE DOUBLE, IMDB_VOTES INTEGER, TMDB_POPULARITY DOUBLE, TMDB_SCORE DOUBLE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: "dbt_flicks"
+version: "1.0.0"
+
+# This setting configures which "profile" dbt uses for this project.
+profile: "flicks"
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths:
+
+
+=== STAGING models (6) ===
+  - models/staging/all_dates.sql
+    cols: date
+    --- head:
+    {{ config (
+        materialized="table"
+    )}}
+
+    {{ dbt_utils.date_spine(
+  - models/staging/company_user/company_users.sql
+    cols: valid_email
+    --- head:
+    with users as (
+        select * from {{ source('netflix', 'company_user') }}
+    )
+    select *,
+           regexp_matches(login_email, '^[A-Za-z0-9._%+-]+@example.com$') as valid_email
+  - models/staging/credits/stg_netflix__credits.sql
+    --- head:
+
+    select * from {{ source('netflix', 'CREDITS') }}
+  - models/staging/movies/stg_netflix__movies.sql
+    --- head:
+
+    select * from {{ source('netflix', 'TITLES') }} where type = 'MOVIE'
+  - models/staging/sales/stg_netflix__sale.sql
+    --- head:
+
+    select * from {{ source('netflix', 'SALES') }}
+  - models/staging/shows/stg_netflix__shows.sql
+    --- head:
+
+    select * from {{ source('netflix', 'TITLES') }} where type = 'SHOW'
+
+=== FINAL models (3) ===
+  - macros/generate_md5.sql
+    cols: VARCHAR
+    --- body (first 900 chars):
+    {%- macro generate_md5() -%}
+        {{log('Genrating Hash Key',info = True)}}
+        {%- set column_to_md5 = [] -%}
+        {%- for key, value in kwargs.items() -%}
+            {%-do column_to_md5.append("NVL(CAST("~value~" as VARCHAR),'UNKNOW')") -%}      
+        {%- endfor -%}
+        {{'MD5(CONCAT(' ~ column_to_md5|join(",'_',") ~ '))'}}
+        {{log('Hash Key Has Been Generate',info = True)}}
+    {%- endmacro -%}
+  - macros/group_by_column.sql
+    --- body (first 900 chars):
+    {% macro group_by_column(table_name,column_name) -%}
+        select {{column_name}},count(*) Total from {{ ref(table_name) }} group by {{column_name}}
+    {%- endmacro %}
+  - models/metricflow_time_spine.sql
+    cols: date, date_day
+    --- body (first 900 chars):
+    {{
+        config(
+            materialized = 'table',
+        )
+    }}
+
+    with days as (
+
+        {{
+            dbt.date_spine(
+                'day',
+                "strptime('01/01/2000', '%m/%d/%Y')",
+                "strptime('01/01/2027', '%m/%d/%Y')"
+            )
+        }}
+
+    ),
+
+    final as (
+        select cast(date_day as date) as date_day
+        from days
+    )
+
+    select * from final
+
+
+--- dbt_project.yml (head) ---
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: "dbt_flicks"
+version: "1.0.0"
+
+# This setting configures which "profile" dbt uses for this project.
+profile: "flicks"
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "
+
+
+--- models/report/report.yml (head) ---
+version: 2
+
+models:
+  - name: actor_rating_by_total_movie
+    description: "This model calculates the average IMDb and TMDb ratings for each actor based on the movies they appeared in, from the Netflix dataset."
+    columns:
+      - name: actor_id
+        description: "Unique identifier for the actor."
+        type: numeric
+        tests:
+          - not_null
+          - unique
+      - name: actor_name
+        description: "Name of the actor."
+        type: string
+        tests:
+          - not_
+
+
+--- models/sources.yml (head) ---
+sources:
+  - name: netflix
+    schema: main
+    tables:
+      - name: TITLES
+      - name: CREDITS
+      - name: SALES
+      - name: company_user
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

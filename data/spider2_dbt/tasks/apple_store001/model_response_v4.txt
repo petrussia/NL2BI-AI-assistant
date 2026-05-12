@@ -1,0 +1,46 @@
+```diff
+--- a/models/apple_store__overview_report.sql
++++ b/models/apple_store__overview_report.sql
+@@ -1,6 +1,7 @@
+ with base as (
+     select * 
+     from {{ var('app_store_device') }}
++    cross join main.apple_store_country_codes
+ ),
+ 
+ reporting_grain as (
+     select 
+         date_day,
+         app_id, 
+         sum(impressions) as impressions,
+@@ -18,6 +19,7 @@
+         sum(redownloads) as redownloads,
+         sum(total_downloads) as total_downloads,
+         sum(active_devices) as active_devices,
++        country_code_alpha_2,
+         sum(deletions) as deletions,
+         sum(installations) as installations,
+         sum(sessions) as sessions
+     from base
++    group by date_day, app_id, country_code_alpha_2
+ )
+ 
+ select 
+     date_day,
+     app_id, 
+     app_name,
+     source_type,
+     sum(impressions) as impressions,
+@@ -34,6 +36,7 @@
+     sum(redownloads) as redownloads,
+     sum(total_downloads) as total_downloads,
+     sum(active_devices) as active_devices,
++    country_code_alpha_2,
+     sum(deletions) as deletions,
+     sum(installations) as installations,
+     sum(sessions) as sessions
+ from reporting_grain
+ join main.app using (app_id)
++join main.apple_store_country_codes using (country_code_alpha_2)
+ group by date_day, app_id, app_name, source_type, country_code_alpha_2
+```

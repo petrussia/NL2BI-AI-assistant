@@ -1,0 +1,44 @@
+```sql path=models/balance_sheet_report.sql
+WITH monthly_journals AS (
+    SELECT 
+        date_month,
+        account_id,
+        SUM(net_amount) AS net_amount
+    FROM 
+        {{ ref('xero__general_ledger') }}
+    JOIN 
+        {{ ref('xero__calendar_spine') }} 
+    ON 
+        EXTRACT(YEAR FROM {{ ref('xero__general_ledger').created_date_utc }}) * 100 + EXTRACT(MONTH FROM {{ ref('xero__general_ledger').created_date_utc }}) = EXTRACT(YEAR FROM date_month) * 100 + EXTRACT(MONTH FROM date_month)
+    GROUP BY 
+        date_month, account_id
+),
+monthly_invoices AS (
+    SELECT 
+        date_month,
+        account_id,
+        SUM(net_amount) AS net_amount
+    FROM 
+        {{ ref('xero__invoice_line_items') }}
+    JOIN 
+        {{ ref('xero__calendar_spine') }} 
+    ON 
+        EXTRACT(YEAR FROM {{ ref('xero__invoice_line_items').invoice_date }}) * 100 + EXTRACT(MONTH FROM {{ ref('xero__invoice_line_items').invoice_date }}) = EXTRACT(YEAR FROM date_month) * 100 + EXTRACT(MONTH FROM date_month)
+    GROUP BY 
+        date_month, account_id
+)
+SELECT 
+    ms.date_month,
+    ms.account_id,
+    COALESCE(ms.net_amount, 0) AS journal_net_amount,
+    COALESCE(mi.net_amount, 0) AS invoice_net_amount,
+    COALESCE(ms.net_amount, 0) + COALESCE(mi.net_amount, 0) AS total_net_amount
+FROM 
+    monthly_journals ms
+FULL OUTER JOIN 
+    monthly_invoices mi
+ON 
+    ms.date_month = mi.date_month AND ms.account_id = mi.account_id
+ORDER BY 
+    ms.date_month, ms.account_id;
+```

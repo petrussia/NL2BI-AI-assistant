@@ -1,0 +1,279 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Can you explain the process used to calculate admin-specific and optionally team-specific metrics for closed conversations in Intercom, including total conversations, average ratings, and median response times?.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `intercom.duckdb`
+    main.admin_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, job_title INTEGER, email VARCHAR, name VARCHAR)
+    main.company_history_data(id VARCHAR, updated_at TIMESTAMP, _fivetran_synced VARCHAR, company_id VARCHAR, created_at TIMESTAMP, industry INTEGER, last_request_at TIMESTAMP, monthly_spend INTEGER, plan_id INTEGER, plan_name INTEGER, remote_created_at INTEGER, session_count INTEGER, size INTEGER, user_count INTEGER, website INTEGER, name VARCHAR, _fivetran_active BOOLEAN, _fivetran_start TIMESTAMP, _fivetran_end TIMESTAMP)
+    main.company_tag_history_data(company_id VARCHAR, company_updated_at TIMESTAMP, tag_id INTEGER, _fivetran_active BOOLEAN, _fivetran_synced VARCHAR, _fivetran_start TIMESTAMP, _fivetran_end TIMESTAMP)
+    main.contact_company_history_data(company_id VARCHAR, contact_id VARCHAR, contact_updated_at TIMESTAMP, _fivetran_synced VARCHAR, _fivetran_active BOOLEAN, _fivetran_start TIMESTAMP, _fivetran_end TIMESTAMP)
+    main.contact_history_data(id VARCHAR, updated_at TIMESTAMP, _fivetran_active BOOLEAN, _fivetran_synced VARCHAR, admin_id INTEGER, android_app_name INTEGER, android_app_version INTEGER, android_device INTEGER, android_last_seen_at INTEGER, android_os_version INTEGER, android_sdk_version INTEGER, browser INTEGER, browser_language INTEGER, browser_version INTEGER, created_at TIMESTAMP, custom_onboarding_step INTEGER, custom_organisation_id INTEGER, custom_organisation_name INTEGER, external_id VARCHAR, has_hard_bounced BOOLEAN, ios_app_name INTEGER, ios_app_version INTEGER, ios_device INTEGER, ios_last_seen_at INTEGER, ios_os_version INTEGER, ios_sdk_version INTEGER, language_override INTEGER, last_contacted_at TIMESTAMP, last_email_clicked_at TIMESTAMP, last_email_opened_at TIMESTAMP)
+    main.contact_tag_history_data(contact_id VARCHAR, contact_updated_at TIMESTAMP, tag_id INTEGER, _fivetran_synced VARCHAR, _fivetran_start TIMESTAMP, _fivetran_end TIMESTAMP, _fivetran_active BOOLEAN)
+    main.conversation_contact_history_data(contact_id VARCHAR, conversation_id INTEGER, conversation_updated_at TIMESTAMP, _fivetran_synced VARCHAR, _fivetran_start TIMESTAMP, _fivetran_end TIMESTAMP, _fivetran_active BOOLEAN)
+    main.conversation_history_data(id INTEGER, updated_at TIMESTAMP, _fivetran_synced VARCHAR, assignee_id INTEGER, assignee_type VARCHAR, conversation_rating_created_at INTEGER, conversation_rating_remark INTEGER, conversation_rating_value INTEGER, created_at TIMESTAMP, first_contact_reply_created_at TIMESTAMP, first_contact_reply_type VARCHAR, priority VARCHAR, read BOOLEAN, sla_name INTEGER, sla_status INTEGER, snoozed_until INTEGER, source_author_id VARCHAR, source_author_type VARCHAR, source_delivered_as VARCHAR, source_id INTEGER, source_type VARCHAR, state VARCHAR, waiting_since TIMESTAMP, first_contact_reply_url VARCHAR, source_body VARCHAR, source_subject VARCHAR, source_url VARCHAR, _fivetran_start TIMESTAMP, _fivetran_end TIMESTAMP, _fivetran_active BOOLEAN)
+    main.conversation_part_history_data(id INTEGER, updated_at TIMESTAMP, _fivetran_synced VARCHAR, assigned_to_id INTEGER, assigned_to_type INTEGER, author_id INTEGER, author_type VARCHAR, conversation_id INTEGER, conversation_updated_at TIMESTAMP, created_at TIMESTAMP, notified_at TIMESTAMP, part_type VARCHAR, body VARCHAR, _fivetran_start TIMESTAMP, _fivetran_end VARCHAR, _fivetran_active BOOLEAN)
+    main.conversation_tag_history_data(tag_id INTEGER, conversation_id INTEGER, conversation_updated_at VARCHAR, _fivetran_start VARCHAR, _fivetran_end VARCHAR, _fivetran_active BOOLEAN)
+    main.tag_data(id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, name VARCHAR)
+    main.team_admin_data(admin_id INTEGER, team_id INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP)
+    main.team_data(id INTEGER, name VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+config-version: 2
+name: 'intercom'
+version: '0.9.1'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+
+profile: 'intercom'
+
+vars:
+  intercom_schema: main
+  intercom_source:
+    intercom_admin_identifier: "admin_data"
+    intercom_company_history_identifier: "company_history_data"
+    intercom_company_tag_history_identifier: "company_tag_history_data"
+    intercom_contact_company_history_identifier: "contact_company_history_data"
+    intercom_contact_history_identifier: "contact_history_data"
+    intercom_contact_tag_history_identifier: "contact_tag_history_data"
+    in
+
+
+=== INTERMEDIATE models (3) ===
+  - models/intermediate/int_intercom__conversation_part_aggregates.sql
+    cols: conversation_created_at, count_total_parts, first_contact_reply_at, first_assignment_at, first_admin_response_at, first_reopen_at, last_assignment_at, last_contact_reply_at, last_admin_response_at, last_reopen_at, count_assignments, count_reopens
+    --- head:
+    with latest_conversation_part as (
+      select *
+      from {{ var('conversation_part_history') }}
+      where coalesce(_fivetran_active, true)
+    ),
+  - models/intermediate/int_intercom__conversation_part_events.sql
+    cols: first_close_by_admin_id, last_close_by_admin_id, first_admin_close_at, last_admin_close_at, first_close_by_author_id, last_close_by_author_id, first_close_at, last_close_at, first_contact_author_id, last_contact_author_id, first_team_id, last_team_id, string
+    --- head:
+    with conversation_part_history as (
+      select *
+      from {{ var('conversation_part_history') }}
+    ),
+
+  - models/intermediate/int_intercom__conversation_string_aggregates.sql
+    cols: conversation_admins, either, conversation_contacts
+    --- head:
+    with conversation_part_history as (
+        select *
+        from {{ var('conversation_part_history') }}
+    ),
+
+
+=== FINAL models (4) ===
+  - models/intercom__company_enhanced.sql
+    cols: all_company_tags
+    --- body (first 900 chars):
+    --To disable this model, set the intercom__using_contact_company variable within your dbt_project.yml file to False.
+    {{ config(enabled=var('intercom__using_contact_company', True)) }}
+
+    with company_history as (
+      select *
+      from {{ var('company_history') }}
+    ),
+
+    --If you use company tags this will be included, if not it will be ignored.
+    {% if var('intercom__using_company_tags', True) %}
+    company_tags as (
+      select *
+      from {{ var('company_tag_history') }}
+    ),
+
+    tags as (
+      select *
+      from {{ var('tag') }}
+    ),
+
+    --Aggregates the tags associated with a single company into an array.
+    company_tags_aggregate as (
+      select
+        company_history.company_id,
+        {{ fivetran_utils.string_agg('distinct tags.name', "', '" ) }} as all_company_tags
+      from company_history
+
+      left join company_tags
+          on company_tags.company_id = company_history.company_id
+
+        left join tags
+          on tags.tag_id = compa
+  - models/intercom__contact_enhanced.sql
+    cols: all_contact_tags, all_contact_company_names, well, the
+    --- body (first 900 chars):
+    --take latest contact history to get the last update for the contact
+    with contact_latest as (
+      select *
+      from {{ var('contact_history') }}
+      where coalesce(_fivetran_active, true)
+    ),
+
+    --If you use the contact company table this will be included, if not it will be ignored.
+    {% if var('intercom__using_contact_company', True) %}
+    contact_company_history as (
+      select *
+      from {{ var('contact_company_history') }}
+    ),
+
+    company_history as (
+      select *
+      from {{ var('company_history') }}
+    ),
+    {% endif %}  
+
+    --If you use contact tags this will be included, if not it will be ignored.
+    {% if var('intercom__using_contact_tags', True) %}
+    contact_tags as (
+      select *
+      from {{ var('contact_tag_history') }}
+    ),
+
+    tags as (
+      select *
+      from {{ var('tag') }}
+    ),
+
+    --Aggregates the tags associated with a single contact into an array.
+    contact_tags_aggregate as (
+      select
+        contact_latest.contact_id,
+        {{ fiv
+  - models/intercom__conversation_enhanced.sql
+    cols: all_conversation_tags, conversation_created_at, conversation_last_updated_at, conversation_type, conversation_initiated_type, conversation_subject, conversation_assignee_type, conversation_author_type, conversation_state, conversation_rating, conversation_remark, first_team_name, last_team_name, all_conversation_admins, all_conversation_contacts, first_team, last_team
+    --- body (first 900 chars):
+    with latest_conversation as (
+        select *
+        from {{ var('conversation_history') }}
+        where coalesce(_fivetran_active, true)
+    ),
+
+    conversation_string_aggregates as (
+        select *
+        from {{ ref('int_intercom__conversation_string_aggregates') }}
+    ),
+
+    conversation_part_events as (
+        select *
+        from {{ ref('int_intercom__conversation_part_events') }}
+    ),
+
+    --If you use the contact company table this will be included, if not it will be ignored.
+    {% if var('intercom__using_contact_company', True) %}
+    contact_enhanced as (
+        select *
+        from {{ ref('intercom__contact_enhanced') }}
+    ),
+    {% endif %} 
+
+    --If you use conversation tags this will be included, if not it will be ignored.
+    {% if var('intercom__using_conversation_tags', True) %}
+    conversation_tags as (
+        select *
+        from {{ var('conversation_tag_history') }}
+    ),
+
+    tags as (
+        select *
+        from {{ var('tag') }}
+    ),
+
+    --Aggregates the t
+  - models/intercom__conversation_metrics.sql
+    cols: numeric, time_to_first_assignment_minutes, time_to_first_response_minutes, time_to_admin_first_close_minutes, time_to_first_close_minutes, time_to_last_assignment_minutes, time_to_admin_last_close_minutes, time_to_last_close_minutes
+    --- body (first 900 chars):
+    with conversation_part_aggregates as (
+      select *
+      from {{ ref('int_intercom__conversation_part_aggregates') }}
+    ),
+
+    conversation_enhanced as(
+      select *
+      from {{ ref('intercom__conversation_enhanced') }}
+    ),
+
+    --Returns time difference aggregates to the conversations_enhanced model. All time metrics are broken down to the second, then divided by 60 to reflect minutes without rounding errors.
+    final as (
+      select 
+        conversation_enhanced.*,
+        conversation_part_aggregates.count_reopens,
+        conversation_part_aggregates.count_total_parts,
+        conversation_part_aggregates.count_assignments,
+        conversation_part_aggregates.first_contact_reply_at,
+        conversation_part_aggregates.first_assignment_at,
+        round(cast(({{ dbt.datediff("conversation_enhanced.conversation_created_at", "conversation_part_aggregates.first_assignment_at", 'second') }}/60) as numeric), 2) as time_to_first_assignmen
+
+--- dbt_project.yml (head) ---
+config-version: 2
+name: 'intercom'
+version: '0.9.1'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+
+profile: 'intercom'
+
+vars:
+  intercom_schema: main
+  intercom_source:
+    intercom_admin_identifier: "admin_data"
+    intercom_company_history_identifier: "company_history_data"
+    intercom_company_tag_history_identifier: "company_tag_history_data"
+    intercom_contact_company_history_identifier: "contact_company_history_data"
+    intercom_contact_history_identifier: "
+
+
+--- models/intercom.yml (head) ---
+version: 2
+
+models:
+
+  - name: intercom__admin_metrics
+    description: > 
+      This model aggregates conversation-related metrics at the admin (employee) level, with optional team-level data if teams are enabled. 
+      Each record represents an admin and their associated team (if applicable), enriched with metrics such as total closed conversations, average conversation parts, 
+      average satisfaction rating, and median response times. This provides insights into each admin’s performance, 
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

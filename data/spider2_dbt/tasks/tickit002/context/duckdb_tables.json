@@ -1,0 +1,282 @@
+{
+  "tickit.duckdb": [
+    {
+      "schema": "main",
+      "table": "category",
+      "columns": [
+        {
+          "name": "catid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "catgroup",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "catname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "catdesc",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "date",
+      "columns": [
+        {
+          "name": "dateid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "caldate",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "week",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qtr",
+          "type": "INTEGER"
+        },
+        {
+          "name": "holiday",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "event",
+      "columns": [
+        {
+          "name": "eventid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "venueid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "catid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dateid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "eventname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "starttime",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "listing",
+      "columns": [
+        {
+          "name": "listid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sellerid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "eventid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dateid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "numtickets",
+          "type": "INTEGER"
+        },
+        {
+          "name": "priceperticket",
+          "type": "INTEGER"
+        },
+        {
+          "name": "totalprice",
+          "type": "INTEGER"
+        },
+        {
+          "name": "listtime",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sale",
+      "columns": [
+        {
+          "name": "salesid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "listid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sellerid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "buyerid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "eventid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "dateid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qtysold",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pricepaid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "commission",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "saletime",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user",
+      "columns": [
+        {
+          "name": "userid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "firstname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lastname",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "likesports",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "liketheatre",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likeconcerts",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likejazz",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likeclassical",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likeopera",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likerock",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likevegas",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likebroadway",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "likemusicals",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "venue",
+      "columns": [
+        {
+          "name": "venueid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "venuename",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "venuecity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "venuestate",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "venueseats",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

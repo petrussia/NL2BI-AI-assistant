@@ -1,0 +1,34 @@
+```diff
+--- a/models/customer_revenue_by_month.sql
++++ b/models/customer_revenue_by_month.sql
+@@ -37,6 +37,21 @@ select
+         and months.date_month < customers.date_month_end
+
+     )
+
++-- calculate MRR changes
++mrr_changes as (
++    select
++        customer_months.customer_id,
++        customer_months.date_month,
++        coalesce(mrr.mrr, 0) as current_mrr,
++        lag(coalesce(mrr.mrr, 0), 1) over (partition by customer_months.customer_id order by customer_months.date_month) as previous_mrr
++    from customer_months
++    left join mrr
++        on customer_months.customer_id = mrr.customer_id
++        and customer_months.date_month = mrr.date_month
++),
++
+ select
+     customer_months.customer_id,
+     customer_months.date_month,
+@@ -44,6 +59,7 @@ select
+     mrr.is_active,
+     mrr.first_active_month,
+     mrr.last_active_month,
++    mrr_changes.current_mrr,
++    mrr_changes.previous_mrr,
+     mrr.mrr_change,
+     mrr.change_category,
+     mrr.renewal_amount
+```

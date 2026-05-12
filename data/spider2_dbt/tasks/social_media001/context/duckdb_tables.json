@@ -1,0 +1,6264 @@
+{
+  "social_media.duckdb": [
+    {
+      "schema": "main",
+      "table": "account_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "approval_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "industry_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timezone_switch_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "facebook_pages_daily_page_metrics_total_data",
+      "columns": [
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_actions_post_reactions_anger_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_haha_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_like_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_love_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_sorry_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_wow_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fan_adds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fan_removes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fans",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_negative_feedback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_places_checkin_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_post_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_total_actions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_repeat_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_repeat_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_view_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_repeat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fans_online_per_day",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "facebook_pages_lifetime_post_metrics_total_data",
+      "columns": [
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_engaged_fan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_engaged_users",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_fan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_negative_feedback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_anger_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_haha_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_like_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_love_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_sorry_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_wow_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_avg_time_watched",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_view_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_view_time_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_sound_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_sound_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_length",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_15_s",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "facebook_pages_page_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "affiliation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "artists_we_like",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attire",
+          "type": "INTEGER"
+        },
+        {
+          "name": "awards",
+          "type": "INTEGER"
+        },
+        {
+          "name": "band_interests",
+          "type": "INTEGER"
+        },
+        {
+          "name": "band_members",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "birthday",
+          "type": "INTEGER"
+        },
+        {
+          "name": "booking_agent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "built",
+          "type": "INTEGER"
+        },
+        {
+          "name": "can_checkin",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "can_post",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category_list",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "checkins",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_overview",
+          "type": "INTEGER"
+        },
+        {
+          "name": "culinary_team",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directed_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "display_subtext",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "emails",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fan_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "features",
+          "type": "INTEGER"
+        },
+        {
+          "name": "food_styles",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded",
+          "type": "INTEGER"
+        },
+        {
+          "name": "general_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "general_manager",
+          "type": "INTEGER"
+        },
+        {
+          "name": "genre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "global_brand_page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_added_app",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_whatsapp_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hometown",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressum",
+          "type": "INTEGER"
+        },
+        {
+          "name": "influences",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_always_open",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_chain",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_community_page",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_eligible_for_branded_content",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_messenger_bot_get_started_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_messenger_platform_bot",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_owned",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_permanently_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_unclaimed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "members",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mission",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mpg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "network",
+          "type": "INTEGER"
+        },
+        {
+          "name": "new_like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overall_star_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_interests",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pharma_safety_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "place_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "plot_outline",
+          "type": "INTEGER"
+        },
+        {
+          "name": "press_contact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_range",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "produced_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "products",
+          "type": "INTEGER"
+        },
+        {
+          "name": "promotion_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "promotion_ineligible_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "public_transit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_label",
+          "type": "INTEGER"
+        },
+        {
+          "name": "release_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule",
+          "type": "INTEGER"
+        },
+        {
+          "name": "screenplay_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "single_line_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "starring",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "studio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "talking_about_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "were_here_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "whatsapp_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "written_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_transitioned_to_new_page_experience",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "facebook_pages_post_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "updated_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "allowed_advertising_objects",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_eligible_for_promotion",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_instagram_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_allow",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_deny",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "privacy_friends",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "promotable_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "instagram_business_media_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "caption",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ig_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_comment_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_story",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "media_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "permalink",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shortcode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "instagram_business_media_insights_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "carousel_album_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_exits",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_back",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_forward",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "instagram_business_user_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "follows_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ig_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "linkedin_pages_organization_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_x",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_y",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_cropped",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cover_photo_v_2_original",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description_preferred_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description_preferred_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "founded_on_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded_on_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded_on_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_x",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_y",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_cropped",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "logo_v_2_original",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_preferred_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_preferred_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_x",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_y",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_cropped",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_original",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_relationship_parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_relationship_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_relationship_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_organization_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "school_attributes_hierarchy_classification",
+          "type": "INTEGER"
+        },
+        {
+          "name": "school_attributes_legacy_school",
+          "type": "INTEGER"
+        },
+        {
+          "name": "school_attributes_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "school_attributes_year_level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "staff_count_range",
+          "type": "INTEGER"
+        },
+        {
+          "name": "version_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "website_preferred_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website_preferred_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description_localized",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_localized",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vanity_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website_localized",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "linkedin_pages_organization_ugc_post_data",
+      "columns": [
+        {
+          "name": "organiation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "linkedin_pages_post_content_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "article_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_source",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_thumbnail",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_thumbnail_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "multi_image_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "poll_question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_settings_duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_settings_is_voter_visible_to_author",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "poll_settings_vote_selection_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_unique_voters_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "linkedin_pages_share_statistic_data",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_organization_entity_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_share_entity_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "click_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "engagement",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impression_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "linkedin_pages_ugc_post_history_data",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "commentary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "container_entity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_external_distribution_channels",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_feed_distribution",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_published_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lifecycle_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_context_parent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_context_root",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "linkedin_pages_ugc_post_share_statistic_data",
+      "columns": [
+        {
+          "name": "share_statistic_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "organic_tweet_report",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organic_tweet_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "placement",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "card_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_swipes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "follows",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "likes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "poll_card_vote",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qualified_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweets",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tweets_send",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unfollows",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_15_s_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_3_s_100_pct_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_6_s_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_content_starts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_cta_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_total_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_100",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_50",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_75",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "social_media_reporting__facebook_posts_reporting",
+      "columns": [
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "platform",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "likes",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "tweet",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "card_uri",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinates_coordinates",
+          "type": "INTEGER"
+        },
+        {
+          "name": "coordinates_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "favorite_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "favorited",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "followers",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_coordinates",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "in_reply_to_screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "in_reply_to_status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "in_reply_to_user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lang",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweet_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweeted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "truncated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tweet_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_test",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twitter_user_history",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "contributors_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "default_profile",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "default_profile_image",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "favourites_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "friends_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_translation_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_translator",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "lang",
+          "type": "INTEGER"
+        },
+        {
+          "name": "listed_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_background_image_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_background_image_url_https",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_background_tile",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "profile_banner_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_image_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_image_url_https",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_use_background_image",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "protected_user",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "statuses_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utc_offset",
+          "type": "INTEGER"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_facebook_pages",
+      "table": "facebook_pages__pages_report",
+      "columns": [
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "actions_post_reactions_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fan_adds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fan_removes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posts_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "views_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_facebook_pages",
+      "table": "facebook_pages__posts_report",
+      "columns": [
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "post_message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_avg_time_watched",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_view_time",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_15s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "likes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_facebook_pages",
+      "table": "int_facebook_pages__lastest_post",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "allowed_advertising_objects",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "is_eligible_for_promotion",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_instagram_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "post_message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_allow",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_deny",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "privacy_friends",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "promotable_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_instagram_business",
+      "table": "instagram_business__posts",
+      "columns": [
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_caption",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_comment_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_story",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "media_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shortcode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "carousel_album_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_exits",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_back",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_forward",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_comments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_likes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_plays",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_shares",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_total_interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_linkedin_pages",
+      "table": "int_linkedin_pages__latest_post",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "share_statistic_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_linkedin_pages",
+      "table": "int_linkedin_pages__latest_post_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "commentary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_published_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lifecycle_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_linkedin_pages",
+      "table": "linkedin_pages__posts",
+      "columns": [
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_published_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lifecycle_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "commentary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "click_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impression_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__daily_page_metrics_total",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_anger_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_haha_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_like_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_love_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_sorry_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_wow_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "actions_post_reactions_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fan_adds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fan_removes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fans",
+          "type": "INTEGER"
+        },
+        {
+          "name": "fans_online_per_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "negative_feedback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "places_checkin_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posts_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posts_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posts_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posts_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "posts_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_actions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_repeat_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_repeat_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_view_time",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_repeat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "views_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__daily_page_metrics_total_tmp",
+      "columns": [
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_actions_post_reactions_anger_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_haha_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_like_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_love_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_sorry_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_actions_post_reactions_wow_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fan_adds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fan_removes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fans",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_negative_feedback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_places_checkin_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_post_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_posts_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_total_actions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_complete_views_30_s_repeat_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_repeat_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_view_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_10_s_repeat",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_click_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_video_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_views_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_fans_online_per_day",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__lifetime_post_metrics_total",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_fan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "negative_feedback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reactions_anger_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reactions_haha_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reactions_like_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reactions_love_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reactions_sorry_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reactions_wow_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_avg_time_watched",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_complete_views_30s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_30s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_complete_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_length",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_view_time",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_view_time_organic",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_10s_sound_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_15s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_sound_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__lifetime_post_metrics_total_tmp",
+      "columns": [
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_engaged_fan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_engaged_users",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_fan",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_nonviral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_impressions_viral",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_negative_feedback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_anger_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_haha_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_like_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_love_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_sorry_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_reactions_wow_total",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_avg_time_watched",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_30_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_complete_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_view_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_view_time_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_10_s_sound_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_autoplayed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_clicked_to_play",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_organic",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_paid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_sound_on",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_length",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_video_views_15_s",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__page",
+      "columns": [
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "affiliation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "artists_we_like",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attire",
+          "type": "INTEGER"
+        },
+        {
+          "name": "awards",
+          "type": "INTEGER"
+        },
+        {
+          "name": "band_interests",
+          "type": "INTEGER"
+        },
+        {
+          "name": "band_members",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "birthday",
+          "type": "INTEGER"
+        },
+        {
+          "name": "booking_agent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "built",
+          "type": "INTEGER"
+        },
+        {
+          "name": "can_checkin",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "can_post",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category_list",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "checkins",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_overview",
+          "type": "INTEGER"
+        },
+        {
+          "name": "culinary_team",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directed_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "display_subtext",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "emails",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fan_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "features",
+          "type": "INTEGER"
+        },
+        {
+          "name": "food_styles",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded",
+          "type": "INTEGER"
+        },
+        {
+          "name": "general_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "general_manager",
+          "type": "INTEGER"
+        },
+        {
+          "name": "genre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "global_brand_page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_added_app",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_transitioned_to_new_page_experience",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "has_whatsapp_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hometown",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressum",
+          "type": "INTEGER"
+        },
+        {
+          "name": "influences",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_always_open",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_chain",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_community_page",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_eligible_for_branded_content",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_messenger_bot_get_started_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_messenger_platform_bot",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_owned",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_permanently_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_unclaimed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "members",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mission",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mpg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "network",
+          "type": "INTEGER"
+        },
+        {
+          "name": "new_like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overall_star_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_interests",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pharma_safety_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "place_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "plot_outline",
+          "type": "INTEGER"
+        },
+        {
+          "name": "press_contact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_range",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "produced_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "products",
+          "type": "INTEGER"
+        },
+        {
+          "name": "promotion_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "promotion_ineligible_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "public_transit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_label",
+          "type": "INTEGER"
+        },
+        {
+          "name": "release_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule",
+          "type": "INTEGER"
+        },
+        {
+          "name": "screenplay_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "single_line_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "starring",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "studio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "talking_about_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "were_here_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "whatsapp_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "written_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__page_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "affiliation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "app_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "artists_we_like",
+          "type": "INTEGER"
+        },
+        {
+          "name": "attire",
+          "type": "INTEGER"
+        },
+        {
+          "name": "awards",
+          "type": "INTEGER"
+        },
+        {
+          "name": "band_interests",
+          "type": "INTEGER"
+        },
+        {
+          "name": "band_members",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "birthday",
+          "type": "INTEGER"
+        },
+        {
+          "name": "booking_agent",
+          "type": "INTEGER"
+        },
+        {
+          "name": "built",
+          "type": "INTEGER"
+        },
+        {
+          "name": "can_checkin",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "can_post",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category_list",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "checkins",
+          "type": "INTEGER"
+        },
+        {
+          "name": "company_overview",
+          "type": "INTEGER"
+        },
+        {
+          "name": "culinary_team",
+          "type": "INTEGER"
+        },
+        {
+          "name": "current_location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directed_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "display_subtext",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "emails",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fan_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "features",
+          "type": "INTEGER"
+        },
+        {
+          "name": "food_styles",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded",
+          "type": "INTEGER"
+        },
+        {
+          "name": "general_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "general_manager",
+          "type": "INTEGER"
+        },
+        {
+          "name": "genre",
+          "type": "INTEGER"
+        },
+        {
+          "name": "global_brand_page_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "has_added_app",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_whatsapp_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "hometown",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressum",
+          "type": "INTEGER"
+        },
+        {
+          "name": "influences",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_always_open",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_chain",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_community_page",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_eligible_for_branded_content",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_messenger_bot_get_started_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_messenger_platform_bot",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_owned",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_permanently_closed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_unclaimed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "members",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mission",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mpg",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "network",
+          "type": "INTEGER"
+        },
+        {
+          "name": "new_like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overall_star_rating",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "personal_interests",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pharma_safety_info",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "place_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "plot_outline",
+          "type": "INTEGER"
+        },
+        {
+          "name": "press_contact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_range",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "produced_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "products",
+          "type": "INTEGER"
+        },
+        {
+          "name": "promotion_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "promotion_ineligible_reason",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "public_transit",
+          "type": "INTEGER"
+        },
+        {
+          "name": "rating_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "record_label",
+          "type": "INTEGER"
+        },
+        {
+          "name": "release_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule",
+          "type": "INTEGER"
+        },
+        {
+          "name": "screenplay_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "season",
+          "type": "INTEGER"
+        },
+        {
+          "name": "single_line_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "starring",
+          "type": "INTEGER"
+        },
+        {
+          "name": "store_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "studio",
+          "type": "INTEGER"
+        },
+        {
+          "name": "talking_about_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "were_here_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "whatsapp_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "written_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "has_transitioned_to_new_page_experience",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__post_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "allowed_advertising_objects",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "is_eligible_for_promotion",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_instagram_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "post_message",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_allow",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_deny",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "privacy_friends",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "promotable_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_facebook_pages",
+      "table": "stg_facebook_pages__post_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "updated_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "allowed_advertising_objects",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_eligible_for_promotion",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_instagram_eligible",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "page_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_allow",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_deny",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "privacy_friends",
+          "type": "INTEGER"
+        },
+        {
+          "name": "privacy_value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "promotable_id",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_instagram_business",
+      "table": "stg_instagram_business__media_history",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_caption",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "post_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ig_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_comment_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_story",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "media_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shortcode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_instagram_business",
+      "table": "stg_instagram_business__media_history_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "caption",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ig_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_comment_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_story",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "media_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "permalink",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "shortcode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_instagram_business",
+      "table": "stg_instagram_business__media_insights",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "carousel_album_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_exits",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_back",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_forward",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_comments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_likes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_plays",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_shares",
+          "type": "INTEGER"
+        },
+        {
+          "name": "reel_total_interactions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_instagram_business",
+      "table": "stg_instagram_business__media_insights_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "carousel_album_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_album_video_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_exits",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_back",
+          "type": "INTEGER"
+        },
+        {
+          "name": "story_taps_forward",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_engagement",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_reach",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_photo_saved",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_instagram_business",
+      "table": "stg_instagram_business__user_history",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "follows_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ig_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_instagram_business",
+      "table": "stg_instagram_business__user_history_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "follows_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ig_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__organization",
+      "columns": [
+        {
+          "name": "organization_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organization_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__organization_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_x",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_crop_info_y",
+          "type": "INTEGER"
+        },
+        {
+          "name": "cover_photo_v_2_cropped",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cover_photo_v_2_original",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "default_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description_preferred_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description_preferred_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "founded_on_day",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded_on_month",
+          "type": "INTEGER"
+        },
+        {
+          "name": "founded_on_year",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_x",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_crop_info_y",
+          "type": "INTEGER"
+        },
+        {
+          "name": "logo_v_2_cropped",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "logo_v_2_original",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_preferred_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_preferred_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_height",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_x",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_crop_info_y",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_cropped",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overview_photo_v_2_original",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_relationship_parent_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_relationship_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "parent_relationship_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "primary_organization_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "school_attributes_hierarchy_classification",
+          "type": "INTEGER"
+        },
+        {
+          "name": "school_attributes_legacy_school",
+          "type": "INTEGER"
+        },
+        {
+          "name": "school_attributes_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "school_attributes_year_level",
+          "type": "INTEGER"
+        },
+        {
+          "name": "staff_count_range",
+          "type": "INTEGER"
+        },
+        {
+          "name": "version_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "website_preferred_locale_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website_preferred_locale_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description_localized",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "localized_website",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_localized",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "vanity_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "website_localized",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__organization_ugc_post",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__organization_ugc_post_tmp",
+      "columns": [
+        {
+          "name": "organiation_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__post_content",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "article_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_source",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_thumbnail",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_thumbnail_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "carousel_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "multi_image_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "poll_question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_settings_duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_settings_is_voter_visible_to_author",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "poll_settings_vote_selection_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_unique_voters_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__post_content_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "article_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_source",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_thumbnail",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_thumbnail_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "article_title",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "media_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "multi_image_alt_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "poll_question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_settings_duration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_settings_is_voter_visible_to_author",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "poll_settings_vote_selection_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_unique_voters_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__share_statistic",
+      "columns": [
+        {
+          "name": "share_statistic_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_entity_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "share_entity_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "click_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "engagement",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impression_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__share_statistic_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_organization_entity_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_share_entity_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "click_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "comment_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "engagement",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "impression_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "like_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "share_count",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__ugc_post_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "commentary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_published_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_urn",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified_timestamp",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lifecycle_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__ugc_post_history_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "author",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "commentary",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "container_entity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_external_distribution_channels",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_feed_distribution",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_published_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_actor",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "lifecycle_state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_context_parent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_context_root",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "visibility",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__ugc_post_share_statistic",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "share_statistic_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_linkedin_pages",
+      "table": "stg_linkedin_pages__ugc_post_share_statistic_tmp",
+      "columns": [
+        {
+          "name": "share_statistic_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ugc_post_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__account_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "business_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__account_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "approval_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "business_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "industry_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "salt",
+          "type": "INTEGER"
+        },
+        {
+          "name": "timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timezone_switch_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__organic_tweet_report",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "card_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_swipes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "follows",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "likes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organic_tweet_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "placement",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "poll_card_vote",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qualified_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweets",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tweets_send",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unfollows",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_15_s_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_3_s_100_pct_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_6_s_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_content_starts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_cta_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_total_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_100",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_50",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_75",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__organic_tweet_report_tmp",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organic_tweet_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "placement",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "app_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "card_engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "carousel_swipes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "engagements",
+          "type": "INTEGER"
+        },
+        {
+          "name": "follows",
+          "type": "INTEGER"
+        },
+        {
+          "name": "impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "likes",
+          "type": "INTEGER"
+        },
+        {
+          "name": "poll_card_vote",
+          "type": "INTEGER"
+        },
+        {
+          "name": "qualified_impressions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "replies",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweets",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tweets_send",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unfollows",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_15_s_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_3_s_100_pct_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_6_s_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_content_starts",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_cta_clicks",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_total_views",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_100",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_25",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_50",
+          "type": "INTEGER"
+        },
+        {
+          "name": "video_views_75",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__tweet",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "card_uri",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinates_coordinates",
+          "type": "INTEGER"
+        },
+        {
+          "name": "coordinates_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "favorite_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "favorited",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "followers",
+          "type": "INTEGER"
+        },
+        {
+          "name": "tweet_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "geo_coordinates",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "organic_tweet_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "in_reply_to_screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "in_reply_to_status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "in_reply_to_user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweet_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweeted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "truncated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tweet_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__tweet_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "card_uri",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "coordinates_coordinates",
+          "type": "INTEGER"
+        },
+        {
+          "name": "coordinates_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "favorite_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "favorited",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "followers",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_coordinates",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "in_reply_to_screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "in_reply_to_status_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "in_reply_to_user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "lang",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "media_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweet_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "retweeted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "truncated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tweet_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "full_test",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__twitter_user_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "user_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_stg_twitter_organic",
+      "table": "stg_twitter_organic__twitter_user_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "contributors_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "default_profile",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "default_profile_image",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "favourites_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "friends_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "geo_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_translation_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_translator",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "lang",
+          "type": "INTEGER"
+        },
+        {
+          "name": "listed_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_background_image_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_background_image_url_https",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_background_tile",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "profile_banner_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_image_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_image_url_https",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "profile_use_background_image",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "protected_user",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "statuses_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "utc_offset",
+          "type": "INTEGER"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_twitter_organic",
+      "table": "int_twitter_organic__latest_account",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "business_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "business_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "industry_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timezone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_twitter_organic",
+      "table": "int_twitter_organic__latest_user",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "user_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "followers_count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "user_location",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_screen_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_twitter_organic",
+      "table": "twitter_organic__tweets",
+      "columns": [
+        {
+          "name": "date_day",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organic_tweet_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_timestamp",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tweet_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "post_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "user_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "card_engagements",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "carousel_swipes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "engagements",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "follows",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "likes",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "poll_card_vote",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "qualified_impressions",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "replies",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "retweets",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "unfollows",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "url_clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_15_s_views",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_3_s_100_pct_views",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_6_s_views",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_content_starts",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_cta_clicks",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_total_views",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_views_100",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_views_25",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_views_50",
+          "type": "HUGEINT"
+        },
+        {
+          "name": "video_views_75",
+          "type": "HUGEINT"
+        }
+      ]
+    }
+  ]
+}

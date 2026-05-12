@@ -1,0 +1,2056 @@
+{
+  "twilio.duckdb": [
+    {
+      "schema": "main",
+      "table": "int_twilio__messages",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_characters",
+          "type": "BIGINT"
+        },
+        {
+          "name": "body_no_spaces",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp_sent",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_media",
+          "type": "FLOAT"
+        },
+        {
+          "name": "num_segments",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "date_week",
+          "type": "DATE"
+        },
+        {
+          "name": "date_month",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio__message_enhanced",
+      "columns": [
+        {
+          "name": "message_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp_sent",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "date_day",
+          "type": "DATE"
+        },
+        {
+          "name": "date_week",
+          "type": "DATE"
+        },
+        {
+          "name": "date_month",
+          "type": "DATE"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_characters",
+          "type": "BIGINT"
+        },
+        {
+          "name": "num_words",
+          "type": "BIGINT"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_media",
+          "type": "FLOAT"
+        },
+        {
+          "name": "num_segments",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "us_app_to_person_registered",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_inbound_webhook_on_number",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_case",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_account_history_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_address_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "emergency_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "iso_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_call_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annotation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "answered_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "caller_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forwarded_from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "outgoing_caller_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_call_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "queue_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "start_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_call_data_snowflake",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annotation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "answered_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "caller_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forwarded_from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "FROM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "outgoing_caller_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_call_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "queue_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "start_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TO",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_incoming_phone_number_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "address_requirements",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "beta",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_mms",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_sms",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_voice",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "emergency_address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "emergency_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "origin",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "voice_caller_id_lookup",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "voice_url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_message_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_sent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_sid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_media",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_segments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_message_data_snowflake",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_sent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "FROM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_sid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_media",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_segments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TO",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_messaging_service_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "area_code_geomatch",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fallback_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fallback_to_long_code",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "fallback_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_request_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mms_converter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scan_message_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "smart_encoding",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "status_callback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sticky_sender",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "synchronous_validation",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "us_app_to_person_registered",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_inbound_webhook_on_number",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "usecase",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validity_period",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_outgoing_caller_id_data",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "twilio_usage_record_data",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "as_of",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "count_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "usage_unit",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__account_history",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_most_recent_record",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__account_history_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__address",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "emergency_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "iso_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__address_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "emergency_enabled",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "iso_country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "postal_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validated",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "verified",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__call",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annotation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "answered_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "caller_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT"
+        },
+        {
+          "name": "end_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forwarded_from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "call_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "outgoing_caller_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_call_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "queue_time",
+          "type": "FLOAT"
+        },
+        {
+          "name": "start_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "call_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__call_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "annotation",
+          "type": "INTEGER"
+        },
+        {
+          "name": "answered_by",
+          "type": "INTEGER"
+        },
+        {
+          "name": "caller_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "forwarded_from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "from_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "group_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "outgoing_caller_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_call_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "queue_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "start_time",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to_formatted",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__incoming_phone_number",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "capabilities_mms",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_sms",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_voice",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "emergency_address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "emergency_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "incoming_phone_number_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "origin",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "voice_caller_id_lookup",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "voice_url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__incoming_phone_number_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "address_requirements",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "beta",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_mms",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_sms",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "capabilities_voice",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "emergency_address_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "emergency_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "origin",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "trunk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "voice_caller_id_lookup",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "voice_url",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__message",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "timestamp_sent",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "num_media",
+          "type": "FLOAT"
+        },
+        {
+          "name": "num_segments",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__message_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "body",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "date_sent",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "error_code",
+          "type": "INTEGER"
+        },
+        {
+          "name": "error_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "from",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_sid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_media",
+          "type": "INTEGER"
+        },
+        {
+          "name": "num_segments",
+          "type": "INTEGER"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__messaging_service",
+      "columns": [
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "area_code_geomatch",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fallback_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fallback_to_long_code",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "fallback_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "messaging_service_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_request_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mms_converter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scan_message_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "smart_encoding",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "status_callback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sticky_sender",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "synchronous_validation",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "us_app_to_person_registered",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_inbound_webhook_on_number",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_case",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validity_period",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__messaging_service_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "area_code_geomatch",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fallback_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "fallback_to_long_code",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "fallback_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_method",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "inbound_request_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "mms_converter",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scan_message_content",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "smart_encoding",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "status_callback",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sticky_sender",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "synchronous_validation",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "us_app_to_person_registered",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "use_inbound_webhook_on_number",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "usecase",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validity_period",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__outgoing_caller_id",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "outgoing_caller_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__outgoing_caller_id_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "friendly_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone_number",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "updated_at",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__usage_record",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "as_of",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "count",
+          "type": "FLOAT"
+        },
+        {
+          "name": "count_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "price",
+          "type": "FLOAT"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "usage",
+          "type": "FLOAT"
+        },
+        {
+          "name": "usage_unit",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_twilio_source",
+      "table": "stg_twilio__usage_record_tmp",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_date",
+          "type": "DATE"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "as_of",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "count",
+          "type": "INTEGER"
+        },
+        {
+          "name": "count_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price_unit",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "usage",
+          "type": "INTEGER"
+        },
+        {
+          "name": "usage_unit",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

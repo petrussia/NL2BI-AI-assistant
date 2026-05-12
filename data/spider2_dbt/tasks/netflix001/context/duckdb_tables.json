@@ -1,0 +1,124 @@
+{
+  "netflix.duckdb": [
+    {
+      "schema": "main",
+      "table": "GOOGLE_SHEETS__ORIGINAL_CATEGORIES",
+      "columns": [
+        {
+          "name": "Category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Updated_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "GOOGLE_SHEETS__ORIGINAL_COMEDIES",
+      "columns": [
+        {
+          "name": "Title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Genre",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Premiere",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Seasons",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Runtime",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Updated_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "GOOGLE_SHEETS__ORIGINAL_DOCUSERIES",
+      "columns": [
+        {
+          "name": "Title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Premiere",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Seasons",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Runtime",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Updated_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "GOOGLE_SHEETS__ORIGINAL_DRAMAS",
+      "columns": [
+        {
+          "name": "Title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Genre",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Premiere",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Seasons",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Runtime",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Updated_at",
+          "type": "DATE"
+        }
+      ]
+    }
+  ]
+}

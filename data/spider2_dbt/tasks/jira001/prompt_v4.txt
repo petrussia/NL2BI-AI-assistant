@@ -1,0 +1,273 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Retrieve information about Jira projects, including project lead details, associated epics, components, and metrics like the average and median time for closing issues, both in days and seconds.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `jira.duckdb`
+    main.comment(id BIGINT, _fivetran_synced TIMESTAMP, author_id VARCHAR, body VARCHAR, created TIMESTAMP, is_public BOOLEAN, issue_id BIGINT, update_author_id VARCHAR, updated TIMESTAMP)
+    main.component(id BIGINT, _fivetran_synced TIMESTAMP, description INTEGER, name VARCHAR, project_id BIGINT)
+    main.epic(id BIGINT, _fivetran_synced TIMESTAMP, done BOOLEAN, key VARCHAR, name VARCHAR, summary VARCHAR)
+    main.field(id VARCHAR, _fivetran_synced TIMESTAMP, is_array BOOLEAN, is_custom BOOLEAN, name VARCHAR)
+    main.field_option(id BIGINT, _fivetran_synced TIMESTAMP, name VARCHAR)
+    main.issue(id BIGINT, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP, _original_estimate INTEGER, _remaining_estimate INTEGER, _time_spent INTEGER, assignee VARCHAR, created TIMESTAMP, creator VARCHAR, description VARCHAR, due_date INTEGER, environment INTEGER, issue_type INTEGER, key VARCHAR, last_viewed TIMESTAMP, original_estimate INTEGER, parent_id INTEGER, priority INTEGER, project INTEGER, remaining_estimate INTEGER, reporter VARCHAR, resolution INTEGER, resolved TIMESTAMP, status INTEGER, status_category_changed TIMESTAMP, summary VARCHAR, time_spent INTEGER, updated TIMESTAMP, work_ratio FLOAT)
+    main.issue_field_history(field_id VARCHAR, issue_id BIGINT, time TIMESTAMP, _fivetran_synced TIMESTAMP, value VARCHAR)
+    main.issue_link(issue_id INTEGER, related_issue_id INTEGER, _fivetran_synced TIMESTAMP, relationship VARCHAR)
+    main.issue_multiselect_history(_fivetran_id VARCHAR, time TIMESTAMP, _fivetran_synced TIMESTAMP, field_id VARCHAR, issue_id BIGINT, value VARCHAR)
+    main.issue_type(id INTEGER, _fivetran_synced TIMESTAMP, description VARCHAR, name VARCHAR, subtask BOOLEAN)
+    main.priority(id INTEGER, _fivetran_synced TIMESTAMP, description VARCHAR, name VARCHAR)
+    main.project(id INTEGER, _fivetran_synced TIMESTAMP, description INTEGER, key VARCHAR, lead_id VARCHAR, name VARCHAR, permission_scheme_id INTEGER, project_category_id INTEGER, project_type_key VARCHAR)
+    main.project_board(board_id INTEGER, project_id INTEGER, _fivetran_synced TIMESTAMP)
+    main.project_category(id INTEGER, _fivetran_synced TIMESTAMP, description VARCHAR, name VARCHAR)
+    main.resolution(id INTEGER, _fivetran_synced TIMESTAMP, description VARCHAR, name VARCHAR)
+    main.sprint(id BIGINT, _fivetran_synced TIMESTAMP, board_id INTEGER, complete_date TIMESTAMP, end_date TIMESTAMP, name VARCHAR, start_date TIMESTAMP)
+    main.status(id INTEGER, _fivetran_synced TIMESTAMP, description VARCHAR, name VARCHAR, status_category_id INTEGER)
+    main.status_category(id INTEGER, _fivetran_synced TIMESTAMP, name VARCHAR)
+    main.user(id VARCHAR, _fivetran_synced TIMESTAMP, email INTEGER, locale VARCHAR, name VARCHAR, time_zone VARCHAR, username INTEGER)
+    main.user_group(group_name VARCHAR, user_id VARCHAR, _fivetran_synced TIMESTAMP)
+    main.version(id INTEGER, _fivetran_synced TIMESTAMP, archived BOOLEAN, description VARCHAR, name VARCHAR, overdue BOOLEAN, project_id INTEGER, release_date DATE, released BOOLEAN, start_date DATE)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'jira'
+version: '0.17.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: 'jira'
+
+vars:
+
+  jira_source:
+    jira_schema: main
+    jira_comment_identifier: "comment"
+    jira_component_identifier: "component"
+    jira_epic_identifier: "epic"
+    jira_field_identifier: "field"
+    jira_field_option_identifier: "field_option"
+    jira_issue_field_history_identifier: "issue_field_history"
+    jira_issue_link_identifier: "issue_link"
+    jira_issue_multiselect_history_identifier: "issue_multiselect_history"
+    jira_issue_type_identifier: "issue_type"
+    jira_issue_ide
+
+
+=== INTERMEDIATE models (15) ===
+  - models/intermediate/field_history/int_jira__field_history_scd.sql
+    cols: status_id, status_id_field_partition
+    --- head:
+    {{ config( materialized='table') }}
+
+    {%- set issue_columns = adapter.get_columns_in_relation(ref('int_jira__pivot_daily_field_history')) -%}
+
+    with change_data as (
+  - models/intermediate/field_history/int_jira__issue_calendar_spine.sql
+    cols: min_date, date, date_spine, created_on, un, open_until, issue, date_day, earliest_open_until_date, issue_day_id
+    --- head:
+    {{
+        config(
+            materialized='table' if jira.jira_is_databricks_sql_warehouse() else 'incremental',
+            partition_by = {'field': 'date_day', 'data_type': 'date'}
+                if target.type not in ['spark', 'databricks'] else ['date_day'],
+  - models/intermediate/field_history/int_jira__issue_field_history.sql
+    cols: field_name
+    --- head:
+    with field_history as (
+
+        select *
+        from {{ var('issue_field_history') }}
+
+  - models/intermediate/field_history/int_jira__issue_multiselect_history.sql
+    cols: field_name
+    --- head:
+    with issue_multiselect_history as (
+
+        select *
+        from {{ var('issue_multiselect_history') }}
+
+  - models/intermediate/field_history/int_jira__pivot_daily_field_history.sql
+    cols: date, date_day, field_values, field_value, valid_starting_at, valid_ending_at, valid_starting_on, row_num, status, sprint, issue_day_id
+    --- head:
+    {{
+        config(
+            materialized='table' if jira.jira_is_databricks_sql_warehouse() else 'incremental',
+            partition_by = {'field': 'valid_starting_on', 'data_type': 'date'}
+                if target.type not in ['spark','databricks'] else ['valid_starting_on'],
+  - models/intermediate/int_jira__issue_assign_resolution.sql
+    cols: first_assigned_at, last_assigned_at, first_resolved_at
+    --- head:
+    with issue_field_history as (
+
+        select *
+        from {{ ref('int_jira__issue_field_history') }}
+
+  - models/intermediate/int_jira__issue_comments.sql
+    cols: conversation, count_comments
+    --- head:
+    {{ config(enabled=var('jira_include_comments', True)) }}
+
+    with comment as (
+
+        select *
+  - models/intermediate/int_jira__issue_epic.sql
+    cols: epic_issue_id, row_num
+    --- head:
+    -- issue-epic relationships are either captured via the issue's parent_issue_id (next-gen projects)
+    -- or through the 'Epic Link' field (classic projects)
+    with epic_field_history as (
+
+        select *
+  - models/intermediate/int_jira__issue_join.sql
+    cols: project_name, current_status, current_status_category, resolution_type, current_priority, count_sprint_changes, is_active_sprint, count_comments
+    --- head:
+    {{
+        config(
+            materialized = 'table'
+        )
+    }}
+  - models/intermediate/int_jira__issue_sprint.sql
+    cols: row_num, count_sprint_changes, current_sprint_id, current_sprint_name, sprint_started_at, sprint_ended_at, sprint_completed_at
+    --- head:
+    {{ config(enabled=var('jira_using_sprints', True)) }}
+
+    with sprint as (
+
+        select * 
+  - models/intermediate/int_jira__issue_type_parents.sql
+    cols: revised_parent_issue_id, issue_type, parent_issue_type, parent_issue_name, parent_issue_key, is_parent_epic, parent
+    --- head:
+    {{ config(materialized='view') }}
+    -- needs to be a view to use the dbt_utils.star macro in int_jira__issue_users
+
+    with issue as (
+
+  - models/intermediate/int_jira__issue_users.sql
+    cols: parent_issue_id, assignee_name, assignee_timezone, assignee_email, reporter_email, reporter_name, reporter_timezone, assignee, reporter
+    --- head:
+    -- just grabs user attributes for issue assignees and reporters 
+
+    with issue as (
+
+        -- including issue_id in here because snowflake for some reason ignores issue_id,
+  - models/intermediate/int_jira__issue_versions.sql
+    cols: row_num, version_id, versions, affects_versions, fixes_versions
+    --- head:
+    {{ config(enabled=var('jira_using_versions', True)) }}
+
+    with version as (
+
+        select *
+  - models/intermediate/int_jira__project_metrics.sql
+    cols: median_close_time_seconds, median_age_currently_open_seconds, median_assigned_close_time_seconds, median_age_currently_open_assigned_seconds, count_closed_issues, count_open_issues, count_open_assigned_issues, count_closed_assigned_issues, sum_close_time_seconds, sum_assigned_close_time_seconds, sum_currently_open_duration_seconds, sum_currently_open_assigned_duration_seconds, avg_close_time_seconds, avg_assigned_close_time_seconds, avg_age_currently_open_seconds, avg_age_currently_open_assigned_seconds, avg_close_time_days, avg_assigned_close_time_days, ...(24 total)
+    --- head:
+    with issue as (
+
+        select * 
+        from {{ ref('jira__issue_enhanced') }}
+        where project_id is not null
+  - models/intermediate/int_jira__user_metrics.sql
+    cols: user_id, median_close_time_seconds, median_age_currently_open_seconds, median_assigned_close_time_seconds, median_age_currently_open_assigned_seconds, count_closed_issues, count_open_issues, sum_close_time_seconds, sum_current_open_seconds, avg_close_time_seconds, avg_age_currently_open_seconds, avg_close_time_days, avg_age_currently_open_days, median_close_time_days, median_age_currently_open_days
+    --- head:
+    with issue as (
+
+        select *
+        from {{ ref('jira__issue_enhanced') }} 
+        where assignee_user_id is not null
+
+=== FINAL models (5) ===
+  - macros/jira_is_databricks_sql_warehouse.sql
+    --- body (first 900 chars):
+    {% macro jira_is_databricks_sql_warehouse() %}
+        {% if target.type in ('databricks') %}
+            {% set re = modules.re %}
+            {% set path_match = target.http_path %}
+            {% set regex_pattern = "sql/.+/warehouses/" %}
+            {% set match_result = re.search(regex_pattern, path_match) %}
+            {% if match_result %}
+                {{ return(True) }}
+            {% else %}
+                {{ return(False) }}
+            {% endif %}
+        {% else %}
+            {{ return(False) }}
+        {% endif %}
+    {% endmacro %}
+  - macros/jira_lookback.sql
+    cols: date
+    --- body (first 900 chars):
+    {% macro jira_lookback(from_date, datepart, interval, safety_date='2010-01-01') %}
+
+    {{ adapter.dispatch('jira_lookback', 'jira') (from_date, datepart, interval, safety_date='2010-01-01') }}
+
+    {%- endmacro %}
+
+    {% macro default__jira_lookback(from_date, datepart, interval, safety_date='2010-01-01')  %}
+
+        {% set sql_statement %}
+            select coalesce({{ from_date }}, {{ "'" ~ safety_date ~ "'" }})
+            from {{ this }}
+        {%- endset -%}
+
+        {%- set result = dbt_utils.get_single_value(sql_statement) %}
+
+        {{ dbt.dateadd(datepart=datepart, interval=-interval, from_date_or_timestamp="cast('" ~ result ~ "' as date)") }}
+
+    {% endmacro %}
+  - models/jira__daily_issue_field_history.sql
+    cols: a, components, status_id_field_partition, component_field_partition, issue_type, issue_type_field_partition, field_option_, status_id, status, issue_day_id
+    --- body (first 900 chars):
+    {{
+        config(
+            materialized='table' if jira.jira_is_databricks_sql_warehouse() else 'incremental',
+            partition_by = {'field': 'date_day', 'data_type': 'date'}
+                if target.type not in ['spark', 'databricks'] else ['date_day'],
+            cluster_by = ['date_day', 'issue_id'],
+            unique_key='issue_day_id',
+            incremental_strategy = 'insert_overwrite' if target.type in ('bigquery', 'databricks', 'spark') else 'delete+insert',
+            file_format='delta' if jira.jira_is_databricks_sql_warehouse() else 'parquet'
+        )
+    }}
+
+    -- grab column names that were pivoted out
+    {%- set pivot_data_columns = adapter.get_columns_in_relation(ref('int_jira__field_history_scd')) -%}
+
+    {% if is_incremental() %}
+    -- set max date_day with lookback as a variable for multiple uses
+    {% set max_date_day = jira.jira_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_wi
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

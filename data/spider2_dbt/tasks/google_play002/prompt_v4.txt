@@ -1,0 +1,265 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Generate an overview report on Google Play app performance, including installs, uninstalls, crashes, ANRs, ratings, and store performance metrics over time.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `google_play.duckdb`
+    main.earnings(_file VARCHAR, _line INTEGER, _modified VARCHAR, description VARCHAR, transaction_date VARCHAR, transaction_time VARCHAR, tax_type INTEGER, transaction_type VARCHAR, refund_type INTEGER, product_title VARCHAR, product_id VARCHAR, product_type INTEGER, sku_id VARCHAR, hardware INTEGER, buyer_country VARCHAR, buyer_state VARCHAR, buyer_postal_code INTEGER, buyer_currency VARCHAR, amount_buyer_currency_ DOUBLE, currency_conversion_rate DOUBLE, merchant_currency VARCHAR, amount_merchant_currency_ DOUBLE, _fivetran_synced VARCHAR, base_plan_id INTEGER, offer_id INTEGER)
+    main.financial_stats_subscriptions_country(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, product_id VARCHAR, country VARCHAR, new_subscriptions INTEGER, cancelled_subscriptions INTEGER, active_subscriptions INTEGER, _fivetran_synced VARCHAR)
+    main.google_play__country_codes(country_name VARCHAR, alternative_country_name VARCHAR, country_code_numeric INTEGER, country_code_alpha_2 VARCHAR, country_code_alpha_3 VARCHAR, region VARCHAR, region_code INTEGER, sub_region VARCHAR, sub_region_code INTEGER)
+    main.stats_crashes_app_version(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, app_version_code INTEGER, daily_crashes INTEGER, daily_anrs INTEGER, _fivetran_synced VARCHAR)
+    main.stats_crashes_os_version(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, android_os_version VARCHAR, daily_crashes INTEGER, daily_anrs INTEGER, _fivetran_synced VARCHAR)
+    main.stats_crashes_overview(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, daily_crashes INTEGER, daily_anrs INTEGER, _fivetran_synced VARCHAR)
+    main.stats_installs_app_version(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, app_version_code INTEGER, current_device_installs INTEGER, daily_device_installs INTEGER, daily_device_uninstalls INTEGER, daily_device_upgrades INTEGER, current_user_installs INTEGER, total_user_installs INTEGER, daily_user_installs INTEGER, daily_user_uninstalls INTEGER, _fivetran_synced VARCHAR, active_device_installs INTEGER, install_events INTEGER, update_events INTEGER, uninstall_events INTEGER)
+    main.stats_installs_country(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, country VARCHAR, current_device_installs INTEGER, daily_device_installs INTEGER, daily_device_uninstalls INTEGER, daily_device_upgrades INTEGER, current_user_installs INTEGER, total_user_installs INTEGER, daily_user_installs INTEGER, daily_user_uninstalls INTEGER, _fivetran_synced VARCHAR, active_device_installs INTEGER, install_events INTEGER, update_events INTEGER, uninstall_events INTEGER)
+    main.stats_installs_device(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, device VARCHAR, current_device_installs INTEGER, daily_device_installs INTEGER, daily_device_uninstalls INTEGER, daily_device_upgrades INTEGER, current_user_installs INTEGER, total_user_installs INTEGER, daily_user_installs INTEGER, daily_user_uninstalls INTEGER, _fivetran_synced VARCHAR, active_device_installs INTEGER, install_events INTEGER, update_events INTEGER, uninstall_events INTEGER)
+    main.stats_installs_os_version(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, android_os_version VARCHAR, current_device_installs INTEGER, daily_device_installs INTEGER, daily_device_uninstalls INTEGER, daily_device_upgrades INTEGER, current_user_installs INTEGER, total_user_installs INTEGER, daily_user_installs INTEGER, daily_user_uninstalls INTEGER, _fivetran_synced VARCHAR, active_device_installs INTEGER, install_events INTEGER, update_events INTEGER, uninstall_events INTEGER)
+    main.stats_installs_overview(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, current_device_installs INTEGER, daily_device_installs INTEGER, daily_device_uninstalls INTEGER, daily_device_upgrades INTEGER, current_user_installs INTEGER, total_user_installs INTEGER, daily_user_installs INTEGER, daily_user_uninstalls INTEGER, _fivetran_synced VARCHAR, active_device_installs BIGINT, install_events INTEGER, update_events INTEGER, uninstall_events INTEGER)
+    main.stats_ratings_app_version(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, app_version_code BIGINT, daily_average_rating VARCHAR, total_average_rating DOUBLE, _fivetran_synced VARCHAR)
+    main.stats_ratings_country(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, country VARCHAR, daily_average_rating VARCHAR, total_average_rating DOUBLE, _fivetran_synced VARCHAR)
+    main.stats_ratings_device(_file VARCHAR, _line INTEGER, _modified VARCHAR, date DATE, package_name VARCHAR, device VARCHAR, daily_average_rating VARCHAR, total_average_rating DOUBLE, _fivetran_synced VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'google_play'
+version: '0.4.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'google_play'
+
+vars:
+
+  google_play_schema: main
+  google_play_source:
+    google_play_stats_installs_app_version_identifier: "stats_installs_app_version"
+    google_play_stats_crashes_app_version_identifier: "stats_crashes_app_version"
+    google_play_stats_ratings_app_version_identifier: "stats_ratings_app_version"
+    google_play_stats_installs_device_identifier: "stats_installs_device"
+    google_play_stats_ratings_device_identifier: "stats_ratings_device"
+    google_play_stats_insta
+
+
+=== INTERMEDIATE models (2) ===
+  - models/intermediate/int_google_play__earnings.sql
+    cols: net_order_amount, date_day, country_short, net_amount, transactions
+    --- head:
+    {{ config(enabled=var('google_play__using_earnings', False)) }} 
+
+    with earnings as (
+
+        select *
+  - models/intermediate/int_google_play__latest_product_info.sql
+    cols: last_transaction_at, n
+    --- head:
+    {{ config(enabled=var('google_play__using_earnings', False)) }} 
+
+    with earnings as (
+
+        select *
+
+=== FINAL models (5) ===
+  - models/google_play__app_version_report.sql
+    cols: total_device_installs, total_device_uninstalls, source_relation, date_day, app_version_code, package_name, active_devices_last_30_days, device_installs, device_uninstalls, device_upgrades, user_installs, user_uninstalls, crashes, anrs, install_events, uninstall_events, update_events, we, ...(19 total)
+    --- body (first 900 chars):
+    with installs as (
+
+        select *
+        from {{ var('stats_installs_app_version') }}
+    ), 
+
+    ratings as (
+
+        select *
+        from {{ var('stats_ratings_app_version') }}
+    ), 
+
+    crashes as (
+
+        select *
+        from {{ var('stats_crashes_app_version') }}
+    ), 
+
+    install_metrics as (
+
+        select
+            *,
+            sum(device_installs) over (partition by source_relation, app_version_code, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_installs,
+            sum(device_uninstalls) over (partition by source_relation, app_version_code, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_uninstalls
+        from installs 
+    ), 
+
+    app_version_join as (
+
+        select 
+            -- these 4 columns are the grain of this model
+            coalesce(install_metrics.source_relation, ratings.source_relation, crashes.source_relation) as s
+  - models/google_play__country_report.sql
+    cols: total_device_installs, total_device_uninstalls, total_store_acquisitions, total_store_visitors, source_relation, date_day, country, package_name, active_devices_last_30_days, device_installs, device_uninstalls, device_upgrades, user_installs, user_uninstalls, store_listing_acquisitions, store_listing_visitors, install_events, uninstall_events, ...(23 total)
+    --- body (first 900 chars):
+    with installs as (
+
+        select *
+        from {{ var('stats_installs_country') }}
+    ), 
+
+    ratings as (
+
+        select *
+        from {{ var('stats_ratings_country') }}
+    ), 
+
+    store_performance as (
+
+        select *
+        from {{ var('stats_store_performance_country') }}
+    ), 
+
+    country_codes as (
+
+        select *
+        from {{ var('country_codes') }}
+    ),
+
+    install_metrics as (
+
+        select
+            *,
+            sum(device_installs) over (partition by source_relation, country, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_installs,
+            sum(device_uninstalls) over (partition by source_relation, country, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_uninstalls
+        from installs 
+    ), 
+
+    store_performance_metrics as (
+
+        select
+            *,
+            sum(store_listing_acquisitions) over (partition by source_relation, c
+  - models/google_play__device_report.sql
+    cols: total_device_installs, total_device_uninstalls, source_relation, date_day, device, package_name, active_devices_last_30_days, device_installs, device_uninstalls, device_upgrades, user_installs, user_uninstalls, install_events, uninstall_events, update_events, net_device_installs
+    --- body (first 900 chars):
+    with installs as (
+
+        select *
+        from {{ var('stats_installs_device') }}
+    ), 
+
+    ratings as (
+
+        select *
+        from {{ var('stats_ratings_device') }}
+    ), 
+
+    install_metrics as (
+
+        select
+            *,
+            sum(device_installs) over (partition by source_relation, device, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_installs,
+            sum(device_uninstalls) over (partition by source_relation, device, package_name order by date_day asc rows between unbounded preceding and current row) as total_device_uninstalls
+        from installs 
+    ), 
+
+    device_join as (
+
+        select 
+            -- these 4 columns are the grain of this model
+            coalesce(install_metrics.source_relation, ratings.source_relation) as source_relation,
+            coalesce(install_metrics.date_day, ratings.date_day) as date_day,
+            coalesce(install_metrics.device, ratings.d
+  - models/google_play__finance_report.sql
+    cols: source_relation, date_day, country_short, package_name, sku_id, new_subscriptions, cancelled_subscriptions, total_active_subscriptions_partition, total_active_subscriptions, country_long, base
+    --- body (first 900 chars):
+    {{ config(enabled=var('google_play__using_earnings', False)) }}
+
+    with earnings as (
+
+        select *
+        from {{ ref('int_google_play__earnings') }}
+    ), 
+
+    country_codes as (
+
+        select *
+        from {{ var('country_codes') }}
+    ),
+
+    product_info as (
+
+        select *
+        from {{ ref('int_google_play__latest_product_info') }}
+
+    -- there's honestly quite a bit in here since we only need to do backfilling stuff if there is indeed a full outer join 
+    {% if var('google_play__using_subscriptions', False) -%}
+    ), 
+
+    subscriptions as (
+
+        select *
+        from {{ var('financial_stats_subscriptions_country') }}
+    ), 
+
+    daily_join as (
+
+    -- these are dynamically set. perhaps we should extract into a variable in case people's tables get to wide?
+    {% set earning_transaction_metrics = adapter.get_columns_in_relation(ref('int_google_play__earnings')) %}
+
+        select
+            -- these columns are the grain of this model (day +
+  - models/google_play__os_version_report.sql
+    cols: total_device_installs, total_device_uninstalls, source_relation, date_day, android_os_version, package_name, active_devices_last_30_days, device_installs, device_uninstalls, device_upgrades, user_installs, user_uninstalls, crashes, anrs, install_events, uninstall_events, update_events, net_device_installs
+    --- body (first 900 chars):
+    with installs as (
+
+        select *
+        from {{ var('stats_installs_os_version') }}
+    ), 
+
+    ratings as (
+
+        select *
+        from {{ var('stats_ratings_os_version') }}
+    ), 
+
+    crashes as (
+
+        select *
+        from {{ var('stats_crashes_os_version') }}
+    ), 
+
+    install_metrics as (
+
+        select
+            *,
+            sum(device_installs) over (partition by 
+... (truncated)

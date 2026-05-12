@@ -1,0 +1,1238 @@
+{
+  "activity.duckdb": [
+    {
+      "schema": "main",
+      "table": "example__activity_stream",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__aggregate_after",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__aggregate_all_ever",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__aggregate_before",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__aggregate_in_between",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__first_after",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__first_in_between",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__last_after",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__last_in_between",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "input__nth_ever",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__aggregate_after_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_after_visit_page_activity_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__aggregate_all_ever_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_all_ever_visit_page_activity_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__aggregate_before_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_before_visit_page_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_before_added_to_cart_activity_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__aggregate_in_between_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_in_between_added_to_cart_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_in_between_bought_something_revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "aggregate_in_between_bought_something_activity_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_after_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_after_bought_something_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_after_bought_something_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_after_2",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_after_bought_something_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_after_bought_something_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_after_3",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_after_visit_page_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_after_visit_page_activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_after_visit_page_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_before_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_before_visited_page_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_before_visited_page_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_ever_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "visited_page",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_ever_signed_up_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_ever_signed_up_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_ever_signed_up_signed_up",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_in_between_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_in_between_bought_something_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_in_between_bought_something_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_in_between_bought_something_revenue_impact",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_in_between_2",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_in_between_bought_something_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_in_between_bought_something_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_in_between_bought_something_revenue_impact",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__first_in_between_3",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_in_between_visit_page_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_in_between_visit_page_activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_in_between_visit_page_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "first_in_between_bought_something_revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_in_between_bought_something_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_in_between_bought_something_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__last_after_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_after_visit_page_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_after_visit_page_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_after_visit_page_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_after_visit_page_revenue_impact",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__last_before_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_before_visited_page_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_before_visited_page_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__last_ever_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_ever_bought_something_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_ever_bought_something_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__last_in_between_1",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "activity",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "anonymous_entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "link",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "activity_repeated_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_in_between_visit_page_activity_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__last_in_between_2",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_in_between_visit_page_feature_json",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_in_between_visit_page_activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_in_between_visit_page_ts",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__last_in_between_3",
+      "columns": [
+        {
+          "name": "activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "entity_uuid",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "revenue_impact",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_in_between_bought_something_activity_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_in_between_bought_something_revenue_impact",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "output__nth_ever_1",
+      "columns": [
+        {
+          "name": "activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nth_ever_3_visit_page_activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nth_ever_4_visit_page_activity_occurrence",
+          "type": "INTEGER"
+        },
+        {
+          "name": "nth_ever_5_visit_page_activity_occurrence",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

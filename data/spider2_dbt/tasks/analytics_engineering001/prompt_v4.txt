@@ -1,0 +1,351 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        comprehensive report that combines customer, employee, product, and purchase order details, including order quantities, costs, and timestamps, all joined together for easy analysis
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `analytics_engineering.duckdb`
+    main.customer(id INTEGER, company VARCHAR, last_name VARCHAR, first_name VARCHAR, email_address INTEGER, job_title VARCHAR, business_phone VARCHAR, home_phone INTEGER, mobile_phone INTEGER, fax_number VARCHAR, address VARCHAR, city VARCHAR, state_province VARCHAR, zip_postal_code INTEGER, country_region VARCHAR, web_page INTEGER, notes INTEGER, attachments INTEGER)
+    main.employee_privileges(employee_id INTEGER, privilege_id INTEGER)
+    main.employees(id INTEGER, company VARCHAR, last_name VARCHAR, first_name VARCHAR, email_address VARCHAR, job_title VARCHAR, business_phone VARCHAR, home_phone VARCHAR, mobile_phone INTEGER, fax_number VARCHAR, address VARCHAR, city VARCHAR, state_province VARCHAR, zip_postal_code INTEGER, country_region VARCHAR, web_page VARCHAR, notes VARCHAR, attachments INTEGER)
+    main.inventory_transaction_types(id INTEGER, type_name VARCHAR)
+    main.inventory_transactions(id INTEGER, transaction_type INTEGER, transaction_created_date VARCHAR, transaction_modified_date VARCHAR, product_id INTEGER, quantity INTEGER, purchase_order_id INTEGER, customer_order_id INTEGER, comments VARCHAR)
+    main.invoices(id INTEGER, order_id INTEGER, invoice_date VARCHAR, due_date INTEGER, tax INTEGER, shipping INTEGER, amount_due INTEGER)
+    main.order_details(id INTEGER, order_id INTEGER, product_id INTEGER, quantity INTEGER, unit_price DOUBLE, discount INTEGER, status_id INTEGER, date_allocated INTEGER, purchase_order_id INTEGER, inventory_id INTEGER)
+    main.order_details_status(id INTEGER, status VARCHAR)
+    main.orders(id INTEGER, employee_id INTEGER, customer_id INTEGER, order_date VARCHAR, shipped_date VARCHAR, shipper_id INTEGER, ship_name VARCHAR, ship_address VARCHAR, ship_city VARCHAR, ship_state_province VARCHAR, ship_zip_postal_code INTEGER, ship_country_region VARCHAR, shipping_fee INTEGER, taxes INTEGER, payment_type VARCHAR, paid_date VARCHAR, notes INTEGER, tax_rate INTEGER, tax_status_id INTEGER, status_id INTEGER)
+    main.orders_status(id INTEGER, status_name VARCHAR)
+    main.orders_tax_status(id INTEGER, tax_status_name VARCHAR)
+    main.privileges(id INTEGER, privilege_name VARCHAR)
+    main.products(supplier_ids VARCHAR, id INTEGER, product_code VARCHAR, product_name VARCHAR, description INTEGER, standard_cost DOUBLE, list_price DOUBLE, reorder_level INTEGER, target_level INTEGER, quantity_per_unit VARCHAR, discontinued INTEGER, minimum_reorder_quantity INTEGER, category VARCHAR, attachments INTEGER)
+    main.purchase_order_details(id INTEGER, purchase_order_id INTEGER, product_id INTEGER, quantity INTEGER, unit_cost DOUBLE, date_received VARCHAR, posted_to_inventory INTEGER, inventory_id INTEGER)
+    main.purchase_order_status(id INTEGER, status VARCHAR)
+    main.purchase_orders(id INTEGER, supplier_id INTEGER, created_by INTEGER, submitted_date VARCHAR, creation_date VARCHAR, status_id INTEGER, expected_date INTEGER, shipping_fee INTEGER, taxes INTEGER, payment_date INTEGER, payment_amount INTEGER, payment_method VARCHAR, notes VARCHAR, approved_by INTEGER, approved_date VARCHAR, submitted_by INTEGER)
+    main.sales_reports(group_by VARCHAR, display VARCHAR, title VARCHAR, filter_row_source VARCHAR, default INTEGER)
+    main.shippers(id INTEGER, company VARCHAR, last_name INTEGER, first_name INTEGER, email_address INTEGER, job_title INTEGER, business_phone INTEGER, home_phone INTEGER, mobile_phone INTEGER, fax_number INTEGER, address VARCHAR, city VARCHAR, state_province VARCHAR, zip_postal_code INTEGER, country_region VARCHAR, web_page INTEGER, notes INTEGER, attachments INTEGER)
+    main.strings(string_id INTEGER, string_data VARCHAR)
+    main.suppliers(id INTEGER, company VARCHAR, last_name VARCHAR, first_name VARCHAR, email_address INTEGER, job_title VARCHAR, business_phone INTEGER, home_phone INTEGER, mobile_phone INTEGER, fax_number INTEGER, address INTEGER, city INTEGER, state_province INTEGER, zip_postal_code INTEGER, country_region INTEGER, web_page INTEGER, notes INTEGER, attachments INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'analytics_engineering'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'analytics_engineering'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change t
+
+
+=== STAGING models (19) ===
+  - models/staging/stg_customer.sql
+    cols: ingestion_timestamp
+    --- head:
+    WITH source AS (
+        SELECT * 
+        FROM {{ source('northwind', 'customer') }}
+    )
+    SELECT
+  - models/staging/stg_employee_privileges.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'employee_privileges') }}
+    )
+    select
+  - models/staging/stg_employees.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'employees') }}
+    )
+    select
+  - models/staging/stg_inventory_transaction_types.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'inventory_transaction_types') }}
+    )
+    select
+  - models/staging/stg_inventory_transactions.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'inventory_transactions') }}
+    )
+    select
+  - models/staging/stg_invoices.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'invoices') }}
+    )
+    select
+  - models/staging/stg_order_details.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'order_details') }}
+    )
+    select
+  - models/staging/stg_order_details_status.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'order_details_status') }}
+    )
+    select
+  - models/staging/stg_orders.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'orders') }}
+    )
+    select
+  - models/staging/stg_orders_status.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'orders_status') }}
+    )
+    select
+  - models/staging/stg_orders_tax_status.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'orders_tax_status') }}
+    )
+    select
+  - models/staging/stg_privileges.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'privileges') }}
+    )
+    select
+  - models/staging/stg_products.sql
+    cols: integer, supplier_id, ingestion_timestamp
+    --- head:
+    with source as (
+        select
+            CAST(supplier_ids AS integer) AS supplier_id,
+            id,
+            product_code,
+  - models/staging/stg_purchase_order_details.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'purchase_order_details') }}
+    )
+    select
+  - models/staging/stg_purchase_order_status.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'purchase_order_status') }}
+    )
+    select
+  - models/staging/stg_purchase_orders.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'purchase_orders') }}
+    )
+    select
+  - models/staging/stg_shippers.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'shippers') }}
+    )
+    select
+  - models/staging/stg_strings.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'strings') }}
+    )
+    select
+  - models/staging/stg_suppliers.sql
+    cols: ingestion_timestamp
+    --- head:
+    with source as (
+
+        select * from {{ source('northwind', 'suppliers') }}
+    )
+    select
+
+=== FINAL models (8) ===
+  - models/analytics_obt/obt_product_inventory.sql
+    cols: ipd, insertion_timestamp
+    --- body (first 900 chars):
+    WITH source AS (
+        SELECT
+            p.product_id,
+            p.product_code,
+            p.product_name,
+            p.description,
+            p.supplier_company,
+            p.standard_cost,
+            p.list_price,
+            p.reorder_level,
+            p.target_level,
+            p.quantity_per_unit,
+            p.discontinued,
+            p.minimum_reorder_quantity,
+            p.category,
+            i.inventory_id,
+            i.transaction_type,
+            i.transaction_created_date,
+            i.transaction_modified_date,
+            i.product_id AS ipd,
+            i.quantity,
+            i.purchase_order_id,
+            i.customer_order_id,
+            i.comments,
+            get_current_timestamp() AS insertion_timestamp,
+    FROM {{ ref('fact_inventory') }} i
+    LEFT JOIN {{ ref('dim_products') }} p
+    ON p.product_id = i.product_id
+    )
+
+    SELECT *
+    FROM source
+  - models/analytics_obt/obt_sales_overview.sql
+    cols: customer_company, customer_last_name, customer_first_name, customer_email_address, customer_job_title, customer_business_phone, customer_home_phone, customer_mobile_phone, customer_fax_number, customer_address, customer_city, customer_state_province, customer_zip_postal_code, customer_country_region, customer_web_page, customer_notes, customer_attachments, employee_company, ...(30 total)
+    --- body (first 900 chars):
+    WITH source AS (
+        SELECT
+            c.customer_id,
+            c.company              AS customer_company,
+            c.last_name            AS customer_last_name,
+            c.first_name           AS customer_first_name,
+            c.email_address        AS customer_email_address,
+            c.job_title            AS customer_job_title,
+            c.business_phone       AS customer_business_phone,
+            c.home_phone           AS customer_home_phone,
+            c.mobile_phone         AS customer_mobile_phone,
+            c.fax_number           AS customer_fax_number,
+            c.address              AS customer_address,
+            c.city                 AS customer_city,
+            c.state_province       AS customer_state_province,
+            c.zip_postal_code      AS customer_zip_postal_code,
+            c.country_region       AS customer_country_region,
+            c.web_page             AS customer_web_page,
+            c.notes   
+  - models/warehouse/dim_customer.sql
+    cols: customer_id, insertion_timestamp, row_number
+    --- body (first 900 chars):
+    WITH source AS (
+    SELECT
+        id as customer_id,
+        company,
+        last_name,
+        first_name,
+        email_address,
+        job_title,
+        business_phone,
+        home_phone,
+        mobile_phone,
+        fax_number,
+        address,
+        city,
+        state_province,
+        zip_postal_code,
+        country_region,
+        web_page,
+        notes,
+        attachments,
+        get_current_timestamp() as insertion_timestamp,
+    FROM {{ ref('stg_customer') }}
+    ),
+
+    unique_source AS (
+        SELECT *,
+                row_number() OVER(PARTITION BY customer_id ORDER BY customer_id) AS row_number
+        FROM source
+    )
+
+    SELECT
+        customer_id,
+        company,
+        last_name,
+        first_name,
+        email_address,
+        job_title,
+        business_phone,
+        home_phone,
+        mobile_phone,
+        fax_number,
+        address,
+        city,
+        state_province,
+        zip_postal_code,
+        country_region,
+        web_page,
+        notes,
+        attachments,
+        insertion_timestamp
+    FROM unique_source
+    WHERE ro
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'analytics
+... (truncated)

@@ -1,0 +1,263 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        I need a daily report on key sales activities—covering tasks completed, events held, leads generated, and the status of opportunities.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `salesforce.duckdb`
+    main.int_salesforce__date_spine(date_day TIMESTAMP)
+    main.int_salesforce__opportunity_aggregation_by_owner(owner_id VARCHAR, manager_id VARCHAR, b_manager_id VARCHAR, b_owner_id VARCHAR, bookings_amount_closed_this_month DECIMAL(38,0), bookings_amount_closed_this_quarter DECIMAL(38,0), total_number_bookings BIGINT, total_bookings_amount DECIMAL(38,0), bookings_count_closed_this_month HUGEINT, bookings_count_closed_this_quarter HUGEINT, avg_bookings_amount DOUBLE, largest_booking DECIMAL(28,6), avg_days_to_close DOUBLE, l_manager_id VARCHAR, l_owner_id VARCHAR, lost_amount_this_month DECIMAL(38,0), lost_amount_this_quarter DECIMAL(38,0), total_number_lost BIGINT, total_lost_amount DECIMAL(38,0), lost_count_this_month HUGEINT, lost_count_this_quarter HUGEINT, p_manager_id VARCHAR, p_owner_id VARCHAR, pipeline_created_amount_this_month DECIMAL(38,0), pipeline_created_amount_this_quarter DECIMAL(38,0), pipeline_created_forecast_amount_this_month DOUBLE, pipeline_created_forecast_amount_this_quarter DOUBLE, pipeline_count_created_this_month HUGEINT, pipeline_count_created_this_quarter HUGEINT, total_number_pipeline BIGINT)
+    main.salesforce__contact_enhanced(contact_id VARCHAR, contact_name VARCHAR, account_id VARCHAR, department VARCHAR, contact_description VARCHAR, email VARCHAR, individual_id VARCHAR, contact_is_deleted BOOLEAN, last_activity_date TIMESTAMP, lead_source VARCHAR, mailing_city VARCHAR, mailing_country VARCHAR, mailing_country_code VARCHAR, mailing_postal_code VARCHAR, mailing_state VARCHAR, mailing_state_code VARCHAR, mailing_street VARCHAR, master_record_id VARCHAR, mobile_phone VARCHAR, contact_owner_id VARCHAR, phone VARCHAR, reports_to_id VARCHAR, contact_owner_name VARCHAR, account_name VARCHAR, account_number VARCHAR, account_source VARCHAR, account_annual_revenue DECIMAL(28,6), account_description VARCHAR, account_industry VARCHAR, account_is_deleted BOOLEAN)
+    main.salesforce__daily_activity(date_day DATE, leads_created BIGINT, leads_converted BIGINT, tasks_completed BIGINT, events_completed BIGINT, opportunities_created BIGINT, opportunities_created_amount DECIMAL(38,0), opportunities_won BIGINT, opportunities_won_amount DECIMAL(38,0), opportunities_lost BIGINT, opportunities_lost_amount DECIMAL(38,0), pipeline_amount DECIMAL(38,0))
+    main.salesforce__manager_performance(manager_id VARCHAR, manager_name VARCHAR, manager_city VARCHAR, manager_state VARCHAR, manager_position VARCHAR, number_of_direct_reports BIGINT, bookings_amount_closed_this_month DECIMAL(38,0), bookings_amount_closed_this_quarter DECIMAL(38,0), total_number_bookings HUGEINT, total_bookings_amount DECIMAL(38,0), bookings_count_closed_this_month HUGEINT, bookings_count_closed_this_quarter HUGEINT, largest_booking DECIMAL(28,6), lost_amount_this_month DECIMAL(38,0), lost_amount_this_quarter DECIMAL(38,0), total_number_lost HUGEINT, total_lost_amount DECIMAL(38,0), lost_count_this_month HUGEINT, lost_count_this_quarter HUGEINT, pipeline_created_amount_this_month DECIMAL(38,0), pipeline_created_amount_this_quarter DECIMAL(38,0), pipeline_created_forecast_amount_this_month DOUBLE, pipeline_created_forecast_amount_this_quarter DOUBLE, pipeline_count_created_this_month HUGEINT, pipeline_count_created_this_quarter HUGEINT, total_number_pipeline HUGEINT, total_pipeline_amount DECIMAL(38,0), total_pipeline_forecast_amount DOUBLE, largest_deal_in_pipeline DECIMAL(28,6), win_percent_this_month DOUBLE)
+    main.salesforce__opportunity_enhanced(_fivetran_synced TIMESTAMP, account_id VARCHAR, amount DECIMAL(28,6), campaign_id VARCHAR, close_date TIMESTAMP, created_date TIMESTAMP, opportunity_description VARCHAR, expected_revenue DECIMAL(28,6), fiscal VARCHAR, fiscal_quarter INTEGER, fiscal_year INTEGER, forecast_category VARCHAR, forecast_category_name VARCHAR, has_open_activity BOOLEAN, has_opportunity_line_item BOOLEAN, has_overdue_task BOOLEAN, opportunity_id VARCHAR, is_closed BOOLEAN, is_deleted BOOLEAN, is_won BOOLEAN, last_activity_date TIMESTAMP, last_referenced_date TIMESTAMP, last_viewed_date TIMESTAMP, lead_source VARCHAR, opportunity_name VARCHAR, next_step VARCHAR, owner_id VARCHAR, probability FLOAT, record_type_id VARCHAR, stage_name VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+config-version: 2
+name: 'salesforce'
+version: '1.1.1'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  salesforce:
+    materialized: table
+    intermediate:
+      materialized: ephemeral
+  salesforce_source:
+    materialized: table
+    intermediate:
+      materialized: ephemeral
+
+profile: salesforce
+
+vars:
+  # enable history models when generating docs!
+  salesforce__task_enabled: true
+  salesforce__event_enabled: true
+  salesforce__lead_enabled: true
+  salesforce__contact_history_enabled: true
+  salesforce__account_history_enabled: true
+  salesforce__opportunity_history_enabled: true
+
+  s
+
+
+=== INTERMEDIATE models (2) ===
+  - models/salesforce/intermediate/int_salesforce__date_spine.sql
+    cols: date, min_date, max_date
+    --- head:
+    {% if var('salesforce__lead_enabled', True) -%}
+    -- depends_on: {{ var('lead') }}
+    {% else -%}
+    -- depends_on: {{ var('opportunity') }}
+    {% endif %}  
+  - models/salesforce/intermediate/int_salesforce__opportunity_aggregation_by_owner.sql
+    cols: b_manager_id, b_owner_id, bookings_amount_closed_this_month, bookings_amount_closed_this_quarter, total_number_bookings, total_bookings_amount, bookings_count_closed_this_month, bookings_count_closed_this_quarter, avg_bookings_amount, largest_booking, avg_days_to_close, l_manager_id, l_owner_id, lost_amount_this_month, lost_amount_this_quarter, total_number_lost, total_lost_amount, lost_count_this_month, ...(30 total)
+    --- head:
+    with salesforce_opportunity_enhanced as (
+
+        select *
+        from {{ ref('salesforce__opportunity_enhanced') }}
+    ), 
+
+=== FINAL models (7) ===
+  - macros/custom_persist_pass_through_columns.sql
+    --- body (first 900 chars):
+    {% macro custom_persist_pass_through_columns(pass_through_variable, identifier=none, transform='', append_string='') %}
+
+    {% if var(pass_through_variable, none) %}
+        {% for field in var(pass_through_variable) %}
+            , {{ transform ~ '(' ~ (identifier ~ '.' if identifier else '') ~ (field.alias if field.alias else field.name) ~ ')' }} as {{ field.alias if field.alias else field.name }}{{ append_string }}
+        {% endfor %}
+    {% endif %}
+
+    {% endmacro %}
+  - models/salesforce/salesforce__contact_enhanced.sql
+    cols: contact_is_deleted, contact_owner_id, contact_owner_name, account_annual_revenue, account_industry, account_is_deleted, account_number_of_employees, account_owner_id, account_parent_id, account_rating, account_type
+    --- body (first 900 chars):
+    with contact as (
+
+        select *
+        from {{ var('contact') }}
+    ), 
+
+    account as (
+
+        select *
+        from {{ var('account') }}
+    ),
+
+    salesforce_user as (
+
+        select *
+        from {{ var('user') }}
+    )
+
+    select 
+        contact.contact_id,
+        contact.contact_name,
+        contact.account_id,
+        contact.department,
+        contact.contact_description,
+        contact.email,
+        contact.individual_id,
+        contact.is_deleted as contact_is_deleted,
+        contact.last_activity_date,
+        contact.lead_source,
+        contact.mailing_city,
+        contact.mailing_country,
+        contact.mailing_country_code,
+        contact.mailing_postal_code,
+        contact.mailing_state,
+        contact.mailing_state_code,
+        contact.mailing_street,
+        contact.master_record_id,
+        contact.mobile_phone,
+        contact.owner_id as contact_owner_id,
+        contact.phone,
+        contact.reports_to_id,
+        salesforce_user.user_name as contact_owner_name,
+        account.a
+  - models/salesforce/salesforce__manager_performance.sql
+    cols: manager_id, manager_name, manager_city, manager_state, manager_position, number_of_direct_reports, bookings_amount_closed_this_month, bookings_amount_closed_this_quarter, total_number_bookings, total_bookings_amount, bookings_count_closed_this_month, bookings_count_closed_this_quarter, largest_booking, lost_amount_this_month, lost_amount_this_quarter, total_number_lost, total_lost_amount, lost_count_this_month, ...(30 total)
+    --- body (first 900 chars):
+    with opportunity_aggregation_by_owner as (
+
+        select *
+        from {{ ref('int_salesforce__opportunity_aggregation_by_owner') }}
+    ), 
+
+    -- If using user_role table, the following will be included, otherwise it will not.
+    {% if var('salesforce__user_role_enabled', True) %}
+    user_role as (
+
+        select *
+        from {{ var('user_role') }}
+    ),
+    {% endif %}
+
+    salesforce_user as (
+
+        select *
+        from {{ var('user') }}
+    )
+
+    select 
+        coalesce(manager.user_id, 'No Manager Assigned') as manager_id,
+        coalesce(manager.user_name, 'No Manager Assigned') as manager_name,
+        manager.city as manager_city,
+        manager.state as manager_state,
+
+        -- If using user_role table, the following will be included, otherwise it will not.
+        {% if var('salesforce__user_role_enabled', True) %}
+        user_role.user_role_name as manager_position,
+        {% endif %}
+
+        count(distinct owner_id) as number_of_direct_report
+  - models/salesforce/salesforce__opportunity_enhanced.sql
+    cols: account_type, opportunity_owner_id, opportunity_owner_name, opportunity_owner_role_id, opportunity_owner_state, opportunity_manager_id, opportunity_manager_name, opportunity_manager_state, opportunity_owner_position, opportunity_owner_developer_name, opportunity_owner_parent_role_id, opportunity_owner_rollup_description, status, created_amount_this_month, created_amount_this_quarter, created_count_this_month, created_count_this_quarter, closed_amount_this_month, ...(23 total)
+    --- body (first 900 chars):
+    with opportunity as (
+
+        select *
+        from {{ var('opportunity') }}
+    ),
+
+    salesforce_user as (
+
+        select *
+        from {{ var('user') }}
+    ), 
+
+    -- If using user_role table, the following will be included, otherwise it will not.
+    {% if var('salesforce__user_role_enabled', True) %}
+    user_role as (
+
+        select *
+        from {{ var('user_role') }}
+    ), 
+    {% endif %}
+
+    account as (
+
+        select *
+        from {{ var('account') }}
+    ),  
+
+    add_fields as (
+
+        select 
+            opportunity.*,
+            account.account_number,
+            account.account_source,
+            account.industry,
+            account.account_name,
+            account.number_of_employees,
+            account.type as account_type,
+            opportunity_owner.user_id as opportunity_owner_id,
+            opportunity_owner.user_name as opportunity_owner_name,
+            opportunity_owner.user_role_id as opportunity_owner_role_id,
+            opportunity_owner.city opportunity_o
+  - models/salesforce/salesforce__opportunity_line_item_enhanced.sql
+    cols: line_item_index, total_line_items, product_external_id, product_family, product_is_active, product_is_archived, product_is_deleted, product_number_of_quantity_installments, product_quantity_installment_period, product_quantity_schedule_type, product_quantity_unit_of_measure, product_number_of_revenue_installments, product_revenue_installment_period, product_revenue_schedule_type, oli
+    --- body (first 900 chars):
+    --This model will only run if you have the underlying opportunity line item table.
+    {{ config(enabled=var('salesforce__opportunity_line_item_enabled', True))}}
+    with opportunity_line_item as (
+
+        select *
+        from {{ var('opportunity_line_item') }}
+    ),
+
+    -- If using product_2 table, the following will be included, otherwise it will not.
+    {% if var('salesforce__product_2_enabled', True) %}
+    product_2 as (
+
+        select * 
+        from {{ var('product_2') }}
+    ),
+    {% endif %}
+
+
+    final as (
+
+        select
+            oli.opportunity_line_item_id,
+            oli.opportunity_line_item_name,
+            oli.opportunity_line_item_description,
+            oli.opportunity_id,
+            row_number() over (partition by oli.opportunity_id order by oli.created_date) as line_item_index,
+            count(opportunity_line_item_id) over (partition by oli.opportunity_id) as total_line_items,
+            oli.created_date,
+            oli.last_
+... (truncated)

@@ -1,0 +1,31 @@
++++ b/models/app_reporting__app_version_report.sql
+@@ -37,6 +37,10 @@ with unioned as (
+     {{ dbt_utils.union_relations(relations=[ref('int_apple_store__app_version'), ref('int_google_play__app_version')]) }}
+ ), 
+
++final_os as (
++    select * from {{ ref('app_reporting__os_version_report') }}
++),
++
+ final as (
+     select 
+         source_relation,
+@@ -44,6 +48,10 @@ final as (
+         app_version,
+         deletions,
+         crashes
++    from final_os
++    union all
++    select 
++        source_relation,
++        date_day,
++        app_platform,
++        app_name,
++        app_version,
++        deletions,
++        crashes
+     from unioned
+ )
+
+ select * 
+ from final

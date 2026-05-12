@@ -1,0 +1,171 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Aggregate messaging data for Twilio, one at the phone number level and another at the account level, including details like inbound/outbound message counts, message statuses, and total spend.
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `twilio.duckdb`
+    main.int_twilio__messages(account_id VARCHAR, body VARCHAR, num_characters BIGINT, body_no_spaces VARCHAR, created_at VARCHAR, timestamp_sent TIMESTAMP, direction VARCHAR, error_code INTEGER, error_message INTEGER, phone_number VARCHAR, message_id VARCHAR, messaging_service_id VARCHAR, num_media FLOAT, num_segments FLOAT, price FLOAT, price_unit VARCHAR, status VARCHAR, message_to VARCHAR, updated_at VARCHAR, date_day DATE, date_week DATE, date_month DATE)
+    main.twilio__message_enhanced(message_id VARCHAR, messaging_service_id VARCHAR, timestamp_sent TIMESTAMP, date_day DATE, date_week DATE, date_month DATE, account_id VARCHAR, created_at VARCHAR, direction VARCHAR, phone_number VARCHAR, body VARCHAR, num_characters BIGINT, num_words BIGINT, status VARCHAR, error_code INTEGER, error_message INTEGER, num_media FLOAT, num_segments FLOAT, price FLOAT, price_unit VARCHAR, updated_at VARCHAR, friendly_name VARCHAR, inbound_method VARCHAR, us_app_to_person_registered BOOLEAN, use_inbound_webhook_on_number BOOLEAN, use_case VARCHAR)
+    main.twilio_account_history_data(id VARCHAR, updated_at VARCHAR, _fivetran_synced VARCHAR, created_at VARCHAR, friendly_name VARCHAR, owner_account_id VARCHAR, status VARCHAR, type VARCHAR)
+    main.twilio_address_data(id VARCHAR, _fivetran_synced VARCHAR, account_id VARCHAR, city VARCHAR, created_at VARCHAR, customer_name INTEGER, emergency_enabled BOOLEAN, friendly_name VARCHAR, iso_country VARCHAR, postal_code INTEGER, region VARCHAR, street VARCHAR, updated_at VARCHAR, validated BOOLEAN, verified BOOLEAN)
+    main.twilio_call_data(id VARCHAR, _fivetran_synced VARCHAR, account_id VARCHAR, annotation INTEGER, answered_by INTEGER, caller_name INTEGER, created_at VARCHAR, direction VARCHAR, duration INTEGER, end_time VARCHAR, forwarded_from VARCHAR, from VARCHAR, from_formatted VARCHAR, group_id INTEGER, outgoing_caller_id VARCHAR, parent_call_id INTEGER, price INTEGER, price_unit VARCHAR, queue_time INTEGER, start_time VARCHAR, status VARCHAR, to VARCHAR, to_formatted VARCHAR, trunk_id INTEGER, updated_at VARCHAR)
+    main.twilio_call_data_snowflake(id VARCHAR, _fivetran_synced VARCHAR, account_id VARCHAR, annotation INTEGER, answered_by INTEGER, caller_name INTEGER, created_at VARCHAR, direction VARCHAR, duration INTEGER, end_time VARCHAR, forwarded_from VARCHAR, FROM VARCHAR, from_formatted VARCHAR, group_id INTEGER, outgoing_caller_id VARCHAR, parent_call_id INTEGER, price INTEGER, price_unit VARCHAR, queue_time INTEGER, start_time VARCHAR, status VARCHAR, TO VARCHAR, to_formatted VARCHAR, trunk_id INTEGER, updated_at VARCHAR)
+    main.twilio_incoming_phone_number_data(id VARCHAR, _fivetran_synced VARCHAR, account_id VARCHAR, address_id INTEGER, address_requirements VARCHAR, beta BOOLEAN, capabilities_mms BOOLEAN, capabilities_sms BOOLEAN, capabilities_voice BOOLEAN, created_at VARCHAR, emergency_address_id INTEGER, emergency_status VARCHAR, friendly_name VARCHAR, origin VARCHAR, phone_number VARCHAR, trunk_id INTEGER, updated_at VARCHAR, voice_caller_id_lookup BOOLEAN, voice_url VARCHAR)
+    main.twilio_message_data(id VARCHAR, _fivetran_synced VARCHAR, account_id VARCHAR, body VARCHAR, created_at VARCHAR, date_sent VARCHAR, direction VARCHAR, error_code INTEGER, error_message INTEGER, from VARCHAR, messaging_service_sid INTEGER, num_media INTEGER, num_segments INTEGER, price DOUBLE, price_unit VARCHAR, status VARCHAR, to VARCHAR, updated_at VARCHAR)
+    main.twilio_message_data_snowflake(id VARCHAR, _fivetran_synced VARCHAR, account_id VARCHAR, body VARCHAR, created_at VARCHAR, date_sent VARCHAR, direction VARCHAR, error_code INTEGER, error_message INTEGER, FROM VARCHAR, messaging_service_sid INTEGER, num_media INTEGER, num_segments INTEGER, price DOUBLE, price_unit VARCHAR, status VARCHAR, TO VARCHAR, updated_at VARCHAR)
+    main.twilio_messaging_service_data(id VARCHAR, _fivetran_deleted BOOLEAN, _fivetran_synced VARCHAR, account_id VARCHAR, area_code_geomatch BOOLEAN, created_at VARCHAR, fallback_method VARCHAR, fallback_to_long_code BOOLEAN, fallback_url INTEGER, friendly_name VARCHAR, inbound_method VARCHAR, inbound_request_url INTEGER, mms_converter BOOLEAN, scan_message_content VARCHAR, smart_encoding BOOLEAN, status_callback INTEGER, sticky_sender BOOLEAN, synchronous_validation BOOLEAN, updated_at VARCHAR, us_app_to_person_registered BOOLEAN, use_inbound_webhook_on_number BOOLEAN, usecase VARCHAR, validity_period INTEGER)
+    main.twilio_outgoing_caller_id_data(id VARCHAR, _fivetran_synced VARCHAR, created_at VARCHAR, friendly_name VARCHAR, phone_number VARCHAR, updated_at VARCHAR)
+    main.twilio_usage_record_data(account_id VARCHAR, category VARCHAR, end_date DATE, start_date DATE, _fivetran_synced VARCHAR, as_of VARCHAR, count INTEGER, count_unit VARCHAR, description VARCHAR, price VARCHAR, price_unit VARCHAR, usage INTEGER, usage_unit VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+name: 'twilio' 
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'twilio'
+
+vars:
+  twilio_schema: main
+  twilio_source:
+    twilio_account_history_identifier:  "twilio_account_history_data"
+    twilio_address_identifier:  "twilio_address_data"
+    twilio_incoming_phone_number_identifier:  "twilio_incoming_phone_number_data"
+    twilio_messaging_service_identifier:  "twilio_messaging_service_data"
+    twilio_outgoing_caller_id_identifier:   "twilio_outgoing_caller_id_data"
+    twilio_usage_record_identifier:   "twilio_usage_record_data"
+    twilio_call_ide
+
+
+=== INTERMEDIATE models (1) ===
+  - models/intermediate/int_twilio__messages.sql
+    cols: num_characters, body_no_spaces, phone_number, date, date_day, date_week, date_month
+    --- head:
+    with messages as (
+
+        select *
+        from {{ var('message')}}
+    ),
+
+=== FINAL models (1) ===
+  - models/twilio__message_enhanced.sql
+    cols: num_words
+    --- body (first 900 chars):
+    with messages as (
+
+        select *
+        from {{ ref('int_twilio__messages') }}
+    ),
+
+    incoming_phone_number as (
+
+        select *
+        from {{ var('incoming_phone_number')}}
+    ),
+
+    addresses as (
+
+        select *
+        from {{ var('address')}}
+    ),
+
+    {% if var('using_twilio_messaging_service', True) %}
+    messaging_service as (
+
+        select *
+        from {{ var('messaging_service')}}
+    ),
+
+    {% endif %}
+
+    final as (
+
+        select
+            messages.message_id,
+            messages.messaging_service_id,
+            messages.timestamp_sent,
+            messages.date_day,
+            messages.date_week,
+            messages.date_month,
+            messages.account_id,
+            messages.created_at,
+            messages.direction,
+            messages.phone_number,
+            messages.body,
+            messages.num_characters,
+            (messages.num_characters- {{ dbt.length("body_no_spaces") }}) + 1 as num_words,
+            messages.status,
+            messages.error_code,
+
+
+--- dbt_project.yml (head) ---
+name: 'twilio' 
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'twilio'
+
+vars:
+  twilio_schema: main
+  twilio_source:
+    twilio_account_history_identifier:  "twilio_account_history_data"
+    twilio_address_identifier:  "twilio_address_data"
+    twilio_incoming_phone_number_identifier:  "twilio_incoming_phone_number_data"
+    twilio_messaging_service_identifier:  "twilio_messaging_service_data"
+    twilio_outgoing_caller_id_identifier:   "twilio_outgoing_
+
+
+--- models/twilio.yml (head) ---
+version: 2
+
+models:
+  - name: twilio__number_overview
+    description: 
+      This model aggregates messaging information for each phone number, providing insights into total messages, inbound and outbound message counts, message statuses, and associated costs. It helps analyze messaging activity at the phone number level.
+    columns:
+      - name: phone_number
+        description: The phone number used for messaging interactions.
+        tests:
+          - unique
+          - not_null
+      - n
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

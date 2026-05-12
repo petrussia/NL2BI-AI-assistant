@@ -1,0 +1,40 @@
+{
+  "task_id": "apple_store001",
+  "instance_id": "apple_store001",
+  "instruction": "Please finish the data transformation project to generate source type and territory report for me.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/apple_store001",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/apple_store001",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/apple_store001/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "models/intermediate/subscription_report/int_apple_store__sales_subscription_summary.sql",
+    "models/intermediate/subscription_report/int_apple_store__sales_subscription_events.sql",
+    "models/intermediate/overview_report/int_apple_store__downloads_overview.sql",
+    "models/intermediate/overview_report/int_apple_store__crashes_overview.sql",
+    "models/intermediate/overview_report/int_apple_store__app_store_overview.sql",
+    "models/intermediate/overview_report/int_apple_store__sales_subscription_overview.sql",
+    "models/intermediate/overview_report/int_apple_store__usage_overview.sql",
+    "models/intermediate/app_version_report/int_apple_store__crashes_app_version.sql",
+    "models/intermediate/device_report/int_apple_store__subscription_device.sql",
+    "models/intermediate/device_report/int_apple_store__crashes_device.sql",
+    "models/intermediate/platform_version_report/int_apple_store__platform_version.sql",
+    "models/intermediate/source_type_report/int_apple_store__app_store_source_type.sql",
+    "models/intermediate/source_type_report/int_apple_store__usage_source_type.sql",
+    "models/intermediate/source_type_report/int_apple_store__downloads_source_type.sql",
+    "models/apple_store__platform_version_report.sql",
+    "models/apple_store__device_report.sql",
+    "models/apple_store__subscription_report.sql",
+    "models/docs.md",
+    "models/apple_store__app_version_report.sql",
+    "models/apple_store__overview_report.sql",
+    "models/apple_store.yml"
+  ],
+  "duckdb_files": [
+    "apple_store.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

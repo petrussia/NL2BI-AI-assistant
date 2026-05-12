@@ -1,0 +1,3708 @@
+{
+  "qualtrics.duckdb": [
+    {
+      "schema": "main",
+      "table": "block",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_locking",
+          "type": "INTEGER"
+        },
+        {
+          "name": "block_visibility",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "randomize_questions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "block_question",
+      "columns": [
+        {
+          "name": "block_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "contact_mailing_list_membership",
+      "columns": [
+        {
+          "name": "contact_lookup_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unsubscribe_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unsubscribed",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "core_contact",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "external_data_reference",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unsubscribed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "core_mailing_list",
+      "columns": [
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "library_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "folder",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "directory",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deduplication_criteria_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_external_data_reference",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_first_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_last_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_phone",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_default",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "directory_contact",
+      "columns": [
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directory_unsubscribe_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "directory_unsubscribed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "embedded_data_last_active_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "embedded_data_last_response_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "embedded_data_login_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ext_ref",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "write_blanks",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "directory_mailing_list",
+      "columns": [
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "distribution",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_from_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_from_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_reply_to_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_library_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_message_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_message_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_distribution_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recipient_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_library_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_sample_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "request_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "request_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "send_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link_expiration_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link_link_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link_survey_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "distribution_contact",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_frequency_rule_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_lookup_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opened_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_completed_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_started_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sent_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_session_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "qualtrics__response",
+      "columns": [
+        {
+          "name": "question_response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_question_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_question_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_option_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "loop_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "distribution_channel",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_response_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_progress",
+          "type": "INTEGER"
+        },
+        {
+          "name": "duration_in_seconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_finished_with_survey",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "survey_finished_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "survey_response_last_modified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "survey_response_recorded_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "survey_response_started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "recipient_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_latitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_longitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recode_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_option_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_external_data_reference",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_xm_directory_contact",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_research_core_contact",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "embedded_data",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "brand_base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_question_randomization",
+          "type": "INTEGER"
+        },
+        {
+          "name": "block_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_visibility",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_force_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_force_response_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_question_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_block_deleted",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "question",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "data_export_tag",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "data_visibility_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "data_visibility_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "next_answer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "next_choice_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_description_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text_unsafe",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "selector",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_selector",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validation_setting_force_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_force_response_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "question_option",
+      "columns": [
+        {
+          "name": "key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recode_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "text",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "question_response",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "loop_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_option_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_question_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_question_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "sub_question",
+      "columns": [
+        {
+          "name": "key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "choice_data_export_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "text",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "survey",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_scoring_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "brand_base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "brand_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bundle_short_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "composition_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "creator_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "default_scoring_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "division_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_active",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_accessed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_activated",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_active_response_set",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_anonymize_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_auto_confirm_start",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_autoadvance",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_autoadvance_pages",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_autofocus",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_available_languages",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_back_button",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_ballot_box_stuffing_prevention",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_collect_geo_location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_confirm_start",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_custom_styles",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_email_thank_you",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_eosredirect_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_highlight_questions",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_inactive_survey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_new_scoring",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_next_button",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_no_index",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_page_transition",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_partial_data",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_partial_data_close_after",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_password_protection",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_previous_button",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_progress_bar_display",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_protect_selection_ids",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_recaptcha_v_3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_referer_check",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_referer_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_relevant_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_relevant_idlockout_period",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_response_summary",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_save_and_continue",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_secure_response_files",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_show_export_tags",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_skin",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_skin_library",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_skin_question_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_skin_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_expiration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_meta_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_survey_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_survey_protection",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_termination",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_validate_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "registry_sha",
+          "type": "INTEGER"
+        },
+        {
+          "name": "registry_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schema_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scoring_summary_after_questions",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scoring_summary_after_survey",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scoring_summary_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "survey_embedded_data",
+      "columns": [
+        {
+          "name": "import_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "survey_response",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_channel",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration_in_seconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "finished",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ip_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_latitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_longitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "progress",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recipient_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recorded_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_language",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "survey_version",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "version_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "was_published",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "user",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_creation_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_expiration_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "division_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_login_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "password_expiration_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "password_last_changed_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_auditable",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_deleted",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_generated",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unsubscribed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__block",
+      "columns": [
+        {
+          "name": "is_locked",
+          "type": "INTEGER"
+        },
+        {
+          "name": "block_visibility",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "randomize_questions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__block_question",
+      "columns": [
+        {
+          "name": "block_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__block_question_tmp",
+      "columns": [
+        {
+          "name": "block_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__block_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "block_locking",
+          "type": "INTEGER"
+        },
+        {
+          "name": "block_visibility",
+          "type": "INTEGER"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "randomize_questions",
+          "type": "INTEGER"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__contact_mailing_list_membership",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_lookup_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unsubscribed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_unsubscribed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__contact_mailing_list_membership_tmp",
+      "columns": [
+        {
+          "name": "contact_lookup_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unsubscribe_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unsubscribed",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__directory",
+      "columns": [
+        {
+          "name": "is_deduped_on_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deduped_on_ext_ref",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deduped_on_first_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deduped_on_last_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deduped_on_phone",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_default",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__directory_contact",
+      "columns": [
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "unsubscribed_from_directory_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_unsubscribed_from_directory",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ext_ref",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__directory_contact_tmp",
+      "columns": [
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "directory_unsubscribe_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "directory_unsubscribed",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email_domain",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "embedded_data_last_active_time",
+          "type": "INTEGER"
+        },
+        {
+          "name": "embedded_data_last_response_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "embedded_data_login_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ext_ref",
+          "type": "INTEGER"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "write_blanks",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__directory_mailing_list",
+      "columns": [
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__directory_mailing_list_tmp",
+      "columns": [
+        {
+          "name": "directory_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__directory_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "deduplication_criteria_email",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_external_data_reference",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_first_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_last_name",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "deduplication_criteria_phone",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_default",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__distribution",
+      "columns": [
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "header_from_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_from_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_reply_to_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_library_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_modified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_distribution_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recipient_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_library_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_sample_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "request_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "request_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "send_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "survey_link_expires_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "survey_link_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__distribution_contact",
+      "columns": [
+        {
+          "name": "contact_frequency_rule_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_lookup_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opened_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "response_completed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "response_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sent_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_session_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__distribution_contact_tmp",
+      "columns": [
+        {
+          "name": "contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "contact_frequency_rule_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "contact_lookup_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "opened_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_completed_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_started_at",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sent_at",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_session_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__distribution_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_from_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_from_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_reply_to_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "header_subject",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "message_library_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_message_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "message_message_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parent_distribution_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recipient_contact_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_library_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_mailing_list_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_sample_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "request_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "request_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "send_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link_expiration_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link_link_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_link_survey_id",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__question",
+      "columns": [
+        {
+          "name": "data_export_tag",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_data_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_data_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "next_answer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "next_choice_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_description_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text_unsafe",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "selector",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_selector",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validation_setting_force_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_force_response_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__question_option",
+      "columns": [
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recode_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__question_option_tmp",
+      "columns": [
+        {
+          "name": "key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recode_value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "text",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__question_response",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "loop_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_option_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_question_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_question_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__question_response_tmp",
+      "columns": [
+        {
+          "name": "_fivetran_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "loop_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_option_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_question_key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "sub_question_text",
+          "type": "INTEGER"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__question_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "data_export_tag",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "data_visibility_hidden",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "data_visibility_private",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "next_answer_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "next_choice_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_description_option",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_text_unsafe",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "question_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "selector",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "sub_selector",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "validation_setting_force_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_force_response_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "validation_setting_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__sub_question",
+      "columns": [
+        {
+          "name": "choice_data_export_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "text",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__sub_question_tmp",
+      "columns": [
+        {
+          "name": "key",
+          "type": "INTEGER"
+        },
+        {
+          "name": "question_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "choice_data_export_tag",
+          "type": "INTEGER"
+        },
+        {
+          "name": "text",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey",
+      "columns": [
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "brand_base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "brand_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bundle_short_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "composition_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "auto_scoring_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "default_scoring_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "division_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "creator_user_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "registry_sha",
+          "type": "INTEGER"
+        },
+        {
+          "name": "registry_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schema_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scoring_summary_after_questions",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scoring_summary_after_survey",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scoring_summary_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_accessed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_activated_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_modified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_embedded_data",
+      "columns": [
+        {
+          "name": "import_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_embedded_data_tmp",
+      "columns": [
+        {
+          "name": "import_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "INTEGER"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_response",
+      "columns": [
+        {
+          "name": "distribution_channel",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration_in_seconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "finished_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_finished",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "response_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ip_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "location_latitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_longitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "progress",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recipient_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recorded_date",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_response_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "distribution_channel",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "duration_in_seconds",
+          "type": "INTEGER"
+        },
+        {
+          "name": "end_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "finished",
+          "type": "INTEGER"
+        },
+        {
+          "name": "ip_address",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "location_latitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "location_longitude",
+          "type": "INTEGER"
+        },
+        {
+          "name": "progress",
+          "type": "INTEGER"
+        },
+        {
+          "name": "recipient_email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recipient_last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "recorded_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_language",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "auto_scoring_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "brand_base_url",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "brand_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bundle_short_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "composition_type",
+          "type": "INTEGER"
+        },
+        {
+          "name": "creator_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "default_scoring_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "division_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_active",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_accessed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_activated",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "last_modified",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_active_response_set",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_anonymize_response",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_auto_confirm_start",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_autoadvance",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_autoadvance_pages",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_autofocus",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_available_languages",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_back_button",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_ballot_box_stuffing_prevention",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_collect_geo_location",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_confirm_start",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_custom_styles",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_email_thank_you",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_eosredirect_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_highlight_questions",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_inactive_survey",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_new_scoring",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_next_button",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_no_index",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_page_transition",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_partial_data",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_partial_data_close_after",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_password_protection",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_previous_button",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_progress_bar_display",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_protect_selection_ids",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_recaptcha_v_3",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_referer_check",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_referer_url",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_relevant_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_relevant_idlockout_period",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_response_summary",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_save_and_continue",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_secure_response_files",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "option_show_export_tags",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_skin",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_skin_library",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_skin_question_width",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_skin_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_expiration",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_language",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_meta_description",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_survey_name",
+          "type": "INTEGER"
+        },
+        {
+          "name": "option_survey_protection",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_termination",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_survey_title",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "option_validate_message",
+          "type": "INTEGER"
+        },
+        {
+          "name": "owner_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "project_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "registry_sha",
+          "type": "INTEGER"
+        },
+        {
+          "name": "registry_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schema_version",
+          "type": "INTEGER"
+        },
+        {
+          "name": "scoring_summary_after_questions",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scoring_summary_after_survey",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "scoring_summary_category",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "survey_status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_version",
+      "columns": [
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "version_description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "version_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "publisher_user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "version_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "was_published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__survey_version_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "survey_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "creation_date",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "published",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "version_number",
+          "type": "INTEGER"
+        },
+        {
+          "name": "was_published",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__user",
+      "columns": [
+        {
+          "name": "account_created_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_expires_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "account_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "division_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "user_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_login_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "password_expires_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "password_last_changed_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "response_count_auditable",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_deleted",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_generated",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_unsubscribed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "is_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "source_relation",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main_qualtrics_source",
+      "table": "stg_qualtrics__user_tmp",
+      "columns": [
+        {
+          "name": "id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "_fivetran_deleted",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "_fivetran_synced",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "account_creation_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_expiration_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "account_status",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "division_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "language",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_login_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "organization_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "password_expiration_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "password_last_changed_date",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_auditable",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_deleted",
+          "type": "INTEGER"
+        },
+        {
+          "name": "response_count_generated",
+          "type": "INTEGER"
+        },
+        {
+          "name": "time_zone",
+          "type": "INTEGER"
+        },
+        {
+          "name": "unsubscribed",
+          "type": "INTEGER"
+        },
+        {
+          "name": "user_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

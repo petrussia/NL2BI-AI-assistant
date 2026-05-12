@@ -1,0 +1,292 @@
+{
+  "maturity.duckdb": [
+    {
+      "schema": "main",
+      "table": "claim_diagnosis",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "icd10",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "icd10desc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "claim_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pos",
+          "type": "INTEGER"
+        },
+        {
+          "name": "h",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "claim_line",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "chrgamnt",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "paid_amnt",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "err_amnt",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "cpt",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cptdesc",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "claim_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "claims",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pat_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "doc_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prac_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "car_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "npi",
+          "type": "BIGINT"
+        },
+        {
+          "name": "bill_attmps",
+          "type": "INTEGER"
+        },
+        {
+          "name": "test",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "ClaimNumber",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "firstbill",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "doc_specialties",
+      "columns": [
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "specialty",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "doc_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "doctors",
+      "columns": [
+        {
+          "name": "npi",
+          "type": "BIGINT"
+        },
+        {
+          "name": "name_f",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_l",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_login",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prac_id",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "patients",
+      "columns": [
+        {
+          "name": "id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "prac_id",
+          "type": "BIGINT"
+        },
+        {
+          "name": "name_f",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_l",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bill_to",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "created",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "last_login",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "_fivetran_synced_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "dob",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "diabetes",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ]
+}

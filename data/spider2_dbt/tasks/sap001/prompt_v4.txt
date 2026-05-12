@@ -1,0 +1,369 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Can you explain the process used to handle and aggregate SAP general ledger data for `0fi_gl_10` and `0fi_gl_14`?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `sap.duckdb`
+    main.sap_bseg_data(belnr INTEGER, bukrs INTEGER, buzei INTEGER, gjahr INTEGER, mandt INTEGER, buzid INTEGER, augdt INTEGER, augcp INTEGER, augbl INTEGER, bschl INTEGER, koart VARCHAR, umskz INTEGER, umsks INTEGER, zumsk INTEGER, shkzg VARCHAR, gsber INTEGER, pargb INTEGER, mwskz INTEGER, qsskz INTEGER, dmbtr INTEGER, wrbtr INTEGER, kzbtr INTEGER, pswbt INTEGER, pswsl VARCHAR, txbhw INTEGER, txbfw INTEGER, mwsts INTEGER, wmwst INTEGER, hwbas INTEGER, fwbas INTEGER)
+    main.sap_kna1_data(kunnr VARCHAR, mandt INTEGER, land1 VARCHAR, name1 VARCHAR, name2 INTEGER, ort01 VARCHAR, pstlz VARCHAR, regio INTEGER, sortl VARCHAR, stras VARCHAR, telf1 INTEGER, telfx INTEGER, xcpdk INTEGER, adrnr INTEGER, mcod1 VARCHAR, mcod2 INTEGER, mcod3 VARCHAR, anred INTEGER, aufsd INTEGER, bahne INTEGER, bahns INTEGER, bbbnr INTEGER, bbsnr INTEGER, begru INTEGER, brsch INTEGER, bubkz INTEGER, datlt INTEGER, erdat INTEGER, ernam VARCHAR, exabl INTEGER)
+    main.sap_mara_data(mandt INTEGER, matnr INTEGER, ersda INTEGER, ernam VARCHAR, laeda INTEGER, aenam VARCHAR, vpsta VARCHAR, pstat VARCHAR, lvorm INTEGER, mtart VARCHAR, mbrsh VARCHAR, matkl INTEGER, bismt VARCHAR, meins VARCHAR, bstme INTEGER, zeinr INTEGER, zeiar INTEGER, zeivr INTEGER, zeifo INTEGER, aeszn INTEGER, blatt INTEGER, blanz INTEGER, ferth INTEGER, formt INTEGER, groes INTEGER, wrkst INTEGER, normt INTEGER, labor INTEGER, ekwsl INTEGER, brgew INTEGER)
+    main.sap_pa0000_data(begda INTEGER, endda INTEGER, mandt INTEGER, objps INTEGER, pernr INTEGER, seqnr INTEGER, sprps INTEGER, subty INTEGER, aedtm INTEGER, uname VARCHAR, histo INTEGER, itxex INTEGER, refex INTEGER, ordex INTEGER, itbld INTEGER, preas INTEGER, flag1 INTEGER, flag2 INTEGER, flag3 INTEGER, flag4 INTEGER, rese1 INTEGER, rese2 INTEGER, grpvl INTEGER, massn INTEGER, massg INTEGER, stat1 INTEGER, stat2 INTEGER, stat3 INTEGER, _fivetran_rowid INTEGER, _fivetran_deleted BOOLEAN)
+    main.sap_pa0001_data(begda INTEGER, endda INTEGER, mandt INTEGER, objps INTEGER, pernr INTEGER, seqnr INTEGER, sprps INTEGER, subty INTEGER, aedtm INTEGER, uname VARCHAR, histo INTEGER, itxex INTEGER, refex INTEGER, ordex INTEGER, itbld INTEGER, preas INTEGER, flag1 INTEGER, flag2 INTEGER, flag3 INTEGER, flag4 INTEGER, rese1 INTEGER, rese2 INTEGER, grpvl INTEGER, bukrs INTEGER, werks INTEGER, persg INTEGER, persk VARCHAR, vdsk1 INTEGER, gsber INTEGER, btrtl INTEGER)
+    main.sap_pa0007_data(begda INTEGER, endda INTEGER, mandt INTEGER, objps INTEGER, pernr INTEGER, seqnr INTEGER, sprps INTEGER, subty INTEGER, aedtm INTEGER, uname VARCHAR, histo INTEGER, itxex INTEGER, refex INTEGER, ordex INTEGER, itbld INTEGER, preas INTEGER, flag1 INTEGER, flag2 INTEGER, flag3 INTEGER, flag4 INTEGER, rese1 INTEGER, rese2 INTEGER, grpvl INTEGER, schkz VARCHAR, zterf INTEGER, empct INTEGER, mostd DOUBLE, wostd INTEGER, arbst DOUBLE, wkwdy INTEGER)
+    main.sap_pa0008_data(begda INTEGER, endda INTEGER, mandt INTEGER, objps INTEGER, pernr INTEGER, seqnr INTEGER, sprps INTEGER, subty INTEGER, aedtm INTEGER, uname VARCHAR, histo INTEGER, itxex INTEGER, refex INTEGER, ordex INTEGER, itbld INTEGER, preas INTEGER, flag1 INTEGER, flag2 INTEGER, flag3 INTEGER, flag4 INTEGER, rese1 INTEGER, rese2 INTEGER, grpvl INTEGER, trfar INTEGER, trfgb INTEGER, trfgr VARCHAR, trfst INTEGER, stvor INTEGER, orzst INTEGER, partn INTEGER)
+    main.sap_pa0031_data(aedtm INTEGER, begda INTEGER, endda INTEGER, flag1 INTEGER, flag2 INTEGER, flag3 INTEGER, flag4 INTEGER, grpvl INTEGER, histo INTEGER, itbld INTEGER, itxex INTEGER, mandt INTEGER, objps INTEGER, ordex INTEGER, pernr INTEGER, preas INTEGER, refex INTEGER, rese1 INTEGER, rese2 INTEGER, rfp01 INTEGER, rfp02 INTEGER, rfp03 INTEGER, rfp04 INTEGER, rfp05 INTEGER, rfp06 INTEGER, rfp07 INTEGER, rfp08 INTEGER, rfp09 INTEGER, rfp10 INTEGER, rfp11 INTEGER)
+    main.sap_ska1_data(mandt INTEGER, ktopl VARCHAR, saknr INTEGER, bilkt INTEGER, gvtyp INTEGER, vbund INTEGER, xbilk VARCHAR, sakan INTEGER, erdat INTEGER, ernam VARCHAR, ktoks VARCHAR, xloev INTEGER, xspea INTEGER, xspeb INTEGER, xspep INTEGER, func_area INTEGER, mustr INTEGER, _fivetran_rowid INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP)
+    main.sap_t001_data(bukrs INTEGER, mandt INTEGER, butxt VARCHAR, ort01 VARCHAR, land1 VARCHAR, waers VARCHAR, spras VARCHAR, ktopl VARCHAR, waabw INTEGER, periv VARCHAR, kokfi INTEGER, rcomp INTEGER, adrnr INTEGER, stceg VARCHAR, fikrs INTEGER, xfmco INTEGER, xfmcb INTEGER, xfmca INTEGER, txjcd INTEGER, fmhrdate INTEGER, buvar INTEGER, fdbuk INTEGER, xfdis VARCHAR, xvalv VARCHAR, xskfn INTEGER, kkber INTEGER, xmwsn INTEGER, mregl INTEGER, xgsbe VARCHAR, xgjrv VARCHAR)
+    main.sap_t503_data(mandt INTEGER, persg INTEGER, persk VARCHAR, abart INTEGER, abtyp INTEGER, antyp INTEGER, trfkz INTEGER, zeity INTEGER, aksta INTEGER, ansta INTEGER, austa INTEGER, konty INTEGER, burkz INTEGER, molga INTEGER, typsz INTEGER, inwid INTEGER, _fivetran_rowid INTEGER, _fivetran_deleted BOOLEAN, _fivetran_synced TIMESTAMP)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+config-version: 2
+name: 'sap'
+version: '0.1.0'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+models:
+  +materialized: table
+
+profile: 'sap'
+
+vars:
+  sap_schema: main
+  sap_source:
+    sap_bkpf_identifier: "sap_bkpf_data"
+    sap_bseg_identifier: "sap_bseg_data"
+    sap_faglflexa_identifier: "sap_faglflexa_data"
+    sap_faglflext_identifier: "sap_faglflext_data"
+    sap_kna1_identifier: "sap_kna1_data"
+    sap_lfa1_identifier: "sap_lfa1_data"
+    sap_mara_identifier: "sap_mara_data"
+    sap_pa0000_identifier: "sap_pa0000_data"
+    sap_pa0001_identifier: "sap_pa0001_data"
+    sap_pa0007_identifier
+
+
+=== INTERMEDIATE models (3) ===
+  - models/intermediate/int_sap__0employee_date_changes.sql
+    cols: date_change, begda, endda, varchar
+    --- head:
+    {% set employee_models = ['pa0000', 'pa0001', 'pa0007', 'pa0008', 'pa0031'] %}
+
+    with
+    {% for employee_model in employee_models %}
+        {{ employee_model }}_beg as (
+  - models/intermediate/int_sap__0fi_gl_10_sums.sql
+    cols: hslvt, hsmvt, hsl01, hsm01, hsl02, hsm02, hsl03, hsm03, hsl04, hsm04, hsl05, hsm05, hsl06, hsm06, hsl07, hsm07, hsl08, hsm08, ...(30 total)
+    --- head:
+    with faglflext as ( 
+
+    	select * 
+    	from {{ var('faglflext') }}
+    ),
+  - models/intermediate/int_sap__0fi_gl_10_unpivot.sql
+    cols: currency_type, fiscal_period, debit_amount, credit_amount, accumulated_balance, turnover, unnested, fieldtype
+    --- head:
+    with sums as ( 
+
+    	select * 
+    	from {{ ref('int_sap__0fi_gl_10_sums') }}
+    ),
+
+=== FINAL models (11) ===
+  - macros/add_day_to_char_date.sql
+    cols: varchar
+    --- body (first 900 chars):
+    --Convert date strings to dates, add one day, and then convert back to strings. This will avoid null records in our end model--the initial date range setup would join on date ranges in the end model that don't exist
+    {% macro add_day_to_char_date(date_string) -%}
+
+    {{ adapter.dispatch('add_day_to_char_date') (date_string) }}
+
+    {%- endmacro %}
+
+    {% macro default__add_day_to_char_date(date_string) %}
+
+        to_char(dateadd(day, 1, to_date({{ date_string }}, 'YYYYMMDD')), 'YYYYMMDD')
+
+    {% endmacro %}
+
+    {% macro postgres__add_day_to_char_date(date_string) %}
+
+        to_char(to_date({{ date_string }}, 'YYYYMMDD') + interval '1 day', 'YYYYMMDD')
+
+    {% endmacro %}
+
+    {% macro bigquery__add_day_to_char_date(date_string) %}
+
+        format_date('%Y%m%d', date_add(parse_date('%Y%m%d', {{ date_string }}), interval 1 day))
+
+    {% endmacro %}
+
+    {% macro databricks__add_day_to_char_date(date_string) %}
+
+        date_format(date
+  - macros/subtract_day_to_char_date.sql
+    --- body (first 900 chars):
+    -- Subtract one day back to revert end date back to its initial value in the end model
+    {% macro subtract_day_to_char_date(date_string) -%}
+
+    {{ adapter.dispatch('subtract_day_to_char_date') (date_string) }}
+
+    {%- endmacro %}
+
+    {% macro default__subtract_day_to_char_date(date_string) %}
+
+        to_char(dateadd(day, -1, to_date({{ date_string }}, 'YYYYMMDD')), 'YYYYMMDD')
+
+    {% endmacro %}
+
+    {% macro postgres__subtract_day_to_char_date(date_string) %}
+
+        to_char(to_date({{ date_string }}, 'YYYYMMDD') - interval '1 day', 'YYYYMMDD')
+
+    {% endmacro %}
+
+    {% macro bigquery__subtract_day_to_char_date(date_string) %}
+
+        format_date('%Y%m%d', date_sub(parse_date('%Y%m%d', {{ date_string }}), interval 1 day))
+
+    {% endmacro %}
+
+    {% macro databricks__subtract_day_to_char_date(date_string) %}
+
+        date_format(date_sub(to_date({{ date_string }}, 'yyyyMMdd'), 1), 'yyyyMMdd')
+
+    {% endmacro %}
+  - models/sap__0comp_code_attr.sql
+    --- body (first 900 chars):
+    with t001 as ( 
+
+    	select * 
+    	from {{ var('t001') }}
+    ),
+
+    final as (
+
+        select
+            mandt,
+            bukrs,
+            land1,
+            waers,
+            ktopl,
+            kkber,
+            periv,
+            rcomp
+        from t001
+
+        {% if var('t001_mandt_var',[]) %}
+        where mandt = '{{ var('t001_mandt_var') }}'
+        {% endif %}
+    )
+
+    select * 
+    from final
+  - models/sap__0comp_code_text.sql
+    cols: txtmd, langu
+    --- body (first 900 chars):
+    with t001 as ( 
+
+    	select * 
+    	from {{ var('t001') }}
+    ),
+
+    final as (
+
+        select
+            mandt,
+            bukrs,
+            butxt as txtmd,
+            spras as langu
+        from t001
+    )
+
+    select * 
+    from final
+  - models/sap__0company_text.sql
+    cols: txtmd
+    --- body (first 900 chars):
+    with t880 as ( 
+
+    	select * 
+    	from {{ var('t880') }}
+    ),
+
+    final as (
+
+        select 
+            mandt,
+            rcomp,
+            name1 as txtmd
+        from t880
+    )
+
+    select * 
+    from final
+  - models/sap__0customer_attr.sql
+    --- body (first 900 chars):
+    with kna1 as ( 
+
+    	select * 
+    	from {{ var('kna1') }}
+    ),
+
+    final as (
+
+        select
+            mandt,
+            kunnr,
+            brsch,
+            ktokd,
+            kukla,
+            land1,
+            lifnr,
+            loevm,
+            name1,
+            niels,
+            ort01,
+            pstlz,
+            regio,
+            counc,
+            stcd1,
+            stras,
+            telf1,
+            vbund,
+            bran1,
+            bran2,
+            bran3,
+            bran4,
+            bran5,
+            periv,
+            abrvw,
+            werks,
+            name2,
+            name3,
+            dear6,
+            pstl2
+        from kna1
+
+        {% if var('kna1_mandt_var',[]) %}
+    	where mandt = '{{ var('kna1_mandt_var') }}'
+    	{% endif %}
+
+    )
+
+    select * 
+    from final
+  - models/sap__0employee_attr.sql
+    cols: rfpnr, varchar
+    --- body (first 900 chars):
+    with pa0000 as (
+        select *
+        from {{ var('pa0000') }} 
+    ),
+    pa0001 as (
+        select *
+        from {{ var('pa0001') }} 
+    ),
+    pa0007 as (
+        select *
+        from {{ var('pa0007') }} 
+    ),
+    pa0008 as (
+        select *
+        from {{ var('pa0008') }} 
+    ),
+    pa0031 as (
+        select *
+        from {{ var('pa0031') }} 
+    ),
+    t503 as (
+        select *
+        from {{ var('t503') }} 
+    ),
+    employee_date_changes as ( 
+        select * 
+        from {{ ref('int_sap__0employee_date_changes') }}
+        where endda is not null
+    ),
+    final as (
+        select 
+            employee_date_changes.begda,
+            employee_date_changes.endda,
+            pa0000.pernr,
+            coalesce(pa0031.rfp01, pa0031.rfp02, pa0031.rfp03, pa0031.rfp04, pa0031.rfp05,
+            pa0031.rfp06, pa0031.rfp07, pa0031.rfp08, pa0031.rfp09, pa0031.rfp10,
+            pa0031.rfp11, pa0031.rfp12, pa0031.rfp13, pa0031.rfp14, pa0031.rfp15,
+            pa0031.rfp16, pa0031.rfp17, pa0031.rfp18, pa0031.rfp19
+  - models/sap__0gl_account_attr.sql
+    --- body (first 900 chars):
+    with ska1 as ( 
+
+    	select * 
+    	from {{ var('ska1') }}
+    ),
+
+    final as (
+
+    	select
+    		mandt, 
+    		ktopl,
+    		saknr,
+    		bilkt,
+    		gvtyp,
+    		vbund,
+    		xbilk,
+    		sakan,
+    		erdat,
+    		ernam,
+    		ktoks,
+    		xloev,
+    		xspea,
+    		xspeb,
+    		xspep,
+    		func_area,
+    		mustr	
+    	from ska1
+
+    	{% if var('ska1_mandt_var',[]) %}
+    	where mandt = '{{ var('ska1_mandt_var') }}'
+    	{% endif %}
+    )
+
+    select * 
+    from final
+
+  - models/sap__0material_attr.sql
+    --- body (first 900 chars):
+    with
+... (truncated)

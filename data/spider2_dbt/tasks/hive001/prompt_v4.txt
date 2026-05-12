@@ -1,0 +1,134 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Process raw COVID-19 case data, clean it, and join it with country codes to display the number of cases and deaths by country and report date?
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `hive.duckdb`
+    main.raw_covid__cases(date_rep VARCHAR, day INTEGER, month INTEGER, year INTEGER, cases INTEGER, deaths INTEGER, geo_id VARCHAR)
+    main.raw_covid__vaccines(year_week_iso VARCHAR, reporting_country VARCHAR, num_doses_recv INTEGER, num_doses_exported INTEGER, first_dose INTEGER, first_dose_refused INTEGER, second_dose INTEGER, unknown_dose INTEGER, target_group VARCHAR, vaccine VARCHAR)
+    main.ref__country_codes(country VARCHAR, alpha_2code VARCHAR, alpha_3code VARCHAR, numeric_code INTEGER, latitude_avg DOUBLE, longitude_avg DOUBLE)
+    main.ref__populations(country_code VARCHAR, population BIGINT)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+# /*
+#  * Copyright 2022 Cloudera, Inc.
+#  *
+#  * Licensed under the Apache License, Version 2.0 (the "License");
+#  * you may not use this file except in compliance with the License.
+#  * You may obtain a copy of the License at
+#  *
+#  *   http://www.apache.org/licenses/LICENSE-2.0
+#  *
+#  * Unless required by applicable law or agreed to in writing, software
+#  * distributed under the License is distributed on an "AS IS" BASIS,
+#  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  * See the License for the specific language governing permissions and
+#  * limitations
+
+
+--- dbt_project.yml (head) ---
+# /*
+#  * Copyright 2022 Cloudera, Inc.
+#  *
+#  * Licensed under the Apache License, Version 2.0 (the "License");
+#  * you may not use this file except in compliance with the License.
+#  * You may obtain a copy of the License at
+#  *
+#  *   http://www.apache.org/licenses/LICENSE-2.0
+#  *
+#  * Unless required by applicable law or agreed to in writing, software
+#  * distributed under the License is distributed on an "AS IS" BASIS,
+#  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express o
+
+
+--- models/marts/marts.yml (head) ---
+version: 2
+
+models:
+  - name: covid_cases
+    description: |
+      This model joins the cleaned COVID-19 case data with country codes to provide a more readable view of cases and deaths by country.
+      It maps the `geo_id` from the COVID-19 dataset to country names using the `ref__country_codes` reference table.
+
+    refs:
+      - name: stg_covid__cases
+      - name: ref__country_codes
+
+    columns:
+      - name: cases
+        description: "The number of new COVID-19 cases reported on the give
+
+
+--- models/raw/covid/raw_covid.yml (head) ---
+# /*
+#  * Copyright 2022 Cloudera, Inc.
+#  *
+#  * Licensed under the Apache License, Version 2.0 (the "License");
+#  * you may not use this file except in compliance with the License.
+#  * You may obtain a copy of the License at
+#  *
+#  *   http://www.apache.org/licenses/LICENSE-2.0
+#  *
+#  * Unless required by applicable law or agreed to in writing, software
+#  * distributed under the License is distributed on an "AS IS" BASIS,
+#  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express o
+
+
+--- models/staging/staging.yml (head) ---
+version: 2
+
+models:
+  - name: stg_covid__cases
+    description: |
+      This staging model processes raw COVID-19 case data, converting date, cases, and deaths into appropriate data types.
+      The data is sourced from the `raw_covid__cases` table and provides a cleaned version for further analysis.
+
+    refs:
+      - name: raw_covid__cases
+
+    columns:
+      - name: date_rep
+        description: "The reported date of COVID-19 cases and deaths."
+        tests:
+          - not_null
+
+      - nam
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,188 @@
+{
+  "biketheft.duckdb": [
+    {
+      "schema": "main",
+      "table": "berlin_bezirke",
+      "columns": [
+        {
+          "name": "bezirk_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bez_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "mapping_berlin_lor",
+      "columns": [
+        {
+          "name": "object_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bezirk_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pgr_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "pgr_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "bzr_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "bzr_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "plr_id",
+          "type": "INTEGER"
+        },
+        {
+          "name": "plr_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "plr_geometry",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stand",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "reported_incidents_archived",
+      "columns": [
+        {
+          "name": "ANGELEGT_AM",
+          "type": "DATE"
+        },
+        {
+          "name": "TATZEIT_ANFANG_DATUM",
+          "type": "DATE"
+        },
+        {
+          "name": "TATZEIT_ANFANG_STUNDE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TATZEIT_ENDE_DATUM",
+          "type": "DATE"
+        },
+        {
+          "name": "TATZEIT_ENDE_STUNDE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "LOR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SCHADENSHOEHE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VERSUCH",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ART_DES_FAHRRADS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "DELIKT",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ERFASSUNGSGRUND",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TATZEIT_ANFANG",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "TATZEIT_ENDE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "TATZEIT_DAUER",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "reported_incidents_daily",
+      "columns": [
+        {
+          "name": "ANGELEGT_AM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TATZEIT_ANFANG_DATUM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TATZEIT_ANFANG_STUNDE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "TATZEIT_ENDE_DATUM",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TATZEIT_ENDE_STUNDE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "LOR",
+          "type": "INTEGER"
+        },
+        {
+          "name": "SCHADENSHOEHE",
+          "type": "INTEGER"
+        },
+        {
+          "name": "VERSUCH",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ART_DES_FAHRRADS",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "DELIKT",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "ERFASSUNGSGRUND",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "TATZEIT_ANFANG",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "TATZEIT_ENDE",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "TATZEIT_DAUER",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ]
+}

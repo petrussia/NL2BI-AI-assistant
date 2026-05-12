@@ -44,6 +44,12 @@ URL_FILE = Path(r"D:\HSE\Диплом\NL2BI-AI-assistant\tools\.bridge_url")
 def resolve_url(cli_url: str | None) -> str:
     if cli_url:
         return cli_url.rstrip("/")
+    # Phase 26: per-session URL via env BRIDGE_URL_FILE (e.g., tools/.bridge_url_dbt)
+    env_file = os.environ.get("BRIDGE_URL_FILE")
+    if env_file:
+        p = Path(env_file)
+        if p.exists():
+            return p.read_text(encoding="utf-8").strip().rstrip("/")
     if URL_FILE.exists():
         return URL_FILE.read_text(encoding="utf-8").strip().rstrip("/")
     env = os.environ.get("BRIDGE_URL")

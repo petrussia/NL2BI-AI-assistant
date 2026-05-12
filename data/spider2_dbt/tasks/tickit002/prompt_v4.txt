@@ -1,0 +1,319 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Get detailed information about events and ticket listings, including venue details, event timing, categories, seller information, and pricing for each listing
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `tickit.duckdb`
+    main.category(catid INTEGER, catgroup VARCHAR, catname VARCHAR, catdesc VARCHAR)
+    main.date(dateid INTEGER, caldate TIMESTAMP, day INTEGER, month INTEGER, year INTEGER, week INTEGER, qtr INTEGER, holiday BOOLEAN)
+    main.event(eventid INTEGER, venueid INTEGER, catid INTEGER, dateid INTEGER, eventname VARCHAR, starttime VARCHAR)
+    main.listing(listid INTEGER, sellerid INTEGER, eventid INTEGER, dateid INTEGER, numtickets INTEGER, priceperticket INTEGER, totalprice INTEGER, listtime VARCHAR)
+    main.sale(salesid INTEGER, listid INTEGER, sellerid INTEGER, buyerid INTEGER, eventid INTEGER, dateid INTEGER, qtysold INTEGER, pricepaid INTEGER, commission DOUBLE, saletime VARCHAR)
+    main.user(userid INTEGER, username VARCHAR, firstname VARCHAR, lastname VARCHAR, city VARCHAR, state VARCHAR, email VARCHAR, phone VARCHAR, likesports BOOLEAN, liketheatre BOOLEAN, likeconcerts BOOLEAN, likejazz BOOLEAN, likeclassical BOOLEAN, likeopera BOOLEAN, likerock BOOLEAN, likevegas BOOLEAN, likebroadway BOOLEAN, likemusicals BOOLEAN)
+    main.venue(venueid INTEGER, venuename VARCHAR, venuecity VARCHAR, venuestate VARCHAR, venueseats INTEGER)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_redshift_demo'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'tickit'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths:
+
+
+=== STAGING models (7) ===
+  - models/staging/tickit/stg_tickit__categories.sql
+    cols: cat_id, cat_group, cat_name, cat_desc
+    --- head:
+    with source as (
+
+        select * from {{ source('tickit_external', 'category') }}
+
+    ),
+  - models/staging/tickit/stg_tickit__dates.sql
+    cols: date_id, cal_date
+    --- head:
+    with source as (
+
+        select * from {{ source('tickit_external', 'date') }}
+
+    ),
+  - models/staging/tickit/stg_tickit__events.sql
+    cols: event_id, venue_id, cat_id, date_id, event_name, start_time
+    --- head:
+    with source as (
+
+        select * from {{ source('tickit_external', 'event') }}
+
+    ),
+  - models/staging/tickit/stg_tickit__listings.sql
+    cols: list_id, seller_id, event_id, date_id, num_tickets, price_per_ticket, total_price, list_time
+    --- head:
+    with source as (
+
+        select * from {{ source('tickit_external', 'listing') }}
+
+    ),
+  - models/staging/tickit/stg_tickit__sales.sql
+    cols: sale_id, list_id, seller_id, buyer_id, event_id, date_id, qty_sold, ticket_price, price_paid, commission_prcnt, earnings, sale_time
+    --- head:
+    with sources as (
+
+        select * from {{ source('tickit_external', 'sale') }}
+
+    ),
+  - models/staging/tickit/stg_tickit__users.sql
+    cols: user_id, first_name, last_name, like_broadway, like_classical, like_concerts, like_jazz, like_musicals, like_opera, like_rock, like_sports, like_theatre, like_vegas
+    --- head:
+    with source as (
+
+        select * from {{ source('tickit_external', 'user') }}
+
+    ),
+  - models/staging/tickit/stg_tickit__venues.sql
+    cols: venue_id, venue_name, venue_city, venue_state, venue_seats
+    --- head:
+    with source as (
+
+        select * from {{ source('tickit_external', 'venue') }}
+
+    ),
+
+=== INTERMEDIATE models (2) ===
+  - models/intermediate/users/int_buyers_extracted_from_users.sql
+    cols: DATE, first_purchase_date, varchar, full_name, s, u, f
+    --- head:
+    with sales as (
+
+        select * from {{ ref('stg_tickit__sales') }}
+
+    ),
+  - models/intermediate/users/int_sellers_extracted_from_users.sql
+    cols: DATE, first_sale_date, varchar, full_name, s, u, fs
+    --- head:
+    {{ config(materialized='view', bind=False) }}
+
+    with sales as (
+
+        select * from {{ ref('stg_tickit__sales') }}
+
+=== FINAL models (8) ===
+  - models/analyses/buyer_likes.sql
+    cols: integer, sports, theatre, concerts, jazz, classical, opera, rock, vegas, broadway, musicals, like_id
+    --- body (first 900 chars):
+    {{ config(materialized='table', sort='event_type', dist='like_id') }}
+
+    {%- set event_types = 'sports, theatre, concerts, jazz, classical, opera, rock, vegas, broadway, musicals' -%}
+
+    with buyers as (
+
+        select * from {{ ref('int_buyers_extracted_from_users') }}
+
+    ),
+
+    total_likes as (
+
+        select
+            sum(coalesce(cast(like_sports as integer), 0)) as sports,
+            sum(coalesce(cast(like_theatre as integer), 0)) as theatre,
+            sum(coalesce(cast(like_concerts as integer), 0)) as concerts,
+            sum(coalesce(cast(like_jazz as integer), 0)) as jazz,
+            sum(coalesce(cast(like_classical as integer), 0)) as classical,
+            sum(coalesce(cast(like_opera as integer), 0)) as opera,
+            sum(coalesce(cast(like_rock as integer), 0)) as rock,
+            sum(coalesce(cast(like_vegas as integer), 0)) as vegas,
+            sum(coalesce(cast(like_broadway as integer), 0)) as broadw
+  - models/analyses/monthly_sales.sql
+    cols: sale_id, quarter, total_sales, total_tickets_sold, avg_tickit_sale_price, total_commissions, total_earnings, s, d
+    --- body (first 900 chars):
+    {{ config(materialized='table', sort=['year', 'month'], dist='sale_id') }}
+
+    with sales as (
+
+        select * from {{ ref('stg_tickit__sales') }}
+
+    ),
+
+    dates as (
+
+        select * from {{ ref('stg_tickit__dates') }}
+
+    ),
+
+    final as (
+
+        select
+            row_number() over () as sale_id,
+            d.year,
+            d.month,
+            d.qtr as quarter,
+            sum(s.price_paid) as total_sales,
+            sum(s.qty_sold) as total_tickets_sold,
+            round(total_sales / total_tickets_sold, 2) as avg_tickit_sale_price,
+            sum(s.commission) as total_commissions,
+            sum(s.earnings) as total_earnings
+        from 
+            sales as s
+                join dates as d on d.date_id = s.date_id
+        group by
+            year,
+            month,
+      		quarter
+        order by 
+            year,
+            month,
+      		quarter
+
+    )
+
+    select * from final
+  - models/analyses/non_buyer_likes.sql
+    cols: integer, sports, theatre, concerts, jazz, classical, opera, rock, vegas, broadway, musicals, like_id
+    --- body (first 900 chars):
+    {{ config(materialized='table', sort='event_type', dist='like_id') }}
+
+    {%- set event_types = 'sports, theatre, concerts, jazz, classical, opera, rock, vegas, broadway, musicals' -%}
+
+    with buyers as (
+
+        select * from {{ ref('dim_non_buyers') }}
+
+    ),
+
+    total_likes as (
+
+        select
+            sum(coalesce(cast(like_sports as integer), 0)) as sports,
+            sum(coalesce(cast(like_theatre as integer), 0)) as theatre,
+            sum(coalesce(cast(like_concerts as integer), 0)) as concerts,
+            sum(coalesce(cast(like_jazz as integer), 0)) as jazz,
+            sum(coalesce(cast(like_classical as integer), 0)) as classical,
+            sum(coalesce(cast(like_opera as integer), 0)) as opera,
+            sum(coalesce(cast(like_rock as integer), 0)) as rock,
+            sum(coalesce(cast(like_vegas as integer), 0)) as vegas,
+            sum(coalesce(cast(like_broadway as integer), 0)) as broadway,
+            sum(c
+  - models/analyses/sales_by_category.sql
+    cols: total_transactions, total_tickets_sold, total_sales, total_commissions, total_earnings, avg_tickit_sale_price
+    --- body (first 900 chars):
+    with sales as (
+
+            select * from {{ ref('stg_tickit__sales') }}
+
+    ),
+
+    events as (
+
+            select * from {{ ref('stg_tickit__events') }}
+
+    ),
+
+    categories as (
+
+            select * from {{ ref('stg_tickit__categories') }}
+
+    ),
+
+    final as (
+
+        select
+            c.cat_group,
+            c.cat_name,
+            count(s.price_paid) as total_transactions,
+            sum(s.qty_sold) as total_tickets_sold,
+            sum(s.price_paid) as total_sales,
+            sum(s.commission) as total_commissions,
+            sum(s.earnings) as total_earnings,
+            round(total_sales / total_tickets_sold, 2) as avg_tickit_sale_price
+        from
+            sales s,
+            events e,
+            categories c
+        where
+            s.event_id = e.event_id
+                and c.cat_id = e.cat_id
+        group by
+            cat_group,
+            cat_name
+        order by
+            cat_group, 
+            cat_name
+
+    )
+
+    select * from final
+
+--- dbt_project.yml (head) ---
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_redshift_demo'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'tickit'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this proj
+
+
+--- models/intermediate/users/_int_users__models.yml (head) ---
+version: 2
+
+models:
+  - name: int_buyers_extracted_from_users
+    description: All buyers, based on sales history, extracted from users
+
+  - name: int_sellers_extracted_from_users
+    description: All sellers, based on sales history, extracted from users
+
+
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

@@ -1,0 +1,208 @@
+{
+  "retail.duckdb": [
+    {
+      "schema": "main",
+      "table": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_datetime",
+      "columns": [
+        {
+          "name": "datetime_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "datetime",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "year",
+          "type": "BIGINT"
+        },
+        {
+          "name": "month",
+          "type": "BIGINT"
+        },
+        {
+          "name": "day",
+          "type": "BIGINT"
+        },
+        {
+          "name": "hour",
+          "type": "BIGINT"
+        },
+        {
+          "name": "minute",
+          "type": "BIGINT"
+        },
+        {
+          "name": "weekday",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stock_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "price",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "fct_invoices",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "datetime_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "customer_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "raw_invoices",
+      "columns": [
+        {
+          "name": "InvoiceNo",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "StockCode",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Quantity",
+          "type": "INTEGER"
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "CustomerID",
+          "type": "INTEGER"
+        },
+        {
+          "name": "Country",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "report_customer_invoices",
+      "columns": [
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_invoices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_revenue",
+          "type": "DOUBLE"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "report_product_invoices",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "stock_code",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "total_quantity_sold",
+          "type": "HUGEINT"
+        }
+      ]
+    },
+    {
+      "schema": "main",
+      "table": "report_year_invoices",
+      "columns": [
+        {
+          "name": "year",
+          "type": "BIGINT"
+        },
+        {
+          "name": "month",
+          "type": "BIGINT"
+        },
+        {
+          "name": "num_invoices",
+          "type": "BIGINT"
+        },
+        {
+          "name": "total_revenue",
+          "type": "DOUBLE"
+        }
+      ]
+    }
+  ]
+}

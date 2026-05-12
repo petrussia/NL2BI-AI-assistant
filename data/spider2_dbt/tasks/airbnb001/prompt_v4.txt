@@ -1,0 +1,367 @@
+You are a senior analytics engineer extending a dbt project so that
+        running `dbt run` produces the answer to the user's question.
+
+        QUESTION:
+        Aggregate user reviews by sentiment on a daily and month-over-month basis, while also combining listings and host information to track the latest updates for each listing
+
+        RULES:
+- The dbt project runs on DuckDB 1.5 via dbt-duckdb 1.10.
+- Use Standard SQL with DuckDB extensions (UNNEST works; LATERAL FLATTEN
+  is NOT DuckDB syntax). Use `LIST_VALUE`, `STRUCT`, `JSON_EXTRACT`, etc.
+  for nested types.
+- Every dbt model is materialized as table by default.
+- Reference upstream sources/models with `{{ ref('name') }}` or
+  `{{ source('schema', 'table') }}`. Do not write raw schema-qualified
+  table names unless dbt sources are not declared.
+
+        - The dbt project already has models that may partially solve the task.
+  Prefer **extending an existing model** via a unified diff over creating
+  a brand-new file.
+- Output: emit ONE answer in this priority order:
+    1) FIRST CHOICE — unified diff that extends an existing model file
+       listed in PROJECT FILES:
+       ```diff
+       --- a/models/<existing_file>.sql
+       +++ b/models/<existing_file>.sql
+       @@ ...
+       ```
+    2) Only if no existing model fits, write a new SQL file:
+       ```sql path=models/<name>.sql
+       SELECT ...
+       ```
+- Use ONLY columns visible in the PROJECT FILES. Do not invent names.
+- DO NOT explain. ONE fenced block, nothing else.
+
+        SCHEMA (DuckDB tables visible to the dbt project):
+- `airbnb.duckdb`
+    main.RAW_HOSTS(ID INTEGER, NAME VARCHAR, IS_SUPERHOST VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP)
+    main.RAW_LISTINGS(ID INTEGER, LISTING_URL VARCHAR, NAME VARCHAR, ROOM_TYPE VARCHAR, MINIMUM_NIGHTS INTEGER, HOST_ID INTEGER, PRICE VARCHAR, CREATED_AT TIMESTAMP, UPDATED_AT TIMESTAMP)
+    main.RAW_REVIEWS(LISTING_ID INTEGER, DATE TIMESTAMP, REVIEWER_NAME VARCHAR, COMMENTS VARCHAR, SENTIMENT VARCHAR)
+
+        PROJECT FILES (grouped by class):
+
+[dbt_project.yml]
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_airbnb'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'airbnb'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["model
+
+
+=== FINAL models (14) ===
+  - macros/generate_schema_name.sql
+    --- body (first 900 chars):
+    {% macro generate_schema_name(custom_schema_name, node) -%}
+
+        {%- set default_schema = target.schema -%}
+        {%- if custom_schema_name is none -%}
+
+            {{ default_schema }}
+
+        {%- else -%}
+
+            {{ custom_schema_name | trim }}
+
+        {%- endif -%}
+
+    {%- endmacro %}
+  - macros/get_date_range.sql
+    cols: dates
+    --- body (first 900 chars):
+    {% macro get_date_range(target_date='SYSDATE',lookback=7) %}
+
+    	{%- set date_range_query -%}
+
+    		{%- for i in range (0,lookback+1) -%}
+
+    		SELECT {{target_date}}::DATE - {{i}} AS dates
+    		{% if not loop.last -%} UNION ALL {%- endif -%}
+
+    		{%- endfor -%}
+
+    	{%- endset -%}
+
+    	{%- set date_range_results = run_query(date_range_query) -%}
+
+    	{%- if execute -%}
+    		{%- set date_range_results_list = results.columns[0].values() -%}
+    	{%- else -%}
+    		{%- set date_range_results_list = [] -%}
+    	{%- endif -%}
+
+
+    	{{return(date_range_results_list)}}
+
+
+    {% endmacro %}
+  - macros/get_missing_dates.sql
+    --- body (first 900 chars):
+    {% macro get_missing_dates(schema,model,column,target_date='CURRENT_DATE',lookback=7) %}
+
+    	{% set missing_dates_query %}
+    	SELECT A.date_actual
+    	FROM dev.dim_dates A
+    	LEFT JOIN {{schema}}.{{model}} B
+    		ON A.date_actual = B.{{column}}
+    	WHERE B.{{column}} IS NULL
+    		AND A.date_actual BETWEEN {{target_date}}::DATE - {{lookback}} AND {{target_date}}
+    	{% endset %}
+
+    	{%- set missing_dates_results = run_query(missing_dates_query) -%}
+
+    	{%- if execute -%}
+    		{%- set missing_dates_list = missing_dates_results.columns[0].values() -%}
+    	{%- else -%}
+    		{%- set missing_dates_list = [] -%}
+    	{%- endif -%}
+
+    	{{return(missing_dates_list)}}
+
+    {% endmacro %}
+  - macros/is_empty.sql
+    --- body (first 900 chars):
+    {% macro is_empty(schema,model) %}
+
+    	{%- set checking_query -%}
+    	SELECT COUNT(*) FROM {{schema}}.{{model}} LIMIT 5
+    	{%- endset -%}
+
+    	{%- set checking_query_result = run_query(checking_query) -%}
+
+    	{%- if execute-%}
+    		{%-set checking_query_result_list = checking_query_result.columns[0].values() -%}
+    	{%- else -%}
+    		{%- set checking_query_result_list = [] -%}
+    	{%- endif -%}
+
+    	{%- if checking_query_result_list[0] == 0 -%}
+    		{{return(true)}}
+    	{%- else -%}
+    		{{return(false)}}
+    	{%- endif -%}
+
+    {% endmacro %}
+  - macros/test_positive_values.sql
+    --- body (first 900 chars):
+    {% test test_positive_values(model,column_name) %}
+
+    SELECT *
+    FROM {{ model }}
+    WHERE {{ column_name }} < 1
+    LIMIT 1
+
+    {% endtest %}
+  - models/agg/monthly_agg_reviews.sql
+    cols: REVIEW_TOTALS, MONTH_YEAR, MONTH, YEAR, TEXT, DATE_SENTIMENT_ID
+    --- body (first 900 chars):
+    {{
+    	config(
+    		materialized="incremental",
+    		alias="monthly_agg_reviews",
+    		schema="main",
+    		unique_key="DATE_SENTIMENT_ID"
+    	)
+    }}
+
+    WITH review_cte AS (
+    	SELECT *
+    	FROM {{ref('fct_reviews')}}
+    )
+
+    SELECT
+    	COUNT(*) AS REVIEW_TOTALS,
+    	REVIEW_SENTIMENT,
+    	STRFTIME('%m-%Y', REVIEW_DATE) AS MONTH_YEAR, -- 使用 STRFTIME 替代 TO_CHAR
+    	EXTRACT(MONTH FROM REVIEW_DATE) AS MONTH,
+    	EXTRACT(YEAR FROM REVIEW_DATE) AS YEAR,
+    	{{dbt_utils.surrogate_key(['CAST(EXTRACT(MONTH FROM REVIEW_DATE) AS TEXT)',
+    							   'CAST(EXTRACT(YEAR FROM REVIEW_DATE) AS TEXT)',
+    							   'REVIEW_SENTIMENT'])}} AS DATE_SENTIMENT_ID
+    FROM review_cte
+
+    {% if is_incremental() %}
+    WHERE 
+    	EXTRACT(MONTH FROM REVIEW_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+    	AND EXTRACT(YEAR FROM REVIEW_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+    {% endif %}
+
+    GROUP BY
+    	REVIEW_SENTIMENT,
+    	MONTH_YEAR,
+    	MONTH,
+    	YEAR,
+    	DATE_SENTIMENT_ID
+    ORDER BY
+    	YEAR DESC,
+    	MONTH DES
+  - models/agg/wow_agg_reviews.sql
+    cols: REVIEW_TOTALS, AGGREGATION_DATE, offset, WOW, DATE_SENTIMENT_ID
+    --- body (first 900 chars):
+    {{
+    	config(
+    		materialized="incremental" ,
+    		alias="wow_agg_reviews" ,
+    		schema="main",
+    		unique_key="DATE_SENTIMENT_ID"
+    	)
+    }}
+
+    WITH review_cte AS (
+    	SELECT *
+    	FROM {{ref('fct_reviews')}}
+
+    	{% if is_incremental() %}
+    	WHERE REVIEW_DATE::DATE BETWEEN (SELECT MAX(REVIEW_DATE::DATE) - 6 FROM {{ref('fct_reviews')}}) 
+    							AND (SELECT MAX(REVIEW_DATE::DATE) FROM {{ref('fct_reviews')}})
+    	{% endif %}
+    ),
+
+    dates_cte AS (
+    	SELECT DATE_ACTUAL
+    	FROM airbnb.main.dim_dates
+    	WHERE DATE_ACTUAL IN (SELECT DISTINCT REVIEW_DATE::DATE
+    						  FROM review_cte)
+
+    	{% if is_incremental() %}
+    		AND DATE_ACTUAL = (SELECT MAX(REVIEW_DATE::DATE) FROM {{ref('fct_reviews')}})
+    	{% endif %}
+    ),
+
+    final_cte AS (
+    SELECT
+    	COUNT(*) AS REVIEW_TOTALS ,
+    	review_cte.REVIEW_SENTIMENT ,
+    	dates_cte.DATE_ACTUAL AS AGGREGATION_DATE 
+    FROM dates_cte
+    LEFT JOIN review_cte 
+    	/* joining by last 6 days range so we can get the last 30 days a
+  - models/dim/dim_dates.sql
+    cols: DATE_ID, DATE_ACTUAL, EPOCH, DAY_SUFFIX, DAY_NAME, DAY_OF_WEEK, DAY_OF_MONTH, DAY_OF_QUARTER, DAY_OF_YEAR, WEEK_OF_MONTH, WEEK_OF_YEAR, WEEK_OF_YEAR_ISO, MONTH_ACTUAL, MONTH_NAME, MONTH_NAME_ABBREVIATED, QUARTER_ACTUAL, QUARTER_NAME, year_actual, ...(29 total)
+    --- body (first 900 chars):
+    {{
+    	config(
+    		materialized="table" ,
+    		alias="dim_dates" ,
+    		schema="main" ,
+    		unique_key="DATE_ID"
+    	)
+    }}
+
+    SELECT 
+        STRFTIME('%Y%m%d', DATUM)::INT AS DATE_ID,
+        DATUM AS DATE_ACTUAL,
+        EXTRACT(EPOCH FROM DATUM) AS EPOCH,
+        STRFTIME('%d', DATUM) || CASE
+            WHEN STRFTIME('%d', DATUM) = '01' THEN 'st'
+            WHEN STRFTIME('%d', DATUM) = '02' THEN 'nd'
+            WHEN STRFTIME('%d', DATUM) = '03' THEN 'rd'
+            ELSE 'th'
+        END AS DAY_SUFFIX,
+        STRFTIME('%A', DATUM) AS DAY_NAME,
+        EXTRACT(ISODOW FROM DATUM) AS DAY_OF_WEEK,
+        EXTRACT(DAY FROM DATUM) AS DAY_OF_MONTH,
+        (DATUM - DATE_TRUNC('quarter', DATUM)::DATE + INTERVAL '1 day') AS DAY_OF_QUARTER,
+        EXTRACT(DOY FROM DATUM) AS DAY_OF_YEAR,
+        STRFTIME('%W', DATUM)::INT AS WEEK_OF_MONTH,
+        EXTRACT(WEEK FROM DATUM) AS WEEK_OF_YEAR,
+        EXTRACT(ISOYEAR FROM DATUM) || '-W' || STRFTIME('%V', DATUM) || '-' || EXTRACT(I
+  - models/dim/dim_hosts.sql
+    cols: HOST_NAME
+    --- body (first 900 chars):
+    {{
+    	config(
+    		materialized="incremental" ,
+    		alias="dim_hosts" ,
+    		schema="main" ,
+    		unique_key="HOST_ID"
+    	)
+    }}
+
+    WITH src_listings_cte AS (
+    	SELECT *
+    	FROM {{ref('src_hosts')}}
+    )
+
+    SELECT
+    	HOST_ID ,
+    	COALESCE(HOST_NAME,'anonymous') AS HOST_NAME ,
+    	IS_SUPERHOST ,
+    	CREATED_AT ,
+    	UPDATED_AT
+    FROM
+    	src_listings_cte
+
+
+  - models/dim/dim_listings.sql
+    cols: MINIMUM_NIGHTS, PRICE
+    --- body (first 900 chars):
+    {{
+    	config(
+    		materialized="incremental" ,
+    		alias="dim_listings" ,
+    		schema="main" ,
+    		unique_key="LISTING_ID"
+    	)
+    }}
+
+    WITH src_listings_cte AS (
+    	SELECT *
+    	FROM {{ref('src_listings')}}
+    )
+
+    SELECT
+    	LISTING_ID ,
+    	LISTING_NAME ,
+    	CASE
+    		WHEN MINIMUM_NIGHTS = 0 THEN 1
+    		ELSE MINIMUM_NIGHTS
+    	END AS MINIMUM_NIGHTS ,
+    	HOST_ID ,
+    	ROOM_TYPE ,
+    	REPLACE(PRICE_STR,'$','')::NUMERIC AS PRICE ,
+    	CREATED_AT ,
+    	UPDATED_AT 
+    FROM src_listings_cte
+
+
+
+  - models/fact/fct_reviews.sql
+    --- body (first 900 chars):
+    {{
+    	config(
+    		materialized="incremental" ,
+    		alias="fct_reviews" ,
+    		schema="main"
+    	)
+    }}
+
+    WITH src_reviews_cte AS (
+    	SELECT *
+    	FROM {{ref('src_reviews')}}
+    )
+
+    SELECT * 
+    FROM src_reviews_cte
+    WHERE REVIEW_TEXT IS NOT NULL
+
+    {% if is_incremental() %}
+    	AND REVIEW_DATE > (SELECT MAX(REVIEW_DATE)
+    					   FROM {{ this}}
+    					   )
+    {% endif %}
+
+        REMEMBER: prefer extending an existing final model via a unified
+        diff over writing a new file. Keep changes minimal — small,
+        focused additions are easier to validate.
+
+        DIFF (or SQL fallback) — one fenced block, nothing else:

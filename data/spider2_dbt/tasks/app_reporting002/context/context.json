@@ -1,0 +1,38 @@
+{
+  "task_id": "app_reporting002",
+  "instance_id": "app_reporting002",
+  "instruction": "Please generate an overview report of the app combine apple store and google play.",
+  "type": "DBT",
+  "remote_example_dir": "/home/denis/dbt/vendor/Spider2/spider2-dbt/examples/app_reporting002",
+  "remote_workspace_dir": "/home/denis/dbt/outputs/colab_bridge/tasks/app_reporting002",
+  "snapshot_remote": "/home/denis/dbt/outputs/colab_bridge/tasks/app_reporting002/snapshot.tgz",
+  "files_in_snapshot": [
+    "profiles.yml",
+    "dbt_project.yml",
+    "packages.yml",
+    "models/app_reporting__traffic_source_report.sql",
+    "models/app_reporting__os_version_report.sql",
+    "models/intermediate/country_report/int_google_play__country.sql",
+    "models/intermediate/country_report/int_apple_store__country.sql",
+    "models/intermediate/overview_report/overview_report.yml",
+    "models/intermediate/app_version_report/int_apple_store__app_version.sql",
+    "models/intermediate/app_version_report/int_google_play__app_version.sql",
+    "models/intermediate/traffic_source_report/int_apple_store__traffic_source.sql",
+    "models/intermediate/traffic_source_report/int_google_play__traffic_source.sql",
+    "models/intermediate/os_version_report/int_apple_store__os_version.sql",
+    "models/intermediate/os_version_report/int_google_play__os_version.sql",
+    "models/intermediate/device_report/int_google_play__device.sql",
+    "models/intermediate/device_report/int_apple_store__device.sql",
+    "models/app_reporting.yml",
+    "models/app_reporting__app_version_report.sql",
+    "models/app_reporting__country_report.sql",
+    "models/docs.md",
+    "models/app_reporting__device_report.sql"
+  ],
+  "duckdb_files": [
+    "app_reporting.duckdb"
+  ],
+  "step_idx": 0,
+  "mode": "single_shot",
+  "notes": "Server holds the dbt project + DuckDB. Bridge does NOT transfer .duckdb files (large/binary). The model uses duckdb_tables.json as schema knowledge."
+}

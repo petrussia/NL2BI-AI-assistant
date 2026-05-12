@@ -1,0 +1,38 @@
++++ b/models/attribution_touches.sql
+@@ -47,6 +47,18 @@ with points as (
+     end
+ )
+ 
++with aggregated_metrics as (
++    select
++        utm_source,
++        sum(first_touch_revenue) as first_touch_revenue,
++        sum(last_touch_revenue) as last_touch_revenue,
++        sum(forty_twenty_forty_revenue) as forty_twenty_forty_revenue,
++        sum(linear_revenue) as linear_revenue
++    from points
++    group by utm_source
++)
++
+ select
+     utm_source,
+     first_touch_points,
+@@ -54,6 +66,10 @@ select
+     forty_twenty_forty_points,
+     linear_points,
+     first_touch_revenue,
++    first_touch_revenue / aggregated_metrics.first_touch_revenue as first_touch_cpa,
++    last_touch_revenue / aggregated_metrics.last_touch_revenue as last_touch_cpa,
++    forty_twenty_forty_revenue / aggregated_metrics.forty_twenty_forty_revenue as forty_twenty_forty_cpa,
++    linear_revenue / aggregated_metrics.linear_revenue as linear_cpa,
+     last_touch_revenue,
+     forty_twenty_forty_revenue,
+     linear_revenue
+@@ -60,6 +76,7 @@ select
+     forty_twenty_forty_points,
+     linear_points,
+     first_touch_revenue,
++    aggregated_metrics.first_touch_revenue,
+     last_touch_revenue,
+     forty_twenty_forty_revenue,
+     linear_revenue
