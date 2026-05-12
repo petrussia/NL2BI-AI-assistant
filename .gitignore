@@ -30,6 +30,14 @@ tools/.bridge_url
 # Raw downloaded benchmark data + lazy-pulled schema cache
 data/spider2_lite/raw/
 data/spider2_lite/resource/
+data/spider2_snow/raw/
+data/spider2_snow/resource/
+
+# Scratch dumps
+_all_68.txt
+
+# DBT task workspace staging — materialised at run time, ephemeral
+data/spider2_dbt/tasks/*/workspace_staging/
 
 # Local logs / temp files
 outputs/spider2_snow/_*.log
