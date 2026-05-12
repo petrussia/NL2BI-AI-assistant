@@ -4,9 +4,9 @@
 
 Сводная таблица рисков:
 
-![Оставшиеся риски и следующие шаги](assets/risks_matrix.png)
+![Оставшиеся риски и следующие шаги](assets/risks_matrix_working_version.png)
 
-Главный риск для демонстрации — нестабильность Colab URL. На момент подготовки отчёта публичный runtime доступен, но Colab health через gateway возвращает 404. Это нужно исправить до live demo: обновить Colab URL, перезапустить gateway и повторить smoke.
+Главный риск для демонстрации — зависимость live Text-to-SQL от Colab/GPU runtime. На момент подготовки отчёта GPU был выключен вручную для экономии ресурсов, поэтому текущая недоступность Colab не считается регрессией. До live demo нужно снова включить Colab, обновить endpoint при необходимости, перезапустить gateway и повторить smoke.
 
 Второй риск — смешение демонстрационных и бизнесовых источников. Spider, BIRD и Spider2 хорошо показывают benchmark-покрытие, но комиссии проще оценивать BI-сценарий на `northwind_ru`. Поэтому для защиты лучше делать основной сценарий на Northwind RU, а benchmark sources показывать как широту подключения.
 
@@ -14,8 +14,9 @@
 
 ## Short-term
 
-- Обновить Colab URL в server env.
-- Повторить live Colab smoke.
+- Включить Colab/GPU перед live demo.
+- Обновить Colab URL в server env при необходимости.
+- Повторить live Colab smoke после включения GPU.
 - Проверить `/api/server/runtime` и `/api/server/nl2chart`.
 - Обновить screenshots после успешного live smoke.
 - Проверить подсказки по всем источникам.
