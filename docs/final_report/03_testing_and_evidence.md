@@ -15,7 +15,7 @@
 
 Public site root также проверен простым HTTP-запросом: `GET http://103.54.18.109/` вернул 200 и 8027 bytes.
 
-Важно: текущий public runtime показывает `colab_available=false`, `status_code=404`. Это не отменяет исторический live Colab evidence от 2026-05-11, но означает, что новый успешный live smoke на момент подготовки отчёта не подтверждён.
+Важно: на момент подготовки отчёта Colab/GPU runtime был выключен вручную для экономии ресурсов. Поэтому текущий `colab_available=false` не считается регрессией. Live-режим оценивается по последней подтверждённой рабочей версии от 2026-05-11, зафиксированной в `docs/e2e_results/live_colab/*` и `docs/e2e_results/final_integration/*`.
 
 ## Evidence-файлы
 
@@ -44,7 +44,7 @@ Mock mode подтверждает, что server-runtime, adapter, visualizatio
 
 Colab unavailable scenario подтверждает fail-closed поведение: сервер не падает и возвращает управляемую ошибку.
 
-Live Colab smoke подтверждал end-to-end путь через Colab на момент 2026-05-11. После текущего 404 smoke нужно повторить после обновления URL.
+Live Colab smoke подтверждает end-to-end путь через Colab на момент 2026-05-11. После этой рабочей фиксации inference runtime был намеренно остановлен для экономии ресурсов. Перед live-показом его нужно снова включить и повторить smoke.
 
 Double aggregation check подтверждает, что уже агрегированные SQL-поля не агрегируются повторно в Vega encoding.
 
