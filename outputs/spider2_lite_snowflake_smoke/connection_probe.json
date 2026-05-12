@@ -1,0 +1,15 @@
+{
+  "probed_at": "2026-05-07T22:09:24.354370+00:00",
+  "have_account": true,
+  "have_user": true,
+  "have_password": true,
+  "have_pkey": false,
+  "authenticator": "password",
+  "current_version": "10.16.101",
+  "current_role": "PARTICIPANT",
+  "current_warehouse": "COMPUTE_WH_PARTICIPANT",
+  "current_database": "PATENTS",
+  "current_schema": "PUBLIC",
+  "ok": true,
+  "connect_ms": 13591
+}

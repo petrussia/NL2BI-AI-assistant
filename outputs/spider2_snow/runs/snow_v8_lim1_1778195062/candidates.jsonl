@@ -1,0 +1,3 @@
+{"source": "C0_direct", "parses": false, "executable": null, "sql_chars": 450, "error_type": "object_not_found", "instance_id": "sf_bq029"}
+{"source": "C1_retrieval_docs", "parses": false, "executable": null, "sql_chars": 539, "error_type": "object_not_found", "instance_id": "sf_bq029"}
+{"source": "C2_cte_decomp", "parses": false, "executable": null, "sql_chars": 1118, "error_type": "syntax", "instance_id": "sf_bq029"}

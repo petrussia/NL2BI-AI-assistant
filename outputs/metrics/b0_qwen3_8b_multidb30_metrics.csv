@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,baseline_name,schema_strategy
+b0_qwen3_8b_multidb30,Qwen/Qwen3-8B,multidb_30,internal_core,v3,30,27,0.9,30,0.0,0.0,0.0,B0,full_schema

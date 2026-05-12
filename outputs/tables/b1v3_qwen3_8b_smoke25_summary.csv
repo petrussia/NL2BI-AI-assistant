@@ -1,0 +1,15 @@
+metric,value
+run_id,b1v3_qwen3_8b_smoke25
+model,Qwen/Qwen3-8B
+subset,smoke_25
+benchmark_group,internal_core
+baseline_version,v3
+n,25
+execution_match_count,19
+ex,0.76
+executable_count,25
+avg_reduction_ratio,1.0
+avg_link_confidence,0.5171564584750741
+fallback_rate,1.0
+baseline_name,B1_v3
+schema_strategy,bidirectional_linker

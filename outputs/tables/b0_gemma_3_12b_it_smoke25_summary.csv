@@ -1,0 +1,17 @@
+metric,value
+run_id,b0_gemma_3_12b_it_smoke25
+model,google/gemma-3-12b-it
+subset,smoke_25
+benchmark_group,internal_core
+baseline_version,v3
+n,25
+execution_match_count,24
+ex,0.96
+executable_count,25
+avg_reduction_ratio,0.0
+avg_link_confidence,0.0
+fallback_rate,0.0
+repair_rate,0.0
+latency_avg_ms,2546.789197921753
+baseline_name,B0
+schema_strategy,full_schema

@@ -1,0 +1,44 @@
+{
+  "stage": "lite_bq",
+  "status": {
+    "run_id": "lite_bq_full_v25",
+    "exists": true,
+    "started": true,
+    "done": false,
+    "failed": false,
+    "n_predictions": 3,
+    "progress": {
+      "n_total": 3,
+      "n_target": 205,
+      "plan_ok": 1,
+      "schema_valid": 2,
+      "parse_ok": 3,
+      "execute_ok": 2,
+      "family_counts": {
+        "B": 1,
+        "A": 2
+      },
+      "rewrite_counts": {
+        "array_contains": 1
+      },
+      "rewrite_helpful": {},
+      "err_top": [
+        [
+          "ok",
+          1
+        ],
+        [
+          "bq_dry_run_failed",
+          1
+        ],
+        [
+          "schema_invalid",
+          1
+        ]
+      ],
+      "wall_sec": 174.4,
+      "last_task": "bq009"
+    }
+  },
+  "phase": "running"
+}

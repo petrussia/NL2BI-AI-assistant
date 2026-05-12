@@ -1,0 +1,3 @@
+[2026-05-10 09:44:39] === PHASE 25 CHAIN START ===
+[2026-05-10 09:44:39] STAGE 1 (Lite-BQ FULL): polling existing run
+[2026-05-10 09:44:39]   n=3/205 sv=2 exec=2 wall=174.4s last=bq009

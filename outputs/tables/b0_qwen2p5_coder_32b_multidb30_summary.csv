@@ -1,0 +1,17 @@
+metric,value
+run_id,b0_qwen2p5_coder_32b_multidb30
+model,Qwen/Qwen2.5-Coder-32B-Instruct
+subset,multidb_30
+benchmark_group,internal_core
+baseline_version,v3
+n,30
+execution_match_count,25
+ex,0.8333333333333334
+executable_count,30
+avg_reduction_ratio,0.0
+avg_link_confidence,0.0
+fallback_rate,0.0
+repair_rate,0.0
+latency_avg_ms,2137.198750178019
+baseline_name,B0
+schema_strategy,full_schema

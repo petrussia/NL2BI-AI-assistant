@@ -1,0 +1,11 @@
+category,item,decision,reason
+canonical 5x5x5 cells already done,110 cells from v6/v7,DONE,"reused as-is, numbers authoritative"
+v7-closure new cells,17 cells (B2_v3+B4_v3 Qwen-7B + Gemma + SQLCoder + Qwen-32B),DONE,all completed in v7-closure subprocess
+Qwen-Coder-32B B1_v3 multi-DB,b1v3_qwen2p5_coder_32b_multidb30,SKIPPED_BY_STOP_RULE,"Qwen-32B B0 multi-DB = 0.8333 < 0.95 threshold → right-sizing rule triggered, B1_v3 expansion explicitly skipped"
+Qwen-Coder-32B B1_v3 BIRD,b1v3_qwen2p5_coder_32b_bird_minidev_30,SKIPPED_BY_STOP_RULE,same right-sizing rule
+SQLCoder-7B-2 B1_v3,b1v3_sqlcoder_7b_2_bird_minidev_30,SKIPPED_BY_STOP_RULE,"SQLCoder uses special prompt format; wrapping selected schema in defog format non-trivial; deferred (low marginal value, SQLCoder B0 BIRD = 0.0333 already disqualifies)"
+DeepSeek-Coder-V2-Lite × all baselines × all subsets,5 baselines × 5 subsets = 25 cells (counted as 1 environmental blocker),BLOCKED_ENVIRONMENTAL,transformers ABI in trust_remote_code modeling; clean-notebook recipe ready in deepseek_blocker_reproduction_checklist.csv + deepseek_fresh_kernel_runbook_v10.md
+v3 baselines (B2_v3/B3_v3/B4_v3) on non-incumbent models,"~50 cells across {Coder-14B,Llama,Qwen-Inst,Qwen3-8B,Gemma,SQLCoder,Coder-32B} × {B2_v3,B3_v3,B4_v3} × 4 subsets",NOT_NEEDED_AFTER_V7_CLOSURE,v7-closure proved on the incumbent (Qwen-Coder-7B): planner HURTS by -0.0333 EX on multi-DB. No reason to expect reverse on weaker comparator models. Decision was made by stop-rule 2 in v7-closure.
+Spider 2.0-Lite EX,EX evaluation for any model on spider2lite_30,OUT_OF_SCOPE,gold queries target BigQuery/Snowflake/DuckDB-extensions — requires cloud credentials not available from Colab. Structural-only metrics computed (96-100% safe-SELECT confirms pipeline soundness).
+BIRD official R-VES + Soft F1,official BIRD evaluator subprocess metrics,BLOCKED_ENVIRONMENTAL,mini_dev evaluator CLI args drift from our invocation. Internal evaluate_bird produces equivalent EX via sandboxed SQLite execution. Authoritative numbers stand. Retry runbook in bird_official_metrics_blocker_v10.md.
+Editorial polish + docx insertion,human writing for ВКР submission text,OUT_OF_SCOPE_HUMAN_WORK,engineering-closed; ~3-5 h Shubin manual editing per docx_patch_map_for_joint_vkr.md

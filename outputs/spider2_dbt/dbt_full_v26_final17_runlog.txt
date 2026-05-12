@@ -1,0 +1,127 @@
+[2026-05-11 01:51:26] DBT FINAL17 launching n=17
+RUN_ID=dbt_full_v26_final17  OUT=D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_final17
+
+========== TASK provider001 ==========
+  --- provider001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK asana001 ==========
+  --- asana001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=30/err=21 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK shopify001 ==========
+  --- shopify001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=85/err=3 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK asset001 ==========
+  --- asset001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK flicks001 ==========
+  --- flicks001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK analytics_engineering001 ==========
+  --- analytics_engineering001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=2/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK xero_new001 ==========
+  --- xero_new001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=1 pass=16/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK chinook001 ==========
+  --- chinook001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=60/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK workday002 ==========
+  --- workday002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=42/err=23 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK scd001 ==========
+  --- scd001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=14/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK airport001 ==========
+  --- airport001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=4/err=1 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK salesforce001 ==========
+  --- salesforce001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK recharge001 ==========
+  --- recharge001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK maturity001 ==========
+  --- maturity001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK tpch002 ==========
+  --- tpch002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=0/err=5 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK nba001 ==========
+  --- nba001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=38/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK quickbooks001 ==========
+  --- quickbooks001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_final17\per_task.jsonl
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_final17\summary.csv
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_final17\readout.md
+
+[2026-05-11 02:03:55] DBT exit code: 0

@@ -1,0 +1,15 @@
+metric,value
+run_id,b0_qwen3_8b_bird_minidev_30
+model,Qwen/Qwen3-8B
+subset,bird_minidev_30
+benchmark_group,external_validation
+baseline_version,v3
+n,30
+execution_match_count,4
+ex,0.13333333333333333
+executable_count,26
+avg_reduction_ratio,0.0
+avg_link_confidence,0.0
+fallback_rate,0.0
+baseline_name,B0
+schema_strategy,full_schema

@@ -1,0 +1,7 @@
+metric,value
+n,1
+done,0
+dbt_deps_ok,0
+dbt_run_ok,0
+dbt_test_ok,0
+task_success,0

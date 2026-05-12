@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,baseline_name,schema_strategy
+b1v3_qwen2p5_coder_7b_multidb30,Qwen/Qwen2.5-Coder-7B-Instruct,multidb_30,internal_core,v3,30,24,0.8,30,0.9472222222222223,0.5507129397479942,0.7666666666666667,B1_v3,bidirectional_linker

@@ -1,0 +1,343 @@
+RUN_ID=dbt_full_diagnostic_v23  OUT=D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_diagnostic_v23
+
+========== TASK playbook001 ==========
+  --- playbook001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK provider001 ==========
+  --- provider001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK asana001 ==========
+  --- asana001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK shopify001 ==========
+  --- shopify001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK asset001 ==========
+  --- asset001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK flicks001 ==========
+  --- flicks001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK analytics_engineering001 ==========
+  --- analytics_engineering001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK xero_new001 ==========
+  --- xero_new001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK chinook001 ==========
+  --- chinook001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK f1001 ==========
+  --- f1001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK netflix001 ==========
+  --- netflix001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK workday002 ==========
+  --- workday002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK pendo001 ==========
+  --- pendo001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK synthea001 ==========
+  --- synthea001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK inzight001 ==========
+  --- inzight001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK google_play001 ==========
+  --- google_play001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK airbnb002 ==========
+  --- airbnb002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK biketheft001 ==========
+  --- biketheft001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK tickit002 ==========
+  --- tickit002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK activity001 ==========
+  --- activity001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK scd001 ==========
+  --- scd001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK lever001 ==========
+  --- lever001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK greenhouse001 ==========
+  --- greenhouse001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK app_reporting002 ==========
+  --- app_reporting002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK mrr001 ==========
+  --- mrr001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK xero001 ==========
+  --- xero001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK movie_recomm001 ==========
+  --- movie_recomm001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK quickbooks003 ==========
+  --- quickbooks003 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK qualtrics001 ==========
+  --- qualtrics001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK recharge002 ==========
+  --- recharge002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK atp_tour001 ==========
+  --- atp_tour001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK quickbooks002 ==========
+  --- quickbooks002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK google_ads001 ==========
+  --- google_ads001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK airport001 ==========
+  --- airport001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK tpch001 ==========
+  --- tpch001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK salesforce001 ==========
+  --- salesforce001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK hubspot001 ==========
+  --- hubspot001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK shopify002 ==========
+  --- shopify002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK social_media001 ==========
+  --- social_media001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK xero_new002 ==========
+  --- xero_new002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK divvy001 ==========
+  --- divvy001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK playbook002 ==========
+  --- playbook002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK apple_store001 ==========
+  --- apple_store001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK jira001 ==========
+  --- jira001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK zuora001 ==========
+  --- zuora001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK superstore001 ==========
+  --- superstore001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK marketo001 ==========
+  --- marketo001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK f1002 ==========
+  --- f1002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK gitcoin001 ==========
+  --- gitcoin001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK shopify_holistic_reporting001 ==========
+  --- shopify_holistic_reporting001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK hive001 ==========
+  --- hive001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK workday001 ==========
+  --- workday001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK f1003 ==========
+  --- f1003 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK retail001 ==========
+  --- retail001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK google_play002 ==========
+  --- google_play002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK sap001 ==========
+  --- sap001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK airbnb001 ==========
+  --- airbnb001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK app_reporting001 ==========
+  --- app_reporting001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK mrr002 ==========
+  --- mrr002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK twilio001 ==========
+  --- twilio001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK intercom001 ==========
+  --- intercom001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK tickit001 ==========
+  --- tickit001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK reddit001 ==========
+  --- reddit001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK recharge001 ==========
+  --- recharge001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK maturity001 ==========
+  --- maturity001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK tpch002 ==========
+  --- tpch002 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK nba001 ==========
+  --- nba001 | v4 ---
+    prompt: True
+    inference: False
+
+========== TASK quickbooks001 ==========
+  SKIP quickbooks001: context failed
+
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_diagnostic_v23\per_task.jsonl
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_diagnostic_v23\summary.csv
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_diagnostic_v23\readout.md

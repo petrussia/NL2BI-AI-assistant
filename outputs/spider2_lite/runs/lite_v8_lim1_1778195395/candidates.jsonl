@@ -1,0 +1,3 @@
+{"source": "C0_direct", "parses": false, "table_refs_n": 2, "unknown_tables_n": 0, "sql_chars": 723, "error_type": "unknown", "bytes_processed": 0, "score": 3.3, "instance_id": "bq011", "lane": "A_bq"}
+{"source": "C1_retrieval_docs", "parses": false, "table_refs_n": 0, "unknown_tables_n": 0, "sql_chars": 0, "error_type": "empty_sql", "bytes_processed": 0, "score": 0.05, "instance_id": "bq011", "lane": "A_bq"}
+{"source": "C2_cte_decomp", "parses": false, "table_refs_n": 2, "unknown_tables_n": 2, "sql_chars": 882, "error_type": "unknown", "bytes_processed": 0, "score": 2.4, "instance_id": "bq011", "lane": "A_bq"}

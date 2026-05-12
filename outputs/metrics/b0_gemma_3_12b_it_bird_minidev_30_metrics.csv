@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,repair_rate,latency_avg_ms,baseline_name,schema_strategy
+b0_gemma_3_12b_it_bird_minidev_30,google/gemma-3-12b-it,bird_minidev_30,external_validation,v3,30,7,0.23333333333333334,25,0.0,0.0,0.0,0.0,6313.945198059082,B0,full_schema

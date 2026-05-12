@@ -1,0 +1,15 @@
+metric,value
+run_id,b1v3_qwen3_8b_multidb30
+model,Qwen/Qwen3-8B
+subset,multidb_30
+benchmark_group,internal_core
+baseline_version,v3
+n,30
+execution_match_count,26
+ex,0.8666666666666667
+executable_count,30
+avg_reduction_ratio,0.9472222222222223
+avg_link_confidence,0.5507129397479942
+fallback_rate,0.7666666666666667
+baseline_name,B1_v3
+schema_strategy,bidirectional_linker

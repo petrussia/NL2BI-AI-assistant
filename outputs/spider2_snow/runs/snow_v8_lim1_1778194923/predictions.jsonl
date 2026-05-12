@@ -1,0 +1,1 @@
+{"instance_id": "sf_bq029", "db": "PATENTS", "lane": "A_sf", "sql": "-- gen_error: HTTPError", "final_source": "C1_retrieval_docs", "parses": false, "executable": null, "rows_count": 0, "error_type": "syntax", "error_message": "001003 (42000): SQL compilation error:\nsyntax error line 1 at position 42 unexpected '<EOF>'.", "wall_time_s": 16.37, "utc": "2026-05-07T23:03:29+00:00"}

@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,repair_rate,latency_avg_ms,baseline_name,schema_strategy
+b0_gemma_3_12b_it_smoke25,google/gemma-3-12b-it,smoke_25,internal_core,v3,25,24,0.96,25,0.0,0.0,0.0,0.0,2546.789197921753,B0,full_schema

@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,repair_rate,latency_avg_ms,baseline_name,schema_strategy
+b0_sqlcoder_7b_2_bird_minidev_30,defog/sqlcoder-7b-2,bird_minidev_30,external_validation,v3,30,1,0.03333333333333333,22,0.0,0.0,0.0,0.0,2726.390894254049,B0,full_schema

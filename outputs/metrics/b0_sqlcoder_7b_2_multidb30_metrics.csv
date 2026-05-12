@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,repair_rate,latency_avg_ms,baseline_name,schema_strategy
+b0_sqlcoder_7b_2_multidb30,defog/sqlcoder-7b-2,multidb_30,internal_core,v3,30,21,0.7,28,0.0,0.0,0.0,0.0,1198.9753325780232,B0,full_schema

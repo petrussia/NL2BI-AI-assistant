@@ -1,0 +1,37 @@
+{
+  "role": "SPIDER2_RW",
+  "warehouse": "SPIDER2_WH",
+  "default_db": "SPIDER2_WORK",
+  "visible_databases": [
+    {
+      "name": "SNOWFLAKE",
+      "origin": "SNOWFLAKE.ACCOUNT_USAGE",
+      "kind": "APPLICATION"
+    },
+    {
+      "name": "SNOWFLAKE_SAMPLE_DATA",
+      "origin": "SFSALESSHARED.SFC_SAMPLES_AWSAPSOUTH1.SAMPLE_DATA",
+      "kind": "IMPORTED DATABASE"
+    },
+    {
+      "name": "SPIDER2_WORK",
+      "origin": "",
+      "kind": "STANDARD"
+    }
+  ],
+  "shared_databases": [
+    {
+      "name": "SNOWFLAKE",
+      "origin": "SNOWFLAKE.ACCOUNT_USAGE",
+      "kind": "APPLICATION"
+    },
+    {
+      "name": "SNOWFLAKE_SAMPLE_DATA",
+      "origin": "SFSALESSHARED.SFC_SAMPLES_AWSAPSOUTH1.SAMPLE_DATA",
+      "kind": "IMPORTED DATABASE"
+    }
+  ],
+  "spider2_lite_expected_n": 0,
+  "spider2_lite_visible_intersect": [],
+  "spider2_lite_missing": []
+}

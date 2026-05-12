@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,repair_rate,latency_avg_ms,baseline_name,schema_strategy
+b2v3_qwen2p5_coder_7b_smoke25,Qwen/Qwen2.5-Coder-7B-Instruct,smoke_25,internal_core,v3,25,24,0.96,25,0.0,0.5171564584750741,0.84,0.0,3076.1453247070312,B2_v3,compact_planner_b1v3_fallback

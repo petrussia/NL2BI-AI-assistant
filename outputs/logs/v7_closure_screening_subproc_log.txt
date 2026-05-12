@@ -1,0 +1,500 @@
+[2026-04-30T21:28:00.618707+00:00] V7_CLOSURE_SCREENING_SUBPROC_START
+[2026-04-30T21:28:01.972836+00:00] data: smoke25=25 multidb30=30 bird=30 bird_dbs=11
+[2026-04-30T21:28:09.172314+00:00] loading Qwen/Qwen2.5-Coder-7B-Instruct: gpu_free=84.20 GB total=85.09 GB
+[2026-04-30T21:28:16.798377+00:00] LOADED Qwen/Qwen2.5-Coder-7B-Instruct in 7.6s VRAM=14525 MB
+[2026-04-30T21:28:16.801065+00:00] === B2_v3 b2v3_qwen2p5_coder_7b_smoke25 ===
+[2026-04-30T21:28:18.660560+00:00]   B2v3  0 concert_singer     path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:28:19.910868+00:00]   B2v3  1 concert_singer     path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:28:22.289639+00:00]   B2v3  2 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:24.676173+00:00]   B2v3  3 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:27.684414+00:00]   B2v3  4 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:30.695662+00:00]   B2v3  5 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:34.988602+00:00]   B2v3  6 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:39.322246+00:00]   B2v3  7 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:41.987470+00:00]   B2v3  8 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:44.629341+00:00]   B2v3  9 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:47.420894+00:00]   B2v3 10 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:50.277373+00:00]   B2v3 11 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:53.932635+00:00]   B2v3 12 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:28:57.542471+00:00]   B2v3 13 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:01.200239+00:00]   B2v3 14 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:04.808492+00:00]   B2v3 15 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:06.722457+00:00]   B2v3 16 concert_singer     path=plan_then_synth          fb=False exec=True match=False
+[2026-04-30T21:29:08.608020+00:00]   B2v3 17 concert_singer     path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:29:12.670809+00:00]   B2v3 18 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:15.920580+00:00]   B2v3 19 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:18.994295+00:00]   B2v3 20 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:22.030613+00:00]   B2v3 21 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:25.312462+00:00]   B2v3 22 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:28.695620+00:00]   B2v3 23 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:33.885741+00:00]   B2v3 24 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:33.919852+00:00] === B4_v3 b4v3_qwen2p5_coder_7b_smoke25 ===
+[2026-04-30T21:29:35.463416+00:00]   B4v3  0 concert_singer     path=multicand                fb=False exec=True match=True
+[2026-04-30T21:29:36.916056+00:00]   B4v3  1 concert_singer     path=multicand                fb=False exec=True match=True
+[2026-04-30T21:29:39.320565+00:00]   B4v3  2 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:41.753319+00:00]   B4v3  3 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:44.793966+00:00]   B4v3  4 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:47.800006+00:00]   B4v3  5 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:52.163617+00:00]   B4v3  6 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:56.483843+00:00]   B4v3  7 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:29:59.111787+00:00]   B4v3  8 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:01.739512+00:00]   B4v3  9 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:04.585894+00:00]   B4v3 10 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:07.372701+00:00]   B4v3 11 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:11.054871+00:00]   B4v3 12 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:14.705179+00:00]   B4v3 13 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:18.402770+00:00]   B4v3 14 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:21.990681+00:00]   B4v3 15 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:23.954197+00:00]   B4v3 16 concert_singer     path=multicand                fb=False exec=True match=False
+[2026-04-30T21:30:26.050982+00:00]   B4v3 17 concert_singer     path=multicand                fb=False exec=True match=True
+[2026-04-30T21:30:30.169205+00:00]   B4v3 18 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:33.453948+00:00]   B4v3 19 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:36.527052+00:00]   B4v3 20 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:39.586331+00:00]   B4v3 21 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:42.893792+00:00]   B4v3 22 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:46.244323+00:00]   B4v3 23 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:51.491191+00:00]   B4v3 24 concert_singer     path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:51.511661+00:00] === B2_v3 b2v3_qwen2p5_coder_7b_multidb30 ===
+[2026-04-30T21:30:54.524613+00:00]   B2v3  0 battle_death       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:30:56.780922+00:00]   B2v3  1 battle_death       path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:30:58.240306+00:00]   B2v3  2 battle_death       path=plan_then_synth          fb=False exec=True match=False
+[2026-04-30T21:31:00.100168+00:00]   B2v3  3 battle_death       path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:01.519415+00:00]   B2v3  4 battle_death       path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:02.776043+00:00]   B2v3  5 car_1              path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:04.034350+00:00]   B2v3  6 car_1              path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:07.836082+00:00]   B2v3  7 car_1              path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:31:10.972879+00:00]   B2v3  8 car_1              path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:31:12.197374+00:00]   B2v3  9 car_1              path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:13.419868+00:00]   B2v3 10 course_teach       path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:14.638754+00:00]   B2v3 11 course_teach       path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:16.508322+00:00]   B2v3 12 course_teach       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:18.215071+00:00]   B2v3 13 course_teach       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:19.989580+00:00]   B2v3 14 course_teach       path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:21.216274+00:00]   B2v3 15 cre_Doc_Template_M path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:22.491480+00:00]   B2v3 16 cre_Doc_Template_M path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:24.603006+00:00]   B2v3 17 cre_Doc_Template_M path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:26.700742+00:00]   B2v3 18 cre_Doc_Template_M path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:29.899238+00:00]   B2v3 19 cre_Doc_Template_M path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:32.982321+00:00]   B2v3 20 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:36.089726+00:00]   B2v3 21 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:40.525189+00:00]   B2v3 22 dog_kennels        path=plan_then_synth          fb=False exec=True match=False
+[2026-04-30T21:31:44.913970+00:00]   B2v3 23 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:53.254375+00:00]   B2v3 24 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:31:54.488164+00:00]   B2v3 25 employee_hire_eval path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:55.724116+00:00]   B2v3 26 employee_hire_eval path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:31:57.447235+00:00]   B2v3 27 employee_hire_eval path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:31:59.575408+00:00]   B2v3 28 employee_hire_eval path=plan_then_synth          fb=False exec=True match=False
+[2026-04-30T21:32:02.312711+00:00]   B2v3 29 employee_hire_eval path=plan_then_synth          fb=False exec=True match=False
+[2026-04-30T21:32:02.337304+00:00] === B4_v3 b4v3_qwen2p5_coder_7b_multidb30 ===
+[2026-04-30T21:32:05.329399+00:00]   B4v3  0 battle_death       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:32:07.624305+00:00]   B4v3  1 battle_death       path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:09.092850+00:00]   B4v3  2 battle_death       path=multicand                fb=False exec=True match=False
+[2026-04-30T21:32:11.071978+00:00]   B4v3  3 battle_death       path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:12.555989+00:00]   B4v3  4 battle_death       path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:14.087074+00:00]   B4v3  5 car_1              path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:15.402999+00:00]   B4v3  6 car_1              path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:19.216626+00:00]   B4v3  7 car_1              path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:32:22.313624+00:00]   B4v3  8 car_1              path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:32:23.617404+00:00]   B4v3  9 car_1              path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:25.039774+00:00]   B4v3 10 course_teach       path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:26.499369+00:00]   B4v3 11 course_teach       path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:28.402045+00:00]   B4v3 12 course_teach       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:32:30.115249+00:00]   B4v3 13 course_teach       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:32:31.927640+00:00]   B4v3 14 course_teach       path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:33.368181+00:00]   B4v3 15 cre_Doc_Template_M path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:34.809324+00:00]   B4v3 16 cre_Doc_Template_M path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:36.957402+00:00]   B4v3 17 cre_Doc_Template_M path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:39.119869+00:00]   B4v3 18 cre_Doc_Template_M path=multicand                fb=False exec=True match=True
+[2026-04-30T21:32:42.316074+00:00]   B4v3 19 cre_Doc_Template_M path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:32:45.379932+00:00]   B4v3 20 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:32:48.702459+00:00]   B4v3 21 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:32:53.189200+00:00]   B4v3 22 dog_kennels        path=multicand                fb=False exec=True match=False
+[2026-04-30T21:32:57.572752+00:00]   B4v3 23 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:33:06.632913+00:00]   B4v3 24 dog_kennels        path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:33:07.875136+00:00]   B4v3 25 employee_hire_eval path=multicand                fb=False exec=True match=True
+[2026-04-30T21:33:09.278051+00:00]   B4v3 26 employee_hire_eval path=multicand                fb=False exec=True match=True
+[2026-04-30T21:33:10.987931+00:00]   B4v3 27 employee_hire_eval path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:33:13.146131+00:00]   B4v3 28 employee_hire_eval path=multicand                fb=False exec=True match=False
+[2026-04-30T21:33:15.899190+00:00]   B4v3 29 employee_hire_eval path=multicand                fb=False exec=True match=False
+[2026-04-30T21:33:15.939680+00:00] === B2_v3 b2v3_qwen2p5_coder_7b_bird_minidev_30 ===
+[2026-04-30T21:33:23.254213+00:00]   B2v3  0 california_schools path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:33:28.381704+00:00]   B2v3  1 card_games         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:33:33.089019+00:00]   B2v3  2 codebase_community path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:33:39.216580+00:00]   B2v3  3 debit_card_special path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:33:50.776405+00:00]   B2v3  4 european_football_ path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:33:56.862489+00:00]   B2v3  5 financial          path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:34:02.045552+00:00]   B2v3  6 formula_1          path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:34:09.996003+00:00]   B2v3  7 student_club       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:34:16.366555+00:00]   B2v3  8 superhero          path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:34:30.132079+00:00]   B2v3  9 thrombosis_predict path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:34:32.796708+00:00]   B2v3 10 toxicology         path=plan_then_synth          fb=False exec=True match=True
+[2026-04-30T21:34:36.458184+00:00]   B2v3 11 california_schools path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:34:42.223248+00:00]   B2v3 12 card_games         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:34:46.112953+00:00]   B2v3 13 codebase_community path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:34:58.100278+00:00]   B2v3 14 debit_card_special path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:35:10.407552+00:00]   B2v3 15 european_football_ path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:35:15.799159+00:00]   B2v3 16 financial          path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:35:25.147343+00:00]   B2v3 17 formula_1          path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:35:32.519563+00:00]   B2v3 18 student_club       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:35:39.822381+00:00]   B2v3 19 superhero          path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:35:48.339837+00:00]   B2v3 20 thrombosis_predict path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:35:54.434404+00:00]   B2v3 21 toxicology         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:02.644521+00:00]   B2v3 22 california_schools path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:10.908367+00:00]   B2v3 23 card_games         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:14.481878+00:00]   B2v3 24 codebase_community path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:23.387330+00:00]   B2v3 25 debit_card_special path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:29.539697+00:00]   B2v3 26 european_football_ path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:36.885909+00:00]   B2v3 27 financial          path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:36:43.748621+00:00]   B2v3 28 formula_1          path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:36:49.222709+00:00]   B2v3 29 student_club       path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:36:49.256355+00:00] === B4_v3 b4v3_qwen2p5_coder_7b_bird_minidev_30 ===
+[2026-04-30T21:36:56.679018+00:00]   B4v3  0 california_schools path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:37:02.936342+00:00]   B4v3  1 card_games         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:37:07.750916+00:00]   B4v3  2 codebase_community path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:37:13.933663+00:00]   B4v3  3 debit_card_special path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:37:25.643150+00:00]   B4v3  4 european_football_ path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:37:31.709806+00:00]   B4v3  5 financial          path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:37:37.665665+00:00]   B4v3  6 formula_1          path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:37:44.808096+00:00]   B4v3  7 student_club       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:37:51.114237+00:00]   B4v3  8 superhero          path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:38:05.067904+00:00]   B4v3  9 thrombosis_predict path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:38:07.937028+00:00]   B4v3 10 toxicology         path=multicand                fb=False exec=True match=True
+[2026-04-30T21:38:11.590427+00:00]   B4v3 11 california_schools path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:38:17.248116+00:00]   B4v3 12 card_games         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:38:21.120189+00:00]   B4v3 13 codebase_community path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:38:33.180589+00:00]   B4v3 14 debit_card_special path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:38:45.383522+00:00]   B4v3 15 european_football_ path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:38:50.753719+00:00]   B4v3 16 financial          path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:38:59.973255+00:00]   B4v3 17 formula_1          path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:39:09.272545+00:00]   B4v3 18 student_club       path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:39:17.053283+00:00]   B4v3 19 superhero          path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:39:25.885387+00:00]   B4v3 20 thrombosis_predict path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:39:32.107944+00:00]   B4v3 21 toxicology         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:39:40.520687+00:00]   B4v3 22 california_schools path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:39:47.573587+00:00]   B4v3 23 card_games         path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:39:51.425735+00:00]   B4v3 24 codebase_community path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:40:00.365455+00:00]   B4v3 25 debit_card_special path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:40:06.528953+00:00]   B4v3 26 european_football_ path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:40:13.893842+00:00]   B4v3 27 financial          path=b1v3_fallback_invalid_pl fb=True exec=False match=False
+[2026-04-30T21:40:20.534735+00:00]   B4v3 28 formula_1          path=b1v3_fallback_invalid_pl fb=True exec=True match=True
+[2026-04-30T21:40:25.845504+00:00]   B4v3 29 student_club       path=b1v3_fallback_invalid_pl fb=True exec=True match=False
+[2026-04-30T21:40:26.146889+00:00] loading google/gemma-3-12b-it: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T21:41:44.811723+00:00] LOADED google/gemma-3-12b-it in 78.7s VRAM=23255 MB
+[2026-04-30T21:41:44.827025+00:00] === B0 b0_gemma_3_12b_it_smoke10 ===
+[2026-04-30T21:41:45.680100+00:00]   B0  0 concert_singer           exec=True match=True
+[2026-04-30T21:41:46.853318+00:00]   B0  1 concert_singer           exec=True match=True
+[2026-04-30T21:41:48.635958+00:00]   B0  2 concert_singer           exec=True match=True
+[2026-04-30T21:41:50.438325+00:00]   B0  3 concert_singer           exec=True match=True
+[2026-04-30T21:41:52.568307+00:00]   B0  4 concert_singer           exec=True match=True
+[2026-04-30T21:41:54.704548+00:00]   B0  5 concert_singer           exec=True match=True
+[2026-04-30T21:41:58.366353+00:00]   B0  6 concert_singer           exec=True match=True
+[2026-04-30T21:42:02.012547+00:00]   B0  7 concert_singer           exec=True match=True
+[2026-04-30T21:42:03.704347+00:00]   B0  8 concert_singer           exec=True match=True
+[2026-04-30T21:42:05.277641+00:00]   B0  9 concert_singer           exec=True match=True
+[2026-04-30T21:42:05.300994+00:00] === B0 b0_gemma_3_12b_it_smoke25 ===
+[2026-04-30T21:42:06.103636+00:00]   B0  0 concert_singer           exec=True match=True
+[2026-04-30T21:42:07.294371+00:00]   B0  1 concert_singer           exec=True match=True
+[2026-04-30T21:42:09.058674+00:00]   B0  2 concert_singer           exec=True match=True
+[2026-04-30T21:42:10.825830+00:00]   B0  3 concert_singer           exec=True match=True
+[2026-04-30T21:42:12.992126+00:00]   B0  4 concert_singer           exec=True match=True
+[2026-04-30T21:42:15.184525+00:00]   B0  5 concert_singer           exec=True match=True
+[2026-04-30T21:42:18.904362+00:00]   B0  6 concert_singer           exec=True match=True
+[2026-04-30T21:42:22.486431+00:00]   B0  7 concert_singer           exec=True match=True
+[2026-04-30T21:42:24.149334+00:00]   B0  8 concert_singer           exec=True match=True
+[2026-04-30T21:42:25.708705+00:00]   B0  9 concert_singer           exec=True match=True
+[2026-04-30T21:42:27.326743+00:00]   B0 10 concert_singer           exec=True match=True
+[2026-04-30T21:42:28.960194+00:00]   B0 11 concert_singer           exec=True match=True
+[2026-04-30T21:42:32.164368+00:00]   B0 12 concert_singer           exec=True match=True
+[2026-04-30T21:42:35.370950+00:00]   B0 13 concert_singer           exec=True match=True
+[2026-04-30T21:42:37.992180+00:00]   B0 14 concert_singer           exec=True match=True
+[2026-04-30T21:42:40.685144+00:00]   B0 15 concert_singer           exec=True match=True
+[2026-04-30T21:42:42.093783+00:00]   B0 16 concert_singer           exec=True match=False
+[2026-04-30T21:42:43.473543+00:00]   B0 17 concert_singer           exec=True match=True
+[2026-04-30T21:42:46.001135+00:00]   B0 18 concert_singer           exec=True match=True
+[2026-04-30T21:42:47.477403+00:00]   B0 19 concert_singer           exec=True match=True
+[2026-04-30T21:42:50.078798+00:00]   B0 20 concert_singer           exec=True match=True
+[2026-04-30T21:42:53.201953+00:00]   B0 21 concert_singer           exec=True match=True
+[2026-04-30T21:42:57.931780+00:00]   B0 22 concert_singer           exec=True match=True
+[2026-04-30T21:43:02.467052+00:00]   B0 23 concert_singer           exec=True match=True
+[2026-04-30T21:43:09.139017+00:00]   B0 24 concert_singer           exec=True match=True
+[2026-04-30T21:43:09.158550+00:00] === B0 b0_gemma_3_12b_it_multidb30 ===
+[2026-04-30T21:43:10.923391+00:00]   B0  0 battle_death             exec=True match=True
+[2026-04-30T21:43:12.227018+00:00]   B0  1 battle_death             exec=True match=True
+[2026-04-30T21:43:13.334298+00:00]   B0  2 battle_death             exec=True match=False
+[2026-04-30T21:43:14.984102+00:00]   B0  3 battle_death             exec=True match=True
+[2026-04-30T21:43:16.250384+00:00]   B0  4 battle_death             exec=True match=True
+[2026-04-30T21:43:17.041097+00:00]   B0  5 car_1                    exec=True match=True
+[2026-04-30T21:43:17.854146+00:00]   B0  6 car_1                    exec=True match=True
+[2026-04-30T21:43:22.807737+00:00]   B0  7 car_1                    exec=True match=True
+[2026-04-30T21:43:27.540347+00:00]   B0  8 car_1                    exec=True match=True
+[2026-04-30T21:43:28.622465+00:00]   B0  9 car_1                    exec=True match=True
+[2026-04-30T21:43:29.435692+00:00]   B0 10 course_teach             exec=True match=True
+[2026-04-30T21:43:30.242024+00:00]   B0 11 course_teach             exec=True match=True
+[2026-04-30T21:43:31.338648+00:00]   B0 12 course_teach             exec=True match=True
+[2026-04-30T21:43:32.438260+00:00]   B0 13 course_teach             exec=True match=True
+[2026-04-30T21:43:33.341145+00:00]   B0 14 course_teach             exec=True match=True
+[2026-04-30T21:43:33.940330+00:00]   B0 15 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:43:34.733321+00:00]   B0 16 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:43:36.289594+00:00]   B0 17 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:43:37.947672+00:00]   B0 18 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:43:39.794158+00:00]   B0 19 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:43:41.176997+00:00]   B0 20 dog_kennels              exec=True match=False
+[2026-04-30T21:43:42.552068+00:00]   B0 21 dog_kennels              exec=True match=False
+[2026-04-30T21:43:44.702648+00:00]   B0 22 dog_kennels              exec=True match=True
+[2026-04-30T21:43:46.828122+00:00]   B0 23 dog_kennels              exec=True match=True
+[2026-04-30T21:43:51.611640+00:00]   B0 24 dog_kennels              exec=True match=True
+[2026-04-30T21:43:52.401699+00:00]   B0 25 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:43:53.196952+00:00]   B0 26 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:43:54.580071+00:00]   B0 27 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:43:55.979620+00:00]   B0 28 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:43:57.933700+00:00]   B0 29 employee_hire_evaluation exec=True match=False
+[2026-04-30T21:43:57.955564+00:00] === B0 b0_gemma_3_12b_it_bird_minidev_30 ===
+[2026-04-30T21:44:03.684957+00:00]   B0  0 california_schools       exec=False match=False
+[2026-04-30T21:44:07.240250+00:00]   B0  1 card_games               exec=True match=False
+[2026-04-30T21:44:11.362866+00:00]   B0  2 codebase_community       exec=False match=False
+[2026-04-30T21:44:17.776785+00:00]   B0  3 debit_card_specializing  exec=True match=True
+[2026-04-30T21:44:28.330710+00:00]   B0  4 european_football_2      exec=True match=False
+[2026-04-30T21:44:33.348197+00:00]   B0  5 financial                exec=False match=False
+[2026-04-30T21:44:39.716883+00:00]   B0  6 formula_1                exec=True match=False
+[2026-04-30T21:44:45.774416+00:00]   B0  7 student_club             exec=True match=True
+[2026-04-30T21:44:52.590110+00:00]   B0  8 superhero                exec=True match=True
+[2026-04-30T21:45:02.092742+00:00]   B0  9 thrombosis_prediction    exec=True match=False
+[2026-04-30T21:45:04.054823+00:00]   B0 10 toxicology               exec=True match=True
+[2026-04-30T21:45:05.814132+00:00]   B0 11 california_schools       exec=False match=False
+[2026-04-30T21:45:10.261166+00:00]   B0 12 card_games               exec=True match=False
+[2026-04-30T21:45:12.976462+00:00]   B0 13 codebase_community       exec=True match=True
+[2026-04-30T21:45:16.283806+00:00]   B0 14 debit_card_specializing  exec=False match=False
+[2026-04-30T21:45:34.634045+00:00]   B0 15 european_football_2      exec=True match=False
+[2026-04-30T21:45:40.551661+00:00]   B0 16 financial                exec=True match=False
+[2026-04-30T21:45:46.695418+00:00]   B0 17 formula_1                exec=True match=False
+[2026-04-30T21:45:55.590729+00:00]   B0 18 student_club             exec=True match=True
+[2026-04-30T21:46:04.536593+00:00]   B0 19 superhero                exec=True match=True
+[2026-04-30T21:46:10.067832+00:00]   B0 20 thrombosis_prediction    exec=True match=False
+[2026-04-30T21:46:21.130362+00:00]   B0 21 toxicology               exec=True match=False
+[2026-04-30T21:46:30.980077+00:00]   B0 22 california_schools       exec=True match=False
+[2026-04-30T21:46:37.811471+00:00]   B0 23 card_games               exec=True match=False
+[2026-04-30T21:46:40.745803+00:00]   B0 24 codebase_community       exec=True match=False
+[2026-04-30T21:46:45.693887+00:00]   B0 25 debit_card_specializing  exec=True match=False
+[2026-04-30T21:46:49.044608+00:00]   B0 26 european_football_2      exec=True match=False
+[2026-04-30T21:46:54.949504+00:00]   B0 27 financial                exec=True match=False
+[2026-04-30T21:46:58.654270+00:00]   B0 28 formula_1                exec=True match=False
+[2026-04-30T21:47:07.591222+00:00]   B0 29 student_club             exec=True match=False
+[2026-04-30T21:47:07.612620+00:00] === B1_v3 b1v3_gemma_3_12b_it_multidb30 ===
+[2026-04-30T21:47:09.442767+00:00]   B1v3  0 battle_death         sel=3 conf=0.53 fb=True exec=True match=True
+[2026-04-30T21:47:10.641599+00:00]   B1v3  1 battle_death         sel=3 conf=0.52 fb=True exec=True match=True
+[2026-04-30T21:47:11.725764+00:00]   B1v3  2 battle_death         sel=3 conf=0.51 fb=True exec=True match=False
+[2026-04-30T21:47:13.406808+00:00]   B1v3  3 battle_death         sel=3 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:47:14.681902+00:00]   B1v3  4 battle_death         sel=3 conf=0.52 fb=True exec=True match=True
+[2026-04-30T21:47:15.857596+00:00]   B1v3  5 car_1                sel=5 conf=0.60 fb=False exec=True match=True
+[2026-04-30T21:47:17.037996+00:00]   B1v3  6 car_1                sel=5 conf=0.61 fb=False exec=True match=True
+[2026-04-30T21:47:20.188685+00:00]   B1v3  7 car_1                sel=5 conf=0.60 fb=False exec=True match=False
+[2026-04-30T21:47:22.960049+00:00]   B1v3  8 car_1                sel=5 conf=0.61 fb=False exec=True match=False
+[2026-04-30T21:47:23.566086+00:00]   B1v3  9 car_1                sel=5 conf=0.60 fb=False exec=True match=True
+[2026-04-30T21:47:24.358842+00:00]   B1v3 10 course_teach         sel=3 conf=0.55 fb=True exec=True match=True
+[2026-04-30T21:47:25.140212+00:00]   B1v3 11 course_teach         sel=3 conf=0.55 fb=True exec=True match=True
+[2026-04-30T21:47:26.110806+00:00]   B1v3 12 course_teach         sel=3 conf=0.55 fb=True exec=True match=True
+[2026-04-30T21:47:27.079519+00:00]   B1v3 13 course_teach         sel=3 conf=0.55 fb=True exec=True match=True
+[2026-04-30T21:47:27.872573+00:00]   B1v3 14 course_teach         sel=3 conf=0.56 fb=True exec=True match=True
+[2026-04-30T21:47:28.474877+00:00]   B1v3 15 cre_Doc_Template_Mgt sel=4 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:47:29.276741+00:00]   B1v3 16 cre_Doc_Template_Mgt sel=4 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:47:30.764760+00:00]   B1v3 17 cre_Doc_Template_Mgt sel=4 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:47:32.275729+00:00]   B1v3 18 cre_Doc_Template_Mgt sel=4 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:47:34.149460+00:00]   B1v3 19 cre_Doc_Template_Mgt sel=4 conf=0.53 fb=True exec=True match=True
+[2026-04-30T21:47:35.441363+00:00]   B1v3 20 dog_kennels          sel=8 conf=0.52 fb=True exec=True match=False
+[2026-04-30T21:47:36.812786+00:00]   B1v3 21 dog_kennels          sel=8 conf=0.52 fb=True exec=True match=False
+[2026-04-30T21:47:39.328092+00:00]   B1v3 22 dog_kennels          sel=5 conf=0.60 fb=False exec=True match=True
+[2026-04-30T21:47:41.851481+00:00]   B1v3 23 dog_kennels          sel=5 conf=0.60 fb=False exec=True match=True
+[2026-04-30T21:47:46.343651+00:00]   B1v3 24 dog_kennels          sel=8 conf=0.53 fb=True exec=True match=True
+[2026-04-30T21:47:47.150527+00:00]   B1v3 25 employee_hire_evalua sel=4 conf=0.56 fb=True exec=True match=True
+[2026-04-30T21:47:47.940949+00:00]   B1v3 26 employee_hire_evalua sel=4 conf=0.56 fb=True exec=True match=True
+[2026-04-30T21:47:49.316435+00:00]   B1v3 27 employee_hire_evalua sel=4 conf=0.55 fb=True exec=True match=True
+[2026-04-30T21:47:50.687504+00:00]   B1v3 28 employee_hire_evalua sel=4 conf=0.55 fb=True exec=True match=True
+[2026-04-30T21:47:52.643328+00:00]   B1v3 29 employee_hire_evalua sel=4 conf=0.55 fb=True exec=True match=False
+[2026-04-30T21:47:52.663414+00:00] === B1_v3 b1v3_gemma_3_12b_it_bird_minidev_30 ===
+[2026-04-30T21:47:59.404043+00:00]   B1v3  0 california_schools   sel=3 conf=0.71 fb=True exec=True match=False
+[2026-04-30T21:48:03.174497+00:00]   B1v3  1 card_games           sel=5 conf=0.84 fb=False exec=True match=False
+[2026-04-30T21:48:07.589399+00:00]   B1v3  2 codebase_community   sel=5 conf=0.55 fb=False exec=False match=False
+[2026-04-30T21:48:14.077755+00:00]   B1v3  3 debit_card_specializ sel=5 conf=0.63 fb=True exec=True match=True
+[2026-04-30T21:48:26.498451+00:00]   B1v3  4 european_football_2  sel=5 conf=0.68 fb=False exec=True match=False
+[2026-04-30T21:48:35.473159+00:00]   B1v3  5 financial            sel=5 conf=0.59 fb=False exec=True match=False
+[2026-04-30T21:48:41.869866+00:00]   B1v3  6 formula_1            sel=13 conf=0.54 fb=True exec=True match=False
+[2026-04-30T21:48:47.941674+00:00]   B1v3  7 student_club         sel=8 conf=0.53 fb=True exec=True match=True
+[2026-04-30T21:48:54.951898+00:00]   B1v3  8 superhero            sel=5 conf=0.77 fb=False exec=True match=False
+[2026-04-30T21:49:04.559561+00:00]   B1v3  9 thrombosis_predictio sel=3 conf=0.70 fb=True exec=True match=False
+[2026-04-30T21:49:06.518431+00:00]   B1v3 10 toxicology           sel=4 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:49:08.288386+00:00]   B1v3 11 california_schools   sel=3 conf=0.69 fb=True exec=False match=False
+[2026-04-30T21:49:12.801595+00:00]   B1v3 12 card_games           sel=5 conf=0.84 fb=False exec=True match=False
+[2026-04-30T21:49:15.536079+00:00]   B1v3 13 codebase_community   sel=8 conf=0.51 fb=True exec=True match=True
+[2026-04-30T21:49:18.843112+00:00]   B1v3 14 debit_card_specializ sel=5 conf=0.64 fb=True exec=False match=False
+[2026-04-30T21:49:33.177030+00:00]   B1v3 15 european_football_2  sel=5 conf=0.67 fb=False exec=True match=False
+[2026-04-30T21:49:37.772298+00:00]   B1v3 16 financial            sel=5 conf=0.66 fb=False exec=True match=False
+[2026-04-30T21:49:43.885079+00:00]   B1v3 17 formula_1            sel=13 conf=0.55 fb=True exec=True match=False
+[2026-04-30T21:49:52.677269+00:00]   B1v3 18 student_club         sel=8 conf=0.53 fb=True exec=True match=True
+[2026-04-30T21:50:00.441288+00:00]   B1v3 19 superhero            sel=5 conf=0.76 fb=False exec=True match=False
+[2026-04-30T21:50:07.294123+00:00]   B1v3 20 thrombosis_predictio sel=3 conf=0.72 fb=True exec=True match=True
+[2026-04-30T21:50:18.436508+00:00]   B1v3 21 toxicology           sel=4 conf=0.51 fb=True exec=True match=False
+[2026-04-30T21:50:28.368472+00:00]   B1v3 22 california_schools   sel=3 conf=0.67 fb=True exec=True match=False
+[2026-04-30T21:50:35.275509+00:00]   B1v3 23 card_games           sel=5 conf=0.84 fb=False exec=True match=False
+[2026-04-30T21:50:38.198374+00:00]   B1v3 24 codebase_community   sel=8 conf=0.51 fb=True exec=True match=False
+[2026-04-30T21:50:43.199659+00:00]   B1v3 25 debit_card_specializ sel=5 conf=0.64 fb=True exec=True match=False
+[2026-04-30T21:50:46.665091+00:00]   B1v3 26 european_football_2  sel=5 conf=0.56 fb=False exec=True match=False
+[2026-04-30T21:50:51.720205+00:00]   B1v3 27 financial            sel=5 conf=0.62 fb=False exec=True match=False
+[2026-04-30T21:50:55.455981+00:00]   B1v3 28 formula_1            sel=13 conf=0.52 fb=True exec=True match=False
+[2026-04-30T21:51:04.402404+00:00]   B1v3 29 student_club         sel=8 conf=0.50 fb=True exec=True match=False
+[2026-04-30T21:51:04.790012+00:00] loading defog/sqlcoder-7b-2: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T21:52:01.381747+00:00] LOADED defog/sqlcoder-7b-2 in 56.6s VRAM=12861 MB
+[2026-04-30T21:52:01.384454+00:00] === B0 b0_sqlcoder_7b_2_multidb30 ===
+[2026-04-30T21:52:03.078395+00:00]   B0  0 battle_death             exec=True match=True
+[2026-04-30T21:52:04.087423+00:00]   B0  1 battle_death             exec=True match=True
+[2026-04-30T21:52:04.999882+00:00]   B0  2 battle_death             exec=True match=False
+[2026-04-30T21:52:08.217464+00:00]   B0  3 battle_death             exec=True match=False
+[2026-04-30T21:52:08.963741+00:00]   B0  4 battle_death             exec=True match=True
+[2026-04-30T21:52:09.577253+00:00]   B0  5 car_1                    exec=True match=True
+[2026-04-30T21:52:10.188151+00:00]   B0  6 car_1                    exec=True match=True
+[2026-04-30T21:52:12.356879+00:00]   B0  7 car_1                    exec=True match=True
+[2026-04-30T21:52:14.660545+00:00]   B0  8 car_1                    exec=True match=True
+[2026-04-30T21:52:15.480366+00:00]   B0  9 car_1                    exec=True match=True
+[2026-04-30T21:52:16.419419+00:00]   B0 10 course_teach             exec=True match=True
+[2026-04-30T21:52:17.277212+00:00]   B0 11 course_teach             exec=True match=True
+[2026-04-30T21:52:17.821618+00:00]   B0 12 course_teach             exec=True match=True
+[2026-04-30T21:52:18.363251+00:00]   B0 13 course_teach             exec=True match=True
+[2026-04-30T21:52:19.034737+00:00]   B0 14 course_teach             exec=True match=False
+[2026-04-30T21:52:19.755261+00:00]   B0 15 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:52:20.469195+00:00]   B0 16 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:52:21.287170+00:00]   B0 17 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:52:22.109044+00:00]   B0 18 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T21:52:24.004386+00:00]   B0 19 cre_Doc_Template_Mgt     exec=False match=False
+[2026-04-30T21:52:26.497713+00:00]   B0 20 dog_kennels              exec=True match=True
+[2026-04-30T21:52:28.415592+00:00]   B0 21 dog_kennels              exec=True match=True
+[2026-04-30T21:52:29.668459+00:00]   B0 22 dog_kennels              exec=True match=False
+[2026-04-30T21:52:30.904581+00:00]   B0 23 dog_kennels              exec=True match=False
+[2026-04-30T21:52:34.006964+00:00]   B0 24 dog_kennels              exec=False match=False
+[2026-04-30T21:52:34.822479+00:00]   B0 25 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:52:35.634751+00:00]   B0 26 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:52:36.177460+00:00]   B0 27 employee_hire_evaluation exec=True match=True
+[2026-04-30T21:52:36.874784+00:00]   B0 28 employee_hire_evaluation exec=True match=False
+[2026-04-30T21:52:38.438475+00:00]   B0 29 employee_hire_evaluation exec=True match=False
+[2026-04-30T21:52:38.459878+00:00] === B0 b0_sqlcoder_7b_2_bird_minidev_30 ===
+[2026-04-30T21:52:40.179896+00:00]   B0  0 california_schools       exec=True match=False
+[2026-04-30T21:52:43.654768+00:00]   B0  1 card_games               exec=True match=False
+[2026-04-30T21:52:44.923558+00:00]   B0  2 codebase_community       exec=True match=False
+[2026-04-30T21:52:47.941706+00:00]   B0  3 debit_card_specializing  exec=True match=False
+[2026-04-30T21:52:51.345378+00:00]   B0  4 european_football_2      exec=True match=False
+[2026-04-30T21:53:00.997640+00:00]   B0  5 financial                exec=True match=False
+[2026-04-30T21:53:03.083100+00:00]   B0  6 formula_1                exec=True match=False
+[2026-04-30T21:53:04.327139+00:00]   B0  7 student_club             exec=True match=False
+[2026-04-30T21:53:06.788821+00:00]   B0  8 superhero                exec=True match=True
+[2026-04-30T21:53:10.532129+00:00]   B0  9 thrombosis_prediction    exec=True match=False
+[2026-04-30T21:53:11.689498+00:00]   B0 10 toxicology               exec=True match=False
+[2026-04-30T21:53:12.491698+00:00]   B0 11 california_schools       exec=False match=False
+[2026-04-30T21:53:15.963672+00:00]   B0 12 card_games               exec=True match=False
+[2026-04-30T21:53:17.069112+00:00]   B0 13 codebase_community       exec=False match=False
+[2026-04-30T21:53:20.087905+00:00]   B0 14 debit_card_specializing  exec=False match=False
+[2026-04-30T21:53:24.248373+00:00]   B0 15 european_football_2      exec=True match=False
+[2026-04-30T21:53:28.161057+00:00]   B0 16 financial                exec=True match=False
+[2026-04-30T21:53:31.150086+00:00]   B0 17 formula_1                exec=True match=False
+[2026-04-30T21:53:33.613252+00:00]   B0 18 student_club             exec=True match=False
+[2026-04-30T21:53:35.152647+00:00]   B0 19 superhero                exec=False match=False
+[2026-04-30T21:53:38.442466+00:00]   B0 20 thrombosis_prediction    exec=False match=False
+[2026-04-30T21:53:40.787058+00:00]   B0 21 toxicology               exec=True match=False
+[2026-04-30T21:53:45.088100+00:00]   B0 22 california_schools       exec=False match=False
+[2026-04-30T21:53:48.015991+00:00]   B0 23 card_games               exec=True match=False
+[2026-04-30T21:53:49.231983+00:00]   B0 24 codebase_community       exec=True match=False
+[2026-04-30T21:53:52.073522+00:00]   B0 25 debit_card_specializing  exec=False match=False
+[2026-04-30T21:53:54.820041+00:00]   B0 26 european_football_2      exec=True match=False
+[2026-04-30T21:53:57.116566+00:00]   B0 27 financial                exec=False match=False
+[2026-04-30T21:53:58.362578+00:00]   B0 28 formula_1                exec=True match=False
+[2026-04-30T21:54:00.485491+00:00]   B0 29 student_club             exec=True match=False
+[2026-04-30T21:54:00.506593+00:00] SKIPPING SQLCoder B1_v3 (special prompt format wrapping deferred)
+[2026-04-30T21:54:00.747460+00:00] loading Qwen/Qwen2.5-Coder-32B-Instruct: gpu_free=84.08 GB total=85.09 GB
+[2026-04-30T21:58:48.730093+00:00] LOADED Qwen/Qwen2.5-Coder-32B-Instruct in 288.0s VRAM=18362 MB
+[2026-04-30T21:58:48.733240+00:00] === B0 b0_qwen2p5_coder_32b_smoke25 ===
+[2026-04-30T21:58:49.687409+00:00]   B0  0 concert_singer           exec=True match=True
+[2026-04-30T21:58:50.639356+00:00]   B0  1 concert_singer           exec=True match=True
+[2026-04-30T21:58:52.607513+00:00]   B0  2 concert_singer           exec=True match=True
+[2026-04-30T21:58:54.576479+00:00]   B0  3 concert_singer           exec=True match=True
+[2026-04-30T21:58:57.833845+00:00]   B0  4 concert_singer           exec=True match=True
+[2026-04-30T21:59:01.096820+00:00]   B0  5 concert_singer           exec=True match=True
+[2026-04-30T21:59:04.393268+00:00]   B0  6 concert_singer           exec=True match=True
+[2026-04-30T21:59:07.684834+00:00]   B0  7 concert_singer           exec=True match=True
+[2026-04-30T21:59:09.511428+00:00]   B0  8 concert_singer           exec=True match=True
+[2026-04-30T21:59:11.330685+00:00]   B0  9 concert_singer           exec=True match=True
+[2026-04-30T21:59:13.020879+00:00]   B0 10 concert_singer           exec=True match=True
+[2026-04-30T21:59:14.706435+00:00]   B0 11 concert_singer           exec=True match=True
+[2026-04-30T21:59:17.418380+00:00]   B0 12 concert_singer           exec=True match=True
+[2026-04-30T21:59:20.118025+00:00]   B0 13 concert_singer           exec=True match=True
+[2026-04-30T21:59:23.386403+00:00]   B0 14 concert_singer           exec=True match=True
+[2026-04-30T21:59:26.673586+00:00]   B0 15 concert_singer           exec=True match=True
+[2026-04-30T21:59:28.779063+00:00]   B0 16 concert_singer           exec=True match=False
+[2026-04-30T21:59:32.544126+00:00]   B0 17 concert_singer           exec=True match=True
+[2026-04-30T21:59:34.645469+00:00]   B0 18 concert_singer           exec=True match=True
+[2026-04-30T21:59:36.752652+00:00]   B0 19 concert_singer           exec=True match=True
+[2026-04-30T21:59:39.871160+00:00]   B0 20 concert_singer           exec=True match=True
+[2026-04-30T21:59:43.001564+00:00]   B0 21 concert_singer           exec=True match=True
+[2026-04-30T21:59:47.605441+00:00]   B0 22 concert_singer           exec=True match=True
+[2026-04-30T21:59:52.768917+00:00]   B0 23 concert_singer           exec=True match=True
+[2026-04-30T22:00:01.111138+00:00]   B0 24 concert_singer           exec=True match=True
+[2026-04-30T22:00:01.130073+00:00] === B0 b0_qwen2p5_coder_32b_multidb30 ===
+[2026-04-30T22:00:03.366799+00:00]   B0  0 battle_death             exec=True match=True
+[2026-04-30T22:00:05.182127+00:00]   B0  1 battle_death             exec=True match=True
+[2026-04-30T22:00:06.553879+00:00]   B0  2 battle_death             exec=True match=False
+[2026-04-30T22:00:10.266300+00:00]   B0  3 battle_death             exec=True match=True
+[2026-04-30T22:00:11.501838+00:00]   B0  4 battle_death             exec=True match=True
+[2026-04-30T22:00:12.431387+00:00]   B0  5 car_1                    exec=True match=True
+[2026-04-30T22:00:13.371333+00:00]   B0  6 car_1                    exec=True match=True
+[2026-04-30T22:00:15.896361+00:00]   B0  7 car_1                    exec=True match=False
+[2026-04-30T22:00:22.537780+00:00]   B0  8 car_1                    exec=True match=True
+[2026-04-30T22:00:24.211136+00:00]   B0  9 car_1                    exec=True match=True
+[2026-04-30T22:00:25.150608+00:00]   B0 10 course_teach             exec=True match=True
+[2026-04-30T22:00:26.095740+00:00]   B0 11 course_teach             exec=True match=True
+[2026-04-30T22:00:27.472693+00:00]   B0 12 course_teach             exec=True match=True
+[2026-04-30T22:00:28.857789+00:00]   B0 13 course_teach             exec=True match=True
+[2026-04-30T22:00:30.094370+00:00]   B0 14 course_teach             exec=True match=True
+[2026-04-30T22:00:31.183831+00:00]   B0 15 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T22:00:32.280707+00:00]   B0 16 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T22:00:34.117571+00:00]   B0 17 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T22:00:35.945270+00:00]   B0 18 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T22:00:38.307713+00:00]   B0 19 cre_Doc_Template_Mgt     exec=True match=True
+[2026-04-30T22:00:40.423538+00:00]   B0 20 dog_kennels              exec=True match=True
+[2026-04-30T22:00:42.531768+00:00]   B0 21 dog_kennels              exec=True match=True
+[2026-04-30T22:00:45.968820+00:00]   B0 22 dog_kennels              exec=True match=False
+[2026-04-30T22:00:49.396352+00:00]   B0 23 dog_kennels              exec=True match=False
+[2026-04-30T22:00:59.095078+00:00]   B0 24 dog_kennels              exec=True match=True
+[2026-04-30T22:01:00.054144+00:00]   B0 25 employee_hire_evaluation exec=True match=True
+[2026-04-30T22:01:01.007485+00:00]   B0 26 employee_hire_evaluation exec=True match=True
+[2026-04-30T22:01:02.392643+00:00]   B0 27 employee_hire_evaluation exec=True match=True
+[2026-04-30T22:01:03.781777+00:00]   B0 28 employee_hire_evaluation exec=True match=True
+[2026-04-30T22:01:05.455752+00:00]   B0 29 employee_hire_evaluation exec=True match=False
+[2026-04-30T22:01:05.476777+00:00] === B0 b0_qwen2p5_coder_32b_bird_minidev_30 ===
+[2026-04-30T22:01:11.604588+00:00]   B0  0 california_schools       exec=True match=False
+[2026-04-30T22:01:15.813571+00:00]   B0  1 card_games               exec=False match=False
+[2026-04-30T22:01:19.421616+00:00]   B0  2 codebase_community       exec=True match=True
+[2026-04-30T22:01:26.531745+00:00]   B0  3 debit_card_specializing  exec=True match=True
+[2026-04-30T22:01:35.740283+00:00]   B0  4 european_football_2      exec=True match=False
+[2026-04-30T22:01:46.865208+00:00]   B0  5 financial                exec=True match=False
+[2026-04-30T22:01:55.229726+00:00]   B0  6 formula_1                exec=True match=False
+[2026-04-30T22:02:02.077034+00:00]   B0  7 student_club             exec=True match=True
+[2026-04-30T22:02:08.165968+00:00]   B0  8 superhero                exec=True match=True
+[2026-04-30T22:02:18.623592+00:00]   B0  9 thrombosis_prediction    exec=True match=False
+[2026-04-30T22:02:21.320698+00:00]   B0 10 toxicology               exec=True match=True
+[2026-04-30T22:02:24.967447+00:00]   B0 11 california_schools       exec=True match=False
+[2026-04-30T22:02:29.419246+00:00]   B0 12 card_games               exec=True match=False
+[2026-04-30T22:02:31.746306+00:00]   B0 13 codebase_community       exec=True match=True
+[2026-04-30T22:02:36.176565+00:00]   B0 14 debit_card_specializing  exec=False match=False
+[2026-04-30T22:02:54.425609+00:00]   B0 15 european_football_2      exec=True match=False
+[2026-04-30T22:03:08.280180+00:00]   B0 16 financial                exec=False match=False
+[2026-04-30T22:03:15.399954+00:00]   B0 17 formula_1                exec=True match=False
+[2026-04-30T22:03:23.595696+00:00]   B0 18 student_club             exec=True match=True
+[2026-04-30T22:03:31.805870+00:00]   B0 19 superhero                exec=True match=True
+[2026-04-30T22:03:39.041478+00:00]   B0 20 thrombosis_prediction    exec=True match=False
+[2026-04-30T22:03:51.264711+00:00]   B0 21 toxicology               exec=True match=False
+[2026-04-30T22:03:59.978407+00:00]   B0 22 california_schools       exec=True match=False
+[2026-04-30T22:04:07.216350+00:00]   B0 23 card_games               exec=True match=False
+[2026-04-30T22:04:10.748508+00:00]   B0 24 codebase_community       exec=True match=False
+[2026-04-30T22:04:16.434747+00:00]   B0 25 debit_card_specializing  exec=True match=False
+[2026-04-30T22:04:23.610426+00:00]   B0 26 european_football_2      exec=True match=False
+[2026-04-30T22:04:31.117606+00:00]   B0 27 financial                exec=True match=False
+[2026-04-30T22:04:36.302274+00:00]   B0 28 formula_1                exec=True match=False
+[2026-04-30T22:04:42.172539+00:00]   B0 29 student_club             exec=True match=False
+[2026-04-30T22:04:42.205300+00:00] QWEN32B right-sizing: B0 multidb_30=0.8333333333333334 (not >0.95) → skip B1_v3 expansion
+[2026-04-30T22:04:42.206959+00:00] V7_CLOSURE_SCREENING_SUBPROC_DONE

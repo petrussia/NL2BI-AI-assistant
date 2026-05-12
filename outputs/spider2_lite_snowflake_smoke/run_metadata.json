@@ -1,0 +1,27 @@
+{
+  "benchmark": "spider2-lite",
+  "engine": "snowflake",
+  "subset": "snowflake",
+  "limit": 1,
+  "selected_n": 1,
+  "total_by_engine": {
+    "bigquery": 205,
+    "snowflake": 207,
+    "sqlite": 135
+  },
+  "dataset_path": "D:\\HSE\\\u0414\u0438\u043f\u043b\u043e\u043c\\NL2BI-AI-assistant\\external_benchmarks\\spider2_lite\\raw\\Spider2\\spider2-lite\\spider2-lite.jsonl",
+  "tasks_selected_path": "D:\\HSE\\\u0414\u0438\u043f\u043b\u043e\u043c\\NL2BI-AI-assistant\\outputs\\spider2_lite_snowflake_smoke\\tasks_selected.jsonl",
+  "generated_at": "2026-05-07T22:09:24.353369+00:00",
+  "probe_connection": true,
+  "allow_generate": false,
+  "probe": {
+    "ok": true,
+    "reason": null,
+    "current_version": "10.16.101",
+    "current_role": "PARTICIPANT",
+    "current_warehouse": "COMPUTE_WH_PARTICIPANT",
+    "current_database": "PATENTS",
+    "current_schema": "PUBLIC",
+    "connect_ms": 13591
+  }
+}

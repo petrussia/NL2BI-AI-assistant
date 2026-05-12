@@ -1,0 +1,17 @@
+metric,value
+run_id,b4v3_qwen2p5_coder_7b_smoke25
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,smoke_25
+benchmark_group,internal_core
+baseline_version,v3
+n,25
+execution_match_count,24
+ex,0.96
+executable_count,25
+avg_reduction_ratio,0.0
+avg_link_confidence,0.5274936675259516
+fallback_rate,0.84
+repair_rate,0.0
+latency_avg_ms,3095.973253250122
+baseline_name,B4_v3
+schema_strategy,hybrid_retrieval_planner_multicand_repair

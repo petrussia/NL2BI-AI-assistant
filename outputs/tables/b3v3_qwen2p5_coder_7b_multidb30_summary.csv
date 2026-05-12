@@ -1,0 +1,15 @@
+metric,value
+run_id,b3v3_qwen2p5_coder_7b_multidb30
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,multidb_30
+benchmark_group,internal_core
+baseline_version,v3
+n,30
+execution_match_count,24
+ex,0.8
+executable_count,30
+avg_reduction_ratio,0.9097222222222222
+avg_link_confidence,0.5372884971228852
+fallback_rate,0.7666666666666667
+baseline_name,B3_v3
+schema_strategy,hybrid_retrieval

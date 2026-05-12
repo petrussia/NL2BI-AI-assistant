@@ -1,0 +1,17 @@
+metric,value
+run_id,b0_qwen2p5_coder_32b_bird_minidev_30
+model,Qwen/Qwen2.5-Coder-32B-Instruct
+subset,bird_minidev_30
+benchmark_group,external_validation
+baseline_version,v3
+n,30
+execution_match_count,8
+ex,0.26666666666666666
+executable_count,27
+avg_reduction_ratio,0.0
+avg_link_confidence,0.0
+fallback_rate,0.0
+repair_rate,0.0
+latency_avg_ms,7216.041715939839
+baseline_name,B0
+schema_strategy,full_schema

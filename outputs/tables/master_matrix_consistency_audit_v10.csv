@@ -1,0 +1,9 @@
+check,status,detail
+row_count,OK,"expected 127 rows, got 127"
+missing_prediction_files,OK,none
+missing_metrics_files,OK,none
+duplicate_run_ids,OK,none
+unique_subsets,INFO,bird_minidev_30; multidb_30; smoke_10; smoke_25; spider2lite_30
+unique_models,INFO,8 distinct
+final_winner_production_direct,OK,b0_multidb30_v2 EX=0.9333333333333333
+final_winner_production_layered,OK,b1v3_qwen2p5_coder_7b_multidb30 EX=0.8

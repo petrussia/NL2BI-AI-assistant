@@ -1,0 +1,2 @@
+run_id,model,subset,benchmark_group,baseline_version,n,execution_match_count,ex,executable_count,avg_reduction_ratio,avg_link_confidence,fallback_rate,repair_rate,latency_avg_ms,baseline_name,schema_strategy
+b2v3_qwen2p5_coder_7b_bird_minidev_30,Qwen/Qwen2.5-Coder-7B-Instruct,bird_minidev_30,external_validation,v3,30,6,0.2,27,0.0,0.6327778830132462,0.9666666666666667,0.0,7101.810661951701,B2_v3,compact_planner_b1v3_fallback

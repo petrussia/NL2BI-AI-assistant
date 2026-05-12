@@ -1,0 +1,17 @@
+metric,value
+run_id,b2v3_qwen2p5_coder_7b_bird_minidev_30
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,bird_minidev_30
+benchmark_group,external_validation
+baseline_version,v3
+n,30
+execution_match_count,6
+ex,0.2
+executable_count,27
+avg_reduction_ratio,0.0
+avg_link_confidence,0.6327778830132462
+fallback_rate,0.9666666666666667
+repair_rate,0.0
+latency_avg_ms,7101.810661951701
+baseline_name,B2_v3
+schema_strategy,compact_planner_b1v3_fallback

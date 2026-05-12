@@ -1,0 +1,484 @@
+[2026-05-11 02:11:09] DBT CLEAN FULL launching n=68
+RUN_ID=dbt_full_v26_clean  OUT=D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_clean
+
+========== TASK playbook001 ==========
+  --- playbook001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK provider001 ==========
+  --- provider001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK asana001 ==========
+  --- asana001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=30/err=21 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK shopify001 ==========
+  --- shopify001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=85/err=3 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK asset001 ==========
+  --- asset001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK flicks001 ==========
+  --- flicks001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK analytics_engineering001 ==========
+  --- analytics_engineering001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=2/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK xero_new001 ==========
+  --- xero_new001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=1 pass=16/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK chinook001 ==========
+  --- chinook001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=60/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK f1001 ==========
+  --- f1001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK netflix001 ==========
+  --- netflix001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK workday002 ==========
+  --- workday002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=42/err=23 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK pendo001 ==========
+  --- pendo001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=42/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK synthea001 ==========
+  --- synthea001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=0/err=128 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK inzight001 ==========
+  --- inzight001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK google_play001 ==========
+  --- google_play001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=19/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK airbnb002 ==========
+  --- airbnb002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK biketheft001 ==========
+  --- biketheft001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK tickit002 ==========
+  --- tickit002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK activity001 ==========
+  --- activity001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK scd001 ==========
+  --- scd001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=14/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK lever001 ==========
+  --- lever001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=58/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK greenhouse001 ==========
+  --- greenhouse001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=74/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK app_reporting002 ==========
+  --- app_reporting002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=46/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK mrr001 ==========
+  --- mrr001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=28/err=2 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK xero001 ==========
+  --- xero001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK movie_recomm001 ==========
+  --- movie_recomm001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=13 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK quickbooks003 ==========
+  --- quickbooks003 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=71/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK qualtrics001 ==========
+  --- qualtrics001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK recharge002 ==========
+  --- recharge002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK atp_tour001 ==========
+  --- atp_tour001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=1 pass=0/err=8 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK quickbooks002 ==========
+  --- quickbooks002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=67/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK google_ads001 ==========
+  --- google_ads001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=33/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK airport001 ==========
+  --- airport001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=4/err=1 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK tpch001 ==========
+  --- tpch001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK salesforce001 ==========
+  --- salesforce001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK hubspot001 ==========
+  --- hubspot001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK shopify002 ==========
+  --- shopify002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=85/err=3 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK social_media001 ==========
+  --- social_media001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=44/err=1 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK xero_new002 ==========
+  --- xero_new002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=16/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK divvy001 ==========
+  --- divvy001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score=None
+
+========== TASK playbook002 ==========
+  --- playbook002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK apple_store001 ==========
+  --- apple_store001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK jira001 ==========
+  --- jira001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=61/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK zuora001 ==========
+  --- zuora001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=31/err=9 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK superstore001 ==========
+  --- superstore001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=4/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK marketo001 ==========
+  --- marketo001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=48/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK f1002 ==========
+  --- f1002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK gitcoin001 ==========
+  --- gitcoin001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=0/err=10 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK shopify_holistic_reporting001 ==========
+  --- shopify_holistic_reporting001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=99/err=25 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK hive001 ==========
+  --- hive001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=1/err=1 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK workday001 ==========
+  --- workday001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK f1003 ==========
+  --- f1003 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK retail001 ==========
+  --- retail001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK google_play002 ==========
+  --- google_play002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK sap001 ==========
+  --- sap001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=19/err=6 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK airbnb001 ==========
+  --- airbnb001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=14/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK app_reporting001 ==========
+  --- app_reporting001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK mrr002 ==========
+  --- mrr002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=17/err=0 score={'rate': 1.0, 'matched': 1, 'total': 1}
+
+========== TASK twilio001 ==========
+  --- twilio001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=24/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK intercom001 ==========
+  --- intercom001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=28/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK tickit001 ==========
+  --- tickit001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK reddit001 ==========
+  --- reddit001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK recharge001 ==========
+  --- recharge001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=fallback_sql pushed=['models/output.sql']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK maturity001 ==========
+  --- maturity001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK tpch002 ==========
+  --- tpch002 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=1 pass=0/err=5 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK nba001 ==========
+  --- nba001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=0 pass=38/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+========== TASK quickbooks001 ==========
+  --- quickbooks001 | v4 ---
+    prompt: True
+    inference: True
+    apply: kind=diff pushed=['patch.diff']
+    eval: dbt_run=2 pass=0/err=0 score={'rate': 0.0, 'matched': 0, 'total': 1}
+
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_clean\per_task.jsonl
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_clean\summary.csv
+WROTE D:\HSE\Диплом\NL2BI-AI-assistant\outputs\dbt_ablation\dbt_full_v26_clean\readout.md
+
+[2026-05-11 02:59:27] DBT exit code: 0

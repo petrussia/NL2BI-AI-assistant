@@ -1,0 +1,17 @@
+metric,value
+run_id,b0_gemma_3_12b_it_multidb30
+model,google/gemma-3-12b-it
+subset,multidb_30
+benchmark_group,internal_core
+baseline_version,v3
+n,30
+execution_match_count,26
+ex,0.8666666666666667
+executable_count,30
+avg_reduction_ratio,0.0
+avg_link_confidence,0.0
+fallback_rate,0.0
+repair_rate,0.0
+latency_avg_ms,1618.4841871261597
+baseline_name,B0
+schema_strategy,full_schema

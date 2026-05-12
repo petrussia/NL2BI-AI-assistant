@@ -1,0 +1,17 @@
+metric,value
+run_id,b2v3_qwen2p5_coder_7b_multidb30
+model,Qwen/Qwen2.5-Coder-7B-Instruct
+subset,multidb_30
+benchmark_group,internal_core
+baseline_version,v3
+n,30
+execution_match_count,23
+ex,0.7666666666666667
+executable_count,29
+avg_reduction_ratio,0.0
+avg_link_confidence,0.5507129397479942
+fallback_rate,0.36666666666666664
+repair_rate,0.0
+latency_avg_ms,2352.092218399048
+baseline_name,B2_v3
+schema_strategy,compact_planner_b1v3_fallback

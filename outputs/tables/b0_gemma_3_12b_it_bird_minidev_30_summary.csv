@@ -1,0 +1,17 @@
+metric,value
+run_id,b0_gemma_3_12b_it_bird_minidev_30
+model,google/gemma-3-12b-it
+subset,bird_minidev_30
+benchmark_group,external_validation
+baseline_version,v3
+n,30
+execution_match_count,7
+ex,0.23333333333333334
+executable_count,25
+avg_reduction_ratio,0.0
+avg_link_confidence,0.0
+fallback_rate,0.0
+repair_rate,0.0
+latency_avg_ms,6313.945198059082
+baseline_name,B0
+schema_strategy,full_schema
