@@ -1,0 +1,24 @@
+# Spider2-DBT bridge config (Phase 23 FULL diagnostic). Local only — not committed.
+ssh:
+  host: 103.54.18.91
+  user: denis
+  private_key_path: ~/.ssh/id_ed25519
+  extra_opts:
+    - "-o BatchMode=yes"
+    - "-o ConnectTimeout=10"
+
+remote:
+  project_path: /home/denis/dbt
+  spider2_dbt_root: /home/denis/dbt/vendor/Spider2/spider2-dbt
+  bridge_root: /home/denis/dbt/colab_bridge
+  workspace_root: /home/denis/dbt/outputs/colab_bridge/tasks
+
+local:
+  data_root: data/spider2_dbt
+  reports_root: reports
+
+bridge:
+  inference_backend: manual
+  refuse_full_benchmark: false
+  dbt_timeout_s: 300
+  run_dbt_deps: true

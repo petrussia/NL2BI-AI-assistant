@@ -24,8 +24,20 @@ snowflake_setup/.env
 **/*service_account*.json
 **/secrets/
 
-# Ephemeral bridge URL (changes per Cloudflare quick-tunnel session)
+# Ephemeral bridge URLs (change per Cloudflare quick-tunnel session)
 tools/.bridge_url
+tools/.bridge_url_dbt
+tools/.bridge_url_lite
+
+# Backup tarballs — regenerable
+tools/backups/
+
+# Old export bundles superseded by outputs/final/
+outputs/final.zip
+outputs/final (2).zip
+outputs/exports/joint_vkr_export_pack_v10.tar.gz
+outputs/joint_vkr_export_pack_v10/
+outputs/thesis_pack_shubin_v10/
 
 # Raw downloaded benchmark data + lazy-pulled schema cache
 data/spider2_lite/raw/
