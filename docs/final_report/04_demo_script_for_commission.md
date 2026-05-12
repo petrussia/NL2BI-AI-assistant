@@ -6,7 +6,7 @@
 
 Сценарий:
 
-![Сценарий демонстрации 7-10 минут](assets/demo_script_matrix.png)
+![Сценарий демонстрации 7-10 минут](assets/demo_script_matrix_working_version.png)
 
 ## Что говорить
 
