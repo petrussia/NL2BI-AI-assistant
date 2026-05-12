@@ -1,0 +1,1 @@
+{"instance_id": "asana001", "variant": "v4", "status": "done", "apply_kind": "diff", "pushed_files": ["patch.diff"], "inference_used": true, "prompt_used": true, "fenced_blocks": 0, "response_chars": 0, "dbt_deps_rc": 0, "dbt_run_rc": 1, "dbt_test_rc": 1, "pass_n": 0, "err_n": 0, "official_score": {"rate": 0.0, "matched": 0, "total": 1}, "official_rc": 0, "wall_time_s": 35.3}

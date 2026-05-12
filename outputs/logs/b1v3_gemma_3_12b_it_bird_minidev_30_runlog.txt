@@ -1,0 +1,15 @@
+b1v3_gemma_3_12b_it_bird_minidev_30 run log
+checked_at: 2026-04-30T21:51:04.422273+00:00
+model: google/gemma-3-12b-it
+subset: bird_minidev_30
+benchmark_group: external_validation
+total: 30
+executable_count: 27
+execution_match_count: 6
+EX: 0.2
+avg_reduction_ratio: 0.8714285714285714
+avg_link_confidence: 0.6327778830132462
+fallback_rate: 0.6
+repair_rate: 0.0
+latency_avg_ms: 6383.111063639323
+elapsed_seconds: 191.76

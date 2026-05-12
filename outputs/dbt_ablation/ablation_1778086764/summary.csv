@@ -1,0 +1,7 @@
+instance_id,variant,apply_kind,dbt_deps_rc,dbt_run_rc,dbt_test_rc,pass_n,err_n,score_rate,score_matched,score_total,wall_time_s
+asana001,v1,sql_file,0,2,2,0,0,,,,64.6
+asana001,v2,sql_file,0,2,2,0,0,,,,55.8
+asana001,v4,diff,0,1,1,30,21,,,,41.3
+playbook001,v1,sql_file,0,1,0,0,0,,,,41.9
+playbook001,v2,sql_file,0,2,2,0,0,,,,38.7
+playbook001,v4,diff,0,0,0,0,0,,,,42.1

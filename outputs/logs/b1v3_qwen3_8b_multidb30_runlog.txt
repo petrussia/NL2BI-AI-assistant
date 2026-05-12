@@ -1,0 +1,13 @@
+b1v3_qwen3_8b_multidb30 run log
+checked_at: 2026-04-30T20:09:25.974492+00:00
+model: Qwen/Qwen3-8B
+subset: multidb_30
+benchmark_group: internal_core
+total: 30
+executable_count: 30
+execution_match_count: 26
+EX: 0.8666666666666667
+avg_reduction_ratio: 0.9472222222222223
+avg_link_confidence: 0.5507129397479942
+fallback_rate: 0.7666666666666667
+elapsed_seconds: 24.84

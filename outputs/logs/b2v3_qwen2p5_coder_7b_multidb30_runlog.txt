@@ -1,0 +1,15 @@
+b2v3_qwen2p5_coder_7b_multidb30 run log
+checked_at: 2026-04-30T21:32:02.332791+00:00
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+subset: multidb_30
+benchmark_group: internal_core
+total: 30
+executable_count: 29
+execution_match_count: 23
+EX: 0.7666666666666667
+avg_reduction_ratio: 0.0
+avg_link_confidence: 0.5507129397479942
+fallback_rate: 0.36666666666666664
+repair_rate: 0.0
+latency_avg_ms: 2352.092218399048
+elapsed_seconds: 70.82

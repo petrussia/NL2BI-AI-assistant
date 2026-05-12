@@ -1,0 +1,15 @@
+b0_gemma_3_12b_it_smoke10 run log
+checked_at: 2026-04-30T21:42:05.293657+00:00
+model: google/gemma-3-12b-it
+subset: smoke_10
+benchmark_group: internal_core
+total: 10
+executable_count: 10
+execution_match_count: 10
+EX: 1.0
+avg_reduction_ratio: 0.0
+avg_link_confidence: 0.0
+fallback_rate: 0.0
+repair_rate: 0.0
+latency_avg_ms: 2037.7711534500122
+elapsed_seconds: 20.46

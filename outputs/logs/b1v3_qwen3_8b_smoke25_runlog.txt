@@ -1,0 +1,13 @@
+b1v3_qwen3_8b_smoke25 run log
+checked_at: 2026-04-30T20:08:34.243028+00:00
+model: Qwen/Qwen3-8B
+subset: smoke_25
+benchmark_group: internal_core
+total: 25
+executable_count: 25
+execution_match_count: 19
+EX: 0.76
+avg_reduction_ratio: 1.0
+avg_link_confidence: 0.5171564584750741
+fallback_rate: 1.0
+elapsed_seconds: 34.13

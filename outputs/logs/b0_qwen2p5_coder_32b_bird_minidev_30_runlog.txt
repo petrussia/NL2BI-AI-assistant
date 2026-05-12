@@ -1,0 +1,15 @@
+b0_qwen2p5_coder_32b_bird_minidev_30 run log
+checked_at: 2026-04-30T22:04:42.199353+00:00
+model: Qwen/Qwen2.5-Coder-32B-Instruct
+subset: bird_minidev_30
+benchmark_group: external_validation
+total: 30
+executable_count: 27
+execution_match_count: 8
+EX: 0.26666666666666666
+avg_reduction_ratio: 0.0
+avg_link_confidence: 0.0
+fallback_rate: 0.0
+repair_rate: 0.0
+latency_avg_ms: 7216.041715939839
+elapsed_seconds: 216.72

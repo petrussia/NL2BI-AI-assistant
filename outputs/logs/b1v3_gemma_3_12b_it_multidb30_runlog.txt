@@ -1,0 +1,15 @@
+b1v3_gemma_3_12b_it_multidb30 run log
+checked_at: 2026-04-30T21:47:52.658696+00:00
+model: google/gemma-3-12b-it
+subset: multidb_30
+benchmark_group: internal_core
+total: 30
+executable_count: 30
+execution_match_count: 24
+EX: 0.8
+avg_reduction_ratio: 0.9472222222222223
+avg_link_confidence: 0.5507129397479942
+fallback_rate: 0.7666666666666667
+repair_rate: 0.0
+latency_avg_ms: 1494.0080086390178
+elapsed_seconds: 45.03
