@@ -35,7 +35,7 @@ function wrapAxisTitle(text: string, maxChars = 14): string[] {
 function humanizeEncoding(spec: Spec): void {
   const encoding = (spec.encoding as Record<string, unknown> | undefined) ?? undefined;
   if (!encoding) return;
-  for (const channel of ["x", "y", "color", "size", "shape"]) {
+  for (const channel of ["x", "y", "color", "theta", "size", "shape"]) {
     const ch = encoding[channel];
     if (!ch || typeof ch !== "object") continue;
     const obj = ch as Record<string, unknown>;
@@ -123,8 +123,10 @@ export function VegaChart({ spec, title }: { spec: Spec | null; title: string })
           offset: 8,
         },
         bar: { color: "#2563eb", cornerRadiusEnd: 4, tooltip: true },
+        area: { color: "#2563eb", opacity: 0.45, tooltip: true },
         line: { color: "#2563eb", strokeWidth: 2.5, tooltip: true, point: true },
         point: { color: "#1e3a8a", filled: true, size: 60 },
+        arc: { tooltip: true },
         rect: { tooltip: true },
         view: { stroke: "transparent" },
       },

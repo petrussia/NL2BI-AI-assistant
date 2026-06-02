@@ -167,6 +167,21 @@ export function ChatApp() {
   // Sidebar per-session menu: which session has its kebab menu open
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const composerInputRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const resizeComposerInput = useCallback(() => {
+    const node = composerInputRef.current;
+    if (!node) return;
+    const styles = window.getComputedStyle(node);
+    const lineHeight = Number.parseFloat(styles.lineHeight) || 22;
+    const paddingTop = Number.parseFloat(styles.paddingTop) || 0;
+    const paddingBottom = Number.parseFloat(styles.paddingBottom) || 0;
+    const maxHeight = lineHeight * 3 + paddingTop + paddingBottom;
+    node.style.height = "auto";
+    const nextHeight = Math.min(node.scrollHeight, maxHeight);
+    node.style.height = `${nextHeight}px`;
+    node.style.overflowY = node.scrollHeight > maxHeight + 1 ? "auto" : "hidden";
+  }, []);
 
   // Close source picker on outside click + Escape
   useEffect(() => {
@@ -313,6 +328,10 @@ export function ChatApp() {
     if (!user) return;
     void refreshChats();
   }, [user]);
+
+  useEffect(() => {
+    resizeComposerInput();
+  }, [input, resizeComposerInput]);
 
   useEffect(() => {
     if (!activeSession) return;
@@ -532,7 +551,7 @@ export function ChatApp() {
     });
   }
 
-  function handleComposerKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+  function handleComposerKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
     if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
       event.preventDefault();
       void handleSend();
@@ -1116,12 +1135,17 @@ export function ChatApp() {
             >
               <Plus size={18} />
             </button>
-            <input
+            <textarea
+              ref={composerInputRef}
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(event) => {
+                setInput(event.target.value);
+                requestAnimationFrame(resizeComposerInput);
+              }}
               onKeyDown={handleComposerKeyDown}
               placeholder={`Например: ${dataSource.suggestions[0]} (Ctrl+Enter — отправить)`}
               className="composerInput"
+              rows={1}
             />
             <button
               type="submit"

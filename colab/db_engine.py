@@ -2,7 +2,7 @@
 
 Three engines supported:
   * sqlite  — default, used for Spider/BIRD/Moscow demo sets
-  * duckdb  — embedded analytical engine (Spider2 asana_dbt)
+  * duckdb  — embedded analytical engine (Spider2 retail demo)
   * postgres — real production-style DB (Northwind RU)
 
 Each engine implements:

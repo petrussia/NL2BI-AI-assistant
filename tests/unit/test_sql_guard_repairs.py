@@ -140,34 +140,46 @@ def test_repairs_student_club_expense_event_hop() -> None:
 def test_repairs_duckdb_nested_aggregate_with_cte() -> None:
     repaired = repair_sql_for_execution(
         sql=(
-            "SELECT MIN(COUNT(task_data.id)) AS min_tasks "
-            "FROM project_data JOIN project_task_data ON project_data.id = project_task_data.project_id "
-            "JOIN task_data ON project_task_data.task_id = task_data.id "
-            "GROUP BY project_data.id"
+            "SELECT c.segment, MIN(SUM(oi.quantity * oi.unit_price * (1 - oi.discount_pct))) AS min_order_revenue "
+            "FROM customers c JOIN orders o ON c.customer_id = o.customer_id "
+            "JOIN order_items oi ON o.order_id = oi.order_id "
+            "GROUP BY c.segment"
         ),
         engine="duckdb",
-        data_source_id="spider2_asana_dbt",
-        user_query="Min, avg, max number of tasks per project",
+        data_source_id="spider2_retail_dbt",
+        user_query="Min, avg, max order revenue by customer segment",
         error="Binder Error: aggregate function calls cannot be nested",
     )
 
     assert repaired is not None
-    assert "WITH task_counts AS" in repaired
-    assert "MIN(task_count) AS min_tasks" in repaired
+    assert "WITH order_revenue AS" in repaired
+    assert "MIN(order_revenue) AS min_order_revenue" in repaired
+    assert "AVG(order_revenue) AS avg_order_revenue" in repaired
 
 
-def test_repairs_asana_empty_assignee_query_away_from_followers() -> None:
-    repaired = repair_sql_for_empty_result(
-        "SELECT u.name, COUNT(t.id) FROM user_data u JOIN task_follower_data tf ON u.id = tf.user_id "
-        "JOIN task_data t ON tf.task_id = t.id GROUP BY u.name",
+def test_repairs_spider2_grouped_boxplot_order_value_to_raw_values() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        (
+            "WITH order_values AS ("
+            "SELECT o.order_id, c.segment, SUM(oi.quantity * oi.unit_price * (1 - oi.discount_pct)) AS order_value "
+            "FROM orders o JOIN customers c ON o.customer_id = c.customer_id "
+            "JOIN order_items oi ON o.order_id = oi.order_id GROUP BY o.order_id, c.segment) "
+            "SELECT segment, MIN(order_value) AS min_order_value, AVG(order_value) AS avg_order_value, "
+            "quantile_cont(order_value, 0.25) AS q1_order_value, quantile_cont(order_value, 0.75) AS q3_order_value "
+            "FROM order_values GROUP BY segment"
+        ),
         engine="duckdb",
-        data_source_id="spider2_asana_dbt",
-        user_query="Number of tasks per user",
+        data_source_id="spider2_retail_dbt",
+        user_query="Покажи ящик с усами стоимости заказов по сегментам клиентов",
     )
 
     assert repaired is not None
-    assert "JOIN task_data t ON u.id = t.assignee_id" in repaired
-    assert "task_follower_data" not in repaired
+    assert validate_select_only(repaired).ok
+    assert "c.segment" in repaired
+    assert "order_value" in repaired
+    assert "quantity * oi.unit_price" in repaired
+    assert "quantile" not in repaired.lower()
+    assert "AVG(" not in repaired.upper()
 
 
 def test_repairs_moscow_empty_central_okrug_value() -> None:
@@ -207,6 +219,69 @@ def test_keeps_moscow_total_area_when_user_asks_total() -> None:
     )
 
     assert repaired is None
+
+
+def test_repairs_spider_stadium_point_capacity_to_entity_grain() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        "SELECT AVG(Capacity) AS average_capacity, Name FROM stadium LIMIT 1000",
+        engine="sqlite",
+        data_source_id="demo_concert_singer",
+        user_query="Покажи точками среднюю вместимость стадиона и названия",
+    )
+
+    assert repaired is not None
+    assert validate_select_only(repaired).ok
+    assert "Name" in repaired
+    assert "Capacity" in repaired
+    assert "AVG(" not in repaired.upper()
+
+
+def test_repairs_spider_stadium_xy_scatter_to_two_measures() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        "SELECT Name, Capacity FROM stadium LIMIT 1000",
+        engine="sqlite",
+        data_source_id="demo_concert_singer",
+        user_query="Построй scatter plot: вместимость стадиона по X и средняя посещаемость по Y; подпиши точки названием",
+    )
+
+    assert repaired is not None
+    assert validate_select_only(repaired).ok
+    assert "Capacity AS X" in repaired
+    assert "Average AS Y" in repaired
+    assert "Name AS Label" in repaired
+
+
+def test_repairs_northwind_boxplot_delivery_cost_to_raw_values() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        (
+            "SELECT MIN(стоимость_доставки) AS min_delivery_cost, "
+            "MAX(стоимость_доставки) AS max_delivery_cost FROM заказы LIMIT 1000"
+        ),
+        engine="postgres",
+        data_source_id="northwind_ru",
+        user_query="Построй boxplot стоимости доставки",
+    )
+
+    assert repaired is not None
+    assert validate_select_only(repaired).ok
+    assert "стоимость_доставки" in repaired
+    assert "MIN(" not in repaired.upper()
+    assert "MAX(" not in repaired.upper()
+
+
+def test_repairs_northwind_grouped_boxplot_delivery_cost_to_raw_values() -> None:
+    repaired = repair_sql_for_semantic_mismatch(
+        "SELECT k.сегмент, percentile_cont(0.5) WITHIN GROUP (ORDER BY o.стоимость_доставки) FROM заказы o JOIN клиенты k ON o.клиент_id = k.клиент_id GROUP BY k.сегмент",
+        engine="postgres",
+        data_source_id="northwind_ru",
+        user_query="Покажи boxplot стоимости доставки по сегментам клиентов",
+    )
+
+    assert repaired is not None
+    assert validate_select_only(repaired).ok
+    assert "k.сегмент" in repaired
+    assert "o.стоимость_доставки" in repaired
+    assert "percentile" not in repaired.lower()
 
 
 def test_repairs_northwind_empty_manager_filter() -> None:

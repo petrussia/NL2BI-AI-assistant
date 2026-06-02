@@ -14,12 +14,12 @@
     "name": "BIRD · student_club (студенческие клубы, события, посещаемость)",
     "schema_version": "bird-mini-dev"
   },
-  "spider2_asana_dbt": {
+  "spider2_retail_dbt": {
     "engine": "duckdb",
-    "path": "/content/drive/MyDrive/nl2bi_demo/spider2/asana.duckdb",
-    "db_name": "asana",
-    "name": "Spider 2 · asana (проекты, задачи, команды; dbt + DuckDB)",
-    "schema_version": "spider2-dbt"
+    "path": "/content/drive/MyDrive/nl2bi_demo/spider2/retail_analytics.duckdb",
+    "db_name": "retail_analytics",
+    "name": "Spider 2 · retail analytics (магазины, товары, продажи; DuckDB)",
+    "schema_version": "spider2-dbt-retail-demo"
   },
   "moscow_open": {
     "engine": "sqlite",

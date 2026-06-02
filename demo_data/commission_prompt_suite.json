@@ -1,0 +1,191 @@
+{
+  "_doc": "Prompt suite for live diploma commission demo. Each item is intentionally phrased as a user would type it into the assistant UI.",
+  "sources": [
+    {
+      "source_id": "demo_concert_singer",
+      "source_label": "Spider 1.0 · concert_singer",
+      "prompts": [
+        {
+          "id": "spider1_bar_country",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Сравни количество певцов по странам."
+        },
+        {
+          "id": "spider1_line_years",
+          "complexity": "L1",
+          "expected_chart": "line",
+          "prompt": "Количество концертов по годам, лучше линейным графиком."
+        },
+        {
+          "id": "spider1_area_years",
+          "complexity": "L1",
+          "expected_chart": "area",
+          "prompt": "Покажи area chart: количество концертов по годам областным графиком."
+        },
+        {
+          "id": "spider1_top_stadiums",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Покажи топ-5 стадионов по вместимости."
+        },
+        {
+          "id": "spider1_scatter_capacity_attendance",
+          "complexity": "L2",
+          "expected_chart": "scatter",
+          "prompt": "Построй scatter plot без агрегации: возьми из таблицы stadium колонку Capacity для X и колонку Average для Y; подпиши точки названием стадиона."
+        },
+        {
+          "id": "spider1_table_country_age_stats",
+          "complexity": "L3",
+          "expected_chart": "table",
+          "prompt": "Для каждой страны певцов посчитай количество исполнителей, средний возраст, минимальный и максимальный возраст. Отсортируй страны по количеству певцов по убыванию и покажи результат таблицей."
+        }
+      ]
+    },
+    {
+      "source_id": "bird_student_club",
+      "source_label": "BIRD · student_club",
+      "prompts": [
+        {
+          "id": "bird_line_events_month",
+          "complexity": "L1",
+          "expected_chart": "line",
+          "prompt": "Сколько событий клуб провёл за каждый месяц?"
+        },
+        {
+          "id": "bird_bar_attendance_top",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Top 5 members by attendance count."
+        },
+        {
+          "id": "bird_bar_budget_category",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Расходы по категориям бюджета, отсортируй по сумме."
+        },
+        {
+          "id": "bird_stacked_event_type_budget",
+          "complexity": "L2",
+          "expected_chart": "stacked_bar",
+          "prompt": "Покажи stacked bar: сумма бюджета по типу события с разбивкой по категории бюджета."
+        },
+        {
+          "id": "bird_table_event_health",
+          "complexity": "L3",
+          "expected_chart": "bar",
+          "prompt": "По типам событий посчитай количество событий, общее количество участников и общий потраченный бюджет. Отсортируй по количеству участников и покажи столбчатую диаграмму."
+        }
+      ]
+    },
+    {
+      "source_id": "spider2_retail_dbt",
+      "source_label": "Spider 2 · retail analytics",
+      "prompts": [
+        {
+          "id": "spider2_bar_category_revenue",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Top 5 product categories by revenue."
+        },
+        {
+          "id": "spider2_line_monthly_revenue",
+          "complexity": "L1",
+          "expected_chart": "line",
+          "prompt": "Monthly revenue trend in 2024."
+        },
+        {
+          "id": "spider2_bar_channel_revenue",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Revenue by sales channel."
+        },
+        {
+          "id": "spider2_stacked_region_channel",
+          "complexity": "L2",
+          "expected_chart": "stacked_bar",
+          "prompt": "Show a stacked bar chart of revenue by store region, split by sales channel."
+        },
+        {
+          "id": "spider2_table_segment_order_stats",
+          "complexity": "L3",
+          "expected_chart": "table",
+          "prompt": "For the commission demo, compare customer segments. For completed orders only, calculate the number of orders, total revenue, minimum order revenue, average order revenue and maximum order revenue per customer segment. Sort by total revenue descending and show it as a table."
+        }
+      ]
+    },
+    {
+      "source_id": "moscow_open",
+      "source_label": "Москва · метро и районы",
+      "prompts": [
+        {
+          "id": "moscow_bar_stations_line",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Сколько станций метро на каждой линии?"
+        },
+        {
+          "id": "moscow_bar_busiest_stations",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Самые загруженные станции метро, топ-10."
+        },
+        {
+          "id": "moscow_line_opened_decade",
+          "complexity": "L2",
+          "expected_chart": "line",
+          "prompt": "Сколько станций метро открыто по десятилетиям? Покажи динамику."
+        },
+        {
+          "id": "moscow_scatter_district_density",
+          "complexity": "L2",
+          "expected_chart": "scatter",
+          "prompt": "Построй точечную диаграмму: площадь района по X и население района по Y."
+        },
+        {
+          "id": "moscow_table_okrug_summary",
+          "complexity": "L3",
+          "expected_chart": "table",
+          "prompt": "Для каждого административного округа Москвы покажи население, площадь, число районов, число станций метро и средний пассажиропоток станций. Отсортируй по числу станций по убыванию и выведи таблицей."
+        }
+      ]
+    },
+    {
+      "source_id": "northwind_ru",
+      "source_label": "Northwind RU",
+      "prompts": [
+        {
+          "id": "northwind_line_monthly_sales",
+          "complexity": "L1",
+          "expected_chart": "line",
+          "prompt": "Динамика продаж по месяцам в 2024."
+        },
+        {
+          "id": "northwind_bar_top_clients",
+          "complexity": "L1",
+          "expected_chart": "bar",
+          "prompt": "Топ-10 клиентов по выручке за 2024 год."
+        },
+        {
+          "id": "northwind_bar_avg_check_segment",
+          "complexity": "L2",
+          "expected_chart": "bar",
+          "prompt": "Для каждого сегмента клиентов посчитай среднюю стоимость заказа: сначала рассчитай сумму каждого заказа по позициям с учетом количества и скидки, затем усредни по сегменту. Покажи столбчатой диаграммой."
+        },
+        {
+          "id": "northwind_pie_category_revenue",
+          "complexity": "L2",
+          "expected_chart": "pie",
+          "prompt": "Покажи круговую диаграмму выручки по категориям товаров."
+        },
+        {
+          "id": "northwind_table_segment_order_stats",
+          "complexity": "L3",
+          "expected_chart": "table",
+          "prompt": "Для комиссии подготовь сводку по сегментам клиентов: количество заказов, общая выручка, минимальная стоимость заказа, средняя стоимость заказа и максимальная стоимость заказа. Используй позиции заказов с учетом количества и скидки, сгруппируй по сегменту и отсортируй по выручке."
+        }
+      ]
+    }
+  ]
+}

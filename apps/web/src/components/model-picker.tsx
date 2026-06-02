@@ -151,7 +151,7 @@ export function ModelPicker() {
           ) : null}
           {planners.map((m) => {
             const isCurrent = m.id === plannerId;
-            const isLoading = isCurrent && plannerLoading && !plannerLoaded;
+            const isLoading = plannerLoading && !plannerLoaded && (isCurrent || !plannerId);
             return (
               <li key={m.id}>
                 <button

@@ -32,17 +32,20 @@
 
 - Сравни количество певцов по странам.
 - Количество концертов по годам.
+- Покажи area chart: количество концертов по годам областным графиком.
 - Покажи топ-5 стадионов по вместимости.
 
-Для `spider2_asana_dbt`:
+Для `spider2_retail_dbt`:
 
-- Number of completed tasks by month.
-- Top 5 users by tasks assigned.
-- How many tasks per project.
+- Top 5 product categories by revenue.
+- Monthly revenue trend in 2024.
+- Show a stacked bar chart of revenue by store region, split by sales channel.
+
+Расширенный набор промптов с ожидаемыми видами графиков и уровнями сложности лежит в `docs/final_report/06_demo_prompts_for_commission.md`.
 
 Для `bird_student_club`:
 
-- Топ-5 членов клуба по посещаемости.
+- Top 5 members by attendance count.
 - Расходы по категориям бюджета.
 - Сколько участников на каждом типе событий.
 
