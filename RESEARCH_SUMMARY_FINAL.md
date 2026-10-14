@@ -19,7 +19,7 @@ for any final claim) and committed in a versioned artifact.
 | B3_v5 planner+compiler | 56.96% | [53.9, 59.9] | B | negative |
 | B4_v5 controller/verifier | 76.69% | [74.0, 79.2] | C | committed |
 | B5_v6 R2 reranker | 76.60% | [73.9, 79.1] | R2 | negative |
-| **B6_v7 LLM-as-judge** | **76.79%** | [74.1, 79.3] | **6** | **🏆 SOTA** |
+| **B6_v7 LLM-as-judge** | **76.79%** | [74.1, 79.3] | **6** | **best in study** |
 | B7d_rich evidence | (BIRD-only) | n/a | 7 | negative on BIRD |
 | S1_v7 demo retrieval | 76.31% | [73.6, 78.8] | 8 | negative (tied) |
 
@@ -33,7 +33,7 @@ for any final claim) and committed in a versioned artifact.
 | B3_v5 planner+compiler | 23.80% | [20.3, 27.7] | B | negative |
 | B4_v5 controller/verifier | 34.00% | [30.0, 38.3] | C | committed |
 | B5_v6 R2 reranker | 31.20% | [27.3, 35.4] | R2 | negative |
-| **B6_v7 LLM-as-judge** | **38.80%** | [34.6, 43.1] | **6** | **🏆 SOTA** |
+| **B6_v7 LLM-as-judge** | **38.80%** | [34.6, 43.1] | **6** | **best in study** |
 | B7d_rich (gold + value-profiles + aliases) | 39.20% | [35.0, 43.5] | 7 | tied with B6_v7 |
 | B7c_profiles_only | 33.20% | [29.2, 37.5] | 7 | negative |
 | B7e_none | 33.20% | [29.2, 37.5] | 7 | negative |
@@ -54,7 +54,7 @@ for any final claim) and committed in a versioned artifact.
 | `adf4415` | C — controller/verifier | B4_v5; closes Phase B regression; beats all on Spider |
 | `6525a94` | R2 — Premium retrieval | B5_v6; Qwen3-Reranker-0.6B saturates; HURTS BIRD (negative) |
 | `cfcafe3` | D — planner-model swap | Qwen3-8B 0% valid plans; Gemma-12b OOM (negative) |
-| **`8559379`** | **6 — LLM-as-judge** | **B6_v7; NEW SOTA both Spider and BIRD** |
+| **`8559379`** | **6 — LLM-as-judge** | **B6_v7; best in study on both Spider and BIRD** |
 | `56ec0f3` | 7 — evidence semantics | B7d/c/e; rich evidence layer no-op over B6_v7 (negative) |
 | `cc245d4` | 8 — Spider-specific demos | S1_v7; demo retrieval tied with B6_v7 (negative) |
 
